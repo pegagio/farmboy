@@ -1,8 +1,15 @@
 ---
 title: Bundle and workflow model
 type: concept
-sources: [S001, S002, S016, S017, S018, S019, S021]
-updated: 2026-10-02
+sources:
+- S001
+- S002
+- S016
+- S017
+- S018
+- S019
+- S021
+updated: '2026-10-03'
 ---
 
 # Bundle and workflow model
@@ -25,11 +32,11 @@ The bundle manifest pins compatible component versions; the local release catalo
 
 The amended constitution permits Codex controllers to dispatch bounded step subagents, but requires them to follow the installed, versioned workflow definition instead of copying its prompts, gates, or decision rules into a skill. Every workflow keeps a manual-prompt path when native dispatch is unavailable. (S017)
 
-Verified Feature 013 defines direct `flow-kit-*` Codex controller skills installed through the FlowKit catalog route alongside the Specify bundle. Its roadmap records bounded consumer validation of concrete step models and desktop interaction, without claiming publication or broader compatibility. (S018)
+Verified Feature 013 defines direct `flow-kit-*` Codex controller skills installed through the FlowKit catalog route alongside the Specify bundle. Its roadmap records bounded consumer validation, without claiming publication or broader compatibility. (S018)
 
-Verified Feature 015 replaces concrete step-model declarations in updated workflow source with explicit delegation and reviewed native agent names. The checked-in catalog still represents the earlier release. (S018)
+Verified Feature 015 replaces concrete step-model declarations in updated workflow source with explicit delegation and reviewed native agent names. (S018)
 
-The completed Feature 013 specification requires the FlowKit catalog route to manage the direct skills; native Specify bundle commands manage only their declared Specify components. (S019)
+Feature 013 assigns direct skills to FlowKit catalog management; native Specify commands manage declared bundle components. (S019)
 
 ## Feature 014 approved scope
 
@@ -40,6 +47,10 @@ Feature 014's approved scope expands the reviewed design to ten active workflows
 ## Feature 014 workflow design
 
 The specification names ten active workflows: Select Feature, Specify, Clarify, Plan, Tasks, Analyze and Remediate, Implement, Converge, Close Out, and Wiki Lint Update. Deprecated Start Feature reports deprecation without work and is excluded from active bindings. Independent source review and manual paths remain required. This specification describes intended behavior and validation requirements, not publication or acceptance. (S021)
+
+## Roadmap dispositions
+
+Features 001–015 are verified; 016 and 017 remain planned. Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) is abandoned, leaving its observation unresolved. Roadmap verification does not establish publication or consumer adoption. (S018)
 
 ## Related pages
 

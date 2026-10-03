@@ -1,8 +1,17 @@
 ---
 title: Workflow lifecycle
 type: concept
-sources: [S002, S006, S007, S010, S013, S017, S018, S019, S021]
-updated: 2026-10-02
+sources:
+- S002
+- S006
+- S007
+- S010
+- S013
+- S017
+- S018
+- S019
+- S021
+updated: '2026-10-03'
 ---
 
 # Workflow lifecycle
@@ -15,9 +24,9 @@ An operator prepares a constitution and approved roadmap, establishes cited wiki
 
 Feature 013 used reviewed concrete step-model assignments for bounded Codex subagents. Updated Feature 015 source uses reviewed per-step native agent names instead. Human questions and review gates stay in the main task; completing one workflow does not authorize a later phase. (S002, S019)
 
-Verified Feature 013 keeps the eight workflow phases separate while providing desktop-task execution with a main controller and step subagents; it does not add automatic chaining to the next phase. Direct controller skills use the FlowKit catalog route alongside the Specify bundle. (S018)
+Verified Feature 013 preserves eight separately invoked phases with a main controller and step subagents. Direct skills use the FlowKit catalog alongside the Specify bundle. (S018)
 
-Verified Feature 015 assigns a reviewed native Codex agent name to each delegated step. Its supported desktop path shows the intended name in a task label and verifies native selection separately; model and effort appear when Codex exposes them. (S018)
+Verified Feature 015 assigns a reviewed native Codex agent name to each delegated step. Task labels show intended names; native selection is verified separately. (S018)
 
 Planning and task generation are separate. Clarification may need another session after the current five-question command limit. Analyze follows task generation or consequential artifact reconciliation; converge follows implementation until identified gaps are resolved. (S002)
 
@@ -42,6 +51,10 @@ Feature 014's approved scope separates read-only candidate/dependency discussion
 Feature 014 requires separate Select Feature and Specify invocations before optional Clarify, Plan, Tasks, Analyze and Remediate, Implement, Converge, and Close Out. Wiki Lint Update is separately selected for wiki maintenance and needs no active feature. No successful phase silently starts another. (S021)
 
 Clarify assesses residual ambiguity after operator-answered bounded sessions. Plan and Tasks independently assess structural and semantic outputs and return exact findings to authors; Implement repeats eligible work while progress is evidenced. Required input blocks with its question and resumption action. (S021)
+
+## Abandoned work
+
+Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) authorizes no further implementation. Its artifacts remain historical; the capacity issue is unresolved and no replacement is selected. (S018)
 
 ## Related pages
 

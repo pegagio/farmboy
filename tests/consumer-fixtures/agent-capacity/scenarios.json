@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "scope": "disposable-native-capacity-validation",
+  "executor": "implementation-agent",
+  "candidate_capacity": 4,
+  "candidate_validated": false,
+  "max_operator_project_setups": 1,
+  "operator_executed_test_cases": 0,
+  "native_identity_required": true,
+  "native_release_proof_required": true,
+  "workflows": [
+    "speckit-flow-plan",
+    "speckit-flow-tasks",
+    "speckit-flow-analyze-remediate"
+  ],
+  "sequence": {
+    "minimum_completed_invocations": 3,
+    "minimum_terminal_children": 13,
+    "minimum_necessary_release_cycles": 2,
+    "same_persistent_parent": true,
+    "fresh_child_per_step_and_pass": true,
+    "release_before_next_executable_step": true,
+    "prior_same_parent_entry_cleanup": true
+  },
+  "synthetic_actor_actions": [
+    {
+      "id": "protected-answer-relay",
+      "kind": "fixture-only-continuation",
+      "pending_state": "waiting-for-answer",
+      "reply_action": "complete-synthetic-interaction",
+      "same_child_required": true,
+      "authorizes_real_product_decision": false
+    }
+  ],
+  "recovery_scenarios": [
+    "confirmed-capacity-error-eligible-release-exact-retry",
+    "failed-preflight-no-run-summary",
+    "partial-work-no-replay",
+    "correction-pass-preserved",
+    "all-children-protected",
+    "unrelated-or-unverified-child-excluded",
+    "unknown-launch-error-no-capacity-retry",
+    "repeated-exhaustion-bounded-stop",
+    "release-unavailable",
+    "release-failed",
+    "release-accepted-restoration-unconfirmed",
+    "stale-native-state-or-evidence-rejected"
+  ],
+  "maximum_launch_attempts_per_instance": 2,
+  "consumer_config_states": [
+    "absent",
+    "compatible",
+    "review-needed",
+    "malformed",
+    "unsupported",
+    "unknown"
+  ],
+  "consumer_operations": [
+    "install",
+    "refresh",
+    "partial-failure",
+    "remove"
+  ],
+  "preservation_assertions": [
+    "consumer-config-byte-preserved-by-component-operations",
+    "usable-results-retained-before-release",
+    "protected-children-never-released",
+    "accepted-release-distinct-from-restored-capacity",
+    "effective-setting-unknown-unless-observed",
+    "agent-executes-all-scenarios-and-evidence-capture"
+  ],
+  "forbidden_actions": [
+    "guess-native-thread-id",
+    "infer-ownership-from-activity-label",
+    "mutate-app-database-or-session-files",
+    "interrupt-as-release-substitute",
+    "archive-unrelated-or-protected-child",
+    "reuse-readiness-probe-for-work",
+    "substitute-generic-agent",
+    "replay-started-command-or-completed-mutation",
+    "infer-real-human-approval-from-synthetic-response",
+    "automatically-chain-product-workflows",
+    "assign-operator-manual-test-matrix",
+    "modify-real-consumer-config",
+    "commit-push-publish-or-accept-feature"
+  ]
+}

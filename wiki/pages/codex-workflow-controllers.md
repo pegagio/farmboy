@@ -1,15 +1,21 @@
 ---
 title: Codex workflow controller design
 type: concept
-sources: [S002, S018, S019, S020, S021]
-updated: 2026-10-02
+sources:
+- S002
+- S018
+- S019
+- S020
+- S021
+- S024
+updated: '2026-10-03'
 ---
 
 # Codex workflow controller design
 
-The roadmap records Feature 013 as verified: direct `flow-kit-*` Codex skills are installed through the FlowKit catalog alongside the Specify bundle, with reviewed step models and a main-task controller. Feature 013 depends on verified Feature 011, not planned Feature 012. Verification remains distinct from publication and feature acceptance. (S018)
+The roadmap records Feature 013 as verified: direct `flow-kit-*` skills use the FlowKit catalog alongside the Specify bundle, with reviewed step models and a main controller. Feature 013 depends on verified Feature 011, not Feature 012. Verification remains distinct from publication and feature acceptance. (S018)
 
-The completed Feature 013 specification defines eight direct, explicitly invoked `flow-kit-*` skills with stable FlowKit display names, each bound to one installed workflow in the selected consumer project. Completion of the specification does not by itself establish publication or compatibility outside the recorded validation context. (S019)
+Feature 013 defines eight explicitly invoked `flow-kit-*` skills with names, each bound to one installed consumer workflow. Specification completion does not establish publication or broader compatibility. (S019)
 
 The installed workflow remains the authority for prompts, commands, branches, and gates. Controllers cannot copy those decisions into a skill, launch a later phase, select an undeclared fallback, or turn command completion into Git integration, roadmap verification, or feature acceptance. Manual workflow paths remain available. (S019)
 
@@ -42,6 +48,10 @@ Feature 014's approved controller scope supports fresh evidence-based reassessme
 F014 rejects command-success or digest-only completion; its [assessment contract](./controller-assessment-contract.md) governs routing. Human answers and consequential choices remain operator-owned. (S021)
 
 Source-faithful diagrams expose exact IDs, optional agents/commands, type shapes, delegated outlines, Start, and presentation-only declared transition labels. (S021)
+
+## Abandoned capacity proposal
+
+Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) is abandoned; its requirements are historical, and the original observation remains unresolved. (S024)
 
 ## Related pages
 

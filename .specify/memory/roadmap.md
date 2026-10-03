@@ -1,17 +1,18 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.16.1 → 1.17.0
-Bump rationale: MINOR — add operator-requested Feature 017 for FlowKit agent names, configuration review, and consumer delivery.
+Version change: 1.18.1 → 1.18.2
+Bump rationale: PATCH — record the operator-directed abandonment of Feature 018 without deleting its proposed scope or investigation history.
 
 Changes this revision:
-  - Added planned Feature 017 without changing existing agents, workflow assignments, or installation behavior.
-  - Recorded model/effort selection and consumer installation ownership as open decisions for subsequent review.
+  - Set Feature 018 from in-progress to abandoned because the operator rejected its current approach and specification.
+  - Retained the proposed scope, exact specification-directory mapping, artifacts, and unresolved questions as an abandoned record rather than an active delivery commitment.
+  - Preserved Features 016 and 017 and existing workflow, controller, and installation behavior; selected no replacement feature.
 
-Specs affected: 017 (planned; specification not yet authored)
-Open questions added/resolved: Added Feature 017 configuration and delivery questions; none resolved.
+Specs affected: 018 (abandoned)
+Open questions added/resolved: None; Feature 018's questions remain unresolved historical investigation context, not an active work commitment.
 
-Notes: Scope comes from the direct operator request on 2026-10-03. Current-state evidence is .codex/agents/*.toml and docs/installation.md. This amendment authorizes a roadmap record, not implementation or an installation mechanism.
+Notes: On 2026-10-03 the operator explicitly requested abandoning this task and marking its spec and roadmap feature abandoned because the current approach and spec were not right. This disposition does not resolve the original capacity observation, verify implementation, or authorize a replacement approach, Git integration, or publication.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -49,7 +50,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Features 016 and 017 are planned. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Features 016 and 017 are planned; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -239,7 +240,27 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Notes**: Direct operator request on 2026-10-03 establishes the prefix, configuration review, explicit model/effort goal, and consumer delivery investigation. Current `.codex/agents/*.toml` defines eight unprefixed names and omits model/effort settings. `docs/installation.md` currently describes those files as consumer-owned and excludes them from FlowKit install, refresh, and removal. A selected delivery mechanism must explicitly reconcile that existing boundary. Feature 016's separate probing scope remains unchanged; coordinate its name discovery and validation with this feature without making its delivery a prerequisite.
 - **Spec dir**: `specs/017-flowkit-agent-configuration/`
 
+### 018 — Reliable Workflow Agent Capacity  [status: abandoned]
+
+- **Description**: Resolve the agent-thread capacity failure that blocks sequential FlowKit workflows in a persistent Codex chat, and provide consumer installation and upgrade guidance.
+- **Outcome**: Sequential workflows can launch their declared agents without accumulating completed children until capacity is exhausted. Consumers receive actionable capacity configuration recommendations during installation and refresh while retaining ownership of their Codex configuration.
+- **Scope (in)**: Investigate effective supported capacity settings and child lifecycle; preserve outputs before releasing verified completed children through supported controls; retain children awaiting answers or continuation; implement bounded capacity recovery and specific failure reporting; update controller guidance, tests, and documentation; print concise capacity recommendations and a setup-documentation reference from both catalog install and refresh; document how to merge the supported agents.max_concurrent_threads_per_session setting into consumer .codex/config.toml with a value justified by validation; explain effective-setting verification and whether the tested client requires reopening the chat; validate new installs and upgrades with absent, existing, and conflicting configuration, sustained sequential workflow execution, and capacity recovery in disposable consumers.
+- **Scope (out)**: Select Feature selection or approval changes; Feature 017 agent configuration and delivery; Feature 016 centralized probing; generic-agent fallback; reuse of probe children for workflow work; cleanup of unrelated chats; silent edits to consumer-owned Codex configuration during installation, refresh, or removal; publication or Git integration.
+- **Depends on**: 013, 014, 015.
+- **Governed by**: C-02, C-03, C-04, C-05.
+- **Notes**: Prioritize observation `clarify-agent-thread-limit-preflight-20261003` as a blocking defect before `select-feature-explicit-choice-reprompt-20261003` and `select-feature-pointer-approval-stop-20261003`. The local journal `.specify/workflow-feedback/observations.jsonl` records installed Clarify 0.4.5 and controller 0.5.3 failing the exact Reviewer preflight after a successful Specifier probe; the effective limit and root cause remain unconfirmed. [Prior capacity recovery](../../specs/014-flowkit-workflow-improvements/validation/live-workflows/capacity-recovery.json) records that reversible archival of verified completed children allowed a fresh named launch; this is historical evidence, not proof of the current cause. Preserve exact named dispatch and fresh bounded work children. A capacity increase alone does not establish resolution; validation must demonstrate sustained sequential use and safe lifecycle handling. Configuration guidance and controller cleanup must explain their complementary roles. Installation, refresh, and removal preserve consumer-owned configuration; no capacity value is selected by this amendment. Features 016 and 017 remain independent and unchanged.
+- **Disposition**: Abandoned by direct operator decision on 2026-10-03 because the current approach and specification were rejected. The proposed scope and earlier notes above, feature artifacts, and investigation evidence remain preserved as history; no further implementation is authorized by this entry. The capacity issue remains unresolved, and no replacement feature or approach is selected. Features 016 and 017 remain unchanged.
+- **Spec dir**: `specs/018-reliable-workflow-agent-capacity/`
+
 ## Open Questions
+
+Feature 018's abandoned proposal left these questions unresolved. They are retained as historical investigation context rather than an active work commitment:
+
+- Which supported capacity setting and effective value apply in the tested Codex client, and does the observed failure arise from concurrently open children, retained completed children, or another limit?
+- Which supported lifecycle control releases verified completed children while preserving outputs and children still required for same-step question relay or continuation?
+- What bounded recovery behavior is safe when capacity is exhausted, and how does the controller preserve preflight and partial-work evidence?
+- What capacity value is justified by sustained sequential workflow validation, and how should consumers merge it with existing configuration and verify that it takes effect?
+- What should install and refresh report for absent, existing, conflicting, or unsupported configuration, and does the tested client require reopening a chat to apply a change?
 
 Feature 017 leaves these decisions for the requested subsequent review:
 
@@ -282,4 +303,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.17.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-03
+**Version**: 1.18.2 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-03

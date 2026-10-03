@@ -20,6 +20,8 @@ page files, not here.
 
 ## Decision
 
+- [Abandoned workflow agent capacity proposal](pages/workflow-agent-capacity-proposal.md)
+
 - [Diagram adapter boundary](pages/diagram-adapter-boundary.md)
 - [Closeout and verification boundary](pages/closeout-and-verification-boundary.md)
 - [Project authority and review gates](pages/project-authority-and-review-gates.md)

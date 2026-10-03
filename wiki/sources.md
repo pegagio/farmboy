@@ -22,9 +22,10 @@ Sources are immutable inputs — the wiki never edits them.
 | S015 | `specs/010-maintainer-intake/spec.md` | file | 2026-09-24 | 2026-09-24 | `consumer-feedback-boundary.md` |
 | S016 | `specs/011-bundle-catalog/spec.md` | file | 2026-09-24 | 2026-09-24 | `bundle-and-workflow-model.md`, `installation-and-release-lifecycle.md` |
 | S017 | `.specify/memory/constitution.md` | file | 2026-09-26 | 2026-09-28 | `project-authority-and-review-gates.md` |
-| S018 | `.specify/memory/roadmap.md` | file | 2026-09-26 | 2026-09-30 | `bundle-and-workflow-model.md`, `workflow-lifecycle.md`, `codex-workflow-controllers.md`, `agent-roles-and-inheritance.md` |
+| S018 | `.specify/memory/roadmap.md` | file | 2026-09-26 | 2026-10-03 | `codex-workflow-controllers.md`, `bundle-and-workflow-model.md`, `workflow-lifecycle.md`, `workflow-agent-capacity-proposal.md` |
 | S019 | `specs/013-bundle-workflow-launchers/spec.md` | file | 2026-09-26 | 2026-09-28 | `codex-workflow-controllers.md`, `bundle-and-workflow-model.md` |
 | S020 | `specs/015-agent-roles-assignment-inheritance/spec.md` | file | 2026-09-29 | 2026-09-29 | `agent-roles-and-inheritance.md` |
 | S021 | `specs/014-flowkit-workflow-improvements/spec.md` | file | 2026-09-30 | 2026-10-02 | `closeout-and-verification-boundary.md`, `controller-assessment-contract.md` |
 | S022 | `specs/014-flowkit-workflow-improvements/plan.md` | file | 2026-10-02 | 2026-10-02 | `feature-start-contract.md` |
 | S023 | `specs/014-flowkit-workflow-improvements/current-workflow-inventory.md` | file | 2026-10-02 | 2026-10-02 | `agent-roles-and-inheritance.md`, `controller-assessment-contract.md`, `workflow-graph-responsibility-boundaries.md` |
+| S024 | `specs/018-reliable-workflow-agent-capacity/spec.md` | file | 2026-10-03 | 2026-10-03 | `workflow-agent-capacity-proposal.md`, `codex-workflow-controllers.md` |
