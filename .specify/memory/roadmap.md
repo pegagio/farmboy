@@ -1,17 +1,17 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.16.0 → 1.16.1
-Bump rationale: PATCH — record reviewed Feature 014 verification and reconcile stale role, question and route wording.
+Version change: 1.16.1 → 1.17.0
+Bump rationale: MINOR — add operator-requested Feature 017 for FlowKit agent names, configuration review, and consumer delivery.
 
 Changes this revision:
-  - Marked Feature 014 verified from current-task implementation, clean convergence, independent code review and fresh roadmap debrief evidence.
-  - Reconciled Feature 014's eight reviewed roles, historicized resolved planning questions and recorded the separate Select Feature / Specify route.
+  - Added planned Feature 017 without changing existing agents, workflow assignments, or installation behavior.
+  - Recorded model/effort selection and consumer installation ownership as open decisions for subsequent review.
 
-Specs affected: 014 (verified)
-Open questions added/resolved: Feature 014 planning questions recorded as resolved by current feature artifacts and evidence.
+Specs affected: 017 (planned; specification not yet authored)
+Open questions added/resolved: Added Feature 017 configuration and delivery questions; none resolved.
 
-Notes: Verification is a roadmap lifecycle decision. It does not imply Git integration, publication, exhaustive live coverage, consumer adoption or feature acceptance. Verified Feature 015 history remains unchanged.
+Notes: Scope comes from the direct operator request on 2026-10-03. Current-state evidence is .codex/agents/*.toml and docs/installation.md. This amendment authorizes a roadmap record, not implementation or an installation mechanism.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -49,7 +49,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Features 016 and 017 are planned. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -228,7 +228,26 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Notes**: This feature centralizes the agent-probe validation currently included in Feature 014's requirements. It should preserve evidence about which names were tested and what the probe established.
 - **Spec dir**: `specs/016-centralized-agent-probing/`
 
+### 017 — FlowKit Agent Configuration and Consumer Delivery  [status: planned]
+
+- **Description**: Prefix the eight project-defined Codex agent names with `FlowKit-`, review their role configurations, select explicit models and reasoning efforts, and determine how those agents are installed into consuming projects.
+- **Outcome**: FlowKit workflows use distinct, consistently named agents with reviewed role instructions and explicit model/effort settings. Consumers have a documented, reviewable delivery path whose ownership and lifecycle behavior are decided before implementation.
+- **Scope (in)**: Rename Roadmap Agent, Specifier, Planner, Tasker, Reviewer, Coder, Code Reviewer, and Wiki Curator with the `FlowKit-` prefix; reconcile current workflow references, controller expectations, configuration filenames, tests, and documentation; review role scope, instruction quality, model suitability, and reasoning effort for each agent; investigate and select consumer installation, refresh, conflict handling, and removal behavior; validate the selected design in disposable consumers and distinguish configuration checks from live named-agent/model evidence.
+- **Scope (out)**: Selecting models or efforts in this roadmap amendment; assuming an installation mechanism or permission to overwrite consumer-owned configurations; unrelated workflow control-flow changes; retrospective rewrites of verified feature artifacts; publication, automatic consumer adoption, Git integration, or feature acceptance.
+- **Depends on**: 011, 014, 015.
+- **Governed by**: C-02, C-03, C-04, C-05.
+- **Notes**: Direct operator request on 2026-10-03 establishes the prefix, configuration review, explicit model/effort goal, and consumer delivery investigation. Current `.codex/agents/*.toml` defines eight unprefixed names and omits model/effort settings. `docs/installation.md` currently describes those files as consumer-owned and excludes them from FlowKit install, refresh, and removal. A selected delivery mechanism must explicitly reconcile that existing boundary. Feature 016's separate probing scope remains unchanged; coordinate its name discovery and validation with this feature without making its delivery a prerequisite.
+- **Spec dir**: `specs/017-flowkit-agent-configuration/`
+
 ## Open Questions
+
+Feature 017 leaves these decisions for the requested subsequent review:
+
+- Which explicit model and reasoning effort suit each agent's responsibilities, and what evidence and supported Codex configuration fields justify those choices?
+- Should consumers receive managed agent files, copyable templates, or another supported delivery mechanism, and where should reviewed reusable configuration source live?
+- How should installation, refresh, and removal handle existing names, consumer customizations, ownership records, and migration from unprefixed agents?
+- Which checks establish exact named-agent selection and effective model/effort settings, and how should unavailable models or unsupported configurations be reported?
+
 
 Feature 014's planning questions, now resolved by its [specification](../../specs/014-flowkit-workflow-improvements/spec.md), [plan](../../specs/014-flowkit-workflow-improvements/plan.md), and [current convergence evidence](../../specs/014-flowkit-workflow-improvements/validation/convergence-current-tasks.json), were:
 
@@ -263,4 +282,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.16.1 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-02
+**Version**: 1.17.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-03
