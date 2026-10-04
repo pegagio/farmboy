@@ -1,6 +1,7 @@
 """Consumer-owned agent lifecycle, integrity and recovery checks."""
 from __future__ import annotations
 
+import io
 import json
 import shutil
 import subprocess
@@ -133,6 +134,144 @@ class AgentDeliveryTests(unittest.TestCase):
         target.unlink(); target.mkdir()
         self.assertEqual("failed", self.operation()["status"])
         self.assertEqual(1, len(list(directory.iterdir())))
+
+    def test_duplicateProjectIdentity_reportsRelativeCollisionAndPreservesFiles(self):
+        directory = self.project / ".codex/agents"
+        directory.mkdir(parents=True)
+        first = directory / "first.toml"
+        second = directory / "second.toml"
+        content = 'name = "Duplicate Role"\ndescription = "fixture"\n'
+        first.write_text(content)
+        second.write_text(content)
+        before = {path.name: path.read_bytes() for path in directory.iterdir()}
+
+        result = self.operation()
+
+        self.assertEqual("duplicate-project-agent-identity", result["error"])
+        self.assertEqual({
+            "name": "Duplicate Role",
+            "identity_redacted": False,
+            "paths": [".codex/agents/first.toml", ".codex/agents/second.toml"],
+            "recovery": "Rename or remove one definition after checking dependent assignments, then retry the operation.",
+        }, result["conflict"])
+        self.assertEqual(["not-attempted"] * 8, [entry["outcome"] for entry in result["targets"]])
+        self.assertEqual(before, {path.name: path.read_bytes() for path in directory.iterdir()})
+        self.assertFalse(any(path.name.startswith("flowkit-") for path in directory.iterdir()))
+
+    def test_duplicatePrivatePathIdentity_isRedactedInHumanAndJsonReports(self):
+        directory = self.project / ".codex/agents"
+        directory.mkdir(parents=True)
+        first = directory / "first.toml"
+        second = directory / "second.toml"
+        def invoke(*arguments):
+            output = io.StringIO()
+            diagnostics = io.StringIO()
+            with patch.object(catalog.sys, "argv", ["catalog.py", "agents", *arguments]), \
+                 patch("sys.stdout", output), patch("sys.stderr", diagnostics):
+                status = catalog.main()
+            return status, output.getvalue(), diagnostics.getvalue()
+
+        for private_identity in ("/host/private/agent-name", r"C:\private\agent-name", "private\nagent-name", "private\x01agent-name"):
+            with self.subTest(identity=repr(private_identity)):
+                content = f"name = {json.dumps(private_identity)}\ndescription = \"fixture\"\n"
+                first.write_text(content)
+                second.write_text(content)
+                before = {path.name: path.read_bytes() for path in directory.iterdir()}
+
+                status, human, diagnostics = invoke("install-missing", str(self.project))
+                self.assertEqual(1, status)
+                self.assertIn(".codex/agents/first.toml", human)
+                self.assertIn(".codex/agents/second.toml", human)
+                self.assertIn("conflict: <redacted>", human)
+                self.assertIn("recovery:", human)
+                self.assertIn("catalog: duplicate-project-agent-identity", diagnostics)
+                self.assertNotIn(private_identity, human + diagnostics)
+
+                status, serialized, diagnostics = invoke("install-missing", str(self.project), "--json")
+                self.assertEqual(1, status)
+                result = json.loads(serialized)
+                self.assertEqual("duplicate-project-agent-identity", result["error"])
+                self.assertEqual("<redacted>", result["conflict"]["name"])
+                self.assertTrue(result["conflict"]["identity_redacted"])
+                self.assertEqual([".codex/agents/first.toml", ".codex/agents/second.toml"], result["conflict"]["paths"])
+                self.assertNotIn(private_identity, serialized + diagnostics)
+                self.assertEqual(before, {path.name: path.read_bytes() for path in directory.iterdir()})
+                self.assertFalse(any(path.name.startswith("flowkit-") for path in directory.iterdir()))
+
+    def test_destinationIdentityConflict_reportsBothRelativePathsBeforeWrites(self):
+        entry = catalog.agent_manifest()["agents"][0]
+        destination = self.project / entry["destination"]
+        destination.parent.mkdir(parents=True)
+        competitor = destination.parent / "custom-copy.toml"
+        competitor.write_text(f'name = "{entry["name"]}"\ndescription = "fixture"\n')
+        before = competitor.read_bytes()
+
+        result = self.operation()
+
+        self.assertEqual("agent-identity-destination-conflict", result["error"])
+        self.assertEqual({
+            "name": entry["name"],
+            "identity_redacted": False,
+            "paths": [".codex/agents/custom-copy.toml", entry["destination"]],
+            "recovery": "Rename or remove the competing definition after checking dependent assignments, then retry the operation.",
+        }, result["conflict"])
+        self.assertEqual(["failed"] + ["not-attempted"] * 7, [target["outcome"] for target in result["targets"]])
+        self.assertEqual(before, competitor.read_bytes())
+        self.assertFalse(destination.exists())
+
+    def test_humanAgentOperation_reportsProvenanceInputsOutcomesAndRecovery(self):
+        def invoke(*arguments):
+            output = io.StringIO()
+            diagnostics = io.StringIO()
+            with patch.object(catalog.sys, "argv", ["catalog.py", "agents", *arguments]), \
+                 patch("sys.stdout", output), patch("sys.stderr", diagnostics):
+                status = catalog.main()
+            return status, output.getvalue(), diagnostics.getvalue()
+
+        status, output, diagnostics = invoke("install-missing", str(self.project))
+        self.assertEqual(0, status)
+        self.assertIn(f"package: {self.metadata['id']} {self.metadata['version']}", output)
+        self.assertIn(f"artifact: {self.metadata['artifact']}", output)
+        self.assertIn(f"sha256: {self.metadata['sha256']}", output)
+        self.assertIn(f"source: {self.metadata['source_repository']}@{self.metadata['source_commit']}", output)
+        self.assertIn(f"source_sha256: {self.metadata['source_sha256']}", output)
+        self.assertIn("inputs: agent=none all=false", output)
+        self.assertIn(".codex/agents/flowkit-coder.toml: created", output)
+        self.assertEqual("", diagnostics)
+
+        coder = self.project / ".codex/agents/flowkit-coder.toml"
+        coder.write_text(coder.read_text() + "# custom\n")
+        status, output, diagnostics = invoke("reset", str(self.project), "--agent", "FlowKit-Coder")
+        self.assertEqual(0, status)
+        self.assertIn("inputs: agent=FlowKit-Coder all=false", output)
+        self.assertIn("warning: Reset discards customizations in the selected current targets.", output)
+        self.assertIn(".codex/agents/flowkit-coder.toml: reset", output)
+        self.assertEqual("", diagnostics)
+
+        original = catalog._atomic_bytes
+        calls = 0
+        def fail_second(path, content):
+            nonlocal calls
+            calls += 1
+            if calls == 2:
+                raise PermissionError("fixture partial failure")
+            original(path, content)
+        with patch.object(catalog, "_atomic_bytes", side_effect=fail_second):
+            status, output, diagnostics = invoke("reset", str(self.project), "--all")
+        self.assertEqual(1, status)
+        self.assertIn("inputs: agent=none all=true", output)
+        self.assertIn(".codex/agents/flowkit-roadmap-agent.toml: reset", output)
+        self.assertIn(".codex/agents/flowkit-specifier.toml: failed", output)
+        self.assertIn(".codex/agents/flowkit-planner.toml: not-attempted", output)
+        self.assertIn("recovery: Inspect target outcomes and retry the same explicit operation after resolving the reported failure.", output)
+        self.assertIn("catalog: PermissionError", diagnostics)
+        self.assertNotIn(str(self.project), output + diagnostics)
+
+        private_selector = "/host/private/not-an-agent"
+        status, output, diagnostics = invoke("reset", str(self.project), "--agent", private_selector)
+        self.assertEqual(1, status)
+        self.assertIn("inputs: agent=none all=false", output)
+        self.assertNotIn(private_selector, output + diagnostics)
 
     def test_partialWrite_reportAndSameOperationRetry(self):
         original = catalog._atomic_bytes

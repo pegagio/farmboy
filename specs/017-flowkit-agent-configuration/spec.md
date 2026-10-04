@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-03
 
-**Status**: Draft — clarification decisions recorded; independent assessment pending
+**Status**: Complete
 
 **Input**: Prefix the eight project-defined agents with `FlowKit-`, review their role instructions, select explicit suitable models and reasoning efforts, and decide a supported delivery path for consuming projects. The approved Feature 017 roadmap entry and its Open Questions define the scope.
 
@@ -19,6 +19,7 @@ This feature changes the reusable agent contract prospectively. It preserves rev
 - [Assumptions](#assumptions)
 - [Scope and Governing Context](#scope-and-governing-context)
 - [Decisions Required Before Readiness](#decisions-required-before-readiness)
+- [Operator-Directed Follow-up Disposition](#operator-directed-follow-up-disposition)
 
 ## Clarifications
 
@@ -162,3 +163,12 @@ The model-selection policy is settled: planning researches responsibility-based 
 The delivery and ownership decision is settled by the session above: consumer-owned copies, install-missing, ordinary refresh of available defaults, explicitly targeted reset, and operator-managed removal of copied or obsolete definitions. Planning must identify reviewed reusable source and the concrete interface without changing this contract.
 
 FR-012 through FR-014 define the evidence policy. Exact supported fields and observable evidence still need verification for the selected settings and delivery choice; missing verification must stay visible.
+
+
+## Operator-Directed Follow-up Disposition
+
+On 2026-10-04 the operator explicitly directed that confirmed catalog prerequisite defect DEP017-01 be fixed in a follow-up feature and documented now. [The durable follow-up record](follow-up.md) preserves the observed failure, affected commands, future outcome and validation obligations; no numbered roadmap feature or replacement runtime approach is selected.
+
+Original requirements and success criteria remain above as reviewed intent. Their current completion coverage has this approved qualification: FR-008 agent-delivery behavior and SC-003 file dispositions were demonstrated in the dependency-equipped tested interpreter; reproducible preparation of the advertised mise runtime remains deferred. FR-011 names, values, ownership, lifecycle and recovery guidance remains covered, while complete runnable dependency-provisioning guidance is deferred. The advertised mise command failed without PyYAML; deferral is not proof that its original unconditional usability target passed.
+
+No remaining nondeferred buildable work is identified under this disposition. DEP017-01 remains a known unresolved follow-up, not an eligible current implementation task. This scope/evidence qualification preserves the original test results and all native/effective-setting limitations, and grants no roadmap verification, Git integration, publication or feature acceptance.

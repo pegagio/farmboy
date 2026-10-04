@@ -19,6 +19,7 @@ The operator approved all eight exact model/effort choices in [research.md](rese
 - [Validation Strategy](#validation-strategy)
 - [Risks and Implementation Prerequisites](#risks-and-implementation-prerequisites)
 - [Author Self-Check](#author-self-check)
+- [Close Out Follow-up Disposition](#close-out-follow-up-disposition)
 
 ## Technical Context
 
@@ -147,3 +148,8 @@ The following conditions remain visible:
 ## Author Self-Check
 
 Plan, research, data model, CLI/package contracts and validation guide are substantive and cross-linked. All FR-001–016 have explicit design or validation coverage; no implementation tasks or new tool dependency were introduced. Pre-plan hook inventory contains no `before_plan` hooks. The optional `after_plan` wiki-ingest hook is reported for operator invocation; it is not executed here. [Planning checklist](checklists/planning.md) records self-checks and the approved model decisions. Independent review must be performed by the separately assigned Reviewer.
+
+
+## Close Out Follow-up Disposition
+
+The operator-directed [specification disposition](spec.md#operator-directed-follow-up-disposition) defers DEP017-01 catalog runtime preparation and complete provisioning guidance to [a follow-up feature](follow-up.md). PyYAML remains an existing dependency; no runtime redesign or replacement tooling approach is selected. Current implementation/lifecycle evidence applies to the recorded dependency-equipped environment, and the documented mise setup omission remains unresolved. Preserve completed work and existing task markers; implement no deferred repair in Feature 017.

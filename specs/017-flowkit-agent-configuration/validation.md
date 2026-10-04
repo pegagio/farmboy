@@ -16,6 +16,9 @@ This record retains earlier attempts as provenance; use the resumed implementati
 - [T012 Support Check Completed: 2026-10-04](#t012-support-check-completed-2026-10-04)
 - [Resumed Implementation and Final Evidence: 2026-10-04](#resumed-implementation-and-final-evidence-2026-10-04)
 - [Resumed Core Convergence Outcome](#resumed-core-convergence-outcome)
+- [Fresh Session Review and Native Dispatch](#fresh-session-review-and-native-dispatch)
+- [Final Core Convergence Result](#final-core-convergence-result)
+- [Close Out Discovery and Approved Follow-up Deferral](#close-out-discovery-and-approved-follow-up-deferral)
 
 ## Baseline
 
@@ -238,3 +241,72 @@ Optional core Implement roadmap brief/debrief and wiki-ingest hooks were identif
 ## Resumed Core Convergence Outcome
 
 Outcome: `tasks_appended`, not `converged`. Findings F6/F7 are the two high-severity partial gaps described above; no new missing/contradictory/unrequested buildable behavior was found in the bounded Feature 017 source inventory. Core Converge appended T041/T042 under Phase 8 without changing earlier tasks. Thirty-six of the original 40 tasks have completion evidence; T017/T033/T037/T040 and the two new resumption tasks remain open. The current chat cannot launch the required renamed review role. Core Implement cannot complete those evidence tasks by substituting another role, repeating already accepted model-pair probes, or treating automated checks as live evidence. Resume with a client session that loads the migrated definitions and then rerun core convergence after the independently reviewed/native checks complete.
+
+
+## Fresh Session Review and Native Dispatch
+
+Resumed from clean checkpoint `0fcfc0ac84d48d3a27d89ccc077c79a1dbef2e15` on `specs/017-flowkit-agent-configuration`, 2026-10-04. This section supersedes the earlier unavailable-role and outstanding independent-review statements while retaining their historical evidence. Current separately observed CLI is `0.160.0`; Specify remains `1.0.10.dev0+pegagio.2` and Python `3.11.16`. Native children use the Codex desktop collaboration surface; desktop app version was not captured. CLI version does not identify the desktop runtime.
+
+### Independent review and corrections
+
+Exact `FlowKit-Reviewer`, activity `configuration_review`, independently assessed all eight canonical/local definitions and baseline instruction/settings diffs. Original descriptions and responsibility/exclusion instructions are preserved, canonical/local files match, approved explicit pairs and structured output/question/blocker contracts pass, and no permissions or mutation authority expanded. Six focused agent-configuration tests pass. This independent assessment replaces neither operator settings approval nor native runtime evidence.
+
+The reviewer identified IR-017-01 (missing architecture mutation/question/blocker coverage, T037/FR-003–005) and IR-017-02 (overbroad workflow README exclusion of catalog agent-file operations, T040/FR-002/FR-011). Exact `FlowKit-Coder`, activity `review_documentation_fixes`, corrected only `docs/architecture.md` and `workflows/README.md` under the existing eligible tasks. The original independent review child reassessed both corrections and reported both resolved with no new authority gap. Links and scoped diff whitespace checks pass. No workflow phase or Git action was delegated.
+
+### Installed inventory and exact native launch results
+
+The existing catalog development-snapshot installer initialized a disposable Codex consumer and installed bundle `0.14.0`, controllers `0.6.0`, agents `0.1.0`, all ten coordinated active workflows and unchanged pinned independent extensions. Read-only installed bootstrap inspection validated every complete graph, including untaken branches: 49 assignments resolve to exactly eight names. Required inspection inputs were fixture-only context, never workflow execution. All eight disposable definitions equal canonical and source-project copies byte-for-byte. The agent artifact and canonical source digests remain `410266fc9dc79a78ed267c58a96e745a7e1980db6f9bd1c9a444b15402bb7f0f` and `40e0ee5b2862ff7e701fcc744fb8a75965fe73b4751d0f7980622e557dc1cf5c`. Checked-in package provenance remains the earlier base revision plus content digests; the disposable snapshot was built from checkpoint `0fcfc0a`. No generated catalog/package change was required for the documentation corrections.
+
+Following that installed controller's named-agent dispatch procedure, each distinct name received a fresh native `agent_type` readiness launch with no per-run model/effort override, no substitution, no tools/workflow work and its expected fixed token. All eight succeeded. Probe children were not reused for work. See [portable native dispatch evidence](native-dispatch.json) for exact requested names, tokens, approved pairs, installed step inventory and separate outcomes.
+
+| Exact native name | Configuration/support | Exact native dispatch | Observed effective model/effort |
+|---|---|---|---|
+| FlowKit-Roadmap Agent | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Specifier | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Planner | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Tasker | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Reviewer | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Coder | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Code Reviewer | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+| FlowKit-Wiki Curator | Passed / accepted evidence | Passed; expected readiness token | Unverified |
+
+The native requests used this fresh source-project registry, independently matched to the disposable installed defaults; they do not establish that a separate desktop session loaded the disposable consumer. Exact native spawn success plus the expected token establishes launch availability. A no-work probe does not validate role task behavior or effective settings. The native tool result and child observation surface expose no effective model/effort; all eight remain explicitly unverified under FR-013/SC-005. Accepted Feature 015 field-loading/Luna evidence and operator-confirmed Sol pair evidence remain intact; no screenshots or pair probes were repeated.
+
+### Validation and next core loop pass
+
+Current full discovery with the supported Specify executable and skill-tools interpreter ran 154 tests and returned `OK (skipped=1)`. The skipped legacy environment-dependent class was not enabled again; its separately recorded expanded run with one native Clarify `integration None` transport failure remains an observed limitation, not a green result. Source workflow validation reports 49 active assignments and zero unexplained terminals. Optional roadmap brief/debrief and wiki-ingest hooks remain operator-controlled; no mandatory Implement hook or Converge hook is registered.
+
+T017/T033/T037/T041/T042 now have independent/native evidence. T040 remains open for final requirement/claim reconciliation: separate exact `FlowKit-Code Reviewer` inspection identified human CLI output omitting package/source provenance, reset inputs and bounded recovery already present in JSON. This is an eligible reporting correction per T024, FR-010/FR-011 and the CLI contract; core Converge must trace it into a corrective task, then core Implement and a fresh convergence assessment complete the loop. No acceptance, roadmap verification, publication or Git integration is inferred.
+
+
+### Corrective implementation and final reconciliation
+
+Core Converge appended two HIGH partial reporting findings as T043/F8 and T044/F9 under Phase 9. Exact `FlowKit-Coder`, activity `review_documentation_fixes`, implemented the eligible corrections in `tools/catalog.py` and `tests/test_agent_delivery.py`; it established failing focused tests before the corrections, then green results. Human agent-operation output now includes package/artifact/source provenance, validated operation selectors, warnings, named target outcomes and bounded recovery; operation errors retain stderr diagnostics. Conflict reports retain stable error codes and identify competing project-relative definitions with specific recovery. Path-like or control-containing consumer identities are redacted with `identity_redacted: true`, preserving attribution through the relative paths. No agent-copy ownership tracking or lifecycle mutation change was added.
+
+Exact `FlowKit-Code Reviewer`, activity `implementation_convergence_review`, independently identified F8/F9 and reassessed the corrections. Its first reassessment caught the arbitrary identity disclosure; the same eligible T044 correction added human/JSON tests for Unix/Windows path, newline and control identities, preservation and zero new writes. Final independent disposition confirms F8/F9 and installation redaction guidance resolved, with no remaining confirmed defect in the reviewed scope. The main task reconciled `docs/installation.md` with both output formats, nullable conflict details and redaction behavior. Canonical agents, approved settings, active workflow topology, independent pinned components and generated artifacts remain unchanged.
+
+Final focused command: `PYTHONPATH=tests "$HOME/.codex/venvs/skill-tools/bin/python" -m unittest test_agent_delivery.AgentDeliveryTests test_catalog test_agent_configs test_bundle_lifecycle.FlowKitControllerLifecycleTests` — 55 tests, `OK`. Final full command: `PYTHONPATH=tests SPECIFY_BIN="$(mise which specify)" "$HOME/.codex/venvs/skill-tools/bin/python" -m unittest discover -s tests` — 158 tests, `OK (skipped=1)`. The native agent-bundle lifecycle ran with the supported Specify executable. The legacy environment-dependent class remained skipped; its previously observed expanded-run failure is still a test limitation. Source workflow validation and `git diff --check` pass. Existing skill-tools and project dependencies were used; no environment change was made.
+
+All 44 tasks, including T040/T043/T044, now have completion evidence. Requirements-quality checklists remain read-only and fully checked: requirements 16/16, planning 14/14. FR-001–007/SC-001–002 are covered by independent eight-role review, supported explicit pairs, configuration tests, 49 installed assignments and all-eight exact native launch results. FR-008–011/SC-003–004 are covered by the preserved disposable lifecycle matrix, deterministic integrity checks, reporting/recovery corrections and current installation guidance. FR-012–014/SC-005–006 retain portable version/digest provenance and distinct configuration/support/native/effective-setting categories; effective settings remain explicitly unverified. FR-015–016 and Constitution I–V retain existing graph/probe/capacity/manual paths, component boundaries and consequential gates. No remaining buildable defect is identified by the independent reviews or final implementation reconciliation. This completion record precedes the fresh append-only core Converge pass and does not replace its assessment or grant acceptance.
+
+Optional Implement hooks remain available only through operator invocation: `$speckit-flow-roadmap-brief`, `$speckit-flow-roadmap-debrief` and `$speckit-flow-wiki-ingest`. No mandatory Implement hook or Converge hook is registered. No commit, push, merge, release, roadmap verification, workflow chaining or feature acceptance occurred.
+
+
+## Final Core Convergence Result
+
+Outcome: `converged`. After the current core Implement pass completed all 44 tasks, the fresh append-only core Converge assessment found zero missing, partial, contradictory or unrequested buildable gaps across 16 functional requirements, six success criteria, all 15 acceptance scenarios (US1: four; US2: five; US3: six), nine design obligation groups and Constitution I–V. The prior convergence summaries' count of 14 scenarios is historical; the final inventory checks all 15.
+
+The exact independent `FlowKit-Reviewer` assessed present source and evidence rather than completion markers. It recomputed package/source digests, archive membership, bundle pins, canonical/local equality, approved setting agreement and the current ten-workflow/49-assignment inventory against `native-dispatch.json`; its disposition is clean for the selected buildable scope. Independent `FlowKit-Code Reviewer` also cleared the reporting corrections and documentation. Core Converge appended no tasks and left `tasks.md` byte-for-byte unchanged at SHA-256 `900ab6dbdcd09d98a5e96f3550718bd038570cd57f8fa03f1a398632c38b06cb`. No Converge hooks are registered. This final session outcome is recorded after the read-only command assessment; no application, specification or plan change was made by Converge.
+
+All-eight exact native launch availability is verified. Effective settings remain unverified for all eight; readiness tokens do not establish role task behavior. Accepted model-support evidence, unavailable desktop version, source-registry/disposable-consumer distinction and the previously recorded inherited native CLI transport failure remain explicit. Final tests: 55 focused checks and 158 full checks, with one environment-dependent class skipped. Workflow validation and whitespace checks pass. No commit, push, merge, publication, roadmap verification or feature acceptance is authorized or implied.
+
+
+## Close Out Discovery and Approved Follow-up Deferral
+
+The 2026-10-04 Close Out invocation refreshed the installed snapshot to controllers `0.6.0` and Close Out `0.7.0`; all eight fresh exact native readiness probes passed without substitutions or settings overrides. The documented `mise run catalog:refresh . --development-snapshot` attempt failed with `ModuleNotFoundError: No module named 'yaml'`. Mise selected Python `3.11.16`, where an independent read-only import check and `catalog.agent_manifest()` reproduced the missing dependency. The existing skill-tools interpreter had PyYAML `6.0.3`; running the same catalog refresh through that interpreter succeeded. No package installation or environment change occurred. Earlier 55 focused/158 full test results remain valid for their recorded environment, with the skipped class and inherited expanded-run failure preserved; they do not establish the advertised mise setup path passed.
+
+Independent exact `FlowKit-Reviewer` traced DEP017-01 to Feature 017's new agent-package YAML imports and the omitted runtime prerequisite in catalog setup guidance. This is a delivery prerequisite/documentation gap rather than a defect in the tested agent-copy lifecycle. The initial readiness assessment stopped before specification completion or debrief. The operator separately approved the exact lifecycle repair from `planned` to `implemented`, roadmap `1.18.2` to `1.18.3`; it was applied verbatim. Roadmap verification remains unapproved.
+
+The operator then directed: "yes, let's actually fix this in a follow-up feature and document it now". The [specification disposition](spec.md#operator-directed-follow-up-disposition) and [durable follow-up](follow-up.md) record that approved deferral. DEP017-01 remains technically unresolved. Previous statements of zero buildable gaps predate this discovery and must now be read with the approved qualification: no remaining nondeferred buildable work is identified in Feature 017, while reproducible catalog runtime preparation and complete runnable provisioning guidance belong to the follow-up. The original unconditional FR-008/FR-011/SC-003 setup/usability target is not represented as passed. No numbered roadmap feature or runtime approach has been selected.
+
+All 44 task IDs and markers remain intact. Accepted model-support evidence, all-eight exact launch availability, unverified effective settings, unavailable desktop version, source-registry/disposable distinction, and legacy native Specify transport limitation are preserved. Documentation of the deferral is an explicit scope disposition, not acceptance or a repaired runtime. Current Close Out readiness must independently reassess these amended documents before routing to its declared completion/debrief steps.

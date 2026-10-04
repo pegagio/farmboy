@@ -2,6 +2,20 @@
 
 Resume Feature 017, FlowKit Agent Configuration and Consumer Delivery, on the existing `specs/017-flowkit-agent-configuration` branch. Read `spec.md`, `plan.md`, `research.md`, `tasks.md`, both contracts, and the latest sections of `validation.md` before acting. The active pointer already selects this feature. This is a checkpoint of incomplete work, not feature acceptance.
 
+## Current Close Out Disposition: 2026-10-04
+
+The operator approved and applied the exact lifecycle repair: roadmap entry 017 is `implemented`, roadmap version `1.18.3`; verification remains unapproved; the declared Close Out status step has marked the specification Complete with the operator-directed follow-up qualification retained. The documented mise catalog refresh failed because its selected Python lacked the existing PyYAML dependency; the skill-tools retry succeeded in its separately recorded prepared environment.
+
+The operator explicitly deferred DEP017-01 to a follow-up feature and requested documentation now. See [follow-up.md](follow-up.md), [the authoritative scope qualification](spec.md#operator-directed-follow-up-disposition), and [current evidence](validation.md#close-out-discovery-and-approved-follow-up-deferral). Prior zero-gap statements are qualified: no remaining nondeferred buildable work is identified, while the advertised runtime setup/provisioning gap remains unresolved. Preserve all 44 task markers and prior native/test limitations. No numbered follow-up feature, runtime solution, environment change, verification, acceptance or Git integration is authorized by that deferral.
+
+## Final Resume Status: 2026-10-04
+
+The authorized resume is complete: all 44 tasks are checked, including the two reporting corrections T043/T044 appended by core Converge. Independent exact `FlowKit-Reviewer` and `FlowKit-Code Reviewer` assessments are clear. The core Implement/Converge loop ended with `converged`; the final Converge pass left `tasks.md` unchanged. See [final validation](validation.md#final-core-convergence-result) and [native dispatch evidence](native-dispatch.json).
+
+All eight exact native readiness launches succeeded without substitutions or per-run overrides. Effective model/effort remains explicitly unverified. Accepted support evidence, unavailable desktop version, source-project registry matched to disposable installed defaults, and the inherited native Specify transport failure remain documented. Final checks passed 55 focused tests and 158 full tests with one environment-dependent class skipped. Codex CLI is currently `0.160.0`; the earlier `0.157.1` evidence remains historical. No commit, push, merge, release, roadmap verification or acceptance occurred. Any such next action still requires explicit operator authorization.
+
+The checkpoint narrative below is retained as historical context; its unfinished-task and unavailable-role statements are superseded by this final status.
+
 ## Objective
 
 Finish all outstanding tasks and reach verified convergence. Run the core `$speckit-implement` for remaining work, then `$speckit-converge`. If convergence appends tasks, implement those tasks and repeat. Preserve existing task IDs, completion markers, scope and consequential human gates. Do not invoke another FlowKit workflow automatically. No commit, push, merge, release, roadmap verification or acceptance is authorized by this handoff.

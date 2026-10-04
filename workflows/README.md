@@ -40,7 +40,7 @@ A delegated workflow step names the matching native agent directly:
   integration: "{{ inputs.integration }}"
 ```
 
-Codex owns optional `model` and `model_reasoning_effort` fields and their inheritance behavior. FlowKit does not read or change consumer `.codex/agents/` files. The reviewed work-type names are FlowKit-Roadmap Agent, FlowKit-Specifier, FlowKit-Planner, FlowKit-Tasker, FlowKit-Reviewer, FlowKit-Coder, FlowKit-Code Reviewer, and FlowKit-Wiki Curator. Existing assessment nodes perform independent review; this assignment change adds no workflow nodes.
+Codex owns optional `model` and `model_reasoning_effort` fields and their inheritance behavior. During workflow execution, the controller requests the exact native agent name and leaves loading and interpretation of consumer `.codex/agents/` configuration to Codex. The separate catalog agent-delivery commands validate readable project identities, install missing defaults without replacing existing copies, and replace selected copies only through explicit manifest-scoped reset. See [agent configuration and consumer-copy lifecycle](../docs/installation.md#agent-configuration-and-consumer-copies). The reviewed work-type names are FlowKit-Roadmap Agent, FlowKit-Specifier, FlowKit-Planner, FlowKit-Tasker, FlowKit-Reviewer, FlowKit-Coder, FlowKit-Code Reviewer, and FlowKit-Wiki Curator. Existing assessment nodes perform independent review; this assignment change adds no workflow nodes.
 
 | Workflow | Core or extension commands |
 | --- | --- |

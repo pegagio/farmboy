@@ -14,6 +14,7 @@ import sys
 import tempfile
 import threading
 import tomllib
+import unicodedata
 import zipfile
 from contextlib import contextmanager
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -209,6 +210,14 @@ def _agent_path(project: Path, relative: str) -> Path:
     return cursor
 
 
+def _agent_identity_report(name: str) -> dict[str, object]:
+    """Keep path-like and control-character identities out of portable reports."""
+    portable = not any(character in name for character in ("/", "\\")) and not any(
+        unicodedata.category(character) == "Cc" for character in name
+    )
+    return {"name": name if portable else "<redacted>", "identity_redacted": not portable}
+
+
 def validate_agent_metadata(metadata: object) -> dict[str, object]:
     """Require portable package provenance, never consumer-copy tracking."""
     fields = {"id", "version", "artifact", "sha256", "source_repository", "source_commit", "source_sha256", "status"}
@@ -274,7 +283,7 @@ def agent_operation(project: Path, operation: str, *, agent: str | None = None,
     project = project.resolve()
     result = {"schema_version": "1.0", "operation": operation, "status": "failed",
               "inputs": {"agent": None, "all": all_agents}, "package": None,
-              "targets": [], "warnings": [], "recovery": None}
+              "targets": [], "warnings": [], "recovery": None, "conflict": None}
     targets = result["targets"]
     written = 0
     failed_index = None
@@ -322,12 +331,22 @@ def agent_operation(project: Path, operation: str, *, agent: str | None = None,
                 name = definition.get("name")
                 if isinstance(name, str):
                     if name in identities:
+                        result["conflict"] = {
+                            **_agent_identity_report(name),
+                            "paths": [identities[name].relative_to(project).as_posix(), path.relative_to(project).as_posix()],
+                            "recovery": "Rename or remove one definition after checking dependent assignments, then retry the operation.",
+                        }
                         fail("duplicate-project-agent-identity")
                     identities[name] = path
         for index, entry in enumerate(entries):
             existing = identities.get(entry["name"])
             if existing is not None and existing != destinations[entry["name"]]:
                 failed_index = index
+                result["conflict"] = {
+                    **_agent_identity_report(entry["name"]),
+                    "paths": [existing.relative_to(project).as_posix(), entry["destination"]],
+                    "recovery": "Rename or remove the competing definition after checking dependent assignments, then retry the operation.",
+                }
                 fail("agent-identity-destination-conflict")
         for index, entry in enumerate(entries):
             failed_index = index
@@ -351,7 +370,8 @@ def agent_operation(project: Path, operation: str, *, agent: str | None = None,
         if targets and not any(t["outcome"] == "failed" for t in targets):
             if failed_index is not None:
                 targets[failed_index]["outcome"] = "failed"
-        result["recovery"] = "Inspect target outcomes and retry the same explicit operation after resolving the reported failure."
+        result["recovery"] = (result["conflict"]["recovery"] if result["conflict"] else
+                               "Inspect target outcomes and retry the same explicit operation after resolving the reported failure.")
     return result
 
 
@@ -1149,13 +1169,30 @@ def main() -> int:
             if arguments.json_output:
                 print(json.dumps(result, sort_keys=True))
             else:
-                print(f"{result['operation']}: {result['status']}")
+                print(f"operation: {result['operation']} status: {result['status']}")
+                package = result["package"]
+                if package:
+                    print(f"package: {package['id']} {package['version']} status={package['status']}")
+                    print(f"artifact: {package['artifact']}")
+                    print(f"package_sha256: {package['sha256']}")
+                    print(f"source: {package['source_repository']}@{package['source_commit']}")
+                    print(f"source_sha256: {package['source_sha256']}")
+                inputs = result["inputs"]
+                print(f"inputs: agent={inputs['agent'] or 'none'} all={str(inputs['all']).lower()}")
                 for warning in result["warnings"]:
-                    print(warning)
+                    print(f"warning: {warning}")
                 for target in result["targets"]:
-                    print(f"{target['path']}: {target['outcome']}")
+                    print(f"target: {target['name']} {target['path']}: {target['outcome']}")
+                conflict = result["conflict"]
+                if conflict:
+                    print(f"conflict: {conflict['name']} at {', '.join(conflict['paths'])}")
+                if "error" in result:
+                    print("catalog: " + result["error"], file=sys.stderr)
+                if result["recovery"]:
+                    print(f"recovery: {result['recovery']}")
             if result["status"] != "complete":
-                print("catalog: " + result.get("error", "agent operation failed"), file=sys.stderr)
+                if arguments.json_output:
+                    print("catalog: " + result.get("error", "agent operation failed"), file=sys.stderr)
                 return 1
         elif arguments.command == "build":
             build(arguments.roadmap, arguments.wiki, arguments.snapshot)

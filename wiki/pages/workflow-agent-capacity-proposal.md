@@ -4,7 +4,7 @@ type: decision
 sources:
 - S024
 - S018
-updated: '2026-10-03'
+updated: 2026-10-04
 ---
 
 # Abandoned workflow agent capacity proposal

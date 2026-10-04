@@ -1,18 +1,19 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.18.1 → 1.18.2
-Bump rationale: PATCH — record the operator-directed abandonment of Feature 018 without deleting its proposed scope or investigation history.
+Version change: 1.18.3 → 1.18.4
+Bump rationale: PATCH — record Feature 017 verification under its operator-directed follow-up qualification and reconcile completed decisions with current evidence.
 
 Changes this revision:
-  - Set Feature 018 from in-progress to abandoned because the operator rejected its current approach and specification.
-  - Retained the proposed scope, exact specification-directory mapping, artifacts, and unresolved questions as an abandoned record rather than an active delivery commitment.
-  - Preserved Features 016 and 017 and existing workflow, controller, and installation behavior; selected no replacement feature.
+  - Set Feature 017 from implemented to verified after explicit approval of this exact patch.
+  - Preserved the original outcome and scope; recorded DEP017-01 as unresolved and explicitly deferred to a follow-up feature.
+  - Reconciled selection-time Notes and Open Questions with reviewed agent configuration, consumer-owned delivery and evidence limitations.
+  - Preserved Feature 016 as planned and Feature 018 as abandoned; created no numbered follow-up entry.
 
-Specs affected: 018 (abandoned)
-Open questions added/resolved: None; Feature 018's questions remain unresolved historical investigation context, not an active work commitment.
+Specs affected: 017 (verified with documented qualification)
+Open questions added/resolved: Feature 017 selection-time questions are recorded as resolved within their documented evidence limits; DEP017-01 remains unresolved in specs/017-flowkit-agent-configuration/follow-up.md.
 
-Notes: On 2026-10-03 the operator explicitly requested abandoning this task and marking its spec and roadmap feature abandoned because the current approach and spec were not right. This disposition does not resolve the original capacity observation, verify implementation, or authorize a replacement approach, Git integration, or publication.
+Notes: Fresh debrief: specs/017-flowkit-agent-configuration/roadmap-reviews/debrief-20261004T170935Z.md. Verification records the reviewed nondeferred scope in the dependency-equipped tested environment. It does not establish that the advertised mise preparation path passed, prove effective child settings, erase native Specify test limitations, or authorize feature acceptance, Git integration, publication or consumer adoption.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -50,7 +51,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Features 016 and 017 are planned; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -229,7 +230,7 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Notes**: This feature centralizes the agent-probe validation currently included in Feature 014's requirements. It should preserve evidence about which names were tested and what the probe established.
 - **Spec dir**: `specs/016-centralized-agent-probing/`
 
-### 017 — FlowKit Agent Configuration and Consumer Delivery  [status: planned]
+### 017 — FlowKit Agent Configuration and Consumer Delivery  [status: verified]
 
 - **Description**: Prefix the eight project-defined Codex agent names with `FlowKit-`, review their role configurations, select explicit models and reasoning efforts, and determine how those agents are installed into consuming projects.
 - **Outcome**: FlowKit workflows use distinct, consistently named agents with reviewed role instructions and explicit model/effort settings. Consumers have a documented, reviewable delivery path whose ownership and lifecycle behavior are decided before implementation.
@@ -237,7 +238,8 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Scope (out)**: Selecting models or efforts in this roadmap amendment; assuming an installation mechanism or permission to overwrite consumer-owned configurations; unrelated workflow control-flow changes; retrospective rewrites of verified feature artifacts; publication, automatic consumer adoption, Git integration, or feature acceptance.
 - **Depends on**: 011, 014, 015.
 - **Governed by**: C-02, C-03, C-04, C-05.
-- **Notes**: Direct operator request on 2026-10-03 establishes the prefix, configuration review, explicit model/effort goal, and consumer delivery investigation. Current `.codex/agents/*.toml` defines eight unprefixed names and omits model/effort settings. `docs/installation.md` currently describes those files as consumer-owned and excludes them from FlowKit install, refresh, and removal. A selected delivery mechanism must explicitly reconcile that existing boundary. Feature 016's separate probing scope remains unchanged; coordinate its name discovery and validation with this feature without making its delivery a prerequisite.
+- **Notes**: The 2026-10-03 selection baseline had eight unprefixed configurations without model/effort settings and excluded agent acquisition from catalog delivery. Feature 017 now supplies eight exact `FlowKit-` identities, independently reviewed instructions and operator-approved explicit model/effort defaults through canonical `flow-kit-agents` 0.1.0, coordinated with bundle 0.14.0 and controllers 0.6.0. Consumer-owned copies use install-missing, cache-only refresh, explicitly targeted reset and preservation on removal. All 44 tasks are complete; recorded validation passed 55 focused checks and 158 full checks with one environment-dependent class skipped. All-eight exact native launch availability passed; effective settings remain unverified. The separately observed inherited native Specify Clarify transport failure remains a limitation. Component provenance, accepted model-support evidence, source-registry/disposable-consumer distinction and unavailable desktop version remain recorded in `specs/017-flowkit-agent-configuration/validation.md` and `native-dispatch.json`. Feature 016 remains independent; no probing or capacity behavior changed.
+- **Verification qualification**: On 2026-10-04 the operator explicitly deferred DEP017-01 catalog Python prerequisite preparation and complete runnable provisioning guidance to a follow-up feature. Delivery behavior and file dispositions were demonstrated in the dependency-equipped tested interpreter; the advertised mise catalog refresh failed without PyYAML. Original unconditional FR-008/FR-011/SC-003 usability is not represented as passed. The unresolved defect, required future outcome and validation are retained in `specs/017-flowkit-agent-configuration/follow-up.md`; no numbered feature or runtime approach is selected. Verification applies to the reviewed nondeferred scope and grants no feature acceptance, publication, adoption or Git integration.
 - **Spec dir**: `specs/017-flowkit-agent-configuration/`
 
 ### 018 — Reliable Workflow Agent Capacity  [status: abandoned]
@@ -262,7 +264,7 @@ Feature 018's abandoned proposal left these questions unresolved. They are retai
 - What capacity value is justified by sustained sequential workflow validation, and how should consumers merge it with existing configuration and verify that it takes effect?
 - What should install and refresh report for absent, existing, conflicting, or unsupported configuration, and does the tested client require reopening a chat to apply a change?
 
-Feature 017 leaves these decisions for the requested subsequent review:
+Feature 017's selection-time questions, now resolved by its [specification](../../specs/017-flowkit-agent-configuration/spec.md), [approved research](../../specs/017-flowkit-agent-configuration/research.md), [plan](../../specs/017-flowkit-agent-configuration/plan.md), and [validation](../../specs/017-flowkit-agent-configuration/validation.md) within their documented evidence limits, were:
 
 - Which explicit model and reasoning effort suit each agent's responsibilities, and what evidence and supported Codex configuration fields justify those choices?
 - Should consumers receive managed agent files, copyable templates, or another supported delivery mechanism, and where should reviewed reusable configuration source live?
@@ -303,4 +305,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.18.2 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-03
+**Version**: 1.18.4 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-04
