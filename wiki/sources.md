@@ -29,3 +29,4 @@ Sources are immutable inputs — the wiki never edits them.
 | S022 | `specs/014-flowkit-workflow-improvements/plan.md` | file | 2026-10-02 | 2026-10-02 | `feature-start-contract.md` |
 | S023 | `specs/014-flowkit-workflow-improvements/current-workflow-inventory.md` | file | 2026-10-02 | 2026-10-02 | `agent-roles-and-inheritance.md`, `controller-assessment-contract.md`, `workflow-graph-responsibility-boundaries.md` |
 | S024 | `specs/018-reliable-workflow-agent-capacity/spec.md` | file | 2026-10-03 | 2026-10-03 | `workflow-agent-capacity-proposal.md`, `codex-workflow-controllers.md` |
+| S025 | `specs/017-flowkit-agent-configuration/spec.md` | file | 2026-10-03 | 2026-10-03 | `flowkit-agent-configuration-and-delivery.md`, `agent-roles-and-inheritance.md`, `installation-and-release-lifecycle.md` |

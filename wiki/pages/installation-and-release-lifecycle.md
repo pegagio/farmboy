@@ -1,8 +1,8 @@
 ---
 title: Installation and release lifecycle
 type: howto
-sources: [S001, S002, S005, S016]
-updated: 2026-10-02
+sources: [S001, S002, S005, S016, S025]
+updated: 2026-10-03
 ---
 
 # Installation and release lifecycle
@@ -28,6 +28,8 @@ Release building checks source IDs, versions, clean feedback source, and clean a
 Select Feature and Specify are separate. Start Feature remains stop-only deprecated source outside active bindings; replacement discovery requires installation or refresh. Refresh replaces an unchanged owned retired launcher; local edits block for resolution. (S005)
 
 The direct Codex path validates and probes every delegated branch's exact native agent names before work. Consumer-owned agent files and Codex control optional model/effort settings. Gates and undelegated steps stay in the main task. (S005)
+
+Feature 017 specifies prospective consumer-owned acquisition and explicit resets; see [its delivery contract](./flowkit-agent-configuration-and-delivery.md). (S025)
 
 ## Related pages
 

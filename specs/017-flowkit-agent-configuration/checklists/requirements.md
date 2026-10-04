@@ -6,7 +6,7 @@
 
 **Feature**: [spec.md](../spec.md)
 
-This built-in checklist is maintained by `speckit-specify` and `speckit-clarify`. Checked items record the author command self-check; they do not establish independent review, implementation completion, or acceptance.
+This built-in checklist normally records the `speckit-specify` and `speckit-clarify` author self-check. Readiness wording and stale decision notes were reconciled on 2026-10-03 under the operator's explicit checklist-correction request. Checked items assess specification quality; they do not establish implementation completion or acceptance.
 
 ## Content Quality
 
@@ -19,10 +19,10 @@ The draft states maintainer and consumer outcomes without choosing an implementa
 
 ## Requirement Completeness
 
-Known contracts have observable outcomes; pending choices prevent complete requirements.
+The clarified contracts have observable outcomes, bounded scope and explicit assumptions.
 
-- [ ] No [NEEDS CLARIFICATION] markers remain.
-- [ ] Requirements are testable and unambiguous.
+- [x] No [NEEDS CLARIFICATION] markers remain.
+- [x] Requirements are testable and unambiguous.
 - [x] Success criteria are measurable.
 - [x] Success criteria are technology-agnostic (no implementation details).
 - [x] All acceptance scenarios are defined.
@@ -32,21 +32,21 @@ Known contracts have observable outcomes; pending choices prevent complete requi
 
 ## Feature Readiness
 
-Primary journeys and acceptance targets are present, but unresolved choices prevent readiness.
+Primary journeys and measurable acceptance targets are defined for planning and implementation.
 
 - [x] All functional requirements have clear acceptance criteria.
 - [x] User scenarios cover primary flows.
-- [ ] Feature meets measurable outcomes defined in Success Criteria.
+- [x] The specification defines measurable outcomes and observable verification criteria for feature acceptance.
 - [x] No implementation details leak into specification.
 
 ## Notes
 
-Author self-check iteration 1 found two substantive blockers. FR-006 asks, “What exact model and reasoning-effort pair should each of the eight roles use?” FR-008 asks, “Should delivery use consumer-owned copyable templates, managed agent files, or another mechanism, and what ownership/customization/migration/removal policy is approved for that choice?” Both remain unresolved. No values, mechanism, or overwrite authority were inferred; completeness and readiness remain unchecked.
+The initial draft raised two decisions: role-specific model/effort defaults and consumer delivery semantics. The [clarification session](../spec.md#session-2026-10-03) resolved the delivery policy as consumer-owned copies with install-missing, cache-only refresh and explicit targeted reset, without ownership tracking. All eight exact model/effort pairs were subsequently approved in [research.md](../research.md#approved-model-and-effort-decisions), including Tasker and Coder on Luna/high. Neither decision remains unresolved.
 
-Success criteria are acceptance targets rather than achieved results. SC-002 depends on role choices; SC-003 and SC-004 depend on a selected lifecycle contract. Independent assessment and planning/implementation readiness remain unclaimed.
+SC-001–SC-006 define observable acceptance targets, and the [task coverage mapping](../tasks.md#requirement-coverage) assigns their implementation and validation work. The former outcome-achievement checkbox was corrected to assess whether those targets are defined, as appropriate for a specification-quality checklist. Actual achievement remains pending implementation and validation; no acceptance result is claimed.
 
 Wiki coverage is Partial; cited pages govern baseline authority and lifecycle while the approved roadmap supplies Feature 017 scope. Verified historical artifacts remain unchanged.
 
 The installed skill's pre/post-hook checks found no `before_specify` or `after_specify` hooks. The core spec template resolved successfully. `.specify/feature.json` already identifies the selected directory and was preserved.
 
-Incomplete items require decision resolution and another command self-check before readiness can be reported. This checklist does not replace the workflow's independent Reviewer.
+Fresh analysis and its separate assessment in the [Analyze run record](../../../.specify/flow-controllers/runs/5cb3dfce-53d3-4766-bfd0-c76055368fb6/summary.json) found no unresolved in-scope findings and confirmed requirement/task coverage. This checklist does not replace independent review, implementation validation or operator acceptance.

@@ -46,6 +46,340 @@ CONTROLLER_BINDINGS = (
 )
 
 
+AGENT_SOURCE = ROOT / "agents/flow-kit"
+AGENT_PACKAGE_ID = "flow-kit-agents"
+
+
+def validate_agent_manifest(manifest: object) -> dict[str, object]:
+    """Validate inventory without acquiring ownership of consumer files."""
+    if not isinstance(manifest, dict) or manifest.get("schema_version") != "1.0":
+        fail("agent manifest schema is invalid")
+    package = manifest.get("package")
+    if not isinstance(package, dict) or package.get("id") != AGENT_PACKAGE_ID or not re.fullmatch(r"\d+\.\d+\.\d+", str(package.get("version", ""))):
+        fail("agent package identity/version is invalid")
+    entries = manifest.get("agents")
+    if not isinstance(entries, list) or not entries:
+        fail("agent inventory must be a nonempty list")
+    seen = {key: set() for key in ("name", "file", "destination")}
+    for entry in entries:
+        if not isinstance(entry, dict) or set(entry) != set(seen):
+            fail("agent inventory entry must contain name, file and destination")
+        for key in seen:
+            value = entry[key]
+            if not isinstance(value, str) or not value.strip() or value in seen[key]:
+                fail(f"agent inventory has an empty or duplicate {key}")
+            seen[key].add(value)
+        for key, prefix in (("file", "agents/"), ("destination", ".codex/agents/")):
+            value = entry[key]
+            relative = Path(value)
+            if not value.startswith(prefix) or relative.is_absolute() or ".." in relative.parts or "\\" in value or relative.as_posix() != value or len(relative.parts) != len(Path(prefix).parts) + 1 or relative.suffix != ".toml":
+                fail(f"agent inventory has an unsafe {key}")
+    changes = manifest.get("changes", {})
+    if not isinstance(changes, dict):
+        fail("agent change guidance must be an object")
+    for kind in ("added", "renamed", "retired"):
+        if not isinstance(changes.get(kind, []), list):
+            fail("agent change guidance must contain lists")
+    return manifest
+
+
+def validate_agent_definition(content: bytes, name: str) -> dict[str, object]:
+    """Require a parseable native definition matching the exact manifest name."""
+    try:
+        definition = tomllib.loads(content.decode("utf-8"))
+    except (UnicodeError, tomllib.TOMLDecodeError) as error:
+        fail(f"agent TOML is malformed: {type(error).__name__}")
+    for key in ("name", "description", "developer_instructions", "model", "model_reasoning_effort"):
+        if not isinstance(definition.get(key), str) or not definition[key].strip():
+            fail(f"agent TOML lacks nonempty {key}")
+    if definition["model_reasoning_effort"] not in {"none", "minimal", "low", "medium", "high", "xhigh", "max", "ultra"}:
+        fail("agent reasoning effort is invalid")
+    if definition["name"] != name:
+        fail("agent TOML name differs from its manifest")
+    return definition
+
+
+def agent_manifest(source: Path | None = None) -> dict[str, object]:
+    """Read reviewed source inventory with existing YAML tooling."""
+    import yaml
+    try:
+        return validate_agent_manifest(yaml.safe_load(((source or AGENT_SOURCE) / "manifest.yml").read_text(encoding="utf-8")))
+    except yaml.YAMLError:
+        fail("agent manifest YAML is malformed")
+
+
+def agent_package_files(source: Path | None = None) -> dict[str, Path]:
+    """Select regular reviewed source members, rejecting symlink ancestors."""
+    source = source or AGENT_SOURCE
+    if source.is_symlink():
+        fail("agent source root is a symlink")
+    if (source / "manifest.yml").is_symlink() or not (source / "manifest.yml").is_file():
+        fail("agent manifest is not a regular source file")
+    manifest = agent_manifest(source)
+    files = {"manifest.yml": source / "manifest.yml"}
+    for entry in manifest["agents"]:
+        path = source / entry["file"]
+        for candidate in (path, *path.parents):
+            if candidate.is_symlink():
+                fail("agent source or ancestor is a symlink")
+            if candidate == source:
+                break
+        if not path.is_file():
+            fail("agent source member is not a regular file")
+        validate_agent_definition(path.read_bytes(), entry["name"])
+        files[entry["file"]] = path
+    if files["manifest.yml"].is_symlink() or not files["manifest.yml"].is_file():
+        fail("agent source manifest is not a regular file")
+    return files
+
+
+def validate_agent_archive(archive_path: Path, expected_version: str | None = None) -> tuple[dict[str, object], dict[str, bytes]]:
+    """Reject unsafe/unlisted ZIP members and inconsistent package versions."""
+    import stat
+    import yaml
+    members = {}
+    with zipfile.ZipFile(archive_path) as archive:
+        for info in archive.infolist():
+            path = Path(info.filename)
+            mode = info.external_attr >> 16
+            if info.is_dir() or info.filename in members or path.is_absolute() or ".." in path.parts or "\\" in info.filename or path.as_posix() != info.filename or (stat.S_IFMT(mode) not in (0, stat.S_IFREG)):
+                fail("agent archive contains an unsafe or duplicate member")
+            members[info.filename] = archive.read(info)
+    if "manifest.yml" not in members:
+        fail("agent archive is missing its manifest")
+    try:
+        manifest = validate_agent_manifest(yaml.safe_load(members["manifest.yml"].decode("utf-8")))
+    except (yaml.YAMLError, UnicodeError):
+        fail("agent archive manifest is malformed")
+    if expected_version is not None and manifest["package"]["version"] != expected_version:
+        fail("agent archive version differs from selected package")
+    if set(members) != {"manifest.yml", *(entry["file"] for entry in manifest["agents"])}:
+        fail("agent archive contains missing or unlisted members")
+    for entry in manifest["agents"]:
+        validate_agent_definition(members[entry["file"]], entry["name"])
+    return manifest, members
+
+
+def select_agent_targets(manifest: dict[str, object], *, agent: str | None = None, all_agents: bool = False) -> list[dict[str, str]]:
+    """Select only current manifest targets, with no wildcard or alias."""
+    validate_agent_manifest(manifest)
+    if bool(agent) == all_agents:
+        fail("reset requires exactly one exact agent name or --all")
+    selected = [entry for entry in manifest["agents"] if all_agents or entry["name"] == agent]
+    if not selected:
+        fail("unknown current agent name")
+    return selected
+
+
+def package_agents(destination: Path, *, status: str = "snapshot") -> dict[str, object]:
+    """Build canonical defaults deterministically, with package-only provenance."""
+    files = agent_package_files()
+    manifest = agent_manifest()
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    source_hash = hashlib.sha256()
+    with zipfile.ZipFile(destination, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name, path in sorted(files.items()):
+            data = path.read_bytes()
+            if b"/Users/" in data or str(Path.home()).encode() in data:
+                fail("host path in agent source")
+            source_hash.update(name.encode() + b"\0" + data)
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            archive.writestr(info, data)
+    return {"id": AGENT_PACKAGE_ID, "version": manifest["package"]["version"],
+            "artifact": destination.name, "sha256": digest(destination),
+            "source_repository": "https://github.com/pegagio/spec-kit-flow",
+            "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+            "source_sha256": source_hash.hexdigest(), "status": status}
+
+
+def _agent_path(project: Path, relative: str) -> Path:
+    """Reject escaping or symlink paths without examining consumer file content."""
+    path = Path(relative)
+    if path.is_absolute() or ".." in path.parts or path.as_posix() != relative or "\\" in relative:
+        fail("unsafe-agent-path")
+    cursor = project
+    for part in path.parts:
+        cursor /= part
+        if cursor.is_symlink():
+            fail("agent-path-symlink")
+    if not cursor.resolve().is_relative_to(project.resolve()):
+        fail("unsafe-agent-path")
+    return cursor
+
+
+def validate_agent_metadata(metadata: object) -> dict[str, object]:
+    """Require portable package provenance, never consumer-copy tracking."""
+    fields = {"id", "version", "artifact", "sha256", "source_repository", "source_commit", "source_sha256", "status"}
+    if not isinstance(metadata, dict) or set(metadata) != fields:
+        fail("invalid-agent-package-metadata")
+    if metadata["id"] != AGENT_PACKAGE_ID or metadata["status"] not in ("snapshot", "released"):
+        fail("invalid-agent-package-identity")
+    for key in fields:
+        if not isinstance(metadata[key], str) or not metadata[key].strip():
+            fail("invalid-agent-package-field")
+    if not re.fullmatch(r"\d+\.\d+\.\d+", metadata["version"]) or Path(metadata["artifact"]).name != metadata["artifact"] or "\\" in metadata["artifact"]:
+        fail("invalid-agent-package-coordinate")
+    if any(not re.fullmatch(r"[a-f0-9]{64}", metadata[k]) for k in ("sha256", "source_sha256")):
+        fail("invalid-agent-package-digest")
+    if not re.fullmatch(r"[a-f0-9]{40,64}", metadata["source_commit"]) or not re.fullmatch(r"https://github.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", metadata["source_repository"]):
+        fail("invalid-agent-package-provenance")
+    return metadata
+
+
+def cache_agent_defaults(project: Path, archive: Path, metadata: dict[str, object]) -> None:
+    """Replace a validated package cache, restoring the previous cache on failure."""
+    validate_agent_metadata(metadata)
+    if digest(archive) != metadata.get("sha256") or metadata.get("id") != AGENT_PACKAGE_ID:
+        fail("agent-package-digest-mismatch")
+    _, members = validate_agent_archive(archive, str(metadata["version"]))
+    validate_agent_source_digest(members, metadata)
+    target = _agent_path(project, ".specify/flow-kit/agent-defaults")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.exists() and not target.is_dir():
+        fail("agent-cache-not-directory")
+    stage = Path(tempfile.mkdtemp(prefix=".agent-defaults-", dir=target.parent))
+    backup = stage.with_name(stage.name + "-previous")
+    try:
+        (stage / "package.zip").write_bytes(archive.read_bytes())
+        (stage / "manifest.json").write_text(json.dumps(metadata, sort_keys=True) + "\n")
+        if target.exists():
+            os.replace(target, backup)
+        try:
+            os.replace(stage, target)
+        except OSError:
+            if backup.exists():
+                os.replace(backup, target)
+            raise
+    finally:
+        if stage.exists():
+            shutil.rmtree(stage)
+        if backup.exists() and target.exists():
+            shutil.rmtree(backup)
+
+
+def remove_agent_defaults(project: Path) -> None:
+    """Remove available defaults only; copied configurations are consumer-owned."""
+    target = _agent_path(project, ".specify/flow-kit/agent-defaults")
+    if target.exists():
+        if not target.is_dir():
+            fail("agent-cache-not-directory")
+        shutil.rmtree(target)
+
+
+def agent_operation(project: Path, operation: str, *, agent: str | None = None,
+                    all_agents: bool = False) -> dict[str, object]:
+    """Preflight a manifest-selected copy/reset and report bounded partial writes."""
+    project = project.resolve()
+    result = {"schema_version": "1.0", "operation": operation, "status": "failed",
+              "inputs": {"agent": None, "all": all_agents}, "package": None,
+              "targets": [], "warnings": [], "recovery": None}
+    targets = result["targets"]
+    written = 0
+    failed_index = None
+    try:
+        if not project.is_dir() or not _agent_path(project, ".specify").is_dir():
+            fail("project-not-initialized")
+        metadata_file = _agent_path(project, ".specify/flow-kit/agent-defaults/manifest.json")
+        archive = _agent_path(project, ".specify/flow-kit/agent-defaults/package.zip")
+        metadata = validate_agent_metadata(json.loads(metadata_file.read_text()))
+        if metadata.get("id") != AGENT_PACKAGE_ID or digest(archive) != metadata.get("sha256"):
+            fail("agent-cache-integrity-mismatch")
+        result["package"] = metadata
+        manifest, members = validate_agent_archive(archive, metadata["version"])
+        validate_agent_source_digest(members, metadata)
+        if operation == "install-missing":
+            if agent or all_agents:
+                fail("install-missing-does-not-accept-selectors")
+            entries = manifest["agents"]
+        elif operation == "reset":
+            entries = select_agent_targets(manifest, agent=agent, all_agents=all_agents)
+            result["inputs"]["agent"] = agent
+            result["warnings"].append("Reset discards customizations in the selected current targets.")
+        else:
+            fail("unknown-agent-operation")
+        targets.extend({"name": e["name"], "path": e["destination"], "outcome": "not-attempted"} for e in entries)
+        destinations = {}
+        for index, entry in enumerate(entries):
+            failed_index = index
+            target = _agent_path(project, entry["destination"])
+            if target.exists() and not target.is_file():
+                fail("agent-destination-not-regular")
+            destinations[entry["name"]] = target
+        failed_index = None
+        inventory = _agent_path(project, ".codex/agents")
+        identities = {}
+        if inventory.exists():
+            for path in sorted(inventory.glob("*.toml")):
+                if path.is_symlink() or not path.is_file():
+                    fail("agent-inventory-nonregular")
+                try:
+                    definition = tomllib.loads(path.read_text())
+                except (UnicodeError, tomllib.TOMLDecodeError):
+                    result["warnings"].append("Unparseable project agent: " + path.relative_to(project).as_posix())
+                    continue
+                name = definition.get("name")
+                if isinstance(name, str):
+                    if name in identities:
+                        fail("duplicate-project-agent-identity")
+                    identities[name] = path
+        for index, entry in enumerate(entries):
+            existing = identities.get(entry["name"])
+            if existing is not None and existing != destinations[entry["name"]]:
+                failed_index = index
+                fail("agent-identity-destination-conflict")
+        for index, entry in enumerate(entries):
+            failed_index = index
+            target = destinations[entry["name"]]
+            try:
+                # Recheck ancestry immediately before mutation; external writers are not owned.
+                _agent_path(project, entry["destination"])
+                if operation == "install-missing" and target.exists():
+                    targets[index]["outcome"] = "preserved-existing"
+                    continue
+                _atomic_bytes(target, members[entry["file"]])
+                targets[index]["outcome"] = "created" if operation == "install-missing" else "reset"
+                written += 1
+            except OSError:
+                targets[index]["outcome"] = "failed"
+                raise
+        result["status"] = "complete"
+    except (ValueError, OSError, KeyError, zipfile.BadZipFile) as error:
+        result["status"] = "partial" if written else "failed"
+        result["error"] = str(error) if isinstance(error, ValueError) else type(error).__name__
+        if targets and not any(t["outcome"] == "failed" for t in targets):
+            if failed_index is not None:
+                targets[failed_index]["outcome"] = "failed"
+        result["recovery"] = "Inspect target outcomes and retry the same explicit operation after resolving the reported failure."
+    return result
+
+
+def validate_agent_source_digest(members: dict[str, bytes], metadata: dict[str, object]) -> None:
+    """Verify package source provenance against the archive's actual members."""
+    source_hash = hashlib.sha256()
+    for name, content in sorted(members.items()):
+        source_hash.update(name.encode() + b"\0" + content)
+    if source_hash.hexdigest() != metadata["source_sha256"]:
+        fail("agent-source-digest-mismatch")
+
+
+def verify_agent_release(release: dict[str, object], catalog_dir: Path) -> None:
+    """Validate package pin, artifact integrity and canonical source correspondence."""
+    import yaml
+    pin = yaml.safe_load(BUNDLE.read_text()).get("agent_package")
+    entry = validate_agent_metadata(release.get("agent_package"))
+    if not isinstance(pin, dict) or not isinstance(entry, dict) or any(entry.get(k) != pin.get(k) for k in ("id", "version")):
+        fail("catalog agent package differs from bundle pin")
+    artifact = catalog_dir / "packages" / str(entry.get("artifact", ""))
+    if artifact.name != entry.get("artifact") or not artifact.is_file() or digest(artifact) != entry.get("sha256"):
+        fail("agent package missing or mismatched")
+    manifest, members = validate_agent_archive(artifact, str(entry["version"]))
+    validate_agent_source_digest(members, entry)
+    if manifest != agent_manifest() or members != {name: p.read_bytes() for name, p in agent_package_files().items()}:
+        fail("agent package differs from canonical source")
+
+
 def fail(message: str) -> None:
     raise ValueError(message)
 
@@ -121,7 +455,7 @@ def source_commit(source: Path, tracked_path: str = ".") -> str:
 def require_local_release_sources_clean(root: Path) -> None:
     """Require committed bundle and workflow definitions for a released catalog."""
     status = subprocess.run(
-        ["git", "status", "--porcelain", "--", "bundles/spec-kit-flow/bundle.yml", "workflows"],
+        ["git", "status", "--porcelain", "--", "bundles/spec-kit-flow/bundle.yml", "workflows", "agents/flow-kit"],
         cwd=root, text=True, capture_output=True, check=True,
     ).stdout.strip()
     if status:
@@ -494,6 +828,7 @@ def remove(project: Path) -> None:
         fail(f"expected Specify {expected_specify}, found {version}")
     subprocess.run([specify, "bundle", "remove", "spec-kit-flow"], cwd=project, check=True)
     remove_controller_package(project)
+    remove_agent_defaults(project)
 
 
 def package_extension(source: Path, destination: Path, extension_id: str) -> None:
@@ -561,6 +896,7 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
             "source_commit": commit, "source_dirty": bool(status),
             "source_sha256": controller["sha256"], "controllers": controller["controllers"],
         }
+        release["agent_package"] = package_agents(packages / f"flow-kit-agents-{agent_manifest()['package']['version']}.zip", status=release["status"])
         if RELEASE.exists():
             previous = json.loads(RELEASE.read_text(encoding="utf-8"))
             if not snapshot and previous.get("status") == "released" and previous["bundle_version"] == bundle_version and previous != release:
@@ -622,6 +958,7 @@ def verified_release(catalog_dir: Path | None = None, release_path: Path | None 
         fail("catalog controller inventory differs from the reviewed package manifest")
     if release["status"] == "released" and controller.get("source_dirty"):
         fail("released controller package cannot have dirty source provenance")
+    verify_agent_release(release, catalog_dir)
     return release
 
 
@@ -671,6 +1008,7 @@ def build_development_snapshot(destination: Path) -> dict[str, object]:
             "source_sha256": controller["sha256"], "controllers": controller["controllers"],
         },
     }
+    release["agent_package"] = package_agents(package_dir / f"flow-kit-agents-{agent_manifest()['package']['version']}.zip")
     release_file = destination / "release.json"
     release_file.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     verified_release(destination, release_file)
@@ -718,6 +1056,9 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False) ->
         source_digest=controller_record["source_sha256"], catalog_status=release["status"],
         preflight_only=True,
     )
+    agent_record = release["agent_package"]
+    agent_archive = catalog_dir / "packages" / agent_record["artifact"]
+    validate_agent_archive(agent_archive, agent_record["version"])
     with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-") as temporary:
         directory = Path(temporary)
         assets = directory / "assets"
@@ -765,6 +1106,11 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False) ->
                 project, controller_archive, refresh=refresh,
                 source_digest=controller_record["source_sha256"], catalog_status=release["status"],
             )
+            cache_agent_defaults(project, agent_archive, agent_record)
+            if not refresh:
+                result = agent_operation(project, "install-missing")
+                if result["status"] != "complete":
+                    fail("agent installation incomplete: " + json.dumps(result, sort_keys=True))
         finally:
             server.shutdown()
             server.server_close()
@@ -786,9 +1132,32 @@ def main() -> int:
         consumer.add_argument("--development-snapshot", action="store_true", help="build and use an unreleased snapshot in the initialized source checkout root or a disposable consumer")
     remover = commands.add_parser("remove", help="remove the bundle and unchanged FlowKit-owned controllers")
     remover.add_argument("project", type=Path)
+    agents = commands.add_parser("agents", help="Manage consumer-owned agent copies")
+    actions = agents.add_subparsers(dest="agent_command", required=True)
+    for action in ("install-missing", "reset"):
+        operation = actions.add_parser(action, help="Reset discards selected customizations" if action == "reset" else "Add only absent current defaults")
+        operation.add_argument("project", type=Path)
+        operation.add_argument("--json", action="store_true", dest="json_output")
+        if action == "reset":
+            selection = operation.add_mutually_exclusive_group(required=True)
+            selection.add_argument("--agent")
+            selection.add_argument("--all", action="store_true", dest="all_agents")
     arguments = parser.parse_args()
     try:
-        if arguments.command == "build":
+        if arguments.command == "agents":
+            result = agent_operation(arguments.project, arguments.agent_command, agent=getattr(arguments, "agent", None), all_agents=getattr(arguments, "all_agents", False))
+            if arguments.json_output:
+                print(json.dumps(result, sort_keys=True))
+            else:
+                print(f"{result['operation']}: {result['status']}")
+                for warning in result["warnings"]:
+                    print(warning)
+                for target in result["targets"]:
+                    print(f"{target['path']}: {target['outcome']}")
+            if result["status"] != "complete":
+                print("catalog: " + result.get("error", "agent operation failed"), file=sys.stderr)
+                return 1
+        elif arguments.command == "build":
             build(arguments.roadmap, arguments.wiki, arguments.snapshot)
         elif arguments.command == "remove":
             remove(arguments.project)

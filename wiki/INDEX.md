@@ -20,6 +20,8 @@ page files, not here.
 
 ## Decision
 
+- [FlowKit agent configuration and consumer delivery](pages/flowkit-agent-configuration-and-delivery.md)
+
 - [Abandoned workflow agent capacity proposal](pages/workflow-agent-capacity-proposal.md)
 
 - [Diagram adapter boundary](pages/diagram-adapter-boundary.md)

@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: speckit-flow-specify
   name: Author Active Specification
-  version: "0.1.1"
+  version: "0.2.0"
   author: pegagio
   description: Author the selected active specification with cited context, verified roadmap linkage, and a shared roadmap brief.
 requires:
@@ -26,7 +26,7 @@ steps:
       Read .specify/feature.json and the roadmap without modifying either. Return state ready or blocked; exact selected_entry_id; actual_spec_dir ending in slash; feature_brief containing approved outcome, scope, and dependencies; and evidence. Blocked includes required operator input; give the cause, question, and recovery action. Resolve only the active feature_directory and the unique roadmap entry whose Spec dir matches it. A reserved directory or missing spec.md is valid for authoring; do not create another feature or renumber the target. Missing or malformed pointer, escaping paths, absent or competing roadmap ownership, or unsettled product/authority/scope decisions stop with the exact operator action. Do not auto-select from the roadmap or invoke selection.
     flow_kit:
       delegated: true
-      agent: Roadmap Agent
+      agent: FlowKit-Roadmap Agent
   - id: route-active-feature
     type: switch
     expression: '{{ steps.inspect-active-feature.output.state }}'
@@ -44,7 +44,7 @@ steps:
             Prepare specification authoring for exact active entry {{ steps.inspect-active-feature.output.selected_entry_id }} at {{ steps.inspect-active-feature.output.actual_spec_dir }} using this approved feature brief: {{ steps.inspect-active-feature.output.feature_brief }} and cited context: {{ steps.retrieve-governing-context.output.report }}. Return state ready or blocked and specification_args. Blocked includes missing prerequisites and required operator input; report the cause and recovery action. Ready requires sufficient governing context and no unapproved consequential decision. Include explicit SPECIFY_FEATURE_DIRECTORY equal to the active directory in specification_args. Author or revise only that specification, preserving reviewed decisions and existing content; do not select a new feature, create another target, or infer lifecycle acceptance.
           flow_kit:
             delegated: true
-            agent: Specifier
+            agent: FlowKit-Specifier
         - id: route-specification-readiness
           type: switch
           expression: '{{ steps.prepare-specification-request.output.state }}'
@@ -53,7 +53,7 @@ steps:
               - id: draft-specification
                 flow_kit:
                   delegated: true
-                  agent: Specifier
+                  agent: FlowKit-Specifier
                 command: speckit.specify
                 integration: '{{ inputs.integration }}'
                 input:
@@ -62,7 +62,7 @@ steps:
               - id: assess-created-spec-linkage
                 flow_kit:
                   delegated: true
-                  agent: Reviewer
+                  agent: FlowKit-Reviewer
                 type: prompt
                 integration: '{{ inputs.integration }}'
                 prompt: >-
@@ -101,7 +101,7 @@ steps:
                           - id: verify-repaired-spec-linkage
                             flow_kit:
                               delegated: true
-                              agent: Reviewer
+                              agent: FlowKit-Reviewer
                             type: prompt
                             integration: '{{ inputs.integration }}'
                             prompt: >-
@@ -123,7 +123,7 @@ steps:
         - id: brief-against-roadmap
           flow_kit:
             delegated: true
-            agent: Reviewer
+            agent: FlowKit-Reviewer
           command: speckit.flow-roadmap.brief
           integration: '{{ inputs.integration }}'
           input:

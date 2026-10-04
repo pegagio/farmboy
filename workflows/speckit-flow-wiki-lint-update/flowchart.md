@@ -6,11 +6,11 @@ This diagram maps every step ID in [workflow.yml](./workflow.yml). The dark Star
 flowchart TD
     start((Start))
     loop{{"wiki-lint-update-loop<br/>condition: assess-wiki-findings state == continue<br/>max_iterations: 26"}}
-    lint(["lint-wiki<br/>(Reviewer)<br/>command: speckit.flow-wiki.lint"])
-    assess["assess-wiki-findings<br/>(Reviewer)"]
+    lint(["lint-wiki<br/>(FlowKit-Reviewer)<br/>command: speckit.flow-wiki.lint"])
+    assess["assess-wiki-findings<br/>(FlowKit-Reviewer)"]
     route@{ shape: diam, label: "route-wiki-source-refresh" }
     prepare["prepare-stale-source-refresh"]
-    ingest(["refresh-stale-source<br/>(Wiki Curator)<br/>command: speckit.flow-wiki.ingest"])
+    ingest(["refresh-stale-source<br/>(FlowKit-Wiki Curator)<br/>command: speckit.flow-wiki.ingest"])
     report["report-wiki-update-outcome"]
 
     start --> loop

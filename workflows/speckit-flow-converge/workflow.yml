@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: speckit-flow-converge
   name: Converge Feature
-  version: "0.4.8"
+  version: "0.5.0"
   author: pegagio
   description: Assess convergence and repeat a shared correction waterfall, task analysis, and eligible implementation until clean or safely stopped.
 requires:
@@ -31,7 +31,7 @@ steps:
         integration: '{{ inputs.integration }}'
         flow_kit:
           delegated: true
-          agent: Tasker
+          agent: FlowKit-Tasker
         input:
           args: >-
             Run speckit.converge for {{ inputs.feature_context }} against current implementation and the reviewed specification, plan, and tasks on every pass, including the first and the pass after implementation. Honor the command prerequisites and append-only task contract. Preserve all existing task IDs, completion markers, and completed work; do not modify specification, plan, or code. Return the full current findings, stable gap IDs, evidence, appended task IDs, and prerequisite errors in a report field. Leave tasks unchanged when clean. Do not invoke another workflow or take consequential decisions.
@@ -39,7 +39,7 @@ steps:
         type: prompt
         flow_kit:
           delegated: true
-          agent: Code Reviewer
+          agent: FlowKit-Code Reviewer
         prompt: >-
           Classify this fresh speckit.converge report for {{ inputs.feature_context }}: {{ steps.append-task-remediation.output.report }}. Treat the command report as authoritative for convergence findings, and independently review implementation changes since the prior pass for code defects and relevant validation evidence. Include exact code findings and repository-relative evidence in the assessment. Review an attributable implementation delta with changed paths and before/after evidence; if that boundary is unavailable, stop with an untrusted-delta recovery. Return exact review findings as a separate workflow-specific result alongside the strict envelope, retaining stable ID, task_id, artifact_location, violated requirement, observed deficiency, and exact correction. Fresh independent assessment must confirm substantive resolution and retain new blocking findings. With no safe eligible correction route, return blocked with a specific task-recording or reopening resumption action. Preserve the exact unanswered product question and never infer an answer; successful commands cannot discharge findings. A code finding may continue only when it is represented by an existing or newly appended in-scope task that can be made eligible through the existing analysis and eligibility steps; otherwise return blocked with a precise resume_action to record/reopen the task before implementation. Return a validated outcome envelope with state complete, continue, or blocked; stable reason_code matching `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits, with words joined by hyphens; never use underscores); current repository-relative evidence paths with SHA-256 digests; remaining_ids; resolved_ids; and state-dependent routing fields. The first report establishes the gap baseline. Later reports must prove resolution of a prior gap against current implementation and required validation; new appended task IDs, completed checkboxes, changed bytes, and command success alone are not progress. Complete requires clean current convergence, no material code-review findings, and required validation satisfied. Continue selects the highest affected in-scope entry as next_step_id: reconcile-convergence-specification, reconcile-convergence-plan, reconcile-convergence-tasks, or implement-remediation for implementation-only gaps. Product, constitutional, authority, material-scope, or ambiguous-recovery decisions require blocked with a stable resume_action without taking the consequential action. Missing prerequisites, stale or unavailable reports, failed commands, and unsafe work require blocked with the smallest safe resume_action. Do not modify artifacts in this assessment. The controller validates this outcome and checks progress and the correction limit before entering any correction branch. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
           Any `resume_action` must match the same identifier grammar: lowercase letters and digits joined by single hyphens; never use underscores or spaces.
@@ -62,7 +62,7 @@ steps:
                     integration: '{{ inputs.integration }}'
                     flow_kit:
                       delegated: true
-                      agent: Specifier
+                      agent: FlowKit-Specifier
                     input:
                       args: '{{ steps.prepare-convergence-flowback.output.specification_args }}'
                 skip: []
@@ -76,7 +76,7 @@ steps:
                     integration: '{{ inputs.integration }}'
                     flow_kit:
                       delegated: true
-                      agent: Planner
+                      agent: FlowKit-Planner
                     input:
                       args: '{{ steps.prepare-convergence-flowback.output.plan_args }}'
                 skip: []
@@ -90,7 +90,7 @@ steps:
                     integration: '{{ inputs.integration }}'
                     flow_kit:
                       delegated: true
-                      agent: Tasker
+                      agent: FlowKit-Tasker
                     input:
                       args: >-
                         {{ steps.prepare-convergence-flowback.output.task_args }} Preserve all existing task IDs, completion markers, and appended convergence work; reconcile tasks without dropping or renumbering prior work.
@@ -100,7 +100,7 @@ steps:
               integration: '{{ inputs.integration }}'
               flow_kit:
                 delegated: true
-                agent: Reviewer
+                agent: FlowKit-Reviewer
               input:
                 args: >-
                   Run fresh read-only analysis of current specification, plan, and tasks for {{ inputs.feature_context }}. Return full findings, severities, locations, recommendations, and prerequisite errors in a report output field. Do not modify artifacts or implement work. Missing, failed, or stale analysis cannot authorize implementation.
@@ -108,7 +108,7 @@ steps:
               type: prompt
               flow_kit:
                 delegated: true
-                agent: Reviewer
+                agent: FlowKit-Reviewer
               prompt: >-
                 Assess this fresh analyzer report for {{ inputs.feature_context }}: {{ steps.analyze-remediation-tasks.output.report }}. Return a validated outcome envelope with state, stable reason_code matching `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits, with words joined by hyphens; never use underscores), current repository-relative evidence paths and SHA-256 digests, remaining_ids, resolved_ids, and state-dependent routing fields. Return continue with next_step_id implement-remediation only when analysis is clean, dependent artifacts are reconciled, and exact in-scope unfinished tasks are eligible; include their IDs as remaining_ids. Complete here means no eligible task work, not Feature Converged. Blocked reports the exact consequential decision or unresolved analysis findings, stale or missing output, failed prerequisites, or uncertain task eligibility, with the operator question or blocker and a stable resume_action. Never infer eligibility from successful commands or checkbox claims. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
                 Any `resume_action` must match the same identifier grammar: lowercase letters and digits joined by single hyphens; never use underscores or spaces.
@@ -122,7 +122,7 @@ steps:
                     integration: '{{ inputs.integration }}'
                     flow_kit:
                       delegated: true
-                      agent: Coder
+                      agent: FlowKit-Coder
                     input:
                       args: >-
                         Use these exact review findings: {{ steps.prepare-convergence-flowback.output.implementation_args }}. Implement only the exact analyzed, eligible tasks for {{ inputs.feature_context }} identified by {{ steps.assess-remediation-eligibility.output.remaining_ids }}. Complete all remaining eligible work within that set, preserving reviewed scope and completed work. Stop for a concrete blocker, unsafe discovery, or required operator input; do not re-specify, re-plan, re-task, invoke another workflow, integrate Git, or claim acceptance. Return completed task IDs, validation evidence, and any blocker or operator question in a report output field.

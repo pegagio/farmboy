@@ -1,8 +1,8 @@
 ---
 title: Named agents for delegated steps
 type: concept
-sources: [S018, S020, S021, S023]
-updated: 2026-10-02
+sources: [S018, S020, S021, S023, S025]
+updated: 2026-10-03
 ---
 
 # Named agents for delegated steps
@@ -32,6 +32,8 @@ Feature 014 requires Roadmap Agent, Specifier, Planner, Tasker, Reviewer, Coder,
 Native configurations are repository-local; the temporary Coder probe is replaced with ordinary responsibilities. Authoring agents still perform command-required self-checks, prerequisites, and quality checklists, which cannot replace independent assessment. Exact roadmap approval and mutation authority remain in the main task. Structural checks and no-op dispatch are distinguished from live named-agent evidence. (S021)
 
 The inventory distinguishes exact graph responsibilities from native dispatch and model evidence; see [workflow graph responsibility boundaries](./workflow-graph-responsibility-boundaries.md). (S023)
+
+Feature 017 specifies prospective prefixed identities and model review; see [its delivery contract](./flowkit-agent-configuration-and-delivery.md). (S025)
 
 ## Related pages
 

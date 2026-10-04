@@ -9,8 +9,8 @@ flowchart TD
     start((Start))
     loop{{"tasks-output-loop<br/>condition: verify-task-output state == continue<br/>max_iterations: 5"}}
     prepare["prepare-task-request"]
-    generate(["generate-tasks<br/>(Tasker)<br/>command: speckit.tasks"])
-    verify["verify-task-output<br/>(Reviewer)"]
+    generate(["generate-tasks<br/>(FlowKit-Tasker)<br/>command: speckit.tasks"])
+    verify["verify-task-output<br/>(FlowKit-Reviewer)"]
     report["report-task-outcome"]
 
     start --> loop

@@ -166,7 +166,7 @@ class WorkflowPathTests(unittest.TestCase):
         workflow = load_workflow("speckit-flow-implement")
         steps = workflow["steps"]
         self.assertEqual(["assess-implementation-state", "implementation-continuation-loop", "report-implementation-outcome"], [step["id"] for step in steps])
-        self.assertEqual("Reviewer", steps[0]["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Reviewer", steps[0]["flow_kit"]["agent"])
         self.assertIn("progress baseline", steps[0]["prompt"])
         loop = steps[1]
         self.assertEqual("do-while", loop["type"])
@@ -174,8 +174,8 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual(["implement-eligible-work", "assess-implementation-after-pass"], [step["id"] for step in loop["steps"]])
         self.assertEqual("{{ steps.assess-implementation-after-pass.output.state == 'continue' }}", loop["condition"])
         self.assertEqual(["speckit.implement"], commands(steps))
-        self.assertEqual("Coder", loop["steps"][0]["flow_kit"]["agent"])
-        self.assertEqual("Code Reviewer", loop["steps"][1]["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Coder", loop["steps"][0]["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Code Reviewer", loop["steps"][1]["flow_kit"]["agent"])
         self.assertNotIn("implementation_decision", workflow["inputs"])
         self.assertIn("all remaining eligible tasks", loop["steps"][0]["input"]["args"])
         self.assertIn("operator input is required", loop["steps"][0]["input"]["args"])
@@ -470,8 +470,8 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual(["prepare-plan-request", "create-plan", "verify-plan-output"],
                          [step["id"] for step in loop["steps"]])
         self.assertEqual(["speckit.plan"], commands(steps))
-        self.assertEqual("Planner", create["flow_kit"]["agent"])
-        self.assertEqual("Reviewer", verify["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Planner", create["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Reviewer", verify["flow_kit"]["agent"])
         self.assertEqual("{{ steps.prepare-plan-request.output.args }}", create["input"]["args"])
         self.assertIn("latest verify-plan-output remaining_ids", prepare["prompt"])
         self.assertIn("{{ steps.prepare-plan-request.output.remaining_ids }}", verify["prompt"])
@@ -499,8 +499,8 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual(["prepare-task-request", "generate-tasks", "verify-task-output"],
                          [step["id"] for step in loop["steps"]])
         self.assertEqual(["speckit.tasks"], commands(workflow["steps"]))
-        self.assertEqual("Tasker", generate["flow_kit"]["agent"])
-        self.assertEqual("Reviewer", verify["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Tasker", generate["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Reviewer", verify["flow_kit"]["agent"])
         self.assertEqual("{{ steps.prepare-task-request.output.args }}", generate["input"]["args"])
         self.assertIn("latest verify-task-output remaining_ids", prepare["prompt"])
         self.assertIn("{{ steps.prepare-task-request.output.remaining_ids }}", verify["prompt"])
@@ -563,7 +563,7 @@ class WorkflowPathTests(unittest.TestCase):
                     return observed
                 self.assertEqual(expected, selected_commands(loop["steps"]))
         assessor = loop["steps"][1]
-        self.assertEqual("Code Reviewer", assessor["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Code Reviewer", assessor["flow_kit"]["agent"])
         self.assertIn("independently review implementation changes", assessor["prompt"])
         self.assertIn("otherwise return blocked", assessor["prompt"])
         with self.assertRaisesRegex(ValueError, "unresolved step output reference"):
@@ -650,7 +650,7 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual(6, loop["max_iterations"])
         self.assertEqual(["debrief-roadmap", "assess-closeout-debrief", "route-closeout-correction"],
                          [n["id"] for n in loop["steps"]])
-        self.assertEqual("Code Reviewer", loop["steps"][1]["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Code Reviewer", loop["steps"][1]["flow_kit"]["agent"])
         self.assertIn("Independently review implementation changes", loop["steps"][1]["prompt"])
         self.assertIn("otherwise return blocked", loop["steps"][1]["prompt"])
         route = find_step(steps, "route-closeout-correction")
@@ -889,7 +889,7 @@ class WorkflowPathTests(unittest.TestCase):
         workflow = load_workflow('speckit-flow-' + purpose)
         loop = workflow['steps'][0]
         prepare, author, review = loop['steps']
-        self.assertEqual('Reviewer', review['flow_kit']['agent'])
+        self.assertEqual('FlowKit-Reviewer', review['flow_kit']['agent'])
         self.assertNotEqual(author['flow_kit']['agent'], review['flow_kit']['agent'])
         body = {n['id'] for n in loop['steps']}
         for required in ('findings verbatim in args', 'observed_deficiency', 'exact_correction', 'do not rename repeated findings'):
@@ -932,7 +932,7 @@ class WorkflowPathTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'does not match'):
                     self.controller.validate_outcome_envelope(stale, project, body)
                 artifact.write_text(case['after'])
-                # Fresh scripted Reviewer confirms correction and retains a new blocker.
+                # Fresh scripted FlowKit-Reviewer confirms correction and retains a new blocker.
                 self.assertIn(finding['exact_correction'], artifact.read_text())
                 refreshed = envelope(['new-blocking-finding'], [finding['id']])
                 self.assertEqual('continue', self.controller.route_loop_assessment(refreshed, iteration=2, **common)['action'])
@@ -961,7 +961,7 @@ class WorkflowPathTests(unittest.TestCase):
         self.exercise_semantic_review_fixture('tasks')
 
     def test_codeReviewExactDelta_correctsEligibleTaskOrStopsWithoutAuthority(self) -> None:
-        """Script distinct Code Reviewer/Coder results through declared correction paths."""
+        """Script distinct FlowKit-Code Reviewer/FlowKit-Coder results through declared correction paths."""
         configurations = (
             ('implement', 'assess-implementation-after-pass', 'implement-eligible-work', None),
             ('converge', 'assess-convergence', 'implement-remediation', 'prepare-convergence-flowback'),
@@ -971,8 +971,8 @@ class WorkflowPathTests(unittest.TestCase):
             workflow = load_workflow('speckit-flow-' + purpose)
             review = find_step(workflow['steps'], review_id)
             author = find_step(workflow['steps'], author_id)
-            self.assertEqual('Code Reviewer', review['flow_kit']['agent'])
-            self.assertEqual('Coder', author['flow_kit']['agent'])
+            self.assertEqual('FlowKit-Code Reviewer', review['flow_kit']['agent'])
+            self.assertEqual('FlowKit-Coder', author['flow_kit']['agent'])
             self.assertIn('implementation delta', review['prompt'])
             self.assertIn('separate workflow-specific result', review['prompt'])
             self.assertIn('exact review findings', author['input']['args'])
@@ -1014,7 +1014,7 @@ class WorkflowPathTests(unittest.TestCase):
                     self.assertIn(json.dumps([finding], indent=2), args)
                 else:
                     self.assertIn('latest assess-implementation-after-pass', author['input']['args'])
-                # Coder applies only T002; a fresh scripted reviewer verifies the change.
+                # FlowKit-Coder applies only T002; a fresh scripted reviewer verifies the change.
                 source.write_text(before)
                 namespace = {}
                 exec(source.read_text(), namespace)

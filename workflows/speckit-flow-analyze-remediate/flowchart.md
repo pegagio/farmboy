@@ -10,13 +10,13 @@ flowchart TD
     loop{{"analysis-remediation-loop<br/>condition: assess-analysis state == continue<br/>max_iterations: 6"}}
     prepare["prepare-analysis-flowback"]
     specRoute@{ shape: diam, label: "route-specification-remediation" }
-    spec(["remediate-specification<br/>(Specifier)<br/>command: speckit.specify"])
+    spec(["remediate-specification<br/>(FlowKit-Specifier)<br/>command: speckit.specify"])
     planRoute@{ shape: diam, label: "route-plan-remediation" }
-    plan(["remediate-plan<br/>(Planner)<br/>command: speckit.plan"])
+    plan(["remediate-plan<br/>(FlowKit-Planner)<br/>command: speckit.plan"])
     tasksRoute@{ shape: diam, label: "route-task-remediation" }
-    tasks(["remediate-tasks<br/>(Tasker)<br/>command: speckit.tasks"])
-    analyze(["analyze-artifacts<br/>(Reviewer)<br/>command: speckit.analyze"])
-    assess["assess-analysis<br/>(Reviewer)"]
+    tasks(["remediate-tasks<br/>(FlowKit-Tasker)<br/>command: speckit.tasks"])
+    analyze(["analyze-artifacts<br/>(FlowKit-Reviewer)<br/>command: speckit.analyze"])
+    assess["assess-analysis<br/>(FlowKit-Reviewer)"]
     report["report-analysis-outcome"]
 
     start --> loop

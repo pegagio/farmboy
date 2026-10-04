@@ -22,7 +22,7 @@ steps:
     type: prompt
     flow_kit:
       delegated: true
-      agent: Reviewer
+      agent: FlowKit-Reviewer
     prompt: "Assess current evidence for {{ inputs.feature_context }} and return a validated outcome envelope."
   - id: route-initial
     type: switch
@@ -43,14 +43,14 @@ steps:
               integration: "codex"
               flow_kit:
                 delegated: true
-                agent: Tasker
+                agent: FlowKit-Tasker
               input:
                 args: "Correct {{ inputs.feature_context }} using the current evidence."
             - id: assess-loop
               type: prompt
               flow_kit:
                 delegated: true
-                agent: Reviewer
+                agent: FlowKit-Reviewer
               prompt: "Reassess after this pass and return the outcome envelope."
         - id: route-after-loop
           type: switch

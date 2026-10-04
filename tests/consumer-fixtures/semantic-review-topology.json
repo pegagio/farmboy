@@ -15,7 +15,7 @@
           "command": "speckit.plan",
           "flow_kit": {
             "delegated": true,
-            "agent": "Planner"
+            "agent": "FlowKit-Planner"
           }
         },
         {
@@ -23,7 +23,7 @@
           "type": "prompt",
           "flow_kit": {
             "delegated": true,
-            "agent": "Reviewer"
+            "agent": "FlowKit-Reviewer"
           }
         }
       ]
@@ -49,7 +49,7 @@
           "command": "speckit.tasks",
           "flow_kit": {
             "delegated": true,
-            "agent": "Tasker"
+            "agent": "FlowKit-Tasker"
           }
         },
         {
@@ -57,7 +57,7 @@
           "type": "prompt",
           "flow_kit": {
             "delegated": true,
-            "agent": "Reviewer"
+            "agent": "FlowKit-Reviewer"
           }
         }
       ]
@@ -73,7 +73,7 @@
       "type": "prompt",
       "flow_kit": {
         "delegated": true,
-        "agent": "Reviewer"
+        "agent": "FlowKit-Reviewer"
       }
     },
     {
@@ -87,7 +87,7 @@
           "command": "speckit.implement",
           "flow_kit": {
             "delegated": true,
-            "agent": "Coder"
+            "agent": "FlowKit-Coder"
           }
         },
         {
@@ -95,7 +95,7 @@
           "type": "prompt",
           "flow_kit": {
             "delegated": true,
-            "agent": "Code Reviewer"
+            "agent": "FlowKit-Code Reviewer"
           }
         }
       ]
@@ -117,7 +117,7 @@
           "command": "speckit.converge",
           "flow_kit": {
             "delegated": true,
-            "agent": "Tasker"
+            "agent": "FlowKit-Tasker"
           }
         },
         {
@@ -125,7 +125,7 @@
           "type": "prompt",
           "flow_kit": {
             "delegated": true,
-            "agent": "Code Reviewer"
+            "agent": "FlowKit-Code Reviewer"
           }
         },
         {
@@ -149,7 +149,7 @@
                       "command": "speckit.specify",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Specifier"
+                        "agent": "FlowKit-Specifier"
                       }
                     }
                   ],
@@ -167,7 +167,7 @@
                       "command": "speckit.plan",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Planner"
+                        "agent": "FlowKit-Planner"
                       }
                     }
                   ],
@@ -185,7 +185,7 @@
                       "command": "speckit.tasks",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Tasker"
+                        "agent": "FlowKit-Tasker"
                       }
                     }
                   ],
@@ -197,7 +197,7 @@
                 "command": "speckit.analyze",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Reviewer"
+                  "agent": "FlowKit-Reviewer"
                 }
               },
               {
@@ -205,7 +205,7 @@
                 "type": "prompt",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Reviewer"
+                  "agent": "FlowKit-Reviewer"
                 }
               },
               {
@@ -219,7 +219,7 @@
                       "command": "speckit.implement",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Coder"
+                        "agent": "FlowKit-Coder"
                       }
                     }
                   ],
@@ -246,7 +246,7 @@
       "type": "prompt",
       "flow_kit": {
         "delegated": true,
-        "agent": "Reviewer"
+        "agent": "FlowKit-Reviewer"
       }
     },
     {
@@ -270,7 +270,7 @@
                   "command": "speckit.specify",
                   "flow_kit": {
                     "delegated": true,
-                    "agent": "Specifier"
+                    "agent": "FlowKit-Specifier"
                   }
                 }
               ],
@@ -289,7 +289,7 @@
                 "command": "speckit.flow-roadmap.debrief",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Reviewer"
+                  "agent": "FlowKit-Reviewer"
                 }
               },
               {
@@ -297,7 +297,7 @@
                 "type": "prompt",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Code Reviewer"
+                  "agent": "FlowKit-Code Reviewer"
                 }
               },
               {
@@ -321,7 +321,7 @@
                             "command": "speckit.specify",
                             "flow_kit": {
                               "delegated": true,
-                              "agent": "Specifier"
+                              "agent": "FlowKit-Specifier"
                             }
                           }
                         ],
@@ -339,7 +339,7 @@
                             "command": "speckit.plan",
                             "flow_kit": {
                               "delegated": true,
-                              "agent": "Planner"
+                              "agent": "FlowKit-Planner"
                             }
                           }
                         ],
@@ -357,7 +357,7 @@
                             "command": "speckit.tasks",
                             "flow_kit": {
                               "delegated": true,
-                              "agent": "Tasker"
+                              "agent": "FlowKit-Tasker"
                             }
                           }
                         ],
@@ -369,7 +369,7 @@
                       "command": "speckit.analyze",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Reviewer"
+                        "agent": "FlowKit-Reviewer"
                       }
                     },
                     {
@@ -377,7 +377,7 @@
                       "type": "prompt",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "Reviewer"
+                        "agent": "FlowKit-Reviewer"
                       }
                     },
                     {
@@ -391,7 +391,7 @@
                             "command": "speckit.implement",
                             "flow_kit": {
                               "delegated": true,
-                              "agent": "Coder"
+                              "agent": "FlowKit-Coder"
                             }
                           }
                         ],
@@ -449,7 +449,7 @@
       "type": "prompt",
       "flow_kit": {
         "delegated": true,
-        "agent": "Roadmap Agent"
+        "agent": "FlowKit-Roadmap Agent"
       }
     },
     {
@@ -473,7 +473,7 @@
                 "command": "speckit.flow-wiki.ingest",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Wiki Curator"
+                  "agent": "FlowKit-Wiki Curator"
                 }
               },
               {
@@ -481,7 +481,7 @@
                 "command": "speckit.flow-wiki.lint",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Reviewer"
+                  "agent": "FlowKit-Reviewer"
                 }
               },
               {
@@ -489,7 +489,7 @@
                 "type": "prompt",
                 "flow_kit": {
                   "delegated": true,
-                  "agent": "Reviewer"
+                  "agent": "FlowKit-Reviewer"
                 }
               }
             ]
@@ -499,7 +499,7 @@
             "type": "prompt",
             "flow_kit": {
               "delegated": true,
-              "agent": "Reviewer"
+              "agent": "FlowKit-Reviewer"
             }
           }
         ],

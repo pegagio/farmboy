@@ -1,7 +1,17 @@
 {
-  "bundle_version": "0.13.7",
+  "agent_package": {
+    "artifact": "flow-kit-agents-0.1.0.zip",
+    "id": "flow-kit-agents",
+    "sha256": "410266fc9dc79a78ed267c58a96e745a7e1980db6f9bd1c9a444b15402bb7f0f",
+    "source_commit": "ced0e9e67e49d1ff757e41e313445d5b504a8f9f",
+    "source_repository": "https://github.com/pegagio/spec-kit-flow",
+    "source_sha256": "40e0ee5b2862ff7e701fcc744fb8a75965fe73b4751d0f7980622e557dc1cf5c",
+    "status": "snapshot",
+    "version": "0.1.0"
+  },
+  "bundle_version": "0.14.0",
   "controller_package": {
-    "artifact": "flow-kit-controllers-0.5.2.zip",
+    "artifact": "flow-kit-controllers-0.6.0.zip",
     "controllers": [
       {
         "display_name": "FlowKit Select Feature",
@@ -55,11 +65,11 @@
       }
     ],
     "id": "flow-kit-controllers",
-    "sha256": "1de97fc94a5e4a8d9ef0bd1534b8962d437bf7a5d71984988380c925bb8a3778",
-    "source_commit": "6b4c680d0b284f08e149cd0464e4c1f752b5cb7c",
-    "source_dirty": false,
-    "source_sha256": "1de97fc94a5e4a8d9ef0bd1534b8962d437bf7a5d71984988380c925bb8a3778",
-    "version": "0.5.2"
+    "sha256": "bc96a2236230ed4248f4bb5fd066c21dcde671f4d0260f937529ec5e601e122e",
+    "source_commit": "ced0e9e67e49d1ff757e41e313445d5b504a8f9f",
+    "source_dirty": true,
+    "source_sha256": "bc96a2236230ed4248f4bb5fd066c21dcde671f4d0260f937529ec5e601e122e",
+    "version": "0.6.0"
   },
   "extensions": {
     "flow-feedback": {
@@ -94,47 +104,47 @@
     }
   },
   "schema_version": "1.0",
-  "status": "released",
+  "status": "snapshot",
   "workflows": {
     "speckit-flow-analyze-remediate": {
-      "sha256": "995664757bf62c75e561e75aedb0b1d05647da190bd19d6ab48994a8b54b4b6c",
-      "version": "0.4.6"
+      "sha256": "3eb892e9b7ef85f32ce1d1bbd7350446b0fd872b1c260f527732ca275fc8e347",
+      "version": "0.5.0"
     },
     "speckit-flow-clarify": {
-      "sha256": "3d14ce6389c4c441e1b9fafbfa2a61660dc89729999f1765ec2e2f8143b9148a",
-      "version": "0.4.5"
+      "sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+      "version": "0.5.0"
     },
     "speckit-flow-closeout": {
-      "sha256": "e346f8f3d8ffad08038e2cff6d9dc9207b2181625b54636b5d17fd92abdf9788",
-      "version": "0.6.5"
+      "sha256": "9edc3a629da571d66b6a7deb97468e96c7f37ae23346c3d2652bd24ad89369fc",
+      "version": "0.7.0"
     },
     "speckit-flow-converge": {
-      "sha256": "fd9d6c52d0c321805747887311e780fafa332b9a69b5314271f968e598df4b9f",
-      "version": "0.4.8"
+      "sha256": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
+      "version": "0.5.0"
     },
     "speckit-flow-implement": {
-      "sha256": "4f761899dcfdae015588d575d84203e60b77f353e5d931c764aa9539e82f48d4",
-      "version": "0.4.6"
+      "sha256": "436f01755581ddcaa2a52d18648e450c6563bb246b85a63a97f428923da48192",
+      "version": "0.5.0"
     },
     "speckit-flow-plan": {
-      "sha256": "c98a19314502047c1447e0bc40da0a884ef952f553962a9465c18ccece625e75",
-      "version": "0.4.6"
+      "sha256": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
+      "version": "0.5.0"
     },
     "speckit-flow-select-feature": {
-      "sha256": "2aa47779f11a78161de28e42d7175a3ea5578a38663a64185486fbab8c6ec614",
-      "version": "0.1.1"
+      "sha256": "90adbb56a95c8c92a266655c043ac35736976a1ec2d5867c5e6cd21193195b4c",
+      "version": "0.2.0"
     },
     "speckit-flow-specify": {
-      "sha256": "72ebab4c069fc1ccf3b65234269a410df5ab980cdfe68b599b4c90cb2999d766",
-      "version": "0.1.1"
+      "sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2",
+      "version": "0.2.0"
     },
     "speckit-flow-tasks": {
-      "sha256": "5b13da509cb95c1c852476d85b19d13b5fc0e1e7547d7e77477ae4143e3aff0f",
-      "version": "0.4.6"
+      "sha256": "12de4b2ba7c2f382aa32860a545e3966c19ebb7f0e566c1bdc0fb5e98e2ded0e",
+      "version": "0.5.0"
     },
     "speckit-flow-wiki-lint-update": {
-      "sha256": "735d244d4f98ed3bb96a672239891e75b0818b401524aa45b001e2649ef86df8",
-      "version": "0.1.3"
+      "sha256": "5e0c05d36ac7b99c1908bb3e7eaf60f483cfcc8867769fd9057441edcbd2553e",
+      "version": "0.2.0"
     }
   }
 }

@@ -13,7 +13,7 @@ This repository owns the generic workflow and feedback source. The repository an
 
 ## What the bundle installs
 
-The [bundle source manifest](bundles/spec-kit-flow/bundle.yml) is version `0.13.0` and targets Codex. It requires Specify `>=1.0.10.dev0` and Python 3. The changed controller source is version `0.5.0`; the checked-in catalog still contains the earlier `0.4.1` bundle and `0.1.1` controller release. The bundle pins these extensions:
+The [bundle source manifest](bundles/spec-kit-flow/bundle.yml) is version `0.14.0` and targets Codex. The controller package is `0.6.0`; the canonical agent package is `flow-kit-agents` `0.1.0`. The checked-in catalog is an unreleased development snapshot. Specify `>=1.0.10.dev0` and Python 3 are required. The bundle pins these extensions:
 
 | Extension ID | Version | Purpose |
 | --- | --- | --- |
@@ -25,22 +25,22 @@ It also installs the ten active workflows in [`workflows/`](workflows/README.md)
 
 | Workflow ID | Version | Role |
 | --- | --- | --- |
-| `speckit-flow-select-feature` | `0.1.0` | List and discuss dependencies, select and activate a feature without authoring a spec |
-| `speckit-flow-specify` | `0.1.0` | Author the active specification with cited context, verified linkage, and a roadmap brief |
-| `speckit-flow-clarify` | `0.4.2` | Run one bounded clarification session |
-| `speckit-flow-plan` | `0.4.2` | Review readiness and create the technical plan |
-| `speckit-flow-tasks` | `0.4.2` | Generate implementation tasks separately from planning |
-| `speckit-flow-analyze-remediate` | `0.4.2` | Analyze artifact consistency and route bounded remediation |
-| `speckit-flow-implement` | `0.4.2` | Implement eligible tasks within the selected agent's scope |
-| `speckit-flow-converge` | `0.4.2` | Compare implementation with the feature artifacts and close gaps |
-| `speckit-flow-closeout` | `0.6.0` | Review completion, approve roadmap verification, maintain wiki context, and report commit readiness |
-| `speckit-flow-wiki-lint-update` | `0.1.0` | Lint first, refresh stale registered sources, and report all unresolved wiki findings |
+| `speckit-flow-select-feature` | `0.2.0` | List and discuss dependencies, select and activate a feature without authoring a spec |
+| `speckit-flow-specify` | `0.2.0` | Author the active specification with cited context, verified linkage, and a roadmap brief |
+| `speckit-flow-clarify` | `0.5.0` | Run one bounded clarification session |
+| `speckit-flow-plan` | `0.5.0` | Review readiness and create the technical plan |
+| `speckit-flow-tasks` | `0.5.0` | Generate implementation tasks separately from planning |
+| `speckit-flow-analyze-remediate` | `0.5.0` | Analyze artifact consistency and route bounded remediation |
+| `speckit-flow-implement` | `0.5.0` | Implement eligible tasks within the selected agent's scope |
+| `speckit-flow-converge` | `0.5.0` | Compare implementation with the feature artifacts and close gaps |
+| `speckit-flow-closeout` | `0.7.0` | Review completion, approve roadmap verification, maintain wiki context, and report commit readiness |
+| `speckit-flow-wiki-lint-update` | `0.2.0` | Lint first, refresh stale registered sources, and report all unresolved wiki findings |
 
 The bundle does not include a preset or `speckit-flow-feedback-maintainer`. Maintainer intake belongs in this source environment, not a consumer project.
 
 ## Installation
 
-The checked-in catalog contains the locally built `0.4.1` release, including controller package `0.1.1` and the eight FlowKit controller skills. Current source bundle `0.13.0` and controller `0.5.0` are not released. The normal catalog installer verifies that release metadata matches source; it rejects the old catalog from this unreleased source checkout. Use a checkout matching the release for ordinary installation, or use a disposable initialized consumer and development-snapshot mode to validate current source. A compatible Specify CLI must already be available; `mise.toml` records the tested fork version but this checkout does not distribute the CLI. The catalog has not been published or pushed.
+The checked-in catalog is the local `0.14.0` development snapshot, including ten controller skills and eight consumer-owned agent defaults. Ordinary installation requires a released catalog matching source; use development-snapshot mode in an initialized source checkout or disposable consumer to test current source. A compatible Specify CLI must be available; `mise.toml` records the tested fork version. Local packaging is not publication or consumer adoption.
 
 To install the checked-in release from a checkout matching that release, run `mise run catalog:install /path/to/my-project` after preparing the checkout. To validate source changes that have not reached the catalog, create and initialize a disposable consumer under the system temporary directory, then use development-snapshot mode:
 
@@ -57,7 +57,7 @@ PATH="$(dirname "$SPECIFY_BIN"):$PATH" python3 tools/catalog.py install "$CONSUM
 
 Snapshot mode builds a temporary catalog from current source and verified extension packages, accepts only an already initialized consumer under the system temp directory, records the package as unreleased, and leaves checked-in release metadata unchanged. The tested CLI is `1.0.10.dev0+pegagio.2`; compatibility with stock Spec Kit remains unverified. Inspect installed component IDs and provenance before use.
 
-The snapshot cannot be installed into the source checkout because snapshot installation is restricted to temporary consumers. The regular catalog task initializes and installs the checked-in release. New local Codex-managed worktrees copy ignored installed state through `.worktreeinclude` after a supported released installation; fresh clones and plain Git worktrees install the released catalog separately.
+Development snapshots may be installed into the initialized source checkout or a disposable temporary consumer. The regular catalog task requires a matching released catalog. Codex-managed worktrees use `.worktreeinclude` to copy the existing ignored contributor context.
 
 Consider project governance separately from installation: use the [consumer adoption review](docs/consumer-adoption.md) to inspect and decide whether to adopt the model. Installing FlowKit alone does not change project guidance or confirm adoption.
 
@@ -123,3 +123,5 @@ The [release metadata](catalog/release.json) records packaged versions, source c
 
 
 Start Feature is deprecated and excluded from current source bundle bindings. Its retained source only reports the replacement workflows and stops. Select Feature never creates or changes `spec.md`; an absent target directory is valid until Specify is separately invoked. Existing specifications remain untouched during selection.
+
+See [agent configuration and consumer copies](docs/installation.md#agent-configuration-and-consumer-copies) for approved model/effort defaults, direct customization, update/install-missing and explicit reset commands.

@@ -5,21 +5,21 @@ This diagram maps every step ID in [workflow.yml](./workflow.yml) to its executi
 ```mermaid
 flowchart TD
     start((Start))
-    n01["inspect-active-feature<br/>(Roadmap Agent)"]
+    n01["inspect-active-feature<br/>(FlowKit-Roadmap Agent)"]
     n02@{ shape: diam, label: "route-active-feature" }
     n03(["retrieve-governing-context<br/>command: speckit.flow-wiki.query"])
-    n04["prepare-specification-request<br/>(Specifier)"]
+    n04["prepare-specification-request<br/>(FlowKit-Specifier)"]
     n05@{ shape: diam, label: "route-specification-readiness" }
-    n06(["draft-specification<br/>(Specifier)<br/>command: speckit.specify"])
-    n07["assess-created-spec-linkage<br/>(Reviewer)"]
+    n06(["draft-specification<br/>(FlowKit-Specifier)<br/>command: speckit.specify"])
+    n07["assess-created-spec-linkage<br/>(FlowKit-Reviewer)"]
     n08@{ shape: diam, label: "route-created-spec-linkage" }
     n09[/"review-spec-dir-patch"/]
     n10@{ shape: diam, label: "route-spec-dir-patch-decision" }
     n11(["apply-approved-spec-dir-patch<br/>command: speckit.flow-roadmap.write"])
-    n12["verify-repaired-spec-linkage<br/>(Reviewer)"]
+    n12["verify-repaired-spec-linkage<br/>(FlowKit-Reviewer)"]
     n13["prepare-specification-outcome"]
     n14@{ shape: diam, label: "route-specification-outcome" }
-    n15(["brief-against-roadmap<br/>(Reviewer)<br/>command: speckit.flow-roadmap.brief"])
+    n15(["brief-against-roadmap<br/>(FlowKit-Reviewer)<br/>command: speckit.flow-roadmap.brief"])
     n16["report-specification-outcome"]
 
     start --> n01

@@ -2,7 +2,7 @@ schema_version: "1.0"
 workflow:
   id: "speckit-flow-wiki-lint-update"
   name: "Lint and Update Wiki"
-  version: "0.1.3"
+  version: "0.2.0"
   author: "pegagio"
   description: "Lint first, refresh identified stale registered sources individually, and repeat while findings are resolved; report every remaining wiki issue."
 requires:
@@ -36,12 +36,12 @@ steps:
           args: "{{ inputs.lint_scope }}"
         flow_kit:
           delegated: true
-          agent: Reviewer
+          agent: FlowKit-Reviewer
       - id: assess-wiki-findings
         type: prompt
         flow_kit:
           delegated: true
-          agent: Reviewer
+          agent: FlowKit-Reviewer
         prompt: >-
           Exact URLs explicitly authorized by the operator: {{ inputs.authorized_urls }}. Assess the fresh lint report and configured wiki for the exact lint scope {{ inputs.lint_scope }}. Read the written lint-report.md, source registry, affected page citations, and current source evidence as needed; do not treat missing or failed lint output as clean. Return a validated outcome envelope with state complete, continue, or blocked; stable reason_code; current repository-relative evidence paths and SHA-256 digests; stable remaining_ids for every unresolved lint finding; resolved_ids identifying prior findings substantively resolved; and state-dependent routing fields. Keep contradictions, conflicting authority, citations, structural problems, malformed metadata, broken links, and index drift visible even while unrelated stale sources can be refreshed. Do not restrict the report to staleness. Deduplicate by check/page/evidence using the lint contract and map all source-backed stale findings through cited S-ids to normalized registered source identities. Deduplicate shared sources so one refresh can cover multiple affected pages. Continue when at least one stale claim has an identifiable, readable registered local source whose current evidence can safely refresh it, and set next_step_id to prepare-stale-source-refresh. Invocation authorizes refresh of those identified registered local sources within the requested lint scope, not unrelated sources or wiki pages as source material. Do not refresh an authority-conflicted source or fetch a URL unless the operator explicitly supplied that exact URL in this invocation; unresolved URL authorization is reported as blocked work while independent safe local refreshes can proceed. Age-only warnings without substantive refresh evidence are reported, never resolved by timestamp changes. The first lint establishes the baseline. Later assessments must prove resolution of a prior finding from affected claims, citations, and current source evidence; re-ingestion, changed dates, changed bytes, and successful commands alone do not demonstrate progress. Complete requires successful fresh lint with no unresolved findings. If safe stale refreshes are exhausted but other findings remain, return blocked with a stable resume_action and preserve each exact suggested action or operator question. Missing sources, unsupported repairs, stale evidence, scope expansion, contradictions requiring authority decisions, no progress, or cap exhaustion cannot be called clean. Do not modify sources, specifications, plans, tasks, roadmap, active feature state, or Git. The controller checks progress and the correction cap before authorizing a source refresh. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
       - id: route-wiki-source-refresh
@@ -60,7 +60,7 @@ steps:
                 args: "{{ steps.prepare-stale-source-refresh.output.source }}"
               flow_kit:
                 delegated: true
-                agent: Wiki Curator
+                agent: FlowKit-Wiki Curator
           complete: []
           blocked: []
   - id: report-wiki-update-outcome

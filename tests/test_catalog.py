@@ -70,56 +70,56 @@ class CatalogReleaseTests(unittest.TestCase):
         expectations = {
             "speckit-flow-start-feature": {},
             "speckit-flow-select-feature": {
-                "list-roadmap-options": "Roadmap Agent", "prepare-feature-selection": "Roadmap Agent",
-                "verify-feature-selection": "Reviewer",
+                "list-roadmap-options": "FlowKit-Roadmap Agent", "prepare-feature-selection": "FlowKit-Roadmap Agent",
+                "verify-feature-selection": "FlowKit-Reviewer",
             },
             "speckit-flow-specify": {
-                "inspect-active-feature": "Roadmap Agent", "prepare-specification-request": "Specifier",
-                "draft-specification": "Specifier", "assess-created-spec-linkage": "Reviewer",
-                "verify-repaired-spec-linkage": "Reviewer", "brief-against-roadmap": "Reviewer",
+                "inspect-active-feature": "FlowKit-Roadmap Agent", "prepare-specification-request": "FlowKit-Specifier",
+                "draft-specification": "FlowKit-Specifier", "assess-created-spec-linkage": "FlowKit-Reviewer",
+                "verify-repaired-spec-linkage": "FlowKit-Reviewer", "brief-against-roadmap": "FlowKit-Reviewer",
             },
             "speckit-flow-clarify": {
-                "clarify-session": "Specifier", "assess-clarification-after-session": "Reviewer",
+                "clarify-session": "FlowKit-Specifier", "assess-clarification-after-session": "FlowKit-Reviewer",
             },
             "speckit-flow-plan": {
-                "create-plan": "Planner", "verify-plan-output": "Reviewer",
+                "create-plan": "FlowKit-Planner", "verify-plan-output": "FlowKit-Reviewer",
             },
             "speckit-flow-tasks": {
-                "generate-tasks": "Tasker", "verify-task-output": "Reviewer",
+                "generate-tasks": "FlowKit-Tasker", "verify-task-output": "FlowKit-Reviewer",
             },
             "speckit-flow-analyze-remediate": {
-                "remediate-specification": "Specifier", "remediate-plan": "Planner",
-                "remediate-tasks": "Tasker", "analyze-artifacts": "Reviewer", "assess-analysis": "Reviewer",
+                "remediate-specification": "FlowKit-Specifier", "remediate-plan": "FlowKit-Planner",
+                "remediate-tasks": "FlowKit-Tasker", "analyze-artifacts": "FlowKit-Reviewer", "assess-analysis": "FlowKit-Reviewer",
             },
             "speckit-flow-implement": {
-                "assess-implementation-state": "Reviewer", "implement-eligible-work": "Coder",
-                "assess-implementation-after-pass": "Code Reviewer",
+                "assess-implementation-state": "FlowKit-Reviewer", "implement-eligible-work": "FlowKit-Coder",
+                "assess-implementation-after-pass": "FlowKit-Code Reviewer",
             },
             "speckit-flow-converge": {
-                "append-task-remediation": "Tasker", "reconcile-convergence-specification": "Specifier",
-                "reconcile-convergence-plan": "Planner", "reconcile-convergence-tasks": "Tasker",
-                "analyze-remediation-tasks": "Reviewer", "assess-remediation-eligibility": "Reviewer",
-                "implement-remediation": "Coder", "assess-convergence": "Code Reviewer",
+                "append-task-remediation": "FlowKit-Tasker", "reconcile-convergence-specification": "FlowKit-Specifier",
+                "reconcile-convergence-plan": "FlowKit-Planner", "reconcile-convergence-tasks": "FlowKit-Tasker",
+                "analyze-remediation-tasks": "FlowKit-Reviewer", "assess-remediation-eligibility": "FlowKit-Reviewer",
+                "implement-remediation": "FlowKit-Coder", "assess-convergence": "FlowKit-Code Reviewer",
             },
             "speckit-flow-closeout": {
-                "assess-closeout-readiness": "Reviewer", "mark-converged-specification-complete": "Specifier",
-                "debrief-roadmap": "Reviewer", "assess-closeout-debrief": "Code Reviewer",
-                "reconcile-closeout-specification": "Specifier", "reconcile-closeout-plan": "Planner",
-                "reconcile-closeout-tasks": "Tasker", "analyze-closeout-artifacts": "Reviewer",
-                "assess-closeout-task-eligibility": "Reviewer", "implement-closeout-eligible-tasks": "Coder",
-                "prepare-wiki-maintenance": "Roadmap Agent", "ingest-curated-context": "Wiki Curator",
-                "lint-wiki": "Reviewer", "assess-wiki-maintenance": "Reviewer", "verify-closeout-readiness": "Reviewer",
+                "assess-closeout-readiness": "FlowKit-Reviewer", "mark-converged-specification-complete": "FlowKit-Specifier",
+                "debrief-roadmap": "FlowKit-Reviewer", "assess-closeout-debrief": "FlowKit-Code Reviewer",
+                "reconcile-closeout-specification": "FlowKit-Specifier", "reconcile-closeout-plan": "FlowKit-Planner",
+                "reconcile-closeout-tasks": "FlowKit-Tasker", "analyze-closeout-artifacts": "FlowKit-Reviewer",
+                "assess-closeout-task-eligibility": "FlowKit-Reviewer", "implement-closeout-eligible-tasks": "FlowKit-Coder",
+                "prepare-wiki-maintenance": "FlowKit-Roadmap Agent", "ingest-curated-context": "FlowKit-Wiki Curator",
+                "lint-wiki": "FlowKit-Reviewer", "assess-wiki-maintenance": "FlowKit-Reviewer", "verify-closeout-readiness": "FlowKit-Reviewer",
             },
         }
         expectations["speckit-flow-wiki-lint-update"] = {
-            "lint-wiki": "Reviewer", "assess-wiki-findings": "Reviewer", "refresh-stale-source": "Wiki Curator",
+            "lint-wiki": "FlowKit-Reviewer", "assess-wiki-findings": "FlowKit-Reviewer", "refresh-stale-source": "FlowKit-Wiki Curator",
         }
         expected_versions = {
-            "speckit-flow-wiki-lint-update": "0.1.3",
-            "speckit-flow-start-feature": "0.6.0", "speckit-flow-select-feature": "0.1.1", "speckit-flow-specify": "0.1.1", "speckit-flow-clarify": "0.4.5",
-            "speckit-flow-plan": "0.4.6", "speckit-flow-tasks": "0.4.6",
-            "speckit-flow-analyze-remediate": "0.4.6", "speckit-flow-implement": "0.4.6",
-            "speckit-flow-converge": "0.4.8", "speckit-flow-closeout": "0.6.6",
+            "speckit-flow-wiki-lint-update": "0.2.0",
+            "speckit-flow-start-feature": "0.6.0", "speckit-flow-select-feature": "0.2.0", "speckit-flow-specify": "0.2.0", "speckit-flow-clarify": "0.5.0",
+            "speckit-flow-plan": "0.5.0", "speckit-flow-tasks": "0.5.0",
+            "speckit-flow-analyze-remediate": "0.5.0", "speckit-flow-implement": "0.5.0",
+            "speckit-flow-converge": "0.5.0", "speckit-flow-closeout": "0.7.0",
         }
         step_pattern = __import__("re").compile(r"^(\s*)- id: ([A-Za-z0-9_-]+)$")
         for workflow_id, expected_steps in expectations.items():
@@ -429,6 +429,71 @@ class CatalogReleaseTests(unittest.TestCase):
             with patch.object(catalog, "CATALOG", temporary_catalog), patch.object(catalog, "RELEASE", temporary_release):
                 with self.assertRaisesRegex(ValueError, "missing or mismatched: flow-feedback"):
                     catalog.verified_release(temporary_catalog, temporary_release)
+
+
+class AgentPackageValidationTests(unittest.TestCase):
+    """Agent inventories remain strict and independent of skill ownership."""
+
+    def fixture(self, directory):
+        import yaml
+        manifest = catalog.agent_manifest()
+        source = Path(directory)
+        (source / 'agents').mkdir()
+        (source / 'manifest.yml').write_text(yaml.safe_dump(manifest, sort_keys=False))
+        for entry in manifest['agents']:
+            (source / entry['file']).write_text(
+                f'name = "{entry["name"]}"\ndescription = "Role"\ndeveloper_instructions = "Bounded work"\nmodel = "gpt-6-luna"\nmodel_reasoning_effort = "high"\n'
+            )
+        return source, manifest
+
+    def test_duplicateAndEscapingInventory_rejected(self):
+        import copy
+        baseline = catalog.agent_manifest()
+        for key in ('name', 'file', 'destination'):
+            manifest = copy.deepcopy(baseline)
+            manifest['agents'][1][key] = manifest['agents'][0][key]
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, 'duplicate'):
+                catalog.validate_agent_manifest(manifest)
+        for key in ('file', 'destination'):
+            for path in ('/absolute.toml', '../escape.toml', 'agents/../escape.toml', 'agents/a/b.toml'):
+                manifest = copy.deepcopy(baseline)
+                manifest['agents'][0][key] = path
+                with self.subTest(key=key, path=path), self.assertRaises(ValueError):
+                    catalog.validate_agent_manifest(manifest)
+
+    def test_malformedAndMismatchedDefinitions_rejected(self):
+        for content in (b'invalid = [', b'name="Wrong"\ndescription="D"\ndeveloper_instructions="I"', b'name="FlowKit-Planner"'):
+            with self.subTest(content=content), self.assertRaises(ValueError):
+                catalog.validate_agent_definition(content, 'FlowKit-Planner')
+
+    def test_regularSourcesAndArchive_allowlistAndVersion_checked(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            source, manifest = self.fixture(temporary)
+            files = catalog.agent_package_files(source)
+            archive = source / 'package.zip'
+            with zipfile.ZipFile(archive, 'w') as package:
+                for member, path in files.items():
+                    package.writestr(member, path.read_bytes())
+            self.assertEqual(manifest, catalog.validate_agent_archive(archive, '0.1.0')[0])
+            with self.assertRaisesRegex(ValueError, 'version'):
+                catalog.validate_agent_archive(archive, '9.9.9')
+            with zipfile.ZipFile(archive, 'a') as package:
+                package.writestr('unlisted.txt', 'unsafe extra')
+            with self.assertRaisesRegex(ValueError, 'unlisted'):
+                catalog.validate_agent_archive(archive)
+            path = source / manifest['agents'][0]['file']
+            path.unlink()
+            path.symlink_to(source / manifest['agents'][1]['file'])
+            with self.assertRaisesRegex(ValueError, 'symlink'):
+                catalog.agent_package_files(source)
+
+    def test_resetOnlyCurrentManifestTargets(self):
+        manifest = catalog.agent_manifest()
+        self.assertEqual(manifest['agents'], catalog.select_agent_targets(manifest, all_agents=True))
+        self.assertEqual(1, len(catalog.select_agent_targets(manifest, agent='FlowKit-Planner')))
+        for args in ({}, {'agent': '*'}, {'agent': 'Planner'}, {'agent': 'FlowKit-Planner', 'all_agents': True}):
+            with self.subTest(args=args), self.assertRaises(ValueError):
+                catalog.select_agent_targets(manifest, **args)
 
 
 if __name__ == "__main__":

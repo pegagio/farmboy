@@ -9,8 +9,8 @@ flowchart TD
     start((Start))
     loop{{"plan-output-loop<br/>condition: verify-plan-output state == continue<br/>max_iterations: 5"}}
     prepare["prepare-plan-request"]
-    create(["create-plan<br/>(Planner)<br/>command: speckit.plan"])
-    verify["verify-plan-output<br/>(Reviewer)"]
+    create(["create-plan<br/>(FlowKit-Planner)<br/>command: speckit.plan"])
+    verify["verify-plan-output<br/>(FlowKit-Reviewer)"]
     report["report-plan-outcome"]
 
     start --> loop
@@ -24,4 +24,4 @@ flowchart TD
     style start fill:#111827,stroke:#111827,color:#ffffff
 ```
 
-The first request records missing outputs as a progress baseline. Each retry feeds the exact missing files or placeholder sections from the latest verification into the planning skill while preserving completed design. Reviewer checks plan content against the approved specification, including tradeoffs, risks, and validation. Exact findings return through the existing planning loop. Another pass requires verified gap resolution. Operator input, blockers, no progress, or the five-pass safety limit stop the loop; Tasks remains a separate invocation.
+The first request records missing outputs as a progress baseline. Each retry feeds the exact missing files or placeholder sections from the latest verification into the planning skill while preserving completed design. FlowKit-Reviewer checks plan content against the approved specification, including tradeoffs, risks, and validation. Exact findings return through the existing planning loop. Another pass requires verified gap resolution. Operator input, blockers, no progress, or the five-pass safety limit stop the loop; Tasks remains a separate invocation.

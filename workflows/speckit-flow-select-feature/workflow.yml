@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: speckit-flow-select-feature
   name: Select Active Feature
-  version: "0.1.1"
+  version: "0.2.0"
   author: pegagio
   description: List and discuss roadmap choices, approve one selection, and activate its target without authoring a specification.
 requires:
@@ -31,7 +31,7 @@ steps:
     type: prompt
     flow_kit:
       delegated: true
-      agent: Roadmap Agent
+      agent: FlowKit-Roadmap Agent
     prompt: >-
       Read the configured roadmap and its documented lifecycle/dependency rules without modifying any file. Inventory available features before selecting one. Optional operator interest: {{ inputs.feature_request }}; it may highlight candidates but must not select one or hide their prerequisite chains. Return report, selection_options (a JSON array of distinct strings containing exact selectable roadmap entry identifiers plus defer), and evidence. In report, present a numbered table of dependency-ready candidates with exact entry ID/title, status, prerequisites, direct_unlock_count, and downstream_dependent_count. Also show blocked unfinished features with unsatisfied prerequisites, so the operator can see why a prerequisite may be the best next choice. Availability means eligible to start under the roadmap rules; do not treat terminal, deferred, abandoned, already-active, or ambiguous entries as new-start candidates. Existing specification paths must be identified without changing their content. Selection prepares the active feature, not specification authoring. Show simple text dependency chains for relevant unfinished features and the full prerequisite closure, e.g. Feature 29 -> Feature 28 -> Feature 26 (arrow means depends on); show every branch for multiple prerequisites and include current statuses. Use only actual roadmap edges. direct_unlock_count counts currently blocked features that would become dependency-ready if this candidate alone were completed under the roadmap rules; downstream_dependent_count counts distinct unfinished transitive dependents, not immediate unlocks. Deduplicate shared descendants and do not count completed features. Missing references, cycles, ambiguous entry identity, or undefined readiness rules must be reported rather than guessed; exclude unsafe candidates. If no candidates are safely selectable, explain why and return selection_options containing only defer. Order the candidate table by direct unlock count descending, then downstream dependent count descending, then roadmap order. Keep table numbers in the same order as selection_options, with defer last. Use full entry identifiers including titles so feature numbers cannot be mistaken for menu indices. Display the choices and dependency report for the human; do not pick a candidate, infer an answer from the request, mutate the roadmap, create a specification, or invoke another workflow.
   - id: select-roadmap-feature
@@ -58,7 +58,7 @@ steps:
           Re-read only the exact operator-selected roadmap entry {{ steps.select-roadmap-feature.output.choice }} and its prerequisites. Return state ready or blocked; selected_entry_id; feature_brief; feature_directory; proposed_patch; feature_json; and evidence. Blocked includes required operator input; give the cause, question, and recovery action. Do not substitute another candidate. For an existing spec, use its uniquely owned roadmap Spec dir and preserve all specification bytes and record the existing spec digest in evidence. Otherwise reuse a uniquely mapped target directory or propose one normalized repository-relative directory for later authoring; it may not exist yet. Reject conflicting ownership, escaping paths, malformed active state, or ambiguous target identity. feature_json must be the exact proposed .specify/feature.json payload preserving existing additional fields with feature_directory set to that target. proposed_patch contains only the selected entry's reviewed active lifecycle transition and any missing or stale Spec dir linkage needed to identify that target. Do not mark a new specification specced before it is authored. Follow the roadmap's lifecycle rules; unclear transition authority requires operator input. Do not write the roadmap, pointer, directory, or specification.
         flow_kit:
           delegated: true
-          agent: Roadmap Agent
+          agent: FlowKit-Roadmap Agent
       - id: route-selection-readiness
         type: switch
         expression: '{{ steps.prepare-feature-selection.output.state }}'
@@ -104,7 +104,7 @@ steps:
                       Re-read the selected roadmap row and .specify/feature.json. Verify the unique exact entry-to-directory mapping and active pointer agree with the approved selection, and no specification was created or modified. Return selected_entry_id, feature_directory, existing_spec state, evidence, and any blocker. A target directory without spec.md is a valid selection awaiting authoring, not a missing prerequisite to repair by creating a spec. Stop for divergence; do not claim activation from command success alone.
                     flow_kit:
                       delegated: true
-                      agent: Reviewer
+                      agent: FlowKit-Reviewer
               default: []
           blocked: []
   - id: report-feature-selection

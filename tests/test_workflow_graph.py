@@ -306,9 +306,9 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                         if w['workflow']['id'] == 'speckit-flow-plan')
         original = (ROOT / 'workflows/speckit-flow-plan/flowchart.md').read_text()
         mutations = {
-            'phantom-loop-agent': ('plan-output-loop<br/>condition:', 'plan-output-loop<br/>(Reviewer)condition:'),
-            'missing-agent': ('<br/>(Planner)', ''),
-            'wrong-agent': ('(Planner)', '(Tasker)'),
+            'phantom-loop-agent': ('plan-output-loop<br/>condition:', 'plan-output-loop<br/>(FlowKit-Reviewer)condition:'),
+            'missing-agent': ('<br/>(FlowKit-Planner)', ''),
+            'wrong-agent': ('(FlowKit-Planner)', '(FlowKit-Tasker)'),
             'wrong-command': ('command: speckit.plan', 'command: speckit.tasks'),
             'wrong-id': ('prepare-plan-request', 'prepare-other-request'),
             'wrong-shape': ('prepare["prepare-plan-request"]', 'prepare(["prepare-plan-request"])'),
@@ -326,8 +326,8 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
     def test_manualPlanAndTasksPreserveIndependentSemanticReviewContract(self) -> None:
         readme = (ROOT / 'workflows/README.md').read_text()
         for purpose, heading, following, author, review_id in (
-            ('plan', 'planning', 'task-generation', 'Planner', 'verify-plan-output'),
-            ('tasks', 'task-generation', 'analysis and remediation', 'Tasker', 'verify-task-output'),
+            ('plan', 'planning', 'task-generation', 'FlowKit-Planner', 'verify-plan-output'),
+            ('tasks', 'task-generation', 'analysis and remediation', 'FlowKit-Tasker', 'verify-task-output'),
         ):
             with self.subTest(workflow=purpose):
                 manual = readme.split('## Manual ' + heading + ' path', 1)[1].split(
@@ -336,14 +336,14 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                                 if w['workflow']['id'] == 'speckit-flow-' + purpose)
                 review = find_step(workflow['steps'], review_id)
                 prepare = workflow['steps'][0]['steps'][0]
-                self.assertEqual('Reviewer', review['flow_kit']['agent'])
+                self.assertEqual('FlowKit-Reviewer', review['flow_kit']['agent'])
                 self.assertEqual(author, workflow['steps'][0]['steps'][1]['flow_kit']['agent'])
                 self.assertEqual(5, workflow['steps'][0]['max_iterations'])
                 for field in ('artifact_location', 'violated_requirement', 'observed_deficiency', 'exact_correction'):
                     self.assertIn(field, manual)
                     self.assertIn(field, review['prompt'])
                     self.assertIn(field, prepare['prompt'])
-                for phrase in ('independent Reviewer', 'structural and semantic', author,
+                for phrase in ('independent FlowKit-Reviewer', 'structural and semantic', author,
                                'verbatim', 'Fresh review', 'substantive resolution',
                                'new blocking findings', 'Wording-only or digest-only',
                                'renamed or repeated findings', 'successful commands',

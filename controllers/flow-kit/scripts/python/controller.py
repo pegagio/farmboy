@@ -24,8 +24,8 @@ except ImportError:  # The controller is executed with the selected Specify runt
 
 
 REVIEWED_AGENT_NAMES = {
-    "Roadmap Agent", "Specifier", "Planner", "Tasker", "Reviewer",
-    "Coder", "Code Reviewer", "Wiki Curator",
+    "FlowKit-Roadmap Agent", "FlowKit-Specifier", "FlowKit-Planner", "FlowKit-Tasker", "FlowKit-Reviewer",
+    "FlowKit-Coder", "FlowKit-Code Reviewer", "FlowKit-Wiki Curator",
 }
 INPUT_REFERENCE = re.compile(r"\{\{\s*inputs\.([A-Za-z0-9_-]+)\s*\}\}")
 STEP_REFERENCE = re.compile(r"\{\{\s*steps\.([A-Za-z0-9_-]+)\.output\.([A-Za-z0-9_.-]+)\s*\}\}")

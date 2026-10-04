@@ -164,15 +164,15 @@ class NamedAgentAssignmentTests(unittest.TestCase):
 
     def test_collectAgentAssignments_preservesDistinctNamesPerStep(self) -> None:
         steps = [
-            {"id": "edit", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Coder"}},
-            {"id": "review", "type": "command", "flow_kit": {"delegated": True, "agent": "Reviewer"}},
+            {"id": "edit", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
+            {"id": "review", "type": "command", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}},
             {"id": "summary", "type": "prompt", "prompt": "Summarize in the main task."},
         ]
         assignments = self.controller.collect_agent_assignments(steps)
         self.assertEqual(
             [
-                self.controller.StepAssignmentIntent("edit", "Coder"),
-                self.controller.StepAssignmentIntent("review", "Reviewer"),
+                self.controller.StepAssignmentIntent("edit", "FlowKit-Coder"),
+                self.controller.StepAssignmentIntent("review", "FlowKit-Reviewer"),
             ],
             assignments,
         )
@@ -182,13 +182,13 @@ class NamedAgentAssignmentTests(unittest.TestCase):
             {
                 "id": "route",
                 "type": "switch",
-                "cases": {"review": [{"id": "verify", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Reviewer"}}]},
-                "default": [{"id": "build", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Code Reviewer"}}],
+                "cases": {"review": [{"id": "verify", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}]},
+                "default": [{"id": "build", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Code Reviewer"}}],
             }
         ]
         assignments = self.controller.collect_agent_assignments(steps)
         self.assertEqual(
-            [("verify", "Reviewer"), ("build", "Code Reviewer")],
+            [("verify", "FlowKit-Reviewer"), ("build", "FlowKit-Code Reviewer")],
             [(row.step_id, row.agent_name) for row in assignments],
         )
 
@@ -204,7 +204,7 @@ class NamedAgentAssignmentTests(unittest.TestCase):
                     "--specify", "/usr/bin/specify",
                     "--expected-version", "1.0.10.dev0+pegagio.2",
                     "--skill-id", "flow-kit-tasks",
-                    "--override", "agent=Coder",
+                    "--override", "agent=FlowKit-Coder",
                 ]
             )
         self.assertEqual(2, error.exception.code)
@@ -218,12 +218,12 @@ class GraphPreflightTests(unittest.TestCase):
         self.workflow = {
             "inputs": {"feature_context": {"required": True}},
             "steps": [
-                {"id": "delegated-prompt", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Coder"}},
+                {"id": "delegated-prompt", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
                 {"id": "review-verdict", "type": "gate", "options": ["approve", "defer"]},
                 {"id": "route-result", "type": "switch", "cases": {"primary": [
-                    {"id": "nested-delegated-command", "command": "speckit.fixture", "flow_kit": {"delegated": True, "agent": "Reviewer"}}
+                    {"id": "nested-delegated-command", "command": "speckit.fixture", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}
                 ]}, "default": [
-                    {"id": "alternate-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Code Reviewer"}}
+                    {"id": "alternate-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Code Reviewer"}}
                 ]},
             ],
         }
@@ -231,7 +231,7 @@ class GraphPreflightTests(unittest.TestCase):
     def test_collectAgentAssignments_includesUntakenNestedBranches(self) -> None:
         assignments = self.controller.collect_agent_assignments(self.workflow["steps"])
         self.assertEqual(
-            [("delegated-prompt", "Coder"), ("nested-delegated-command", "Reviewer"), ("alternate-agent", "Code Reviewer")],
+            [("delegated-prompt", "FlowKit-Coder"), ("nested-delegated-command", "FlowKit-Reviewer"), ("alternate-agent", "FlowKit-Code Reviewer")],
             [(item.step_id, item.agent_name) for item in assignments],
         )
 
@@ -290,25 +290,33 @@ class GraphPreflightTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "different name"):
                 self.controller.resolve_installed_skill(Path(temporary), "speckit.tasks")
 
+    def test_agentMigration_rejectsOldNamesEvenInUntakenNestedBranches(self) -> None:
+        for name in ("Roadmap Agent", "Specifier", "Planner", "Tasker", "Reviewer", "Coder", "Code Reviewer", "Wiki Curator"):
+            graph = [{"id": "route", "type": "switch", "cases": {"taken": []}, "default": [
+                {"id": "old-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": name}}
+            ]}]
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, "old-agent"):
+                self.controller.collect_agent_assignments(graph)
+
     def test_validateDefinition_rejectsWorkflowLevelAgentDefaults(self) -> None:
-        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "Coder"}, "steps": []}
+        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FlowKit-Coder"}, "steps": []}
         with self.assertRaisesRegex(ValueError, "workflow-level"):
             self.controller.validate_workflow_definition(definition)
 
     def test_delegationBoundary_keepsMainTaskStepAndGateOutOfChildAssignments(self) -> None:
         graph = [
             {"id": "main-work", "type": "prompt", "prompt": "summarize"},
-            {"id": "delegated-work", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Coder"}},
+            {"id": "delegated-work", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
             {"id": "human-review", "type": "gate", "options": ["continue"]},
         ]
         assignments = self.controller.collect_agent_assignments(graph)
-        self.assertEqual([("delegated-work", "Coder")], [(item.step_id, item.agent_name) for item in assignments])
+        self.assertEqual([("delegated-work", "FlowKit-Coder")], [(item.step_id, item.agent_name) for item in assignments])
 
     def test_delegationBoundary_rejectsAgentOnNonDelegatedStepAndDelegatedGate(self) -> None:
         for graph in (
-            [{"id": "main-work", "type": "prompt", "agent": "Coder"}],
-            [{"id": "human-review", "type": "gate", "flow_kit": {"delegated": True, "agent": "Reviewer"}}],
-            [{"id": "route", "type": "switch", "flow_kit": {"delegated": True, "agent": "Reviewer"}, "cases": {}}],
+            [{"id": "main-work", "type": "prompt", "agent": "FlowKit-Coder"}],
+            [{"id": "human-review", "type": "gate", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}],
+            [{"id": "route", "type": "switch", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}, "cases": {}}],
         ):
             with self.subTest(graph=graph), self.assertRaises(ValueError):
                 self.controller.validate_workflow_graph(graph)
@@ -318,7 +326,7 @@ class GraphPreflightTests(unittest.TestCase):
             ([{"id": "missing-agent", "type": "prompt", "flow_kit": {"delegated": True}}], "missing-agent"),
             ([{"id": "unknown-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Researcher"}}], "unknown-agent"),
             ([{"id": "case-mismatch", "type": "prompt", "flow_kit": {"delegated": True, "agent": "coder"}}], "case-mismatch"),
-            ([{"id": "malformed", "type": "prompt", "flow_kit": "Coder"}], "malformed"),
+            ([{"id": "malformed", "type": "prompt", "flow_kit": "FlowKit-Coder"}], "malformed"),
             ([{"id": "null-metadata", "type": "prompt", "flow_kit": None}], "null-metadata"),
             ([{"id": "legacy-model", "type": "prompt", "model": "gpt-6-sol"}], "legacy-model"),
             ([{"id": "route", "type": "switch", "cases": {"taken": []}, "default": [
@@ -331,7 +339,7 @@ class GraphPreflightTests(unittest.TestCase):
                 self.controller.collect_agent_assignments(graph)
 
     def test_agentPreflight_rejectsWorkflowLevelDefault(self) -> None:
-        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "Tasker"}, "steps": []}
+        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FlowKit-Tasker"}, "steps": []}
         with self.assertRaisesRegex(ValueError, "workflow-level agent"):
             self.controller.validate_workflow_definition(definition)
 
@@ -343,14 +351,14 @@ class GraphPreflightTests(unittest.TestCase):
             "max_iterations": 5,
             "steps": [
                 {"id": "correct", "type": "command", "command": "speckit.tasks",
-                 "flow_kit": {"delegated": True, "agent": "Tasker"}},
+                 "flow_kit": {"delegated": True, "agent": "FlowKit-Tasker"}},
                 {"id": "assess", "type": "prompt",
-                 "flow_kit": {"delegated": True, "agent": "Reviewer"}},
+                 "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}},
             ],
         }]
         self.controller.validate_workflow_graph(graph)
         self.assertEqual(
-            [("correct", "Tasker"), ("assess", "Reviewer")],
+            [("correct", "FlowKit-Tasker"), ("assess", "FlowKit-Reviewer")],
             [(item.step_id, item.agent_name) for item in self.controller.collect_agent_assignments(graph)],
         )
 
@@ -630,7 +638,7 @@ class RecoveryTests(unittest.TestCase):
                 project,
                 {"workflow": {"id": "speckit-flow-tasks", "version": "0.2.0"}, "sha256": "a" * 64},
                 {"bundle_record": {"sha256": "b" * 64, "device": 1, "inode": 2}, "skill_record": {"sha256": "c" * 64, "device": 1, "inode": 3}},
-                [{"step_id": "generate-tasks", "agent_name": "Tasker"}],
+                [{"step_id": "generate-tasks", "agent_name": "FlowKit-Tasker"}],
                 preflight_passed=True,
             )
             path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"

@@ -12,6 +12,7 @@ Ordinary catalog install and refresh use the checked-in release packages only fr
 - [Use a workflow](#use-a-workflow)
 - [Refresh or remove the bundle](#refresh-or-remove-the-bundle)
 - [Build release packages](#build-release-packages)
+- [Agent configuration and consumer copies](#agent-configuration-and-consumer-copies)
 
 ## Prepare the checkout
 
@@ -139,15 +140,17 @@ For example, enter `$flow-kit-tasks feature_context=013` in the selected project
 
 Before workflow work, the FlowKit controller validates every delegated step name, including untaken branches, and probes each distinct native agent with that exact name as the Codex `agent_type`. Codex's native subagent activity shows each launched child. Probe labels include the agent name; work-child labels include the agent name and step ID, while the pane may also show model and reasoning effort. The task label helps the operator see what was launched; the exact `agent_type` request establishes native selection. FlowKit does not require a separate launch message or a per-run agent, model, or effort override. Each delegated step uses a bounded child; steps without explicit delegation metadata and all gates stay in the main task. The main task presents child questions as numbered options plus a custom answer when allowed and relays the response to the same child.
 
-Codex custom-agent files are consumer-owned. For example, save this as `.codex/agents/reviewer.toml` in the consumer project:
+Codex custom-agent files are consumer-owned. Catalog installation adds missing reviewed defaults; you can then edit them directly. The native configuration fields look like this shortened example:
 
 ```toml
-name = "Reviewer"
+name = "FlowKit-Reviewer"
 description = "Independently assesses workflow artifacts."
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
 developer_instructions = "Follow the task scope and return a concise result to the parent."
 ```
 
-Use the exact reviewed work-type name declared by the workflow step. The source checkout includes local definitions for Roadmap Agent, Specifier, Planner, Tasker, Reviewer, Coder, Code Reviewer, and Wiki Curator; these do not install into other consumer projects. Codex loads the matching custom-agent configuration and owns optional model and reasoning-effort settings, including inheritance. FlowKit neither parses these files nor modifies them during install, refresh, or removal. A successful workflow loader check does not establish that native `specify workflow run` performs FlowKit's named-agent dispatch procedure; use the direct FlowKit Codex skill for that behavior and retain the manual workflow path as fallback.
+Use the exact reviewed work-type name declared by the workflow step. The canonical package supplies FlowKit-Roadmap Agent, FlowKit-Specifier, FlowKit-Planner, FlowKit-Tasker, FlowKit-Reviewer, FlowKit-Coder, FlowKit-Code Reviewer, and FlowKit-Wiki Curator. The catalog validates package TOML and readable project identities during delivery; the workflow controller delegates native configuration loading and model/effort resolution to Codex. Install-missing preserves existing copies, refresh updates available defaults only, and removal retains all copies. Explicit reset replaces selected current targets. See [agent delivery instructions](#agent-configuration-and-consumer-copies). A successful workflow loader check does not establish that native `specify workflow run` performs FlowKit's named-agent dispatch procedure; use the direct FlowKit Codex skill for that behavior and retain the manual workflow path as fallback.
 
 ## Refresh or remove the bundle
 
@@ -193,3 +196,58 @@ The builder checks source IDs, versions, tags, and cleanliness, then writes dete
 ## Start Feature deprecation
 
 Current source replaces Start Feature with separately invoked Select Feature and Specify. Selection updates the exactly approved roadmap delta and active pointer without writing a specification; Specify authors the active target and runs its brief. Controller refresh removes an unchanged owned `flow-kit-start-feature` launcher and installs the replacements; a locally edited retired launcher blocks refresh for operator resolution. Historical catalog releases still contain the old workflow. Do not infer replacement discovery until the current development snapshot has been installed or refreshed. The deprecated source is retained as a stop-only compatibility notice, outside active bundle bindings.
+
+
+## Agent Configuration and Consumer Copies
+
+The development bundle includes `flow-kit-agents` 0.1.0, composed from canonical `agents/flow-kit/` source. Installed files under `.codex/agents/` are consumer-owned and may be edited directly. Package-level source/artifact digests establish provenance; FlowKit does not hash, classify, own or merge consumer copies.
+
+| Role | Model | Effort |
+|---|---|---|
+| FlowKit-Roadmap Agent | `gpt-6.1-sol` | low |
+| FlowKit-Specifier | `gpt-6.1-sol` | high |
+| FlowKit-Planner | `gpt-6.1-sol` | high |
+| FlowKit-Tasker | `gpt-6-luna` | high |
+| FlowKit-Reviewer | `gpt-6.1-sol` | high |
+| FlowKit-Coder | `gpt-6-luna` | high |
+| FlowKit-Code Reviewer | `gpt-6.1-sol` | medium |
+| FlowKit-Wiki Curator | `gpt-6.1-sol` | low |
+
+Specifier, Planner and Reviewer retain depth for product, architecture and cross-artifact judgment. Coder and Tasker use bounded approved inputs with independent review. Roadmap/Wiki work is scoped bookkeeping; Code Reviewer independently checks selected implementation at medium effort. This rationale is engineering judgment rather than a measured quality/cost comparison. Native support, requested configuration, live exact-role dispatch and observed effective settings are distinct evidence categories.
+
+### Install and Customize
+
+Initialize a Specify consumer with the supported CLI version, then install the bundle from a matching catalog checkout. Installation adds absent defaults only after components are installed. Existing destinations, old unprefixed files and unrelated agents are preserved. Current unreleased source validation uses an initialized disposable consumer and `--development-snapshot`:
+
+```bash
+mise run catalog:install -- "$consumer_project" --development-snapshot
+mise run catalog:agents -- install-missing "$consumer_project" --json
+```
+
+The first command already runs install-missing; the second is useful after refresh or to retry absent copies. Edit the resulting native files directly to customize instructions, model or effort. Changes are version-controlled by the consuming project according to its own policy.
+
+### Update or Restore Defaults
+
+Refresh updates the available-default cache only; it preserves all agent copies. To acquire newly added definitions after upgrading the selected bundle, refresh then run install-missing:
+
+```bash
+mise run catalog:refresh -- "$consumer_project" --development-snapshot
+mise run catalog:agents -- install-missing "$consumer_project" --json
+```
+
+To discard selected customizations and reapply cached defaults, explicitly reset one exact current name or all current manifest entries:
+
+```bash
+mise run catalog:agents -- reset "$consumer_project" --agent "FlowKit-Planner" --json
+mise run catalog:agents -- reset "$consumer_project" --all --json
+```
+
+Reset invocation authorizes replacing the selected copies without another interactive prompt. `--all` means the selected package inventory, never a prefix glob. Reset also creates missing selected files. Unknown names, conflicting exact identities, invalid package data, directories and unsafe/symlink paths fail rather than silently overwrite. Neither refresh nor install-missing performs reset.
+
+### Migration, Recovery and Removal
+
+The prefix change requires the coordinated bundle/controller/workflow versions; old-only inventories cannot dispatch migrated workflows. Retained old files are not renamed or deleted automatically. Review the new copies and manually carry customizations into their exact new names, or reset the selected current targets. A competing exact name in another file blocks delivery until the operator resolves that identity conflict. Renamed and retired files remain for manual removal after dependent assignments are inspected. Unparseable unrelated TOML produces a warning that inventory readiness is unverified.
+
+JSON output reports package/source provenance, selected inputs, manifest-ordered target outcomes and recovery. Outcomes are `created`, `preserved-existing`, `reset`, `failed` or `not-attempted`; status is `complete`, `failed` or `partial`. Exit codes are 0 for completion, 1 for validation/write/usability failure and 2 for argument errors; diagnostics go to stderr. Atomic per-file writes prevent truncated TOML. On partial results inspect completed/failed/unattempted targets, resolve the cause and reissue the same explicit operation. No bundle rollback is implied.
+
+`catalog:remove` removes the available-default cache and existing managed components while retaining every consumer agent copy, feedback and unrelated component. Remaining workflow assignments may still require those native names. Manual workflow prompts remain available when native dispatch is unavailable; consumer installation is not evidence of successful native dispatch or feature acceptance.

@@ -8,20 +8,20 @@ The dark Start circle marks workflow entry. Rectangles are prompt steps, diamond
 flowchart TD
     start((Start))
     loop{{"convergence-remediation-loop<br/>condition: assess-convergence state == continue<br/>max_iterations: 6"}}
-    converge(["append-task-remediation<br/>(Tasker)<br/>command: speckit.converge"])
-    assess["assess-convergence<br/>(Code Reviewer)"]
+    converge(["append-task-remediation<br/>(FlowKit-Tasker)<br/>command: speckit.converge"])
+    assess["assess-convergence<br/>(FlowKit-Code Reviewer)"]
     correctionRoute@{ shape: diam, label: "route-convergence-correction" }
     prepare["prepare-convergence-flowback"]
     specRoute@{ shape: diam, label: "route-specification-remediation" }
-    spec(["reconcile-convergence-specification<br/>(Specifier)<br/>command: speckit.specify"])
+    spec(["reconcile-convergence-specification<br/>(FlowKit-Specifier)<br/>command: speckit.specify"])
     planRoute@{ shape: diam, label: "route-plan-remediation" }
-    plan(["reconcile-convergence-plan<br/>(Planner)<br/>command: speckit.plan"])
+    plan(["reconcile-convergence-plan<br/>(FlowKit-Planner)<br/>command: speckit.plan"])
     tasksRoute@{ shape: diam, label: "route-task-remediation" }
-    tasks(["reconcile-convergence-tasks<br/>(Tasker)<br/>command: speckit.tasks"])
-    analyze(["analyze-remediation-tasks<br/>(Reviewer)<br/>command: speckit.analyze"])
-    eligibility["assess-remediation-eligibility<br/>(Reviewer)"]
+    tasks(["reconcile-convergence-tasks<br/>(FlowKit-Tasker)<br/>command: speckit.tasks"])
+    analyze(["analyze-remediation-tasks<br/>(FlowKit-Reviewer)<br/>command: speckit.analyze"])
+    eligibility["assess-remediation-eligibility<br/>(FlowKit-Reviewer)"]
     implementRoute@{ shape: diam, label: "route-remediation-implementation" }
-    implement(["implement-remediation<br/>(Coder)<br/>command: speckit.implement"])
+    implement(["implement-remediation<br/>(FlowKit-Coder)<br/>command: speckit.implement"])
     report["report-convergence-outcome"]
 
     start --> loop
@@ -58,4 +58,4 @@ Corrections enter the shared waterfall at specification, plan, or tasks as neede
 
 Six total passes allow five corrections and a final convergence check. A clean sixth check succeeds; unresolved findings at that check stop before a sixth correction. Empty top-level branches reach loop exit without another command invocation. The controller stop edges show its declared routing policy in addition to YAML branch joins. One final report handles all outcomes; Close Out remains separately invoked.
 
-Code Reviewer uses an attributable implementation delta and returns exact review findings separately from the strict envelope. Coder receives those findings through eligible existing task correction. Fresh review confirms resolution; absent a safe eligible route, the workflow reports a specific blocked recovery. Product questions retain operator ownership.
+FlowKit-Code Reviewer uses an attributable implementation delta and returns exact review findings separately from the strict envelope. FlowKit-Coder receives those findings through eligible existing task correction. Fresh review confirms resolution; absent a safe eligible route, the workflow reports a specific blocked recovery. Product questions retain operator ownership.

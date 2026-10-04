@@ -5,16 +5,16 @@ This diagram maps every step ID in [workflow.yml](./workflow.yml) to its executi
 ```mermaid
 flowchart TD
     start((Start))
-    n01["list-roadmap-options<br/>(Roadmap Agent)"]
+    n01["list-roadmap-options<br/>(FlowKit-Roadmap Agent)"]
     n02[/"select-roadmap-feature"/]
     n03@{ shape: diam, label: "route-feature-selection" }
-    n04["prepare-feature-selection<br/>(Roadmap Agent)"]
+    n04["prepare-feature-selection<br/>(FlowKit-Roadmap Agent)"]
     n05@{ shape: diam, label: "route-selection-readiness" }
     n06[/"approve-feature-selection"/]
     n07@{ shape: diam, label: "route-selection-approval" }
     n08(["apply-selected-roadmap-patch<br/>command: speckit.flow-roadmap.write"])
     n09["activate-selected-feature"]
-    n10["verify-feature-selection<br/>(Reviewer)"]
+    n10["verify-feature-selection<br/>(FlowKit-Reviewer)"]
     n11["report-feature-selection"]
 
     start --> n01

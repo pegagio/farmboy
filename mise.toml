@@ -21,3 +21,7 @@ run = "python3 tools/catalog.py refresh"
 [tasks."catalog:remove"]
 description = "Remove the Spec Kit Flow bundle and unchanged FlowKit controller skills from a consumer project"
 run = "python3 tools/catalog.py remove"
+
+[tasks."catalog:agents"]
+description = "Install missing agent copies or explicitly reset selected defaults"
+run = "python3 tools/catalog.py agents"
