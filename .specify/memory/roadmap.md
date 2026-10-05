@@ -1,19 +1,18 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.18.3 → 1.18.4
-Bump rationale: PATCH — record Feature 017 verification under its operator-directed follow-up qualification and reconcile completed decisions with current evidence.
+Version change: 1.18.4 → 1.19.0
+Bump rationale: MINOR — propose one new planned feature for the operator-requested workflow improvements across the five consolidated feedback observations.
 
 Changes this revision:
-  - Set Feature 017 from implemented to verified after explicit approval of this exact patch.
-  - Preserved the original outcome and scope; recorded DEP017-01 as unresolved and explicitly deferred to a follow-up feature.
-  - Reconciled selection-time Notes and Open Questions with reviewed agent configuration, consumer-owned delivery and evidence limitations.
-  - Preserved Feature 016 as planned and Feature 018 as abandoned; created no numbered follow-up entry.
+  - Add Feature 020 — FlowKit Workflow Iteration and Improvements as planned, covering explicit intent and feature selection, checklist readiness, and agent capacity.
+  - Preserve Feature 016 as planned, Feature 017 as verified with qualification, and Feature 018 as abandoned.
+  - Do not reuse Feature 019, which is referenced by the October 5 report as independent catalog Python prerequisite work but is absent from this checkout's ledger.
 
-Specs affected: 017 (verified with documented qualification)
-Open questions added/resolved: Feature 017 selection-time questions are recorded as resolved within their documented evidence limits; DEP017-01 remains unresolved in specs/017-flowkit-agent-configuration/follow-up.md.
+Specs affected: 020 (planned; specification not yet authored)
+Open questions added/resolved: Feature 020 must establish current reproducibility, supported capacity behavior, and the authorization contract before choosing implementation details.
 
-Notes: Fresh debrief: specs/017-flowkit-agent-configuration/roadmap-reviews/debrief-20261004T170935Z.md. Verification records the reviewed nondeferred scope in the dependency-equipped tested environment. It does not establish that the advertised mise preparation path passed, prove effective child settings, erase native Specify test limitations, or authorize feature acceptance, Git integration, publication or consumer adoption.
+Notes: Direct operator request on 2026-10-05 groups all three improvement areas into one work item. Evidence: .specify/workflow-feedback/exports/consolidated-workflow-issues-20261005/report.json and report.md, committed in c4ff53c. Feedback is evidence, not implementation or acceptance; this proposal changes no workflow, constitution, active feature pointer, or installed component.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -51,7 +50,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 020 is planned for one consolidated workflow improvement iteration. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -254,6 +253,17 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Disposition**: Abandoned by direct operator decision on 2026-10-03 because the current approach and specification were rejected. The proposed scope and earlier notes above, feature artifacts, and investigation evidence remain preserved as history; no further implementation is authorized by this entry. The capacity issue remains unresolved, and no replacement feature or approach is selected. Features 016 and 017 remain unchanged.
 - **Spec dir**: `specs/018-reliable-workflow-agent-capacity/`
 
+### 020 — FlowKit Workflow Iteration and Improvements  [status: planned]
+
+- **Description**: Iterate on FlowKit workflows through one bounded feature addressing the five consolidated feedback observations across explicit intent and feature selection, Analyze/Implement checklist readiness, and agent capacity.
+- **Outcome**: Clear operator instructions carry through the requested operations without redundant selection or approval prompts; uniquely resolving feature references are accepted; Analyze leaves an accurate implementation-readiness state; sequential workflow execution has an evidence-backed capacity remedy or a specific supported limitation and recovery path.
+- **Scope (in)**: Reproduce and reassess the five observations against current components; reconcile workflow/controller handling of direct authorization, stable feature IDs and menu positions; propose any necessary governing-contract amendments through their explicit human gates; reconcile checklist ownership and preimplementation checks with future implementation and acceptance evidence; investigate supported agent capacity and lifecycle behavior and implement a reviewed remedy without adopting Feature 018's rejected design by default; update affected source, documentation and regression coverage; validate each improvement area independently and demonstrate their combined sequential workflow behavior with component, CLI and client provenance.
+- **Scope (out)**: An open-ended workflow cleanup backlog; unrelated workflow phases or features; catalog Python prerequisite work referenced as Feature 019/DEP017-01; implementation of Feature 016's centralized probing; reactivation of abandoned Feature 018; unreviewed model, effort, capacity-setting or lifecycle-control choices; silent consumer configuration changes; generic-agent fallback; implicit later workflow invocation, roadmap verification, Git integration, publication or feature acceptance.
+- **Depends on**: 013, 014, 015, 017.
+- **Governed by**: C-01, C-02, C-03, C-04, C-05.
+- **Notes**: The operator requested one work item covering all three areas on 2026-10-05. Provenance: `.specify/workflow-feedback/exports/consolidated-workflow-issues-20261005/report.json` and its Markdown projection in commit `c4ff53c`, report ID `consolidated-workflow-issues-20261005`, integrity `sha256:2ed9a33656c5fa7ddcc0429d43c658c1f91e360c2731cc319a92b8b4bf962776`. Included observation IDs: `select-feature-explicit-choice-reprompt-20261003`, `select-feature-pointer-approval-stop-20261003`, `select-feature-explicit-intent-redundant-gates-20261005`, `analyze-unresolved-checklist-gate-20261003`, and `clarify-agent-thread-limit-preflight-20261003`. These describe earlier observed versions and do not establish current reproduction. Keep the three areas separately traceable in specification requirements, tasks and validation within this single feature. Feature 018's abandoned proposal remains historical evidence; its unresolved capacity issue is reassessed here under a fresh design. Feature 016 remains independent and is not a prerequisite unless later review establishes an approved dependency.
+- **Spec dir**: `specs/020-flowkit-workflow-iteration-improvements/`
+
 ## Open Questions
 
 Feature 018's abandoned proposal left these questions unresolved. They are retained as historical investigation context rather than an active work commitment:
@@ -305,4 +315,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.18.4 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-04
+**Version**: 1.19.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-05
