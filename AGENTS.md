@@ -13,6 +13,9 @@ Spec Kit Flow is the reusable, human-directed, merge-bounded flow-back workbench
 
 ## Working conventions
 
+- For ordinary Python work in this checkout, prepare and check the project environment with `mise run python:prepare` and `mise run python:check`, then use `mise exec -- python <args>` even between skill invocations. Do not guess another interpreter or install packages ad hoc when this check fails; inspect the reported state and use the documented recovery only after authorizing changes to an existing environment.
+- Scripts belonging to or validating Codex skills continue to use `~/.codex/venvs/skill-tools/bin/python`. Report a missing package in that environment before changing it.
+
 - Keep the ten active `workflows/speckit-flow-*/workflow.yml` packages independently reviewable; retain Start Feature as a stop-only deprecated source and preserve a manual-prompt fallback. Keep planning and task generation separate.
 - Treat the five-question clarification cap as a current command/template behavior. A custom preset and its continuation policy remain unapproved follow-up work; do not imply the existing workflow removes the cap.
 - Validate source definitions and bundle behavior in disposable initialized consumers. A no-op Codex executable can test native dispatch, but it does not prove live-agent behavior. Preserve consumer-owned feedback and unrelated components across bundle removal.

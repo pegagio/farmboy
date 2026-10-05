@@ -16,18 +16,20 @@ Ordinary catalog install and refresh use the checked-in release packages only fr
 
 ## Prepare the checkout
 
-Run these commands from the Spec Kit Flow checkout. You need `mise`, Python 3, and access to the Specify CLI pinned in `mise.toml`. The repository does not distribute that CLI.
+Run these commands from the Spec Kit Flow checkout. You need `mise` and access to the Specify CLI pinned in `mise.toml`. The repository does not distribute that CLI.
 
 ```sh
 cd /path/to/spec-kit-flow
 mise trust
 mise install
+mise run python:prepare
+mise run python:check
 mise exec -- specify --version
 ```
 
 If `mise install` cannot obtain the pinned Specify fork, make that CLI available before continuing. The catalog tasks check its exact version and reject development snapshots or mismatched package hashes.
 
-Catalog agent-package handling also requires PyYAML (`yaml`) in the Python interpreter executing the catalog tasks. `mise install` supplies the pinned tools but does not currently provision that Python dependency. The documented mise catalog path has an observed setup gap: it fails with `ModuleNotFoundError: No module named 'yaml'` when that interpreter lacks PyYAML. Feature 017's lifecycle tests and successful refresh used a separately prepared dependency-equipped interpreter; those results do not establish that the setup above is sufficient. The operator deferred dependency preparation and complete runnable provisioning guidance to [follow-up DEP017-01](../specs/017-flowkit-agent-configuration/follow-up.md). This disclosure does not repair the missing prerequisite or select a provisioning approach.
+The Python preparation commands create and check this checkout's ignored `.venv` with the pinned PyYAML requirement. Ordinary repository Python work should use `mise exec -- python <args>`. Scripts belonging to or validating Codex skills continue to use the separately prescribed skill-tools interpreter. Bundle installation does not prepare Python packages. For a reusable setup in another project, see [Agent Python Environment](agent-python-environment.md).
 
 
 ## Install in another project

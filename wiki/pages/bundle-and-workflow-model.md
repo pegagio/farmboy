@@ -9,7 +9,8 @@ sources:
 - S018
 - S019
 - S021
-updated: '2026-10-04'
+- S027
+updated: '2026-10-05'
 ---
 
 # Bundle and workflow model
@@ -50,9 +51,11 @@ The ten active workflows are Select Feature, Specify, Clarify, Plan, Tasks, Anal
 
 ## Roadmap dispositions
 
-Features 001–015 are verified; 016 remains planned and 017 is verified with operator-qualified nondeferred scope. DEP017-01 remains unresolved: delivery was tested in a dependency-equipped interpreter, while advertised mise refresh failed without PyYAML. Original unconditional FR-008/FR-011/SC-003 usability is not represented as passed; no numbered follow-up or runtime approach is selected. Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) remains abandoned and unresolved. Verification grants no feature acceptance, publication, adoption or Git integration. (S018)
+Features 001–015 are verified; 016 is planned, 017 retains qualified verification, and 018's [capacity proposal](./workflow-agent-capacity-proposal.md) is abandoned. Verified 019 selects a project `.venv`, existing mise/uv, pinned PyYAML and explicit invocation; no extra utilities. Its [portable guide](./agent-python-environment.md) preserves existing settings. macOS arm64 evidence establishes no full catalog repair, stock Specify compatibility, real adoption, acceptance, publication or Git authority. DEP017-01 history remains qualified. (S018)
 
 ## Related pages
+
+- [Agent Python environment](./agent-python-environment.md)
 
 - [Codex workflow controller design](./codex-workflow-controllers.md)
 - [Project authority and review gates](./project-authority-and-review-gates.md)

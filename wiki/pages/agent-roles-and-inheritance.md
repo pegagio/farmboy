@@ -2,7 +2,7 @@
 title: Named agents for delegated steps
 type: concept
 sources: [S005, S018, S020, S021, S023, S025, S026]
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 
 # Named agents for delegated steps

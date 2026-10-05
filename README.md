@@ -38,6 +38,8 @@ It also installs the ten active workflows in [`workflows/`](workflows/README.md)
 
 The bundle does not include a preset or `speckit-flow-feedback-maintainer`. Maintainer intake belongs in this source environment, not a consumer project.
 
+For ordinary repository Python work, prepare the project-local PyYAML environment with `mise run python:prepare` and `mise run python:check`; use `mise exec -- python <args>`. This environment is separate from bundle installation and from the skill-tools interpreter. See the [agent Python environment guide](docs/agent-python-environment.md) for adoption in another project.
+
 ## Installation
 
 The checked-in catalog is the local `0.14.0` development snapshot, including ten controller skills and eight consumer-owned agent defaults. Ordinary installation requires a released catalog matching source; use development-snapshot mode in an initialized source checkout or disposable consumer to test current source. A compatible Specify CLI must be available; `mise.toml` records the tested fork version. Local packaging is not publication or consumer adoption.

@@ -1,8 +1,12 @@
 ---
 title: FlowKit agent configuration and consumer delivery
 type: decision
-sources: [S025, S026]
-updated: 2026-10-04
+sources:
+- S025
+- S026
+- S018
+- S027
+updated: '2026-10-05'
 ---
 
 # FlowKit agent configuration and consumer delivery
@@ -34,9 +38,15 @@ Accepted desktop field/value evidence and operator-confirmed Sol pair observatio
 
 Recorded focused/full checks retain the skipped legacy class and its separately expanded native Specify Clarify `integration None` failure. No-op dispatch and loader success do not prove native behavior; local results imply neither stock compatibility nor publication/acceptance. (S026)
 
-DEP017-01 remains unresolved: advertised mise refresh failed because its Python lacked PyYAML; an existing dependency-equipped skill-tools interpreter succeeded. FR-008/FR-011/SC-003 coverage applies to that tested environment; the original unconditional setup/usability target is not claimed passed. The approved follow-up must provide reproducible dependencies, supported catalog entry points and fresh-consumer validation using documented preparation. No numbered feature or provisioning approach is selected. (S026)
+DEP017-01 remains unresolved: advertised mise refresh lacked PyYAML, while an existing equipped skill-tools interpreter succeeded. Original FR-008/FR-011/SC-003 setup coverage remains qualified. The original deferral called for catalog preparation and fresh-consumer validation; at that point no numbered follow-up existed. (S026)
+
+> ⚠ conflict: S026 originally targets catalog repair; later S018 explicitly supersedes that broader scope with verified 019’s agent environment, excluding interpreter unification/component launchers. 019 proves no catalog repair or retrospective Feature 017 coverage. (S026, S018)
+
+Verified 019 supplies project `.venv`/mise/uv preparation, pinned PyYAML and portable guidance; no extra utilities. Tested macOS arm64 guide adoption establishes neither full catalog repair, stock Specify compatibility nor real adoption/acceptance. (S018)
 
 ## Related pages
+
+The narrower follow-up is described in [Agent Python environment](./agent-python-environment.md); it preserves this delivery record. (S018, S027)
 
 Feature 016 remains independent; coordination changes identities, not its probe timing. The generic component boundary and The Diagram's separate authority remain intact. (S025, S026)
 

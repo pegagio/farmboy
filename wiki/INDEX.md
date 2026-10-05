@@ -20,6 +20,8 @@ page files, not here.
 
 ## Decision
 
+- [Agent Python environment](pages/agent-python-environment.md)
+
 - [FlowKit agent configuration and consumer delivery](pages/flowkit-agent-configuration-and-delivery.md)
 
 - [Abandoned workflow agent capacity proposal](pages/workflow-agent-capacity-proposal.md)

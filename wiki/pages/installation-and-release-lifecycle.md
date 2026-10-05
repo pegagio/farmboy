@@ -2,14 +2,14 @@
 title: Installation and release lifecycle
 type: howto
 sources: [S001, S002, S005, S016, S025]
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 
 # Installation and release lifecycle
 
-Catalog tasks install or refresh the bundle, ten active Specify workflows, and ten direct FlowKit Codex skills through a temporary localhost catalog, verifying components and skills together. Native bundle installation manages workflows and extensions, not direct skills. Install can initialize empty projects. (S005)
+Catalog tasks install/refresh the bundle, ten active workflows and ten direct Codex skills through a temporary localhost catalog, verifying both. Native bundle installation excludes direct skills; catalog install can initialize empty projects. (S005)
 
-Preparation selects pinned tools through mise, but catalog agent handling requires PyYAML in the executing Python. `mise install` does not provision it: the documented catalog path failed with `ModuleNotFoundError: No module named 'yaml'`; a separately prepared interpreter succeeded. DEP017-01 defers repair and runnable provisioning guidance; this disclosure does not fix setup. Ordinary install/refresh require matching release source; the pinned Specify CLI is not distributed here. (S005)
+Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005)
 
 Explicit development snapshots support the initialized source root or initialized temporary consumers; nested targets and other persistent consumers are rejected. They record unreleased provenance without changing release metadata, preserve project-owned artifacts/history, and do not invoke workflows or integrate Git. (S005)
 
@@ -29,7 +29,7 @@ The direct Codex path validates and probes every delegated branch's exact native
 
 Earlier Feature 017 specification described prospective acquisition; the current guide documents delivery operations under [its contract](./flowkit-agent-configuration-and-delivery.md). Install-missing adds absent defaults and preserves existing, old unprefixed and unrelated files. Refresh changes only available defaults; acquiring new copies requires install-missing. Explicit reset selects one exact current name or all manifest entries, replacing or creating those targets. Unknown names, unsafe paths and competing exact identities block delivery. Renamed/retired files remain for manual migration after dependent assignments are inspected. (S025, S005)
 
-Human/JSON reports expose package/source provenance, selected inputs, target outcomes and recovery. Collisions identify portable competing paths; unsafe identities are redacted. Partial mutation requires inspecting completed, failed and unattempted targets, resolving the cause and retrying the same explicit operation; bundle rollback is not implied. Removal deletes available defaults while preserving every consumer agent copy. (S005)
+Human/JSON reports expose provenance, inputs, outcomes and recovery. Collisions identify portable paths; unsafe identities are redacted. Partial mutation requires inspecting outcomes, resolving the cause and retrying the explicit operation; no bundle rollback is implied. Removal deletes defaults, preserving consumer copies. (S005)
 
 ## Related pages
 

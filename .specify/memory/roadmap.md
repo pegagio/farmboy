@@ -1,19 +1,19 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.18.3 → 1.18.4
-Bump rationale: PATCH — record Feature 017 verification under its operator-directed follow-up qualification and reconcile completed decisions with current evidence.
+Version change: 1.22.1 → 1.22.2
+Bump rationale: PATCH — record Feature 019's independently reviewed implementation verification and reconcile its resolved planning notes within the existing approved scope.
 
 Changes this revision:
-  - Set Feature 017 from implemented to verified after explicit approval of this exact patch.
-  - Preserved the original outcome and scope; recorded DEP017-01 as unresolved and explicitly deferred to a follow-up feature.
-  - Reconciled selection-time Notes and Open Questions with reviewed agent configuration, consumer-owned delivery and evidence limitations.
-  - Preserved Feature 016 as planned and Feature 018 as abandoned; created no numbered follow-up entry.
+  - Change only Feature 019 from implemented to verified after fresh full-delta debrief and explicit operator approval of this exact patch.
+  - Reconcile Feature 019's environment and utility decisions and resolved planning questions with its reviewed plan, implementation and bounded validation.
+  - Preserve prior superseded designs, all other entries, dependencies and Feature 017's original failure and evidence limitations.
+  - Grant no acceptance, publication, actual external-project adoption or Git integration.
 
-Specs affected: 017 (verified with documented qualification)
-Open questions added/resolved: Feature 017 selection-time questions are recorded as resolved within their documented evidence limits; DEP017-01 remains unresolved in specs/017-flowkit-agent-configuration/follow-up.md.
+Specs affected: 019 (verification lifecycle and resolved planning bookkeeping only)
+Open questions added/resolved: Resolve Feature 019 preparation/invocation and extra-utility questions; retain their original wording as historical questions.
 
-Notes: Fresh debrief: specs/017-flowkit-agent-configuration/roadmap-reviews/debrief-20261004T170935Z.md. Verification records the reviewed nondeferred scope in the dependency-equipped tested environment. It does not establish that the advertised mise preparation path passed, prove effective child settings, erase native Specify test limitations, or authorize feature acceptance, Git integration, publication or consumer adoption.
+Notes: Evidence: specs/019-catalog-python-runtime-prerequisites/roadmap-reviews/debrief-20261005T200520Z.md, tasks.md and validation.md. Review covers the complete attributable baseline-to-WORKTREE snapshot; local results and a disposable second-project fixture do not establish full catalog lifecycle, stock Specify compatibility or other-platform support.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -51,7 +51,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Its proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -254,7 +254,25 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Disposition**: Abandoned by direct operator decision on 2026-10-03 because the current approach and specification were rejected. The proposed scope and earlier notes above, feature artifacts, and investigation evidence remain preserved as history; no further implementation is authorized by this entry. The capacity issue remains unresolved, and no replacement feature or approach is selected. Features 016 and 017 remain unchanged.
 - **Spec dir**: `specs/018-reliable-workflow-agent-capacity/`
 
+### 019 — Agent Python Environment  [status: verified]
+
+- **Description**: Ensure the agent has the Python environment needed for efficient repository work, with PyYAML available rather than repeatedly discovering it is missing.
+- **Outcome**: Documented preparation and a straightforward invocation convention make PyYAML usable in the agent's actual working environment. Additional tools are considered only where recurring tasks or observed failures justify their benefit.
+- **Scope (in)**: Agent Python environment preparation; PyYAML availability and direct YAML validation; project guidance for environment use between skill invocations; concise missing-prerequisite recovery; evidence-based consideration and explicit approval of any additional utilities; portable FlowKit-provided instructions and/or reusable configuration for explicit adoption in other projects, with clean second-project and existing-configuration checks.
+- **Scope (out)**: Spec Kit/FlowKit runtime coupling or interpreter unification; per-component launchers, capability-report protocols or runtime-management frameworks; workflow/controller reconciliation, automatic consumer migration and catalog lifecycle redesign; external repository or machine-global changes; publication, Git integration or acceptance.
+- **Depends on**: 011, 017.
+- **Governed by**: C-01, C-02, C-03, C-04, C-05.
+- **Notes**: DEP017-01 is motivating evidence, not a mandate to redesign the catalog. Preserve the original missing-PyYAML mise failure and distinct equipped-interpreter retry, accepted model evidence, unverified effective settings and native Specify test limits. Existing dependency references retain provenance; no Specify installation is required by this scope. The reviewed and implemented mechanism is an ignored project-local `.venv`, created from existing mise Python `3.11.16` with existing uv `0.12.5`, containing pinned `PyYAML==6.0.3`. Ordinary agent work uses `mise exec -- python` after `python:prepare` and read-only `python:check`; skill-tools instructions remain respected. The evidence-based utility assessment selected no additional packages. All eleven tasks are complete. Validation records two focused regression tests, fresh seven-task definition validation, direct safe YAML checks, truthful acquisition failure and recovery observations, a disposable second-project guide adoption and existing-configuration preservation. Evidence is limited to the tested macOS arm64 pins; full catalog lifecycle, stock Specify compatibility, publication, real consumer adoption and feature acceptance are not established.
+- **Repeatability decision**: The operator requires other projects to be able to adopt the same simple agent environment pattern. Adoption must preserve existing project settings and environments or surface conflicts for explicit resolution; it does not require a new installer or runtime framework.
+- **Superseded scope**: Earlier catalog-only, repository-wide FlowKit execution inventory, compatibility and shared-Specify interpreter proposals are retained in historical planning/review artifacts. The operator explicitly rejected that coupling on 2026-10-05. The revised specification governs. The previous integration plan was ineligible after that correction; the subsequently reviewed simple agent-environment plan dated 2026-10-05 replaced it and governs the completed implementation recorded in `specs/019-catalog-python-runtime-prerequisites/plan.md`, `tasks.md` and `validation.md`.
+- **Spec dir**: `specs/019-catalog-python-runtime-prerequisites`
+
 ## Open Questions
+
+Feature 019's following planning questions are resolved by its [reviewed plan](../../specs/019-catalog-python-runtime-prerequisites/plan.md), [utility assessment](../../specs/019-catalog-python-runtime-prerequisites/research.md) and [validation](../../specs/019-catalog-python-runtime-prerequisites/validation.md). The selected convention is existing mise/uv with a project-local `.venv`, explicit `mise exec -- python`, one required pinned PyYAML package and no additional utilities. Portable guide adoption remains explicit and preserves existing configuration. The original questions were:
+
+- Which existing preparation and invocation convention gives the agent the required Python environment with minimal complexity?
+- Which additional utilities, if any, have demonstrated benefits that justify adoption and explicit approval?
 
 Feature 018's abandoned proposal left these questions unresolved. They are retained as historical investigation context rather than an active work commitment:
 
@@ -305,4 +323,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.18.4 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-04
+**Version**: 1.22.2 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-05

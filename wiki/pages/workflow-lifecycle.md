@@ -11,7 +11,7 @@ sources:
 - S018
 - S019
 - S021
-updated: 2026-10-04
+updated: 2026-10-05
 ---
 
 # Workflow lifecycle
