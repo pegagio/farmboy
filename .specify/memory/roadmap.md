@@ -1,19 +1,19 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version change: 1.22.1 → 1.22.2
-Bump rationale: PATCH — record Feature 019's independently reviewed implementation verification and reconcile its resolved planning notes within the existing approved scope.
+Version change: 1.22.2 → 1.23.0
+Bump rationale: MINOR — add the explicitly approved FarmBoy project, skill, workflow and associated agent naming feature without changing existing lifecycle states or runtime behavior.
 
 Changes this revision:
-  - Change only Feature 019 from implemented to verified after fresh full-delta debrief and explicit operator approval of this exact patch.
-  - Reconcile Feature 019's environment and utility decisions and resolved planning questions with its reviewed plan, implementation and bounded validation.
-  - Preserve prior superseded designs, all other entries, dependencies and Feature 017's original failure and evidence limitations.
-  - Grant no acceptance, publication, actual external-project adoption or Git integration.
+  - Add Feature 021 — FarmBoy Project and Workflow Naming with status planned.
+  - Record consistent branding, owned identity reconciliation, consumer migration guidance and bounded validation within the approved rename scope.
+  - Require a separately approved constitutional amendment before implementing changes to the currently mandated identities.
+  - Preserve existing entries, dependencies, historical verification evidence and independently owned component authority.
 
-Specs affected: 019 (verification lifecycle and resolved planning bookkeeping only)
-Open questions added/resolved: Resolve Feature 019 preparation/invocation and extra-utility questions; retain their original wording as historical questions.
+Specs affected: 021 (new planned feature only)
+Open questions added/resolved: Add Feature 021 identifier-mapping, consumer-compatibility and constitutional-amendment questions; resolve none.
 
-Notes: Evidence: specs/019-catalog-python-runtime-prerequisites/roadmap-reviews/debrief-20261005T200520Z.md, tasks.md and validation.md. Review covers the complete attributable baseline-to-WORKTREE snapshot; local results and a disposable second-project fixture do not establish full catalog lifecycle, stock Specify compatibility or other-platform support.
+Notes: Provenance: direct operator selection of FarmBoy and the Spec et Labora tagline, followed by explicit approval of the Feature 021 roadmap proposal on 2026-10-08. Governing repository evidence: .specify/memory/constitution.md and the existing .specify/memory/roadmap.md. Feature 020 remains reserved for parallel work and is not reconstructed from another checkout. No specification directory is assigned; this amendment grants no implementation, publication, external repository rename, consumer migration or Git integration authority.
 -->
 
 # Spec Kit Flow — Spec Roadmap
@@ -51,7 +51,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 021 is planned for the approved FarmBoy rename; the current constitutional identities continue to govern until explicitly amended. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -267,7 +267,23 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Superseded scope**: Earlier catalog-only, repository-wide FlowKit execution inventory, compatibility and shared-Specify interpreter proposals are retained in historical planning/review artifacts. The operator explicitly rejected that coupling on 2026-10-05. The revised specification governs. The previous integration plan was ineligible after that correction; the subsequently reviewed simple agent-environment plan dated 2026-10-05 replaced it and governs the completed implementation recorded in `specs/019-catalog-python-runtime-prerequisites/plan.md`, `tasks.md` and `validation.md`.
 - **Spec dir**: `specs/019-catalog-python-runtime-prerequisites`
 
+### 021 — FarmBoy Project and Workflow Naming  [status: planned]
+
+- **Description**: Rename Spec Kit Flow / FlowKit to FarmBoy and reconcile its associated skills and workflows.
+- **Outcome**: Operators encounter consistent FarmBoy branding and invocation names across the project's supported interfaces, with existing workflow behavior and human gates preserved.
+- **Scope (in)**: Project branding and owned repository/bundle identities; skill and workflow names, identifiers, paths and references; associated project-owned agent names; installation and migration guidance; affected documentation, packaging and validation. Obtain an explicit constitutional amendment for the identity requirements before implementation.
+- **Scope (out)**: Building the future code factory; unrelated workflow behavior changes; independently owned Spec Kit commands or extension identities; retrospective rewrites of merged feature history; publication, external repository renames, automatic consumer migration or Git integration.
+- **Depends on**: 011, 013, 014, 017.
+- **Governed by**: C-01, C-02, C-03, C-04, C-05.
+- **Notes**: Direct operator naming decision: FarmBoy, with “Spec et Labora” as the tagline. Exact identifier mappings and compatibility treatment for existing consumer installations remain specification decisions. The current constitution retains the old identities until separately amended.
+
 ## Open Questions
+
+Feature 021's naming and migration decisions remain open for specification and explicit governance review:
+
+- Which exact FarmBoy names and identifiers replace the project-owned repository/bundle, skills, workflows and associated agents while preserving independently owned command and extension identities?
+- What compatibility, alias, installation, refresh and migration treatment should existing consumers receive without overwriting consumer-owned customizations or evidence?
+- What exact constitutional amendment replaces the mandated Spec Kit Flow identities while preserving generic component boundaries and human-directed authority?
 
 Feature 019's following planning questions are resolved by its [reviewed plan](../../specs/019-catalog-python-runtime-prerequisites/plan.md), [utility assessment](../../specs/019-catalog-python-runtime-prerequisites/research.md) and [validation](../../specs/019-catalog-python-runtime-prerequisites/validation.md). The selected convention is existing mise/uv with a project-local `.venv`, explicit `mise exec -- python`, one required pinned PyYAML package and no additional utilities. Portable guide adoption remains explicit and preserves existing configuration. The original questions were:
 
@@ -323,4 +339,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.22.2 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-05
+**Version**: 1.23.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-08
