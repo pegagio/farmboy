@@ -15,7 +15,11 @@ flowchart TD
     plan(["remediate-plan<br/>(FlowKit-Planner)<br/>command: speckit.plan"])
     tasksRoute@{ shape: diam, label: "route-task-remediation" }
     tasks(["remediate-tasks<br/>(FlowKit-Tasker)<br/>command: speckit.tasks"])
+    readinessRoute@{ shape: diam, label: "route-readiness-recording" }
+    record["record-readiness-evidence<br/>main-task recorder; verified Reviewer evidence"]
     analyze(["analyze-artifacts<br/>(FlowKit-Reviewer)<br/>command: speckit.analyze"])
+    readiness["assess-readiness-evidence<br/>deterministic installed helper"]
+    checker["check-readiness<br/>(FlowKit-Readiness Checker)"]
     assess["assess-analysis<br/>(FlowKit-Reviewer)"]
     report["report-analysis-outcome"]
 
@@ -25,13 +29,15 @@ flowchart TD
     specRoute -- skip --> planRoute
     planRoute -- run --> plan --> tasksRoute
     planRoute -- skip --> tasksRoute
-    tasksRoute -- run --> tasks --> analyze
-    tasksRoute -- skip --> analyze
-    analyze --> assess --> loop
+    tasksRoute -- run --> tasks --> readinessRoute
+    tasksRoute -- skip --> readinessRoute
+    readinessRoute -- run --> record --> analyze
+    readinessRoute -- skip --> analyze
+    analyze --> readiness --> checker --> assess --> loop
     loop -- complete, blocked, no progress, or cap --> report
 
     classDef delegated stroke:#4b5563,stroke-width:2px,stroke-dasharray:6 4
-    class spec,plan,tasks,analyze,assess delegated
+    class spec,plan,tasks,analyze,checker,assess delegated
     style specRoute stroke-dasharray:0
     style planRoute stroke-dasharray:0
     style tasksRoute stroke-dasharray:0

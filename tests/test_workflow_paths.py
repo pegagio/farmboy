@@ -94,12 +94,12 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual(6, loop["max_iterations"])
         self.assertEqual("assess-analysis", loop["steps"][-1]["id"])
         self.assertEqual(["speckit.specify", "speckit.plan", "speckit.tasks", "speckit.analyze"], commands(workflow["steps"]))
-        flags = ("spec_action", "plan_action", "task_action")
+        flags = ("spec_action", "plan_action", "task_action", "readiness_record_action")
         expected = {
-            "baseline": (["skip", "skip", "skip"], ["speckit.analyze"]),
-            "specification": (["run", "run", "run"], ["speckit.specify", "speckit.plan", "speckit.tasks", "speckit.analyze"]),
-            "plan": (["skip", "run", "run"], ["speckit.plan", "speckit.tasks", "speckit.analyze"]),
-            "tasks": (["skip", "skip", "run"], ["speckit.tasks", "speckit.analyze"]),
+            "baseline": (["skip", "skip", "skip", "skip"], ["speckit.analyze"]),
+            "specification": (["run", "run", "run", "skip"], ["speckit.specify", "speckit.plan", "speckit.tasks", "speckit.analyze"]),
+            "plan": (["skip", "run", "run", "skip"], ["speckit.plan", "speckit.tasks", "speckit.analyze"]),
+            "tasks": (["skip", "skip", "run", "skip"], ["speckit.tasks", "speckit.analyze"]),
         }
         for entry, (actions, expected_commands) in expected.items():
             with self.subTest(entry=entry):
@@ -165,25 +165,107 @@ class WorkflowPathTests(unittest.TestCase):
     def test_implementRepeatsExistingTasksOnlyWhileProgressIsVerified(self) -> None:
         workflow = load_workflow("speckit-flow-implement")
         steps = workflow["steps"]
-        self.assertEqual(["assess-implementation-state", "implementation-continuation-loop", "report-implementation-outcome"], [step["id"] for step in steps])
-        self.assertEqual("FlowKit-Reviewer", steps[0]["flow_kit"]["agent"])
-        self.assertIn("progress baseline", steps[0]["prompt"])
-        loop = steps[1]
+        self.assertEqual(["establish-implementation-scope", "assess-implementation-state", "capture-implementation-baseline", "assess-readiness-before-core", "check-readiness-before-core", "gate-readiness-before-core", "assess-implementation-start-milestone", "prepare-implementation-start-milestone", "route-implementation-start-milestone", "verify-lifecycle-and-readiness-before-coding", "route-readiness-before-core", "report-implementation-outcome"], [step["id"] for step in steps])
+        assessment = find_step(steps, "assess-implementation-state")
+        self.assertEqual("FlowKit-Reviewer", assessment["flow_kit"]["agent"])
+        self.assertIn("progress baseline", assessment["prompt"])
+        checker = find_step(steps, "check-readiness-before-core")
+        self.assertEqual("FlowKit-Readiness Checker", checker["flow_kit"]["agent"])
+        readiness_gate = find_step(steps, "gate-readiness-before-core")
+        self.assertIn("Immediately before entering the implementation loop, rerun the installed readiness helper", readiness_gate["prompt"])
+        loop = find_step(steps, "implementation-loop")
         self.assertEqual("do-while", loop["type"])
         self.assertEqual(5, loop["max_iterations"])
-        self.assertEqual(["implement-eligible-work", "assess-implementation-after-pass"], [step["id"] for step in loop["steps"]])
-        self.assertEqual("{{ steps.assess-implementation-after-pass.output.state == 'continue' }}", loop["condition"])
-        self.assertEqual(["speckit.implement"], commands(steps))
-        self.assertEqual("FlowKit-Coder", loop["steps"][0]["flow_kit"]["agent"])
-        self.assertEqual("FlowKit-Code Reviewer", loop["steps"][1]["flow_kit"]["agent"])
+        self.assertEqual(["route-scoped-entry", "prepare-scoped-prerequisites", "implement-tasks", "assess-implementation-after-pass", "route-post-assessment", "route-scoped-execution"], [step["id"] for step in loop["steps"]])
+        self.assertEqual("implementation_scope", loop["controller_loop_mode"])
+        self.assertNotIn("assessment_only_first_pass", loop)
+        self.assertNotIn("assessment_before_correction", loop)
+        self.assertEqual('{{ steps.route-scoped-execution.output.state == "continue" }}', loop["condition"])
+        self.assertEqual(["speckit.flow-roadmap.write", "speckit.implement", "speckit.implement", "speckit.tasks", "speckit.tasks", "speckit.tasks"], commands(steps))
+        self.assertEqual("FlowKit-Coder", find_step(loop["steps"], "run-scoped-preparation")["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Coder", find_step(loop["steps"], "run-scoped-source-implementation")["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Code Reviewer", loop["steps"][3]["flow_kit"]["agent"])
         self.assertNotIn("implementation_decision", workflow["inputs"])
-        self.assertIn("all remaining eligible tasks", loop["steps"][0]["input"]["args"])
-        self.assertIn("operator input is required", loop["steps"][0]["input"]["args"])
-        self.assertIn("another speckit.implement session can safely proceed", loop["steps"][1]["prompt"])
-        self.assertIn("Independently review the changed code", loop["steps"][1]["prompt"])
-        self.assertIn("no remaining eligible task", loop["steps"][1]["prompt"])
-        self.assertIn("successful command alone is not completion evidence", loop["steps"][1]["prompt"])
-        self.assertIn("no-progress or five-pass safety stop", steps[2]["prompt"])
+        self.assertIn("five-session cap", find_step(loop["steps"], "record-preparation-session-start")["prompt"])
+        self.assertIn("readiness", find_step(loop["steps"], "route-scoped-execution")["prompt"])
+        self.assertIn("no-progress", find_step(loop["steps"], "route-scoped-execution")["prompt"])
+        self.assertIn("five-session", find_step(loop["steps"], "route-scoped-execution")["prompt"])
+        self.assertIn("source_attempts_started", find_step(loop["steps"], "record-source-session-and-attempt")["prompt"])
+        self.assertIn("Same-child", find_step(loop["steps"], "run-scoped-source-implementation")["input"]["args"])
+        self.assertIn("Independently review the changed code", loop["steps"][3]["prompt"])
+        self.assertIn("no eligible open correction task", loop["steps"][3]["prompt"])
+        self.assertIn("successful command alone is not completion evidence", loop["steps"][3]["prompt"])
+        outcome = loop["steps"][4]
+        self.assertEqual("{{ steps.assess-implementation-after-pass.output.state }}", outcome["expression"])
+        self.assertEqual(["track-reviewed-completion", "validate-reviewed-completion-tracking"],
+                         [step["id"] for step in outcome["cases"]["complete"]])
+        self.assertEqual([], outcome["cases"]["blocked"])
+        task_revision = outcome["cases"]["continue"][0]
+        self.assertEqual("{{ steps.assess-implementation-after-pass.output.task_revision_action }}", task_revision["expression"])
+        self.assertEqual([], task_revision["cases"]["skip"])
+        revise_steps = task_revision["cases"]["revise"]
+        self.assertEqual(["preflight-task-revision-snapshot", "route-task-revision-preflight"],
+                         [step["id"] for step in revise_steps])
+        preflight_route = find_step(revise_steps, "route-task-revision-preflight")
+        self.assertEqual(["prepare-task-revision", "freeze-task-revision-scope",
+                          "revalidate-task-revision-snapshot", "route-task-revision-snapshot"],
+                         [step["id"] for step in preflight_route["cases"]["ready"]])
+        dispatch_route = find_step(revise_steps, "route-task-revision-snapshot")
+        self.assertEqual(["revise-task-plan", "review-task-revision-scope", "validate-task-revision",
+                          "route-task-revision-result"],
+                         [step["id"] for step in dispatch_route["cases"]["ready"]])
+        tasker = find_step(revise_steps, "revise-task-plan")
+        self.assertEqual("FlowKit-Tasker", tasker["flow_kit"]["agent"])
+        self.assertEqual("speckit.tasks", tasker["command"])
+        self.assertIn("routine task revision", find_step(revise_steps, "review-task-revision-scope")["prompt"])
+        report = find_step(steps, "report-implementation-outcome")
+        self.assertIn("blocked-readiness", report["prompt"])
+        self.assertIn("no-progress", report["prompt"])
+        self.assertIn("five-pass safety stop", report["prompt"])
+        self.controller.validate_workflow_definition(workflow)
+        import copy
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["max_iterations"] = 6
+        with self.assertRaisesRegex(ValueError, "unsupported controller_loop_mode"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["max_iterations"] = True
+        with self.assertRaisesRegex(ValueError, "positive integer"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["id"] = "implementation-continuation-loop"
+        with self.assertRaisesRegex(ValueError, "unsupported controller_loop_mode"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["condition"] = '{{ steps.route-post-assessment.output.state == "continue" }}'
+        with self.assertRaisesRegex(ValueError, "implementation_scope must route"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["steps"][-1]["flow_kit"] = {
+            "delegated": True, "agent": "FlowKit-Coder"}
+        with self.assertRaisesRegex(ValueError, "implementation_scope must route"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        find_step(changed["steps"], "implementation-loop")["steps"][-1]["type"] = "switch"
+        with self.assertRaisesRegex(ValueError, "implementation_scope must route"):
+            self.controller.validate_workflow_definition(changed)
+        changed = copy.deepcopy(workflow)
+        changed["workflow"]["id"] = "speckit-flow-test-carrier"
+        with self.assertRaisesRegex(ValueError, "only supported by speckit-flow-implement"):
+            self.controller.validate_workflow_definition(changed)
+        self.assertEqual([{"step_id": "implementation-loop", "mode": "implementation_scope"}],
+                         self.controller._controller_loop_modes(steps))
+        rendered_scope = self.controller.render_template(
+            find_step(steps, "establish-implementation-scope"),
+            {"feature_context": "specs/020-example", "integration": "codex"}, {})
+        self.assertIn("implementation-scope", rendered_scope["prompt"])
+        rendered_entry = self.controller.render_template(
+            loop["steps"][0], {"feature_context": "specs/020-example", "integration": "codex"}, {})
+        self.assertIn("implementation-eligibility", rendered_entry["prompt"])
+        rendered_source = self.controller.render_template(
+            find_step(loop["steps"], "run-scoped-source-implementation"),
+            {"feature_context": "specs/020-example", "integration": "codex"}, {})
+        self.assertIn("implementation-activation", rendered_source["input"]["args"])
 
     def testLoopRoutingStopsForNoProgressAndCapButAcceptsCleanBeforeCorrectivePass(self) -> None:
         complete = {"state": "complete"}
@@ -209,7 +291,8 @@ class WorkflowPathTests(unittest.TestCase):
     def testAnalyzeReportsConsequentialDecisionWithoutTakingAction(self) -> None:
         workflow = load_workflow("speckit-flow-analyze-remediate")
         assessment = find_step(workflow["steps"], "assess-analysis")
-        self.assertIn("without taking the consequential action", assessment["prompt"])
+        self.assertIn("Route only an exact current recorder action", assessment["prompt"])
+        self.assertIn("Never classify the built-in requirements checklist as Reviewer-owned", assessment["prompt"])
         self.assertFalse(any(node.get("type") == "gate" for node, _, _ in walk(workflow["steps"])))
         self.assertFalse(any(command.startswith("speckit.flow-kit-") for command in commands(workflow["steps"])))
 
@@ -220,9 +303,10 @@ class WorkflowPathTests(unittest.TestCase):
         for required in ("do not ask the operator to classify a routine result", "repeated findings", "no measurable progress", "five-pass safety cap", "smallest safe resumption action"):
             self.assertIn(required, analyze)
         self.assertIn("all remaining eligible tasks", implement)
-        self.assertIn("required operator input", implement)
-        self.assertIn("does not invoke Specify, Plan, Tasks, Analyze", implement)
-        self.assertIn("If eligible tasks remain", implement)
+        self.assertIn("operator question", implement)
+        self.assertIn("does not invoke Specify, Plan, Analyze", implement)
+        self.assertIn("FlowKit Tasks", implement)
+        self.assertIn("unfinished eligible task IDs", implement)
         self.assertIn("five-pass safety cap", implement)
         self.assertIn("Leave Converge", implement)
 
@@ -246,7 +330,7 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertTrue(self.controller.select_switch_branch(linkage, "repairable"))
         for choice in ("amend", "defer", "invalid"):
             self.assertEqual([], self.controller.select_switch_branch(patch, choice))
-        self.assertEqual(["speckit.flow-roadmap.brief"], commands(outcome["cases"]["ready-for-brief"]))
+        self.assertEqual(["speckit.flow-roadmap.brief", "speckit.flow-roadmap.write"], commands(outcome["cases"]["ready-for-brief"]))
         self.assertEqual([], self.controller.select_switch_branch(outcome, "blocked"))
         with self.assertRaises(ValueError):
             self.controller.select_switch_branch(outcome, "invalid")
@@ -258,6 +342,80 @@ class WorkflowPathTests(unittest.TestCase):
             self.assertIn("speckit.specify", commands(self.controller.select_switch_branch(route, "ready")))
         self.assertIn("original active target", find_step(steps, "prepare-specification-outcome")["prompt"])
         self.assertFalse(any("select-roadmap-feature" == n["id"] for n, _, _ in walk(steps)))
+
+
+    def testLifecycleMilestonesGateSpecifyImplementAndCloseoutEffects(self) -> None:
+        specify = load_workflow("speckit-flow-specify")
+        self.assertEqual("0.3.0", specify["workflow"]["version"])
+        outcome = find_step(specify["steps"], "route-specification-outcome")
+        ready = outcome["cases"]["ready-for-brief"]
+        self.assertEqual(["assess-specification-authoring-quality", "route-specification-authoring-quality"],
+                         [step["id"] for step in ready])
+        quality_route = find_step(ready, "route-specification-authoring-quality")
+        self.assertEqual(["speckit.flow-roadmap.brief", "speckit.flow-roadmap.write"], commands(quality_route["cases"]["ready"]))
+        self.assertEqual([], quality_route["cases"]["blocked"])
+        specify_apply = find_step(ready, "apply-specification-lifecycle-transition")
+        self.assertEqual("command", specify_apply["type"])
+        self.assertEqual("speckit.flow-roadmap.write", specify_apply["command"])
+        self.assertEqual("FlowKit-Roadmap Agent", specify_apply["flow_kit"]["agent"])
+        self.assertIn("planned→specced", find_step(ready, "apply-specification-lifecycle-transition")["input"]["args"])
+        self.assertIn("FlowKit-Reviewer", find_step(ready, "verify-specification-lifecycle-transition")["flow_kit"]["agent"])
+
+        implement = load_workflow("speckit-flow-implement")
+        self.assertEqual("0.8.0", implement["workflow"]["version"])
+        steps = implement["steps"]
+        lifecycle = find_step(steps, "route-implementation-start-milestone")
+        implement_apply = find_step(steps, "apply-implementation-start-milestone")
+        self.assertEqual("command", implement_apply["type"])
+        self.assertEqual("speckit.flow-roadmap.write", implement_apply["command"])
+        self.assertEqual("FlowKit-Roadmap Agent", implement_apply["flow_kit"]["agent"])
+        self.assertIn("specced→in-progress", find_step(steps, "apply-implementation-start-milestone")["input"]["args"])
+        coding_route = find_step(steps, "route-readiness-before-core")
+        self.assertEqual("verify-lifecycle-and-readiness-before-coding",
+                         find_step(steps, "verify-lifecycle-and-readiness-before-coding")["id"])
+        self.assertEqual("implementation-loop", coding_route["cases"]["ready"][0]["id"])
+        self.assertEqual("stop-readiness-before-core", coding_route["cases"]["blocked"][0]["id"])
+        self.assertEqual({"ready", "no-op", "blocked", "question"}, set(lifecycle["cases"]))
+        self.assertLess([step["id"] for step in steps].index("verify-lifecycle-and-readiness-before-coding"),
+                        [step["id"] for step in steps].index("route-readiness-before-core"))
+        self.assertEqual("FlowKit-Coder", find_step(
+            find_step(steps, "implementation-loop")["steps"],
+            "run-scoped-source-implementation")["flow_kit"]["agent"])
+        self.assertEqual(5, find_step(steps, "implementation-loop")["max_iterations"])
+        self.assertNotIn("speckit.verify", commands(steps))
+
+        closeout = load_workflow("speckit-flow-closeout")
+        self.assertEqual("0.8.0", closeout["workflow"]["version"])
+        closeout_apply = find_step(closeout["steps"], "apply-closeout-lifecycle-transition")
+        self.assertEqual("command", closeout_apply["type"])
+        self.assertEqual("speckit.flow-roadmap.write", closeout_apply["command"])
+        initial = find_step(closeout["steps"], "route-initial-closeout")
+        continue_steps = initial["cases"]["continue"]
+        lifecycle_gate = find_step(continue_steps, "route-implemented-lifecycle-before-debrief")
+        self.assertEqual(["closeout-debrief-loop"], [step["id"] for step in lifecycle_gate["cases"]["verified"]])
+        self.assertEqual([], lifecycle_gate["cases"]["blocked"])
+        self.assertEqual({"verified", "blocked", "question"}, set(lifecycle_gate["cases"]))
+        self.assertNotIn("closeout-debrief-loop", [step["id"] for step in continue_steps
+                                                    if step["id"] != lifecycle_gate["id"]])
+        self.assertNotIn("speckit.verify", commands(continue_steps))
+        recovery = find_step(continue_steps, "closeout-lifecycle-recovery-loop")
+        self.assertEqual(3, recovery["max_iterations"])
+        self.assertIn("route-closeout-lifecycle-edge.output.state == 'continue'", recovery["condition"])
+        assess_edge = find_step(recovery["steps"], "assess-closeout-lifecycle-edge")
+        self.assertEqual("FlowKit-Reviewer", assess_edge["flow_kit"]["agent"])
+        self.assertIn("authorized start event", assess_edge["prompt"])
+        self.assertIn("current authoring-quality", assess_edge["prompt"])
+        self.assertIn("full-scope completion", assess_edge["prompt"])
+        apply_closeout = find_step(recovery["steps"], "apply-closeout-lifecycle-transition")
+        self.assertIn("current revalidated adjacent edge", apply_closeout["input"]["args"])
+        self.assertIn("not use ordinary delta mode", apply_closeout["input"]["args"])
+        self.assertEqual("FlowKit-Roadmap Agent", apply_closeout["flow_kit"]["agent"])
+        edge_route = find_step(recovery["steps"], "route-closeout-lifecycle-edge")
+        self.assertIn("only when exactly one adjacent effect was applied", edge_route["prompt"])
+        final_gate = find_step(continue_steps, "verify-implemented-lifecycle-before-debrief")
+        self.assertIn("recovery loop returned complete", final_gate["prompt"])
+        self.assertEqual("FlowKit-Code Reviewer", find_step(continue_steps, "assess-implemented-lifecycle-milestone")["flow_kit"]["agent"])
+        self.assertEqual("FlowKit-Reviewer", find_step(recovery["steps"], "verify-closeout-lifecycle-transition")["flow_kit"]["agent"])
 
     def testTransitionLabelsPreserveHumanChoiceRouting(self) -> None:
         for workflow_id, route_id, approval in (
@@ -278,42 +436,26 @@ class WorkflowPathTests(unittest.TestCase):
     def testStartFeatureListsCandidatesAndWaitsForExactHumanSelection(self) -> None:
         workflow = load_workflow("speckit-flow-select-feature")
         self.assertEqual("", self.controller.validate_required_inputs(workflow, {})["feature_request"])
-        listing, gate, route = workflow["steps"][:3]
-        outputs = {"list-roadmap-options": {
-            "report": "Feature 29 -> Feature 28 -> Feature 26 (depends on). Feature 26 is ready.",
-            "selection_options": ["026 — Foundation", "030 — Independent feature", "defer"]}}
-        rendered = self.controller.render_template(gate, {}, outputs)
-        self.assertEqual(outputs["list-roadmap-options"]["selection_options"], rendered["options"])
-        self.assertIsInstance(rendered["options"], list)
-        self.assertEqual("026 — Foundation", self.controller.validate_gate_choice(rendered, "1"))
-        self.assertEqual("030 — Independent feature", self.controller.validate_gate_choice(rendered, "030 — Independent feature"))
-        with self.assertRaises(ValueError):
-            self.controller.validate_gate_choice(rendered, "029 — Blocked feature")
-        with self.assertRaises(ValueError):
-            self.controller.validate_gate_choice(rendered, "")
-        self.assertEqual([], self.controller.select_switch_branch(route, "defer"))
-        chosen = self.controller.validate_gate_choice(rendered, "2")
-        selected = self.controller.select_switch_branch(route, chosen)
+        listing, resolver, route = workflow["steps"][:3]
+        outputs = {"list-roadmap-options": {"entries": [{"id": "026", "title": "Foundation"}],
+            "menu_order": ["026"], "report": "Feature 026 is ready.",
+            "selection_options": ["026 — Foundation", "defer"]}}
+        self.assertIn("full current entries", listing["prompt"])
+        self.assertIn("typed resolve-feature helper", resolver["prompt"])
+        self.assertIn("without asking the operator to repeat the choice", resolver["prompt"])
+        self.assertNotIn("select-roadmap-feature", [node["id"] for node, _, _ in walk(workflow["steps"])])
+        self.assertEqual(["prepare-feature-selection", "route-selection-readiness"],
+                         [step["id"] for step in self.controller.select_switch_branch(route, "selected")])
+        self.assertEqual([], self.controller.select_switch_branch(route, "deferred"))
+        chosen = "026"
+        selected = self.controller.select_switch_branch(route, "selected")
         self.assertEqual("prepare-feature-selection", selected[0]["id"])
         rendered_args = self.controller.render_template(selected[0]["prompt"], {},
-            {"select-roadmap-feature": {"choice": chosen}})
+            {"resolve-feature-request": {"selected_entry_id": chosen}})
         self.assertIn(chosen, rendered_args)
         self.assertIn("Do not substitute another candidate", selected[0]["prompt"])
-        for required in ("direct_unlock_count", "downstream_dependent_count", "Deduplicate", "Missing references, cycles", "do not pick a candidate"):
+        for required in ("direct_unlock_count", "downstream_dependent_count", "Deduplicate", "Missing references, cycles", "Do not select from interest alone"):
             self.assertIn(required, listing["prompt"])
-        no_candidates = self.controller.render_template(gate, {},
-            {"list-roadmap-options": {"report": "No eligible candidates.", "selection_options": ["defer"]}})
-        self.assertEqual("defer", self.controller.validate_gate_choice(no_candidates, "1"))
-        for options in ([], ["duplicate", "duplicate"], [1], "not-an-array"):
-            with self.subTest(options=options), self.assertRaises(ValueError):
-                invalid = self.controller.render_template(gate, {},
-                    {"list-roadmap-options": {"report": "Inventory", "selection_options": options}})
-                self.controller.validate_gate_choice(invalid, "1")
-        with self.assertRaisesRegex(ValueError, "unresolved step output reference"):
-            self.controller.render_template(gate, {}, {})
-        for malformed in ("invented-options", "{{ inputs.feature_request }}"):
-            with self.assertRaises(ValueError):
-                self.controller.validate_workflow_graph([{**gate, "options": malformed}])
 
     def testActivationWritesOnlyPointerAndPreservesExistingSpec(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -355,7 +497,7 @@ class WorkflowPathTests(unittest.TestCase):
     def testSelectionApprovalSeparatesRoadmapAndPointerMutation(self) -> None:
         w = load_workflow("speckit-flow-select-feature")
         route = find_step(w["steps"], "route-selection-approval")
-        self.assertEqual(["apply-selected-roadmap-patch", "activate-selected-feature", "verify-feature-selection"],
+        self.assertEqual(["apply-selected-roadmap-patch", "activate-selected-feature-after-roadmap-write"],
                          [n["id"] for n in route["cases"]["approve"]])
         for choice in ("amend", "defer", "invalid"):
             self.assertEqual([], self.controller.select_switch_branch(route, choice))
@@ -366,6 +508,12 @@ class WorkflowPathTests(unittest.TestCase):
         gate = find_step(w["steps"], "approve-feature-selection")
         self.assertIn("feature_json", gate["message"])
         self.assertIn("proposed_patch", gate["message"])
+        patch_route = find_step(w["steps"], "route-required-roadmap-patch")
+        self.assertEqual(["activate-selected-feature"], [n["id"] for n in patch_route["cases"]["false"]])
+        self.assertFalse(any(n.get("type") == "gate" for n in patch_route["cases"]["false"]))
+        self.assertEqual(["approve-feature-selection", "route-selection-approval"],
+                         [n["id"] for n in patch_route["cases"]["true"]])
+        self.assertIn("unchanged lifecycle", find_step(w["steps"], "verify-feature-selection")["prompt"])
         self.assertNotIn("speckit.specify", commands(w["steps"]))
         deprecated = load_workflow("speckit-flow-start-feature")
         self.assertTrue(deprecated["workflow"]["deprecated"])
@@ -963,7 +1111,7 @@ class WorkflowPathTests(unittest.TestCase):
     def test_codeReviewExactDelta_correctsEligibleTaskOrStopsWithoutAuthority(self) -> None:
         """Script distinct FlowKit-Code Reviewer/FlowKit-Coder results through declared correction paths."""
         configurations = (
-            ('implement', 'assess-implementation-after-pass', 'implement-eligible-work', None),
+            ('implement', 'assess-implementation-after-pass', 'run-scoped-source-implementation', None),
             ('converge', 'assess-convergence', 'implement-remediation', 'prepare-convergence-flowback'),
             ('closeout', 'assess-closeout-debrief', 'implement-closeout-eligible-tasks', 'prepare-closeout-flowback'),
         )
@@ -975,9 +1123,12 @@ class WorkflowPathTests(unittest.TestCase):
             self.assertEqual('FlowKit-Coder', author['flow_kit']['agent'])
             self.assertIn('implementation delta', review['prompt'])
             self.assertIn('separate workflow-specific result', review['prompt'])
-            self.assertIn('exact review findings', author['input']['args'])
+            if purpose == 'implement':
+                self.assertIn('finding identities/corrections', author['input']['args'])
+            else:
+                self.assertIn('exact review findings', author['input']['args'])
             body = {n['id'] for n, _, _ in walk(workflow['steps'])}
-            loop = find_step(workflow['steps'], {'implement': 'implementation-continuation-loop',
+            loop = find_step(workflow['steps'], {'implement': 'implementation-loop',
                 'converge': 'convergence-remediation-loop', 'closeout': 'closeout-debrief-loop'}[purpose])
             with self.subTest(workflow=purpose), tempfile.TemporaryDirectory() as directory:
                 project = Path(directory)
@@ -996,7 +1147,8 @@ class WorkflowPathTests(unittest.TestCase):
                         'evidence': [{'path': p.name, 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
                                      for p in (source, project / 'delta.json')],
                         'remaining_ids': remaining, 'resolved_ids': resolved}
-                    if state == 'continue': result['next_step_id'] = author_id
+                    if state == 'continue':
+                        result['next_step_id'] = 'implement-tasks' if purpose == 'implement' else author_id
                     if state == 'blocked': result['resume_action'] = 'record-or-reopen-task-and-reinvoke'
                     return self.controller.validate_outcome_envelope(result, project, body)
                 baseline = outcome('continue', ['T001', 'T002'], [])
@@ -1013,7 +1165,17 @@ class WorkflowPathTests(unittest.TestCase):
                         {prepare_id: {'implementation_args': json.dumps([finding], indent=2)}, eligibility: {'remaining_ids': ['T002']}})
                     self.assertIn(json.dumps([finding], indent=2), args)
                 else:
-                    self.assertIn('latest assess-implementation-after-pass', author['input']['args'])
+                    revision = find_step(workflow['steps'], 'revise-task-plan')
+                    self.assertIn('task_revision_action', review['prompt'])
+                    self.assertEqual('FlowKit-Tasker', revision['flow_kit']['agent'])
+                    self.assertEqual('speckit.tasks', revision['command'])
+                    rendered = self.controller.render_template(revision['input']['args'],
+                        {'feature_context': 'fixture', 'integration': 'codex'}, {
+                            'assess-implementation-after-pass': {'findings_json': json.dumps([finding])},
+                            'prepare-task-revision': {'task_snapshot_json': json.dumps({'tasks_path': 'specs/020/tasks.md', 'tasks_before_sha256': '0' * 64})},
+                            'freeze-task-revision-scope': {'frozen_scope': json.dumps({'findings': [finding]}), 'scope_sha256': 'a' * 64},
+                        })
+                    self.assertIn('CR-001', rendered)
                 # FlowKit-Coder applies only T002; a fresh scripted reviewer verifies the change.
                 source.write_text(before)
                 namespace = {}
@@ -1033,7 +1195,10 @@ class WorkflowPathTests(unittest.TestCase):
                 question = {'question': 'Which data retention rule is approved?', 'assessment': blocked}
                 self.assertNotIn('answer', question)
                 self.assertIn('never infer', review['prompt'])
-                self.assertIn('no safe eligible', review['prompt'])
+                if purpose == 'implement':
+                    self.assertIn('no eligible open correction task', review['prompt'])
+                else:
+                    self.assertIn('no safe eligible', review['prompt'])
                 self.assertIn('successful command', review['prompt'])
                 self.assertNotIn('speckit.flow-kit-', ' '.join(commands(workflow['steps'])))
                 # Existing Closeout roadmap approval remains outside the correction branch.

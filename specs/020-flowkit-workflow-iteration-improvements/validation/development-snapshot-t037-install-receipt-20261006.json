@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T037",
+  "evidence_kind": "Observed install command with host paths normalized for portability",
+  "normalized_command": "python tools/catalog.py install <consumer_project> --development-snapshot",
+  "python_runtime": "existing skill-tools Python",
+  "attempts": [
+    {
+      "purpose": "policy-rejected initial consumer location",
+      "exit_code": 1
+    },
+    {
+      "purpose": "install retry in initialized consumer under configured system temporary directory with default sandbox",
+      "exit_code": 1
+    },
+    {
+      "purpose": "successful authorized disposable-consumer development-snapshot installation",
+      "exit_code": 0
+    }
+  ],
+  "portable_provenance": {
+    "bundle_id": "spec-kit-flow",
+    "bundle_version": "0.15.0",
+    "consumer_is_initialized": true,
+    "consumer_is_under_configured_system_temporary_directory": true,
+    "installed_component_count": 13,
+    "package_record_status": "installed"
+  },
+  "independent_review": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/development-snapshot-t037-independent-review-20261006.json",
+    "sha256": "bfde9eba949558e22d943c87e666016f7a81f5ca0dd1e398ad70a7ba4981a624"
+  },
+  "limitations": [
+    "Raw command and consumer paths were inspected by the independent Reviewer and retained only in temporary local evidence.",
+    "Development delivery only; no production release or native availability claim."
+  ]
+}

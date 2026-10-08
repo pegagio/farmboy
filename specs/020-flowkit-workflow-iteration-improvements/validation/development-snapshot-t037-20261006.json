@@ -1,0 +1,641 @@
+{
+  "date": "2026-10-06",
+  "delivery": "development-snapshot-unreleased",
+  "evidence_state": "complete-pending-independent-review",
+  "execution_notes": [
+    "An initial initialized consumer outside the configured system temporary directory was rejected; the consumer was recreated under the configured temporary directory.",
+    "The first install and first snapshot lifecycle test could not bind a localhost socket under the default sandbox; each passed on retry with scoped execution escalation.",
+    "Specify emitted a non-fatal notice that python3 is required; the python3 executable was available, and install completed."
+  ],
+  "installed_consumer": {
+    "agents": {
+      "archive": "flow-kit-agents-0.2.0.zip",
+      "archive_sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+      "definitions": [
+        {
+          "identity_matches": true,
+          "installed_sha256": "3b1af3a8f10f49a242e3b93757c0aa498716c74f1580ab66450bc0769813c430",
+          "matches_package": true,
+          "name": "FlowKit-Roadmap Agent",
+          "package_sha256": "3b1af3a8f10f49a242e3b93757c0aa498716c74f1580ab66450bc0769813c430"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "ec03abb43f6484c167fa2c402dc4e0c11ae81c1d4bd585a6b3d6eae8fa55e798",
+          "matches_package": true,
+          "name": "FlowKit-Specifier",
+          "package_sha256": "ec03abb43f6484c167fa2c402dc4e0c11ae81c1d4bd585a6b3d6eae8fa55e798"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "0d81ec28c1bbcc78f1c51fdbe35852cc1ec027e5ffe0e6888684fc06659ab64e",
+          "matches_package": true,
+          "name": "FlowKit-Planner",
+          "package_sha256": "0d81ec28c1bbcc78f1c51fdbe35852cc1ec027e5ffe0e6888684fc06659ab64e"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "d6a0b2e2652a50e1bbcc68a9c1b2f3bfa4ba8624f243b1aed7465c5bb8ec5f67",
+          "matches_package": true,
+          "name": "FlowKit-Tasker",
+          "package_sha256": "d6a0b2e2652a50e1bbcc68a9c1b2f3bfa4ba8624f243b1aed7465c5bb8ec5f67"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "040bfbae778035010e200207c5aa08add37d0511c16c9a577f64be801248c40a",
+          "matches_package": true,
+          "name": "FlowKit-Reviewer",
+          "package_sha256": "040bfbae778035010e200207c5aa08add37d0511c16c9a577f64be801248c40a"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "76e5b8a535c1952bedda0100b5bbb703dfffcdff55a99e1830ee6579bf167c14",
+          "matches_package": false,
+          "name": "FlowKit-Coder",
+          "package_sha256": "05a24b06539f090dc4153f9c447e780fb66deb48fb28176e21ef5b5c8681dcfe"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "4b0b03e5bb816e8e22009bc8caf3e23e52ecfd8a029f4dd1e20fe0365173e7e1",
+          "matches_package": true,
+          "name": "FlowKit-Code Reviewer",
+          "package_sha256": "4b0b03e5bb816e8e22009bc8caf3e23e52ecfd8a029f4dd1e20fe0365173e7e1"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "4f744f0ee9b5b2fac2b980c287c2b2dfacc3ba535cb91854f8a61445c32971f4",
+          "matches_package": true,
+          "name": "FlowKit-Wiki Curator",
+          "package_sha256": "4f744f0ee9b5b2fac2b980c287c2b2dfacc3ba535cb91854f8a61445c32971f4"
+        },
+        {
+          "identity_matches": true,
+          "installed_sha256": "8932ab5dc87feb9b0e9bd50f0ac1665faed9313fa7e3f46459a1e3713561f64f",
+          "matches_package": true,
+          "name": "FlowKit-Readiness Checker",
+          "package_sha256": "8932ab5dc87feb9b0e9bd50f0ac1665faed9313fa7e3f46459a1e3713561f64f"
+        }
+      ],
+      "id": "flow-kit-agents",
+      "source_sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193",
+      "version": "0.2.0"
+    },
+    "controller": {
+      "archive": "flow-kit-controllers-0.7.0.zip",
+      "archive_sha256": "7b4ec18b4471b0d559b9ee78c1c88a5b7785d6cc0d86b3de53251c674493d95b",
+      "catalog_status": "snapshot",
+      "id": "flow-kit-controllers",
+      "installed_source_files": 27,
+      "source_and_install_file_equality": true,
+      "version": "0.7.0"
+    },
+    "extensions": {
+      "flow-feedback": {
+        "archive": "flow-feedback-0.2.1.zip",
+        "archive_sha256": "c666b11aa9f10c49ef879191a30a1f06d593d6fe7e404d71a0fc7145d0c75670",
+        "commit": "6b4c680d0b284f08e149cd0464e4c1f752b5cb7c",
+        "installed_bytes_match": true,
+        "installed_members": 4,
+        "repository": "https://github.com/pegagio/spec-kit-flow",
+        "tag": null,
+        "version": "0.2.1"
+      },
+      "flow-roadmap": {
+        "archive": "flow-roadmap-0.2.1.zip",
+        "archive_sha256": "2b60d4d63d883ac4772ba8b2e4118de53e4d57765a02f5eac8e25f9a50806a50",
+        "commit": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+        "installed_bytes_match": true,
+        "installed_members": 11,
+        "repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
+        "tag": "v0.2.1",
+        "version": "0.2.1"
+      },
+      "flow-wiki": {
+        "archive": "flow-wiki-2.0.1.zip",
+        "archive_sha256": "20cebb4f591d5a83b0c45ae28a0448cb9d29368e5b65e2d28ba106a3ffd488ff",
+        "commit": "0292ff66758e36849cee4e0f6bcbdac51629e1d0",
+        "installed_bytes_match": true,
+        "installed_members": 8,
+        "repository": "https://github.com/pegagio/spec-kit-flow-wiki",
+        "tag": "v2.0.1",
+        "version": "2.0.1"
+      }
+    },
+    "initialization": "specify init --here --force --non-interactive --integration codex --integration-options=--skills",
+    "preservation_fixtures": {
+      ".codex/agents/flowkit-coder.toml": "76e5b8a535c1952bedda0100b5bbb703dfffcdff55a99e1830ee6579bf167c14",
+      ".codex/agents/unrelated-consumer-agent.toml": "05bac1a6bdd814e4580f816e396a5815e6a4aa61271ba28d50840400da1bf6ea",
+      ".specify/extensions/local-extension/fixture.txt": "305caa4aecbb53faa39b6fd2186c0e6d3a84fcc5a007786ab82285bb3a02c035",
+      ".specify/local-settings.toml": "824f2e02b49dcab36abe36fe7184a7ea732bd7f0f543ee41308eda734105f392",
+      ".specify/workflow-feedback/observations.jsonl": "74e4db7656c74fa938654124bd83e4e8faa6482fd714f7522d0607a19e12789d",
+      "AGENTS.md": "3c136de95f461d2d051dd6a0368b780afae3ff9a150da76bdda0b2a7084602ff",
+      "specs/local-consumer-feature/README.md": "baab22b6a60af4d8cce79d634ee9b759fc61b4ea053c78488fddd8831956851c"
+    },
+    "preservation_verified": true,
+    "workflow_graphs": {
+      "all_graphs_loaded_and_validated": true,
+      "count": 10,
+      "workflows": [
+        {
+          "agent_names": [
+            "FlowKit-Reviewer",
+            "FlowKit-Roadmap Agent"
+          ],
+          "delegated_step_count": 3,
+          "normalized_sha256": "606a14f6eeebf630997b0ea75acf44612cbebd7c16e176e960a48347cc478d0c",
+          "skill_id": "flow-kit-select-feature",
+          "version": "0.2.0",
+          "workflow_id": "speckit-flow-select-feature"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Reviewer",
+            "FlowKit-Roadmap Agent",
+            "FlowKit-Specifier"
+          ],
+          "delegated_step_count": 6,
+          "normalized_sha256": "beca55081aa7cd09dbfc63f6a02e19a470e9c18d50bec7997ead786afc28c4ed",
+          "skill_id": "flow-kit-specify",
+          "version": "0.2.0",
+          "workflow_id": "speckit-flow-specify"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Reviewer",
+            "FlowKit-Specifier"
+          ],
+          "delegated_step_count": 2,
+          "normalized_sha256": "41f7fb7af1076ee0c61a4dca6c6e964a604c97ad8fa716ea2f4aaab452e33684",
+          "skill_id": "flow-kit-clarify",
+          "version": "0.5.0",
+          "workflow_id": "speckit-flow-clarify"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Planner",
+            "FlowKit-Reviewer"
+          ],
+          "delegated_step_count": 2,
+          "normalized_sha256": "0e68bc964c8a60e07641cff8005f40c236cad2e4b2f4246723c0ca4c29afefd9",
+          "skill_id": "flow-kit-plan",
+          "version": "0.5.0",
+          "workflow_id": "speckit-flow-plan"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Reviewer",
+            "FlowKit-Tasker"
+          ],
+          "delegated_step_count": 2,
+          "normalized_sha256": "7f1454f3d8164f48b2ff186f2744ca691030963dcac485a70dde106a12ef35d0",
+          "skill_id": "flow-kit-tasks",
+          "version": "0.5.0",
+          "workflow_id": "speckit-flow-tasks"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Planner",
+            "FlowKit-Readiness Checker",
+            "FlowKit-Reviewer",
+            "FlowKit-Specifier",
+            "FlowKit-Tasker"
+          ],
+          "delegated_step_count": 6,
+          "normalized_sha256": "bd459093f13890a3db33107d1d38f679ce312208dc37647e56aeaf21dadee1c5",
+          "skill_id": "flow-kit-analyze-remediate",
+          "version": "0.6.0",
+          "workflow_id": "speckit-flow-analyze-remediate"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Code Reviewer",
+            "FlowKit-Coder",
+            "FlowKit-Readiness Checker",
+            "FlowKit-Reviewer",
+            "FlowKit-Tasker"
+          ],
+          "delegated_step_count": 6,
+          "normalized_sha256": "7e38b546efe866d9463c2251ad1bf9c3dde8d48c7d02cbf8d03ce8dd61b2f9bc",
+          "skill_id": "flow-kit-implement",
+          "version": "0.6.0",
+          "workflow_id": "speckit-flow-implement"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Code Reviewer",
+            "FlowKit-Coder",
+            "FlowKit-Planner",
+            "FlowKit-Reviewer",
+            "FlowKit-Specifier",
+            "FlowKit-Tasker"
+          ],
+          "delegated_step_count": 8,
+          "normalized_sha256": "f743bb5f08c10bc0a5d68e9ce5ac5ad97723069fed636e354c2c964bb0beb239",
+          "skill_id": "flow-kit-converge",
+          "version": "0.5.0",
+          "workflow_id": "speckit-flow-converge"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Code Reviewer",
+            "FlowKit-Coder",
+            "FlowKit-Planner",
+            "FlowKit-Reviewer",
+            "FlowKit-Roadmap Agent",
+            "FlowKit-Specifier",
+            "FlowKit-Tasker",
+            "FlowKit-Wiki Curator"
+          ],
+          "delegated_step_count": 15,
+          "normalized_sha256": "a05eb37330be51ac7bb9ada209612c89a4a88678980006b6beb221e0f49d01f1",
+          "skill_id": "flow-kit-closeout",
+          "version": "0.7.0",
+          "workflow_id": "speckit-flow-closeout"
+        },
+        {
+          "agent_names": [
+            "FlowKit-Reviewer",
+            "FlowKit-Wiki Curator"
+          ],
+          "delegated_step_count": 3,
+          "normalized_sha256": "00056fa9de2fee7ed7de305b35cbbe2c2f7a61ab8606de8ceb0d2144dfa7f2f6",
+          "skill_id": "flow-kit-wiki-lint-update",
+          "version": "0.2.0",
+          "workflow_id": "speckit-flow-wiki-lint-update"
+        }
+      ]
+    },
+    "workflows": [
+      {
+        "id": "speckit-flow-analyze-remediate",
+        "installed_sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
+        "matches": true,
+        "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
+        "version": "0.6.0"
+      },
+      {
+        "id": "speckit-flow-clarify",
+        "installed_sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+        "matches": true,
+        "sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-closeout",
+        "installed_sha256": "9edc3a629da571d66b6a7deb97468e96c7f37ae23346c3d2652bd24ad89369fc",
+        "matches": true,
+        "sha256": "9edc3a629da571d66b6a7deb97468e96c7f37ae23346c3d2652bd24ad89369fc",
+        "version": "0.7.0"
+      },
+      {
+        "id": "speckit-flow-converge",
+        "installed_sha256": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
+        "matches": true,
+        "sha256": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-implement",
+        "installed_sha256": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+        "matches": true,
+        "sha256": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+        "version": "0.6.0"
+      },
+      {
+        "id": "speckit-flow-plan",
+        "installed_sha256": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
+        "matches": true,
+        "sha256": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-select-feature",
+        "installed_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "matches": true,
+        "sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "version": "0.2.0"
+      },
+      {
+        "id": "speckit-flow-specify",
+        "installed_sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2",
+        "matches": true,
+        "sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2",
+        "version": "0.2.0"
+      },
+      {
+        "id": "speckit-flow-tasks",
+        "installed_sha256": "12de4b2ba7c2f382aa32860a545e3966c19ebb7f0e566c1bdc0fb5e98e2ded0e",
+        "matches": true,
+        "sha256": "12de4b2ba7c2f382aa32860a545e3966c19ebb7f0e566c1bdc0fb5e98e2ded0e",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-wiki-lint-update",
+        "installed_sha256": "5e0c05d36ac7b99c1908bb3e7eaf60f483cfcc8867769fd9057441edcbd2553e",
+        "matches": true,
+        "sha256": "5e0c05d36ac7b99c1908bb3e7eaf60f483cfcc8867769fd9057441edcbd2553e",
+        "version": "0.2.0"
+      }
+    ]
+  },
+  "limitations": [
+    "Unreleased local development snapshot; this evidence is not a production catalog build, publication, or adoption claim.",
+    "No native-agent availability or effective-settings claim.",
+    "T004/T012 roadmap compatibility, T022-T025 native-context matrix, and T027-T032 combined/final verification remain pending.",
+    "Independent review and Tasker completion-marker reconciliation remain pending."
+  ],
+  "readiness": {
+    "blocking_ids": [],
+    "preparation_criteria_count": 16,
+    "stale_probe": {
+      "reason_code": "preparation-evidence-incomplete",
+      "restored_state": "ready",
+      "state": "blocked"
+    },
+    "state": "ready"
+  },
+  "schema_version": "1.0",
+  "snapshot": {
+    "bundle_id": "spec-kit-flow",
+    "bundle_version": "0.15.0",
+    "components": [
+      {
+        "archive": "flow-feedback-0.2.1.zip",
+        "id": "flow-feedback",
+        "kind": "extension",
+        "sha256": "c666b11aa9f10c49ef879191a30a1f06d593d6fe7e404d71a0fc7145d0c75670",
+        "source_commit": "6b4c680d0b284f08e149cd0464e4c1f752b5cb7c",
+        "source_repository": "https://github.com/pegagio/spec-kit-flow",
+        "source_tag": null,
+        "version": "0.2.1"
+      },
+      {
+        "archive": "flow-roadmap-0.2.1.zip",
+        "id": "flow-roadmap",
+        "kind": "extension",
+        "sha256": "2b60d4d63d883ac4772ba8b2e4118de53e4d57765a02f5eac8e25f9a50806a50",
+        "source_commit": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+        "source_repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
+        "source_tag": "v0.2.1",
+        "version": "0.2.1"
+      },
+      {
+        "archive": "flow-wiki-2.0.1.zip",
+        "id": "flow-wiki",
+        "kind": "extension",
+        "sha256": "20cebb4f591d5a83b0c45ae28a0448cb9d29368e5b65e2d28ba106a3ffd488ff",
+        "source_commit": "0292ff66758e36849cee4e0f6bcbdac51629e1d0",
+        "source_repository": "https://github.com/pegagio/spec-kit-flow-wiki",
+        "source_tag": "v2.0.1",
+        "version": "2.0.1"
+      },
+      {
+        "id": "speckit-flow-analyze-remediate",
+        "kind": "workflow",
+        "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
+        "source_path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+        "version": "0.6.0"
+      },
+      {
+        "id": "speckit-flow-clarify",
+        "kind": "workflow",
+        "sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+        "source_path": "workflows/speckit-flow-clarify/workflow.yml",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-closeout",
+        "kind": "workflow",
+        "sha256": "9edc3a629da571d66b6a7deb97468e96c7f37ae23346c3d2652bd24ad89369fc",
+        "source_path": "workflows/speckit-flow-closeout/workflow.yml",
+        "version": "0.7.0"
+      },
+      {
+        "id": "speckit-flow-converge",
+        "kind": "workflow",
+        "sha256": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
+        "source_path": "workflows/speckit-flow-converge/workflow.yml",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-implement",
+        "kind": "workflow",
+        "sha256": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+        "source_path": "workflows/speckit-flow-implement/workflow.yml",
+        "version": "0.6.0"
+      },
+      {
+        "id": "speckit-flow-plan",
+        "kind": "workflow",
+        "sha256": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
+        "source_path": "workflows/speckit-flow-plan/workflow.yml",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-select-feature",
+        "kind": "workflow",
+        "sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+        "version": "0.2.0"
+      },
+      {
+        "id": "speckit-flow-specify",
+        "kind": "workflow",
+        "sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2",
+        "source_path": "workflows/speckit-flow-specify/workflow.yml",
+        "version": "0.2.0"
+      },
+      {
+        "id": "speckit-flow-tasks",
+        "kind": "workflow",
+        "sha256": "12de4b2ba7c2f382aa32860a545e3966c19ebb7f0e566c1bdc0fb5e98e2ded0e",
+        "source_path": "workflows/speckit-flow-tasks/workflow.yml",
+        "version": "0.5.0"
+      },
+      {
+        "id": "speckit-flow-wiki-lint-update",
+        "kind": "workflow",
+        "sha256": "5e0c05d36ac7b99c1908bb3e7eaf60f483cfcc8867769fd9057441edcbd2553e",
+        "source_path": "workflows/speckit-flow-wiki-lint-update/workflow.yml",
+        "version": "0.2.0"
+      },
+      {
+        "archive": "flow-kit-controllers-0.7.0.zip",
+        "id": "flow-kit-controllers",
+        "kind": "package",
+        "sha256": "7b4ec18b4471b0d559b9ee78c1c88a5b7785d6cc0d86b3de53251c674493d95b",
+        "source_sha256": "7b4ec18b4471b0d559b9ee78c1c88a5b7785d6cc0d86b3de53251c674493d95b",
+        "version": "0.7.0"
+      },
+      {
+        "archive": "flow-kit-agents-0.2.0.zip",
+        "id": "flow-kit-agents",
+        "kind": "package",
+        "sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+        "source_sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193",
+        "version": "0.2.0"
+      }
+    ],
+    "installed_component_count": 13,
+    "package_artifacts": {
+      "flow-feedback-0.2.1.zip": {
+        "sha256": "c666b11aa9f10c49ef879191a30a1f06d593d6fe7e404d71a0fc7145d0c75670",
+        "size_bytes": 5183
+      },
+      "flow-kit-agents-0.2.0.zip": {
+        "sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+        "size_bytes": 7629
+      },
+      "flow-kit-controllers-0.7.0.zip": {
+        "sha256": "7b4ec18b4471b0d559b9ee78c1c88a5b7785d6cc0d86b3de53251c674493d95b",
+        "size_bytes": 60857
+      },
+      "flow-roadmap-0.2.1.zip": {
+        "sha256": "2b60d4d63d883ac4772ba8b2e4118de53e4d57765a02f5eac8e25f9a50806a50",
+        "size_bytes": 31801
+      },
+      "flow-wiki-2.0.1.zip": {
+        "sha256": "20cebb4f591d5a83b0c45ae28a0448cb9d29368e5b65e2d28ba106a3ffd488ff",
+        "size_bytes": 17446
+      }
+    },
+    "production_catalog_modified": false,
+    "status": "snapshot"
+  },
+  "source": {
+    "bundle_manifest": "bundles/spec-kit-flow/bundle.yml",
+    "bundle_manifest_sha256": "13fb86dad1800888dec15e89942d47922f4edf8a09310d2fb4dec5c7c75238c1",
+    "dirty_path_count": 79,
+    "repository": "Spec Kit Flow source checkout",
+    "revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+    "worktree_dirty": true
+  },
+  "task_id": "T037",
+  "tested_cli": {
+    "compatibility": "passed",
+    "required_pin": "1.0.10.dev0+pegagio.2",
+    "version": "specify 1.0.10.dev0+pegagio.2"
+  },
+  "validation": {
+    "all_checks_passed": true,
+    "checks": [
+      {
+        "detail": {
+          "sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193"
+        },
+        "name": "agent_package_source_digest_matches",
+        "passed": true
+      },
+      {
+        "detail": {
+          "all_source_and_installed_files_match": true,
+          "file_count": 27
+        },
+        "name": "controller_package_source_and_installed_bytes_match",
+        "passed": true
+      },
+      {
+        "detail": {
+          "flow-feedback": 4,
+          "flow-roadmap": 11,
+          "flow-wiki": 8
+        },
+        "name": "extension_package_bytes_installed",
+        "passed": true
+      },
+      {
+        "detail": {
+          "count": 9,
+          "names": [
+            "FlowKit-Roadmap Agent",
+            "FlowKit-Specifier",
+            "FlowKit-Planner",
+            "FlowKit-Tasker",
+            "FlowKit-Reviewer",
+            "FlowKit-Coder",
+            "FlowKit-Code Reviewer",
+            "FlowKit-Wiki Curator",
+            "FlowKit-Readiness Checker"
+          ]
+        },
+        "name": "nine_agent_definitions_present",
+        "passed": true
+      },
+      {
+        "detail": {
+          "customized": "FlowKit-Coder",
+          "defaults_match": 8
+        },
+        "name": "custom_agent_preserved_and_other_defaults_match",
+        "passed": true
+      },
+      {
+        "detail": {
+          "count": 7,
+          "hashes": {
+            ".codex/agents/flowkit-coder.toml": "76e5b8a535c1952bedda0100b5bbb703dfffcdff55a99e1830ee6579bf167c14",
+            ".codex/agents/unrelated-consumer-agent.toml": "05bac1a6bdd814e4580f816e396a5815e6a4aa61271ba28d50840400da1bf6ea",
+            ".specify/extensions/local-extension/fixture.txt": "305caa4aecbb53faa39b6fd2186c0e6d3a84fcc5a007786ab82285bb3a02c035",
+            ".specify/local-settings.toml": "824f2e02b49dcab36abe36fe7184a7ea732bd7f0f543ee41308eda734105f392",
+            ".specify/workflow-feedback/observations.jsonl": "74e4db7656c74fa938654124bd83e4e8faa6482fd714f7522d0607a19e12789d",
+            "AGENTS.md": "3c136de95f461d2d051dd6a0368b780afae3ff9a150da76bdda0b2a7084602ff",
+            "specs/local-consumer-feature/README.md": "baab22b6a60af4d8cce79d634ee9b759fc61b4ea053c78488fddd8831956851c"
+          }
+        },
+        "name": "consumer_owned_fixtures_preserved",
+        "passed": true
+      },
+      {
+        "detail": {
+          "count": 10
+        },
+        "name": "ten_workflow_files_equal_source",
+        "passed": true
+      },
+      {
+        "detail": {
+          "count": 10
+        },
+        "name": "ten_workflow_graphs_loaded_by_pinned_cli",
+        "passed": true
+      },
+      {
+        "detail": {
+          "criteria": 16,
+          "state": "ready"
+        },
+        "name": "consumer_readiness_ready",
+        "passed": true
+      },
+      {
+        "detail": {
+          "baseline_blockers": [],
+          "baseline_criterion_count": 16,
+          "baseline_state": "ready",
+          "plan_bytes_restored_exactly": true,
+          "restored_blockers": [],
+          "restored_state": "ready",
+          "stale_reason": "preparation-evidence-incomplete",
+          "stale_state": "blocked"
+        },
+        "name": "stale_review_evidence_rejected_then_restored",
+        "passed": true
+      },
+      {
+        "detail": {
+          "expected": "1.0.10.dev0+pegagio.2",
+          "observed": "specify 1.0.10.dev0+pegagio.2"
+        },
+        "name": "pinned_cli_compatible",
+        "passed": true
+      },
+      {
+        "detail": {},
+        "name": "production_catalog_unchanged",
+        "passed": true
+      }
+    ],
+    "snapshot_lifecycle_test": "passed: 1 test; install/refresh/remove and consumer preservation",
+    "source_workflow_projection": "passed: 11 definitions including deprecated notice, zero unexplained terminals"
+  }
+}

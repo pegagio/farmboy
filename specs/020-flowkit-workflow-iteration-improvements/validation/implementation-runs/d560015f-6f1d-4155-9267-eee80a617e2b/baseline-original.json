@@ -1,0 +1,176 @@
+{
+  "baseline": {
+    "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+    "findings": [
+      {
+        "artifact_location": "tests/test_phase_lifecycle.py:551",
+        "evidence": [
+          {
+            "path": "tests/test_phase_lifecycle.py",
+            "sha256": "46dffe45f57b5163c6a1f3e1ffd51135e2ff4c4eeb93b4bf0e018f7f4b380ee1"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json",
+            "sha256": "f63f384e22d7e48c333b6c9a219e234b248edb04d2e328b3caf4ee05e59be248"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json",
+            "sha256": "5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb"
+          }
+        ],
+        "exact_correction": "Materialize the typed semantic callback packet at each actual producer boundary using production node outputs, then dispatch that same packet through rendered forwarding/revalidation/effect nodes. Assert derived phase/workflow/evidence/source-closure fields, retain all actual LC007 and LC013 observations, and report gaps until full LC001-LC015 production paths are substantiated.",
+        "id": "F020-LIFECYCLE-CODE-007",
+        "observed_deficiency": "All three producer prompts are now rendered and LC007 executes18 real owner equal/advanced valid/missing/contradictory cases, but prepare_production_case still creates the submitted request with owner_case.request at555. Rendered producer output is only checked for generic text/path at602-603; the separately built owner request is serialized at611-617. Forwarder text is only searched for the path. Later revalidation/effect calls are direct helper calls, rather than actual production-rendered node dispatch. A producer emitting wrong typed fields would leave these packets unchanged and tests passing. This is a confirmed focused validation gap, not an observed owner runtime failure.",
+        "task_id": "T061",
+        "violated_requirement": "T060/T061 actual production lifecycle graph/adapter behavior and LC001-LC015 coverage."
+      },
+      {
+        "artifact_location": "tests/implementation_scope_snapshot.py:736",
+        "evidence": [
+          {
+            "path": "tests/implementation_scope_snapshot.py",
+            "sha256": "7cff37e2b7a74212d7a02cf6eb740930e18b5a73afd5ea005b6b7ad78ecdd9cc"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+            "sha256": "1a623699da7e7c65e7f4e70411fbdcf833b4f8622c9ea612ff8bf7e2fcdfa32a"
+          },
+          {
+            "path": "tests/test_snapshot_validation.py",
+            "sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9"
+          }
+        ],
+        "exact_correction": "Freeze SI005 original T068 source/finding baseline before recording/dispatching its first source attempt; perform that same source effect, independent fixture review, installed implementation-progress-scoped and Tasker marker successor, then reveal T069 with fresh eligibility under the unchanged scope. Record baseline capture in chronological operations. Keep SI002 administrative zero-progress evidence and actual history; derive forwarded packets from production node outputs across all SI cases.",
+        "id": "F020-LIFECYCLE-CODE-008",
+        "observed_deficiency": "SI002 now starts unchecked, performs installed initial eligibility, preparation history before administrative effects, Tasker successor validation and fresh T052 eligibility. SI005 likewise records initial T068 source history before its effect, but changes T068 source at736-744 and tracks its marker at808 before the frozen F020-EXAMPLE-001 baseline is created at1019-1036. That baseline owns newly eligible T069 and a newly created source-effect.txt, not the completed T068 source. run_scoped_progress then writes that later source at1062-1064 and supplies its retrospective synthetic closure to route the earlier T068 attempt. The ordered_operations report omits baseline capture, hiding this boundary. Rendered scope prompt text also remains separate from manually assembled payloads.",
+        "task_id": "T075",
+        "violated_requirement": "T072/T075 immutable substantive baseline, actual pre-dispatch history and generic prior/current progress validation."
+      },
+      {
+        "artifact_location": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md:15",
+        "evidence": [
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md",
+            "sha256": "e2f9d0463d39cd0ababd765aac50548990573b60c95a31aa41956c1401566ed3"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+            "sha256": "fc6e33c8fe36f827fe34a9a1c8aa47e9486e158a03b76b905da3641e68889899"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-snapshot.json",
+            "sha256": "9179966a74fa4c9a44d4eb04abd1aeabb9297134d7d22b0c770905cbc6d4ce1d"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-summary.md",
+            "sha256": "0608182796b9580c55052c2b3ade7f813d6a4d6c1825af09eda82c35151a2064"
+          }
+        ],
+        "exact_correction": "Reconcile every current nested delivery payload/summary digest with the current disposable owned inventory and actual files. Preserve prior hashes only inside an explicit historical receipt. Retain actual successful current commands/counts and clearly report LC/SI residual production-pipeline limitations; do not claim all-task completion.",
+        "id": "F020-LIFECYCLE-CODE-013",
+        "observed_deficiency": "Current summary now correctly records185/185 focused and22/22 lifecycle results and marks54/55 as historical. Linked lifecycle-delivery.json still presents current disposable_snapshot.installed_lifecycle_payload_sha256 Implement9bf4160f at9, while current snapshot/source Implement is515ccc6a. implementation_scope_validation.source_payload_sha256 at208 retains controller da17f95b and scope ae888686 instead of07c096f0 and d154f95f. Its summary.report_sha256 at215 is historical fffc5c2e instead of current06081827. These fields lack an explicit historical boundary and contradict current source_sha256 and snapshot fields in the same receipt.",
+        "task_id": "T064",
+        "violated_requirement": "T064 actual current focused validation counts, skips and precise snapshot limits; preserve dated historical evidence."
+      },
+      {
+        "artifact_location": "controllers/flow-kit/scripts/python/controller.py:335",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "07c096f05e96ee5369a9bd60d96642c78354e30fb995ee2d6b4ffbab36daa050"
+          },
+          {
+            "path": "workflows/speckit-flow-implement/workflow.yml",
+            "sha256": "515ccc6a90e6a9afa2b4120b8f091f8fc16e827c03ee974eda36f522ca7c72bf"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+            "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+          },
+          {
+            "path": "tests/test_workflow_paths.py",
+            "sha256": "77a514618ee744c0ac2dec62a3ccdea5494e569441fc5afa8ec9ad00f3b10153"
+          }
+        ],
+        "exact_correction": "Align the source graph and validator with the approved exact implementation-loop identity; restrict controller_loop_mode to speckit-flow-implement and max_iterations exactly5, reject misplaced carriers and unsupported exemptions/types, and add focused mutations for cap6 and other-workflow placement. Update only affected graph/path/projection assertions; do not amend the approved contract or installed root.",
+        "id": "F020-LIFECYCLE-CODE-015",
+        "observed_deficiency": "Validator checks implementation-continuation-loop rather than contract implementation-loop and does not bind the carrier to workflow ID or maximumfive. Independent mutation reproductions changing actual graph max_iterations to6 or workflow.id tospeckit-flow-test-carrier are both ACCEPTED by validate_workflow_definition. Production itself still has cap5, so no budget overrun is claimed; fail-closed carrier validation is missing.",
+        "task_id": "T071",
+        "violated_requirement": "contracts/implementation-scope.md:36 requires the carrier only on exact Implement implementation-loop, capfive, with rejected other-workflow placement. T071 requires the reviewed carrier/node order and nonresetting five-session limit."
+      }
+    ],
+    "pointer_sha256": "c441d10f7df483e5c2a346729ef49e7867f585618f74fc2355cf9d9d431cc136",
+    "schema_version": "1.0",
+    "specification_sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+    "tasks": {
+      "T061": {
+        "description": "[US6] After T054\u2013T060, implement and run deterministic LC001\u2013LC015 cases from `specs/020-flowkit-workflow-iteration-improvements/quickstart.md` using `tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json`; cover successful and missing/stale proof for all three owners, repeat/equal/advanced state, three-edge and contradictory recovery, absent route, deferred/abandoned state, both partial-failure directions, receipt-record failure/retry, concurrent source changes, and verification return/deferral, recording actual results and case-level gaps in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json`.",
+        "marker": " "
+      },
+      "T062": {
+        "description": "[US6] After T055\u2013T061 and the reviewed owner delivery, reconcile actual controller/workflow/owner versions, manifest declarations, hashes and minimum compatible pins in `controllers/flow-kit/manifest.yml`, affected workflow metadata, and `bundles/spec-kit-flow/bundle.yml`; preserve unrelated pins, report exact source coordinates and tested CLI in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json`, and do not edit production release archives or tags.",
+        "marker": " "
+      },
+      "T063": {
+        "description": "[US6] After T062, install and refresh the supported FlowKit development snapshot in a disposable initialized consumer; record all actual owned payload hashes, owner/source versions, tested CLI, install/refresh results, and preservation of consumer configurations and unrelated components in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-snapshot.json` using the supported catalog path, with no claim of production release.",
+        "marker": " "
+      },
+      "T064": {
+        "description": "[US6] After T063, run the focused helper, owner-contract, graph/projection, LC001\u2013LC015, bundle and disposable-consumer checks from `specs/020-flowkit-workflow-iteration-improvements/quickstart.md`; retain nonzero actual commands/results, skipped cases and precise limitations in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md`, including checks that the explicit `verified` gate remains unchanged.",
+        "marker": " "
+      },
+      "T065": {
+        "description": "[US6] After T063, validate actual launches for every exact native assignment used by the Specify, Implement, Close Out and recovery routes in separately requested isolated phase-validation contexts; record requested name, observed response/error, source/package provenance and context in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-native-cases.json`, preserve failed cases, and make no effective model/effort or interface-visibility claim unless observed.",
+        "marker": " "
+      },
+      "T066": {
+        "description": "[US6] After T058 and T063, execute the documented manual-prompt fallback against disposable fixtures for all three milestones, focused operator decisions, stale recovery, partial outcomes and the unchanged verification gate; record matched decisions, actual owner effects and gaps in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-manual-cases.json` without invoking a later workflow phase.",
+        "marker": " "
+      },
+      "T067": {
+        "description": "[US6] After T050\u2013T066, T068\u2013T077 and separately requested current-scope Analyze/Remediate evidence, reconcile FR-026\u2013FR-048, SC-012\u2013SC-022, LC001\u2013LC015 and SI001\u2013SI015 to actual implementation and lifecycle/scope/native/manual records in `specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md` and `specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-summary.md`; request fresh independent Code Reviewer assessment of the complete amended scope and preserve exact unresolved implementation, owner, readiness, convergence or acceptance limits without claiming Feature 020 acceptance.",
+        "marker": " "
+      },
+      "T071": {
+        "description": "[US7] After T056 and T070, extend `workflows/speckit-flow-implement/workflow.yml` with the reviewed `controller_loop_mode: implementation_scope` carrier on the existing five-body `implementation-loop`, an initial `route-scoped-entry` and final in-loop `route-scoped-execution`, and the contract's validated node/branch order; establish the trusted full-feature or exact explicit-subset request and all unfinished-task baseline before assessment, keep eligibility separate, reassess after independent review, Tasker tracking, substantiated prerequisites, and same-child answers, and durably increment the common `coder_sessions_started` before every new modeled Coder dispatch (including administrative/question passes) plus `source_attempts_started` before source dispatch. Permit preparation/first-source routing only before any source attempt; after any attempt keep every continuation behind the unchanged generic prior-remaining/resolved assessment with its actual previous/current substantive assessments and no exemption flags. Same-child answer resumption reuses its consumed session. Preserve readiness, authority, assignment, independent-progress, preparation/source no-progress, partial-effect, blocker, and nonresetting five-session/five-source-attempt stops; never reset or refill either counter.",
+        "marker": " "
+      },
+      "T072": {
+        "description": "[US7] After T060 and T071, extend `tests/test_workflow_graph.py`, `tests/test_workflow_paths.py`, `tests/test_workflow_improvements.py`, `tests/test_controller.py`, and the focused helper suites to validate actual production rendering, `controller_loop_mode` serialization and dispatch, exact initial/final route node placement, and SI001\u2013SI015 behavior. Prove T050/T051\u2192T052 same-invocation activation; administrative versus substantive completion proof and zero admin progress; preparation/first-source routing only before an attempt; actual session and source-attempt records persisted before dispatch including failure/question cases; same-child resumption without another session; a mixed preparation/source run consumes one global five-session budget with no reset/refund; and every post-attempt continuation uses the unchanged generic prior-remaining/resolved predicate, no-progress guard and cap without exemption flags. Retain immutable baselines, activation proof, owner failures, blockers, new findings and partial effects.",
+        "marker": " "
+      },
+      "T075": {
+        "description": "[US7] After T063\u2013T064 and T074, install/refresh the supported current development snapshot in a disposable initialized consumer and execute all 15 SI001\u2013SI015 cases from `specs/020-flowkit-workflow-iteration-improvements/quickstart.md` against the exact installed helper and rendered Implement workflow; record actual requested/eligible/pending/completed/outside IDs, per-task completion kinds and proof digests, source and append-only history digests, pre-dispatch session/attempt events, task-specific activation proof, both counters across preparation and source branches, actual previous/current substantive assessments passed to the generic post-source predicate, owner checks, effects, results and limitations in `specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json` and summarize exact commands/results in `specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-summary.md`.",
+        "marker": " "
+      },
+      "T076": {
+        "description": "[US7] After T075, separately validate actual launches for every exact native assignment used by the amended Implement scope and eligibility routes in isolated requested contexts; record requested names, actual responses/errors, source/package provenance, context and unsupported effective-setting details in `specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-native-cases.json`, preserving unavailable cases and never substituting a generic agent.",
+        "marker": " "
+      },
+      "T077": {
+        "description": "[US7] After T073 and T075, exercise the documented manual-prompt path for full and restricted scope, T050/T051\u2192T052 activation, same-child input, readiness and owner-source failures, partial effects, no-progress and cap stops; compare actual decisions and effects with the production-rendered routes and record matched results and precise gaps in `specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-manual-cases.json` without invoking another workflow phase.",
+        "marker": " "
+      }
+    }
+  },
+  "baseline_sha256": "d443b7f4345371cc00489963f6c06a1d00bca0174a67356e157f8d6c5c421785",
+  "remaining_ids": [
+    "task:T061",
+    "task:T062",
+    "task:T063",
+    "task:T064",
+    "task:T065",
+    "task:T066",
+    "task:T067",
+    "task:T071",
+    "task:T072",
+    "task:T075",
+    "task:T076",
+    "task:T077",
+    "finding:F020-LIFECYCLE-CODE-007",
+    "finding:F020-LIFECYCLE-CODE-008",
+    "finding:F020-LIFECYCLE-CODE-013",
+    "finding:F020-LIFECYCLE-CODE-015"
+  ],
+  "state": "ready"
+}

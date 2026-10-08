@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "contract": "combined-workflow-sequence",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "cases": [
+    {
+      "id": "ready-sequence-contract",
+      "result": "contract-fixture",
+      "phases": [
+        {"phase": "select-feature", "invocation": "separate", "identity": "020", "expected": "same-unique-feature-activated"},
+        {"phase": "specify-and-prepare", "invocation": "separate", "identity": "020", "expected": "same-feature-artifacts-current"},
+        {"phase": "analyze", "invocation": "separate", "identity": "020", "expected": "current-readiness-recomputed"},
+        {"phase": "implement", "invocation": "separate", "identity": "020", "expected": "readiness-recomputed-before-eligible-task-startup"}
+      ],
+      "invariants": [
+        "stable-feature-identity-across-phases",
+        "phase-boundaries-remain-separate",
+        "readiness-is-recomputed-at-each-boundary",
+        "pending-future-evidence-remains-pending",
+        "implementation-startup-does-not-imply-completion-or-human-acceptance"
+      ],
+      "expected_acceptance": "not-implied"
+    },
+    {
+      "id": "blocked-authority-sequence-contract",
+      "result": "contract-fixture",
+      "phases": [
+        {"phase": "select-feature", "invocation": "separate", "identity": "020", "expected": "successful-prior-result-preserved"},
+        {"phase": "next-authorized-phase", "invocation": "separate", "identity": "020", "expected": "stop-at-unresolved-consequential-authority"}
+      ],
+      "invariants": [
+        "stable-feature-identity-across-phases",
+        "phase-boundaries-remain-separate",
+        "no-unsafe-mutation",
+        "no-agent-fallback",
+        "exact-blocker-and-safe-resume-action-recorded",
+        "successful-prior-evidence-retained"
+      ],
+      "expected_acceptance": "not-implied"
+    },
+    {
+      "id": "blocked-agent-sequence-contract",
+      "result": "contract-fixture",
+      "phases": [
+        {"phase": "select-feature", "invocation": "separate", "identity": "020", "expected": "successful-prior-result-preserved"},
+        {"phase": "next-authorized-phase", "invocation": "separate", "identity": "020", "expected": "stop-when-exact-assignment-unavailable"}
+      ],
+      "invariants": [
+        "stable-feature-identity-across-phases",
+        "phase-boundaries-remain-separate",
+        "no-unsafe-mutation",
+        "no-generic-agent-substitution",
+        "exact-blocker-and-safe-resume-action-recorded",
+        "successful-prior-evidence-retained"
+      ],
+      "expected_acceptance": "not-implied"
+    }
+  ]
+}

@@ -1,0 +1,273 @@
+{
+  "blocking_ids": [
+    "independent-review-missing"
+  ],
+  "criteria": [
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-e8f534a15bc45594",
+      "line": 13,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "No implementation details (languages, frameworks, APIs).",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-30b1b576c5fb1960",
+      "line": 14,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Focused on user value and business needs.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-bd49815c773681ad",
+      "line": 15,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Written for non-technical stakeholders.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-d065651928ca7306",
+      "line": 16,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "All mandatory sections completed.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-84e91b57e379982e",
+      "line": 22,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "No unresolved clarification markers remain.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-19369d97de915dfc",
+      "line": 23,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Requirements are testable and unambiguous.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-c24f43e621bd0b5f",
+      "line": 24,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Success criteria are measurable.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-2b4a87148f834559",
+      "line": 25,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Success criteria are technology-agnostic (no implementation details).",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-780c833f3748ed80",
+      "line": 26,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "All acceptance scenarios are defined.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-9d71deba72a31111",
+      "line": 27,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Edge cases are identified.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-aef80e181f134da2",
+      "line": 28,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Scope is clearly bounded.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-b575eee80e8f5713",
+      "line": 29,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Dependencies and assumptions identified.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-c133cc7522abaa32",
+      "line": 35,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "All functional requirements have clear acceptance criteria.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-fb58b231276fc550",
+      "line": 36,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "User scenarios cover primary flows.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-ea13a0233fa54bef",
+      "line": 37,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "Feature meets measurable outcomes defined in Success Criteria: intended outcomes are specified and verifiable; achievement is not claimed.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    },
+    {
+      "category": "preparation-quality",
+      "due_phase": "preparation",
+      "finding_id": "independent-review-missing",
+      "id": "criterion-b0b5b6dc3cfbb22c",
+      "line": 38,
+      "marker": "checked",
+      "occurrence": 1,
+      "owner": "specifier",
+      "source_item": "No implementation details leak into specification.",
+      "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "status": "blocked"
+    }
+  ],
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "independent_review": {
+    "expected_inputs": {
+      "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+      "specs/020-flowkit-workflow-iteration-improvements/plan.md": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a",
+      "specs/020-flowkit-workflow-iteration-improvements/spec.md": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+      "specs/020-flowkit-workflow-iteration-improvements/tasks.md": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5"
+    },
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+    "reviewer": "FlowKit-Reviewer",
+    "sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f",
+    "state": "stale"
+  },
+  "pending_future_ids": [],
+  "pending_future_obligations": [],
+  "reason_code": "preparation-evidence-incomplete",
+  "resume_action": "resolve-owned-readiness-findings-and-rerun-fresh-assessments",
+  "schema_version": "1.0",
+  "source_evidence": [
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+      "sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/spec.md",
+      "sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/plan.md",
+      "sha256": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+      "sha256": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+      "sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f",
+      "state": "stale"
+    }
+  ],
+  "state": "blocked"
+}

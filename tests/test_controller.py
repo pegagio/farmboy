@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import os
 import io
@@ -510,6 +511,21 @@ class GraphPreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unresolved"):
             self.controller.evaluate_loop_condition(condition, {})
 
+    def test_loopConditionRequiresFreshReadinessOnlyAfterReviewerContinue(self) -> None:
+        condition = ("{{ steps.assess.output.state == 'continue' && "
+                     "steps.readiness-check.output.readiness_gate.state == 'ready' }}")
+        self.assertTrue(self.controller.evaluate_loop_condition(condition, {
+            "assess": {"state": "continue"},
+            "readiness-check": {"readiness_gate": {"state": "ready"}},
+        }))
+        self.assertFalse(self.controller.evaluate_loop_condition(condition, {
+            "assess": {"state": "continue"},
+            "readiness-check": {"readiness_gate": {"state": "blocked"}},
+        }))
+        self.assertFalse(self.controller.evaluate_loop_condition(condition, {"assess": {"state": "complete"}}))
+        with self.assertRaisesRegex(ValueError, "readiness gate output"):
+            self.controller.evaluate_loop_condition(condition, {"assess": {"state": "continue"}})
+
     def test_loopFixtureCoversCleanBeforeLoopPostPassGateRejectedLoopAndManualFallback(self) -> None:
         fixture = yaml.safe_load((ROOT / "tests/consumer-fixtures/controller-workflow.yml").read_text(encoding="utf-8"))
         self.controller.validate_workflow_definition(fixture)
@@ -537,6 +553,18 @@ class GraphPreflightTests(unittest.TestCase):
             self.controller.render_template("{{ inputs.absent }}", {}, {})
         with self.assertRaisesRegex(ValueError, "unsupported or unresolved"):
             self.controller.render_template("{{ unsupported.value }}", {}, {})
+
+    def test_renderTemplate_serializesStructuredOutputsAsJson(self) -> None:
+        rendered = self.controller.render_template(
+            '{"proposal": {{ steps.prepare.output.proposal }}}', {},
+            {"prepare": {"proposal": {"path": "specs/013\nplan.md", "ready": True,
+                "label": "résumé 😀", "values": [None, False, 3]}}})
+        self.assertEqual({"proposal": {"path": "specs/013\nplan.md", "ready": True,
+            "label": "résumé 😀", "values": [None, False, 3]}}, json.loads(rendered))
+        self.assertEqual(["A", None], self.controller.render_template(
+            "{{ steps.prepare.output.choices }}", {}, {"prepare": {"choices": ["A", None]}}))
+        self.assertEqual("review", self.controller.render_template(
+            "{{ steps.prepare.output.summary }}", {}, {"prepare": {"summary": "review"}}))
 
 
 class HumanInteractionTests(unittest.TestCase):
@@ -788,6 +816,283 @@ class RecoveryTests(unittest.TestCase):
             self.assertEqual({"action": "stop", "blocker": "installation-changed"}, stopped)
             stopped_workflow = self.recovery.resume_decision(interrupted, "changed", fingerprints)
             self.assertEqual({"action": "stop", "blocker": "workflow-changed"}, stopped_workflow)
+
+class ScopedImplementationControllerTests(unittest.TestCase):
+    """The main controller binds scoped operations to current project files."""
+
+    def setUp(self) -> None:
+        sys.path.insert(0, str(CONTROLLER_DIR))
+        self.addCleanup(sys.path.remove, str(CONTROLLER_DIR))
+        load_module("implementation_scope", CONTROLLER_DIR / "implementation_scope.py")
+        self.controller = load_module("flowkit_controller_scoped_implementation", CONTROLLER_DIR / "controller.py")
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.feature = "specs/901-scoped-implementation"
+        (self.root / ".specify").mkdir()
+        self.write(".specify/feature.json", {"feature_directory": self.feature})
+        self.write(f"{self.feature}/spec.md", "# Current specification\n")
+        self.write(f"{self.feature}/tasks.md", "- [ ] T001 Implement a scoped operation\n")
+
+    def write(self, relative: str, value: dict | str) -> None:
+        path = self.root / relative
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(value, sort_keys=True) if isinstance(value, dict) else value, encoding="utf-8")
+
+    def current_scope_payload(self) -> dict:
+        digest = lambda path: hashlib.sha256((self.root / path).read_bytes()).hexdigest()
+        description = "Implement a scoped operation"
+        scope = {
+            "schema_version": "1.0", "run_id": "run-scoped-1", "feature_directory": self.feature,
+            "request_reference": "trusted-main-request-1", "request_kind": "full-feature",
+            "requested_task_ids": ["T001"],
+            "task_records": [{"task_id": "T001", "marker": "unchecked", "description": description,
+                              "description_sha256": hashlib.sha256(description.encode()).hexdigest()}],
+            "input_digests": {path: digest(path) for path in (
+                ".specify/feature.json", f"{self.feature}/spec.md", f"{self.feature}/tasks.md")},
+        }
+        scope["scope_sha256"] = hashlib.sha256(
+            json.dumps(scope, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        return {"scope": scope, "trusted_request_reference": "trusted-main-request-1",
+                "retained_scope_sha256": scope["scope_sha256"]}
+
+    def current_subset_scope_payload(self) -> dict:
+        payload = self.current_scope_payload()
+        payload["scope"]["request_kind"] = "explicit-subset"
+        payload["scope"]["scope_sha256"] = hashlib.sha256(
+            json.dumps({key: value for key, value in payload["scope"].items() if key != "scope_sha256"},
+                       sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        payload["retained_scope_sha256"] = payload["scope"]["scope_sha256"]
+        payload["trusted_requested_task_ids"] = ["T001"]
+        return payload
+
+    def testScopeCommandBindsActivePointerSpecificationAndTaskBytes(self) -> None:
+        payload = self.current_scope_payload()
+        result = self.controller.validate_implementation_scope(self.root, payload)
+        self.assertEqual("ready", result["state"])
+        self.assertEqual(["T001"], result["requested_task_ids"])
+        self.write(f"{self.feature}/spec.md", "# Changed specification\n")
+        stale = self.controller.validate_implementation_scope(self.root, payload)
+        self.assertEqual("blocked", stale["state"])
+        self.assertEqual("implementation-scope-required-source-binding-missing", stale["reason_code"])
+
+    def testTaskerMarkerSuccessorReentersOriginalScopeAndRejectsReplayOrRevert(self) -> None:
+        payload = self.current_scope_payload()
+        before_text = (self.root / f"{self.feature}/tasks.md").read_text(encoding="utf-8")
+        after_text = before_text.replace("- [ ] T001", "- [x] T001")
+        task_path = f"{self.feature}/tasks.md"
+        self.write(task_path, after_text)
+        tasker_path = f"{self.feature}/validation/tasker-tracking.json"
+        reviewer_path = f"{self.feature}/validation/reviewer-completion.json"
+        tasker_record = {"source": "exact FlowKit-Tasker marker-only tracking result", "task_ids": ["T001"]}
+        reviewer_record = {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T001"]}
+        self.write(tasker_path, tasker_record)
+        self.write(reviewer_path, reviewer_record)
+        evidence = lambda path: [{"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()}]
+        event = {"predecessor_event_sha256": "0" * 64, "scope_sha256": payload["scope"]["scope_sha256"],
+            "tasker_assignment": "FlowKit-Tasker", "tasks_before_text": before_text, "tasks_after_text": after_text,
+            "tasker_result": {"state": "ready", "tasks_before_sha256": hashlib.sha256(before_text.encode()).hexdigest(),
+                "tasks_after_sha256": hashlib.sha256(after_text.encode()).hexdigest(), "completed_task_ids": ["T001"],
+                "evidence": evidence(tasker_path)},
+            "reviewer_result": {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T001"],
+                "evidence": evidence(reviewer_path)}}
+        event["sha256"] = hashlib.sha256(json.dumps(event, sort_keys=True, separators=(",", ":"),
+                                                      ensure_ascii=False).encode()).hexdigest()
+        tracking = [event]
+        reentered = self.controller.validate_implementation_scope(
+            self.root, {**payload, "task_tracking_successors": tracking})
+        self.assertEqual("ready", reentered["state"], reentered)
+        self.assertEqual(payload["scope"]["scope_sha256"], reentered["scope_sha256"])
+        spec_path = self.root / f"{self.feature}/spec.md"
+        current_spec = spec_path.read_text(encoding="utf-8")
+        self.write(f"{self.feature}/spec.md", current_spec + "\nStale successor input.\n")
+        stale_spec = self.controller.validate_implementation_scope(
+            self.root, {**payload, "task_tracking_successors": tracking})
+        self.assertEqual("blocked", stale_spec["state"])
+        self.write(f"{self.feature}/spec.md", current_spec)
+        pointer_path = self.root / ".specify/feature.json"
+        current_pointer = pointer_path.read_text(encoding="utf-8")
+        self.write(".specify/feature.json", current_pointer.replace(self.feature, "specs/999-other"))
+        stale_pointer = self.controller.validate_implementation_scope(
+            self.root, {**payload, "task_tracking_successors": tracking})
+        self.assertEqual("blocked", stale_pointer["state"])
+        self.write(".specify/feature.json", current_pointer)
+        history = self.controller._empty_implementation_history(payload["scope"])
+        current_evidence = evidence(reviewer_path)
+        routed = self.controller.route_scoped_implementation(self.root, {
+            **payload, "task_tracking_successors": tracking,
+            "retained_history_sha256": history["sha256"],
+            "assessment": {"state": "complete", "reason_code": "tracked-scope-complete",
+                "evidence": current_evidence, "remaining_ids": [], "resolved_ids": ["task:T001"]},
+            "eligible_task_ids": [],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+        })
+        self.assertEqual("blocked", routed["state"], routed)
+        self.assertEqual("scoped-completion-proof-required", routed["reason_code"])
+        self.assertEqual("blocked", self.controller.validate_implementation_scope(self.root, payload)["state"])
+        replayed = self.controller.validate_implementation_scope(
+            self.root, {**payload, "task_tracking_successors": tracking + tracking})
+        self.assertEqual("blocked", replayed["state"])
+        self.write(task_path, before_text)
+        reverted = self.controller.validate_implementation_scope(
+            self.root, {**payload, "task_tracking_successors": tracking})
+        self.assertEqual("blocked", reverted["state"])
+
+    def testReviewedLoopCarrierIsRestrictedAndInspectable(self) -> None:
+        body = [
+            {"id": "route-scoped-entry", "type": "prompt", "prompt": "Route current scope."},
+            {"id": "prepare-scoped-prerequisites", "type": "switch", "expression": "{{ steps.x.output.state }}", "cases": {"continue": []}},
+            {"id": "implement-tasks", "type": "switch", "expression": "{{ steps.x.output.state }}", "cases": {"continue": []}},
+            {"id": "assess-implementation-after-pass", "type": "prompt", "prompt": "Assess current substantive work."},
+            {"id": "route-post-assessment", "type": "switch", "expression": "{{ steps.x.output.state }}", "cases": {"continue": []}},
+            {"id": "route-scoped-execution", "type": "prompt", "prompt": "Apply guarded route."},
+        ]
+        loop = {"id": "implementation-loop", "type": "do-while", "max_iterations": 5,
+                "condition": '{{ steps.route-scoped-execution.output.state == "continue" }}',
+                "controller_loop_mode": "implementation_scope", "steps": body}
+        self.controller.validate_workflow_graph([loop])
+        self.assertEqual([{"step_id": loop["id"], "mode": "implementation_scope"}],
+                         self.controller._controller_loop_modes([loop]))
+        malformed = {**loop, "controller_loop_mode": "generic-but-scoped"}
+        with self.assertRaisesRegex(ValueError, "unsupported controller_loop_mode"):
+            self.controller.validate_workflow_graph([malformed])
+
+    def testImplementationScopeCarrierRejectsBooleanConditionThroughInspect(self) -> None:
+        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        loop = find_workflow_step(definition["steps"], "implementation-loop")
+        for condition in (True, False, None, 1, "{{ steps.route-scoped-execution.output.state }}"):
+            with self.subTest(condition=condition):
+                loop["condition"] = condition
+                with self.assertRaisesRegex(ValueError, "exact route-scoped-execution condition"):
+                    self.controller.validate_workflow_definition(definition)
+                with patch.object(self.controller, "verify_controller_install", return_value={}), \
+                        patch.object(self.controller, "load_installed_definition", return_value=definition), \
+                        patch.object(self.controller.subprocess, "run", return_value=type("Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"})()):
+                    with self.assertRaisesRegex(ValueError, "exact route-scoped-execution condition"):
+                        self.controller.main([
+                            "inspect", "--project", str(self.root), "--workflow-id", "speckit-flow-implement",
+                            "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
+                            "--skill-id", "flow-kit-implement", "--input", "feature_context=specs/020-test",
+                        ])
+        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        self.controller.validate_workflow_definition(definition)
+        legacy_loop = {"id": "legacy-loop", "type": "do-while", "condition": True,
+            "max_iterations": 2, "steps": [{"id": "legacy-body", "type": "prompt", "prompt": "Continue."}]}
+        self.controller.validate_workflow_graph([legacy_loop])
+
+    def testInspectSerializesReviewedLoopModeIntoDispatchDefinition(self) -> None:
+        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        output = io.StringIO()
+        with patch.object(self.controller, "verify_controller_install", return_value={}), \
+                patch.object(self.controller, "load_installed_definition", return_value=definition), \
+                patch.object(self.controller, "installation_fingerprints", return_value={}), \
+                patch.object(self.controller.subprocess, "run", return_value=type("Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"})()), \
+                redirect_stdout(output):
+            status = self.controller.main([
+                "inspect", "--project", str(self.root), "--workflow-id", "speckit-flow-implement",
+                "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
+                "--skill-id", "flow-kit-implement", "--input", "feature_context=specs/020-test",
+            ])
+        self.assertEqual(0, status)
+        inspected = json.loads(output.getvalue())
+        self.assertEqual([{"step_id": "implementation-loop", "mode": "implementation_scope"}],
+                         inspected["controller_loop_modes"])
+        loop = find_workflow_step(inspected["steps"], "implementation-loop")
+        self.assertEqual("implementation_scope", loop["controller_loop_mode"])
+
+    def testScopedHistoryCommandIsDispatchedAndReturnsBlockedStatus(self) -> None:
+        with patch("sys.stdin", io.StringIO('{"unexpected":true}')), redirect_stdout(io.StringIO()) as output:
+            status = self.controller.main(["implementation-history", "--project", str(self.root)])
+        self.assertEqual(2, status)
+        self.assertEqual("implementation-history-request-invalid", json.loads(output.getvalue())["reason_code"])
+
+    def testScopedHistoryPersistsPreDispatchSessionAndRejectsStaleAppend(self) -> None:
+        scope_payload = self.current_scope_payload()
+        empty = {"schema_version": "1.0", "scope_sha256": scope_payload["scope"]["scope_sha256"],
+                 "events": [], "coder_sessions_started": 0, "source_attempts_started": 0}
+        empty["sha256"] = hashlib.sha256(
+            json.dumps(empty, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        evidence_path = f"{self.feature}/tasks.md"
+        event = {
+            "event_id": "session-1-start", "predecessor_sha256": "0" * 64,
+            "scope_sha256": scope_payload["scope"]["scope_sha256"], "event_kind": "coder-session-start",
+            "declared_node_id": "prepare-scoped-prerequisites", "occurred_at": "2026-10-08T12:00:00Z",
+            "evidence": [{"path": evidence_path,
+                          "sha256": hashlib.sha256((self.root / evidence_path).read_bytes()).hexdigest()}],
+            "coder_session_id": "session-1", "coder_sessions_started": 1,
+            "source_attempts_started": 0, "execution_kind": "preparation",
+        }
+        event["sha256"] = hashlib.sha256(
+            json.dumps(event, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        payload = {**scope_payload, "event": event, "retained_history_sha256": empty["sha256"]}
+        result = self.controller.append_implementation_execution_event(self.root, payload)
+        self.assertEqual("ready", result["state"])
+        self.assertEqual(1, result["coder_sessions_started"])
+        retained_path = self.root / result["history_path"]
+        self.assertTrue(retained_path.is_file())
+        persisted = json.loads(retained_path.read_text(encoding="utf-8"))
+        self.assertEqual(result["history_sha256"], persisted["sha256"])
+        stale = self.controller.append_implementation_execution_event(self.root, payload)
+        self.assertEqual("blocked", stale["state"])
+        self.assertEqual("implementation-history-retained-state-stale", stale["reason_code"])
+
+    def testScopedRouteUsesControllerOwnedZeroHistoryAndRejectsSuppliedCounters(self) -> None:
+        scope_payload = self.current_scope_payload()
+        empty = self.controller._empty_implementation_history(scope_payload["scope"])
+        task_path = f"{self.feature}/tasks.md"
+        assessment = {"state": "continue", "reason_code": "preparation-required",
+                     "evidence": [{"path": task_path,
+                                   "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}],
+                     "remaining_ids": ["task:T001"], "resolved_ids": [],
+                     "next_step_id": "prepare-scoped-prerequisites"}
+        request = {**scope_payload, "retained_history_sha256": empty["sha256"], "assessment": assessment,
+                   "eligible_task_ids": ["T001"],
+                   "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]}
+        routed = self.controller.route_scoped_implementation(self.root, request)
+        self.assertEqual("continue", routed["state"])
+        self.assertEqual("prepare-scoped-prerequisites", routed["next_step_id"])
+        self.assertEqual(0, routed["history"]["source_attempts_started"])
+        forged = self.controller.route_scoped_implementation(self.root, {**request, "history": {
+            **empty, "coder_sessions_started": 5, "source_attempts_started": 5}})
+        self.assertEqual("blocked", forged["state"])
+        self.assertEqual("implementation-route-request-invalid", forged["reason_code"])
+
+    def testExplicitSubsetSurvivesRouteAndAppendOnlyHistoryAdapters(self) -> None:
+        subset = self.current_subset_scope_payload()
+        empty = self.controller._empty_implementation_history(subset["scope"])
+        task_path = f"{self.feature}/tasks.md"
+        task_evidence = [{"path": task_path,
+                          "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}]
+        event = {"event_id": "subset-session-1", "predecessor_sha256": "0" * 64,
+                 "scope_sha256": subset["scope"]["scope_sha256"], "event_kind": "coder-session-start",
+                 "declared_node_id": "prepare-scoped-prerequisites", "occurred_at": "2026-10-08T12:00:00Z",
+                 "evidence": task_evidence, "coder_session_id": "subset-session-1",
+                 "coder_sessions_started": 1, "source_attempts_started": 0, "execution_kind": "preparation"}
+        event["sha256"] = hashlib.sha256(
+            json.dumps(event, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        appended = self.controller.append_implementation_execution_event(self.root, {
+            **subset, "event": event, "retained_history_sha256": empty["sha256"]})
+        self.assertEqual("ready", appended["state"], appended)
+        outcome = {"event_id": "subset-session-1-outcome",
+                   "predecessor_sha256": appended["history"]["events"][-1]["sha256"],
+                   "scope_sha256": subset["scope"]["scope_sha256"], "event_kind": "coder-session-outcome",
+                   "declared_node_id": "prepare-scoped-prerequisites", "occurred_at": "2026-10-08T12:00:01Z",
+                   "evidence": task_evidence, "coder_session_id": "subset-session-1",
+                   "coder_sessions_started": 1, "source_attempts_started": 0, "outcome": "completed"}
+        outcome["sha256"] = hashlib.sha256(
+            json.dumps(outcome, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        closed = self.controller.append_implementation_execution_event(self.root, {
+            **subset, "event": outcome, "retained_history_sha256": appended["history_sha256"]})
+        self.assertEqual("ready", closed["state"], closed)
+        route = self.controller.route_scoped_implementation(self.root, {
+            **subset, "retained_history_sha256": closed["history_sha256"],
+            "assessment": {"state": "continue", "reason_code": "preparation-required", "evidence": task_evidence,
+                           "remaining_ids": ["task:T001"], "resolved_ids": [],
+                           "next_step_id": "prepare-scoped-prerequisites"},
+            "eligible_task_ids": ["T001"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]})
+        self.assertEqual("continue", route["state"], route)
+        self.assertEqual("prepare-scoped-prerequisites", route["next_step_id"])
 
 
 if __name__ == "__main__":

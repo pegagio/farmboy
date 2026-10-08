@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-07",
+  "case_id": "t022-native-agent-launches-fresh-prepared-checkout-chat",
+  "context_id": "01a116d3-a6fb-7ba0-8e49-2fbf7e064098",
+  "context_kind": "prepared-checkout-future-chat",
+  "result": "pass",
+  "expected": "The fresh top-level chat requests each exact original native role and additive FlowKit-Readiness Checker; only the expected role-specific response token counts as a successful launch.",
+  "observed": "All nine exact native agent requests returned their corresponding expected tokens serially. Agent definition and installation-record fingerprints matched the parent capture before chat creation and were unchanged after probes.",
+  "provenance": {
+    "bundle_id": "spec-kit-flow",
+    "bundle_version": "0.15.0",
+    "component_id": "flow-kit-agents",
+    "component_version": "0.2.0",
+    "package_sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+    "source_checkout_commit": "8a90c078035da998447c362ff37dd314c0cb053f",
+    "source_repository": "https://github.com/pegagio/spec-kit-flow",
+    "source_sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193",
+    "tested_cli_version": "specify 1.0.10.dev0+pegagio.2",
+    "preparation_fingerprints_match_parent_before_creation": true,
+    "fingerprints_unchanged_after_probes": true,
+    "preparation_fingerprints": {
+      ".codex/agents/flowkit-code-reviewer.toml": "4b0b03e5bb816e8e22009bc8caf3e23e52ecfd8a029f4dd1e20fe0365173e7e1",
+      ".codex/agents/flowkit-reviewer.toml": "040bfbae778035010e200207c5aa08add37d0511c16c9a577f64be801248c40a",
+      ".codex/agents/flowkit-planner.toml": "0d81ec28c1bbcc78f1c51fdbe35852cc1ec027e5ffe0e6888684fc06659ab64e",
+      ".codex/agents/flowkit-coder.toml": "05a24b06539f090dc4153f9c447e780fb66deb48fb28176e21ef5b5c8681dcfe",
+      ".codex/agents/flowkit-tasker.toml": "d6a0b2e2652a50e1bbcc68a9c1b2f3bfa4ba8624f243b1aed7465c5bb8ec5f67",
+      ".codex/agents/flowkit-specifier.toml": "ec03abb43f6484c167fa2c402dc4e0c11ae81c1d4bd585a6b3d6eae8fa55e798",
+      ".codex/agents/flowkit-wiki-curator.toml": "4f744f0ee9b5b2fac2b980c287c2b2dfacc3ba535cb91854f8a61445c32971f4",
+      ".codex/agents/flowkit-roadmap-agent.toml": "3b1af3a8f10f49a242e3b93757c0aa498716c74f1580ab66450bc0769813c430",
+      ".codex/agents/flowkit-readiness-checker.toml": "af68365e55f51aaa98b6ad28838ab329660ceb8bf2b5462fa9bea313ce450a15",
+      ".specify/bundle-records.json": "4b30415ce49d7b774538f29f7222fb3aa02ebdc9ee748b1f03a8f4caa8cea728",
+      ".specify/flow-kit/skills-install.json": "d50532b8928b8e7a125e6ab880af6c0cf6bea8e0cb28528972799e9441beccd1"
+    }
+  },
+  "native_cases": [
+    {
+      "case_id": "t022-roadmap",
+      "requested_agent_type": "FlowKit-Roadmap Agent",
+      "expected_token": "FLOWKIT_ROADMAP_AGENT_READY",
+      "actual_token": "FLOWKIT_ROADMAP_AGENT_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-specifier",
+      "requested_agent_type": "FlowKit-Specifier",
+      "expected_token": "FLOWKIT_SPECIFIER_READY",
+      "actual_token": "FLOWKIT_SPECIFIER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-planner",
+      "requested_agent_type": "FlowKit-Planner",
+      "expected_token": "FLOWKIT_PLANNER_READY",
+      "actual_token": "FLOWKIT_PLANNER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-tasker",
+      "requested_agent_type": "FlowKit-Tasker",
+      "expected_token": "FLOWKIT_TASKER_READY",
+      "actual_token": "FLOWKIT_TASKER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-reviewer",
+      "requested_agent_type": "FlowKit-Reviewer",
+      "expected_token": "FLOWKIT_REVIEWER_READY",
+      "actual_token": "FLOWKIT_REVIEWER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-coder",
+      "requested_agent_type": "FlowKit-Coder",
+      "expected_token": "FLOWKIT_CODER_READY",
+      "actual_token": "FLOWKIT_CODER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-code-reviewer",
+      "requested_agent_type": "FlowKit-Code Reviewer",
+      "expected_token": "FLOWKIT_CODE_REVIEWER_READY",
+      "actual_token": "FLOWKIT_CODE_REVIEWER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-wiki-curator",
+      "requested_agent_type": "FlowKit-Wiki Curator",
+      "expected_token": "FLOWKIT_WIKI_CURATOR_READY",
+      "actual_token": "FLOWKIT_WIKI_CURATOR_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    },
+    {
+      "case_id": "t022-readiness-checker",
+      "requested_agent_type": "FlowKit-Readiness Checker",
+      "expected_token": "FLOWKIT_READINESS_CHECKER_READY",
+      "actual_token": "FLOWKIT_READINESS_CHECKER_READY",
+      "state": "passed",
+      "effective_model": "unverified",
+      "effective_effort": "unverified"
+    }
+  ],
+  "limitations": [
+    "Configuration values and file presence do not establish effective runtime settings.",
+    "Fresh-chat validation does not establish new-worktree first-chat behavior.",
+    "This context is a fresh chat in the prepared checkout identified by the parent task. It does not establish a different checkout identity or new-worktree first-chat behavior.",
+    "Effective model and effort settings remain unverified for every role."
+  ],
+  "acceptance": "not-assessed"
+}

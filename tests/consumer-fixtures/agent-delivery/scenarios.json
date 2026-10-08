@@ -4,7 +4,7 @@
   "scenarios": [
     {
       "id": "clean",
-      "expected": "eight-created"
+      "expected": "nine-created-including-flowkit-readiness-checker"
     },
     {
       "id": "repeat-customized",

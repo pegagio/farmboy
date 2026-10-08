@@ -1,0 +1,343 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-07",
+  "task_id": "T048",
+  "source_review": {
+    "schema_version": "1.0",
+    "reviewer": "FlowKit-Code Reviewer",
+    "task_id": "T048",
+    "state": "source-independently-reviewed-delivery-pending",
+    "confirmed_finding_closure": {
+      "id": "F020-OWNER-R001",
+      "status": "resolved-in-source",
+      "evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        },
+        {
+          "path": "controllers/flow-kit/controller-protocol.md",
+          "sha256": "60535f98f49262430944bd378a04b0f78767ed2f260a04c5341e80c234240d14"
+        },
+        {
+          "path": "tests/test_command_skill_ownership.py",
+          "sha256": "68b0b9631e9a75ff0317daff1ea1fc2d104be59daf2641c82159f638c132f111"
+        }
+      ],
+      "observations": [
+        "Retained prepatch controller rejects actual enabled registered wiki query absent core map; current source returns registered-extension.",
+        "Focused core-tampering fallback tests retain rejection.",
+        "Extension attestation explicitly distinguishes observed hashes from rendered-body integrity."
+      ]
+    },
+    "findings": [],
+    "validation": [
+      {
+        "command": "python -m unittest tests.test_command_skill_ownership tests.test_controller tests.test_workflow_graph",
+        "interpreter": "existing skill-tools Python",
+        "result": "81 tests passed on corrected source"
+      },
+      {
+        "command": "disposable independent duplicate enabled and duplicate extension-owner ID probes",
+        "result": "both original cases rejected; duplicate registered_commands and schema_version also rejected"
+      },
+      {
+        "command": "python -m unittest tests.test_workflow_paths",
+        "interpreter": "existing skill-tools Python",
+        "result": "28 tests; one failure at tests/test_workflow_paths.py:168 because expected top-level Implement list omits capture-implementation-baseline"
+      }
+    ],
+    "separate_existing_gap": {
+      "path": "tests/test_workflow_paths.py:168",
+      "status": "confirmed failing assertion outside T048 mutation scope",
+      "route": "Existing T031 focused final-validation task must surface and resolve this stale topology assertion through an eligible correction route, or Tasker reopens T046 if required; reviewer makes no task edits.",
+      "evidence": [
+        {
+          "path": "tests/test_workflow_paths.py",
+          "sha256": "dfee9371660f7748e0b383da1b673cd916e6e81cb763d3dec69f719cccdcee84"
+        }
+      ]
+    },
+    "scope_evidence": {
+      "test_controller_unchanged": true,
+      "source_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        },
+        {
+          "path": "controllers/flow-kit/controller-protocol.md",
+          "sha256": "60535f98f49262430944bd378a04b0f78767ed2f260a04c5341e80c234240d14"
+        },
+        {
+          "path": "tests/test_command_skill_ownership.py",
+          "sha256": "68b0b9631e9a75ff0317daff1ea1fc2d104be59daf2641c82159f638c132f111"
+        },
+        {
+          "path": "tests/test_controller.py",
+          "sha256": "c66802be9b24d2f291cfff84c954aff6e43d99a03d9f47e54e1e4af45d52ca7e"
+        },
+        {
+          "path": "tests/test_workflow_paths.py",
+          "sha256": "dfee9371660f7748e0b383da1b673cd916e6e81cb763d3dec69f719cccdcee84"
+        }
+      ]
+    },
+    "whole_task_completion": "Source correction substantiated; whole T048 remains pending matched snapshot delivery, independently validated installed consumer owner resolution, retained payload provenance, and current readiness.",
+    "safe_resumption_action": "Controller may proceed with authorized matched generic source-package delivery. Validate delivered package/source equality and real registered extension resolution before Tasker records T048 completion or any T027 retry. The reviewer dispatches no phase and owns no main-task gate.",
+    "limitations": [
+      "Read-only source review; only temporary review report produced.",
+      "No workflow, snapshot refresh, task edits, Git integration or feature acceptance performed.",
+      "Installed controller remains older source; source tests and copied layout do not by themselves prove delivered package."
+    ],
+    "previous_source_review": {
+      "state": "source-correction-required-before-delivery",
+      "source_sha256": "af806040bf14ccebfe8ce28a956b55065b91b206ed7dd488ec6ccf116c1786a0",
+      "confirmed_findings": [
+        {
+          "id": "F020-OWNER-R002",
+          "task_id": "T048",
+          "severity": "medium",
+          "artifact_location": "controllers/flow-kit/scripts/python/controller.py:756",
+          "violated_requirement": "T048 rejects malformed, disabled, or ambiguous extension ownership before accepting unique active owner.",
+          "observed_deficiency": "Plain json.loads overwrites duplicate JSON keys before validation. A registry record with enabled:false followed by enabled:true is accepted. A registry with two flow-wiki keys containing conflicting disabled/enabled owner records is also accepted as registered-extension.",
+          "exact_correction": "Reject duplicate object keys when parsing the extension registry, including nested enabled/registered_commands and extensions keys; return the existing controlled malformed-registry ValueError. Add focused regressions proving conflicting duplicate enabled and duplicate owner ID records cannot resolve. Retain existing T048 scope, core digest semantics, and no generated checksum fabrication.",
+          "evidence": [
+            {
+              "path": "controllers/flow-kit/scripts/python/controller.py",
+              "sha256": "af806040bf14ccebfe8ce28a956b55065b91b206ed7dd488ec6ccf116c1786a0"
+            }
+          ]
+        }
+      ]
+    },
+    "resolved_findings": [
+      {
+        "id": "F020-OWNER-R001",
+        "status": "resolved-in-source",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+          },
+          {
+            "path": "controllers/flow-kit/controller-protocol.md",
+            "sha256": "60535f98f49262430944bd378a04b0f78767ed2f260a04c5341e80c234240d14"
+          },
+          {
+            "path": "tests/test_command_skill_ownership.py",
+            "sha256": "68b0b9631e9a75ff0317daff1ea1fc2d104be59daf2641c82159f638c132f111"
+          }
+        ],
+        "observations": [
+          "Retained prepatch controller rejects actual enabled registered wiki query absent core map; current source returns registered-extension.",
+          "Focused core-tampering fallback tests retain rejection.",
+          "Extension attestation explicitly distinguishes observed hashes from rendered-body integrity."
+        ]
+      },
+      {
+        "id": "F020-OWNER-R002",
+        "task_id": "T048",
+        "status": "resolved-in-source",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+          },
+          {
+            "path": "controllers/flow-kit/controller-protocol.md",
+            "sha256": "60535f98f49262430944bd378a04b0f78767ed2f260a04c5341e80c234240d14"
+          },
+          {
+            "path": "tests/test_command_skill_ownership.py",
+            "sha256": "68b0b9631e9a75ff0317daff1ea1fc2d104be59daf2641c82159f638c132f111"
+          }
+        ],
+        "resolution_summary": "Extension registry json.loads now uses a recursive duplicate-key rejecting object_pairs_hook; both original ambiguity probes and two additional nested/top-level probes produce controlled malformed-registry ValueError."
+      }
+    ],
+    "independent_duplicate_key_cases": [
+      {
+        "case": "duplicate-enabled",
+        "result": "rejected",
+        "reason": "selected project's extension registry is malformed"
+      },
+      {
+        "case": "duplicate-owner-id",
+        "result": "rejected",
+        "reason": "selected project's extension registry is malformed"
+      },
+      {
+        "case": "duplicate-registered-commands",
+        "result": "rejected",
+        "reason": "selected project's extension registry is malformed"
+      },
+      {
+        "case": "duplicate-schema",
+        "result": "rejected",
+        "reason": "selected project's extension registry is malformed"
+      }
+    ]
+  },
+  "delivered_review": {
+    "schema_version": "1.0",
+    "reviewer": "FlowKit-Code Reviewer",
+    "task_id": "T048",
+    "state": "source-and-delivered-owner-resolution-substantiated",
+    "consumer": "isolated-feature020-native-contexts-demo",
+    "source_findings": [
+      {
+        "id": "F020-OWNER-R001",
+        "status": "resolved"
+      },
+      {
+        "id": "F020-OWNER-R002",
+        "status": "resolved"
+      }
+    ],
+    "evidence": [
+      {
+        "consumer": "main-source",
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+      },
+      {
+        "consumer": "isolated-demo",
+        "path": ".specify/flow-kit/scripts/python/controller.py",
+        "sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+      },
+      {
+        "consumer": "isolated-demo",
+        "path": ".specify/flow-kit/skills-install.json",
+        "sha256": "95f3186e0c8723b9e965db2def6ce0a31fe95d1a01655e603aa0411b8c664f75"
+      },
+      {
+        "consumer": "isolated-demo",
+        "path": ".specify/extensions/.registry",
+        "sha256": "65272ab279daed584bbc903f2818ee9f2aa72b1bb02bd646a9a472d737aabc9d"
+      },
+      {
+        "consumer": "isolated-demo",
+        "path": ".specify/integrations/codex.manifest.json",
+        "sha256": "ea56e1361746a005b840acc54abdec9df51a9a53ac9b7f46520558647a3d1bee"
+      }
+    ],
+    "delivered_component": {
+      "package": "flow-kit-controllers",
+      "version": "0.7.0",
+      "source_sha256": "f20f0418d69820d040fd267227fbc8af7f7719513fc9e6923630ffedc62f11e4",
+      "catalog_status": "snapshot",
+      "status": "installed"
+    },
+    "ownership_inventory": {
+      "verified_file_count": 27,
+      "all_recorded_digests_match": true,
+      "controller_and_protocol_equal_reviewed_source": true
+    },
+    "preservation": {
+      "verified_file_count": 13,
+      "all_before_digests_match": true,
+      "files": [
+        ".specify/feature.json",
+        ".specify/memory/constitution.md",
+        ".specify/memory/roadmap.md",
+        "AGENTS.md",
+        ".codex/agents/flowkit-code-reviewer.toml",
+        ".codex/agents/flowkit-reviewer.toml",
+        ".codex/agents/flowkit-planner.toml",
+        ".codex/agents/flowkit-coder.toml",
+        ".codex/agents/flowkit-tasker.toml",
+        ".codex/agents/flowkit-specifier.toml",
+        ".codex/agents/flowkit-wiki-curator.toml",
+        ".codex/agents/flowkit-roadmap-agent.toml",
+        ".codex/agents/flowkit-readiness-checker.toml"
+      ]
+    },
+    "resolved_commands": {
+      "speckit.flow-wiki.query": {
+        "name": "speckit-flow-wiki-query",
+        "command_id": "speckit.flow-wiki.query",
+        "provenance": "registered-extension",
+        "owner_id": "flow-wiki",
+        "owner_version": "2.0.1",
+        "manifest_path": ".specify/extensions/flow-wiki/extension.yml",
+        "manifest_sha256": "96c71268dce1573443b625c58b6b7005f834ed43d118b66adf65603030a161b4",
+        "command_source_path": ".specify/extensions/flow-wiki/commands/speckit.flow-wiki.query.md",
+        "command_source_sha256": "8c030dd34426b1c5dda51f17c8307a897c389c7016ee07629400edbb412212af",
+        "skill_sha256": "fcea99785fe767118e0d9485262881340b61a54ac8af07867019b6be883afa88",
+        "integrity_limit": "registered ownership and observed digests; rendered skill body equality is not verified"
+      },
+      "speckit.flow-roadmap.brief": {
+        "name": "speckit-flow-roadmap-brief",
+        "command_id": "speckit.flow-roadmap.brief",
+        "provenance": "registered-extension",
+        "owner_id": "flow-roadmap",
+        "owner_version": "0.2.1",
+        "manifest_path": ".specify/extensions/flow-roadmap/extension.yml",
+        "manifest_sha256": "afae774321229971e7d3401df6b2e8379324a18b604a2343d8082505bd4e686a",
+        "command_source_path": ".specify/extensions/flow-roadmap/commands/speckit.flow-roadmap.brief.md",
+        "command_source_sha256": "1766c82f9d79a79d125610b0bb8e6dffa7c1e2787d8c7d3a8bebf19e1b66cd5e",
+        "skill_sha256": "ae1d98e9ea74a7b68b086bf9fbd82c1a9f39fe83b21f070e70f7abe2569b6823",
+        "integrity_limit": "registered ownership and observed digests; rendered skill body equality is not verified"
+      },
+      "speckit.specify": {
+        "name": "speckit-specify",
+        "command_id": "speckit.specify",
+        "provenance": "codex.manifest.json",
+        "skill_sha256": "a505028de7f6489878696d6656c7d057f3a66119ebb8c0cc82d69fabb7b344ff"
+      }
+    },
+    "delivered_module_negative_checks": [
+      {
+        "case": "disabled",
+        "result": "rejected",
+        "reason": "registered Codex extension owner is disabled for speckit.flow-wiki.query"
+      },
+      {
+        "case": "stale",
+        "result": "rejected",
+        "reason": "registered extension manifest hash differs from installed bytes: flow-wiki"
+      },
+      {
+        "case": "wrong-source",
+        "result": "rejected",
+        "reason": "installed Codex skill source metadata differs from its registered owner: speckit-flow-wiki-query"
+      },
+      {
+        "case": "duplicate",
+        "result": "rejected",
+        "reason": "selected project's extension registry is malformed"
+      },
+      {
+        "case": "core-tampered",
+        "result": "rejected",
+        "reason": "installed Codex command skill differs from its provenance record: speckit-flow-wiki-query"
+      }
+    ],
+    "completion_facts": [
+      "Reviewed source resolves actual registered extensions absent core map and preserves authoritative core digest checks.",
+      "Delivered installed module byte-matches reviewed controller and registered ownership inventory.",
+      "Actual delivered wiki query, roadmap brief and core specify resolve with exact observed owner/source/skill hashes.",
+      "Governance, fixture roadmap, active pointer and all nine native definitions retain before-delivery bytes.",
+      "Delivered module retains malformed/disabled/stale/wrong-source/core-tampered rejection in disposable cases."
+    ],
+    "separate_existing_gap": {
+      "path": "tests/test_workflow_paths.py:168",
+      "route": "T031",
+      "fact": "Earlier independent 28-test run had one stale topology assertion; no T048 edit or suppression."
+    },
+    "limitations": [
+      "No live command body or workflow phase executed; this verifies command resolution and ownership handoff.",
+      "Extension registration and observed digests do not prove rendered body equality.",
+      "Fresh governing/readiness reassessment before T027 is a controller responsibility and is not asserted by this review.",
+      "No Git integration, production publication, or feature acceptance claimed."
+    ],
+    "safe_resumption_action": "Main controller may use this independent evidence for exact Tasker T048 completion recording; revalidate identity, installation and preparation readiness before any separately authorized T027 phase retry."
+  },
+  "scope": "Actual owner resolution, no core/extension/preset modifications or rendered body checksum claim",
+  "limits": [
+    "Source preexisting workflow_paths topology test failure remains T031 work.",
+    "Main Feature020 task addition requires fresh readiness review before further installed Implement.",
+    "Demo consumer package refreshed after stopped Specify; failed prior attempt retained."
+  ]
+}

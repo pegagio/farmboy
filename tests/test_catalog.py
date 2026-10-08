@@ -15,6 +15,19 @@ from tools import catalog
 
 
 class CatalogReleaseTests(unittest.TestCase):
+    def compatible_roadmap_source(self, directory: Path) -> Path:
+        source = directory / "flow-roadmap-source"
+        source.mkdir()
+        version = catalog.bundle_components()[1]["extensions"]["flow-roadmap"]
+        (source / "extension.yml").write_text(
+            f'schema_version: "1.0"\nextension:\n  id: "flow-roadmap"\n  name: "FlowKit Roadmap"\n  version: "{version}"\n  author: "pegagio"\nrequires:\n  specify_cli_version: ">=1.0.10"\n',
+            encoding="utf-8",
+        )
+        subprocess.run(["git", "init", "-q"], cwd=source, check=True, capture_output=True)
+        subprocess.run(["git", "add", "extension.yml"], cwd=source, check=True, capture_output=True)
+        subprocess.run(["git", "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "source"], cwd=source, check=True, capture_output=True)
+        return source
+
     def test_selectedSpecify_prefersProjectMiseSelection(self) -> None:
         with patch.object(catalog.shutil, "which", side_effect=lambda name: "/usr/bin/mise" if name == "mise" else "/path/specify"), patch.object(
             catalog.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, "/mise/specify\n", "")
@@ -76,7 +89,7 @@ class CatalogReleaseTests(unittest.TestCase):
             "speckit-flow-specify": {
                 "inspect-active-feature": "FlowKit-Roadmap Agent", "prepare-specification-request": "FlowKit-Specifier",
                 "draft-specification": "FlowKit-Specifier", "assess-created-spec-linkage": "FlowKit-Reviewer",
-                "verify-repaired-spec-linkage": "FlowKit-Reviewer", "brief-against-roadmap": "FlowKit-Reviewer",
+                "verify-repaired-spec-linkage": "FlowKit-Reviewer", "brief-against-roadmap": "FlowKit-Roadmap Agent",
             },
             "speckit-flow-clarify": {
                 "clarify-session": "FlowKit-Specifier", "assess-clarification-after-session": "FlowKit-Reviewer",
@@ -92,7 +105,8 @@ class CatalogReleaseTests(unittest.TestCase):
                 "remediate-tasks": "FlowKit-Tasker", "analyze-artifacts": "FlowKit-Reviewer", "assess-analysis": "FlowKit-Reviewer",
             },
             "speckit-flow-implement": {
-                "assess-implementation-state": "FlowKit-Reviewer", "implement-eligible-work": "FlowKit-Coder",
+                "assess-implementation-state": "FlowKit-Reviewer", "run-scoped-preparation": "FlowKit-Coder",
+                "run-scoped-source-implementation": "FlowKit-Coder",
                 "assess-implementation-after-pass": "FlowKit-Code Reviewer",
             },
             "speckit-flow-converge": {
@@ -116,10 +130,10 @@ class CatalogReleaseTests(unittest.TestCase):
         }
         expected_versions = {
             "speckit-flow-wiki-lint-update": "0.2.0",
-            "speckit-flow-start-feature": "0.6.0", "speckit-flow-select-feature": "0.2.0", "speckit-flow-specify": "0.2.0", "speckit-flow-clarify": "0.5.0",
+            "speckit-flow-start-feature": "0.6.0", "speckit-flow-select-feature": "0.2.0", "speckit-flow-specify": "0.3.0", "speckit-flow-clarify": "0.5.0",
             "speckit-flow-plan": "0.5.0", "speckit-flow-tasks": "0.5.0",
-            "speckit-flow-analyze-remediate": "0.5.0", "speckit-flow-implement": "0.5.0",
-            "speckit-flow-converge": "0.5.0", "speckit-flow-closeout": "0.7.0",
+            "speckit-flow-analyze-remediate": "0.6.0", "speckit-flow-implement": "0.8.0",
+            "speckit-flow-converge": "0.5.0", "speckit-flow-closeout": "0.8.0",
         }
         step_pattern = __import__("re").compile(r"^(\s*)- id: ([A-Za-z0-9_-]+)$")
         for workflow_id, expected_steps in expectations.items():
@@ -316,7 +330,7 @@ class CatalogReleaseTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-status-") as temporary:
             temporary_catalog = Path(temporary)
             temporary_release = temporary_catalog / "release.json"
-            release = catalog.build_development_snapshot(temporary_catalog)
+            release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
             release["status"] = "released"
             release["extensions"]["flow-roadmap"]["source_tag"] = None
             temporary_release.write_text(json.dumps(release), encoding="utf-8")
@@ -324,11 +338,36 @@ class CatalogReleaseTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "source tag differs"):
                     catalog.verified_release(temporary_catalog, temporary_release)
 
+    def test_developmentSnapshot_usesExplicitCompatibleExtensionSource(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-extension-source-") as source_dir, tempfile.TemporaryDirectory(prefix="spec-kit-flow-source-snapshot-") as snapshot_dir:
+            source = Path(source_dir)
+            version = catalog.bundle_components()[1]["extensions"]["flow-roadmap"]
+            (source / "extension.yml").write_text(
+                f'schema_version: "1.0"\nextension:\n  id: "flow-roadmap"\n  name: "FlowKit Roadmap"\n  version: "{version}"\n  author: "pegagio"\nrequires:\n  specify_cli_version: ">=1.0.10"\n',
+                encoding="utf-8",
+            )
+            subprocess.run(["git", "init", "-q"], cwd=source, check=True, capture_output=True)
+            subprocess.run(["git", "add", "extension.yml"], cwd=source, check=True, capture_output=True)
+            subprocess.run(["git", "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "source"], cwd=source, check=True, capture_output=True)
+            snapshot = Path(snapshot_dir)
+            release = catalog.build_development_snapshot(snapshot, source_overrides={"flow-roadmap": source})
+            entry = release["extensions"]["flow-roadmap"]
+            self.assertEqual(version, entry["version"])
+            self.assertEqual(subprocess.run(["git", "rev-parse", "HEAD"], cwd=source, text=True, capture_output=True, check=True).stdout.strip(), entry["source_commit"])
+            self.assertFalse(entry["source_dirty"])
+            self.assertTrue((snapshot / "packages" / entry["artifact"]).is_file())
+            self.assertEqual(release, catalog.verified_release(snapshot, snapshot / "release.json"))
+
+    def test_developmentSnapshot_requiresSourceWhenExtensionPinChanges(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-source-snapshot-") as snapshot_dir:
+            with self.assertRaisesRegex(ValueError, "development snapshot source required for changed extension pin"):
+                catalog.build_development_snapshot(Path(snapshot_dir))
+
     def test_verifiedRelease_rejectsControllerInventoryMismatch(self) -> None:
         with tempfile.TemporaryDirectory(prefix="spec-kit-flow-controller-inventory-") as temporary:
             temporary_catalog = Path(temporary)
             release_path = temporary_catalog / "release.json"
-            release = catalog.build_development_snapshot(temporary_catalog)
+            release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
             release["controller_package"]["controllers"] = []
             release_path.write_text(json.dumps(release), encoding="utf-8")
             with patch.object(catalog, "CATALOG", temporary_catalog), patch.object(catalog, "RELEASE", release_path):
@@ -423,7 +462,7 @@ class CatalogReleaseTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-integrity-") as temporary:
             temporary_catalog = Path(temporary)
             temporary_release = temporary_catalog / "release.json"
-            release = catalog.build_development_snapshot(temporary_catalog)
+            release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
             package = temporary_catalog / "packages" / release["extensions"]["flow-feedback"]["artifact"]
             package.write_bytes(package.read_bytes() + b"changed")
             with patch.object(catalog, "CATALOG", temporary_catalog), patch.object(catalog, "RELEASE", temporary_release):
@@ -474,7 +513,7 @@ class AgentPackageValidationTests(unittest.TestCase):
             with zipfile.ZipFile(archive, 'w') as package:
                 for member, path in files.items():
                     package.writestr(member, path.read_bytes())
-            self.assertEqual(manifest, catalog.validate_agent_archive(archive, '0.1.0')[0])
+            self.assertEqual(manifest, catalog.validate_agent_archive(archive, manifest['package']['version'])[0])
             with self.assertRaisesRegex(ValueError, 'version'):
                 catalog.validate_agent_archive(archive, '9.9.9')
             with zipfile.ZipFile(archive, 'a') as package:

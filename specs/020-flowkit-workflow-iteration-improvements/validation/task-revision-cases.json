@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "evidence_type": "production-rendered source and deterministic validator tests",
+  "workflow": {
+    "id": "speckit-flow-implement",
+    "version": "0.5.0",
+    "loop_mode": "assessment_before_correction"
+  },
+  "cases": [
+    {
+      "case_id": "open-correction-task",
+      "task_revision_action": "skip",
+      "task_fixture_sha256_before": "b90c6b0cbc94abd4dae0b245f8a60f52e97e55a343071550bd4cb3169c0050ca",
+      "task_fixture_sha256_after": "b90c6b0cbc94abd4dae0b245f8a60f52e97e55a343071550bd4cb3169c0050ca",
+      "preserved_task_ids": [
+        "T001",
+        "T002"
+      ],
+      "observed": "Actual Implement YAML rendered and select_switch_branch selected skip; Tasker branch was not selected. No task edit or finding-resolution claim.",
+      "result": "passed",
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.ImplementTaskRevisionRouteTests.test_openCorrectionTaskSkipsTaskerAndClosedOrMissingTaskUsesExactAssignment -v"
+    },
+    {
+      "case_id": "completed-correction-task-reopened",
+      "task_revision_action": "revise",
+      "finding_id": "F020-R001",
+      "reopened_task_ids": [
+        "T002"
+      ],
+      "added_task_ids": [],
+      "preserved_task_ids": [
+        "T001"
+      ],
+      "task_fixture_sha256_before": "73ab675edeeea89911a02621d4d91f9a23ba11e18181a043b9c798922a18702f",
+      "task_fixture_sha256_after": "2fcb65f02b1eff7878d118e91983e74895712f3ad1f34c47c07b9ae9dd196d0c",
+      "observed": "Deterministic validator accepted only the completed-to-open T002 change with its description preserved and the finding ID retained; substantive_progress=false.",
+      "result": "passed",
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.TaskRevisionValidationTests.testCompletedCorrectionTaskCanBeReopenedWithFindingAndHistoryPreserved -v"
+    },
+    {
+      "case_id": "missing-in-scope-task-appended",
+      "task_revision_action": "revise",
+      "finding_id": "F020-R001",
+      "reopened_task_ids": [],
+      "added_task_ids": [
+        "T003"
+      ],
+      "preserved_task_ids": [
+        "T001",
+        "T002"
+      ],
+      "task_fixture_sha256_before": "b90c6b0cbc94abd4dae0b245f8a60f52e97e55a343071550bd4cb3169c0050ca",
+      "task_fixture_sha256_after": "837cdca5c45cf73534d27bfc35911b646709b1a10e88559112726d5fade64bd9",
+      "observed": "Deterministic validator accepted sequential append T003 with finding reference and preserved prior records; substantive_progress=false.",
+      "result": "passed",
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.TaskRevisionValidationTests.testMissingInScopeCorrectionTask_isAcceptedWithoutProgressCredit -v"
+    }
+  ],
+  "production_route": {
+    "tasker_agent": "FlowKit-Tasker",
+    "command": "speckit.tasks",
+    "task_revision_action_states": [
+      "skip",
+      "revise"
+    ],
+    "fresh_reviewer_after_coder_pass": "FlowKit-Code Reviewer",
+    "task_edits_count_as_progress": false,
+    "tests": 8,
+    "result": "passed; 8 task-revision tests and 29 combined tests passed, plus the existing independent code-review route regression"
+  },
+  "workflow_projection": {
+    "command": "~/.codex/venvs/skill-tools/bin/python tools/validate_workflows.py --json --fail-on-unexplained",
+    "implemented_workflow_nodes": 12,
+    "branches": 8,
+    "loops": 1,
+    "unexplained_terminals": 0,
+    "native_agent_selection": "unverified"
+  },
+  "limitations": [
+    "Fixture digests are synthetic portable test inputs, not a digest of live Feature 020 tasks.md before and after a native Tasker revision.",
+    "No finding is marked resolved by task revision.",
+    "Native Tasker availability is separate evidence assigned to T043 and is not established by these source-route tests."
+  ],
+  "validation_commands": [
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.ImplementTaskRevisionRouteTests.test_openCorrectionTaskSkipsTaskerAndClosedOrMissingTaskUsesExactAssignment -v",
+      "exit_code": 0
+    },
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.TaskRevisionValidationTests.testCompletedCorrectionTaskCanBeReopenedWithFindingAndHistoryPreserved -v",
+      "exit_code": 0
+    },
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision.TaskRevisionValidationTests.testMissingInScopeCorrectionTask_isAcceptedWithoutProgressCredit -v",
+      "exit_code": 0
+    },
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision -v",
+      "exit_code": 0,
+      "observed": "8 tests passed"
+    },
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision tests.test_workflow_improvements -v",
+      "exit_code": 0,
+      "observed": "29 tests passed"
+    },
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python tools/validate_workflows.py --json --fail-on-unexplained",
+      "exit_code": 0,
+      "observed": "Implement projection has 12 nodes, 8 branches, one loop, four assignments, zero unexplained terminal paths; native-agent-selection remains unverified"
+    }
+  ],
+  "rendered_route_scenarios": [
+    {
+      "case": "open-correction-task",
+      "action": "skip",
+      "selected_steps": []
+    },
+    {
+      "case": "completed-correction-task",
+      "action": "revise",
+      "selected_steps": [
+        "prepare-task-revision",
+        "revise-task-plan",
+        "validate-task-revision",
+        "route-task-revision-result"
+      ]
+    },
+    {
+      "case": "missing-correction-task",
+      "action": "revise",
+      "selected_steps": [
+        "prepare-task-revision",
+        "revise-task-plan",
+        "validate-task-revision",
+        "route-task-revision-result"
+      ]
+    }
+  ],
+  "implementation_pass3": {
+    "date": "2026-10-05",
+    "revision_owner": "FlowKit-Tasker",
+    "task_ids": [
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T044"
+    ],
+    "finding_ids": [
+      "F020-R005",
+      "F020-R006",
+      "F020-R007"
+    ],
+    "evidence_type": "production renderer, deterministic production validator, and actual installed controller package in a disposable consumer",
+    "frozen_scope_contract": {
+      "fields": [
+        "feature_directory",
+        "tasks_path",
+        "findings with exact corrections",
+        "eligible_task_owners",
+        "permitted_added_task_owner",
+        "tasker_owner"
+      ],
+      "permitted_added_task_owner": "FlowKit-Tasker",
+      "tasker_owner": "FlowKit-Tasker",
+      "scope_digest": "0560c914f8a33a6c7d735edefc2d2397e16a8e394c1cea0b02b4ee2bbebf2aea",
+      "digest_generated_before_tasker": true,
+      "separate_main_controller_semantic_review": true,
+      "routine_reopening_approval": "not required"
+    },
+    "finding_results": [
+      {
+        "finding_id": "F020-R005",
+        "task_ids": [
+          "T038",
+          "T039",
+          "T041",
+          "T044"
+        ],
+        "validator_behavior": "compares Tasker finding_ids and one-to-one task_mappings with the frozen independent findings; checks the eligible owner mapping; requires a separate main-controller semantic_review bound to the exact scope digest and mapped finding/task IDs",
+        "negative_cases": [
+          {
+            "case": "invented finding F020-R999",
+            "result": "blocked",
+            "reason_code": "task-revision-finding-snapshot-mismatch"
+          },
+          {
+            "case": "omitted finding",
+            "result": "blocked",
+            "reason_code": "task-revision-findings-invalid"
+          },
+          {
+            "case": "substituted finding F020-R002",
+            "result": "blocked",
+            "reason_code": "task-revision-finding-snapshot-mismatch"
+          },
+          {
+            "case": "invented, omitted, or substituted task mapping",
+            "result": "blocked",
+            "reason_code": "task-revision-finding-mapping-mismatch"
+          },
+          {
+            "case": "wrong Tasker owner",
+            "result": "blocked",
+            "reason_code": "task-revision-wrong-owner"
+          },
+          {
+            "case": "eligible owner snapshot names another agent",
+            "result": "blocked",
+            "reason_code": "task-revision-owner-snapshot-invalid"
+          },
+          {
+            "case": "unrelated governance/configuration task fails main-controller semantic check",
+            "result": "blocked",
+            "reason_code": "task-revision-semantic-review-required"
+          }
+        ]
+      },
+      {
+        "finding_id": "F020-R006",
+        "task_ids": [
+          "T038",
+          "T039",
+          "T044"
+        ],
+        "case": "selected feature tasks.md is a lexical symlink to specs/021-other/tasks.md",
+        "result": "blocked",
+        "reason_code": "task-revision-path-symlink",
+        "selected_tasks_snapshot_sha256": "b90c6b0cbc94abd4dae0b245f8a60f52e97e55a343071550bd4cb3169c0050ca",
+        "other_feature_sha256_before": "7febe772fb2f4c3044c1e8ed5536efdef3a98fb7b8bbfda241cdd05865a7183b",
+        "other_feature_sha256_after": "7febe772fb2f4c3044c1e8ed5536efdef3a98fb7b8bbfda241cdd05865a7183b",
+        "active_pointer_sha256_before": "a7937307f88e8e631000236aeb1ee9c469937309f954b8ef7fb950323142fdb3",
+        "active_pointer_sha256_after": "a7937307f88e8e631000236aeb1ee9c469937309f954b8ef7fb950323142fdb3",
+        "path_guards_run_before_resolve": true
+      },
+      {
+        "finding_id": "F020-R007",
+        "task_ids": [
+          "T038",
+          "T040",
+          "T041",
+          "T042",
+          "T044"
+        ],
+        "installed_helper_path": ".specify/flow-kit/scripts/python/controller.py",
+        "source_checkout_helper_path_present_in_consumer": false,
+        "scope_command": "python3 .specify/flow-kit/scripts/python/controller.py task-revision-scope",
+        "validation_command": "python3 .specify/flow-kit/scripts/python/controller.py validate-task-revision --project \"$PWD\"",
+        "pre_tasker_scope_sha256": "0560c914f8a33a6c7d735edefc2d2397e16a8e394c1cea0b02b4ee2bbebf2aea",
+        "consumer_task_before_sha256": "34e6be89f95348e9229016ee85cf25312aec208ec0c69bf0de81bbcd7a2477d4",
+        "consumer_task_after_sha256": "2bdb8dbc940beb1ab175281b40f8fcdfd5b36489ffa663cb1e810cfcc60e19cf",
+        "accepted_revision": {
+          "exit_code": 0,
+          "state": "ready",
+          "substantive_progress": false
+        },
+        "rejected_revision": {
+          "exit_code": 0,
+          "state": "blocked",
+          "reason_code": "task-revision-semantic-review-required"
+        },
+        "package_source": "tools.catalog.controller_package_files() copied to the actual .specify/flow-kit consumer layout"
+      }
+    ],
+    "task_history_cases": [
+      {
+        "case": "completed correction task reopened",
+        "task_before_sha256": "73ab675edeeea89911a02621d4d91f9a23ba11e18181a043b9c798922a18702f",
+        "task_after_sha256": "2fcb65f02b1eff7878d118e91983e74895712f3ad1f34c47c07b9ae9dd196d0c",
+        "reopened_task_ids": [
+          "T002"
+        ],
+        "preserved_completed_task_ids": [
+          "T001"
+        ],
+        "substantive_progress": false
+      },
+      {
+        "case": "missing correction task appended",
+        "task_before_sha256": "b90c6b0cbc94abd4dae0b245f8a60f52e97e55a343071550bd4cb3169c0050ca",
+        "task_after_sha256": "837cdca5c45cf73534d27bfc35911b646709b1a10e88559112726d5fade64bd9",
+        "added_task_ids": [
+          "T003"
+        ],
+        "preserved_completed_task_ids": [
+          "T001"
+        ],
+        "substantive_progress": false
+      }
+    ],
+    "validation": [
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision -v",
+        "exit_code": 0,
+        "tests_passed": 13,
+        "result": "production rendering/branch route, frozen finding/owner/scope rejection cases, path symlink preservation, and installed consumer helper valid/rejected revisions passed"
+      },
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision tests.test_controller tests.test_workflow_paths -v",
+        "exit_code": 0,
+        "tests_passed": 92,
+        "result": "focused revision, controller, and workflow routing dependent regression tests passed"
+      },
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python tools/validate_workflows.py --json --fail-on-unexplained",
+        "exit_code": 0,
+        "implement_workflow": {
+          "version": "0.5.0",
+          "nodes": 14,
+          "branches": 8,
+          "loops": 1,
+          "unexplained_terminal_paths": 0,
+          "native_agent_selection": "unverified"
+        }
+      }
+    ],
+    "tasker_native_dispatch": "not re-tested here; historical T043 record remains separate and is not runtime validation",
+    "unresolved_owner_or_acceptance_claims": [
+      "No catalog pin or release update performed",
+      "No native Tasker dispatch claim",
+      "No code finding marked resolved by task edits"
+    ]
+  },
+  "pass4_f006_f008": {
+    "findings": [
+      "F020-R006",
+      "F020-R008"
+    ],
+    "preflight_command": "python3 .specify/flow-kit/scripts/python/controller.py task-revision-preflight --project \"$PWD\"",
+    "pre_dispatch_recheck_command": "python3 .specify/flow-kit/scripts/python/controller.py task-revision-preflight --project \"$PWD\"",
+    "scope_command": "python3 .specify/flow-kit/scripts/python/controller.py task-revision-scope",
+    "validation_command": "python3 .specify/flow-kit/scripts/python/controller.py validate-task-revision --project \"$PWD\"",
+    "installed_package_source": "tools.catalog.controller_package_files() copied to .specify/flow-kit/scripts/python/controller.py",
+    "preflight_cases": [
+      {
+        "case": "task file symlink to neighboring feature",
+        "state": "blocked",
+        "reason_code": "task-revision-path-symlink",
+        "tasker_dispatched": false,
+        "neighbor_task_sha256_before": "b93869850ebaebe30256c891f6861e6bce89880c758e9edb52a77b396a4ff4d4",
+        "neighbor_task_sha256_after": "b93869850ebaebe30256c891f6861e6bce89880c758e9edb52a77b396a4ff4d4",
+        "active_pointer_sha256_before": "ab96c0891e03d9979d6ac9127cad01b2844399c003a0e25a33320e75bc0b18d3",
+        "active_pointer_sha256_after": "ab96c0891e03d9979d6ac9127cad01b2844399c003a0e25a33320e75bc0b18d3"
+      },
+      {
+        "case": "feature parent symlink to neighboring feature",
+        "state": "blocked",
+        "reason_code": "task-revision-path-symlink",
+        "tasker_dispatched": false,
+        "neighbor_task_sha256_before": "b93869850ebaebe30256c891f6861e6bce89880c758e9edb52a77b396a4ff4d4",
+        "neighbor_task_sha256_after": "b93869850ebaebe30256c891f6861e6bce89880c758e9edb52a77b396a4ff4d4",
+        "active_pointer_preserved_after_rejection": true
+      }
+    ],
+    "immediate_revalidation": {
+      "changed_task_digest_state": "blocked",
+      "reason_code": "task-revision-digest-mismatch",
+      "dispatch_reached": false
+    },
+    "semantic_scope_render": {
+      "selected_feature": "specs/031-consumer",
+      "approved_specification_scope_in_prompt": true,
+      "hardcoded_feature_020_reference": false
+    },
+    "route_evidence": "Rendered blocked preflight and pre-dispatch branches select dedicated stop prompt; selected branch contains no revise-task-plan command.",
+    "validation": [
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_implement_task_revision tests.test_controller tests.test_workflow_paths tests.test_workflow_improvements",
+        "exit_code": 0,
+        "tests_passed": 113
+      },
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python tools/validate_workflows.py --json --fail-on-unexplained",
+        "exit_code": 0,
+        "implement_workflow": {
+          "version": "0.5.0",
+          "nodes": 22,
+          "branches": 14,
+          "loops": 1,
+          "unexplained_terminal_paths": 0,
+          "native_agent_selection": "unverified"
+        }
+      },
+      {
+        "command": "Implement-only flowchart metadata assertion via tests.test_workflow_graph.WorkflowGraphInventoryTests.assert_diagram_metadata",
+        "exit_code": 0,
+        "result": "all source step IDs, node shapes, command labels, agent labels, and delegation outlines match"
+      },
+      {
+        "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_workflow_graph.WorkflowGraphInventoryTests.test_activeAndDeprecatedWorkflowsExposeStopsAndAssignmentsWithRequiredGates tests.test_workflow_graph.WorkflowGraphInventoryTests.test_semanticReviewChanges_preserveReviewedExactTopologyAndBounds",
+        "exit_code": 0,
+        "tests_passed": 2
+      }
+    ],
+    "limitations": [
+      "Installed-package tests exercise deterministic preflight and branch routing; they do not launch a native Tasker child.",
+      "No catalog delivery, release, feature acceptance, or code-finding resolution is established by task-plan repair."
+    ]
+  }
+}

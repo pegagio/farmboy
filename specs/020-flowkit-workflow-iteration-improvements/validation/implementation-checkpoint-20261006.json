@@ -1,0 +1,100 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-06",
+  "workflow_id": "speckit-flow-implement",
+  "installed_workflow_version": "0.5.0",
+  "run_summary": ".specify/flow-controllers/runs/1ef46878-dca8-4dbf-ba12-0efe5bde60ef/summary.json",
+  "state": "blocked",
+  "reason_code": "readiness-corrections-without-task-completion",
+  "resume_action": "finish-existing-readiness-corrections-and-reinvoke-implement",
+  "completed_this_run": [
+    "T005",
+    "T019",
+    "T034",
+    "T035"
+  ],
+  "remaining_implementation_ids": [
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T036"
+  ],
+  "resolved_review_findings": [
+    "F020-OCT6-R002",
+    "F020-OCT6-R003",
+    "F020-OCT6-R004"
+  ],
+  "remaining_findings": [
+    {
+      "id": "F020-OCT6-R001",
+      "task_id": "T016",
+      "related_task_ids": [
+        "T015",
+        "T018"
+      ],
+      "artifact_location": "controllers/flow-kit/scripts/python/readiness.py:18",
+      "observed_deficiency": "The malformed line - [ ]No separator is omitted from criterion coverage, allowing ready despite a literal unchecked marker in the existing core gate.",
+      "exact_correction": "Recognize every literal marker counted by the core scan and block or fully classify unsupported formatting; add copied-controller and workflow handoff regression."
+    },
+    {
+      "id": "F020-OCT6-R005",
+      "task_id": "T016",
+      "related_task_ids": [
+        "T015",
+        "T017"
+      ],
+      "artifact_location": "controllers/flow-kit/scripts/python/readiness.py:703",
+      "observed_deficiency": "A second-write failure can leave a new future ledger entry while the source remains unchanged; fresh assessment blocks on identity collision and ordinary retry rejects the existing entry.",
+      "exact_correction": "Provide a source- and destination-digest-validated recovery or rollback for this exact partial operation, preserve unrelated content and original pending identity, and prove injected-write-failure recovery."
+    }
+  ],
+  "evidence": [
+    {
+      "path": "controllers/flow-kit/scripts/python/readiness.py",
+      "sha256": "0da6048678cce13629d315cfbec5643209f805e7b72aa8bb90a0f816beab45e6"
+    },
+    {
+      "path": "tests/test_readiness.py",
+      "sha256": "290c44876da50f75a917e96449d31a203688c002fa6db77530398fb0df589d08"
+    },
+    {
+      "path": "controllers/flow-kit/scripts/python/controller.py",
+      "sha256": "8910e2607791f45aaa3d633d75a0f5f1c5a2ffc58d90d062c3a044959f7461ea"
+    },
+    {
+      "path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+      "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+    },
+    {
+      "path": "workflows/speckit-flow-implement/workflow.yml",
+      "sha256": "ea3805ba6c4e0d936954000725b87fe4dab426f1f4451886eaf1d939c0bec6f6"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/preparation-readiness.md",
+      "sha256": "11386073ca90f42842a608227836e85d65f16ee5da3adac24b835c9be2bb856c"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+      "sha256": "f5731edb5235168f673a4c004d80d0558ccb2989165c3d578bd728aea28dfdf0"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/summary.md",
+      "sha256": "bf4b5ee7e510a922241fe8d71a950489a964fc2a0f509d8ddda04b40569055aa"
+    }
+  ],
+  "validation": {
+    "pass1_producer_focused_tests": 186,
+    "pass1_disposable_agent_delivery": "passed",
+    "pass1_disposable_snapshot_lifecycle": "passed",
+    "pass2_independent_focused_tests": 116,
+    "workflow_projection": "11 definitions, zero unexplained terminals",
+    "diff_check": "passed",
+    "remaining_counterexamples": "independently reproduced; passing suites do not resolve them"
+  },
+  "separate_limits": {
+    "T037": "Production catalog requires clean reviewed sources and matching tags; no commits/tags authorized and catalog remains unchanged.",
+    "roadmap_verification": "T004 and conditional T012 deferred by operator.",
+    "native_and_combined_verification": "T022-T025 and T027-T032 deferred; no new Checker launch/effective-settings or feature acceptance claim."
+  }
+}
