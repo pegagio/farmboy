@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import copy
 import importlib.util
 import json
 import os
@@ -31,6 +32,297 @@ def load_module():
 
 def sha(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
+
+
+class RecoveryStartHistoryTests(unittest.TestCase):
+    """The historical start proof stays tied to retained source records."""
+
+    def setUp(self) -> None:
+        self.module = load_module()
+        self.feature = "specs/901-recovery-history"
+
+    def _materialize(self, root: Path) -> dict:
+        paths = {
+            "source_run": ".specify/flow-controllers/runs/source-implement/summary.json",
+            "baseline": ".specify/flow-controllers/runs/source-implement/baseline.json",
+            "original_spec": ".specify/flow-controllers/runs/authorized-status/spec-before.md",
+            "current_spec": f"{self.feature}/spec.md",
+            "status_run": ".specify/flow-controllers/runs/authorized-status/summary.json",
+            "status_authorization": ".specify/flow-controllers/runs/authorized-status/authorization.json",
+            "status_effect": ".specify/flow-controllers/runs/authorized-status/effect.json",
+            "status_validation": ".specify/flow-controllers/runs/authorized-status/bridge-validation.json",
+            "feature_pointer": ".specify/feature.json",
+        }
+        current = b"**Status**: Complete\n# Reviewed scope\n"
+        original = current.replace(b"**Status**: Complete", b"**Status**: Draft", 1)
+        current_path = root / paths["current_spec"]
+        current_path.parent.mkdir(parents=True, exist_ok=True)
+        current_path.write_bytes(current)
+        original_path = root / paths["original_spec"]
+        original_path.parent.mkdir(parents=True, exist_ok=True)
+        original_path.write_bytes(original)
+        pointer = json.dumps({"feature_directory": self.feature}, sort_keys=True).encode()
+        pointer_path = root / paths["feature_pointer"]
+        pointer_path.parent.mkdir(parents=True, exist_ok=True)
+        pointer_path.write_bytes(pointer)
+        baseline_body = {"feature_directory": self.feature, "specification_sha256": sha(original),
+                         "pointer_sha256": sha(pointer), "tasks": {"T001": {"marker": " "}}}
+        baseline_digest = sha(json.dumps(baseline_body, sort_keys=True, separators=(",", ":")).encode())
+        baseline = {"baseline": baseline_body, "baseline_sha256": baseline_digest,
+                    "remaining_ids": ["task:T001"], "state": "captured"}
+        source_run = {
+            "run_id": "source-implement-run", "workflow_id": "speckit-flow-implement", "status": "stopped",
+            "started_at": "2026-10-01T12:00:00+00:00",
+            "steps": {"implement-eligible-work": {"status": "completed"},
+                      "capture-implementation-baseline": {"status": "completed"}},
+            "child_tasks": [{"agent": "FlowKit-Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
+            "effective_assignments": [{"agent_name": "FlowKit-Coder", "step_id": "implement-eligible-work"}],
+            "changed_files": [f"{self.feature}/implementation.py"],
+            "baseline_evidence": {"baseline_sha256": baseline_digest, "path": paths["baseline"]},
+        }
+        implementation = root / source_run["changed_files"][0]
+        implementation.parent.mkdir(parents=True, exist_ok=True)
+        implementation.write_text("implemented evidence\n")
+        status_records = {
+            "baseline": baseline,
+            "source_run": source_run,
+            "status_run": {
+                "run_id": "authorized-status-run", "workflow_id": "speckit-flow-closeout",
+                "steps": {"mark-converged-specification-complete": {"status": "completed"}},
+                "changed_files": [paths["current_spec"]],
+            },
+            "status_authorization": {"status_action": "run", "feature_directory": self.feature,
+                "spec_before_sha256": sha(original), "authority": "explicit bounded status-only authorization"},
+            "status_effect": {
+                "step_id": "mark-converged-specification-complete",
+                "kind": "bounded-existing-specification-status-update", "feature_directory": self.feature,
+                "before_status": "Draft", "after_status": "Complete", "before_sha256": sha(original),
+                "after_sha256": sha(current), "exact_diff": "**Status**: Draft -> **Status**: Complete",
+                "other_specification_bytes_preserved": True,
+            },
+            "status_validation": {
+                "state": "ready", "spec_path": paths["current_spec"], "before_sha256": sha(original),
+                "after_sha256": sha(current), "allowed_change": "Status Draft to Complete only",
+                "requirements_and_all_other_bytes_preserved": True, "convergence_intent_preserved": True,
+                "future_manual_task_ids": ["T001"], "feature_acceptance_established": False,
+            },
+            "feature_pointer": json.loads(pointer),
+        }
+        for name, value in status_records.items():
+            destination = root / paths[name]
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(json.dumps(value, sort_keys=True))
+        references = {name: {"path": path, "sha256": sha((root / path).read_bytes())}
+                      for name, path in paths.items()}
+        return {
+            "action": "validate-start-history",
+            "schema_version": "1.0",
+            "feature_directory": self.feature,
+            "current_scope_sha256": references["current_spec"]["sha256"],
+            "trusted_inputs": references,
+        }
+
+    def test_validateRecoveryStartHistory_preservesActualStartAndBothScopes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            validated = self.module.validate_recovery_start_history(root, packet)
+            source_summary = json.loads((root / packet["trusted_inputs"]["source_run"]["path"]).read_text())
+            self.assertEqual("validated", validated["state"])
+            self.assertEqual(source_summary["started_at"], validated["occurred_at"])
+            self.assertEqual("speckit-flow-implement", validated["source_workflow_id"])
+            self.assertEqual("capture-implementation-baseline", validated["completed_step_ids"][0])
+            self.assertEqual(["T001"], validated["future_manual_task_ids"])
+            self.assertEqual(packet["current_scope_sha256"], validated["scope_sha256"])
+            self.assertNotEqual(validated["scope_sha256"], validated["original_scope_sha256"])
+
+    def test_phaseLifecycleCli_exposesReadOnlyValidatedStartHistory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            command = [sys.executable, str(ROOT / "controllers/flow-kit/scripts/python/controller.py"),
+                       "phase-lifecycle", "--project", str(root)]
+            result = subprocess.run(command, input=json.dumps(packet), text=True,
+                                    capture_output=True, check=False)
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertEqual("validated", json.loads(result.stdout)["state"])
+
+            packet["trusted_inputs"]["source_run"]["sha256"] = "0" * 64
+            stale = subprocess.run(command, input=json.dumps(packet), text=True,
+                                   capture_output=True, check=False)
+            self.assertNotEqual(0, stale.returncode)
+            self.assertEqual("blocked", json.loads(stale.stdout)["state"])
+
+    def test_validateRecoveryStartHistory_rejectsStaleAndWrongTargetReferences(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            raw = (root / packet["trusted_inputs"]["status_effect"]["path"]).read_bytes()
+            (root / packet["trusted_inputs"]["status_effect"]["path"]).write_bytes(raw + b" ")
+            with self.assertRaisesRegex(self.module.LifecycleError, "stale-trusted-input"):
+                self.module.validate_recovery_start_history(root, packet)
+
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            packet["trusted_inputs"]["source_run"]["path"] = packet["trusted_inputs"]["baseline"]["path"]
+            with self.assertRaisesRegex(self.module.LifecycleError, "start-history-stale-trusted-input"):
+                self.module.validate_recovery_start_history(root, packet)
+
+    def test_validateRecoveryStartHistory_requiresExactSchemaVersion(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            packet["schema_version"] = "9.9"
+            with self.assertRaisesRegex(self.module.LifecycleError, "start-history-version-invalid"):
+                self.module.validate_recovery_start_history(root, packet)
+
+    def test_validateRecoveryStartHistory_acceptsNoDeferredManualTasks(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            reference = packet["trusted_inputs"]["status_validation"]
+            validation_path = root / reference["path"]
+            validation = json.loads(validation_path.read_text(encoding="utf-8"))
+            validation["future_manual_task_ids"] = []
+            validation_path.write_text(json.dumps(validation, sort_keys=True))
+            reference["sha256"] = sha(validation_path.read_bytes())
+            result = self.module.validate_recovery_start_history(root, packet)
+            self.assertEqual([], result["future_manual_task_ids"])
+
+    def test_validateRecoveryStartHistory_rejectsNonStatusSpecificationChanges(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            current_ref = packet["trusted_inputs"]["current_spec"]
+            current_path = root / current_ref["path"]
+            current_path.write_bytes(current_path.read_bytes() + b"extra normative text\n")
+            current_ref["sha256"] = sha(current_path.read_bytes())
+            packet["current_scope_sha256"] = current_ref["sha256"]
+            with self.assertRaisesRegex(self.module.LifecycleError, "start-history-status-(effect-invalid|bridge-unverified)"):
+                self.module.validate_recovery_start_history(root, packet)
+
+    def test_validateRecoveryStartHistory_rejectsMissingRecordedCoderEffect(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            source_ref = packet["trusted_inputs"]["source_run"]
+            source_file = root / source_ref["path"]
+            summary = json.loads(source_file.read_text())
+            summary["child_tasks"] = []
+            source_file.write_text(json.dumps(summary, sort_keys=True))
+            source_ref["sha256"] = sha(source_file.read_bytes())
+            with self.assertRaisesRegex(self.module.LifecycleError, "start-history-implementation-effect-missing"):
+                self.module.validate_recovery_start_history(root, packet)
+
+    def test_validateStartAttestation_bindsNativeReviewerAndCurrentSnapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = self._materialize(root)
+            history = self.module.validate_recovery_start_history(root, packet)
+            feature = packet["feature_directory"]
+            validation_path = f"{feature}/validation/phase-lifecycle/start-history-validation.json"
+            validation_bytes = json.dumps(history, sort_keys=True).encode()
+            validation_file = root / validation_path
+            validation_file.parent.mkdir(parents=True, exist_ok=True)
+            validation_file.write_bytes(validation_bytes)
+            artifact_paths = {
+                f"{feature}/spec.md": packet["trusted_inputs"]["current_spec"]["sha256"],
+                f"{feature}/plan.md": sha(b"plan\n"),
+                f"{feature}/tasks.md": sha(b"tasks\n"),
+                "controllers/flow-kit/scripts/python/phase_lifecycle.py": sha(
+                    (ROOT / "controllers/flow-kit/scripts/python/phase_lifecycle.py").read_bytes()),
+                "tests/test_phase_lifecycle.py": sha((ROOT / "tests/test_phase_lifecycle.py").read_bytes()),
+            }
+            for relative, digest in artifact_paths.items():
+                destination = root / relative
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                if relative.endswith("/spec.md"):
+                    pass
+                elif relative.endswith("plan.md"):
+                    destination.write_bytes(b"plan\n")
+                elif relative.endswith("tasks.md"):
+                    destination.write_bytes(b"tasks\n")
+                else:
+                    destination.write_bytes((ROOT / relative).read_bytes())
+                self.assertEqual(digest, sha(destination.read_bytes()))
+            source_map = {reference["path"]: reference["sha256"]
+                          for reference in packet["trusted_inputs"].values()}
+            source_map[validation_path] = sha(validation_bytes)
+            source_map.update(artifact_paths)
+            snapshot = {
+                "feature_directory": feature,
+                "scope_sha256": packet["current_scope_sha256"],
+                "workflow_id": "speckit-flow-closeout",
+                "workflow_version": "0.8.0",
+                "run_id": "closeout-current-run",
+                "source_map": source_map,
+            }
+            dispatch_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+            dispatch_summary = {
+                "run_id": snapshot["run_id"], "workflow_id": snapshot["workflow_id"],
+                "workflow_version": snapshot["workflow_version"],
+                "child_tasks": [{"agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                                 "child_id": "native-reviewer-child"}],
+                "effective_assignments": [{"agent_name": "FlowKit-Reviewer", "step_id": "attest-recovery-start"}],
+            }
+            dispatch_file = root / dispatch_summary_path
+            dispatch_file.parent.mkdir(parents=True, exist_ok=True)
+            dispatch_file.write_text(json.dumps(dispatch_summary, sort_keys=True))
+            capture_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json"
+            capture_file = root / capture_path
+            capture_file.write_bytes(dispatch_file.read_bytes())
+            source_summary_ref = {"path": capture_path, "sha256": sha(capture_file.read_bytes())}
+            witness_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json"
+            witness = {"schema_version": "1.0", "kind": "main-retained-native-dispatch-witness",
+                "feature_directory": feature, "scope_sha256": packet["current_scope_sha256"],
+                "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
+                "run_id": snapshot["run_id"], "step_id": "attest-recovery-start",
+                "agent": "FlowKit-Reviewer", "child_id": "native-reviewer-child",
+                "source_summary": source_summary_ref}
+            witness_file = root / witness_path
+            witness_file.write_text(json.dumps(witness, sort_keys=True))
+            witness_ref = {"path": witness_path, "sha256": sha(witness_file.read_bytes())}
+            source_map[capture_path] = source_summary_ref["sha256"]
+            source_map[witness_path] = witness_ref["sha256"]
+            record = {
+                "schema_version": "1.0", "kind": "authorized-implementation-start",
+                "reviewer": "FlowKit-Reviewer", "state": "ready", "feature_directory": feature,
+                "scope_sha256": packet["current_scope_sha256"], "workflow_id": snapshot["workflow_id"],
+                "workflow_version": snapshot["workflow_version"], "run_id": snapshot["run_id"],
+                "step_id": "attest-recovery-start", "child_id": "native-reviewer-child",
+                "source_run_id": history["source_run_id"],
+                "original_scope_sha256": history["original_scope_sha256"],
+                "occurred_at": history["occurred_at"],
+                "history_validation": {"path": validation_path, "sha256": sha(validation_bytes)},
+                "dispatch_witness": witness_ref,
+                "recorded_dispatch": {
+                    "agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                    "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
+                    "run_id": snapshot["run_id"], "child_id": "native-reviewer-child",
+                },
+                "required_check_ids": sorted(self.module.START_CHECKS),
+                "satisfied_check_ids": sorted(self.module.START_CHECKS), "unresolved_ids": [],
+                "artifact_digests": artifact_paths,
+            }
+            record_path = f"{feature}/validation/phase-lifecycle/authorized-implementation-start.json"
+            record_bytes = json.dumps(record, sort_keys=True).encode()
+            record_file = root / record_path
+            record_file.parent.mkdir(parents=True, exist_ok=True)
+            record_file.write_bytes(record_bytes)
+            reference = {"path": record_path, "sha256": sha(record_bytes),
+                         "kind": "authorized-implementation-start"}
+            source_map[record_path] = reference["sha256"]
+            validated = self.module._validate_start_attestation(root, reference, snapshot)
+            self.assertEqual("native-reviewer-child", validated["child_id"])
+
+            record["reviewer"] = "FlowKit-Readiness Checker"
+            record_bytes = json.dumps(record, sort_keys=True).encode()
+            record_file.write_bytes(record_bytes)
+            reference["sha256"] = sha(record_bytes)
+            source_map[record_path] = reference["sha256"]
+            with self.assertRaisesRegex(self.module.LifecycleError, "start-attestation-identity-invalid"):
+                self.module._validate_start_attestation(root, reference, snapshot)
 
 
 class PhaseLifecycleTests(unittest.TestCase):
@@ -99,6 +391,178 @@ class PhaseLifecycleTests(unittest.TestCase):
         if action == "revalidate":
             request["proposal"] = self.proposal(snapshot)
         return request
+
+    def _add_structured_recovery_start_proof(self, root: Path, request: dict,
+                                             reviewer_report: dict,
+                                             dispatch_summary: dict) -> dict:
+        """Materialize retained history and execute the installed evidence CLIs."""
+        feature = request["feature_directory"]
+        spec_path = f"{feature}/spec.md"
+        current_spec = (root / spec_path).read_bytes()
+        original_spec = current_spec.replace(b"**Status**: Complete", b"**Status**: Draft", 1)
+        self.assertNotEqual(current_spec, original_spec)
+        references = {
+            "source_run": ".specify/flow-controllers/runs/source-implement/summary.json",
+            "baseline": ".specify/flow-controllers/runs/source-implement/baseline.json",
+            "original_spec": ".specify/flow-controllers/runs/authorized-status/spec-before.md",
+            "current_spec": spec_path,
+            "status_run": ".specify/flow-controllers/runs/authorized-status/summary.json",
+            "status_authorization": ".specify/flow-controllers/runs/authorized-status/authorization.json",
+            "status_effect": ".specify/flow-controllers/runs/authorized-status/effect.json",
+            "status_validation": ".specify/flow-controllers/runs/authorized-status/bridge-validation.json",
+            "feature_pointer": ".specify/feature.json",
+        }
+        pointer_path = root / references["feature_pointer"]
+        pointer_path.parent.mkdir(parents=True, exist_ok=True)
+        pointer_path.write_text(json.dumps({"feature_directory": feature}, sort_keys=True))
+        pointer_bytes = pointer_path.read_bytes()
+        original_path = root / references["original_spec"]
+        original_path.parent.mkdir(parents=True, exist_ok=True)
+        original_path.write_bytes(original_spec)
+        baseline_body = {
+            "feature_directory": feature, "specification_sha256": sha(original_spec),
+            "pointer_sha256": sha(pointer_bytes), "tasks": {"T001": {"marker": " "}},
+        }
+        baseline_digest = sha(json.dumps(baseline_body, sort_keys=True, separators=(",", ":")).encode())
+        baseline = {"baseline": baseline_body, "baseline_sha256": baseline_digest,
+                    "remaining_ids": ["task:T001"], "state": "captured"}
+        baseline_path = root / references["baseline"]
+        baseline_path.parent.mkdir(parents=True, exist_ok=True)
+        baseline_path.write_text(json.dumps(baseline, sort_keys=True))
+        source_run = {
+            "run_id": "source-implement-run", "workflow_id": "speckit-flow-implement", "status": "stopped",
+            "started_at": "2026-10-01T12:00:00+00:00",
+            "steps": {"implement-eligible-work": {"status": "completed"},
+                      "capture-implementation-baseline": {"status": "completed"}},
+            "child_tasks": [{"agent": "FlowKit-Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
+            "effective_assignments": [{"agent_name": "FlowKit-Coder", "step_id": "implement-eligible-work"}],
+            "changed_files": [f"{feature}/implementation.py"],
+            "baseline_evidence": {"baseline_sha256": baseline_digest, "path": references["baseline"]},
+        }
+        source_path = root / references["source_run"]
+        source_path.parent.mkdir(parents=True, exist_ok=True)
+        source_path.write_text(json.dumps(source_run, sort_keys=True))
+        code_path = root / f"{feature}/implementation.py"
+        code_path.write_text("implementation evidence\n")
+        status_run = {
+            "run_id": "authorized-status-run", "workflow_id": "speckit-flow-closeout",
+            "steps": {"mark-converged-specification-complete": {"status": "completed"}},
+            "changed_files": [spec_path],
+        }
+        authorization = {"status_action": "run", "feature_directory": feature,
+                         "spec_before_sha256": sha(original_spec), "authority": "explicit bounded status-only authorization"}
+        effect = {
+            "step_id": "mark-converged-specification-complete", "kind": "bounded-existing-specification-status-update",
+            "feature_directory": feature, "before_status": "Draft", "after_status": "Complete",
+            "before_sha256": sha(original_spec), "after_sha256": sha(current_spec),
+            "exact_diff": "**Status**: Draft -> **Status**: Complete", "other_specification_bytes_preserved": True,
+        }
+        validation = {
+            "state": "ready", "spec_path": spec_path, "before_sha256": sha(original_spec),
+            "after_sha256": sha(current_spec), "allowed_change": "Status Draft to Complete only",
+            "requirements_and_all_other_bytes_preserved": True, "convergence_intent_preserved": True,
+            "future_manual_task_ids": ["T001"], "feature_acceptance_established": False,
+        }
+        for name, value in (("status_run", status_run), ("status_authorization", authorization),
+                            ("status_effect", effect), ("status_validation", validation)):
+            destination = root / references[name]
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(json.dumps(value, sort_keys=True))
+        readiness_payload = {"action": "record-review", "feature_directory": feature,
+                             "reviewer_report": reviewer_report}
+        readiness_command = [sys.executable,
+            str(root / ".specify/flow-kit/scripts/python/controller.py"),
+            "readiness", "--project", str(root)]
+        readiness_recorded = subprocess.run(readiness_command, input=json.dumps(readiness_payload),
+            text=True, capture_output=True, check=False)
+        self.assertEqual(0, readiness_recorded.returncode, readiness_recorded.stderr)
+        readiness_receipt = json.loads(readiness_recorded.stdout)
+        self.assertEqual("recorded", readiness_receipt.get("state"), readiness_receipt)
+        readiness_assessed = subprocess.run(readiness_command,
+            input=json.dumps({"action": "assess", "feature_directory": feature}),
+            text=True, capture_output=True, check=False)
+        self.assertEqual(0, readiness_assessed.returncode, readiness_assessed.stderr)
+        readiness_result = json.loads(readiness_assessed.stdout)
+        self.assertEqual("ready", readiness_result.get("state"), readiness_result)
+
+        trusted_inputs = {name: {"path": path, "sha256": sha((root / path).read_bytes())}
+                          for name, path in references.items()}
+        history_packet = {
+            "action": "validate-start-history", "schema_version": "1.0", "feature_directory": feature,
+            "current_scope_sha256": sha(current_spec), "trusted_inputs": trusted_inputs,
+        }
+        history_command = [sys.executable,
+            str(root / ".specify/flow-kit/scripts/python/controller.py"),
+            "phase-lifecycle", "--project", str(root)]
+        history_result = subprocess.run(history_command, input=json.dumps(history_packet),
+            text=True, capture_output=True, check=False)
+        self.assertEqual(0, history_result.returncode, history_result.stderr)
+        history = json.loads(history_result.stdout)
+        self.assertEqual("validated", history.get("state"), history)
+        validation_path = f"{feature}/validation/phase-lifecycle/start-history-validation.json"
+        validation_file = root / validation_path
+        validation_file.parent.mkdir(parents=True, exist_ok=True)
+        validation_file.write_text(json.dumps(history, sort_keys=True))
+
+        snapshot = request["snapshot"]
+        snapshot["scope_sha256"] = sha(current_spec)
+        snapshot["source_map"][spec_path] = sha(current_spec)
+        decision_path = request["decision_reference"]
+        decision_file = root / decision_path
+        decision_record = json.loads(decision_file.read_text(encoding="utf-8"))
+        decision_record["scope_sha256"] = sha(current_spec)
+        decision_file.write_text(json.dumps(decision_record, sort_keys=True), encoding="utf-8")
+        snapshot["source_map"][decision_path] = sha(decision_file.read_bytes())
+        for reference in trusted_inputs.values():
+            snapshot["source_map"][reference["path"]] = reference["sha256"]
+        snapshot["source_map"][validation_path] = sha(validation_file.read_bytes())
+        snapshot["source_map"][readiness_receipt["path"]] = readiness_receipt["sha256"]
+        main_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+        main_summary = dispatch_summary
+        main_summary_file = root / main_summary_path
+        main_summary_file.parent.mkdir(parents=True, exist_ok=True)
+        main_summary_file.write_text(json.dumps(main_summary, sort_keys=True))
+        captured_summary_path = (
+            f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
+        captured_summary_file = root / captured_summary_path
+        captured_summary_file.write_bytes(main_summary_file.read_bytes())
+        captured_summary_ref = {"path": captured_summary_path,
+                                 "sha256": sha(captured_summary_file.read_bytes())}
+        witness_path = (
+            f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
+        witness = {"schema_version": "1.0", "kind": "main-retained-native-dispatch-witness",
+            "feature_directory": feature, "scope_sha256": sha(current_spec),
+            "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
+            "run_id": snapshot["run_id"], "step_id": "attest-recovery-start",
+            "agent": "FlowKit-Reviewer", "child_id": "native-reviewer-child",
+            "source_summary": captured_summary_ref}
+        witness_file = root / witness_path
+        witness_file.write_text(json.dumps(witness, sort_keys=True))
+        witness_ref = {"path": witness_path, "sha256": sha(witness_file.read_bytes())}
+        snapshot["source_map"][captured_summary_path] = captured_summary_ref["sha256"]
+        snapshot["source_map"][witness_path] = witness_ref["sha256"]
+        artifact_paths = {
+            spec_path: sha(current_spec),
+            f"{feature}/plan.md": sha((root / feature / "plan.md").read_bytes()),
+            f"{feature}/tasks.md": sha((root / feature / "tasks.md").read_bytes()),
+            "controllers/recovery-fixture-source.py": sha(b"immutable source evidence\n"),
+            "tests/recovery-fixture-proof.py": sha(b"immutable test evidence\n"),
+        }
+        for relative, content in (("controllers/recovery-fixture-source.py", b"immutable source evidence\n"),
+                                  ("tests/recovery-fixture-proof.py", b"immutable test evidence\n")):
+            destination = root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes(content)
+        snapshot["source_map"].update(artifact_paths)
+        return {"readiness_receipt": readiness_receipt,
+                "readiness_assessment": readiness_result,
+                "history_validation": history,
+                "artifact_digests": artifact_paths,
+                "history_path": validation_path,
+                "history_sha256": sha(validation_file.read_bytes()),
+                "trusted_inputs": trusted_inputs,
+                "dispatch_witness": witness_ref,
+                "dispatch_summary_path": main_summary_path}
 
     @staticmethod
     def proposal(snapshot: dict, *, target: str = "in-progress") -> dict:
@@ -188,8 +652,8 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertEqual("recovery", self.module.validate_request(self.root, recovery)["mode"])
         skipped_recovery = by_id["recovery-skips-required-start-edge"]
         self.assertEqual("reject-unsubstantiated-or-nonadjacent-recovery", skipped_recovery["expected"])
-        self.assertEqual("recovery", self.module.validate_request(
-            self.root, skipped_recovery["payload"])["mode"])
+        with self.assertRaisesRegex(ValueError, "authorized-start-attestation-required"):
+            self.module.validate_request(self.root, skipped_recovery["payload"])
 
         receipts = [case for case in fixtures if case["area"] == "receipt" and case["id"] != "receipt-forbidden-null"]
         self.assertEqual(4, len(receipts))
@@ -557,11 +1021,34 @@ class PhaseLifecycleTests(unittest.TestCase):
             # The packet sent below is built by the fixture callback from those
             # current files, the fixture's semantic inputs, and the production graph.
             scaffold = owner_case.request(current=current, owner=phase, mode=mode, milestones=milestones)
+            immutable_digests = {}
+            if "implemented" in (milestones or []):
+                for relative, content in (("src/recovery-implementation.py", "implementation source evidence\n"),
+                                          ("tests/recovery-validation.py", "current test proof\n")):
+                    destination = owner_case.root / relative
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    destination.write_text(content, encoding="utf-8")
+                    immutable_digests[relative] = owner_module.sha(destination)
+                for group in scaffold["milestone_evidence"]:
+                    if group["milestone"] != "implemented":
+                        continue
+                    group["artifact_digests"].update(immutable_digests)
+                    for reference in group["assessments"]:
+                        record_path = owner_case.root / reference["path"]
+                        record = json.loads(record_path.read_text(encoding="utf-8"))
+                        record["artifact_digests"].update(immutable_digests)
+                        record_path.write_text(json.dumps(record, sort_keys=True), encoding="utf-8")
+                        reference["sha256"] = owner_module.sha(record_path)
             workflow_path = ROOT / f"workflows/speckit-flow-{phase}/workflow.yml"
             graph_relative = f".specify/workflows/speckit-flow-{phase}/workflow.yml"
             graph = yaml.safe_load(workflow_path.read_text(encoding="utf-8"))
             scaffold["workflow_version"] = graph["workflow"]["version"]
             scaffold["snapshot"]["workflow_version"] = graph["workflow"]["version"]
+            scaffold["snapshot"]["source_map"].update(immutable_digests)
+            for group in scaffold["milestone_evidence"]:
+                if group["milestone"] == "implemented":
+                    for reference in group["assessments"]:
+                        scaffold["snapshot"]["source_map"][reference["path"]] = reference["sha256"]
             for relative, source_path in ((graph_relative, workflow_path),
                                           (".specify/flow-kit/manifest.yml", ROOT / "controllers/flow-kit/manifest.yml")):
                 destination = owner_case.root / relative
@@ -661,7 +1148,8 @@ class PhaseLifecycleTests(unittest.TestCase):
         def execute_ready_production_route(owner_case, request: dict, graph: dict, phase: str,
                                            *, revalidation_mutation: dict | None = None,
                                            apply_packet_mutation: dict | None = None,
-                                           before_revalidation=None) -> dict:
+                                           before_revalidation=None,
+                                           mutate_run_summary: bool = False) -> dict:
             """Execute the rendered ready branch from producer output through actual owner receipt."""
             digest = lambda value: hashlib.sha256(json.dumps(
                 value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
@@ -683,12 +1171,22 @@ class PhaseLifecycleTests(unittest.TestCase):
             producer_output = owner_case.production_callback_output
             inputs = {key: value.get("default", "fixture-input") for key, value in graph.get("inputs", {}).items()}
             source_outputs = {producer_id: producer_output}
+            def advance_main_run_summary(boundary: str) -> None:
+                if not mutate_run_summary:
+                    return
+                summary_path = owner_case.root / ".specify/flow-controllers/runs" / request["run_id"] / "summary.json"
+                summary = json.loads(summary_path.read_text(encoding="utf-8"))
+                summary.setdefault("steps", {})[f"test-boundary-{boundary}"] = {"status": "completed"}
+                summary["updated_at"] = f"test-{boundary}"
+                summary_path.write_text(json.dumps(summary, sort_keys=True), encoding="utf-8")
             adapter = self.module.prepare(owner_case.root, request)
+            advance_main_run_summary("after-prepare")
             source_outputs[adapter_id] = {"lifecycle_assessment": adapter, "state": adapter.get("state"),
                 "proposal": adapter.get("proposal")}
             route_node = find(graph["steps"], route_id)
             selected = controller.select_switch_branch(route_node, adapter["state"])
-            self.assertEqual([revalidate_id, revalidate_route_id], [node["id"] for node in selected])
+            self.assertEqual([revalidate_id, revalidate_route_id], [node["id"] for node in selected],
+                             (request.get("run_id"), adapter))
             revalidate_node = find(selected, revalidate_id)
             rendered_revalidation = controller.render_template(revalidate_node["prompt"], inputs, source_outputs)
             self.assertIn("action `revalidate`", rendered_revalidation)
@@ -720,6 +1218,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 "prepared_proposal": adapter["proposal"]}
             self.assertEqual(adapter["proposal"], callback_input["request_json"]["proposal"])
             revalidated = self.module.revalidate(owner_case.root, callback_input["request_json"])
+            advance_main_run_summary("after-revalidate")
             source_outputs[revalidate_id] = {"lifecycle_assessment": revalidated,
                 "state": revalidated.get("state"), "request_json": callback_input["request_json"],
                 "proposal": revalidated.get("proposal")}
@@ -785,6 +1284,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                         "owner_receipt_sha256": None, "owner_error": owner_error}}
             self.module.validate_receipt(receipt)
             owner_module.phase.validate_receipt(receipt)
+            advance_main_run_summary("after-owner-write")
             source_outputs[apply_id] = {"receipt": receipt, "state": receipt.get("effect_state")}
             verify_node = find(revalidated_branch, verify_id)
             rendered_verify = controller.render_template(verify_node["prompt"], inputs, source_outputs)
@@ -981,8 +1481,8 @@ class PhaseLifecycleTests(unittest.TestCase):
             owner_result = owner_module.phase.evaluate(
                 canonical_case.root, forwarded_request, owner_module.yaml)
             self.assertEqual("blocked", adapter_result.get("state"), adapter_result)
-            self.assertEqual("historical-start-unsubstantiated", adapter_result.get("reason_code"), adapter_result)
-            self.assertEqual(adapter_result["reason_code"], owner_result.get("reason_code"), owner_result)
+            self.assertEqual("authorized-start-attestation-required", adapter_result.get("reason_code"), adapter_result)
+            self.assertEqual("historical-start-unsubstantiated", owner_result.get("reason_code"), owner_result)
             self.assertEqual(before_roadmap, owner_module.sha(canonical_case.roadmap))
             canonical_dispatch = {"case_id": skipped_recovery["id"],
                 "payload_sha256": sha(request_path.read_bytes()), "adapter_reason": adapter_result["reason_code"],
@@ -1071,7 +1571,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                     self.assertEqual("blocked", assessment.get("state"), assessment)
                     self.assertEqual("specced", owner_module.phase.entries(owner_case.roadmap.read_text())['901']['status'])
                     observed_state = "blocked"
-                    effect_state = "applied-first-edge;blocked-missing-start-proof"
+                    effect_state = "applied-first-edge;blocked-missing-main-attested-start-proof"
                 elif case_id in {"LC002", "LC004", "LC006", "LC011", "LC014"}:
                     assessment = self.module.prepare(owner_case.root, request)
                     if case_id == "LC014":
@@ -1377,11 +1877,18 @@ class PhaseLifecycleTests(unittest.TestCase):
         recovery = find(workflows["closeout"]["steps"], "closeout-lifecycle-recovery-loop")
         self.assertEqual(3, recovery["max_iterations"])
         recovery_ids = [node["id"] for node in recovery["steps"]]
-        self.assertEqual(["assess-closeout-lifecycle-edge", "prepare-closeout-lifecycle-request",
-                          "prepare-closeout-lifecycle-transition", "route-closeout-lifecycle-transition"],
+        self.assertEqual(["assess-closeout-lifecycle-edge", "route-closeout-recovery-evidence",
+                          "prepare-closeout-lifecycle-request", "prepare-closeout-lifecycle-transition"],
                          recovery_ids[:4])
         recovery_route = find(recovery["steps"], "route-closeout-lifecycle-transition")
         self.assertEqual("switch", recovery_route["type"])
+        recovery_evidence_route = find(recovery["steps"], "route-closeout-recovery-evidence")
+        self.assertEqual(["assess-recovery-roadmap-brief", "assess-recovery-preparation",
+                          "record-recovery-preparation", "assess-recovery-readiness",
+                          "attest-recovery-start"],
+                         [node["id"] for node in controller.select_switch_branch(
+                             recovery_evidence_route, "recovery")])
+        self.assertEqual([], controller.select_switch_branch(recovery_evidence_route, "normal"))
         observations["LC008"] = {"workflow_id": workflows["closeout"]["workflow"]["id"],
             "route_node_id": recovery_route["id"], "selected_branch": "continue x3",
             "production_nodes": recovery_ids, "max_iterations": recovery["max_iterations"]}
@@ -1413,6 +1920,25 @@ class PhaseLifecycleTests(unittest.TestCase):
                 owner_case.setUp()
                 try:
                     request = owner_case.request(current=current_status, owner=phase_name)
+                    immutable_digests = {}
+                    if phase_name == "closeout":
+                        for relative, content in (("src/current-implementation.py", "implementation source evidence\n"),
+                                                  ("tests/current-implementation-proof.py", "current test proof\n")):
+                            destination = owner_case.root / relative
+                            destination.parent.mkdir(parents=True, exist_ok=True)
+                            destination.write_text(content, encoding="utf-8")
+                            immutable_digests[relative] = owner_module.sha(destination)
+                        group = request["milestone_evidence"][0]
+                        group["artifact_digests"].update(immutable_digests)
+                        for reference in group["assessments"]:
+                            record_path = owner_case.root / reference["path"]
+                            record = json.loads(record_path.read_text(encoding="utf-8"))
+                            record["artifact_digests"].update(immutable_digests)
+                            record_path.write_text(json.dumps(record, sort_keys=True), encoding="utf-8")
+                            reference["sha256"] = owner_module.sha(record_path)
+                        request["snapshot"]["source_map"].update(immutable_digests)
+                        for reference in group["assessments"]:
+                            request["snapshot"]["source_map"][reference["path"]] = reference["sha256"]
                     installed_inputs = {
                         graph_relative: graph_source,
                         ".specify/flow-kit/manifest.yml": ROOT / "controllers/flow-kit/manifest.yml",
@@ -1443,61 +1969,465 @@ class PhaseLifecycleTests(unittest.TestCase):
         # Execute the bounded three-edge recovery through the real adapter and
         # owner on one disposable Close Out graph. Each subsequent preparation
         # uses the actual prior write/readback and receipt, with no replay.
-        recovery_case = owner_module.LifecycleTests("test_recovery_is_one_edge_bounded_by_phase_ceiling_with_actual_start_proof")
-        recovery_case.setUp()
+        recovery_case, recovery_request, graph_document = prepare_production_case(
+            "LC008", "closeout", "planned", mode="recovery",
+            milestones=["specced", "in-progress", "implemented"])
         try:
-            recovery_request = recovery_case.request(
-                current="planned", owner="closeout", mode="recovery",
-                milestones=["specced", "in-progress", "implemented"])
-            graph_relative = ".specify/workflows/speckit-flow-closeout/workflow.yml"
-            graph_document = owner_module.yaml.safe_load(
-                (ROOT / "workflows/speckit-flow-closeout/workflow.yml").read_text(encoding="utf-8"))
-            recovery_version = graph_document["workflow"]["version"]
-            recovery_request["workflow_version"] = recovery_version
-            recovery_request["snapshot"]["workflow_version"] = recovery_version
-            for relative, source_path in ((graph_relative, ROOT / "workflows/speckit-flow-closeout/workflow.yml"),
-                                          (".specify/flow-kit/manifest.yml", ROOT / "controllers/flow-kit/manifest.yml")):
-                destination = recovery_case.root / relative
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                destination.write_bytes(source_path.read_bytes())
-                recovery_request["snapshot"]["source_map"][relative] = owner_module.sha(destination)
-            for relative in (".specify/flow-kit/skills-install.json", ".specify/bundle-records.json"):
-                destination = recovery_case.root / relative
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                destination.write_text("{}\n", encoding="utf-8")
-                recovery_request["snapshot"]["source_map"][relative] = owner_module.sha(destination)
+            (recovery_case.root / recovery_case.feature / "spec.md").write_text(
+                "**Status**: Complete\n# Current specification\n", encoding="utf-8")
+            feature = recovery_request["feature_directory"]
+            feature_path = recovery_case.root / feature
+            (recovery_case.root / ".specify/feature.json").write_text(
+                json.dumps({"feature_directory": feature}, sort_keys=True), encoding="utf-8")
+            checklist_path = f"{feature}/checklists/recovery-preparation.md"
+            checklist = recovery_case.root / checklist_path
+            checklist.parent.mkdir(parents=True, exist_ok=True)
+            checklist.write_text("# Recovery preparation\n\n- [x] Current recovery scope reviewed\n", encoding="utf-8")
+            package = recovery_case.root / ".specify/flow-kit/scripts/python"
+            package.mkdir(parents=True, exist_ok=True)
+            for source in (ROOT / "controllers/flow-kit/scripts/python").glob("*.py"):
+                (package / source.name).write_bytes(source.read_bytes())
+
+            dispatch_entries = [
+                ("FlowKit-Roadmap Agent", "assess-recovery-roadmap-brief", "roadmap-child"),
+                ("FlowKit-Reviewer", "assess-recovery-preparation", "preparation-reviewer-child"),
+                ("FlowKit-Readiness Checker", "assess-recovery-readiness", "readiness-checker-child"),
+                ("FlowKit-Reviewer", "attest-recovery-start", "native-reviewer-child"),
+            ]
+            dispatch_summary = {
+                "run_id": recovery_request["run_id"],
+                "workflow_id": graph_document["workflow"]["id"],
+                "workflow_version": graph_document["workflow"]["version"],
+                "child_tasks": [{"agent": agent, "step_id": step_id, "child_id": child_id}
+                                for agent, step_id, child_id in dispatch_entries],
+                "effective_assignments": [{"agent_name": agent, "step_id": step_id}
+                                           for agent, step_id, _ in dispatch_entries],
+            }
+            route_inputs = {"feature_context": feature, "integration": "codex",
+                            "roadmap_transition_decision": ""}
+            flow_outputs = {}
+            brief_path = f"{feature}/validation/phase-lifecycle/recovery-roadmap-brief.json"
+            source_digests = {relative: owner_module.sha(recovery_case.root / relative)
+                              for relative in (f"{feature}/spec.md", f"{feature}/plan.md",
+                                              f"{feature}/tasks.md", checklist_path)}
+            def phase_assessment(role: str, milestone: str, artifacts: dict[str, str]) -> dict:
+                required = sorted(self.module.CHECKS[milestone])
+                return {"schema_version": "1.0", "kind": "independent-phase-assessment",
+                    "reviewer": role, "state": "complete", "feature_directory": feature,
+                    "scope_sha256": source_digests[f"{feature}/spec.md"],
+                    "artifact_digests": artifacts, "required_check_ids": required,
+                    "satisfied_check_ids": required, "unresolved_ids": []}
+
+            roadmap_brief = {"reviewer": "FlowKit-Roadmap Agent", "state": "ready",
+                             "feature_directory": feature,
+                             "scope_sha256": source_digests[f"{feature}/spec.md"],
+                             "source_digests": source_digests, "unresolved_ids": [],
+                             "linkage": "current selected roadmap entry matches this feature",
+                             "assessment": phase_assessment("FlowKit-Roadmap Agent", "specced",
+                                {path: digest for path, digest in source_digests.items()
+                                 if path.endswith(("spec.md", "plan.md", "tasks.md"))})}
+            brief_file = recovery_case.root / brief_path
+            brief_file.parent.mkdir(parents=True, exist_ok=True)
+            brief_file.write_text(json.dumps(roadmap_brief, sort_keys=True), encoding="utf-8")
+            flow_outputs["assess-recovery-roadmap-brief"] = {"report": roadmap_brief,
+                "path": brief_path, "sha256": owner_module.sha(brief_file)}
+            roadmap_prompt = controller.render_template(
+                find(graph_document["steps"], "assess-recovery-roadmap-brief")["input"]["args"],
+                route_inputs, flow_outputs)
+            self.assertIn(feature, roadmap_prompt)
+            self.assertIn(source_digests[f"{feature}/spec.md"], json.dumps(roadmap_brief))
+
+            reviewer_inputs = {**source_digests}
+            reviewer_report = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+                               "reviewed_inputs": reviewer_inputs,
+                               "satisfied_criteria": [], "future_classifications": [],
+                               "phase_assessment": phase_assessment("FlowKit-Reviewer", "specced",
+                                  {path: digest for path, digest in source_digests.items()
+                                   if path.endswith(("spec.md", "plan.md", "tasks.md"))})}
+            prep_prompt = controller.render_template(
+                find(graph_document["steps"], "assess-recovery-preparation")["prompt"],
+                route_inputs, flow_outputs)
+            self.assertIn("readiness.record_review", prep_prompt)
+            self.assertEqual(source_digests, reviewer_report["reviewed_inputs"])
+            flow_outputs["assess-recovery-preparation"] = {"reviewer_report": reviewer_report,
+                "role_fixture": "FlowKit-Reviewer judgment bound to current source digests"}
+
+            record_step = find(graph_document["steps"], "record-recovery-preparation")
+            rendered_record = controller.render_template(record_step["prompt"], route_inputs, flow_outputs)
+            payload_match = re.search(r"with JSON\s+`(.*)` on stdin", rendered_record, re.DOTALL)
+            self.assertIsNotNone(payload_match, rendered_record)
+            rendered_readiness_payload = json.loads(payload_match.group(1))
+            self.assertEqual(reviewer_report, rendered_readiness_payload["reviewer_report"])
+
+            readiness_command = [sys.executable, str(package / "controller.py"),
+                                 "readiness", "--project", str(recovery_case.root)]
+            for invalid_report in ({**reviewer_report, "reviewer": "FlowKit-Readiness Checker"},
+                                   {**reviewer_report, "reviewed_inputs": {**reviewer_inputs,
+                                     f"{feature}/spec.md": "0" * 64}}):
+                rejected = subprocess.run(readiness_command,
+                    input=json.dumps({**rendered_readiness_payload, "reviewer_report": invalid_report}),
+                    text=True, capture_output=True, check=False)
+                self.assertNotEqual(0, rejected.returncode)
+                self.assertEqual("readiness-record-write-rolled-back" if not json.loads(rejected.stdout).get("state")
+                                 else "readiness-review-verdict-invalid-or-stale",
+                                 json.loads(rejected.stdout).get("reason_code"))
+
+            readiness_proof = self._add_structured_recovery_start_proof(
+                recovery_case.root, recovery_request, reviewer_report, dispatch_summary)
+            route_inputs["main_retained_dispatch_witness"] = readiness_proof["dispatch_witness"]
+            receipt = readiness_proof["readiness_receipt"]
+            self.assertEqual("recorded", receipt["state"])
+            self.assertTrue(receipt["path"].endswith("readiness-review.json"))
+            checker_artifacts = {path: digest for path, digest in source_digests.items()
+                                 if path.endswith(("spec.md", "plan.md", "tasks.md"))}
+            checker_artifacts[receipt["path"]] = receipt["sha256"]
+            checker_prompt = controller.render_template(
+                find(graph_document["steps"], "assess-recovery-readiness")["prompt"], route_inputs,
+                {**flow_outputs, "record-recovery-preparation": receipt,
+                 "readiness-assessment": readiness_proof["readiness_assessment"]})
+            self.assertIn(receipt["path"], checker_prompt)
+            self.assertIn(receipt["path"],
+                          [item["path"] for item in readiness_proof["readiness_assessment"]["source_evidence"]])
+            self.assertEqual(receipt["sha256"], next(item["sha256"] for item in
+                readiness_proof["readiness_assessment"]["source_evidence"] if item["path"] == receipt["path"]))
+            readiness_step = find(graph_document["steps"], "assess-recovery-readiness")
+            flow_outputs["assess-recovery-readiness"] = {
+                "assessment": readiness_proof["readiness_assessment"],
+                "phase_assessment": phase_assessment(
+                    "FlowKit-Readiness Checker", "in-progress", checker_artifacts),
+                "reviewer": "FlowKit-Readiness Checker", "state": "complete",
+                "source_digests": source_digests, "role_fixture": "fresh exact-scope independent judgment"}
+            flow_outputs["record-recovery-preparation"] = {
+                "path": receipt["path"], "sha256": receipt["sha256"],
+                "history_path": readiness_proof["history_path"],
+                "history_sha256": readiness_proof["history_sha256"]}
+            readiness_prompt = controller.render_template(readiness_step["prompt"], route_inputs, flow_outputs)
+            self.assertEqual("FlowKit-Readiness Checker", readiness_step["flow_kit"]["agent"])
+
+            history_ref = {"path": readiness_proof["history_path"],
+                           "sha256": readiness_proof["history_sha256"]}
+            flow_outputs["record-recovery-preparation"] = {
+                "path": receipt["path"], "sha256": receipt["sha256"],
+                "history_path": history_ref["path"], "history_sha256": history_ref["sha256"]}
+            attestation_prompt = controller.render_template(
+                find(graph_document["steps"], "attest-recovery-start")["prompt"], route_inputs, flow_outputs)
+            self.assertIn(history_ref["path"], attestation_prompt)
+            self.assertEqual(history_ref["sha256"], owner_module.sha(
+                recovery_case.root / history_ref["path"]))
+            attestation_path = f"{feature}/validation/phase-lifecycle/authorized-implementation-start.json"
+            attestation = {
+                "schema_version": "1.0", "kind": "authorized-implementation-start",
+                "reviewer": "FlowKit-Reviewer", "state": "ready", "feature_directory": feature,
+                "scope_sha256": recovery_request["snapshot"]["scope_sha256"],
+                "workflow_id": recovery_request["workflow_id"],
+                "workflow_version": recovery_request["workflow_version"],
+                "run_id": recovery_request["run_id"], "step_id": "attest-recovery-start",
+                "child_id": "native-reviewer-child",
+                "source_run_id": readiness_proof["history_validation"]["source_run_id"],
+                "original_scope_sha256": readiness_proof["history_validation"]["original_scope_sha256"],
+                "occurred_at": readiness_proof["history_validation"]["occurred_at"],
+                "history_validation": history_ref,
+                "dispatch_witness": route_inputs["main_retained_dispatch_witness"],
+                "recorded_dispatch": {"agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                    "workflow_id": recovery_request["workflow_id"],
+                    "workflow_version": recovery_request["workflow_version"],
+                    "run_id": recovery_request["run_id"], "child_id": "native-reviewer-child"},
+                "required_check_ids": sorted(self.module.START_CHECKS),
+                "satisfied_check_ids": sorted(self.module.START_CHECKS), "unresolved_ids": [],
+                "artifact_digests": readiness_proof["artifact_digests"],
+            }
+            attestation_file = recovery_case.root / attestation_path
+            attestation_file.parent.mkdir(parents=True, exist_ok=True)
+            attestation_file.write_text(json.dumps(attestation, sort_keys=True), encoding="utf-8")
+            attestation_ref = {"path": attestation_path, "sha256": owner_module.sha(attestation_file),
+                               "kind": attestation["kind"]}
+            recovery_request["snapshot"]["source_map"][attestation_path] = attestation_ref["sha256"]
+            for group in recovery_request["milestone_evidence"]:
+                if group["milestone"] == "in-progress":
+                    group["historical_activity"] = [attestation_ref]
+            flow_outputs["attest-recovery-start"] = {"attestation": attestation,
+                "path": attestation_path, "sha256": attestation_ref["sha256"],
+                "role_fixture": "FlowKit-Reviewer attestation bound to validated current invocation"}
+            self.assertIn(attestation_ref["sha256"], json.dumps(flow_outputs["attest-recovery-start"]))
+
+            implemented_artifacts = readiness_proof["artifact_digests"]
+            implemented_assessment = phase_assessment(
+                "FlowKit-Code Reviewer", "implemented", implemented_artifacts)
+            flow_outputs["assess-implemented-lifecycle-milestone"] = {
+                "phase_assessment": implemented_assessment,
+                "role_fixture": "retained completed implementation assessment"}
+
+            main_snapshot = copy.deepcopy(recovery_request["snapshot"])
+            feature_validation_prefix = f"{feature}/validation/"
+            main_snapshot["source_map"] = {path: digest for path, digest in main_snapshot["source_map"].items()
+                if not path.startswith(feature_validation_prefix)
+                or path == recovery_request["decision_reference"]}
+            main_snapshot["source_map"][checklist_path] = owner_module.sha(checklist)
+            future_obligations_path = f"{feature}/validation/future-obligations.json"
+            if (recovery_case.root / future_obligations_path).is_file():
+                main_snapshot["source_map"][future_obligations_path] = owner_module.sha(
+                    recovery_case.root / future_obligations_path)
+            main_snapshot["source_map"][".specify/feature.json"] = owner_module.sha(
+                recovery_case.root / ".specify/feature.json")
+
+            def build_final_request(mode: str, current_status: str,
+                                    outputs: dict | None = None) -> dict:
+                selected_outputs = flow_outputs if outputs is None else outputs
+                if mode == "recovery":
+                    required_outputs = {
+                        "assess-recovery-roadmap-brief", "assess-recovery-preparation",
+                        "record-recovery-preparation", "assess-recovery-readiness",
+                        "attest-recovery-start", "assess-implemented-lifecycle-milestone"}
+                    missing_outputs = required_outputs - selected_outputs.keys()
+                    if missing_outputs:
+                        raise ValueError(f"recovery request is missing producer outputs: {sorted(missing_outputs)}")
+                    current_spec_digest = owner_module.sha(recovery_case.root / f"{feature}/spec.md")
+                    reviewer = selected_outputs["assess-recovery-preparation"]["reviewer_report"]
+                    roadmap_output = selected_outputs["assess-recovery-roadmap-brief"]
+                    roadmap = roadmap_output["report"]
+                    checker = selected_outputs["assess-recovery-readiness"]
+                    recorder = selected_outputs["record-recovery-preparation"]
+                    if (reviewer.get("reviewer") != "FlowKit-Reviewer"
+                            or reviewer.get("reviewed_inputs") != source_digests
+                            or reviewer.get("reviewed_inputs", {}).get(f"{feature}/spec.md") != current_spec_digest
+                            or roadmap.get("reviewer") != "FlowKit-Roadmap Agent"
+                            or roadmap.get("source_digests") != source_digests
+                            or checker.get("reviewer") != "FlowKit-Readiness Checker"
+                            or checker.get("source_digests") != source_digests):
+                        raise ValueError("recovery producer role or current input binding is invalid")
+                    brief_path_value, brief_digest_value = roadmap_output.get("path"), roadmap_output.get("sha256")
+                    if (not isinstance(brief_path_value, str) or not isinstance(brief_digest_value, str)
+                            or not (recovery_case.root / brief_path_value).is_file()
+                            or owner_module.sha(recovery_case.root / brief_path_value) != brief_digest_value):
+                        raise ValueError("roadmap brief producer output is missing or stale")
+                    recorder_refs = ((recorder.get("path"), recorder.get("sha256")),
+                                     (recorder.get("history_path"), recorder.get("history_sha256")))
+                    if any(not isinstance(path, str) or not isinstance(digest, str)
+                           or not (recovery_case.root / path).is_file()
+                           or owner_module.sha(recovery_case.root / path) != digest
+                           for path, digest in recorder_refs):
+                        raise ValueError("recovery recorder output is missing or stale")
+                snapshot = copy.deepcopy(main_snapshot)
+                snapshot["current_status"] = current_status
+                if mode == "recovery":
+                    snapshot["scope_sha256"] = selected_outputs["assess-recovery-preparation"][
+                        "reviewer_report"]["reviewed_inputs"][f"{feature}/spec.md"]
+                snapshot["source_map"][f"{feature}/spec.md"] = snapshot["scope_sha256"]
+                snapshot["source_map"][".specify/memory/roadmap.md"] = owner_module.sha(recovery_case.roadmap)
+                if mode == "recovery":
+                    recorder = selected_outputs["record-recovery-preparation"]
+                    snapshot["source_map"][recorder["path"]] = recorder["sha256"]
+                    snapshot["source_map"][recorder["history_path"]] = recorder["history_sha256"]
+                    snapshot["source_map"][brief_path_value] = brief_digest_value
+                    snapshot["source_map"][checklist_path] = owner_module.sha(checklist)
+                else:
+                    for reference in readiness_proof["trusted_inputs"].values():
+                        if reference["path"] != ".specify/feature.json":
+                            snapshot["source_map"].pop(reference["path"], None)
+                    for reference in (receipt["path"], brief_path,
+                                      readiness_proof["history_path"], attestation_path,
+                                      readiness_proof["dispatch_witness"]["path"],
+                                      readiness_proof["dispatch_summary_path"],
+                                      readiness_proof["dispatch_witness"]["path"].replace(
+                                          "recovery-start-dispatch-witness.json",
+                                          "dispatch-summary-at-capture.json")):
+                        snapshot["source_map"].pop(reference, None)
+                milestone_entries = []
+                def group_for(milestone: str, producer_roles: list[tuple[str, str]],
+                              *, history: bool = False) -> dict:
+                    assessments = []
+                    artifacts = {}
+                    for output_id, role in producer_roles:
+                        output = selected_outputs[output_id]
+                        if output_id == "assess-recovery-preparation":
+                            record = output["reviewer_report"].get("phase_assessment")
+                        elif output_id == "assess-recovery-roadmap-brief":
+                            record = output["report"].get("assessment")
+                        else:
+                            record = output.get("phase_assessment") or output.get("assessment")
+                        if not isinstance(record, dict) or record.get("reviewer") != role:
+                            raise AssertionError(f"producer output lacks {role} {milestone} assessment")
+                        if (record.get("feature_directory") != feature
+                                or record.get("scope_sha256") != snapshot["scope_sha256"]
+                                or record.get("kind") != "independent-phase-assessment"):
+                            raise ValueError(f"producer assessment has stale scope or identity: {output_id}")
+                        for artifact_path, artifact_digest in record.get("artifact_digests", {}).items():
+                            artifact_file = recovery_case.root / artifact_path
+                            if (not artifact_file.is_file()
+                                    or owner_module.sha(artifact_file) != artifact_digest):
+                                raise ValueError(f"producer assessment has stale artifact: {artifact_path}")
+                            snapshot["source_map"][artifact_path] = artifact_digest
+                        record_path = f"{feature}/validation/phase-lifecycle/{milestone}-{role.lower().replace(' ', '-').replace('-', '')}.json"
+                        record_file = recovery_case.root / record_path
+                        record_file.parent.mkdir(parents=True, exist_ok=True)
+                        record_file.write_text(json.dumps(record, sort_keys=True), encoding="utf-8")
+                        record_digest = owner_module.sha(record_file)
+                        snapshot["source_map"][record_path] = record_digest
+                        assessments.append({"path": record_path, "sha256": record_digest,
+                                            "kind": record["kind"]})
+                        artifacts.update(record["artifact_digests"])
+                    group = {"milestone": milestone,
+                        "owning_phase": self.module.OWNERS[milestone],
+                        "assessments": assessments,
+                        "required_check_ids": sorted(self.module.CHECKS[milestone]),
+                        "satisfied_check_ids": sorted(self.module.CHECKS[milestone]),
+                        "unresolved_ids": [], "artifact_digests": artifacts,
+                        "historical_activity": [],
+                        "pending_future_ids": snapshot["pending_future_ids"]}
+                    if history:
+                        attestation_output = selected_outputs["attest-recovery-start"]
+                        attestation_record = attestation_output["attestation"]
+                        attestation_path = attestation_output["path"]
+                        attestation_file = recovery_case.root / attestation_path
+                        attestation_file.write_text(json.dumps(attestation_record, sort_keys=True), encoding="utf-8")
+                        attestation_digest = owner_module.sha(attestation_file)
+                        snapshot["source_map"][attestation_path] = attestation_digest
+                        group["historical_activity"] = [{"path": attestation_path,
+                            "sha256": attestation_digest, "kind": attestation_record["kind"]}]
+                    return group
+                if mode == "recovery":
+                    milestone_entries.append(group_for("specced", [
+                        ("assess-recovery-preparation", "FlowKit-Reviewer"),
+                        ("assess-recovery-roadmap-brief", "FlowKit-Roadmap Agent")]))
+                    milestone_entries.append(group_for("in-progress", [
+                        ("assess-recovery-preparation", "FlowKit-Reviewer"),
+                        ("assess-recovery-readiness", "FlowKit-Readiness Checker")], history=True))
+                milestone_entries.append(group_for("implemented", [
+                    ("assess-implemented-lifecycle-milestone", "FlowKit-Code Reviewer")]))
+                request_packet = {"schema_version": "1.0", "action": "prepare", "phase": "closeout",
+                    "feature_directory": feature, "entry_id": snapshot["entry_id"],
+                    "run_id": snapshot["run_id"], "workflow_id": snapshot["workflow_id"],
+                    "workflow_version": snapshot["workflow_version"], "mode": mode,
+                    "decision_reference": recovery_request["decision_reference"],
+                    "milestone_evidence": milestone_entries, "snapshot": snapshot}
+                return request_packet
+
+            first_packet = build_final_request("recovery", "planned")
+            flow_outputs["prepare-closeout-lifecycle-request"] = {"request": first_packet,
+                "request_path": recovery_case.production_callback_output["request_path"],
+                "role_fixture": "main request derived from five producer outputs and retained snapshot"}
+            main_prompt = controller.render_template(
+                find(graph_document["steps"], "prepare-closeout-lifecycle-request")["prompt"],
+                route_inputs, flow_outputs)
+            self.assertIn("assess-recovery-roadmap-brief", main_prompt)
+            self.assertIn("assess-recovery-preparation", main_prompt)
+            self.assertIn("record-recovery-preparation", main_prompt)
+            self.assertIn("assess-recovery-readiness", main_prompt)
+            self.assertIn("attest-recovery-start", main_prompt)
+            recovery_request = first_packet
+            recovery_case.production_callback_output["request"] = recovery_request
+            request_path = recovery_case.root / recovery_case.production_callback_output["request_path"]
+            request_path.write_text(json.dumps(recovery_request, sort_keys=True) + "\n", encoding="utf-8")
+            prepared_packet = self.module.prepare(recovery_case.root, recovery_request)
+            self.assertEqual("ready", prepared_packet.get("state"), prepared_packet)
+            changed_scope = copy.deepcopy(recovery_request)
+            changed_scope["snapshot"]["scope_sha256"] = "0" * 64
+            self.assertEqual("blocked", self.module.prepare(recovery_case.root, changed_scope).get("state"))
+
+            missing_outputs = copy.deepcopy(flow_outputs)
+            missing_outputs.pop("assess-recovery-readiness")
+            with self.assertRaisesRegex(ValueError, "missing producer outputs"):
+                build_final_request("recovery", "planned", missing_outputs)
+
+            wrong_role_outputs = copy.deepcopy(flow_outputs)
+            wrong_role_outputs["assess-recovery-readiness"]["reviewer"] = "FlowKit-Reviewer"
+            with self.assertRaisesRegex(ValueError, "producer role or current input binding"):
+                build_final_request("recovery", "planned", wrong_role_outputs)
+
+            changed_recorder_output = copy.deepcopy(flow_outputs)
+            changed_recorder_output["record-recovery-preparation"]["sha256"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "recorder output is missing or stale"):
+                build_final_request("recovery", "planned", changed_recorder_output)
+
+            stale_brief_output = copy.deepcopy(flow_outputs)
+            stale_brief_output["assess-recovery-roadmap-brief"]["sha256"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "roadmap brief producer output is missing or stale"):
+                build_final_request("recovery", "planned", stale_brief_output)
+
+            stale_scope_outputs = copy.deepcopy(flow_outputs)
+            stale_scope_outputs["assess-recovery-preparation"]["reviewer_report"][
+                "reviewed_inputs"][f"{feature}/spec.md"] = "0" * 64
+            with self.assertRaisesRegex(ValueError, "producer role or current input binding"):
+                build_final_request("recovery", "planned", stale_scope_outputs)
+
+            fabricated_outputs = copy.deepcopy(flow_outputs)
+            fabricated_outputs["attest-recovery-start"]["attestation"]["child_id"] = "self-asserted-child"
+            fabricated_outputs["attest-recovery-start"]["attestation"]["recorded_dispatch"][
+                "child_id"] = "self-asserted-child"
+            fabricated_packet = build_final_request("recovery", "planned", fabricated_outputs)
+            fabricated_result = self.module.prepare(recovery_case.root, fabricated_packet)
+            self.assertEqual("blocked", fabricated_result.get("state"), fabricated_result)
+
             expected_edges = [("planned", "specced"), ("specced", "in-progress"),
                               ("in-progress", "implemented")]
             for expected_from, expected_to in expected_edges:
                 with self.subTest(recovery_edge=(expected_from, expected_to)):
-                    prepared = self.module.prepare(recovery_case.root, recovery_request)
-                    self.assertEqual("ready", prepared.get("state"), prepared)
-                    proposal = prepared["proposal"]
-                    self.assertEqual((expected_from, expected_to),
-                                     (proposal["from_status"], proposal["to_status"]))
-                    retry = {**recovery_request, "action": "revalidate", "proposal": proposal}
-                    checked = self.module.revalidate(recovery_case.root, retry)
-                    self.assertEqual("ready", checked.get("state"), checked)
-                    self.assertEqual(proposal, checked["proposal"])
-                    receipt = owner_module.phase.apply(recovery_case.root, proposal, owner_module.yaml)
-                    self.module.validate_receipt(receipt)
-                    owner_module.phase.validate_receipt(receipt)
-                    self.assertEqual("applied", receipt["effect_state"])
-                    self.assertEqual(expected_from, receipt["from_status"])
-                    self.assertEqual(expected_to, receipt["to_status"])
-                    self.assertEqual(owner_module.sha(recovery_case.root / recovery_case.roadmap),
-                                     receipt["roadmap_after_sha256"])
-                    recovery_request = {**recovery_request, "action": "prepare",
-                                        "snapshot": {**recovery_request["snapshot"],
-                                                     "current_status": expected_to,
-                                                     "source_map": {**recovery_request["snapshot"]["source_map"],
-                                                                    ".specify/memory/roadmap.md": owner_module.sha(recovery_case.roadmap)}}}
+                    edge_mode = "normal" if expected_from == "in-progress" else "recovery"
+                    evidence_route = find(graph_document["steps"], "route-closeout-recovery-evidence")
+                    selected_evidence = controller.select_switch_branch(evidence_route, edge_mode)
+                    expected_evidence = [] if edge_mode == "normal" else [
+                        "assess-recovery-roadmap-brief", "assess-recovery-preparation",
+                        "record-recovery-preparation", "assess-recovery-readiness", "attest-recovery-start"]
+                    self.assertEqual(expected_evidence, [node["id"] for node in selected_evidence])
+                    self.assertEqual(edge_mode, "normal" if expected_from == "in-progress" else "recovery")
+                    if expected_from == "specced":
+                        missing_attestation = copy.deepcopy(recovery_request)
+                        in_progress = next(group for group in missing_attestation["milestone_evidence"]
+                                           if group["milestone"] == "in-progress")
+                        in_progress["historical_activity"] = []
+                        missing_result = self.module.prepare(recovery_case.root, missing_attestation)
+                        self.assertEqual("blocked", missing_result.get("state"), missing_result)
+                    recovery_request = build_final_request(edge_mode, expected_from)
+                    flow_outputs["prepare-closeout-lifecycle-request"] = {
+                        "request": recovery_request,
+                        "request_path": recovery_case.production_callback_output["request_path"],
+                        "role_fixture": "main request from current mode and returned producer outputs"}
+                    route_inputs["feature_context"] = feature
+                    main_prompt = controller.render_template(
+                        find(graph_document["steps"], "prepare-closeout-lifecycle-request")["prompt"],
+                        route_inputs, flow_outputs)
+                    if edge_mode == "recovery":
+                        self.assertEqual(receipt["sha256"], recovery_request["snapshot"]["source_map"][receipt["path"]])
+                        self.assertEqual(history_ref["sha256"], recovery_request["snapshot"]["source_map"][history_ref["path"]])
+                        self.assertEqual(readiness_proof["dispatch_witness"]["sha256"],
+                            recovery_request["snapshot"]["source_map"][readiness_proof["dispatch_witness"]["path"]])
+                    else:
+                        self.assertEqual([], selected_evidence)
+                        self.assertEqual(["implemented"], [group["milestone"] for group in
+                            recovery_request["milestone_evidence"]])
+                        self.assertEqual([], recovery_request["milestone_evidence"][0]["historical_activity"])
+                        static_required = {".specify/memory/constitution.md", f"{feature}/spec.md",
+                            f"{feature}/plan.md", f"{feature}/tasks.md", ".specify/feature.json",
+                            ".specify/flow-kit/manifest.yml", ".specify/flow-kit/skills-install.json",
+                            ".specify/bundle-records.json", ".specify/extensions/flow-roadmap/extension.yml",
+                            ".specify/extensions/flow-roadmap/scripts/python/load_config.py",
+                            ".specify/extensions/flow-roadmap/scripts/python/review_contract.py",
+                            ".specify/extensions/flow-roadmap/scripts/python/phase_lifecycle.py",
+                            ".specify/workflows/speckit-flow-closeout/workflow.yml",
+                            ".specify/memory/roadmap.md", recovery_request["decision_reference"]}
+                        self.assertTrue(static_required.issubset(recovery_request["snapshot"]["source_map"]),
+                            sorted(static_required - recovery_request["snapshot"]["source_map"].keys()))
+                    recovery_case.production_callback_output["request"] = recovery_request
+                    request_path.write_text(json.dumps(recovery_request, sort_keys=True) + "\n", encoding="utf-8")
+                    result = execute_ready_production_route(
+                        recovery_case, recovery_request, graph_document, "closeout",
+                        mutate_run_summary=True)
+                    self.assertEqual("ready", result["adapter"].get("state"), result["adapter"])
+                    self.assertEqual("ready", result["revalidated"].get("state"), result["revalidated"])
+                    self.assertEqual(expected_to, result["owner_receipt"]["to_status"])
+                    self.assertEqual(expected_from, result["owner_receipt"]["from_status"])
+                    self.assertEqual("verified", result["verification"]["state"])
+                    self.assertIn("rendered_revalidation", result)
+                    self.assertIn("rendered_apply", result)
+                    self.assertIn("rendered_verify", result)
+                    main_snapshot["source_map"][".specify/memory/roadmap.md"] = owner_module.sha(recovery_case.roadmap)
             final_status = owner_module.phase.entries(recovery_case.roadmap.read_text(encoding="utf-8"))["901"]["status"]
             self.assertEqual("implemented", final_status)
             self.assertEqual(3, recovery_case.roadmap.read_text(encoding="utf-8").count("<!-- flow-roadmap-lifecycle "))
             # Re-enter at the achieved Close Out ceiling. The owner must return
             # an event-free no-op; the adapter must preserve the current bytes.
             before_noop = owner_module.sha(recovery_case.roadmap)
+            recovery_request = build_final_request("normal", "implemented")
             no_op = self.module.prepare(recovery_case.root, recovery_request)
             self.assertEqual("no-op", no_op.get("state"), no_op)
             self.assertEqual("implemented", no_op["retained_status"])

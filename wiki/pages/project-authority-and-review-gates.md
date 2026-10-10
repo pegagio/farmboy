@@ -1,11 +1,15 @@
 ---
 title: Project authority and review gates
 type: decision
-sources: [S001, S002, S003, S017, S019, S020, S021]
-updated: 2026-10-02
+sources: [S001, S002, S003, S017, S019, S020, S021, S027, S028]
+updated: 2026-10-09
 ---
 
 # Project authority and review gates
+
+## Earlier registered authority contracts
+
+These accounts preserve the previously registered contracts; the Feature 020 direct-authority distinction is recorded below. (S027)
 
 Spec Kit Flow owns generic workflow definitions, approved reusable presets, portable consumer feedback capture and reporting, and maintainer-only feedback intake. Reviewed source packages are the authority for changes; installed copies in a consumer project are not. (S001, S003)
 
@@ -26,6 +30,12 @@ Local validation should record tested CLI versions, component IDs, source coordi
 F014 permits only declared, bounded core-command correction and reassessment inside the operator-selected workflow and scope. Exact roadmap patches, constitutional or authority changes, material scope, ambiguous recovery, substantive product answers, Git integration, and acceptance remain explicit operator decisions. Routine classification needs no redundant confirmation gate. (S021)
 
 Required input is a blocked reason with the exact question and recovery action. Equivalent outcome keys may share a path only when completed evidence still checks every downstream prerequisite; a shared transition never infers approval. Legacy needs-human remains controller compatibility for declared human gates. (S021)
+
+## Feature 020 direct authority contract
+
+Feature 020 distinguishes trusted direct operator instructions from proposals, retrieved evidence and child outputs. A directly requested bounded roadmap amendment authorizes derived wording, numbering and linkage without another approval solely for those bytes; current target, dependencies and governing state still require validation. New scope, constitutional or authority changes, substantive product decisions and ambiguous recovery retain focused human gates. Separately requested same-target phases carry settled intent after revalidation; completion never invokes the next phase. Verification, Git integration and acceptance remain separate. (S027)
+
+**Accepted chronological supersession**: Earlier S001/S021 general exact-patch approval accounts remain historical. Feature 020 distinguishes directly authorized bounded changes from proposals and unrequested changes; the current protocol confirms validated routine activation and phase-owned adjacent advancement while retaining human gates for unsettled consequential decisions and separate verification. This settled distinction changes no acceptance or Git authority and proves no universal installed adoption. (S001, S021, S027, S028)
 
 ## Related pages
 

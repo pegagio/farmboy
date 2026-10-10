@@ -4,7 +4,7 @@
     {
       "owner": "consumer-or-installer-configuration",
       "path": ".specify/bundle-records.json",
-      "sha256": "c06b6782f17c3939223f6d31ab208678aa05d269acc0b27ec1ee2e472989db33"
+      "sha256": "61484c47c9ae01799b6b691ec73d02f8635594041adc14c94637e79408b5c7d5"
     },
     {
       "owner": "consumer-or-installer-configuration",
@@ -309,7 +309,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/agent-defaults/manifest.json",
-        "sha256": "baed1c63acf546279b9b293b5bff4a1c33b38407ab9eb2df51c6645dfef3a16d"
+        "sha256": "f0d7853f22b1f517fa0dfef81025da0872fae138fb800012a389d25ebd7de7be"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -319,7 +319,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/controller-protocol.md",
-        "sha256": "606f597c4aa0644ca1a439a19e8cb6109efbb9116d0675ccf271f50fd00a82b3"
+        "sha256": "a9cab032afbf3d94e1c6ee5b44a885c2555a0171262621eba38b1890ebd2f07a"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -334,7 +334,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/scripts/python/controller.py",
-        "sha256": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3"
+        "sha256": "e3dda4ceacdc1aba5d4f3551b1751a74b3f322ad617be72dfe33504a56347af8"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -364,7 +364,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/skills-install.json",
-        "sha256": "ab211b238e719a2fcd0d8f50da25b606bfeef2a57a0534c98f91a67cc2e429d0"
+        "sha256": "7dc8350396bc4752b43c6cd24accab61c173dfcdc316f6907986a8c1e4d122fe"
       },
       {
         "component_id": "speckit-flow-analyze-remediate",
@@ -389,7 +389,7 @@
       {
         "component_id": "speckit-flow-implement",
         "path": ".specify/workflows/speckit-flow-implement/workflow.yml",
-        "sha256": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6"
+        "sha256": "61b389a2afb8b546118582a0403fbed74f1814342e6a8d0ce7d3a562a03b3523"
       },
       {
         "component_id": "speckit-flow-plan",
@@ -473,23 +473,23 @@
       ".specify/extensions/flow-wiki/config-template.yml": "4a822f91c5715fb1efbd0dd44da3e480111a18007904e1408a70dfe2f7d88a2e",
       ".specify/extensions/flow-wiki/extension.yml": "96c71268dce1573443b625c58b6b7005f834ed43d118b66adf65603030a161b4",
       ".specify/extensions/flow-wiki/flow-wiki-config.yml": "4a822f91c5715fb1efbd0dd44da3e480111a18007904e1408a70dfe2f7d88a2e",
-      ".specify/flow-kit/agent-defaults/manifest.json": "baed1c63acf546279b9b293b5bff4a1c33b38407ab9eb2df51c6645dfef3a16d",
+      ".specify/flow-kit/agent-defaults/manifest.json": "f0d7853f22b1f517fa0dfef81025da0872fae138fb800012a389d25ebd7de7be",
       ".specify/flow-kit/agent-defaults/package.zip": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
-      ".specify/flow-kit/controller-protocol.md": "606f597c4aa0644ca1a439a19e8cb6109efbb9116d0675ccf271f50fd00a82b3",
+      ".specify/flow-kit/controller-protocol.md": "a9cab032afbf3d94e1c6ee5b44a885c2555a0171262621eba38b1890ebd2f07a",
       ".specify/flow-kit/manifest.yml": "a979e1234a7e128112be4ace1fe32a1e54e4a887875e2b181c16c4a89be8d227",
       ".specify/flow-kit/scripts/bootstrap.sh": "3c04886b11be893037c46b157c0f6760065c1641550b6d04bf61a33b0465d6fb",
-      ".specify/flow-kit/scripts/python/controller.py": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3",
+      ".specify/flow-kit/scripts/python/controller.py": "e3dda4ceacdc1aba5d4f3551b1751a74b3f322ad617be72dfe33504a56347af8",
       ".specify/flow-kit/scripts/python/implementation_scope.py": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d",
       ".specify/flow-kit/scripts/python/phase_lifecycle.py": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1",
       ".specify/flow-kit/scripts/python/readiness.py": "6396ffad00c842cec2234beaf56d31caa87d6bc0317fc469d45f904e97e7b725",
       ".specify/flow-kit/scripts/python/recovery.py": "2028995b9a8298a7dfc65e529f98e1025ef776ed0a9d2a7175992a4fb0afad77",
       ".specify/flow-kit/scripts/python/selection.py": "2c61619724ce107b2bcf26b3c312560930835d58ffdfe8d61412db9a9c0e38eb",
-      ".specify/flow-kit/skills-install.json": "ab211b238e719a2fcd0d8f50da25b606bfeef2a57a0534c98f91a67cc2e429d0",
+      ".specify/flow-kit/skills-install.json": "7dc8350396bc4752b43c6cd24accab61c173dfcdc316f6907986a8c1e4d122fe",
       ".specify/workflows/speckit-flow-analyze-remediate/workflow.yml": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
       ".specify/workflows/speckit-flow-clarify/workflow.yml": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
       ".specify/workflows/speckit-flow-closeout/workflow.yml": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
       ".specify/workflows/speckit-flow-converge/workflow.yml": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
-      ".specify/workflows/speckit-flow-implement/workflow.yml": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6",
+      ".specify/workflows/speckit-flow-implement/workflow.yml": "61b389a2afb8b546118582a0403fbed74f1814342e6a8d0ce7d3a562a03b3523",
       ".specify/workflows/speckit-flow-plan/workflow.yml": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
       ".specify/workflows/speckit-flow-select-feature/workflow.yml": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
       ".specify/workflows/speckit-flow-specify/workflow.yml": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",

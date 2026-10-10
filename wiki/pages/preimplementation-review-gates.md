@@ -1,8 +1,8 @@
 ---
 title: Preimplementation review gates
 type: concept
-sources: [S007, S008, S009, S021]
-updated: 2026-10-02
+sources: [S007, S008, S009, S021, S027]
+updated: '2026-10-09'
 ---
 
 # Preimplementation review gates
@@ -30,6 +30,12 @@ Tasks combines format, section, dependency, and story-coverage checks with indep
 Both reviews check accepted requirements, internal and cross-artifact consistency, and required coverage. Findings identify the artifact or section, governing requirement or decision, deficiency, and approved-scope correction. Reviewers do not edit reviewed artifacts. Stable finding identities and substantive resolution establish progress; rewording or renaming findings does not. Baselines count toward the cap, and repeated findings, stale evidence, no progress, or the cap stop. Product answers and material scope decisions remain operator-owned. Specify's independent roadmap brief checks alignment rather than supplying a general content-review loop. (S021)
 
 **Accepted supersession**: S007–S009 require terminal/readiness/coverage choices in the earlier contracts; S021 removes routine classification gates and uses evidence-driven continuation or blocked recovery. Human answers and consequential authority remain required. (S007, S008, S009, S021)
+
+## Feature 020 preparation and readiness
+
+Analyze and Implement share FlowKit-owned readiness without changing Spec Kit core. Preparation requires substantive current independent review; an author checklist or clean analysis alone cannot prove readiness. Missing, stale or contradictory preparation evidence blocks, while safe in-scope gaps enter declared correction and reassessment. Each unresolved criterion identifies ownership, evidence and due phase. Future implementation, acceptance and release obligations remain traceable and pending; evidenced relocation outside the core checklist gate preserves stable identities and provenance without satisfying them. (S027)
+
+FlowKit-Readiness Checker independently reports preparation gaps without authoring artifacts or replacing Reviewer. Author checks and independent review remain required. [Agent roles](./agent-roles-and-inheritance.md) retains this separation. (S027)
 
 ## Related pages
 

@@ -1,6 +1,6 @@
 # Closeout workflow flowchart
 
-This diagram maps all 49 step IDs in [workflow.yml](./workflow.yml). The dark Start circle marks entry; rectangles are prompts, diamonds are switches, the hexagon is the bounded loop, parallelograms are human gates, and rounded nodes are commands. Dashed outlines mark delegated steps. Approval display labels preserve the original human choices.
+This diagram maps all 55 step IDs in [workflow.yml](./workflow.yml). The dark Start circle marks entry; rectangles are prompts, diamonds are switches, the hexagon is the bounded loop, parallelograms are human gates, and rounded nodes are commands. Dashed outlines mark delegated steps. Approval display labels preserve the original human choices.
 
 ```mermaid
 flowchart TD
@@ -13,7 +13,13 @@ flowchart TD
     n005["assess-implemented-lifecycle-milestone<br/>(FlowKit-Code Reviewer)"]
     n006{{"closeout-lifecycle-recovery-loop<br/>condition: {{ steps.route-closeout-lifecycle-edge.output.state == 'continue' }}<br/>max_iterations: 3"}}
     n007["assess-closeout-lifecycle-edge<br/>(FlowKit-Reviewer)"]
-    n008["prepare-closeout-lifecycle-request<br/>(FlowKit-Reviewer)"]
+    n049@{ shape: diam, label: "route-closeout-recovery-evidence" }
+    n050(["assess-recovery-roadmap-brief<br/>(FlowKit-Roadmap Agent)<br/>command: speckit.flow-roadmap.brief"])
+    n051["assess-recovery-preparation<br/>(FlowKit-Reviewer)"]
+    n052["record-recovery-preparation"]
+    n053["assess-recovery-readiness<br/>(FlowKit-Readiness Checker)"]
+    n055["attest-recovery-start<br/>(FlowKit-Reviewer)"]
+    n008["prepare-closeout-lifecycle-request"]
     n009["prepare-closeout-lifecycle-transition"]
     n010@{ shape: diam, label: "route-closeout-lifecycle-transition" }
     n011["revalidate-closeout-lifecycle-transition"]
@@ -116,7 +122,15 @@ flowchart TD
     n010 -- question --> n017
     n009 --> n010
     n008 --> n009
-    n007 --> n008
+    n055 --> n008
+    n053 --> n055
+    n052 --> n053
+    n051 --> n052
+    n050 --> n051
+    n049 -- recovery --> n050
+    n049 -- normal --> n008
+    n049 -- blocked --> n048
+    n007 --> n049
     n006 -- first pass --> n007
     n006 -- condition false / cap --> n018
     n005 --> n006
@@ -129,7 +143,7 @@ flowchart TD
     n001 -- blocked --> n035
     n000 --> n001
     style start fill:#111827,stroke:#111827,color:#ffffff
-    class n000,n004,n005,n007,n008,n013,n014,n015,n016,n021,n022,n026,n028,n030,n031,n032,n034,n040,n044,n045,n046,n047 delegated
+    class n000,n004,n005,n007,n013,n014,n015,n016,n021,n022,n026,n028,n030,n031,n032,n034,n040,n044,n045,n046,n047,n050,n051,n053,n055 delegated
     classDef delegated fill:#eef2ff,stroke:#4f46e5,stroke-dasharray:6 4
 ```
 

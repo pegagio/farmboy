@@ -44,23 +44,68 @@
             "type": "prompt"
           },
           {
-            "condition": "{{ steps.route-closeout-lifecycle-edge.output.state == 'continue' }}",
             "id": "closeout-lifecycle-recovery-loop",
+            "type": "do-while",
             "max_iterations": 3,
+            "condition": "{{ steps.route-closeout-lifecycle-edge.output.state == 'continue' }}",
             "steps": [
               {
-                "flow_kit": {
-                  "agent": "FlowKit-Reviewer",
-                  "delegated": true
-                },
                 "id": "assess-closeout-lifecycle-edge",
-                "type": "prompt"
+                "type": "prompt",
+                "flow_kit": {
+                  "delegated": true,
+                  "agent": "FlowKit-Reviewer"
+                }
               },
               {
-                "flow_kit": {
-                  "agent": "FlowKit-Reviewer",
-                  "delegated": true
-                },
+                "id": "route-closeout-recovery-evidence",
+                "type": "switch",
+                "expression": "{{ steps.assess-closeout-lifecycle-edge.output.route }}",
+                "cases": {
+                  "recovery": [
+                    {
+                      "id": "assess-recovery-roadmap-brief",
+                      "type": "command",
+                      "command": "speckit.flow-roadmap.brief",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Roadmap Agent"
+                      }
+                    },
+                    {
+                      "id": "assess-recovery-preparation",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Reviewer"
+                      }
+                    },
+                    {
+                      "id": "record-recovery-preparation",
+                      "type": "prompt"
+                    },
+                    {
+                      "id": "assess-recovery-readiness",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Readiness Checker"
+                      }
+                    },
+                    {
+                      "id": "attest-recovery-start",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Reviewer"
+                      }
+                    }
+                  ],
+                  "normal": [],
+                  "blocked": []
+                }
+              },
+              {
                 "id": "prepare-closeout-lifecycle-request",
                 "type": "prompt"
               },
@@ -69,74 +114,73 @@
                 "type": "prompt"
               },
               {
+                "id": "route-closeout-lifecycle-transition",
+                "type": "switch",
+                "expression": "{{ steps.prepare-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
                 "cases": {
-                  "blocked": [],
-                  "no-op": [
-                    {
-                      "flow_kit": {
-                        "agent": "FlowKit-Reviewer",
-                        "delegated": true
-                      },
-                      "id": "verify-existing-closeout-lifecycle-state",
-                      "type": "prompt"
-                    }
-                  ],
-                  "question": [],
                   "ready": [
                     {
                       "id": "revalidate-closeout-lifecycle-transition",
                       "type": "prompt"
                     },
                     {
+                      "id": "route-closeout-lifecycle-revalidation",
+                      "type": "switch",
+                      "expression": "{{ steps.revalidate-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
                       "cases": {
-                        "blocked": [],
-                        "no-op": [
-                          {
-                            "flow_kit": {
-                              "agent": "FlowKit-Reviewer",
-                              "delegated": true
-                            },
-                            "id": "verify-closeout-lifecycle-noop-after-revalidation",
-                            "type": "prompt"
-                          }
-                        ],
-                        "question": [],
                         "ready": [
                           {
+                            "id": "apply-closeout-lifecycle-transition",
+                            "type": "command",
                             "command": "speckit.flow-roadmap.write",
                             "flow_kit": {
-                              "agent": "FlowKit-Roadmap Agent",
-                              "delegated": true
-                            },
-                            "id": "apply-closeout-lifecycle-transition",
-                            "type": "command"
+                              "delegated": true,
+                              "agent": "FlowKit-Roadmap Agent"
+                            }
                           },
                           {
-                            "flow_kit": {
-                              "agent": "FlowKit-Reviewer",
-                              "delegated": true
-                            },
                             "id": "verify-closeout-lifecycle-transition",
-                            "type": "prompt"
+                            "type": "prompt",
+                            "flow_kit": {
+                              "delegated": true,
+                              "agent": "FlowKit-Reviewer"
+                            }
                           }
-                        ]
-                      },
-                      "expression": "{{ steps.revalidate-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
-                      "id": "route-closeout-lifecycle-revalidation",
-                      "type": "switch"
+                        ],
+                        "no-op": [
+                          {
+                            "id": "verify-closeout-lifecycle-noop-after-revalidation",
+                            "type": "prompt",
+                            "flow_kit": {
+                              "delegated": true,
+                              "agent": "FlowKit-Reviewer"
+                            }
+                          }
+                        ],
+                        "blocked": [],
+                        "question": []
+                      }
                     }
-                  ]
-                },
-                "expression": "{{ steps.prepare-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
-                "id": "route-closeout-lifecycle-transition",
-                "type": "switch"
+                  ],
+                  "no-op": [
+                    {
+                      "id": "verify-existing-closeout-lifecycle-state",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Reviewer"
+                      }
+                    }
+                  ],
+                  "blocked": [],
+                  "question": []
+                }
               },
               {
                 "id": "route-closeout-lifecycle-edge",
                 "type": "prompt"
               }
-            ],
-            "type": "do-while"
+            ]
           },
           {
             "id": "verify-implemented-lifecycle-before-debrief",
@@ -777,6 +821,10 @@
                 "expression": "{{ steps.assess-implementation-after-pass.output.state }}",
                 "id": "route-post-assessment",
                 "type": "switch"
+              },
+              {
+                "id": "capture-post-pass-state",
+                "type": "prompt"
               },
               {
                 "id": "route-scoped-execution",

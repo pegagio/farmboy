@@ -1,6 +1,3 @@
-# Wiki Lint Report — 2026-10-04
-
-| # | Check | Severity | Page | Finding | Suggested fix |
-|---|-------|----------|------|---------|---------------|
+# Wiki Lint Report — 2026-10-09
 
 No findings.

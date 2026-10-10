@@ -945,6 +945,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
             {"id": "implement-tasks", "type": "switch", "expression": "{{ steps.x.output.state }}", "cases": {"continue": []}},
             {"id": "assess-implementation-after-pass", "type": "prompt", "prompt": "Assess current substantive work."},
             {"id": "route-post-assessment", "type": "switch", "expression": "{{ steps.x.output.state }}", "cases": {"continue": []}},
+            {"id": "capture-post-pass-state", "type": "prompt", "prompt": "Capture fresh validated state."},
             {"id": "route-scoped-execution", "type": "prompt", "prompt": "Apply guarded route."},
         ]
         loop = {"id": "implementation-loop", "type": "do-while", "max_iterations": 5,

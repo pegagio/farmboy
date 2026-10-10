@@ -68,12 +68,13 @@ flowchart TD
     n060["stop-readiness-before-core"]
     n061["stop-readiness-before-core-unrecognized"]
     n062["report-implementation-outcome"]
+    n063["capture-post-pass-state"]
     start --> n000
     n055 --> n017
     n054 -- ready --> n028
-    n056 --> n055
+    n056 --> n063
     n054 -- blocked --> n056
-    n057 --> n055
+    n057 --> n063
     n054 -- default --> n057
     n053 --> n054
     n052 --> n053
@@ -109,10 +110,11 @@ flowchart TD
     n030 --> n031
     n029 -- revise --> n030
     n028 -- work-remains --> n029
-    n059 --> n055
+    n059 --> n063
+    n063 --> n055
     n058 --> n059
     n028 -- complete --> n058
-    n028 -- blocked --> n055
+    n028 -- blocked --> n063
     n027 --> n028
     n026 --> n027
     n025 --> n026
@@ -159,7 +161,7 @@ flowchart TD
     classDef delegated fill:#eef2ff,stroke:#4f46e5,stroke-dasharray:6 4
 ```
 
-The six-node `implementation_scope` carrier is valid only on `implementation-loop` in `speckit-flow-implement`. It contains the scoped entry, preparation branch, source branch, independent Code Reviewer assessment, post-assessment route, and final nondelegated scoped route. Its exact five-pass condition continues only when `route-scoped-execution` returns `continue`; that final route checks fresh readiness, no progress, and the shared session/attempt limits before returning. The trusted full-feature or exact subset request and all unfinished IDs are frozen before initial assessment; requested IDs remain separate from current eligibility. The controller keeps session and attempt history in consumer-local state and persists each start event before dispatch. A preparation session shares the same nonresetting five-session budget as source work; failed dispatches and questions count, and same-child answers do not consume another session. Readiness/authority failures before a dispatch do not fabricate a session event.
+The seven-node `implementation_scope` carrier is valid only on `implementation-loop` in `speckit-flow-implement`. It contains the scoped entry, preparation branch, source branch, independent Code Reviewer assessment, post-assessment route, post-pass capture, and final nondelegated scoped route. The workflow and supported harness call the same installed `post-pass-capture --project "$PWD"` operation. It accepts only the actual Tasker/validator pair selected by the executed route, rereads durable history and confirms the entry digest is its ancestor, appends only the validator's returned successor, validates the full chain against current task bytes and frozen scope, and refreshes eligibility before final routing. Revision and task-outcome validators return `ready`; the completion validator may return `complete` only with current whole-task proof for every requested task and no buildable finding, while a blocked result takes precedence. Missing, stale, unsupported, or untaken-branch evidence blocks with a stable resumption action. Its exact five-pass condition continues only when `route-scoped-execution` returns `continue`; that final route checks fresh readiness, no progress, and the shared session/attempt limits before returning. The trusted full-feature or exact subset request and all unfinished IDs are frozen before initial assessment; requested IDs remain separate from current eligibility. The controller keeps session and attempt history in consumer-local state and persists each start event before dispatch. A preparation session shares the same nonresetting five-session budget as source work; failed dispatches and questions count, and same-child answers do not consume another session. Readiness/authority failures before a dispatch do not fabricate a session event.
 
 Before the first source attempt, the scope route may choose only preparation or first-source work. Administrative completion can update accounting but earns no implementation progress. After any source attempt, the final route supplies the actual previous/current substantive assessments to the unchanged generic prior-remaining/resolved predicate, no-progress guard, and cap. Tasker owns ordinary task-marker updates and exact finding-linked task revisions; all current scope, eligibility, readiness, owner-source access, assignments, and activation evidence are revalidated before another effect. A blocked or missing gate exits before another Coder pass; the final report preserves the exact blocker and safe resumption.
 

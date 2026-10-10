@@ -1,8 +1,8 @@
 ---
 title: Closeout and verification boundary
 type: decision
-sources: [S013, S021]
-updated: 2026-10-02
+sources: [S013, S021, S027]
+updated: '2026-10-09'
 ---
 
 # Closeout and verification boundary
@@ -30,6 +30,8 @@ Close Out may clear date-only warnings by revalidating claims and citations agai
 One final report preserves completed evidence, questions, original gate choices, and partial changes. Readiness does not commit, integrate Git, or accept the feature. (S021)
 
 **Accepted supersession**: S013 requires a separately approved completion operation and a human commit-readiness decision; S021 authorizes evidence-backed in-place completion and automated readiness reporting while retaining exact roadmap approval and separate Git/acceptance authority. S013 remains historical feature evidence. (S013, S021)
+
+[Feature 020 contract](./feature020-closeout-and-verification-boundary.md). (S027)
 
 ## Related pages
 

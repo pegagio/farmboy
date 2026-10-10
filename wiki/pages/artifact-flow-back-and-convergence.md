@@ -1,8 +1,8 @@
 ---
 title: Artifact flow-back and convergence
 type: concept
-sources: [S010, S011, S012, S017, S021]
-updated: 2026-10-02
+sources: [S010, S011, S012, S017, S021, S027]
+updated: '2026-10-09'
 ---
 
 # Artifact flow-back and convergence
@@ -30,6 +30,8 @@ Implement repeats the existing eligible task plan through the core skill and che
 Converge runs the core convergence command on every pass, records remediation tasks, flows accepted discoveries through affected layers, analyzes changed tasks, verifies eligibility, implements eligible fixes, and reassesses. Progress is checked before another correction, with a final convergence check permitted after the fifth correction. Implementation returns directly to the core convergence command. Fresh prior-gap resolution governs continuation; analysis or implementation blockers and operator questions propagate to the final report. Clean does not invoke a later phase or accept work. (S021)
 
 **Accepted supersession**: S011/S012's historical routes stop for separate corrective implementation/convergence invocations; S021 requires bounded continuation inside the selected workflow and restricts the Implement wrapper to existing tasks. The prospective feature changes future behavior while preserving earlier merged history. (S011, S012, S021)
+
+[Feature 020 contract](./feature020-artifact-flow-back-and-convergence.md). (S027)
 
 ## Related pages
 

@@ -6,6 +6,7 @@ newer than the checked-in release archive; wiki and feedback remain pinned.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import importlib.util
 import os
@@ -31,7 +32,11 @@ from test_bundle_lifecycle import (
     released_feedback_source,
     sha256,
 )
-from implementation_scope_snapshot import exercise_installed_scope_matrix
+from implementation_scope_snapshot import (
+    POST_PASS_CAPTURE_FIELDS,
+    _capture_post_pass_command,
+    exercise_installed_scope_matrix,
+)
 
 
 SPECIFY_BIN = os.environ.get("SPECIFY_BIN", "specify")
@@ -283,6 +288,82 @@ class SnapshotValidationTests(unittest.TestCase):
                 self.assertEqual("ready", matrix["task_revision_successor"]["scope_state"])
                 self.assertEqual(["T003"], matrix["task_revision_successor"]["eligible_derived_task_ids"])
                 self.assertEqual(["T003"], matrix["task_revision_successor"]["tracked_task_ids"])
+                self.assertEqual("blocked", matrix["task_revision_successor"]["capture_project_argument_mutation_state"])
+                capture_dispatch = matrix["task_revision_successor"]["capture_dispatch"]
+                capture_request = capture_dispatch["request"]
+                self.assertEqual("ready", capture_dispatch["result_state"])
+                self.assertEqual(0, capture_dispatch["return_code"])
+                self.assertEqual(list(POST_PASS_CAPTURE_FIELDS), capture_dispatch["request_fields"])
+                self.assertEqual(["python3", ".specify/flow-kit/scripts/python/controller.py",
+                                  "post-pass-capture", "--project", "$PWD"],
+                                 capture_dispatch["command_template"])
+                self.assertTrue(capture_dispatch["project_argument_bound_to_consumer"])
+                self.assertEqual(capture_dispatch["scope_sha256"], capture_dispatch["retained_scope_sha256"])
+                self.assertEqual(capture_dispatch["scope_sha256"], capture_dispatch["eligibility_scope_sha256"])
+                self.assertEqual(capture_dispatch["trusted_request_reference"],
+                                 capture_dispatch["eligibility_trusted_request_reference"])
+                self.assertEqual(capture_dispatch["retained_scope_sha256"],
+                                 capture_dispatch["eligibility_retained_scope_sha256"])
+                self.assertEqual("revise-task-plan",
+                                 capture_request["producer_pairs"][0]["tasker_step_id"])
+                self.assertEqual("validate-task-revision",
+                                 capture_request["producer_pairs"][0]["validator_step_id"])
+                self.assertEqual(capture_request["producer_pairs"][0]["validator_result"]["task_tracking_successor"],
+                                 matrix["task_revision_successor"]["post_pass_state"]["task_tracking_successors"][0])
+                self.assertFalse(capture_dispatch["completion_branch"])
+                self.assertTrue(capture_dispatch["request_sha256"])
+                self.assertEqual(set(POST_PASS_CAPTURE_FIELDS), set(capture_request))
+                self.assertEqual(capture_dispatch["scope_sha256"], capture_request["scope"]["scope_sha256"])
+                self.assertEqual(capture_dispatch["trusted_request_reference"],
+                                 capture_request["trusted_request_reference"])
+                self.assertEqual(capture_dispatch["entry_history_sha256"],
+                                 capture_request["entry_history_sha256"])
+                self.assertEqual(capture_dispatch["eligibility_request_sha256"],
+                                 hashlib.sha256(json.dumps(capture_request["eligibility_request"], sort_keys=True,
+                                                            separators=(",", ":"), ensure_ascii=False).encode()).hexdigest())
+                installed_workflow_bytes = installed_implement_path.read_bytes()
+                installed_workflow_text = installed_workflow_bytes.decode("utf-8")
+                command_mutation = installed_workflow_text.replace(
+                    '--project "$PWD"', "--project /nonexistent-capture-target", 1)
+                self.assertNotEqual(installed_workflow_text, command_mutation,
+                                    "installed production capture command should expose its project argument")
+                try:
+                    installed_implement_path.write_text(command_mutation, encoding="utf-8")
+                    mutated_prompt = yaml.safe_load(installed_implement_path.read_text(encoding="utf-8"))
+
+                    def find_capture_prompt(steps: list[dict[str, object]]) -> str:
+                        for step in steps:
+                            if step.get("id") == "capture-post-pass-state":
+                                return str(step["prompt"])
+                            nested = step.get("steps", [])
+                            if isinstance(nested, list):
+                                try:
+                                    return find_capture_prompt(nested)
+                                except StopIteration:
+                                    pass
+                            for branch in step.get("cases", {}).values():
+                                if isinstance(branch, list):
+                                    try:
+                                        return find_capture_prompt(branch)
+                                    except StopIteration:
+                                        pass
+                        raise StopIteration("capture-post-pass-state")
+
+                    mutated_command = _capture_post_pass_command(find_capture_prompt(mutated_prompt["steps"]))
+                    mutated_result = subprocess.run(mutated_command, cwd=consumer,
+                        input=json.dumps(capture_request), text=True, capture_output=True, check=False)
+                    self.assertNotEqual(0, mutated_result.returncode)
+                    self.assertEqual("blocked", json.loads(mutated_result.stdout)["state"])
+
+                    field_mutation = command_mutation.replace(
+                        "Serialize exactly these fields: `scope`, `trusted_request_reference`",
+                        "Serialize exactly these fields: `scope`, `trusted_request_ref`", 1)
+                    installed_implement_path.write_text(field_mutation, encoding="utf-8")
+                    mutated_prompt = yaml.safe_load(installed_implement_path.read_text(encoding="utf-8"))
+                    with self.assertRaisesRegex(AssertionError, "request fields changed"):
+                        _capture_post_pass_command(find_capture_prompt(mutated_prompt["steps"]))
+                finally:
+                    installed_implement_path.write_bytes(installed_workflow_bytes)
                 self.assertEqual("blocked", matrix["task_revision_successor"]["unsubstantiated_completion_state"])
                 self.assertEqual("blocked", matrix["task_revision_successor"]["replay_state"])
                 self.assertEqual("blocked", matrix["task_revision_successor"]["stale_spec_state"])
@@ -290,10 +371,22 @@ class SnapshotValidationTests(unittest.TestCase):
                 self.assertEqual("blocked", matrix["task_revision_successor"]["forged_approved_spec_state"])
                 self.assertEqual("blocked", matrix["task_revision_successor"]["forged_semantic_scope_state"])
                 self.assertEqual("continue", matrix["task_revision_successor"]["scoped_progress_after_tasker_successors"])
+                self.assertEqual("continue", matrix["task_revision_successor"]["captured_revision_route_state"])
+                self.assertEqual(["revise-task-plan", "validate-task-revision"],
+                                 matrix["task_revision_successor"]["captured_revision_producer_step_ids"])
                 self.assertEqual("ready", matrix["task_revision_successor"]["initial_eligibility_state"])
                 self.assertEqual(["T002", "T003"], matrix["task_revision_successor"]["activation_task_ids"])
                 self.assertEqual("ready", matrix["task_revision_successor"]["final_eligibility_state"])
                 self.assertEqual("complete", matrix["task_revision_successor"]["final_scoped_progress_state"])
+                self.assertEqual("complete",
+                                 matrix["task_revision_successor"]["final_post_pass_completion_validator_state"])
+                self.assertEqual({"post-pass-producer-branch-invalid": "blocked",
+                                  "post-pass-validator-state-invalid": "blocked",
+                                  "post-pass-successor-output-missing": "blocked",
+                                  "stale-successor": "blocked"},
+                                 matrix["task_revision_successor"]["completion_capture_negative_states"])
+                self.assertEqual("blocked",
+                                 matrix["task_revision_successor"]["stale_prior_pass_after_later_tracking_state"])
                 self.assertEqual(["T002", "T003"], matrix["task_revision_successor"]["final_tasker_tracked_ids"])
                 matrix["installed_payload_sha256"] = {
                     "controller.py": sha256(installed_controller_path),
@@ -332,7 +425,13 @@ class SnapshotValidationTests(unittest.TestCase):
                     "roadmap_source": {"repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
                         "revision": roadmap_revision, "dirty_state": "dirty",
                         "version": installed_roadmap_manifest["version"],
-                        "manifest_sha256": sha256(consumer / ".specify/extensions/flow-roadmap/extension.yml")},
+                        "manifest_sha256": sha256(consumer / ".specify/extensions/flow-roadmap/extension.yml"),
+                        "source_manifest_sha256": sha256(roadmap_source / "extension.yml")},
+                    "implementation_capture_source": {
+                        "controller_sha256": sha256(ROOT / "controllers/flow-kit/scripts/python/controller.py"),
+                        "workflow_sha256": sha256(ROOT / "workflows/speckit-flow-implement/workflow.yml"),
+                        "installed_controller_sha256": sha256(installed_controller_path),
+                        "installed_workflow_sha256": sha256(installed_implement_path)},
                     "consumer_preservation": "project-owned files and unrelated installed workflow retained through refresh and removal",
                     "snapshot_install_output_observed": bool(catalog_install_output),
                     "snapshot_refresh_output_observed": bool(catalog_refresh_output),

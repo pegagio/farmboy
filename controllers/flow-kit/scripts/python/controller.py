@@ -36,13 +36,14 @@ except ImportError:  # The package can also be imported by repository tests.
     recorder_error_report = None  # type: ignore[assignment]
 
 try:
-    from phase_lifecycle import LifecycleError, prepare as prepare_phase_lifecycle, revalidate as revalidate_phase_lifecycle, strict_json as strict_lifecycle_json, validate_receipt as validate_lifecycle_receipt
+    from phase_lifecycle import LifecycleError, prepare as prepare_phase_lifecycle, revalidate as revalidate_phase_lifecycle, strict_json as strict_lifecycle_json, validate_receipt as validate_lifecycle_receipt, validate_recovery_start_history
 except ImportError:  # The package can also be imported by repository tests.
     LifecycleError = ValueError  # type: ignore[assignment,misc]
     prepare_phase_lifecycle = None  # type: ignore[assignment]
     revalidate_phase_lifecycle = None  # type: ignore[assignment]
     strict_lifecycle_json = None  # type: ignore[assignment]
     validate_lifecycle_receipt = None  # type: ignore[assignment]
+    validate_recovery_start_history = None  # type: ignore[assignment]
 
 try:
     import implementation_scope as implementation_scope_module
@@ -354,7 +355,7 @@ def validate_workflow_graph(steps: list[dict[str, Any]]) -> None:
                 if loop_mode is not None:
                     expected_body = ["route-scoped-entry", "prepare-scoped-prerequisites", "implement-tasks",
                                      "assess-implementation-after-pass", "route-post-assessment",
-                                     "route-scoped-execution"]
+                                     "capture-post-pass-state", "route-scoped-execution"]
                     if (loop_mode != "implementation_scope" or step_id != "implementation-loop"
                             or maximum != 5
                             or "assessment_only_first_pass" in node
@@ -1839,6 +1840,48 @@ def capture_implementation_baseline(project_root: Path, payload: dict[str, Any])
                 "resume_action": "reassess-current-selected-tasks-and-findings"}
 
 
+def _progress_source_origins(baseline: dict[str, Any], records: Any) -> dict[str, list[dict[str, str]]]:
+    """Recover legacy preimages only from controller-retained, digest-bound baselines.
+
+    These records are historical comparisons, not current filesystem evidence.
+    Their digests and chronological order must be retained by the main controller,
+    just like the active baseline digest; a child cannot supply their authority.
+    """
+    if not isinstance(records, list):
+        raise ValueError("progress-source-baselines-invalid")
+    originals = {finding["id"]: finding for finding in baseline["findings"]}
+    origins = {}
+    identity = ("id", "task_id", "artifact_location", "violated_requirement", "observed_deficiency", "exact_correction")
+    for record in records:
+        if not isinstance(record, dict) or set(record) != {"baseline", "baseline_sha256"}:
+            raise ValueError("progress-source-baselines-invalid")
+        historic = record["baseline"]
+        if (not isinstance(historic, dict) or historic.get("schema_version") != "1.0"
+                or _progress_digest(historic) != record["baseline_sha256"]
+                or any(historic.get(key) != baseline.get(key) for key in (
+                    "feature_directory", "pointer_sha256", "specification_sha256"))):
+            raise ValueError("progress-source-baselines-invalid")
+        for finding in historic["findings"]:
+            current = originals.get(finding["id"])
+            if current is None:
+                continue
+            if any(finding.get(key) != current.get(key) for key in identity):
+                raise ValueError("progress-source-baseline-finding-changed")
+            proof = finding.get("evidence")
+            if (not isinstance(proof, list) or not proof
+                    or any(not isinstance(item, dict) or set(item) != {"path", "sha256"}
+                           or not isinstance(item["path"], str) or not item["path"]
+                           or Path(item["path"]).is_absolute() or "\\" in item["path"]
+                           or any(part in {"", ".", ".."} for part in item["path"].split("/"))
+                           or not isinstance(item["sha256"], str) or SHA256.fullmatch(item["sha256"]) is None
+                           for item in proof)
+                    or len({item["path"] for item in proof}) != len(proof)
+                    or finding["artifact_location"].split(":", 1)[0] not in {item["path"] for item in proof}):
+                raise ValueError("progress-source-baselines-invalid")
+            origins.setdefault(finding["id"], proof)
+    return origins
+
+
 def validate_implementation_progress(project_root: Path, payload: dict[str, Any]) -> dict[str, Any]:
     """Validate independent closure without treating an unfinished parent as complete.
 
@@ -1864,6 +1907,7 @@ def validate_implementation_progress(project_root: Path, payload: dict[str, Any]
                 or any(x not in tasks or tasks[x][1] != v["description"] for x, v in selected.items())):
             raise ValueError("progress-task-scope-changed")
         old = {x["id"]: x for x in baseline["findings"]}
+        source_origins = _progress_source_origins(baseline, payload.get("finding_source_baselines", []))
         findings = review["findings"]
         if (not isinstance(findings, list) or any(not isinstance(x, dict) for x in findings)
                 or any(not isinstance(x.get("id"), str) for x in findings)
@@ -1882,13 +1926,14 @@ def validate_implementation_progress(project_root: Path, payload: dict[str, Any]
                 proof = _progress_evidence(project, assessment.get("evidence"))
                 if finding["artifact_location"].split(":", 1)[0] not in {x["path"] for x in proof}:
                     raise ValueError("progress-unresolved-source-missing")
-                unresolved.append({**finding, "evidence": proof})
+                unresolved.append({**finding, "evidence": source_origins.get(finding["id"], finding["evidence"]),
+                                   "current_evidence": proof})
             elif status == "resolved":
                 if (not isinstance(assessment.get("resolution_summary"), str)
                         or not assessment["resolution_summary"].strip()):
                     raise ValueError("progress-resolution-evidence-missing")
                 proof = _progress_evidence(project, assessment.get("evidence"))
-                before = {x["path"]: x["sha256"] for x in finding["evidence"]}
+                before = {x["path"]: x["sha256"] for x in source_origins.get(finding["id"], finding["evidence"])}
                 source = finding["artifact_location"].split(":", 1)[0]
                 if not any(x["path"] == source and before.get(source) != x["sha256"] for x in proof):
                     raise ValueError("progress-source-not-corrected")
@@ -2104,6 +2149,104 @@ def validate_implementation_eligibility(project_root: Path, payload: dict[str, A
         reason = str(error) if str(error) else "implementation-eligibility-invalid"
         return {"state": "blocked", "reason_code": reason,
                 "resume_action": "reassess-current-scope-eligibility-and-prerequisite-proof"}
+
+
+def capture_post_pass_state(project_root: Path, payload: dict[str, Any]) -> dict[str, Any]:
+    """Capture current durable history and actual validated Tasker producer outputs."""
+    try:
+        required = {"scope", "trusted_request_reference", "retained_scope_sha256", "entry_history_sha256",
+                    "task_tracking_successors", "producer_pairs", "eligibility_request", "completion_branch"}
+        optional = {"trusted_requested_task_ids"}
+        if not required.issubset(payload) or set(payload) - required - optional:
+            raise ValueError("post-pass-capture-request-invalid")
+        module = implementation_scope_module
+        if module is None:
+            raise ValueError("post-pass-capture-helper-unavailable")
+        candidate_pairs = payload["producer_pairs"]
+        if not isinstance(candidate_pairs, list):
+            raise ValueError("post-pass-producer-pairs-invalid")
+        if not isinstance(payload["task_tracking_successors"], list):
+            raise ValueError("post-pass-successor-chain-invalid")
+        successor_chain = list(payload["task_tracking_successors"])
+        completion = payload["completion_branch"]
+        if type(completion) is not bool or len(candidate_pairs) > 1:
+            raise ValueError("post-pass-producer-branch-invalid")
+        expected = {"revise-task-plan": "validate-task-revision",
+                    "track-reviewed-task-outcomes": "validate-reviewed-task-tracking",
+                    "track-reviewed-completion": "validate-reviewed-completion-tracking"}
+        normalized_pairs = []
+        for producer in candidate_pairs:
+            if not isinstance(producer, dict) or set(producer) != {
+                    "tasker_step_id", "validator_step_id", "tasker_result", "validator_result"}:
+                raise ValueError("post-pass-producer-pair-invalid")
+            if (producer["tasker_step_id"] not in expected
+                    or expected[producer["tasker_step_id"]] != producer["validator_step_id"]):
+                raise ValueError("post-pass-producer-pair-invalid")
+            if (completion and producer["tasker_step_id"] != "track-reviewed-completion"
+                    or not completion and producer["tasker_step_id"] == "track-reviewed-completion"):
+                raise ValueError("post-pass-producer-branch-invalid")
+            tasker_result, validator_result = producer["tasker_result"], producer["validator_result"]
+            if not isinstance(tasker_result, dict) or not isinstance(validator_result, dict):
+                raise ValueError("post-pass-producer-output-missing")
+            if validator_result.get("state") not in ({"complete"} if completion else {"ready"}):
+                raise ValueError("post-pass-validator-state-invalid")
+            if "task_tracking_successor" not in validator_result:
+                raise ValueError("post-pass-successor-output-missing")
+            successor = validator_result["task_tracking_successor"]
+            if successor is not None:
+                successor_chain.append(successor)
+            normalized_pairs.append({"tasker_step_id": producer["tasker_step_id"],
+                "validator_step_id": producer["validator_step_id"],
+                "tasker_result_sha256": module._digest(tasker_result),
+                "validator_result_sha256": module._digest(validator_result),
+                "task_tracking_successor_sha256": module._digest(successor) if successor is not None else None})
+        if completion and (len(candidate_pairs) != 1 or candidate_pairs[0]["validator_result"].get("state") != "complete"):
+            raise ValueError("post-pass-completion-proof-missing")
+        scope_binding = {**_scope_binding_payload(payload), "task_tracking_successors": successor_chain}
+        _, scope, _, _ = _implementation_scope_binding(project_root, scope_binding)
+        entry_digest = payload["entry_history_sha256"]
+        if not isinstance(entry_digest, str) or not module.SHA256.fullmatch(entry_digest):
+            raise ValueError("post-pass-entry-history-invalid")
+        history_path, history_relative = _implementation_history_path(Path(project_root), scope)
+        if history_path.is_symlink() or not history_path.is_file():
+            raise ValueError("post-pass-current-history-missing")
+        current_history = json.loads(history_path.read_text(encoding="utf-8"))
+        current_digest = current_history.get("sha256") if isinstance(current_history, dict) else None
+        if not isinstance(current_digest, str):
+            raise ValueError("post-pass-current-history-invalid")
+        current_history, _ = _read_implementation_history(Path(project_root), scope, current_digest)
+        prefix = _empty_implementation_history(scope)
+        entry_seen = prefix["sha256"] == entry_digest
+        for event in current_history["events"]:
+            prefix = module.append_execution_event(prefix, event, scope_sha256=scope["scope_sha256"],
+                                                   retained_history_sha256=prefix["sha256"])
+            entry_seen = entry_seen or prefix["sha256"] == entry_digest
+        if not entry_seen:
+            raise ValueError("post-pass-entry-history-not-ancestor")
+
+        scope_result = validate_implementation_scope(Path(project_root), {
+            **scope_binding, "task_tracking_successors": successor_chain})
+        if scope_result.get("state") != "ready":
+            raise ValueError(scope_result.get("reason_code", "post-pass-successor-chain-invalid"))
+        eligibility_request = payload["eligibility_request"]
+        if not isinstance(eligibility_request, dict):
+            raise ValueError("post-pass-eligibility-request-invalid")
+        eligibility_payload = {**eligibility_request, **scope_binding,
+                               "task_tracking_successors": successor_chain}
+        eligibility = validate_implementation_eligibility(Path(project_root), eligibility_payload)
+        if eligibility.get("state") != "ready":
+            raise ValueError(eligibility.get("reason_code", "post-pass-eligibility-invalid"))
+        if completion and eligibility["eligibility"].get("pending_task_ids"):
+            raise ValueError("post-pass-completion-proof-incomplete")
+        state = {"scope": scope, "history": current_history,
+                 "history_path": history_relative, "task_tracking_successors": successor_chain,
+                 "eligibility": eligibility, "producer_records": normalized_pairs,
+                 "completion_validator_state": "complete" if completion else "ready"}
+        return {"state": "ready", "post_pass_state": state}
+    except (AttributeError, KeyError, TypeError, ValueError, OSError, RuntimeError, json.JSONDecodeError) as error:
+        reason = str(error) if str(error) else "post-pass-capture-invalid"
+        return {"state": "blocked", "reason_code": reason,
+                "resume_action": "revalidate-current-post-pass-history-and-producers"}
 
 
 def validate_implementation_activation(project_root: Path, payload: dict[str, Any]) -> dict[str, Any]:
@@ -2392,7 +2535,8 @@ def main(argv: list[str] | None = None) -> int:
     lifecycle_parser = subparsers.add_parser("phase-lifecycle", help="validate and prepare a phase lifecycle request without roadmap writes")
     lifecycle_parser.add_argument("--project", type=Path, required=True)
     for operation in ("implementation-scope", "implementation-eligibility", "implementation-activation",
-                      "implementation-history", "implementation-route", "implementation-progress-scoped"):
+                      "implementation-history", "implementation-route", "implementation-progress-scoped",
+                      "post-pass-capture"):
         operation_parser = subparsers.add_parser(operation, help="validate scoped Implement evidence and routing")
         operation_parser.add_argument("--project", type=Path, required=True)
     for operation in ("implementation-baseline", "implementation-progress", "implementation-baseline-transition"):
@@ -2414,7 +2558,8 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(definition, sort_keys=True))
         return 0
     scoped_commands = {"implementation-scope", "implementation-eligibility", "implementation-activation",
-                       "implementation-history", "implementation-route", "implementation-progress-scoped"}
+                       "implementation-history", "implementation-route", "implementation-progress-scoped",
+                       "post-pass-capture"}
     payload = (strict_lifecycle_json(sys.stdin.read())
                if args.command in scoped_commands | {"phase-lifecycle"} and strict_lifecycle_json
                else json.load(sys.stdin))
@@ -2437,6 +2582,8 @@ def main(argv: list[str] | None = None) -> int:
         result = route_scoped_implementation(args.project, payload)
     elif args.command == "implementation-progress-scoped":
         result = validate_scoped_implementation_progress(args.project, payload)
+    elif args.command == "post-pass-capture":
+        result = capture_post_pass_state(args.project, payload)
     if args.command in scoped_commands | {"implementation-baseline", "implementation-baseline-transition", "implementation-progress"}:
         operation_failed = result.get("state") == "blocked"
     elif args.command == "activate-feature":
@@ -2497,6 +2644,21 @@ def main(argv: list[str] | None = None) -> int:
             result = {"state": "blocked", "reason_code": "lifecycle-request-invalid",
                       "blocking_ids": ["lifecycle-request-invalid"],
                       "resume_action": "provide-a-strict-lifecycle-request"}
+        elif payload.get("action") == "validate-start-history":
+            if validate_recovery_start_history is None:
+                operation_failed = True
+                result = {"state": "blocked", "reason_code": "lifecycle-helper-unavailable",
+                          "blocking_ids": ["lifecycle-helper-unavailable"],
+                          "resume_action": "restore-the-reviewed-phase-lifecycle-helper"}
+            else:
+                try:
+                    result = validate_recovery_start_history(args.project, payload)
+                except (LifecycleError, KeyError, TypeError, ValueError) as error:
+                    operation_failed = True
+                    reason = str(error) or "start-history-validation-failed"
+                    result = {"state": "blocked", "reason_code": reason,
+                              "blocking_ids": [reason],
+                              "resume_action": "restore-main-retained-start-history-and-authorization-inputs"}
         elif payload.get("action") == "validate-receipt":
             if validate_lifecycle_receipt is None or set(payload) != {"action", "receipt"}:
                 operation_failed = True

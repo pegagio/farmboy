@@ -404,9 +404,16 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
         loop = find_step(workflow["steps"], "implementation-loop")
         assessor = find_step(workflow["steps"], "assess-implementation-after-pass")
         outcome = find_step(workflow["steps"], "route-post-assessment")
+        capture = find_step(workflow["steps"], "capture-post-pass-state")
         self.assertIsNotNone(loop)
         self.assertIsNotNone(assessor)
         self.assertIsNotNone(outcome)
+        self.assertIsNotNone(capture)
+        self.assertIn("Never substitute entry snapshots or read outputs from untaken branches", capture["prompt"])
+        self.assertIn("task_tracking_successor", capture["prompt"])
+        self.assertIn("controller.py post-pass-capture --project", capture["prompt"])
+        for field in ("entry_history_sha256", "producer_pairs", "eligibility_request", "completion_branch"):
+            self.assertIn(f"`{field}`", capture["prompt"])
         self.assertEqual(5, loop["max_iterations"])
         self.assertNotIn("assessment_before_correction", loop)
         self.assertEqual("implementation_scope", loop["controller_loop_mode"])
@@ -448,6 +455,48 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
         blocked_readiness = {**partial, "gate-readiness-before-reentry": {"readiness_gate": {"state": "blocked"}}}
         blocked_readiness["route-scoped-execution"] = {"state": "blocked"}
         self.assertFalse(controller.evaluate_loop_condition(loop["condition"], blocked_readiness))
+
+    def test_scopedCallbackForwardsExactStateDependentReviewerEnvelope(self) -> None:
+        controller = load_module("flowkit_controller_implementation_progress_envelope", CONTROLLER_DIR / "controller.py")
+        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        def find_step(nodes, step_id):
+            for node in nodes:
+                if node.get("id") == step_id:
+                    return node
+                branches = [node.get("steps", []), node.get("default", [])]
+                branches.extend(node.get("cases", {}).values())
+                for branch in branches:
+                    found = find_step(branch, step_id)
+                    if found is not None:
+                        return found
+            return None
+
+        execution = find_step(workflow["steps"], "route-scoped-execution")
+        capture = find_step(workflow["steps"], "capture-post-pass-state")
+        self.assertIsNotNone(capture)
+        for envelope in (
+            {"state": "continue", "next_step_id": "implement-tasks", "reason_code": "review-continue",
+             "evidence": [], "remaining_ids": ["task:T001"], "resolved_ids": []},
+            {"state": "blocked", "resume_action": "restore-owner-checkout", "reason_code": "owner-unavailable",
+             "evidence": [], "remaining_ids": ["task:T001"], "resolved_ids": []},
+            {"state": "complete", "reason_code": "all-work-complete", "evidence": [],
+             "remaining_ids": [], "resolved_ids": ["task:T001"]},
+        ):
+            with self.subTest(state=envelope["state"]):
+                rendered = controller.render_template(execution, {"feature_context": "specs/020-example"}, {
+                    "route-scoped-entry": {"scope": {"scope_sha256": "a" * 64},
+                        "previous_assessment": {"state": "continue"}, "baseline": {"baseline_sha256": "b" * 64}},
+                    "assess-implementation-after-pass": {"outcome_envelope": envelope, "review": {"reviewer": "FlowKit-Code Reviewer"}},
+                    "gate-readiness-before-core": {"readiness_gate": {"state": "ready"}},
+                    "capture-post-pass-state": {"post_pass_state": {"producer_records": []}},
+                })
+                rendered_packet = json.loads(rendered["prompt"].split("```json ", 1)[1].split(" ```", 1)[0])
+                self.assertEqual(envelope, rendered_packet["current_assessment"])
+                self.assertIn("Read the durable history file again", rendered["prompt"])
+                self.assertIn("capture-post-pass-state.output.post_pass_state", rendered["prompt"])
+                self.assertEqual({"producer_records": []}, rendered_packet["post_pass_state"])
+                self.assertNotIn("route-scoped-entry.output.history", rendered["prompt"])
+                self.assertNotIn("route-scoped-entry.output.task_tracking_successors", rendered["prompt"])
 
 
 if __name__ == "__main__":

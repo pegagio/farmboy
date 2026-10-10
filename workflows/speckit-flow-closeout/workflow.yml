@@ -58,7 +58,7 @@ steps:
             delegated: true
             agent: FlowKit-Code Reviewer
           prompt: >-
-            Before the first roadmap debrief, independently assess full current-scope implementation completion for {{ inputs.feature_context }}. Require attributable source delta, current convergence, all required validation, no unresolved buildable defect, and pending future acceptance/release kept separate. Task markers, Complete label and old convergence are insufficient. Persist a current Code Reviewer assessment covering all seven `implemented` checks and exact current reviewed-input digests under `validation/phase-lifecycle/`. Return ready or blocked, assessment path/digest and exact gaps.
+            Before the first roadmap debrief, independently assess full current-scope implementation completion for {{ inputs.feature_context }}. Require attributable source delta, current convergence, all required validation, no unresolved buildable defect, and pending future acceptance/release kept separate. Task markers, Complete label and old convergence are insufficient. Persist a current Code Reviewer assessment covering all seven `implemented` checks and exact current immutable code, spec, plan, tasks, and test-proof digests under `validation/phase-lifecycle/`. Do not include mutable roadmap-ledger digests in this completion assessment; the main task snapshots ledger state separately for each owner edge. Return ready or blocked, assessment path/digest and exact gaps.
         - id: closeout-lifecycle-recovery-loop
           type: do-while
           max_iterations: 3
@@ -70,14 +70,52 @@ steps:
                 delegated: true
                 agent: FlowKit-Reviewer
               prompt: >-
-                Re-read the current roadmap status and exact feature scope before this edge. Use the full-current-scope Code Reviewer result and fresh evidence for every required earlier edge: current authoring-quality, clarification, independent review, linkage, and roadmap brief proof for `planned→specced`; separately attributed authorized start event, compatible current readiness/preparation review, verified dependencies and exact native assignment proof for `specced→in-progress`; and the current full-scope completion, convergence, independent code review, required validation and no-buildable-defect proof for `in-progress→implemented`. Return only evidence that exists now with actual paths and SHA-256 digests. Do not infer prior events from task markers or current labels. Stop on contradiction, deferred/abandoned state, missing proof or material authority ambiguity; no coding, acceptance or later workflow is authorized.
+                Re-read the current roadmap status and exact feature scope. Select `recovery` only for current `planned` or `specced`, `normal` only for current `in-progress`, and `blocked` for any other or contradictory state. Return current_status, route, exact target, and current immutable source digests. Do not supply earlier-edge proof, infer events from task markers or labels, or mutate files. Close Out recovery must use the fresh evidence branch that follows; normal `in-progress→implemented` skips it.
+            - id: route-closeout-recovery-evidence
+              type: switch
+              expression: '{{ steps.assess-closeout-lifecycle-edge.output.route }}'
+              cases:
+                recovery:
+                  - id: assess-recovery-roadmap-brief
+                    type: command
+                    command: speckit.flow-roadmap.brief
+                    integration: '{{ inputs.integration }}'
+                    input:
+                      args: SPEC_TARGET={{ inputs.feature_context }} Produce a fresh current-scope authored-ready Roadmap Agent brief and linkage assessment for the exact roadmap entry. Include required source paths/digests and unresolved IDs; no mutation.
+                    flow_kit:
+                      delegated: true
+                      agent: FlowKit-Roadmap Agent
+                  - id: assess-recovery-preparation
+                    type: prompt
+                    flow_kit:
+                      delegated: true
+                      agent: FlowKit-Reviewer
+                    prompt: >-
+                      Produce a fresh `FlowKit-Reviewer` preparation judgment for this exact current specification, plan, tasks, checklists and current Roadmap Agent brief. Return `reviewer_report` in the existing `readiness.record_review` input schema, with exact current input digests, all required preparation criteria, future-obligation IDs, findings and verdict. Do not reuse a stale judgment or infer lifecycle events from task markers.
+                  - id: record-recovery-preparation
+                    type: prompt
+                    prompt: >-
+                      As the main task, invoke `python3 .specify/flow-kit/scripts/python/controller.py readiness --project "$PWD"` with JSON `{"action":"record-review","feature_directory":"{{ inputs.feature_context }}","reviewer_report":{{ steps.assess-recovery-preparation.output.reviewer_report }}}` on stdin and record its output unchanged. Then invoke `controller.py phase-lifecycle` with action `validate-start-history`, current feature scope and only main-retained source references/digests. Persist the exact typed validation output to `{{ inputs.feature_context }}/validation/phase-lifecycle/start-history-validation.json`. Return the readiness helper's `path`/`sha256` and the exact history validation path/digest. Do not infer or reconstruct any input or receipt.
+                  - id: assess-recovery-readiness
+                    type: prompt
+                    flow_kit:
+                      delegated: true
+                      agent: FlowKit-Readiness Checker
+                    prompt: >-
+                      Independently assess readiness from the fresh Roadmap Agent brief, main-recorded receipt at `{{ steps.record-recovery-preparation.output.path }}` and current exact-scope source evidence. Bind current input digests, native role assignment, dependencies, and all earlier-edge criteria. Return a strict ready/blocked assessment with exact paths/digests; no mutation.
+                  - id: attest-recovery-start
+                    type: prompt
+                    flow_kit:
+                      delegated: true
+                      agent: FlowKit-Reviewer
+                    prompt: >-
+                      Independently attest the historical Implement start using the validated history result at `{{ steps.record-recovery-preparation.output.history_path }}` with digest `{{ steps.record-recovery-preparation.output.history_sha256 }}` and its complete main-retained trusted source snapshot. The main task must first dispatch this exact native Reviewer child, then record its actual child ID, role, step and run in the current run summary, capture that summary immutably, create a main-retained dispatch witness, and relay the witness path and SHA-256 to this same child before it constructs the strict attestation. Wait if the main-retained witness reference is missing; never choose, create or replace it. Copy the supplied reference unchanged into `dispatch_witness`. Return the strict `authorized-implementation-start` record bound to this current workflow ID/version, run, feature, scope, exact native Reviewer dispatch, actual original timestamp, original/current specification digests, all five required checks and current artifact digests. Persist it at `validation/phase-lifecycle/authorized-implementation-start.json`. Reject missing, changed, fabricated, stale, wrong-scope or wrong-role provenance; do not reconstruct history.
+                normal: []
+                blocked: []
             - id: prepare-closeout-lifecycle-request
               type: prompt
-              flow_kit:
-                delegated: true
-                agent: FlowKit-Reviewer
               prompt: >-
-                From current status {{ steps.assess-closeout-lifecycle-edge.output.current_status }} and its evidence, prepare one strict Close Out lifecycle request for this exact invocation. Bind policy SHA-256 `09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4`, exact target, current convergence/review/validation evidence, dependencies, all required sources and pending future obligations. Use normal mode only for the current `in-progress→implemented` edge; otherwise use bounded recovery and request only the next substantiated adjacent edge below the Close Out ceiling. Persist the request under `validation/phase-lifecycle/` with the exact workflow/run/source digests. Never claim trusted authority from the file or prepare `verified`.
+                As the main task, prepare one strict Close Out lifecycle request for this exact invocation. If route is `blocked`, stop with its stable blocker and resume action. For `normal`, use only the current `in-progress→implemented` evidence and skip all earlier recovery proof requirements. For `recovery`, consume the completed output objects from `assess-recovery-roadmap-brief`, `assess-recovery-preparation`, `record-recovery-preparation`, `assess-recovery-readiness`, and `attest-recovery-start`; use their exact paths, hashes, role judgments, recorder receipt and validated history. Bind each role to the actual native dispatch and current input digests. Verify the attestation child identity against the current run's retained native dispatch summary, then persist the attestation unchanged. Build milestone evidence from these returned values and the independently retained main snapshot; do not reuse child-discovered paths or stale scaffold records. Include every retained source reference and digest in the snapshot. Bind policy SHA-256 `09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4`, exact target, current convergence/review/validation evidence, dependencies, and pending future obligations. Request only one substantiated adjacent edge below the Close Out ceiling. Persist the request under `validation/phase-lifecycle/` with exact workflow/run/source digests. Never claim trusted authority from a child-created file or prepare `verified`.
             - id: prepare-closeout-lifecycle-transition
               type: prompt
               prompt: >-

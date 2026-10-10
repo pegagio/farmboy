@@ -9,7 +9,7 @@ sources:
 - S018
 - S019
 - S021
-updated: '2026-10-04'
+updated: '2026-10-09'
 ---
 
 # Bundle and workflow model
@@ -50,7 +50,9 @@ The ten active workflows are Select Feature, Specify, Clarify, Plan, Tasks, Anal
 
 ## Roadmap dispositions
 
-Features 001–015 are verified; 016 remains planned and 017 is verified with operator-qualified nondeferred scope. DEP017-01 remains unresolved: delivery was tested in a dependency-equipped interpreter, while advertised mise refresh failed without PyYAML. Original unconditional FR-008/FR-011/SC-003 usability is not represented as passed; no numbered follow-up or runtime approach is selected. Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) remains abandoned and unresolved. Verification grants no feature acceptance, publication, adoption or Git integration. (S018)
+Features 001–015 are verified; 016 remains planned; 017 is qualified verified. DEP017-01 remains unresolved: dependency-equipped delivery passed; advertised mise refresh failed without PyYAML. Unconditional FR-008/FR-011/SC-003 usability remains unproved; no follow-up or approach is selected. Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) remains abandoned and unresolved. Verification grants no acceptance, publication, adoption or Git integration. (S018)
+
+Feature 020’s [qualified verification and manual waiver](./feature020-verification-qualification.md) preserves unobserved manual equivalence and separate acceptance/release authority. (S018)
 
 ## Related pages
 

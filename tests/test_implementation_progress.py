@@ -93,7 +93,82 @@ class ImplementationProgressTests(unittest.TestCase):
         self.assertEqual("loop-cap-exhausted", controller.route_loop_assessment(
             current, iteration=5, max_iterations=5, loop_body_step_ids={"implement-eligible-work"},
             previous_assessment=previous)["blocker"])
-        self.assertEqual(self.evidence(), result["baseline"]["findings"][0]["evidence"])
+        self.assertEqual(self.capture["baseline"]["findings"][1]["evidence"],
+                         result["baseline"]["findings"][0]["evidence"])
+        self.assertEqual(self.evidence(), result["baseline"]["findings"][0]["current_evidence"])
+
+    def test_unresolvedSourceFixCanCloseAfterTestOnlyCorrection(self):
+        original = copy.deepcopy(self.capture)
+        self.fix()
+        first = self.validate(self.review())
+        self.assertEqual(["finding:R001"], first["resolved_ids"])
+        frozen = copy.deepcopy(first)
+        regression = self.root / self.feature / "regression.txt"
+        regression.write_text("Both original reproducers now pass\n")
+        evidence = self.evidence() + [{"path": regression.relative_to(self.root).as_posix(),
+                                      "sha256": hashlib.sha256(regression.read_bytes()).hexdigest()}]
+        following = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": first["baseline_sha256"],
+                     "findings": [{"id": "R002", "task_id": "T016", "status": "resolved",
+                                   "resolution_summary": "Earlier source fix plus final regression substantiate closure",
+                                   "evidence": evidence}], "new_findings": [], "completed_task_ids": []}
+        second = controller.validate_implementation_progress(self.root, {
+            "baseline": first["baseline"], "baseline_sha256": first["baseline_sha256"], "review": following})
+        self.assertEqual("ready", second["state"])
+        self.assertEqual(["finding:R002"], second["resolved_ids"])
+        self.assertEqual(["task:T016"], second["remaining_ids"])
+        self.assertEqual(frozen, first)
+        self.assertEqual(original, self.capture)
+
+    def test_legacyBaselineRecoveryRequiresRetainedDigestAndUnchangedFinding(self):
+        origin = {key: copy.deepcopy(self.capture[key]) for key in ("baseline", "baseline_sha256")}
+        self.fix()
+        first = self.validate(self.review())
+        legacy = copy.deepcopy(first["baseline"])
+        finding = legacy["findings"][0]
+        finding["evidence"] = finding.pop("current_evidence")
+        digest = controller._progress_digest(legacy)
+        review = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": digest,
+                  "findings": [{"id": "R002", "task_id": "T016", "status": "resolved",
+                                "resolution_summary": "Original source effect and current reproducer verified",
+                                "evidence": self.evidence()}], "new_findings": [], "completed_task_ids": []}
+        payload = {"baseline": legacy, "baseline_sha256": digest, "review": review}
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, payload)["state"])
+        payload["finding_source_baselines"] = [origin]
+        result = controller.validate_implementation_progress(self.root, payload)
+        self.assertEqual("ready", result["state"])
+        self.assertEqual(["finding:R002"], result["resolved_ids"])
+        invalid = copy.deepcopy(payload)
+        invalid["finding_source_baselines"][0]["baseline_sha256"] = "0" * 64
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, invalid)["state"])
+        invalid = copy.deepcopy(payload)
+        historic = invalid["finding_source_baselines"][0]["baseline"]
+        historic["findings"][1]["exact_correction"] = "An easier correction"
+        invalid["finding_source_baselines"][0]["baseline_sha256"] = controller._progress_digest(historic)
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, invalid)["state"])
+        invalid = copy.deepcopy(payload)
+        historic = invalid["finding_source_baselines"][0]["baseline"]
+        historic["feature_directory"] = "specs/999-other-feature"
+        invalid["finding_source_baselines"][0]["baseline_sha256"] = controller._progress_digest(historic)
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, invalid)["state"])
+        invalid = copy.deepcopy(payload)
+        invalid["review"]["findings"][0]["evidence"][0]["sha256"] = "0" * 64
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, invalid)["state"])
+        (self.root / self.path).write_text("def result(): return 'bug'\n")
+        payload["review"]["findings"][0]["evidence"] = self.evidence()
+        self.assertEqual("blocked", controller.validate_implementation_progress(self.root, payload)["state"])
+
+    def test_unresolvedReviewAndTestEditsDoNotCreateSourceProgress(self):
+        first = self.validate(self.review(resolved=False))
+        self.assertFalse(first["substantive_progress"])
+        test_path = self.root / self.feature / "new-test.txt"
+        test_path.write_text("New test only\n")
+        review = self.review(resolved=False)
+        review["baseline_sha256"] = first["baseline_sha256"]
+        for finding in review["findings"]:
+            finding["status"] = "resolved"
+        result = controller.validate_implementation_progress(self.root, {
+            "baseline": first["baseline"], "baseline_sha256": first["baseline_sha256"], "review": review})
+        self.assertEqual("blocked", result["state"])
 
     def testScopedProgressRejectsAdministrativeTaskResolutionAsSourceCredit(self):
         self.fix()

@@ -4,6 +4,8 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import shlex
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -90,7 +92,98 @@ def _record_sessions(controller_module: Any, consumer: Path, scope_payload: dict
     return history
 
 
-def _exercise_installed_task_revision_successor(controller_module: Any, consumer: Path) -> dict[str, Any]:
+POST_PASS_CAPTURE_FIELDS = ("scope", "trusted_request_reference", "retained_scope_sha256",
+                           "entry_history_sha256", "task_tracking_successors", "producer_pairs",
+                           "eligibility_request", "completion_branch")
+
+
+def _capture_post_pass_command(prompt: str) -> list[str]:
+    """Read the complete supported production invocation from the installed prompt."""
+    fields_match = re.search(r"Serialize exactly these fields:\s*([^.]*)\.", prompt)
+    command_match = re.search(r"Invoke `([^`]+)` with that JSON on stdin", prompt)
+    if fields_match is None or command_match is None:
+        raise AssertionError("installed production capture prompt omits its field list or executable command")
+    fields = tuple(item.strip().removeprefix("and ").strip("`")
+                   for item in fields_match.group(1).split(","))
+    if fields != POST_PASS_CAPTURE_FIELDS:
+        raise AssertionError(f"installed production capture request fields changed: {fields}")
+    try:
+        command = shlex.split(command_match.group(1), posix=True)
+    except ValueError as error:
+        raise AssertionError(f"installed production capture command is malformed: {error}") from error
+    if (len(command) != 5 or command[0] != "python3"
+            or command[1] != ".specify/flow-kit/scripts/python/controller.py"
+            or command[2] != "post-pass-capture" or command[3] != "--project"):
+        raise AssertionError(f"installed production capture command is unsupported: {command}")
+    project = command[4]
+    if project != "$PWD" and (
+            not Path(project).is_absolute() or any(character in project for character in "$`~*?[];|&<>()")):
+        raise AssertionError("installed production capture project argument uses unsupported shell syntax")
+    return command
+
+
+def _capture_post_pass_state(controller_module: Any, consumer: Path, *, scope: dict[str, Any],
+                             trusted_request_reference: str, retained_scope_sha256: str,
+                             retained_history_sha256: str, incoming_successors: list[dict[str, Any]],
+                             producer_records: list[dict[str, Any]], eligibility: dict[str, Any],
+                             eligibility_request: dict[str, Any], completion: bool = False,
+                             entry_history_sha256: str | None = None,
+                             capture_command: list[str],
+                             capture_observation: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Exercise the installed production capture operation with actual fixture producers."""
+    pairs = [{key: record[key] for key in (
+        "tasker_step_id", "validator_step_id", "tasker_result", "validator_result")}
+        for record in producer_records]
+    request = {
+        "scope": scope, "trusted_request_reference": trusted_request_reference,
+        "retained_scope_sha256": retained_scope_sha256,
+        "entry_history_sha256": entry_history_sha256 or retained_history_sha256,
+        "task_tracking_successors": incoming_successors, "producer_pairs": pairs,
+        "eligibility_request": eligibility_request, "completion_branch": completion}
+    if (scope.get("request_reference") != trusted_request_reference
+            or scope.get("scope_sha256") != retained_scope_sha256
+            or eligibility_request.get("scope") != scope
+            or eligibility_request.get("trusted_request_reference") != trusted_request_reference
+            or eligibility_request.get("retained_scope_sha256") != retained_scope_sha256):
+        raise AssertionError("post-pass capture request fields are detached from current scope bindings")
+    command_template = list(capture_command)
+    command = list(command_template)
+    if command[4] == "$PWD":
+        command[4] = str(consumer.resolve())
+    completed = subprocess.run(command, cwd=consumer, input=json.dumps(request), text=True,
+                               capture_output=True, check=False)
+    try:
+        result = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        raise ValueError("post-pass-capture-command-output-invalid") from error
+    if capture_observation is not None:
+        capture_observation.update({
+            "command_template": command_template,
+            "project_argument_bound_to_consumer": command[4] == str(consumer.resolve()),
+            "request": request,
+            "request_fields": list(request),
+            "request_sha256": digest(request),
+            "scope_sha256": request["scope"]["scope_sha256"],
+            "trusted_request_reference": request["trusted_request_reference"],
+            "retained_scope_sha256": request["retained_scope_sha256"],
+            "entry_history_sha256": request["entry_history_sha256"],
+            "task_tracking_successors_sha256": digest(request["task_tracking_successors"]),
+            "producer_pairs_sha256": digest(request["producer_pairs"]),
+            "eligibility_request_sha256": digest(request["eligibility_request"]),
+            "eligibility_scope_sha256": request["eligibility_request"]["scope"]["scope_sha256"],
+            "eligibility_trusted_request_reference": request["eligibility_request"]["trusted_request_reference"],
+            "eligibility_retained_scope_sha256": request["eligibility_request"]["retained_scope_sha256"],
+            "completion_branch": request["completion_branch"],
+            "return_code": completed.returncode,
+            "result_state": result.get("state"),
+        })
+    if completed.returncode != 0 or result.get("state") != "ready":
+        raise ValueError(result.get("reason_code", "post-pass-capture-invalid"))
+    return result["post_pass_state"]
+
+
+def _exercise_installed_task_revision_successor(controller_module: Any, consumer: Path,
+                                                capture_command: list[str]) -> dict[str, Any]:
     """Exercise Tasker-approved append lineage through the installed adapters."""
     feature = "specs/998-tasker-revision-successor-fixture"
     feature_dir = consumer / feature
@@ -126,13 +219,48 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "feature_directory": feature, "selected_task_ids": ["T002"], "findings": [progress_finding]})
         if baseline_capture.get("state") != "ready":
             raise AssertionError(f"installed pre-effect baseline did not validate: {baseline_capture}")
+        source_preimage_sha256 = sha(source_path)
+        source_scope_payload = {"scope": scope, "trusted_request_reference": scope["request_reference"],
+            "retained_scope_sha256": scope["scope_sha256"]}
+        history = controller_module._empty_implementation_history(scope)
+        history = _append_event(controller_module, consumer, source_scope_payload, history,
+            "post-review-successor", "coder-session-start", session=1, attempts=0,
+            execution_kind="first-source-execution")
+        history = _append_event(controller_module, consumer, source_scope_payload, history,
+            "post-review-successor", "source-attempt-start", session=1, attempts=1,
+            execution_kind="first-source-execution")
+        source_path.write_text("def result(): return 'after'\n", encoding="utf-8")
+        source_effect = {"path": f"{feature}/implementation.py", "before_sha256": source_preimage_sha256,
+            "after_sha256": sha(source_path)}
+        history = _append_event(controller_module, consumer, source_scope_payload, history,
+            "post-review-successor", "coder-session-outcome", session=1, attempts=1,
+            execution_kind="first-source-execution", outcome="completed")
+        current_evidence = [{"path": source_effect["path"], "sha256": source_effect["after_sha256"]}]
+        task_revision_finding = {"id": "F020-R001", "task_id": "T002",
+            "artifact_location": f"{feature}/implementation.py:1",
+            "violated_requirement": "The selected feature retains a concrete implementation correction.",
+            "observed_deficiency": "A follow-up implementation task is needed to finish the reviewed route.",
+            "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
+            "evidence": current_evidence}
+        reviewer_review = {"reviewer": "FlowKit-Code Reviewer",
+            "baseline_sha256": baseline_capture["baseline_sha256"],
+            "findings": [{"id": progress_finding["id"], "task_id": "T002", "status": "resolved",
+                "evidence": current_evidence,
+                "resolution_summary": "The reviewed correction changes the captured source behavior."}],
+            "new_findings": [task_revision_finding], "completed_task_ids": []}
+        progress = controller_module.validate_implementation_progress(consumer, {
+            "baseline": baseline_capture["baseline"],
+            "baseline_sha256": baseline_capture["baseline_sha256"], "review": reviewer_review})
+        if progress.get("state") != "ready" or progress.get("resolved_ids") != [f"finding:{progress_finding['id']}"]:
+            raise AssertionError(f"post-review source correction lacks independent progress evidence: {progress}")
         after = before + "- [ ] T003 [US1] Correct F020-R001 in the implemented workflow\n"
         tasker_result = {"revision_state": "updated", "feature_directory": feature, "tasks_path": f"{feature}/tasks.md",
             "tasks_before_sha256": before_sha, "tasks_after_sha256": hashlib.sha256(after.encode()).hexdigest(),
             "finding_ids": ["F020-R001"],
             "task_mappings": [{"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FlowKit-Tasker"}],
             "reopened_task_ids": [], "added_task_ids": ["T003"], "preserved_completed_task_ids": ["T001"]}
-        frozen_scope = {"findings": [{"id": "F020-R001", "exact_correction": "Correct the reviewed workflow defect."}],
+        frozen_scope = {"findings": [{"id": task_revision_finding["id"],
+            "exact_correction": task_revision_finding["exact_correction"]}],
             "eligible_task_owners": {}, "approved_specification_sha256": spec_sha,
             "permitted_added_task_owner": "FlowKit-Tasker", "tasker_owner": "FlowKit-Tasker"}
         revision_scope_sha = controller_module.task_revision_scope_digest(feature, f"{feature}/tasks.md", frozen_scope)
@@ -153,6 +281,29 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "retained_scope_sha256": scope["scope_sha256"], "task_tracking_successors": [successor]})
         if scope_result.get("state") != "ready" or scope_result.get("tasker_derived_task_ids") != ["T003"]:
             raise AssertionError(f"installed Tasker successor did not preserve scope and expose only its derivative: {scope_result}")
+        tasker_result_output = {"revision_state": tasker_result["revision_state"],
+            "tasks_before_sha256": tasker_result["tasks_before_sha256"],
+            "tasks_after_sha256": tasker_result["tasks_after_sha256"],
+            "finding_ids": tasker_result["finding_ids"], "task_mappings": tasker_result["task_mappings"]}
+        validator_result_output = {"state": revision["state"], "task_tracking_successor": successor}
+        producer_record = {"tasker_step_id": "revise-task-plan", "tasker_result": tasker_result_output,
+            "tasker_result_sha256": digest(tasker_result_output), "validator_step_id": "validate-task-revision",
+            "validator_result": validator_result_output,
+            "validator_result_sha256": digest(validator_result_output), "task_tracking_successor": successor}
+        post_pass_inputs = {"scope": scope, "history": history, "task_tracking_successors": [successor],
+            "eligibility": {"state": "ready", "tasker_derived_task_ids": ["T003"]},
+            "producer_records": [producer_record], "ordered_operations": [
+                "session-start", "source-attempt-start", "source-effect", "session-outcome",
+                "independent-review", "Tasker-result",
+                "Tasker-validation", "post-pass-capture"]}
+        stale_successor = json.loads(json.dumps(successor))
+        stale_successor["predecessor_event_sha256"] = "7" * 64
+        stale_successor["sha256"] = digest({key: value for key, value in stale_successor.items() if key != "sha256"})
+        stale_result = controller_module.validate_implementation_scope(consumer, {
+            "scope": scope, "trusted_request_reference": scope["request_reference"],
+            "retained_scope_sha256": scope["scope_sha256"], "task_tracking_successors": [stale_successor]})
+        if stale_result.get("state") != "blocked":
+            raise AssertionError(f"post-review callback accepted a stale Tasker predecessor: {stale_result}")
         forged_scope = json.loads(json.dumps(successor))
         forged_scope["frozen_scope"]["approved_specification_sha256"] = "9" * 64
         self_consistent_digest = controller_module.task_revision_scope_digest(
@@ -210,6 +361,71 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         initial_eligibility = controller_module.validate_implementation_eligibility(consumer, initial_eligibility_payload)
         if initial_eligibility.get("state") != "ready" or initial_eligibility["eligibility"].get("eligible_task_ids") != ["T002", "T003"]:
             raise AssertionError(f"installed revised scope did not pass current source eligibility: {initial_eligibility}")
+        post_pass_inputs["eligibility"] = initial_eligibility
+        capture_observation: dict[str, Any] = {}
+        post_pass_state = _capture_post_pass_state(controller_module, consumer, scope=scope,
+            trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+            retained_history_sha256=post_pass_inputs["history"]["sha256"],
+            incoming_successors=[], producer_records=post_pass_inputs["producer_records"],
+            eligibility=post_pass_inputs["eligibility"], eligibility_request=initial_eligibility_payload,
+            entry_history_sha256=post_pass_inputs["history"]["sha256"],
+            capture_command=capture_command, capture_observation=capture_observation)
+        try:
+            invalid_project_command = [*capture_command[:-1], "/nonexistent-capture-target"]
+            _capture_post_pass_state(controller_module, consumer, scope=scope,
+                trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+                retained_history_sha256=post_pass_inputs["history"]["sha256"], incoming_successors=[],
+                producer_records=post_pass_inputs["producer_records"], eligibility=post_pass_inputs["eligibility"],
+                eligibility_request=initial_eligibility_payload,
+                entry_history_sha256=post_pass_inputs["history"]["sha256"],
+                capture_command=invalid_project_command)
+        except ValueError:
+            invalid_project_state = "blocked"
+        else:
+            raise AssertionError("capture harness ignored a mutated production --project argument")
+        try:
+            _capture_post_pass_state(controller_module, consumer, scope=scope,
+                trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+                retained_history_sha256=post_pass_inputs["history"]["sha256"], incoming_successors=[],
+                producer_records=post_pass_inputs["producer_records"], eligibility=post_pass_inputs["eligibility"],
+                eligibility_request=initial_eligibility_payload, entry_history_sha256="f" * 64,
+                capture_command=capture_command)
+        except ValueError as error:
+            if str(error) != "post-pass-entry-history-not-ancestor":
+                raise AssertionError(f"capture accepted the wrong stale-history outcome: {error}") from error
+            stale_entry_history_state = "blocked"
+        else:
+            raise AssertionError("capture accepted stale route-entry history")
+        post_pass_state["ordered_operations"] = post_pass_inputs["ordered_operations"]
+        previous_assessment_path = feature_dir / "validation/pre-source-assessment.json"
+        previous_assessment_path.parent.mkdir(parents=True, exist_ok=True)
+        previous_assessment_path.write_text(json.dumps({"baseline_sha256": baseline_capture["baseline_sha256"],
+            "remaining_ids": baseline_capture["remaining_ids"], "source_preimage_sha256": source_preimage_sha256},
+            sort_keys=True) + "\n", encoding="utf-8")
+        revision_previous_assessment = {"state": "continue", "next_step_id": "implement-tasks",
+            "reason_code": "pre-source-frozen-findings",
+            "evidence": [{"path": f"{feature}/validation/pre-source-assessment.json",
+                "sha256": sha(previous_assessment_path)}],
+            "remaining_ids": baseline_capture["remaining_ids"], "resolved_ids": []}
+        revision_assessment = {"state": "continue", "next_step_id": "implement-tasks",
+            "reason_code": "reviewed-task-revision-ready", "evidence": progress["evidence"],
+            "remaining_ids": list(dict.fromkeys([*progress["remaining_ids"], "task:T002", "task:T003"])),
+            "resolved_ids": progress["resolved_ids"]}
+        captured_revision_route = controller_module.validate_scoped_implementation_progress(consumer, {
+            "controller_loop_mode": "implementation_scope", "scope": post_pass_state["scope"],
+            "trusted_request_reference": "installed-fixture-request",
+            "retained_scope_sha256": post_pass_state["scope"]["scope_sha256"],
+            "retained_history_sha256": post_pass_state["history"]["sha256"],
+            "task_tracking_successors": post_pass_state["task_tracking_successors"],
+            "assessment": revision_assessment,
+            "eligible_task_ids": post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+            "previous_assessment": revision_previous_assessment,
+            "progress": {"baseline": baseline_capture["baseline"],
+                "baseline_sha256": baseline_capture["baseline_sha256"], "review": reviewer_review},
+            "administrative_prerequisite_ids": []})
+        if captured_revision_route.get("state") != "continue":
+            raise AssertionError(f"the captured Tasker revision packet failed the installed final route: {captured_revision_route}")
         activation_packets: dict[str, dict[str, Any]] = {}
         for task_id, source in (("T002", source_path), ("T003", t003_source)):
             activation = {"activation_id": f"installed-revision-activation-{task_id}", "task_id": task_id,
@@ -285,32 +501,8 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         progress = controller_module.validate_implementation_progress(consumer, progress_payload)
         if progress.get("state") != "ready" or progress.get("resolved_ids") != [f"finding:{progress_finding['id']}"]:
             raise AssertionError(f"installed source progress did not validate against its frozen finding: {progress}")
-        history = controller_module._empty_implementation_history(scope)
         history_payload = {"scope": scope, "trusted_request_reference": "installed-fixture-request",
             "retained_scope_sha256": scope["scope_sha256"], "task_tracking_successors": tasker_chain}
-        def append_history(event: dict[str, Any]) -> None:
-            nonlocal history
-            event.update({"scope_sha256": scope["scope_sha256"],
-                "predecessor_sha256": history["events"][-1]["sha256"] if history["events"] else "0" * 64,
-                "evidence": current_source_evidence})
-            event["sha256"] = digest(event)
-            result = controller_module.append_implementation_execution_event(consumer, {
-                **history_payload, "event": event, "retained_history_sha256": history["sha256"]})
-            if result.get("state") != "ready":
-                raise AssertionError(f"installed source history append failed: {result}")
-            history = result["history"]
-        append_history({"event_id": "reentry-session-start", "event_kind": "coder-session-start",
-            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-08T12:00:00Z",
-            "coder_session_id": "reentry-session-1", "coder_sessions_started": 1,
-            "source_attempts_started": 0, "execution_kind": "first-source-execution"})
-        append_history({"event_id": "reentry-source-attempt", "event_kind": "source-attempt-start",
-            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-08T12:00:01Z",
-            "coder_session_id": "reentry-session-1", "coder_sessions_started": 1,
-            "source_attempts_started": 1, "execution_kind": "first-source-execution"})
-        append_history({"event_id": "reentry-session-outcome", "event_kind": "coder-session-outcome",
-            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-08T12:00:02Z",
-            "coder_session_id": "reentry-session-1", "coder_sessions_started": 1,
-            "source_attempts_started": 1, "outcome": "completed"})
         current_assessment = {"state": "continue", "next_step_id": "implement-tasks",
             "reason_code": "recorded-defect-resolved", "evidence": progress["evidence"],
             "remaining_ids": progress["remaining_ids"], "resolved_ids": progress["resolved_ids"]}
@@ -382,6 +574,21 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         if (completion_progress.get("state") != "ready" or completion_progress.get("remaining_ids")
                 or f"task:T002" not in completion_progress.get("resolved_ids", [])):
             raise AssertionError(f"installed whole-task progress did not validate: {completion_progress}")
+        stale_prior_pass = controller_module.validate_scoped_implementation_progress(consumer, {
+            "controller_loop_mode": "implementation_scope", "scope": post_pass_state["scope"],
+            "trusted_request_reference": "installed-fixture-request",
+            "retained_scope_sha256": post_pass_state["scope"]["scope_sha256"],
+            "retained_history_sha256": post_pass_state["history"]["sha256"],
+            "task_tracking_successors": post_pass_state["task_tracking_successors"],
+            "assessment": revision_assessment,
+            "eligible_task_ids": post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+            "previous_assessment": revision_previous_assessment,
+            "progress": {"baseline": baseline_capture["baseline"],
+                "baseline_sha256": baseline_capture["baseline_sha256"], "review": reviewer_review},
+            "administrative_prerequisite_ids": []})
+        if stale_prior_pass.get("state") != "blocked":
+            raise AssertionError("a prior-pass capture was reused after later Tasker tracking changed current task bytes")
         final_task_evidence = [{"path": f"{feature}/tasks.md", "sha256": sha(tasks_path)}]
         final_descriptions = {"T002": "Existing selected work",
                               "T003": "[US1] Correct F020-R001 in the implemented workflow"}
@@ -427,12 +634,71 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         final_assessment_envelope = {"state": "complete", "reason_code": "all-requested-work-substantiated",
             "evidence": completion_progress["evidence"], "remaining_ids": [],
             "resolved_ids": completion_progress["resolved_ids"]}
+        completion_tasker_output = final_tasker_event["tasker_result"]
+        completion_validator_output = {"state": "complete", "task_tracking_successor": final_tasker_event,
+            "completion_progress": completion_progress, "eligibility_sha256": final_eligibility["eligibility_sha256"]}
+        completion_producer = {"tasker_step_id": "track-reviewed-completion",
+            "tasker_result": completion_tasker_output, "tasker_result_sha256": digest(completion_tasker_output),
+            "validator_step_id": "validate-reviewed-completion-tracking",
+            "validator_result": completion_validator_output,
+            "validator_result_sha256": digest(completion_validator_output)}
+        final_post_pass_state = _capture_post_pass_state(controller_module, consumer, scope=scope,
+            trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+            retained_history_sha256=history["sha256"], incoming_successors=tasker_chain,
+            producer_records=[completion_producer], eligibility=final_eligibility,
+            eligibility_request=final_eligibility_payload, completion=True,
+            entry_history_sha256=history["sha256"], capture_command=capture_command)
+        if final_post_pass_state["task_tracking_successors"] != final_tasker_chain:
+            raise AssertionError("completion capture did not append the actual completion Tasker successor")
+        completion_capture_negative_states: dict[str, str] = {}
+        for invalid_producer, expected_reason in (
+            ({**completion_producer, "tasker_step_id": "revise-task-plan",
+              "validator_step_id": "validate-task-revision"}, "post-pass-producer-branch-invalid"),
+            ({**completion_producer, "validator_result": {**completion_validator_output, "state": "blocked"}},
+             "post-pass-validator-state-invalid"),
+            ({**completion_producer, "validator_result": {key: value for key, value in completion_validator_output.items()
+                if key != "task_tracking_successor"}}, "post-pass-successor-output-missing"),
+        ):
+            invalid_producer["validator_result_sha256"] = digest(invalid_producer["validator_result"])
+            try:
+                _capture_post_pass_state(controller_module, consumer, scope=scope,
+                    trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+                    retained_history_sha256=history["sha256"], incoming_successors=tasker_chain,
+                    producer_records=[invalid_producer], eligibility=final_eligibility,
+                    eligibility_request=final_eligibility_payload, completion=True,
+                    entry_history_sha256=history["sha256"], capture_command=capture_command)
+            except ValueError as error:
+                if str(error) != expected_reason:
+                    raise AssertionError(f"completion capture returned the wrong blocker: {error}") from error
+                completion_capture_negative_states[expected_reason] = "blocked"
+            else:
+                raise AssertionError(f"completion capture accepted invalid producer state: {expected_reason}")
+        stale_completion = json.loads(json.dumps(final_tasker_event))
+        stale_completion["predecessor_event_sha256"] = "7" * 64
+        stale_completion["sha256"] = digest({key: value for key, value in stale_completion.items() if key != "sha256"})
+        stale_completion_producer = {**completion_producer,
+            "validator_result": {**completion_validator_output, "task_tracking_successor": stale_completion}}
+        stale_completion_producer["validator_result_sha256"] = digest(stale_completion_producer["validator_result"])
+        try:
+            _capture_post_pass_state(controller_module, consumer, scope=scope,
+                trusted_request_reference="installed-fixture-request", retained_scope_sha256=scope["scope_sha256"],
+                retained_history_sha256=history["sha256"], incoming_successors=tasker_chain,
+                producer_records=[stale_completion_producer], eligibility=final_eligibility,
+                eligibility_request=final_eligibility_payload, completion=True,
+                entry_history_sha256=history["sha256"], capture_command=capture_command)
+        except ValueError:
+            completion_capture_negative_states["stale-successor"] = "blocked"
+        else:
+            raise AssertionError("completion capture accepted a stale Tasker successor")
         final_scoped_progress = controller_module.validate_scoped_implementation_progress(consumer, {
             "controller_loop_mode": "implementation_scope", "scope": scope,
             "trusted_request_reference": "installed-fixture-request",
-            "retained_scope_sha256": scope["scope_sha256"], "task_tracking_successors": final_tasker_chain,
-            "retained_history_sha256": history["sha256"], "assessment": final_assessment_envelope,
-            "eligible_task_ids": [], "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+            "retained_scope_sha256": final_post_pass_state["scope"]["scope_sha256"],
+            "task_tracking_successors": final_post_pass_state["task_tracking_successors"],
+            "retained_history_sha256": final_post_pass_state["history"]["sha256"],
+            "assessment": final_assessment_envelope,
+            "eligible_task_ids": final_post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
             "previous_assessment": previous_assessment, "progress": completion_progress_payload,
             "administrative_prerequisite_ids": [], "eligibility_request": final_eligibility_payload})
         if final_scoped_progress.get("state") != "complete":
@@ -460,11 +726,32 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "stale_spec_state": stale["state"], "stale_pointer_state": stale_pointer["state"],
             "forged_approved_spec_state": forged_spec["state"],
             "forged_semantic_scope_state": detached_semantic["state"],
+            "post_pass_state": post_pass_state,
+            "capture_project_argument_mutation_state": invalid_project_state,
+            "capture_dispatch": capture_observation,
+            "stale_entry_history_state": stale_entry_history_state,
+            "captured_revision_route_state": captured_revision_route["state"],
+            "stale_prior_pass_after_later_tracking_state": stale_prior_pass["state"],
+            "captured_revision_history_sha256": post_pass_state["history"]["sha256"],
+            "captured_revision_producer_step_ids": [
+                post_pass_state["producer_records"][0]["tasker_step_id"],
+                post_pass_state["producer_records"][0]["validator_step_id"]],
+            "baseline": baseline_capture["baseline"],
+            "baseline_sha256": baseline_capture["baseline_sha256"],
+            "review": reviewer_review,
+            "progress": progress,
+            "post_pass_ordered_operations": post_pass_state["ordered_operations"],
+            "stale_post_review_successor_state": stale_result["state"],
+            "post_review_source_effect": source_effect,
+            "post_review_progress_state": progress["state"],
             "scoped_progress_after_tasker_successors": scoped_progress["state"],
             "initial_eligibility_state": initial_eligibility["state"],
             "activation_task_ids": sorted(activation_packets),
             "final_eligibility_state": final_eligibility["state"],
             "final_scoped_progress_state": final_scoped_progress["state"],
+            "final_post_pass_completion_validator_state": final_post_pass_state["completion_validator_state"],
+            "final_post_pass_successor_count": len(final_post_pass_state["task_tracking_successors"]),
+            "completion_capture_negative_states": completion_capture_negative_states,
             "final_tasker_tracked_ids": ["T002", "T003"],
             "tracked_task_ids": tracked_scope["tasker_tracked_task_ids"],
             "unsubstantiated_completion_state": unsubstantiated["state"],
@@ -497,11 +784,14 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
         raise StopIteration(wanted)
 
     loop = find_step(workflow["steps"], "implementation-loop")
+    capture_node = find_step(workflow["steps"], "capture-post-pass-state")
+    capture_prompt = capture_node["prompt"]
+    capture_command = _capture_post_pass_command(capture_prompt)
     body = [step["id"] for step in loop["steps"]]
     if loop.get("controller_loop_mode") != "implementation_scope" or body[:1] != ["route-scoped-entry"] or body[-1:] != ["route-scoped-execution"]:
         raise AssertionError(f"installed Implement route differs from reviewed graph: {body}")
     required_order = ["route-scoped-entry", "prepare-scoped-prerequisites", "implement-tasks",
-                      "route-post-assessment", "route-scoped-execution"]
+                      "route-post-assessment", "capture-post-pass-state", "route-scoped-execution"]
     positions = [body.index(item) for item in required_order]
     if positions != sorted(positions):
         raise AssertionError(f"installed Implement route order differs from reviewed graph: {body}")
@@ -510,13 +800,16 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
     if "implementation-eligibility" not in route_entry_prompt or "implementation-route" not in route_entry_prompt:
         raise AssertionError("installed production entry prompt no longer dispatches eligibility and route helpers")
     execution_node = find_step(workflow["steps"], "route-scoped-execution")
+    capture_node = find_step(workflow["steps"], "capture-post-pass-state")
 
     def render_execution_bindings(binding_data: dict[str, Any]) -> tuple[str, dict[str, Any]]:
         """Render and parse the installed node's typed callback inputs."""
         rendered = controller_module.render_template(execution_node["prompt"], {}, {
             "route-scoped-entry": binding_data["entry"],
-            "assess-implementation-after-pass": binding_data["current_assessment"],
+            "assess-implementation-after-pass": {"outcome_envelope": binding_data["current_assessment"]["outcome_envelope"],
+                                                   "review": binding_data["current_assessment"]["review"]},
             "gate-readiness-before-core": {"readiness_gate": binding_data["readiness"]},
+            "capture-post-pass-state": {"post_pass_state": binding_data["post_pass_state"]},
         })
         if "implementation-progress-scoped" not in rendered:
             raise AssertionError("installed production post-source prompt no longer dispatches scoped progress")
@@ -527,17 +820,18 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             bound = json.loads(match.group(1))
         except (json.JSONDecodeError, TypeError, ValueError) as error:
             raise AssertionError("rendered scoped callback arguments are malformed") from error
-        expected = {"scope", "eligibility", "retained_history", "task_tracking_successors",
-                    "previous_assessment", "current_assessment", "current_review", "readiness", "frozen_baseline"}
+        expected = {"scope", "previous_assessment", "current_assessment", "current_review", "readiness",
+                    "frozen_baseline", "post_pass_state"}
         if set(bound) != expected or any(not isinstance(value, (dict, list)) for value in bound.values()):
             raise AssertionError(f"rendered scoped callback fields differ: {sorted(bound)}")
         return rendered, bound
 
     route_execution_prompt, _ = render_execution_bindings({"entry": {"scope": {}, "eligibility": {}, "history": {},
         "task_tracking_successors": [], "previous_assessment": {}, "baseline": {}},
-        "current_assessment": {"state": "continue", "reason_code": "fixture", "evidence": [],
-                                "remaining_ids": [], "resolved_ids": [], "review": {}},
-        "readiness": {}, "frozen_baseline": {}})
+        "current_assessment": {"outcome_envelope": {"state": "continue", "next_step_id": "implement-tasks",
+            "reason_code": "fixture", "evidence": [], "remaining_ids": ["task:T001"], "resolved_ids": []},
+            "review": {}},
+        "readiness": {}, "frozen_baseline": {}, "post_pass_state": {"producer_records": []}})
 
     outcomes: list[dict[str, Any]] = []
     for case in fixture["cases"]:
@@ -1197,7 +1491,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                 "source_preimage_sha256": current_evidence[0]["sha256"],
                 "review_sha256": digest(review)}
 
-        def run_scoped_progress(current_history: dict[str, Any], *, case_name: str) -> dict[str, Any]:
+        def run_scoped_progress(current_history: dict[str, Any], *, entry_history: dict[str, Any], case_name: str) -> dict[str, Any]:
             post_source_before = sha(source_effect_path)
             if case_name not in {"SI005", "SI011"}:
                 source_effect_path.write_text(f"after correction {case_name}\n", encoding="utf-8")
@@ -1241,6 +1535,23 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             progress = controller_module.validate_implementation_progress(consumer, progress_payload)
             if progress.get("state") != "ready":
                 raise AssertionError(f"{case_name}: real frozen-baseline progress validation failed: {progress}")
+            producer_records = []
+            if task_tracking_successors:
+                pairs = re.findall(r"`([a-z-]+)`/`([a-z-]+)`", capture_prompt)
+                producer_pair = next((pair for pair in pairs
+                    if "task-outcomes" in pair[0]), None)
+                if producer_pair is None:
+                    raise AssertionError("production capture node no longer declares the executed task-outcome producer pair")
+                validator_output = {**scope_result, "task_tracking_successor": task_tracking_successors[-1]}
+                producer_records = [{"tasker_step_id": producer_pair[0], "validator_step_id": producer_pair[1],
+                    "tasker_result": tasker_record, "validator_result": validator_output}]
+            post_pass_state = _capture_post_pass_state(controller_module, consumer, scope=scope,
+                trusted_request_reference=scope["request_reference"],
+                retained_scope_sha256=scope["scope_sha256"],
+                retained_history_sha256=current_history["sha256"],
+                incoming_successors=[], producer_records=producer_records,
+                eligibility=eligibility, eligibility_request=eligibility_payload,
+                entry_history_sha256=entry_history["sha256"], capture_command=capture_command)
             predecessor_path = feature_root / "validation/pre-source-assessment.json"
             predecessor_path.parent.mkdir(parents=True, exist_ok=True)
             predecessor_path.write_text(json.dumps({"baseline_sha256": baseline_capture["baseline_sha256"],
@@ -1252,35 +1563,28 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             previous_assessment = {"state": "continue", "next_step_id": "implement-tasks",
                 "reason_code": "pre-source-frozen-findings", "evidence": predecessor_evidence,
                 "remaining_ids": baseline_capture["remaining_ids"], "resolved_ids": []}
-            current_assessment = {"state": "continue", "next_step_id": "implement-tasks",
+            outcome_envelope = {"state": "continue", "next_step_id": "implement-tasks",
                 "reason_code": "independently-assessed-post-source-state", "evidence": progress["evidence"],
                 "remaining_ids": list(dict.fromkeys([*progress["remaining_ids"],
                     *(f"task:{task_id}" for task_id in requested if task_id not in completed)])),
                 "resolved_ids": progress["resolved_ids"]}
+            current_assessment = {"outcome_envelope": outcome_envelope, "review": review}
             expected_progress_payload = progress_payload
             rendered_prompt, bound = render_execution_bindings({
-                "entry": {"scope": scope, "eligibility": eligibility, "history": current_history,
+                "entry": {"scope": scope, "eligibility": eligibility, "history": entry_history,
                     "task_tracking_successors": task_tracking_successors,
                     "previous_assessment": previous_assessment, "baseline": baseline_capture["baseline"]},
                 "current_assessment": {**current_assessment, "review": review},
-                "readiness": readiness})
-            binding_line = '"previous_assessment": {{ steps.route-scoped-entry.output.previous_assessment }},'
-            original_prompt = execution_node["prompt"]
-            if binding_line not in original_prompt:
-                raise AssertionError(f"{case_name}: production route lacks the previous-assessment source binding")
-            execution_node["prompt"] = original_prompt.replace(binding_line, "")
-            try:
-                with __import__("unittest").TestCase().assertRaisesRegex(
-                        AssertionError, "rendered scoped callback fields differ"):
-                    render_execution_bindings({
-                        "entry": {"scope": scope, "eligibility": eligibility, "history": current_history,
-                            "task_tracking_successors": task_tracking_successors,
-                            "previous_assessment": previous_assessment, "baseline": baseline_capture["baseline"]},
-                        "current_assessment": {**current_assessment, "review": review},
-                        "readiness": readiness})
-            finally:
-                execution_node["prompt"] = original_prompt
+                "readiness": readiness, "post_pass_state": post_pass_state})
+            if ("route-scoped-entry.output.history" in execution_node["prompt"]
+                    or "route-scoped-entry.output.task_tracking_successors" in execution_node["prompt"]):
+                raise AssertionError(f"{case_name}: post-pass callback regressed to stale route entry state")
+            if "steps.assess-implementation-after-pass.output.outcome_envelope" not in execution_node["prompt"]:
+                raise AssertionError(f"{case_name}: callback does not forward the exact validated Reviewer envelope")
             bound_scope = bound["scope"]
+            bound["retained_history"] = bound["post_pass_state"]["history"]
+            bound["task_tracking_successors"] = bound["post_pass_state"]["task_tracking_successors"]
+            bound["eligibility"] = bound["post_pass_state"]["eligibility"]
             progress_payload = {"baseline": bound["frozen_baseline"],
                 "baseline_sha256": digest(bound["frozen_baseline"]), "review": bound["current_review"]}
             scoped_request = {
@@ -1298,7 +1602,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             if (bound["readiness"] != readiness or bound["frozen_baseline"] != baseline_capture["baseline"]
                     or bound["current_review"] != review):
                 raise AssertionError(f"{case_name}: rendered readiness or frozen-baseline binding changed")
-            if (scoped_request["assessment"] != current_assessment
+            if (scoped_request["assessment"] != outcome_envelope
                     or scoped_request["previous_assessment"] != previous_assessment
                     or scoped_request["progress"] != expected_progress_payload):
                 raise AssertionError(f"{case_name}: scoped callback packet differs from rendered assessments "
@@ -1308,6 +1612,15 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             scoped_wire = json.dumps(scoped_request, sort_keys=True, separators=(",", ":"))
             forwarded_scoped_request = json.loads(scoped_wire)
             scoped = controller_module.validate_scoped_implementation_progress(consumer, forwarded_scoped_request)
+            if entry_history["sha256"] != current_history["sha256"]:
+                stale_history_request = json.loads(json.dumps(forwarded_scoped_request))
+                stale_history_request["retained_history_sha256"] = entry_history["sha256"]
+                stale_history_result = controller_module.validate_scoped_implementation_progress(
+                    consumer, stale_history_request)
+                if stale_history_result.get("state") != "blocked":
+                    raise AssertionError(f"{case_name}: stale route-entry history was accepted after a pass: {stale_history_result}")
+            else:
+                stale_history_result = None
             corrupted = json.loads(json.dumps(forwarded_scoped_request))
             corrupted["progress"]["baseline_sha256"] = "0" * 64
             corruption_result = controller_module.validate_scoped_implementation_progress(consumer, corrupted)
@@ -1322,6 +1635,8 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             return {"previous_assessment": previous_assessment, "current_assessment": current_assessment,
                 "review": review, "progress": progress, "progress_payload": progress_payload,
                 "route_result": scoped, "corrupted_binding_result": corruption_result,
+                "entry_history_sha256": entry_history["sha256"], "post_pass_history_sha256": current_history["sha256"],
+                "stale_entry_history_result": stale_history_result,
                 "assessment_mutation_result": assessment_mutation_result,
                 "production_progress_dispatch": {"rendered_prompt_sha256": hashlib.sha256(rendered_prompt.encode()).hexdigest(),
                     "request_sha256": hashlib.sha256(scoped_wire.encode()).hexdigest(),
@@ -1444,7 +1759,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             route_payload["eligibility_request"] = eligibility_payload
         generic_post_source_calls = []
         if preexisting_attempts:
-            post_source = run_scoped_progress(retained_history, case_name=case_id)
+            post_source = run_scoped_progress(retained_history, entry_history=retained_history, case_name=case_id)
             route = post_source["route_result"]
             generic_post_source_calls.append({key: value for key, value in post_source.items()
                                               if key != "progress_payload"})
@@ -1463,6 +1778,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
         if route.get("state") == "continue" and not preexisting_attempts:
             nodes_to_execute = route_input or [route.get("route", {}).get("next_step_id", "implement-tasks")]
             for index, node in enumerate(nodes_to_execute):
+                entry_history_for_pass = retained_history
                 execution_kind = "preparation" if node == "prepare-scoped-prerequisites" else (
                     "first-source-execution" if retained_history["source_attempts_started"] == 0 else "corrective-source-execution")
                 next_session = retained_history["coder_sessions_started"] + 1
@@ -1521,7 +1837,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                         raise AssertionError(f"{case_id}: installed route sequence failed at {nodes_to_execute[index + 1]}: {route}")
                     results.append(route)
                 if node == "implement-tasks":
-                    post_source = run_scoped_progress(retained_history, case_name=case_id)
+                    post_source = run_scoped_progress(retained_history, entry_history=entry_history_for_pass, case_name=case_id)
                     route = post_source["route_result"]
                     if route.get("state") != expected.get("state", "continue"):
                         raise AssertionError(f"{case_id}: actual scoped progress route differs from fixture: {route}")
@@ -1593,7 +1909,31 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                     "limitations": ["Reviewer payload is a deterministic contract fixture; native independent-agent launches and manual-prompt comparison remain separate cases.",
                                     "Owner-source checks use deterministic disposable fixtures; no external owner write was performed."]}
         outcomes.append(observed)
-    task_revision_successor = _exercise_installed_task_revision_successor(controller_module, consumer)
+    task_revision_successor = _exercise_installed_task_revision_successor(
+        controller_module, consumer, capture_command)
+    post_pass_state = task_revision_successor["post_pass_state"]
+    post_pass_assessment = {"state": "continue", "next_step_id": "implement-tasks",
+        "reason_code": "reviewed-tasker-successor-ready", "evidence": task_revision_successor["progress"]["evidence"],
+        "remaining_ids": list(dict.fromkeys([*task_revision_successor["progress"]["remaining_ids"],
+            "task:T003", "finding:F020-R001"])),
+        "resolved_ids": task_revision_successor["progress"]["resolved_ids"]}
+    rendered_post_pass_prompt, rendered_post_pass = render_execution_bindings({
+        "entry": {"scope": post_pass_state["scope"],
+            "previous_assessment": {"state": "continue", "reason_code": "prior-assessment",
+                "evidence": task_revision_successor["progress"]["evidence"],
+                "remaining_ids": [f"finding:{item['id']}" for item in task_revision_successor["baseline"]["findings"]],
+                "resolved_ids": []},
+            "baseline": task_revision_successor["baseline"]},
+        "current_assessment": {"outcome_envelope": post_pass_assessment,
+            "review": task_revision_successor["review"]},
+        "readiness": {"state": "ready"}, "post_pass_state": post_pass_state})
+    if rendered_post_pass["post_pass_state"] != post_pass_state:
+        raise AssertionError("final rendered callback did not consume the capture node's current producer packet")
+    if post_pass_state["ordered_operations"] != ["session-start", "source-attempt-start", "source-effect",
+            "session-outcome", "independent-review", "Tasker-result", "Tasker-validation", "post-pass-capture"]:
+        raise AssertionError("post-review producer chronology differs from the current rendered callback")
+    task_revision_successor["post_pass_rendered_prompt_sha256"] = hashlib.sha256(
+        rendered_post_pass_prompt.encode()).hexdigest()
     return {"schema_version": "1.0", "contract": "implementation-scope-installed-matrix",
             "workflow_sha256": sha(workflow_path), "controller_package_version": "0.8.0",
             "cases": outcomes, "task_revision_successor": task_revision_successor}

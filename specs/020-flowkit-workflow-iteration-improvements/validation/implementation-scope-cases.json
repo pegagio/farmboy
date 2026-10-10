@@ -104,24 +104,48 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si001/source-effect.txt",
-                "sha256": "45be8f06ad116de642ce1d7d503584504ff3563eb28f7bf9ed23dbbdb829cfed"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T068",
-              "task:T052",
-              "task:T069"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si001/source-effect.txt",
+                  "sha256": "45be8f06ad116de642ce1d7d503584504ff3563eb28f7bf9ed23dbbdb829cfed"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T068",
+                "task:T052",
+                "task:T069"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "526ea80e777e90e85cac7b0d93bb492ea352958b3e476b27ab18df7144c69cf2",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si001/source-effect.txt",
+                      "sha256": "45be8f06ad116de642ce1d7d503584504ff3563eb28f7bf9ed23dbbdb829cfed"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "bc457838d562f35e046917865d4e6ac004e364d61a9d481f3f570fa0f7e7a0d0",
+          "post_pass_history_sha256": "416c17375fd200dec880740743c371d95fea041bdde228d523e5fbdce66209ba",
           "previous_assessment": {
             "evidence": [
               {
@@ -140,10 +164,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "526ea80e777e90e85cac7b0d93bb492ea352958b3e476b27ab18df7144c69cf2",
-            "current_assessment_sha256": "793d4bc3473be5041d944071a24fe69b5ea049e86738cf1fb8cbcced84e4ea22",
+            "current_assessment_sha256": "7e509c2bb07c68635fc241020db3e7f6bfc3095385a0118b0148865b06ee196a",
             "forwarded_payload_sha256": "36a45dbc6b2a6852ca812f178d9e5c9f93b54175bb7d80b3a9149355a77434a5",
             "previous_assessment_sha256": "52bd0787fc0b48480c01f2d99df0340844f6f3ad488b6e7ac891c97f4a141824",
-            "rendered_prompt_sha256": "7be3172c8493c86b03d4dd6df63c444dbcbc39c7a7ac891001acd8bc6448f2d6",
+            "rendered_prompt_sha256": "0c844333883ea498c2845bfb3b0a5fd75189e192f49b5548f15d5bdc5adfd571",
             "request_sha256": "36a45dbc6b2a6852ca812f178d9e5c9f93b54175bb7d80b3a9149355a77434a5",
             "result_sha256": "b828238480b925dafb28337a103bf88f6b0788dedcd85141a45f4c9bb74742a7"
           },
@@ -299,6 +323,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -396,7 +425,7 @@
         "eligibility_request_sha256": "6b58c25f5c353f6da669d1d8b765049840c8c08a7e51dbfd28783a9ecc66014d",
         "eligibility_result_sha256": "c8793a12341c620414a0d86338618f83ebf3c08523a4fa07fdad2bcc3b192e29",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "7be3172c8493c86b03d4dd6df63c444dbcbc39c7a7ac891001acd8bc6448f2d6",
+        "rendered_route_scoped_execution_prompt_sha256": "0c844333883ea498c2845bfb3b0a5fd75189e192f49b5548f15d5bdc5adfd571",
         "route_request_and_result_digests": [
           {
             "request_sha256": "daa54e4c5c485be5ce811a48511d26fbfeab7f4dfb3fb356ea20e54126720e31",
@@ -720,22 +749,46 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si002/source-effect.txt",
-                "sha256": "c004d96dac4cad0ec3d4d5ab46d27dcb0bba08762a6dd8e81621252a3351f0ee"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T052"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si002/source-effect.txt",
+                  "sha256": "c004d96dac4cad0ec3d4d5ab46d27dcb0bba08762a6dd8e81621252a3351f0ee"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T052"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "e2115c3bfcffe8185315e9d77dc1dd0db2ba3769745916a6a4aec3b37f84a642",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si002/source-effect.txt",
+                      "sha256": "c004d96dac4cad0ec3d4d5ab46d27dcb0bba08762a6dd8e81621252a3351f0ee"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T052"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "781c33e21a2e55167f13341d5e7b339e6e648e95480394a3804361ac05b5c47d",
+          "post_pass_history_sha256": "2951308144f498f949199bcf169dcdb2352f2efe062f98079d8677d1c2796d0e",
           "previous_assessment": {
             "evidence": [
               {
@@ -754,10 +807,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "e2115c3bfcffe8185315e9d77dc1dd0db2ba3769745916a6a4aec3b37f84a642",
-            "current_assessment_sha256": "05c3c2970074d142cfcd0bee552b265b0002c2561ab118942bfce4fdaa40d496",
+            "current_assessment_sha256": "c9d82f335ee585e9772afb4ad418a9d875ca779588a8decef9319b2a90153ab8",
             "forwarded_payload_sha256": "0f6caf9ee27691beae03839bfd9bf064114197b773d29a1cb7397e92b60b0bfc",
             "previous_assessment_sha256": "a8971c92452d252ccb65269b0ea0516f196c1d6fd05aeb66cd3d6d1f2e4d2bc4",
-            "rendered_prompt_sha256": "0b0f298da9f806fdd7577ce643f66766b668620fd201b67bbae243517d0909b4",
+            "rendered_prompt_sha256": "4cf38b0c2bdbb1e406ae634d544301f5e080156e37971f2981832ae2e7e872e3",
             "request_sha256": "0f6caf9ee27691beae03839bfd9bf064114197b773d29a1cb7397e92b60b0bfc",
             "result_sha256": "bcda3820c5a76fd255d5e1c6ac76148dd1952829a4864c71ace7a4d16f6ee7ce"
           },
@@ -951,6 +1004,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -1242,7 +1300,7 @@
         "eligibility_request_sha256": "d986c0295ec1fcad31666e36904927b406239430503207ef682206c701adc205",
         "eligibility_result_sha256": "44da50c801e65e8d82be1064fd68e9d69d4667ed42ce759936ea5956cd5aefb9",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "0b0f298da9f806fdd7577ce643f66766b668620fd201b67bbae243517d0909b4",
+        "rendered_route_scoped_execution_prompt_sha256": "4cf38b0c2bdbb1e406ae634d544301f5e080156e37971f2981832ae2e7e872e3",
         "route_request_and_result_digests": [
           {
             "request_sha256": "b21ba48ee32bdfbf98684852e3034c562cda370f00193255172dba703ba830a7",
@@ -1832,7 +1890,7 @@
         "eligibility_request_sha256": "e2e55e3c932fbe79822d75ce56d11570e4b83ea723360b111a4097a1c8517100",
         "eligibility_result_sha256": "876845522d411263d5fabb2253d0570e07fb88b8fb0773e9e12c82b09c5a1575",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "7f7ccdfbffcaa1e6c172471a769a260adc4dee2e974aea05b1276f81873b9574",
@@ -2221,7 +2279,7 @@
         "eligibility_request_sha256": "5b05404648a1663fd288d320be8def348785c9225f1a28540d5b845778284b9d",
         "eligibility_result_sha256": "bbbfab804f59cbdc658177be9820af3af70ff20f5b3454f39d14f5178a994cc6",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "b0245a393786227254f9e2a2adf59e2132e53f69fc278a9f63d87244d516bdc9",
@@ -2412,31 +2470,71 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si005/t068.txt",
-                "sha256": "3b95603589ba9e8fc9de7bf11284622db6eb272cdc00243626664d5bf6a0b0e6"
-              },
-              {
-                "path": ".specify/si-evidence/SI005/reviewer-completion.json",
-                "sha256": "70e65ab271d67f3ef9f133c55a4817f74d93579ca9d07b84ad900e795bab16af"
-              },
-              {
-                "path": ".specify/si-evidence/SI005/tasker-completion.json",
-                "sha256": "b32047c80606c0d23874662893a258672e5265a4e8c033865755d3aaa5f95696"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T069"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001",
-              "task:T068"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si005/t068.txt",
+                  "sha256": "3b95603589ba9e8fc9de7bf11284622db6eb272cdc00243626664d5bf6a0b0e6"
+                },
+                {
+                  "path": ".specify/si-evidence/SI005/reviewer-completion.json",
+                  "sha256": "70e65ab271d67f3ef9f133c55a4817f74d93579ca9d07b84ad900e795bab16af"
+                },
+                {
+                  "path": ".specify/si-evidence/SI005/tasker-completion.json",
+                  "sha256": "b32047c80606c0d23874662893a258672e5265a4e8c033865755d3aaa5f95696"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T069"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001",
+                "task:T068"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "e34b43c38fc27f7863ed13da22f9c7e125b90b67d484b671c0fe8159eac933e8",
+              "completed_task_ids": [
+                "T068"
+              ],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si005/t068.txt",
+                      "sha256": "3b95603589ba9e8fc9de7bf11284622db6eb272cdc00243626664d5bf6a0b0e6"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer",
+              "task_completion_evidence": [
+                {
+                  "path": "specs/snapshot-si005/t068.txt",
+                  "sha256": "3b95603589ba9e8fc9de7bf11284622db6eb272cdc00243626664d5bf6a0b0e6"
+                },
+                {
+                  "path": ".specify/si-evidence/SI005/reviewer-completion.json",
+                  "sha256": "70e65ab271d67f3ef9f133c55a4817f74d93579ca9d07b84ad900e795bab16af"
+                },
+                {
+                  "path": ".specify/si-evidence/SI005/tasker-completion.json",
+                  "sha256": "b32047c80606c0d23874662893a258672e5265a4e8c033865755d3aaa5f95696"
+                }
+              ]
+            }
           },
+          "entry_history_sha256": "8481205d77185596ab3be2a81178037f9b6cb7e5fea3a78e56260ba4441dbe0c",
+          "post_pass_history_sha256": "8481205d77185596ab3be2a81178037f9b6cb7e5fea3a78e56260ba4441dbe0c",
           "previous_assessment": {
             "evidence": [
               {
@@ -2455,10 +2553,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "e34b43c38fc27f7863ed13da22f9c7e125b90b67d484b671c0fe8159eac933e8",
-            "current_assessment_sha256": "ab8b4a42ed15307404000ed103e65a814911c4985738545aef30323f6ee74ef9",
+            "current_assessment_sha256": "3bec82ec7b09426d856d88f9a571831e118ae02dc136e4288ea6179530dd5701",
             "forwarded_payload_sha256": "6cce0dd624d06ab8ea55b8a1e9a18079d01ef48dd0fbc192d6aa8c6be34be049",
             "previous_assessment_sha256": "65e93654f1172925d774b36dc3e63716cdbdc97acb4ae8d9c80afa51956435ce",
-            "rendered_prompt_sha256": "1f8cd2d47ccec3d0d7ab5783704bc0ca0306ca2f9621aa100a66e9151b86a723",
+            "rendered_prompt_sha256": "8eb563116282088664a7d900a2b96a64d0970b09b01a787f4b1fc80c6bc9baec",
             "request_sha256": "6cce0dd624d06ab8ea55b8a1e9a18079d01ef48dd0fbc192d6aa8c6be34be049",
             "result_sha256": "6c462d7a710644635cc341f3b0121a5a5c2c9828d909f347a70fb393c4922ea8"
           },
@@ -2634,7 +2732,8 @@
             },
             "state": "continue",
             "substantive_progress": true
-          }
+          },
+          "stale_entry_history_result": null
         }
       ],
       "generic_route_inputs": {
@@ -2806,7 +2905,7 @@
         "eligibility_request_sha256": "9f0f92818dce422399d32363532e2f01c24df9d3bca55fdefd65cca340dfb875",
         "eligibility_result_sha256": "a036d1320958a106a6db4d0c53b5e15662fbcda723f52fa7b7261717936898a4",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "1f8cd2d47ccec3d0d7ab5783704bc0ca0306ca2f9621aa100a66e9151b86a723",
+        "rendered_route_scoped_execution_prompt_sha256": "8eb563116282088664a7d900a2b96a64d0970b09b01a787f4b1fc80c6bc9baec",
         "route_request_and_result_digests": []
       },
       "readiness": {
@@ -3123,24 +3222,74 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si006/source-effect.txt",
-                "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T068",
-              "finding:F020-EXAMPLE-002",
-              "finding:F020-EXAMPLE-003"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si006/source-effect.txt",
+                  "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T068",
+                "finding:F020-EXAMPLE-002",
+                "finding:F020-EXAMPLE-003"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "d22e5d846eba63a69166fb2dc8f8059b41240c4d046294ca74bcea6e3c5c777a",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si006/source-effect.txt",
+                      "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                },
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si006/source-effect.txt",
+                      "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-002",
+                  "status": "unresolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [
+                {
+                  "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si006/source-effect.txt",
+                      "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                    }
+                  ],
+                  "exact_correction": "Record and resolve the newly observed issue in a later pass.",
+                  "id": "F020-EXAMPLE-003",
+                  "observed_deficiency": "A new issue was discovered after the source correction.",
+                  "task_id": "T068",
+                  "violated_requirement": "New findings retain their own identity."
+                }
+              ],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "3cd48938a26a489f15ff9bc0537ef9607876bcd17b0284d91afef23b0bf570b4",
+          "post_pass_history_sha256": "b87e4cb38cead2f867533e8b5a07ff905f9e0bf1ca596e7180fb4df973e3a839",
           "previous_assessment": {
             "evidence": [
               {
@@ -3160,12 +3309,12 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "d22e5d846eba63a69166fb2dc8f8059b41240c4d046294ca74bcea6e3c5c777a",
-            "current_assessment_sha256": "958c26b489d154cf031861be886d569c35bdc9c932c182d5acf12e51c158f06f",
+            "current_assessment_sha256": "14af28401465b6b4d910407ea0a70c3e2dcf311549db0acc120c01da5b5d8628",
             "forwarded_payload_sha256": "0f3243e7b3e7fbc6efc422e14345fd259824eab21c5dbf6b51245d7347c9748c",
             "previous_assessment_sha256": "e5f0b1f744f649ecf506721f2525f1fd72996bd605cac38df2f878421d2018a6",
-            "rendered_prompt_sha256": "b4b99ab6b4c6c6b851be81536440d24cda69f5f568ace05c56b87ddf80cd4f2c",
+            "rendered_prompt_sha256": "f3f3305624f2128ca642cf2deda473dd0a622c8bf829a21c33384ee02d23b663",
             "request_sha256": "0f3243e7b3e7fbc6efc422e14345fd259824eab21c5dbf6b51245d7347c9748c",
-            "result_sha256": "54cfd3b47b81870c3054036db961ad9c80e33d3d4b529232be8803f5732ad93f"
+            "result_sha256": "ed6584935497570dd7c088da4bacdf09df5c229cf923bdec5eaf42203fe2d118"
           },
           "progress": {
             "baseline": {
@@ -3173,10 +3322,16 @@
               "findings": [
                 {
                   "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-                  "evidence": [
+                  "current_evidence": [
                     {
                       "path": "specs/snapshot-si006/source-effect.txt",
                       "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                    }
+                  ],
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si006/source-effect.txt",
+                      "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                     }
                   ],
                   "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3210,7 +3365,7 @@
                 }
               }
             },
-            "baseline_sha256": "69ec79b95a92e805e3253153324e5121e6c1e2989374eef8c006aa5b7ef4fd15",
+            "baseline_sha256": "27454b3c59ac2539cf35e32940144d016f03abe7e09a78055eec75afed8cdbb9",
             "evidence": [
               {
                 "path": "specs/snapshot-si006/source-effect.txt",
@@ -3220,10 +3375,16 @@
             "findings": [
               {
                 "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-                "evidence": [
+                "current_evidence": [
                   {
                     "path": "specs/snapshot-si006/source-effect.txt",
                     "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                  }
+                ],
+                "evidence": [
+                  {
+                    "path": "specs/snapshot-si006/source-effect.txt",
+                    "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                   }
                 ],
                 "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3310,10 +3471,16 @@
               "findings": [
                 {
                   "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-                  "evidence": [
+                  "current_evidence": [
                     {
                       "path": "specs/snapshot-si006/source-effect.txt",
                       "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                    }
+                  ],
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si006/source-effect.txt",
+                      "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                     }
                   ],
                   "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3347,7 +3514,7 @@
                 }
               }
             },
-            "baseline_sha256": "69ec79b95a92e805e3253153324e5121e6c1e2989374eef8c006aa5b7ef4fd15",
+            "baseline_sha256": "27454b3c59ac2539cf35e32940144d016f03abe7e09a78055eec75afed8cdbb9",
             "controller_loop_mode": "implementation_scope",
             "evidence": [
               {
@@ -3358,10 +3525,16 @@
             "findings": [
               {
                 "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-                "evidence": [
+                "current_evidence": [
                   {
                     "path": "specs/snapshot-si006/source-effect.txt",
                     "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                  }
+                ],
+                "evidence": [
+                  {
+                    "path": "specs/snapshot-si006/source-effect.txt",
+                    "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                   }
                 ],
                 "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3465,6 +3638,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -3550,7 +3728,7 @@
         "eligibility_request_sha256": "506db8e319c04b3f71fab54ad3ddd81a8b9ec8ed5aa9b82035ce3d452f9cc896",
         "eligibility_result_sha256": "55ae8998f1e6ea37142f17e6b7591af0383be580c9a1ae5ea58388c9264cb4ec",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "b4b99ab6b4c6c6b851be81536440d24cda69f5f568ace05c56b87ddf80cd4f2c",
+        "rendered_route_scoped_execution_prompt_sha256": "f3f3305624f2128ca642cf2deda473dd0a622c8bf829a21c33384ee02d23b663",
         "route_request_and_result_digests": [
           {
             "request_sha256": "b3dc1c6418af3fc6574273083d760c00cb48d489cacbcc3cc420e188b2236973",
@@ -3613,10 +3791,16 @@
             "findings": [
               {
                 "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-                "evidence": [
+                "current_evidence": [
                   {
                     "path": "specs/snapshot-si006/source-effect.txt",
                     "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                  }
+                ],
+                "evidence": [
+                  {
+                    "path": "specs/snapshot-si006/source-effect.txt",
+                    "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                   }
                 ],
                 "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3650,7 +3834,7 @@
               }
             }
           },
-          "baseline_sha256": "69ec79b95a92e805e3253153324e5121e6c1e2989374eef8c006aa5b7ef4fd15",
+          "baseline_sha256": "27454b3c59ac2539cf35e32940144d016f03abe7e09a78055eec75afed8cdbb9",
           "controller_loop_mode": "implementation_scope",
           "evidence": [
             {
@@ -3661,10 +3845,16 @@
           "findings": [
             {
               "artifact_location": "specs/snapshot-si006/source-effect.txt:1",
-              "evidence": [
+              "current_evidence": [
                 {
                   "path": "specs/snapshot-si006/source-effect.txt",
                   "sha256": "fd9fbc4d32b11d8566031ab52674a4ef0b27371e93d2e5d7c445fa32f9e21bce"
+                }
+              ],
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si006/source-effect.txt",
+                  "sha256": "d43b6e8ef343272b02c64828de2f18fc331bec771b4c3a3febd19d070fcebfec"
                 }
               ],
               "exact_correction": "Change the fixture source and retain a fresh independent review of the original finding.",
@@ -3929,23 +4119,47 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si007/source-effect.txt",
-                "sha256": "52479c2aac9912f5bd0181a4b59f88636e9ca15d5a127e15c3839d26cdc781f7"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T068",
-              "task:T051"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si007/source-effect.txt",
+                  "sha256": "52479c2aac9912f5bd0181a4b59f88636e9ca15d5a127e15c3839d26cdc781f7"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T068",
+                "task:T051"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "a7b4d03c10e1927847a5c7a4975aef860339f8a2ee891c70b447293c49ca551e",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si007/source-effect.txt",
+                      "sha256": "52479c2aac9912f5bd0181a4b59f88636e9ca15d5a127e15c3839d26cdc781f7"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "d784499fd757c7ced704ca30b68828ea8a3e4a0be6161d6d39e61f892c517aec",
+          "post_pass_history_sha256": "8eb11586e2a39349a2d2bdf8d011cb227f31bc75b87b2437fd54bc0198de6f71",
           "previous_assessment": {
             "evidence": [
               {
@@ -3964,10 +4178,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "a7b4d03c10e1927847a5c7a4975aef860339f8a2ee891c70b447293c49ca551e",
-            "current_assessment_sha256": "b173205d8dfba34a366fcafa3fb523439c2f689778fba1a6c6abc916a22062e6",
+            "current_assessment_sha256": "d274e3c7fcfd63290d7112d16f9f7ec4c5fc88b5764413cc067dc6dee7a954f6",
             "forwarded_payload_sha256": "bc8c2d9c8e9f5a3b0a6becdb8d10102117f3d7cc9609e75c6cd6581ad6d54768",
             "previous_assessment_sha256": "ba23f71294cef836be7388da04e78bf2bc05c0b9a10f5a084dd91855b4d8cb57",
-            "rendered_prompt_sha256": "b38ff954e3412e02eaf07b726ebe51eb55399f88dfe93b9b316ee3bb915bf516",
+            "rendered_prompt_sha256": "7261776fdc1c753ac05c7d42c9f61d0a27e361c8afcbc124b00a0bc40b37d535",
             "request_sha256": "bc8c2d9c8e9f5a3b0a6becdb8d10102117f3d7cc9609e75c6cd6581ad6d54768",
             "result_sha256": "d2126f5d3b1101cacbf8330cb9229cf06c13b090a01461517bb281e2a8246a51"
           },
@@ -4161,6 +4375,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -4312,7 +4531,7 @@
         "eligibility_request_sha256": "8fd7575129a2fefb5439e6c20d19478aebe84aa5206b8f488850d448d282e0c1",
         "eligibility_result_sha256": "43045b656b2b186e4543652cec903818c1bda72d5a8672b55810224dbfdfe4ea",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "b38ff954e3412e02eaf07b726ebe51eb55399f88dfe93b9b316ee3bb915bf516",
+        "rendered_route_scoped_execution_prompt_sha256": "7261776fdc1c753ac05c7d42c9f61d0a27e361c8afcbc124b00a0bc40b37d535",
         "route_request_and_result_digests": [
           {
             "request_sha256": "be1b9b03b573a8f1737ef3066de405d3391c46e37c849f02f9c5357aa087ad80",
@@ -4770,7 +4989,7 @@
         "eligibility_request_sha256": "442b94f9b0e63873ed476ac6507e881ead5ae93fa29ae8aa225964613d7146c5",
         "eligibility_result_sha256": "502f6ba89729e5dc5898353de3dcda0aefdca8f6a81fa706522f2b806f5553df",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "9e22d5de63871464fe927f98be7e8a9c7ab27f71ca4914c5c0d3c918210c107a",
@@ -4947,22 +5166,46 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si009/source-effect.txt",
-                "sha256": "6493da433e9de5bf84697f8ff311880bd6141221c21207ae579dd0f5f810d6ad"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T052"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si009/source-effect.txt",
+                  "sha256": "6493da433e9de5bf84697f8ff311880bd6141221c21207ae579dd0f5f810d6ad"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T052"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "293ec9453add93e62e019ef982b89699ea5581b41870a52be3c7043122d67867",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si009/source-effect.txt",
+                      "sha256": "6493da433e9de5bf84697f8ff311880bd6141221c21207ae579dd0f5f810d6ad"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T052"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "9e9d0757353f4373cc3acf8df7d9a8d409473f11c59b15762726cba3df3e45a2",
+          "post_pass_history_sha256": "3a1d898eb34a9764ac03902918fa76606822ae4ef4299a18f99068ec9f5f5822",
           "previous_assessment": {
             "evidence": [
               {
@@ -4981,10 +5224,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "293ec9453add93e62e019ef982b89699ea5581b41870a52be3c7043122d67867",
-            "current_assessment_sha256": "beb153ea5b9b6e789ce1d32cc1b751599fbcf936f9943a941604a312848da902",
+            "current_assessment_sha256": "d999a6867a41f163a22b9652fded454ae24ae38dc17c58fd2f6a4b4b9a6164b6",
             "forwarded_payload_sha256": "c835cea04cf06859b9e07841d25235e06a1500af8e337140793a49272ae7ef59",
             "previous_assessment_sha256": "e289140a9e63e92571855da943a2655dc63047d00ddbf2623af5f162e9fa3cc5",
-            "rendered_prompt_sha256": "27adc44aabf3828428d9b8f421a56bb84dcd89bd9fa5f439f7e0a7633fa2209c",
+            "rendered_prompt_sha256": "34a9be4cdf04a556d49c51585ecb30f220d8db5f7ed3a58ef8cb5850366019da",
             "request_sha256": "c835cea04cf06859b9e07841d25235e06a1500af8e337140793a49272ae7ef59",
             "result_sha256": "e1d362f3ef3ad0af2697f354ac2e6795f2f74544f208b54ae3ddaa7f31d94adb"
           },
@@ -5140,6 +5383,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -5249,7 +5497,7 @@
         "eligibility_request_sha256": "12a5bdff9b2ea28ad7d7641317ecbbb00ad76bdf1bb9ba3d38300c8e65907a34",
         "eligibility_result_sha256": "2fa4377be6293155a60c0a66c4e59dfcbdb4a772fb24ae40eb05691666a22938",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "27adc44aabf3828428d9b8f421a56bb84dcd89bd9fa5f439f7e0a7633fa2209c",
+        "rendered_route_scoped_execution_prompt_sha256": "34a9be4cdf04a556d49c51585ecb30f220d8db5f7ed3a58ef8cb5850366019da",
         "route_request_and_result_digests": [
           {
             "request_sha256": "ee65521e82a4080ad185527c0d2c468bad9a224666c9dd1d47d3424b08690f88",
@@ -5614,7 +5862,7 @@
         "eligibility_request_sha256": "01c304d6142ad6644eb84a413c9073830567e96d6bc63eda12c3e0186e35fe0e",
         "eligibility_result_sha256": "8da4894495feabfdd739f19994f839aa71cc39fbc09e75776687d2ff635d4771",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "88b78c3ecb9ec6e9853361cc9a17cf09f70d0c73ea8e6d32e5166df2820d7f73",
@@ -5785,7 +6033,7 @@
         "eligibility_request_sha256": "8265e9a9a7df0d5fd65be48a8f4b09e66b18bb3e862081371befcde41700d2ee",
         "eligibility_result_sha256": "2013bd01e009ab68ff496167d52317062ed836ad5f98566248da4be345545741",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "77de3e46147f4dd640aeae011f92586b813fc971ec42342cc4f96c8003206de7",
@@ -6232,23 +6480,47 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si012/source-effect.txt",
-                "sha256": "29557798504a0145f27734f90ad105fb02899a3d177956811d7cb8ff467b2395"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T068",
-              "task:T069"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si012/source-effect.txt",
+                  "sha256": "29557798504a0145f27734f90ad105fb02899a3d177956811d7cb8ff467b2395"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T068",
+                "task:T069"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "0ec1bd7c5764a467b1e8c00f7db8c49bbe639a549adbfba19bca8a59d1de66e1",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si012/source-effect.txt",
+                      "sha256": "29557798504a0145f27734f90ad105fb02899a3d177956811d7cb8ff467b2395"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "752b168d1de67591ded899acd6c473e01bca3efe44fcf5eb30c7291090c8a6ea",
+          "post_pass_history_sha256": "752b168d1de67591ded899acd6c473e01bca3efe44fcf5eb30c7291090c8a6ea",
           "previous_assessment": {
             "evidence": [
               {
@@ -6267,10 +6539,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "0ec1bd7c5764a467b1e8c00f7db8c49bbe639a549adbfba19bca8a59d1de66e1",
-            "current_assessment_sha256": "53bb21bfeca1b05355d3df1a510c836453e14c301062dd5a287b18c3eef812ee",
+            "current_assessment_sha256": "e395df7949177dfb8cc49886b6182bafbee6a4cfa9e9079b6e2d1f3e50d0fded",
             "forwarded_payload_sha256": "3e96d1cdada77d09d6c3364ddfb27a03b5a73a20dab90594304829628001e256",
             "previous_assessment_sha256": "1637f810ec053fd9e88b23edb8e6c4db3aba39fd2a0bdfa16a946036b8e39508",
-            "rendered_prompt_sha256": "ebd7fe7eb11ce4aa43d796d1322d50601b4de2142b3ec3e61cd7ee71bda2699d",
+            "rendered_prompt_sha256": "21454619c0628303d54bdcf28fdefb4aec387207a19856415f87a4418173cdaf",
             "request_sha256": "3e96d1cdada77d09d6c3364ddfb27a03b5a73a20dab90594304829628001e256",
             "result_sha256": "cc42611c0a9b58130823aa963bfb9d0906b2698c0dcd3cd77576809e18c2e4a7"
           },
@@ -6685,7 +6957,8 @@
               "blocker": "loop-cap-exhausted"
             },
             "state": "blocked"
-          }
+          },
+          "stale_entry_history_result": null
         }
       ],
       "generic_route_inputs": {
@@ -6769,7 +7042,7 @@
         "eligibility_request_sha256": "a29f240eeb60fbd56b4774db96a814f2129ab794ac0464eddf18bdc3b4aeefca",
         "eligibility_result_sha256": "aa4030d161ca508ae96eca3feb0677936765119665590123b70ff798f7f94ecc",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "ebd7fe7eb11ce4aa43d796d1322d50601b4de2142b3ec3e61cd7ee71bda2699d",
+        "rendered_route_scoped_execution_prompt_sha256": "21454619c0628303d54bdcf28fdefb4aec387207a19856415f87a4418173cdaf",
         "route_request_and_result_digests": []
       },
       "readiness": {
@@ -7284,24 +7557,48 @@
             "state": "blocked"
           },
           "current_assessment": {
-            "evidence": [
-              {
-                "path": "specs/snapshot-si013/source-effect.txt",
-                "sha256": "893b506b11fd1dbab7d43308b9a10269d15513642ef0e21669e84b5ccb842e50"
-              }
-            ],
-            "next_step_id": "implement-tasks",
-            "reason_code": "independently-assessed-post-source-state",
-            "remaining_ids": [
-              "task:T068",
-              "task:T069",
-              "task:T070"
-            ],
-            "resolved_ids": [
-              "finding:F020-EXAMPLE-001"
-            ],
-            "state": "continue"
+            "outcome_envelope": {
+              "evidence": [
+                {
+                  "path": "specs/snapshot-si013/source-effect.txt",
+                  "sha256": "893b506b11fd1dbab7d43308b9a10269d15513642ef0e21669e84b5ccb842e50"
+                }
+              ],
+              "next_step_id": "implement-tasks",
+              "reason_code": "independently-assessed-post-source-state",
+              "remaining_ids": [
+                "task:T068",
+                "task:T069",
+                "task:T070"
+              ],
+              "resolved_ids": [
+                "finding:F020-EXAMPLE-001"
+              ],
+              "state": "continue"
+            },
+            "review": {
+              "baseline_sha256": "133d84303eccfe52008408f14a012bbd9f53a7cf7ca8911a069414c1f36eac38",
+              "completed_task_ids": [],
+              "findings": [
+                {
+                  "evidence": [
+                    {
+                      "path": "specs/snapshot-si013/source-effect.txt",
+                      "sha256": "893b506b11fd1dbab7d43308b9a10269d15513642ef0e21669e84b5ccb842e50"
+                    }
+                  ],
+                  "id": "F020-EXAMPLE-001",
+                  "resolution_summary": "The original pre-effect defect was reviewed against the corrected source.",
+                  "status": "resolved",
+                  "task_id": "T068"
+                }
+              ],
+              "new_findings": [],
+              "reviewer": "FlowKit-Code Reviewer"
+            }
           },
+          "entry_history_sha256": "d8b96786690c833bfcd82442c4f37cfd0c388e72dba18d2f98eec22a6523fc8c",
+          "post_pass_history_sha256": "cc7d7a6828f3b552d9e69ece76b8fecd3f02a2a5ebb2a334ad7f289d107ab4fd",
           "previous_assessment": {
             "evidence": [
               {
@@ -7320,10 +7617,10 @@
           },
           "production_progress_dispatch": {
             "baseline_sha256": "133d84303eccfe52008408f14a012bbd9f53a7cf7ca8911a069414c1f36eac38",
-            "current_assessment_sha256": "31d938a5da890c46f1bd2f23e1bbca378a12b39db3f1843146e34c0a283c7efd",
+            "current_assessment_sha256": "8451eb4e8db4541e6f6949e2abf57446a09f77373ec28519fb5d851a1414404b",
             "forwarded_payload_sha256": "9c1d495ff4e33805de014d56e4f906bf3d9d9b152900f30d977fc2fe5185da32",
             "previous_assessment_sha256": "ca9e050092fda84d20b8912ff73e1ea6ce8ae20ac2bf667e0516fca8d592c1b1",
-            "rendered_prompt_sha256": "f8ee4e0392c5e3e613e5a8ca5c83ea29a56f999c4aa7984f0d5922ed16b2840a",
+            "rendered_prompt_sha256": "f47e3d5e31dd12df8b47278e5f132002748d630381b43d7559a0e8f9a6e07d20",
             "request_sha256": "9c1d495ff4e33805de014d56e4f906bf3d9d9b152900f30d977fc2fe5185da32",
             "result_sha256": "b28aeb0f2451f3597007bb6d8685bf20c94aa0a3ac1fd0fa75cde98c605ba974"
           },
@@ -7479,6 +7776,11 @@
             },
             "state": "continue",
             "substantive_progress": true
+          },
+          "stale_entry_history_result": {
+            "reason_code": "implementation-history-retained-state-stale",
+            "resume_action": "reassess-substantive-progress-against-frozen-scope",
+            "state": "blocked"
           }
         }
       ],
@@ -7576,7 +7878,7 @@
         "eligibility_request_sha256": "3a39d44ba8926043c3838b2d88dd5cab5a97ceaa5358fb4a54cabe92825ce9ac",
         "eligibility_result_sha256": "072b45744b9ff25289fa9946f51c8ec5053afb30dba38f2021feada54f261c16",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "f8ee4e0392c5e3e613e5a8ca5c83ea29a56f999c4aa7984f0d5922ed16b2840a",
+        "rendered_route_scoped_execution_prompt_sha256": "f47e3d5e31dd12df8b47278e5f132002748d630381b43d7559a0e8f9a6e07d20",
         "route_request_and_result_digests": [
           {
             "request_sha256": "2e95c5213877e8b2d3a1f4b643d7b391972ec70e8e6eced21ebfa9aff99aecd7",
@@ -7862,7 +8164,7 @@
         "eligibility_request_sha256": "fb68553d96f840d94ae23fb6f9cb31a1732163e7057252e5d76929f1ece8b623",
         "eligibility_result_sha256": "186165874acc5bf99e8801244c3f9c5dddef33f2a6da76b838ea87625f90f635",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "8d448844b549e1eaab3d775fe23b81a97522d402da63013ae8c64da66f877c04",
@@ -8030,7 +8332,7 @@
         "eligibility_request_sha256": "ca55272c85ca202ac46a497c0e699bef2b87d36e54b4bbb1c3e516d1c1c7b1a0",
         "eligibility_result_sha256": "9a62f6ce62817539b8edc82b4ad30003a2ac093d733e14680db638d3a9c148cd",
         "rendered_route_scoped_entry_prompt_sha256": "344219d456c167f9d47ab59d3da8cb7acc85802953ba2ef486bcc429c5c9120d",
-        "rendered_route_scoped_execution_prompt_sha256": "56b5bccf29607eb67b1304b916a72982d42b7ca7617cb5c0d48c430ef8ff06cb",
+        "rendered_route_scoped_execution_prompt_sha256": "8d5813e95071ffa17e018990ab4bb58895031e3de37618c7fd47698222c9771b",
         "route_request_and_result_digests": [
           {
             "request_sha256": "b1a88f1fd32f27b29e1c3dfdd8ecf67218b016abbc6daab5ff3d66d81b6668d0",
@@ -8385,7 +8687,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/agent-defaults/manifest.json",
-        "sha256": "baed1c63acf546279b9b293b5bff4a1c33b38407ab9eb2df51c6645dfef3a16d"
+        "sha256": "f0d7853f22b1f517fa0dfef81025da0872fae138fb800012a389d25ebd7de7be"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -8395,7 +8697,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/controller-protocol.md",
-        "sha256": "606f597c4aa0644ca1a439a19e8cb6109efbb9116d0675ccf271f50fd00a82b3"
+        "sha256": "ea0c3996edd9cd258415bc8cf9d8badf88f92cbb569a9af54babd90f4b15d2b8"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -8410,7 +8712,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/scripts/python/controller.py",
-        "sha256": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3"
+        "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
       },
       {
         "component_id": "flow-kit-controllers",
@@ -8440,7 +8742,7 @@
       {
         "component_id": "flow-kit-controllers",
         "path": ".specify/flow-kit/skills-install.json",
-        "sha256": "ab211b238e719a2fcd0d8f50da25b606bfeef2a57a0534c98f91a67cc2e429d0"
+        "sha256": "11d7a9d4d25e010b594928cab973908d5404fb5ab4bb7cd01392fddd56bf17d5"
       },
       {
         "component_id": "speckit-flow-analyze-remediate",
@@ -8465,7 +8767,7 @@
       {
         "component_id": "speckit-flow-implement",
         "path": ".specify/workflows/speckit-flow-implement/workflow.yml",
-        "sha256": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6"
+        "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
       },
       {
         "component_id": "speckit-flow-plan",
@@ -8549,23 +8851,23 @@
       ".specify/extensions/flow-wiki/config-template.yml": "4a822f91c5715fb1efbd0dd44da3e480111a18007904e1408a70dfe2f7d88a2e",
       ".specify/extensions/flow-wiki/extension.yml": "96c71268dce1573443b625c58b6b7005f834ed43d118b66adf65603030a161b4",
       ".specify/extensions/flow-wiki/flow-wiki-config.yml": "4a822f91c5715fb1efbd0dd44da3e480111a18007904e1408a70dfe2f7d88a2e",
-      ".specify/flow-kit/agent-defaults/manifest.json": "baed1c63acf546279b9b293b5bff4a1c33b38407ab9eb2df51c6645dfef3a16d",
+      ".specify/flow-kit/agent-defaults/manifest.json": "f0d7853f22b1f517fa0dfef81025da0872fae138fb800012a389d25ebd7de7be",
       ".specify/flow-kit/agent-defaults/package.zip": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
-      ".specify/flow-kit/controller-protocol.md": "606f597c4aa0644ca1a439a19e8cb6109efbb9116d0675ccf271f50fd00a82b3",
+      ".specify/flow-kit/controller-protocol.md": "ea0c3996edd9cd258415bc8cf9d8badf88f92cbb569a9af54babd90f4b15d2b8",
       ".specify/flow-kit/manifest.yml": "a979e1234a7e128112be4ace1fe32a1e54e4a887875e2b181c16c4a89be8d227",
       ".specify/flow-kit/scripts/bootstrap.sh": "3c04886b11be893037c46b157c0f6760065c1641550b6d04bf61a33b0465d6fb",
-      ".specify/flow-kit/scripts/python/controller.py": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3",
+      ".specify/flow-kit/scripts/python/controller.py": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952",
       ".specify/flow-kit/scripts/python/implementation_scope.py": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d",
       ".specify/flow-kit/scripts/python/phase_lifecycle.py": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1",
       ".specify/flow-kit/scripts/python/readiness.py": "6396ffad00c842cec2234beaf56d31caa87d6bc0317fc469d45f904e97e7b725",
       ".specify/flow-kit/scripts/python/recovery.py": "2028995b9a8298a7dfc65e529f98e1025ef776ed0a9d2a7175992a4fb0afad77",
       ".specify/flow-kit/scripts/python/selection.py": "2c61619724ce107b2bcf26b3c312560930835d58ffdfe8d61412db9a9c0e38eb",
-      ".specify/flow-kit/skills-install.json": "ab211b238e719a2fcd0d8f50da25b606bfeef2a57a0534c98f91a67cc2e429d0",
+      ".specify/flow-kit/skills-install.json": "11d7a9d4d25e010b594928cab973908d5404fb5ab4bb7cd01392fddd56bf17d5",
       ".specify/workflows/speckit-flow-analyze-remediate/workflow.yml": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
       ".specify/workflows/speckit-flow-clarify/workflow.yml": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
       ".specify/workflows/speckit-flow-closeout/workflow.yml": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
       ".specify/workflows/speckit-flow-converge/workflow.yml": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
-      ".specify/workflows/speckit-flow-implement/workflow.yml": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6",
+      ".specify/workflows/speckit-flow-implement/workflow.yml": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3",
       ".specify/workflows/speckit-flow-plan/workflow.yml": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
       ".specify/workflows/speckit-flow-select-feature/workflow.yml": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
       ".specify/workflows/speckit-flow-specify/workflow.yml": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",
@@ -8574,15 +8876,15 @@
     }
   },
   "installed_payload_sha256": {
-    "controller.py": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3",
+    "controller.py": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952",
     "implementation_scope.py": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d",
-    "workflow.yml": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6"
+    "workflow.yml": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
   },
   "lifecycle_delivery_payload_sha256": {
     "closeout_workflow": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
-    "controller": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3",
+    "controller": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952",
     "controller_manifest": "a979e1234a7e128112be4ace1fe32a1e54e4a887875e2b181c16c4a89be8d227",
-    "implement_workflow": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6",
+    "implement_workflow": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3",
     "phase_lifecycle": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1",
     "specify_workflow": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
   },
@@ -8598,7 +8900,13 @@
     "flowkit_source": {
       "dirty_state": "dirty",
       "repository": "https://github.com/pegagio/spec-kit-flow",
-      "revision": "8a90c078035da998447c362ff37dd314c0cb053f"
+      "revision": "2f8c34931294f73e2b7f70bb08ed79ca98fa53e8"
+    },
+    "implementation_capture_source": {
+      "controller_sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952",
+      "installed_controller_sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952",
+      "installed_workflow_sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3",
+      "workflow_sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
     },
     "production_tags_or_publication": "not part of this validation",
     "roadmap_source": {
@@ -8606,6 +8914,7 @@
       "manifest_sha256": "db7d820364c36798b2c5aa4ce3284cbd5b9b0a256b129cea927a818afefe3265",
       "repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
       "revision": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+      "source_manifest_sha256": "db7d820364c36798b2c5aa4ce3284cbd5b9b0a256b129cea927a818afefe3265",
       "version": "0.3.0"
     },
     "snapshot_install": "passed",
@@ -8621,10 +8930,433 @@
       "T002",
       "T003"
     ],
+    "baseline": {
+      "feature_directory": "specs/998-tasker-revision-successor-fixture",
+      "findings": [
+        {
+          "artifact_location": "specs/998-tasker-revision-successor-fixture/implementation.py:1",
+          "evidence": [
+            {
+              "path": "specs/998-tasker-revision-successor-fixture/implementation.py",
+              "sha256": "eb9ff4405fe576464e9b963c7fd888c9c0ffaa9bd31578f6a2102a98c04b0aac"
+            }
+          ],
+          "exact_correction": "Correct the selected behavior and retain its regression.",
+          "id": "F020-LIFECYCLE-REENTRY-001",
+          "observed_deficiency": "The selected behavior is still incorrect.",
+          "task_id": "T002",
+          "violated_requirement": "Correct the selected behavior."
+        }
+      ],
+      "pointer_sha256": "51b321f8ff5a9ae3e207123a9dc52765d743d29390123ff6603a1d7f8e3f27ce",
+      "schema_version": "1.0",
+      "specification_sha256": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+      "tasks": {
+        "T002": {
+          "description": "Existing selected work",
+          "marker": " "
+        }
+      }
+    },
+    "baseline_sha256": "5a6857a4ce639408cf498d9357d3043801c56c0cd0e4b6be2360f9706615a7c9",
+    "capture_dispatch": {
+      "command_template": [
+        "python3",
+        ".specify/flow-kit/scripts/python/controller.py",
+        "post-pass-capture",
+        "--project",
+        "$PWD"
+      ],
+      "completion_branch": false,
+      "eligibility_request_sha256": "ef26434dfa577006e3e144ece6f2b5ad0efe7163446414d547e5728f1edc1f8c",
+      "eligibility_retained_scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+      "eligibility_scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+      "eligibility_trusted_request_reference": "installed-fixture-request",
+      "entry_history_sha256": "06823e4859a0df4c5c9350d07a8943a1eb222e0c4ad87c31f6a88edc22646c8e",
+      "producer_pairs_sha256": "22937c7733e2af3511ed5d4c084e23259cd48a79c45fff89bf429610f70cd7b0",
+      "project_argument_bound_to_consumer": true,
+      "request": {
+        "completion_branch": false,
+        "eligibility_request": {
+          "assessment": {
+            "assessment_id": "installed-revision-source-eligibility",
+            "eligible_task_ids": [
+              "T002",
+              "T003"
+            ],
+            "evidence": [
+              {
+                "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+              }
+            ],
+            "global_blockers": [],
+            "input_digests": {
+              "specs/998-tasker-revision-successor-fixture/spec.md": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+              "specs/998-tasker-revision-successor-fixture/tasks.md": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+            },
+            "iteration": 1,
+            "pending_task_ids": [],
+            "predecessor_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+            "task_states": [
+              {
+                "blocker": null,
+                "dependency_ids": [],
+                "evidence": [
+                  {
+                    "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                    "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                  }
+                ],
+                "proof_sha256": null,
+                "resume_action": null,
+                "state": "eligible",
+                "task_id": "T002"
+              },
+              {
+                "blocker": null,
+                "dependency_ids": [],
+                "evidence": [
+                  {
+                    "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                    "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                  }
+                ],
+                "proof_sha256": null,
+                "resume_action": null,
+                "state": "eligible",
+                "task_id": "T003"
+              }
+            ]
+          },
+          "completion_classifications": {
+            "T002": {
+              "classification_evidence": [
+                {
+                  "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                  "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                }
+              ],
+              "completion_kind": "substantive-implementation",
+              "requirement_ids": [
+                "behavior"
+              ],
+              "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+              "source_requirement_ids": [
+                "behavior"
+              ],
+              "task_description_sha256": "a0ede538f3e5020f6351a53a63ca05b17e629dae330ce62158328df0a76a8de4",
+              "task_id": "T002"
+            },
+            "T003": {
+              "classification_evidence": [
+                {
+                  "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                  "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                }
+              ],
+              "completion_kind": "substantive-implementation",
+              "requirement_ids": [
+                "behavior"
+              ],
+              "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+              "source_requirement_ids": [
+                "behavior"
+              ],
+              "task_description_sha256": "9d803bb7c6d62edb117f2daaaab02f8e87ed83ead96f38f6b99b81ff6fb6d8d4",
+              "task_id": "T003"
+            }
+          },
+          "proof_requirements": {
+            "T002": [
+              "behavior"
+            ],
+            "T003": [
+              "behavior"
+            ]
+          },
+          "proofs": {},
+          "retained_predecessor_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "retained_scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+          "scope": {
+            "feature_directory": "specs/998-tasker-revision-successor-fixture",
+            "input_digests": {
+              ".specify/feature.json": "51b321f8ff5a9ae3e207123a9dc52765d743d29390123ff6603a1d7f8e3f27ce",
+              "specs/998-tasker-revision-successor-fixture/spec.md": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+              "specs/998-tasker-revision-successor-fixture/tasks.md": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+            },
+            "request_kind": "full-feature",
+            "request_reference": "installed-fixture-request",
+            "requested_task_ids": [
+              "T002"
+            ],
+            "run_id": "installed-revision-successor",
+            "schema_version": "1.0",
+            "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+            "task_records": [
+              {
+                "description": "Existing selected work",
+                "description_sha256": "a0ede538f3e5020f6351a53a63ca05b17e629dae330ce62158328df0a76a8de4",
+                "marker": "unchecked",
+                "task_id": "T002"
+              }
+            ]
+          },
+          "source_requirement_ids": {
+            "T002": [
+              "behavior"
+            ],
+            "T003": [
+              "behavior"
+            ]
+          },
+          "task_tracking_successors": [
+            {
+              "frozen_scope": {
+                "approved_specification_sha256": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+                "eligible_task_owners": {},
+                "findings": [
+                  {
+                    "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
+                    "id": "F020-R001"
+                  }
+                ],
+                "permitted_added_task_owner": "FlowKit-Tasker",
+                "tasker_owner": "FlowKit-Tasker"
+              },
+              "predecessor_event_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+              "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+              "semantic_review": {
+                "finding_ids": [
+                  "F020-R001"
+                ],
+                "rationale": "The Tasker addition is the exact eligible correction for the reviewed finding.",
+                "reviewer": "main-controller",
+                "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+                "state": "approved",
+                "task_ids": [
+                  "T003"
+                ]
+              },
+              "sha256": "f370914796e0179fa556632bea801f927eff7a0026d0aef72ec8b14909774655",
+              "successor_kind": "task-plan-revision",
+              "tasker_assignment": "FlowKit-Tasker",
+              "tasker_result": {
+                "added_task_ids": [
+                  "T003"
+                ],
+                "finding_ids": [
+                  "F020-R001"
+                ],
+                "preserved_completed_task_ids": [
+                  "T001"
+                ],
+                "reopened_task_ids": [],
+                "revision_state": "updated",
+                "task_mappings": [
+                  {
+                    "finding_id": "F020-R001",
+                    "owner": "FlowKit-Tasker",
+                    "task_ids": [
+                      "T003"
+                    ]
+                  }
+                ],
+                "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+                "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+              },
+              "tasks_after_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n- [ ] T003 [US1] Correct F020-R001 in the implemented workflow\n",
+              "tasks_before_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n",
+              "validation_result": {
+                "eligible_task_ids": [
+                  "T003"
+                ],
+                "feature_directory": "specs/998-tasker-revision-successor-fixture",
+                "finding_ids": [
+                  "F020-R001"
+                ],
+                "preserved_completed_task_ids": [
+                  "T001"
+                ],
+                "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+                "state": "ready",
+                "substantive_progress": false,
+                "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+                "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a",
+                "tasks_path": "specs/998-tasker-revision-successor-fixture/tasks.md"
+              }
+            }
+          ],
+          "trusted_request_reference": "installed-fixture-request"
+        },
+        "entry_history_sha256": "06823e4859a0df4c5c9350d07a8943a1eb222e0c4ad87c31f6a88edc22646c8e",
+        "producer_pairs": [
+          {
+            "tasker_result": {
+              "finding_ids": [
+                "F020-R001"
+              ],
+              "revision_state": "updated",
+              "task_mappings": [
+                {
+                  "finding_id": "F020-R001",
+                  "owner": "FlowKit-Tasker",
+                  "task_ids": [
+                    "T003"
+                  ]
+                }
+              ],
+              "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+              "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+            },
+            "tasker_step_id": "revise-task-plan",
+            "validator_result": {
+              "state": "ready",
+              "task_tracking_successor": {
+                "frozen_scope": {
+                  "approved_specification_sha256": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+                  "eligible_task_owners": {},
+                  "findings": [
+                    {
+                      "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
+                      "id": "F020-R001"
+                    }
+                  ],
+                  "permitted_added_task_owner": "FlowKit-Tasker",
+                  "tasker_owner": "FlowKit-Tasker"
+                },
+                "predecessor_event_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+                "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+                "semantic_review": {
+                  "finding_ids": [
+                    "F020-R001"
+                  ],
+                  "rationale": "The Tasker addition is the exact eligible correction for the reviewed finding.",
+                  "reviewer": "main-controller",
+                  "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+                  "state": "approved",
+                  "task_ids": [
+                    "T003"
+                  ]
+                },
+                "sha256": "f370914796e0179fa556632bea801f927eff7a0026d0aef72ec8b14909774655",
+                "successor_kind": "task-plan-revision",
+                "tasker_assignment": "FlowKit-Tasker",
+                "tasker_result": {
+                  "added_task_ids": [
+                    "T003"
+                  ],
+                  "finding_ids": [
+                    "F020-R001"
+                  ],
+                  "preserved_completed_task_ids": [
+                    "T001"
+                  ],
+                  "reopened_task_ids": [],
+                  "revision_state": "updated",
+                  "task_mappings": [
+                    {
+                      "finding_id": "F020-R001",
+                      "owner": "FlowKit-Tasker",
+                      "task_ids": [
+                        "T003"
+                      ]
+                    }
+                  ],
+                  "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+                  "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+                },
+                "tasks_after_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n- [ ] T003 [US1] Correct F020-R001 in the implemented workflow\n",
+                "tasks_before_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n",
+                "validation_result": {
+                  "eligible_task_ids": [
+                    "T003"
+                  ],
+                  "feature_directory": "specs/998-tasker-revision-successor-fixture",
+                  "finding_ids": [
+                    "F020-R001"
+                  ],
+                  "preserved_completed_task_ids": [
+                    "T001"
+                  ],
+                  "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+                  "state": "ready",
+                  "substantive_progress": false,
+                  "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+                  "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a",
+                  "tasks_path": "specs/998-tasker-revision-successor-fixture/tasks.md"
+                }
+              }
+            },
+            "validator_step_id": "validate-task-revision"
+          }
+        ],
+        "retained_scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+        "scope": {
+          "feature_directory": "specs/998-tasker-revision-successor-fixture",
+          "input_digests": {
+            ".specify/feature.json": "51b321f8ff5a9ae3e207123a9dc52765d743d29390123ff6603a1d7f8e3f27ce",
+            "specs/998-tasker-revision-successor-fixture/spec.md": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+            "specs/998-tasker-revision-successor-fixture/tasks.md": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+          },
+          "request_kind": "full-feature",
+          "request_reference": "installed-fixture-request",
+          "requested_task_ids": [
+            "T002"
+          ],
+          "run_id": "installed-revision-successor",
+          "schema_version": "1.0",
+          "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+          "task_records": [
+            {
+              "description": "Existing selected work",
+              "description_sha256": "a0ede538f3e5020f6351a53a63ca05b17e629dae330ce62158328df0a76a8de4",
+              "marker": "unchecked",
+              "task_id": "T002"
+            }
+          ]
+        },
+        "task_tracking_successors": [],
+        "trusted_request_reference": "installed-fixture-request"
+      },
+      "request_fields": [
+        "scope",
+        "trusted_request_reference",
+        "retained_scope_sha256",
+        "entry_history_sha256",
+        "task_tracking_successors",
+        "producer_pairs",
+        "eligibility_request",
+        "completion_branch"
+      ],
+      "request_sha256": "acee6428474f9e0555317ed7f1bba51921d54b60ec18af26cf3f58bbdbecd1d7",
+      "result_state": "ready",
+      "retained_scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+      "return_code": 0,
+      "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+      "task_tracking_successors_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "trusted_request_reference": "installed-fixture-request"
+    },
+    "capture_project_argument_mutation_state": "blocked",
+    "captured_revision_history_sha256": "06823e4859a0df4c5c9350d07a8943a1eb222e0c4ad87c31f6a88edc22646c8e",
+    "captured_revision_producer_step_ids": [
+      "revise-task-plan",
+      "validate-task-revision"
+    ],
+    "captured_revision_route_state": "continue",
+    "completion_capture_negative_states": {
+      "post-pass-producer-branch-invalid": "blocked",
+      "post-pass-successor-output-missing": "blocked",
+      "post-pass-validator-state-invalid": "blocked",
+      "stale-successor": "blocked"
+    },
     "eligible_derived_task_ids": [
       "T003"
     ],
     "final_eligibility_state": "ready",
+    "final_post_pass_completion_validator_state": "complete",
+    "final_post_pass_successor_count": 3,
     "final_scoped_progress_state": "complete",
     "final_tasker_tracked_ids": [
       "T002",
@@ -8634,18 +9366,351 @@
     "forged_semantic_scope_state": "blocked",
     "initial_eligibility_state": "ready",
     "original_task_sha256_preserved": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a",
+    "post_pass_ordered_operations": [
+      "session-start",
+      "source-attempt-start",
+      "source-effect",
+      "session-outcome",
+      "independent-review",
+      "Tasker-result",
+      "Tasker-validation",
+      "post-pass-capture"
+    ],
+    "post_pass_rendered_prompt_sha256": "337d7e6f9cec3b78f604a3c8bd588c027d9028e234f8e0f21e0afc2cd2035e96",
+    "post_pass_state": {
+      "completion_validator_state": "ready",
+      "eligibility": {
+        "eligibility": {
+          "assessment_id": "installed-revision-source-eligibility",
+          "eligible_task_ids": [
+            "T002",
+            "T003"
+          ],
+          "evidence": [
+            {
+              "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+              "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+            }
+          ],
+          "global_blockers": [],
+          "input_digests": {
+            "specs/998-tasker-revision-successor-fixture/spec.md": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+            "specs/998-tasker-revision-successor-fixture/tasks.md": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+          },
+          "iteration": 1,
+          "pending_task_ids": [],
+          "predecessor_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+          "task_states": [
+            {
+              "blocker": null,
+              "dependency_ids": [],
+              "evidence": [
+                {
+                  "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                  "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                }
+              ],
+              "proof_sha256": null,
+              "resume_action": null,
+              "state": "eligible",
+              "task_id": "T002"
+            },
+            {
+              "blocker": null,
+              "dependency_ids": [],
+              "evidence": [
+                {
+                  "path": "specs/998-tasker-revision-successor-fixture/tasks.md",
+                  "sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6"
+                }
+              ],
+              "proof_sha256": null,
+              "resume_action": null,
+              "state": "eligible",
+              "task_id": "T003"
+            }
+          ]
+        },
+        "eligibility_sha256": "6d4c194e255e7a7444d565ca162211aa146705da667f1f7a6fde97f2885ddad3",
+        "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+        "state": "ready"
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "events": [
+          {
+            "coder_session_id": "post-review-successor-session-1",
+            "coder_sessions_started": 1,
+            "declared_node_id": "implement-tasks",
+            "event_id": "post-review-successor-1",
+            "event_kind": "coder-session-start",
+            "evidence": [
+              {
+                "path": ".specify/si-evidence/post-review-successor/event-1.json",
+                "sha256": "ba3045c532db68110fdd96b7bacd1f84fcf3d48ad1521cda9a7ccb5389530634"
+              }
+            ],
+            "execution_kind": "first-source-execution",
+            "occurred_at": "2026-10-08T12:01:00Z",
+            "predecessor_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+            "sha256": "0a2051722b7d184b5798e120e017d262cbf7dd3e068208808496aadf7fe68786",
+            "source_attempts_started": 0
+          },
+          {
+            "coder_session_id": "post-review-successor-session-1",
+            "coder_sessions_started": 1,
+            "declared_node_id": "implement-tasks",
+            "event_id": "post-review-successor-2",
+            "event_kind": "source-attempt-start",
+            "evidence": [
+              {
+                "path": ".specify/si-evidence/post-review-successor/event-2.json",
+                "sha256": "4752b5c4f10c895da3454b8bead1ee60a3c29f90e9221aa3f7fc8b16ff38b36e"
+              }
+            ],
+            "execution_kind": "first-source-execution",
+            "occurred_at": "2026-10-08T12:01:01Z",
+            "predecessor_sha256": "0a2051722b7d184b5798e120e017d262cbf7dd3e068208808496aadf7fe68786",
+            "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+            "sha256": "6a06b505eeee7a3f6c012785b5c3a0ea6f222fa4038dd19d229492a69300e60a",
+            "source_attempts_started": 1
+          },
+          {
+            "coder_session_id": "post-review-successor-session-1",
+            "coder_sessions_started": 1,
+            "declared_node_id": "implement-tasks",
+            "event_id": "post-review-successor-3",
+            "event_kind": "coder-session-outcome",
+            "evidence": [
+              {
+                "path": ".specify/si-evidence/post-review-successor/event-3.json",
+                "sha256": "7ac2f869c7a1fd4293e74bb5486e1f7ddf5d1a9dd7f252261723cca53462dc5b"
+              }
+            ],
+            "occurred_at": "2026-10-08T12:01:01Z",
+            "outcome": "completed",
+            "predecessor_sha256": "6a06b505eeee7a3f6c012785b5c3a0ea6f222fa4038dd19d229492a69300e60a",
+            "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+            "sha256": "6e3db35d9675d67ee7f28e2f91075b317570243173f289abf68db9fca66163cb",
+            "source_attempts_started": 1
+          }
+        ],
+        "schema_version": "1.0",
+        "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+        "sha256": "06823e4859a0df4c5c9350d07a8943a1eb222e0c4ad87c31f6a88edc22646c8e",
+        "source_attempts_started": 1
+      },
+      "history_path": ".specify/flow-controllers/implementation-history/installed-revision-successor.json",
+      "ordered_operations": [
+        "session-start",
+        "source-attempt-start",
+        "source-effect",
+        "session-outcome",
+        "independent-review",
+        "Tasker-result",
+        "Tasker-validation",
+        "post-pass-capture"
+      ],
+      "producer_records": [
+        {
+          "task_tracking_successor_sha256": "0dfbd0e3812eb240b663d566a8c77a198c97348cce75ed42305f1d101a009986",
+          "tasker_result_sha256": "d7abd46f3094807da4fd62a46ac5da11804e87d3ca855449edb657629ff0f0bf",
+          "tasker_step_id": "revise-task-plan",
+          "validator_result_sha256": "0642d9dc97fc85739ee60677bdfef541fa4e7284e9c2e3b2b5ffd515337f0ec6",
+          "validator_step_id": "validate-task-revision"
+        }
+      ],
+      "scope": {
+        "feature_directory": "specs/998-tasker-revision-successor-fixture",
+        "input_digests": {
+          ".specify/feature.json": "51b321f8ff5a9ae3e207123a9dc52765d743d29390123ff6603a1d7f8e3f27ce",
+          "specs/998-tasker-revision-successor-fixture/spec.md": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+          "specs/998-tasker-revision-successor-fixture/tasks.md": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+        },
+        "request_kind": "full-feature",
+        "request_reference": "installed-fixture-request",
+        "requested_task_ids": [
+          "T002"
+        ],
+        "run_id": "installed-revision-successor",
+        "schema_version": "1.0",
+        "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+        "task_records": [
+          {
+            "description": "Existing selected work",
+            "description_sha256": "a0ede538f3e5020f6351a53a63ca05b17e629dae330ce62158328df0a76a8de4",
+            "marker": "unchecked",
+            "task_id": "T002"
+          }
+        ]
+      },
+      "task_tracking_successors": [
+        {
+          "frozen_scope": {
+            "approved_specification_sha256": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+            "eligible_task_owners": {},
+            "findings": [
+              {
+                "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
+                "id": "F020-R001"
+              }
+            ],
+            "permitted_added_task_owner": "FlowKit-Tasker",
+            "tasker_owner": "FlowKit-Tasker"
+          },
+          "predecessor_event_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+          "scope_sha256": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
+          "semantic_review": {
+            "finding_ids": [
+              "F020-R001"
+            ],
+            "rationale": "The Tasker addition is the exact eligible correction for the reviewed finding.",
+            "reviewer": "main-controller",
+            "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+            "state": "approved",
+            "task_ids": [
+              "T003"
+            ]
+          },
+          "sha256": "f370914796e0179fa556632bea801f927eff7a0026d0aef72ec8b14909774655",
+          "successor_kind": "task-plan-revision",
+          "tasker_assignment": "FlowKit-Tasker",
+          "tasker_result": {
+            "added_task_ids": [
+              "T003"
+            ],
+            "finding_ids": [
+              "F020-R001"
+            ],
+            "preserved_completed_task_ids": [
+              "T001"
+            ],
+            "reopened_task_ids": [],
+            "revision_state": "updated",
+            "task_mappings": [
+              {
+                "finding_id": "F020-R001",
+                "owner": "FlowKit-Tasker",
+                "task_ids": [
+                  "T003"
+                ]
+              }
+            ],
+            "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+            "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a"
+          },
+          "tasks_after_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n- [ ] T003 [US1] Correct F020-R001 in the implemented workflow\n",
+          "tasks_before_text": "- [X] T001 Preserve completed history\n- [ ] T002 Existing selected work\n",
+          "validation_result": {
+            "eligible_task_ids": [
+              "T003"
+            ],
+            "feature_directory": "specs/998-tasker-revision-successor-fixture",
+            "finding_ids": [
+              "F020-R001"
+            ],
+            "preserved_completed_task_ids": [
+              "T001"
+            ],
+            "scope_sha256": "6ba1c5639d2b3d2a24e31ec0b4e4a73391c3a4bf1505ff195667181b7c29d3e7",
+            "state": "ready",
+            "substantive_progress": false,
+            "tasks_after_sha256": "5a4f489a36953c6d936905e0246a6e45b18ba5f00fae3081e8bbdccd556d50a6",
+            "tasks_before_sha256": "4b00a9d1f0c87805cf24517b3167a838d2182095bfdba383dd793e53be04d48a",
+            "tasks_path": "specs/998-tasker-revision-successor-fixture/tasks.md"
+          }
+        }
+      ]
+    },
+    "post_review_progress_state": "ready",
+    "post_review_source_effect": {
+      "after_sha256": "3d4ca16aa6aa7054a4630650e77edbcabcea0e789d567d98c0809f7ab85035bc",
+      "before_sha256": "eb9ff4405fe576464e9b963c7fd888c9c0ffaa9bd31578f6a2102a98c04b0aac",
+      "path": "specs/998-tasker-revision-successor-fixture/implementation.py"
+    },
+    "progress": {
+      "baseline": {
+        "feature_directory": "specs/998-tasker-revision-successor-fixture",
+        "findings": [],
+        "pointer_sha256": "51b321f8ff5a9ae3e207123a9dc52765d743d29390123ff6603a1d7f8e3f27ce",
+        "schema_version": "1.0",
+        "specification_sha256": "0966c0981fc3d87747ed95940eb0beb548cd8fc5866faf2c020104c28f247c10",
+        "tasks": {
+          "T002": {
+            "description": "Existing selected work",
+            "marker": " "
+          }
+        }
+      },
+      "baseline_sha256": "593e8ea1795a54bdd13eac386d362181f6a9ae3e9ddbdd5a6e2ea161120141dd",
+      "evidence": [
+        {
+          "path": "specs/998-tasker-revision-successor-fixture/implementation.py",
+          "sha256": "59502e55ee64d0a85d8ac089cd9fe6980a7ddbf96ebaba193a03af293f8257f4"
+        }
+      ],
+      "findings": [],
+      "remaining_ids": [
+        "task:T002"
+      ],
+      "resolved_ids": [
+        "finding:F020-LIFECYCLE-REENTRY-001"
+      ],
+      "state": "ready",
+      "substantive_progress": true
+    },
     "replay_state": "blocked",
     "result": "installed-tasker-revision-successor-passed",
-    "revision_successor_sha256": "255a6026a1a9cb8e2b18e1acea3805b86ef3627ea29edced35bd6ad3a6252cda",
+    "review": {
+      "baseline_sha256": "5a6857a4ce639408cf498d9357d3043801c56c0cd0e4b6be2360f9706615a7c9",
+      "completed_task_ids": [],
+      "findings": [
+        {
+          "evidence": [
+            {
+              "path": "specs/998-tasker-revision-successor-fixture/implementation.py",
+              "sha256": "3d4ca16aa6aa7054a4630650e77edbcabcea0e789d567d98c0809f7ab85035bc"
+            }
+          ],
+          "id": "F020-LIFECYCLE-REENTRY-001",
+          "resolution_summary": "The reviewed correction changes the captured source behavior.",
+          "status": "resolved",
+          "task_id": "T002"
+        }
+      ],
+      "new_findings": [
+        {
+          "artifact_location": "specs/998-tasker-revision-successor-fixture/implementation.py:1",
+          "evidence": [
+            {
+              "path": "specs/998-tasker-revision-successor-fixture/implementation.py",
+              "sha256": "3d4ca16aa6aa7054a4630650e77edbcabcea0e789d567d98c0809f7ab85035bc"
+            }
+          ],
+          "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
+          "id": "F020-R001",
+          "observed_deficiency": "A follow-up implementation task is needed to finish the reviewed route.",
+          "task_id": "T002",
+          "violated_requirement": "The selected feature retains a concrete implementation correction."
+        }
+      ],
+      "reviewer": "FlowKit-Code Reviewer"
+    },
+    "revision_successor_sha256": "f370914796e0179fa556632bea801f927eff7a0026d0aef72ec8b14909774655",
     "scope_sha256_preserved": "47a01514bb14cd21efba5c2bb0350b064c2e983cde6da8bf4200a12659e46f45",
     "scope_state": "ready",
     "scoped_progress_after_tasker_successors": "continue",
+    "stale_entry_history_state": "blocked",
     "stale_pointer_state": "blocked",
+    "stale_post_review_successor_state": "blocked",
+    "stale_prior_pass_after_later_tracking_state": "blocked",
     "stale_spec_state": "blocked",
     "tracked_task_ids": [
       "T003"
     ],
     "unsubstantiated_completion_state": "blocked"
   },
-  "workflow_sha256": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6"
+  "workflow_sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
 }

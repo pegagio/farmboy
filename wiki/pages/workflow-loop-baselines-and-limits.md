@@ -1,8 +1,8 @@
 ---
 title: Workflow loop baselines and limits
 type: reference
-sources: [S022]
-updated: 2026-10-02
+sources: [S022, S028]
+updated: 2026-10-09
 ---
 
 # Workflow loop baselines and limits
@@ -34,6 +34,12 @@ Closeout wiki progress requires substantive coverage or stale-claim resolution w
 ## Design ownership
 
 Versioned workflow YAML owns prompts, branches, gates, loop conditions, and caps. The shared controller owns generic validation, outcome checking, progress comparison, and iteration-aware recovery. Native agent instructions remain consumer-owned Codex configuration, outside the bundle and any FlowKit role map. (S022)
+
+## Current retained scope and recovery limits
+
+The table preserves history. Current Implement retains requested scope independently of eligibility and tracks Coder sessions/source attempts under the exact five-pass limit. Persisted session starts precede dispatch; failures and question-stopped sessions count. Same-child answers add evidence without another session. Preparation, answers, eligibility refresh, markers and Tasker changes never reset either budget. Continuation after source work requires independently evidenced prior-finding or scoped-task resolution and current history; no progress or exhausted capacity stops. (S028)
+
+Close Out recovery substantiates only three adjacent edges: planned→specced→in-progress→implemented, preserving actual occurrence evidence. Verification requires separate explicit approval. Wiki maintenance retains five single-source passes; timestamps earn no progress. Recovery never reopens a capped Implement run. (S028)
 
 ## Related pages
 

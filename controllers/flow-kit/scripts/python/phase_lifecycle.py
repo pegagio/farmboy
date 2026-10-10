@@ -41,6 +41,25 @@ REQUEST_FIELDS = {"schema_version", "action", "phase", "feature_directory", "ent
 PROPOSAL_FIELDS = {"schema_version", "snapshot", "milestone_evidence", "decision", "from_status", "to_status", "expected_roadmap_sha256", "patch_sha256", "effect_id", "recovery"}
 EVIDENCE_FIELDS = {"milestone", "owning_phase", "assessments", "required_check_ids", "satisfied_check_ids", "unresolved_ids", "artifact_digests", "historical_activity", "pending_future_ids"}
 RECEIPT_COMMON = {"schema_version", "feature_directory", "entry_id", "phase", "scope_sha256", "evidence", "effect_state", "record_state"}
+START_HISTORY_FIELDS = {"action", "schema_version", "feature_directory", "current_scope_sha256", "trusted_inputs"}
+START_HISTORY_INPUTS = {
+    "source_run", "baseline", "original_spec", "current_spec", "status_run",
+    "status_authorization", "status_effect", "status_validation", "feature_pointer",
+}
+START_ATTESTATION_FIELDS = {
+    "schema_version", "kind", "reviewer", "state", "feature_directory", "scope_sha256",
+    "workflow_id", "workflow_version", "run_id", "step_id", "child_id", "source_run_id",
+    "original_scope_sha256", "occurred_at", "history_validation", "recorded_dispatch", "dispatch_witness",
+    "required_check_ids", "satisfied_check_ids", "unresolved_ids", "artifact_digests",
+}
+START_DISPATCH_WITNESS_FIELDS = {
+    "schema_version", "kind", "feature_directory", "scope_sha256", "workflow_id",
+    "workflow_version", "run_id", "step_id", "agent", "child_id", "source_summary",
+}
+START_CHECKS = {
+    "recorded-implement-invocation", "completed-implementation-effect", "original-occurrence-time",
+    "source-scope-link", "authorized-status-only-bridge",
+}
 
 
 class LifecycleError(ValueError):
@@ -180,6 +199,333 @@ def _validate_reference(project: Path, reference: Any, snapshot: dict[str, Any])
     return reference
 
 
+def _trusted_start_inputs(project: Path, value: Any) -> tuple[dict[str, bytes], dict[str, dict[str, str]]]:
+    """Read main-task-retained recovery witnesses and reject incomplete references."""
+    if not isinstance(value, dict) or set(value) != START_HISTORY_INPUTS:
+        raise LifecycleError("start-history-trusted-inputs-invalid")
+    raw_by_name: dict[str, bytes] = {}
+    refs: dict[str, dict[str, str]] = {}
+    for name in sorted(START_HISTORY_INPUTS):
+        reference = _exact(value[name], {"path", "sha256"}, "start-history-reference")
+        path = _relative(reference["path"])
+        digest = _hash(reference["sha256"])
+        raw = _read_current(project, path)
+        if _digest_bytes(raw) != digest:
+            raise LifecycleError("start-history-stale-trusted-input")
+        refs[name] = {"path": path, "sha256": digest}
+        raw_by_name[name] = raw
+    return raw_by_name, refs
+
+def _status_only_bridge(original: bytes, current: bytes) -> bool:
+    """Allow the one recorded Draft-to-Complete header change, byte for byte."""
+    original_lines = original.splitlines(keepends=True)
+    current_lines = current.splitlines(keepends=True)
+    status_pattern = re.compile(rb"^\*\*Status\*\*: (Draft|Complete)(\r?\n)?$")
+    original_matches = [index for index, line in enumerate(original_lines) if status_pattern.fullmatch(line)]
+    current_matches = [index for index, line in enumerate(current_lines) if status_pattern.fullmatch(line)]
+    if len(original_matches) != 1 or current_matches != original_matches:
+        return False
+    index = original_matches[0]
+    if not status_pattern.fullmatch(original_lines[index]).group(1) == b"Draft":
+        return False
+    if not status_pattern.fullmatch(current_lines[index]).group(1) == b"Complete":
+        return False
+    expected = list(original_lines)
+    match = status_pattern.fullmatch(expected[index])
+    assert match is not None
+    expected[index] = b"**Status**: Complete" + (match.group(2) or b"")
+    return expected == current_lines
+
+
+def validate_recovery_start_history(project: Path, packet: Any) -> dict[str, Any]:
+    """Return typed read-only proof of a recorded Implement start and authorized scope bridge.
+
+    The caller must supply source paths and digests retained by the main task;
+    this helper never discovers authority by following child-provided filenames.
+    """
+    packet = _exact(packet, START_HISTORY_FIELDS, "start-history-packet")
+    if packet["action"] != "validate-start-history":
+        raise LifecycleError("start-history-action-invalid")
+    if packet["schema_version"] != VERSION:
+        raise LifecycleError("start-history-version-invalid")
+    feature = _relative(packet["feature_directory"])
+    current_scope = _hash(packet["current_scope_sha256"])
+    raw, refs = _trusted_start_inputs(project, packet["trusted_inputs"])
+    if refs["current_spec"]["path"] != f"{feature}/spec.md" or refs["feature_pointer"]["path"] != ".specify/feature.json":
+        raise LifecycleError("start-history-target-reference-invalid")
+    if _digest_bytes(raw["current_spec"]) != current_scope:
+        raise LifecycleError("start-history-current-scope-mismatch")
+    try:
+        summary = strict_json(raw["source_run"].decode("utf-8"))
+        baseline_record = strict_json(raw["baseline"].decode("utf-8"))
+        status_run = strict_json(raw["status_run"].decode("utf-8"))
+        status_authorization = strict_json(raw["status_authorization"].decode("utf-8"))
+        status_effect = strict_json(raw["status_effect"].decode("utf-8"))
+        status_validation = strict_json(raw["status_validation"].decode("utf-8"))
+        pointer = strict_json(raw["feature_pointer"].decode("utf-8"))
+    except (UnicodeDecodeError, LifecycleError) as error:
+        raise LifecycleError("start-history-record-invalid") from error
+    baseline = _exact(baseline_record, {"baseline", "baseline_sha256", "remaining_ids", "state"}, "start-history-baseline")
+    baseline_body = baseline["baseline"]
+    if not isinstance(baseline_body, dict):
+        raise LifecycleError("start-history-baseline-invalid")
+    baseline_digest = _digest_bytes(json.dumps(
+        baseline_body, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+    if baseline["baseline_sha256"] != baseline_digest:
+        raise LifecycleError("start-history-baseline-digest-invalid")
+    if (not isinstance(summary.get("run_id"), str) or not summary["run_id"]
+            or summary.get("workflow_id") != "speckit-flow-implement"
+            or summary.get("status") != "stopped"
+            or not isinstance(summary.get("started_at"), str)
+            or not isinstance(summary.get("steps"), dict)
+            or not isinstance(summary.get("child_tasks"), list)
+            or not isinstance(summary.get("effective_assignments"), list)
+            or not isinstance(summary.get("changed_files"), list)):
+        raise LifecycleError("start-history-run-identity-invalid")
+    try:
+        started = datetime.fromisoformat(summary["started_at"].replace("Z", "+00:00"))
+    except ValueError as error:
+        raise LifecycleError("start-history-occurrence-invalid") from error
+    if started.tzinfo is None or started.utcoffset() is None:
+        raise LifecycleError("start-history-occurrence-invalid")
+    source_feature = feature
+    if (baseline_body.get("feature_directory") != source_feature
+            or baseline_body.get("specification_sha256") != _digest_bytes(raw["original_spec"])
+            or baseline_body.get("pointer_sha256") != _digest_bytes(raw["feature_pointer"])
+            or pointer.get("feature_directory") != source_feature
+            or summary.get("baseline_evidence") != {
+                "baseline_sha256": baseline_digest,
+                "path": refs["baseline"]["path"],
+            }):
+        raise LifecycleError("start-history-source-scope-mismatch")
+    steps = summary["steps"]
+    if not isinstance(steps.get("implement-eligible-work"), dict) or steps["implement-eligible-work"].get("status") != "completed":
+        raise LifecycleError("start-history-implementation-step-missing")
+    if not isinstance(steps.get("capture-implementation-baseline"), dict) or steps["capture-implementation-baseline"].get("status") != "completed":
+        raise LifecycleError("start-history-baseline-step-missing")
+    coder_children = [child for child in summary["child_tasks"]
+                      if isinstance(child, dict) and child.get("agent") == "FlowKit-Coder"
+                      and child.get("step_id") == "implement-eligible-work"
+                      and isinstance(child.get("child_id"), str) and child["child_id"]]
+    assignments = summary["effective_assignments"]
+    if (not coder_children or not isinstance(assignments, list)
+            or not any(isinstance(item, dict) and item.get("agent_name") == "FlowKit-Coder"
+                       and item.get("step_id") == "implement-eligible-work" for item in assignments)
+            or not any(isinstance(path, str) and path.startswith(source_feature + "/")
+                       for path in summary["changed_files"])):
+        raise LifecycleError("start-history-implementation-effect-missing")
+    status_steps = status_run.get("steps")
+    status_changed_files = status_run.get("changed_files")
+    if (not isinstance(status_steps, dict) or not isinstance(status_changed_files, list)
+            or not isinstance(status_run.get("run_id"), str) or not status_run["run_id"]
+            or status_run.get("workflow_id") != "speckit-flow-closeout"
+            or not isinstance(status_steps.get("mark-converged-specification-complete"), dict)
+            or status_steps["mark-converged-specification-complete"].get("status") != "completed"
+            or refs["current_spec"]["path"] not in status_changed_files):
+        raise LifecycleError("start-history-status-run-invalid")
+    if (status_authorization.get("status_action") != "run"
+            or status_authorization.get("feature_directory") != source_feature
+            or status_authorization.get("spec_before_sha256") != baseline_body.get("specification_sha256")
+            or not isinstance(status_authorization.get("authority"), str)
+            or not status_authorization["authority"].strip()):
+        raise LifecycleError("start-history-status-authorization-invalid")
+    if (status_effect.get("step_id") != "mark-converged-specification-complete"
+            or status_effect.get("kind") != "bounded-existing-specification-status-update"
+            or status_effect.get("feature_directory") != source_feature
+            or status_effect.get("before_status") != "Draft"
+            or status_effect.get("after_status") != "Complete"
+            or status_effect.get("before_sha256") != baseline_body.get("specification_sha256")
+            or status_effect.get("after_sha256") != current_scope
+            or status_effect.get("exact_diff") != "**Status**: Draft -> **Status**: Complete"
+            or status_effect.get("other_specification_bytes_preserved") is not True):
+        raise LifecycleError("start-history-status-effect-invalid")
+    if (status_validation.get("state") != "ready"
+            or status_validation.get("spec_path") != refs["current_spec"]["path"]
+            or status_validation.get("before_sha256") != baseline_body.get("specification_sha256")
+            or status_validation.get("after_sha256") != current_scope
+            or status_validation.get("allowed_change") != "Status Draft to Complete only"
+            or status_validation.get("requirements_and_all_other_bytes_preserved") is not True
+            or status_validation.get("convergence_intent_preserved") is not True
+            or status_validation.get("feature_acceptance_established") is not False):
+        raise LifecycleError("start-history-status-bridge-unverified")
+    future_ids = status_validation.get("future_manual_task_ids")
+    remaining_ids = baseline_record.get("remaining_ids")
+    task_records = baseline_body.get("tasks")
+    if (not isinstance(future_ids, list)
+            or any(not isinstance(identifier, str) or not re.fullmatch(r"T[0-9]{3}", identifier)
+                   for identifier in future_ids)
+            or len(future_ids) != len(set(future_ids))
+            or not isinstance(remaining_ids, list)
+            or not isinstance(task_records, dict)
+            or not set(future_ids).issubset({item.removeprefix("task:") for item in remaining_ids
+                                             if isinstance(item, str) and item.startswith("task:")})
+            or any(not isinstance(task_records.get(identifier), dict)
+                   or task_records[identifier].get("marker") != " " for identifier in future_ids)):
+        raise LifecycleError("start-history-future-obligations-not-preserved")
+    if not _status_only_bridge(raw["original_spec"], raw["current_spec"]):
+        raise LifecycleError("start-history-scope-bridge-invalid")
+    return {
+        "schema_version": VERSION,
+        "kind": "authorized-implementation-start-history",
+        "state": "validated",
+        "feature_directory": feature,
+        "source_run_id": summary["run_id"],
+        "source_workflow_id": summary["workflow_id"],
+        "occurred_at": summary["started_at"],
+        "original_scope_sha256": baseline_body["specification_sha256"],
+        "scope_sha256": current_scope,
+        "completed_step_ids": ["capture-implementation-baseline", "implement-eligible-work"],
+        "future_manual_task_ids": future_ids,
+        "trusted_inputs": refs,
+    }
+
+
+def _validate_start_attestation(project: Path, reference: dict[str, Any], snapshot: dict[str, Any]) -> dict[str, Any]:
+    record = strict_json(_read_current(project, reference["path"]).decode("utf-8"))
+    record = _exact(record, START_ATTESTATION_FIELDS, "start-attestation")
+    if (record["schema_version"] != VERSION or record["kind"] != "authorized-implementation-start"
+            or record["reviewer"] != "FlowKit-Reviewer" or record["state"] != "ready"
+            or record["feature_directory"] != snapshot["feature_directory"]
+            or record["scope_sha256"] != snapshot["scope_sha256"]
+            or record["workflow_id"] != snapshot["workflow_id"]
+            or record["workflow_version"] != snapshot["workflow_version"]
+            or record["run_id"] != snapshot["run_id"]
+            or record["step_id"] != "attest-recovery-start"
+            or not isinstance(record["child_id"], str) or not record["child_id"].strip()):
+        raise LifecycleError("start-attestation-identity-invalid")
+    dispatch = _exact(record["recorded_dispatch"],
+                      {"agent", "step_id", "workflow_id", "workflow_version", "run_id", "child_id"},
+                      "start-attestation-dispatch")
+    if (dispatch["agent"] != "FlowKit-Reviewer" or dispatch["step_id"] != "attest-recovery-start"
+            or dispatch["workflow_id"] != snapshot["workflow_id"]
+            or dispatch["workflow_version"] != snapshot["workflow_version"]
+            or dispatch["run_id"] != snapshot["run_id"] or dispatch["child_id"] != record["child_id"]):
+        raise LifecycleError("start-attestation-dispatch-mismatch")
+    witness_ref = _exact(record["dispatch_witness"], {"path", "sha256"}, "start-dispatch-witness-reference")
+    witness_path = _relative(witness_ref["path"])
+    expected_witness_path = (
+        f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
+    witness_digest = _hash(witness_ref["sha256"])
+    if (witness_path != expected_witness_path
+            or snapshot["source_map"].get(witness_path) != witness_digest
+            or _digest_bytes(_read_current(project, witness_path)) != witness_digest):
+        raise LifecycleError("start-attestation-dispatch-witness-stale")
+    witness = strict_json(_read_current(project, witness_path).decode("utf-8"))
+    witness = _exact(witness, START_DISPATCH_WITNESS_FIELDS, "start-dispatch-witness")
+    source_summary_ref = _exact(witness["source_summary"], {"path", "sha256"},
+                                 "start-dispatch-source-summary")
+    source_summary_path = _relative(source_summary_ref["path"])
+    expected_source_summary_path = (
+        f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
+    source_summary_digest = _hash(source_summary_ref["sha256"])
+    if (source_summary_path != expected_source_summary_path
+            or snapshot["source_map"].get(source_summary_path) != source_summary_digest
+            or _digest_bytes(_read_current(project, source_summary_path)) != source_summary_digest):
+        raise LifecycleError("start-attestation-dispatch-source-stale")
+    captured_summary = strict_json(_read_current(project, source_summary_path).decode("utf-8"))
+    if (witness["schema_version"] != VERSION
+            or witness["kind"] != "main-retained-native-dispatch-witness"
+            or witness["feature_directory"] != snapshot["feature_directory"]
+            or witness["scope_sha256"] != snapshot["scope_sha256"]
+            or witness["workflow_id"] != snapshot["workflow_id"]
+            or witness["workflow_version"] != snapshot["workflow_version"]
+            or witness["run_id"] != snapshot["run_id"]
+            or witness["step_id"] != "attest-recovery-start"
+            or witness["agent"] != "FlowKit-Reviewer"
+            or witness["child_id"] != record["child_id"]
+            or captured_summary.get("run_id") != witness["run_id"]
+            or captured_summary.get("workflow_id") != witness["workflow_id"]
+            or captured_summary.get("workflow_version") != witness["workflow_version"]):
+        raise LifecycleError("start-attestation-dispatch-witness-invalid")
+    captured_children = captured_summary.get("child_tasks")
+    captured_assignments = captured_summary.get("effective_assignments")
+    if (not isinstance(captured_children, list)
+            or not any(isinstance(child, dict) and child.get("agent") == witness["agent"]
+                       and child.get("step_id") == witness["step_id"]
+                       and child.get("child_id") == witness["child_id"] for child in captured_children)
+            or not isinstance(captured_assignments, list)
+            or not any(isinstance(item, dict) and item.get("agent_name") == witness["agent"]
+                       and item.get("step_id") == witness["step_id"] for item in captured_assignments)):
+        raise LifecycleError("start-attestation-dispatch-capture-unverified")
+    run_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+    run_summary = strict_json(_read_current(project, run_summary_path).decode("utf-8"))
+    children = run_summary.get("child_tasks") if isinstance(run_summary, dict) else None
+    assignments = run_summary.get("effective_assignments") if isinstance(run_summary, dict) else None
+    if (not isinstance(run_summary, dict)
+            or run_summary.get("run_id") != snapshot["run_id"]
+            or run_summary.get("workflow_id") != snapshot["workflow_id"]
+            or run_summary.get("workflow_version") != snapshot["workflow_version"]
+            or not isinstance(children, list)
+            or not any(isinstance(child, dict) and child.get("agent") == "FlowKit-Reviewer"
+                       and child.get("step_id") == "attest-recovery-start"
+                       and child.get("child_id") == witness["child_id"] for child in children)
+            or not isinstance(assignments, list)
+            or not any(isinstance(item, dict) and item.get("agent_name") == "FlowKit-Reviewer"
+                       and item.get("step_id") == "attest-recovery-start" for item in assignments)):
+        raise LifecycleError("start-attestation-main-dispatch-unverified")
+    required = set(_string_list(record["required_check_ids"], "start-attestation-required-checks"))
+    satisfied = set(_string_list(record["satisfied_check_ids"], "start-attestation-satisfied-checks"))
+    unresolved = _string_list(record["unresolved_ids"], "start-attestation-unresolved-ids")
+    if required != START_CHECKS or satisfied != START_CHECKS or unresolved:
+        raise LifecycleError("start-attestation-incomplete")
+    _id(record["source_run_id"], "start-source-run")
+    _hash(record["original_scope_sha256"])
+    _hash(record["scope_sha256"])
+    reference = _exact(record["history_validation"], {"path", "sha256"}, "start-history-validation-reference")
+    validation_path = _relative(reference["path"])
+    if validation_path != f"{snapshot['feature_directory']}/validation/phase-lifecycle/start-history-validation.json":
+        raise LifecycleError("start-history-validation-path-invalid")
+    validation_digest = _hash(reference["sha256"])
+    if snapshot["source_map"].get(validation_path) != validation_digest:
+        raise LifecycleError("start-history-validation-snapshot-mismatch")
+    if _digest_bytes(_read_current(project, validation_path)) != validation_digest:
+        raise LifecycleError("start-history-validation-stale")
+    validated = strict_json(_read_current(project, validation_path).decode("utf-8"))
+    validated = _exact(validated, {
+        "schema_version", "kind", "state", "feature_directory", "source_run_id", "source_workflow_id",
+        "occurred_at", "original_scope_sha256", "scope_sha256", "completed_step_ids",
+        "future_manual_task_ids", "trusted_inputs",
+    }, "validated-start-history")
+    if (validated["schema_version"] != VERSION
+            or validated["kind"] != "authorized-implementation-start-history"
+            or validated["state"] != "validated"
+            or validated["feature_directory"] != snapshot["feature_directory"]
+            or validated["source_workflow_id"] != "speckit-flow-implement"
+            or validated["scope_sha256"] != snapshot["scope_sha256"]
+            or record["source_run_id"] != validated["source_run_id"]
+            or record["occurred_at"] != validated["occurred_at"]
+            or record["original_scope_sha256"] != validated["original_scope_sha256"]
+            or validated["completed_step_ids"] != ["capture-implementation-baseline", "implement-eligible-work"]):
+        raise LifecycleError("start-attestation-history-mismatch")
+    expected_history = validate_recovery_start_history(project, {
+        "action": "validate-start-history", "schema_version": VERSION,
+        "feature_directory": validated["feature_directory"],
+        "current_scope_sha256": validated["scope_sha256"],
+        "trusted_inputs": validated["trusted_inputs"],
+    })
+    if expected_history != validated:
+        raise LifecycleError("start-history-validation-mismatch")
+    for trusted in validated["trusted_inputs"].values():
+        if snapshot["source_map"].get(trusted["path"]) != trusted["sha256"]:
+            raise LifecycleError("start-history-source-snapshot-mismatch")
+    try:
+        occurred_at = datetime.fromisoformat(record["occurred_at"].replace("Z", "+00:00"))
+    except (AttributeError, ValueError) as error:
+        raise LifecycleError("start-attestation-occurrence-invalid") from error
+    if occurred_at.tzinfo is None or occurred_at.utcoffset() is None:
+        raise LifecycleError("start-attestation-occurrence-invalid")
+    artifacts = record["artifact_digests"]
+    if not isinstance(artifacts, dict) or artifacts.get(f"{snapshot['feature_directory']}/spec.md") != snapshot["scope_sha256"]:
+        raise LifecycleError("start-attestation-current-inputs-missing")
+    for path, expected in artifacts.items():
+        relative = _relative(path)
+        if _hash(expected) != _digest_bytes(_read_current(project, relative)):
+            raise LifecycleError("start-attestation-stale-input")
+        if snapshot["source_map"].get(relative) != expected:
+            raise LifecycleError("start-attestation-snapshot-mismatch")
+    return record
+
+
 def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dict[str, Any], milestone: str) -> dict[str, Any]:
     raw = _read_current(project, reference["path"])
     record = strict_json(raw.decode("utf-8"))
@@ -207,10 +553,25 @@ def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dic
     spec_path = f"{snapshot['feature_directory']}/spec.md"
     if artifacts.get(spec_path) != snapshot["scope_sha256"]:
         raise LifecycleError("assessment-scope-input-missing")
+    if milestone == "implemented":
+        feature = snapshot["feature_directory"]
+        required_docs = {f"{feature}/spec.md", f"{feature}/plan.md", f"{feature}/tasks.md"}
+        paths = {_relative(path) for path in artifacts}
+        if not required_docs.issubset(paths):
+            raise LifecycleError("implemented-assessment-documents-missing")
+        if any(path.endswith("roadmap.md") or path.endswith("roadmap.yml")
+               or path.startswith(".specify/memory/") for path in paths):
+            raise LifecycleError("implemented-assessment-includes-mutable-ledger")
+        code_paths = {path for path in paths if not path.startswith(feature + "/")
+                      and not path.startswith(".specify/")}
+        test_paths = {path for path in paths if path.startswith("tests/")
+                      or "/validation/" in path or "/test" in path}
+        if not code_paths or not test_paths:
+            raise LifecycleError("implemented-assessment-code-or-test-proof-missing")
     return record
 
 
-def _validate_group(project: Path, group: Any, snapshot: dict[str, Any]) -> dict[str, Any]:
+def _validate_group(project: Path, group: Any, snapshot: dict[str, Any], *, require_start_attestation: bool = False) -> dict[str, Any]:
     group = _exact(group, EVIDENCE_FIELDS, "milestone-evidence")
     milestone = group["milestone"]
     if milestone not in CHECKS or group["owning_phase"] != OWNERS[milestone]:
@@ -243,8 +604,13 @@ def _validate_group(project: Path, group: Any, snapshot: dict[str, Any]) -> dict
         raise LifecycleError("milestone-independent-coverage-incomplete")
     if not isinstance(group["historical_activity"], list):
         raise LifecycleError("historical-activity-invalid")
+    start_attestations = []
     for ref in group["historical_activity"]:
         _validate_reference(project, ref, snapshot)
+        if ref["kind"] == "authorized-implementation-start":
+            start_attestations.append(_validate_start_attestation(project, ref, snapshot))
+    if require_start_attestation and len(start_attestations) != 1:
+        raise LifecycleError("authorized-start-attestation-required")
     if _string_list(group["pending_future_ids"], "pending-future-ids") != snapshot["pending_future_ids"]:
         raise LifecycleError("future-obligations-mismatch")
     return group
@@ -272,7 +638,14 @@ def validate_request(project: Path, request: Any) -> dict[str, Any]:
         raise LifecycleError("milestone-evidence-invalid")
     seen: set[str] = set()
     for group in request["milestone_evidence"]:
-        checked = _validate_group(project, group, snapshot)
+        checked = _validate_group(
+            project, group, snapshot,
+            require_start_attestation=(request["phase"] == "closeout"
+                                       and request["mode"] == "recovery"
+                                       and snapshot["current_status"] == "specced"
+                                       and isinstance(group, dict)
+                                       and group.get("milestone") == "in-progress"),
+        )
         if checked["milestone"] in seen:
             raise LifecycleError("duplicate-milestone-evidence")
         seen.add(checked["milestone"])

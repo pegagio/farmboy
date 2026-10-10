@@ -2,7 +2,7 @@
 
 **Branch**: `020-flowkit-workflow-iteration-improvements` | **Date**: 2026-10-05 | **Spec**: [spec.md](spec.md)
 
-**Input**: Reviewed, clarified Feature 020 specification and approved roadmap scope. This plan creates design artifacts only; prospective governing reconciliation is not approval to change authority.
+**Input**: Reviewed, clarified Feature 020 specification and approved roadmap scope. Original planning and dated amendments below retain their historical meaning. The [current operator closeout qualification](#operator-closeout-qualification-2026-10-09) governs T066/T077 validation expectations; this reconciliation changes planning only and does not approve verification or acceptance.
 
 ## Summary
 
@@ -24,6 +24,8 @@ Use small deterministic Python helpers and explicit JSON contracts alongside rev
 - [Lifecycle Amendment Design](#lifecycle-amendment-design)
 
 - [Requested Scope and Eligibility Design](#requested-scope-and-eligibility-design)
+- [Approved Close Out Recovery Correction (2026-10-09)](#approved-close-out-recovery-correction-2026-10-09)
+- [Operator Closeout Qualification (2026-10-09)](#operator-closeout-qualification-2026-10-09)
 
 ## Technical Context
 
@@ -144,7 +146,7 @@ Roadmap compatibility verification is deferred at the operator's request on 2026
 
 ## Requirements and Validation
 
-The matrix covers every requirement and distinguishes future validation from checks run during planning. [quickstart.md](quickstart.md) specifies runnable commands and operator-directed native scenarios.
+The matrix covers every requirement and distinguishes validation design from checks actually run. [quickstart.md](quickstart.md) retains runnable commands and operator-directed native scenarios. For current Feature 020 closeout, the [operator qualification](#operator-closeout-qualification-2026-10-09) waives the T066/T077 manual matrices; their missing observations are exact untested gaps and are neither a closeout blocker nor a mandatory future matrix obligation. Other behavioral requirements and observed automated/native evidence remain required.
 
 | Coverage | Requirements | Validation and result required |
 |---|---|---|
@@ -155,7 +157,7 @@ The matrix covers every requirement and distinguishes future validation from che
 | Shared honest readiness and ownership | FR-010–FR-014; SC-004 | FlowKit helper, Checker and production-route fixtures plus unchanged core startup compatibility: ready preparation/pending future, unresolved independent review, stale evidence, unknown/mixed legacy item, missing owner, author-versus-reviewer distinction; immutable future markers |
 | Preparation and consumer preservation | FR-015–FR-016; SC-006 | Existing install/refresh tests, tracked/ignored propagation inventory, altered consumer TOML/config preservation, approved-gap patch only if needed |
 | Three contexts × original eight roles plus additive Checker | FR-017–FR-019; SC-005 | 24 original-role results plus three additive Checker results, first-chat failure retained, definitions-present/interface-absent and thread-limit exact blockers; settings remain separate |
-| Source boundaries, manual path and packaging | FR-020; SC-003/SC-006 | Owner/pin reconciliation, manual cases exercise same decision/readiness semantics, generated catalog integrity, no installed/historical code edits or dependency additions |
+| Source boundaries, manual path and packaging | FR-020; SC-003/SC-006 | Owner/pin reconciliation, usable generic manual path with the same decision/readiness semantics, generated catalog integrity, no installed/historical code edits or dependency additions; T066/T077 actor-level manual comparisons remain unperformed under the feature-local closeout waiver |
 | Authorized readiness correction loop | FR-024; SC-010 | Production routes for Specifier/Planner/Tasker/Reviewer/recorder, fresh Checker assessment after each correction, stable findings and substantive progress, no-progress/cap/authority stops, unchanged core gate and stale handoff rejection |
 | Defect resolution inside unfinished task | FR-025; SC-011 | Production-rendered baseline/review/route comparison with a two-defect task, one resolved prior finding and one remaining, stable owner IDs/evidence, new-finding retention, no retrospective credit, no-progress/cap/readiness/authority stops |
 | Combined sequence and blocked variant | FR-021; SC-008 | Same disposable feature, separately instructed phases, current readiness at Implement startup; blocked authority/native case preserves prior partial results |
@@ -304,3 +306,23 @@ Exact Tasker owns reconciliation of existing T068–T077, not automatic addition
 ### Current author self-check and risks
 
 Before/after constitutional checks pass: approved unmerged feature scope is the sole design authority, only planning artifacts changed, exact roles and separate invocations/gates remain, component owners retain source/runtime boundaries, no new dependency exists, and new provenance/validation is required. All ten new FR, six SC and 15 Story 7 scenarios have design and prospective matrix coverage; research has no unresolved technical/product decision. Risks are accidental global eligibility blocking, an administrative-progress loophole, overwriting source preimages, scope drift via Tasker derivatives, stale readiness and owner/package version skew. The contract separates immutable request/defect history from current assessments, binds fresh per-task preimages before effect and validates the unchanged five-pass budget. No implementation, task coverage completion, current readiness, acceptance or successful SI case is claimed by this author check.
+
+## Approved Close Out Recovery Correction (2026-10-09)
+
+The operator approved a bounded correction after the current owner parser interpreted explicit negated dependency annotations as positive edges and current recovery role/start proofs were unavailable. Parse the canonical positive dependency list separately from explicit negative annotations, preserving duplicate/real-cycle rejection and failing closed on ambiguity or contradiction; fix the independently owned Flow Roadmap source and regress against the actual consumer ledger, without editing dependency wording as a workaround.
+
+Declare current-scope Roadmap Agent linkage/brief, independent Reviewer preparation judgment, exact main-task readiness recording, Readiness Checker assessment and authenticated historical-start evidence collection in the Close Out recovery route. Every assessment must bind actual current scope/input digests and its genuine native role. Retain actual recorded invocation timestamps and original scope references; accept only an independently proved status-only specification bridge, and stop if historical authority cannot be established. Preserve the three-adjacent-edge cap, owner-only effects, independent receipt verification, separate exact verification gate and the then-current T066/T077 dogfooding deferrals. The later [operator closeout qualification](#operator-closeout-qualification-2026-10-09) supersedes their treatment as required closeout or future matrix work. No event or proof may be fabricated from markers, labels or current coding state.
+
+Validate focused owner/parser and workflow route/assignment/provenance regressions, obtain fresh independent Code Reviewer assessment, refresh the supported unreleased snapshot, then execute the explicitly authorized fresh FlowKit Converge and resumed FlowKit Close Out. Qualification changes, roadmap verification, feature acceptance, publication and Git integration remain outside this approval.
+
+## Operator Closeout Qualification (2026-10-09)
+
+The current [specification qualification](spec.md#feature-020-closeout-qualification) applies the direct [operator decision](../../.specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/operator-closeout-policy-decision.json) to close Feature 020 now. T066/T077 actor-level manual matrices are explicitly waived as Feature 020 closeout prerequisites and are not mandatory future work. Subsequent dogfooding is defect discovery: the operator will report findings as defects for separately authorized follow-up, without an obligation to complete those matrices.
+
+Assess closeout against the current reviewed buildable implementation, attributable automated/native validation and current independent assessments, with the manual omission explicitly qualified. Preserve T066/T077 identities and unchecked markers, the earlier deferral history and zero recorded dogfooding observations. This planning amendment records no executed manual cases, manual-equivalence proof or new test result. Exact Tasker reconciliation owns task wording and current obligation-ledger disposition; historical evidence is preserved rather than rewritten as successful execution.
+
+The qualification covers T066/T077 validation expectations under FR-029, FR-038 and FR-048 and corresponding SC-012–SC-022 coverage. All stable requirement and success-criterion IDs, implementation architecture, generic manual-prompt fallback behavior, exact roles, readiness/provenance checks, bounded corrections, owner boundaries and prior historical decisions retain their meaning. The approved phase-lifecycle contract and generic validation policy are unchanged. Existing research, data model, contracts and quickstart remain applicable technical design or optional validation guidance; their retained manual scenarios do not restore a mandatory T066/T077 closeout or future obligation.
+
+The accepted evidence limitation is that the omitted actor-level comparisons leave manual-path equivalence unobserved. Existing automated/native evidence supports only its observed scope, and subsequent dogfooding may discover defects. Waiving the manual matrices does not waive buildable defects, current independent review or attributable convergence. Roadmap debrief must reassess the qualified outcome against reconciled current artifacts before an exact verification patch is presented. The separate explicit verification approval remains required; this amendment changes no roadmap milestone and grants no feature/The Diagram acceptance, release, publication, universal availability/adoption, effective-settings claim or Git integration.
+
+The author self-check confirms that this amendment reconciles the approved specification without changing technical scope, dependencies or governance: T066/T077 remain unperformed, dogfooding has no mandatory matrix completion obligation, all other evidence and consequential gates remain, and no design artifact regeneration is necessary. There are no unresolved planning decisions within this bounded amendment. Independent assessment remains the assigned Reviewer's responsibility; this self-check is not an independent verdict or closeout acceptance.

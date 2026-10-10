@@ -1,8 +1,8 @@
 ---
 title: Feature start contract
 type: concept
-sources: [S006, S021, S022]
-updated: 2026-10-02
+sources: [S006, S021, S022, S027, S028]
+updated: 2026-10-09
 ---
 
 # Feature start contract
@@ -28,6 +28,12 @@ If an approved roadmap write succeeds but active-pointer activation fails, repor
 Specify separately consumes the active target, retrieves cited context, authors only that directory, verifies unique roadmap linkage, and runs a shared brief. A linkage repair needs exact patch approval and fresh verification. Missing or competing ownership, pointer drift, insufficient context, or unsettled scope stops with recovery evidence. (S021)
 
 **Accepted supersession**: S006 describes one combined start-and-author workflow and a final next-action choice; S021 replaces it with separate selection/activation and specification authoring and a stop-only deprecated combined source. S006 is retained as verified historical intent, not the F014 target. (S006, S021)
+
+## Feature 020 explicit selection contract
+
+A uniquely explicit eligible feature request resolves by stable ID or unique identity, independently of menu order. FlowKit validates mapping, dependencies, pointer and governing state, then activates that exact target without repeating the feature choice, routine lifecycle question or pointer-only approval. Existing specification bytes and consistent lifecycle state are preserved; selection creates no specification or directory and grants no authoring or implementation milestone. Ambiguous identity, competing ownership or contradictory state requires focused resolution before mutation. (S027)
+
+**Accepted chronological supersession**: The earlier S021/S022 activation approval accounts remain historical scope. Feature 020 replaces repeated choice and pointer-only approval for a uniquely explicit validated request; the current protocol confirms routine activation while preserving focused gates for inferred changes, ambiguity and consequential authority or scope decisions. Selection advances no lifecycle and creates no specification. This is accepted contract succession, not evidence that every installed version implements it. (S021, S022, S027, S028)
 
 ## Related pages
 
