@@ -13,11 +13,11 @@ This repository owns the generic workflow and feedback source. The repository an
 
 ## What the bundle installs
 
-The [bundle source manifest](bundles/spec-kit-flow/bundle.yml) is version `0.14.0` and targets Codex. The controller package is `0.6.0`; the canonical agent package is `flow-kit-agents` `0.1.0`. The checked-in catalog is an unreleased development snapshot. Specify `>=1.0.10.dev0` and Python 3 are required. The bundle pins these extensions:
+The [bundle source manifest](bundles/spec-kit-flow/bundle.yml) is version `0.17.0` and targets Codex. The controller package is `0.8.0`; the canonical agent package is `flow-kit-agents` `0.2.0`. The checked-in catalog is an unreleased development snapshot. Specify `>=1.0.10.dev0` and Python 3 are required. The bundle pins these extensions:
 
 | Extension ID | Version | Purpose |
 | --- | --- | --- |
-| `flow-roadmap` | `0.2.1` | Governed roadmap changes and feature reviews; source: `spec-kit-flow-roadmap` |
+| `flow-roadmap` | `0.3.0` | Governed roadmap changes, feature reviews, and evidence-backed lifecycle transitions; source: `spec-kit-flow-roadmap` |
 | `flow-wiki` | `2.0.1` | Cited project context, ingestion, and linting; source: `spec-kit-flow-wiki` |
 | `flow-feedback` | `0.2.1` | Local observation capture and portable report export; source: this repository |
 
@@ -30,8 +30,8 @@ It also installs the ten active workflows in [`workflows/`](workflows/README.md)
 | `speckit-flow-clarify` | `0.5.0` | Run one bounded clarification session |
 | `speckit-flow-plan` | `0.5.0` | Review readiness and create the technical plan |
 | `speckit-flow-tasks` | `0.5.0` | Generate implementation tasks separately from planning |
-| `speckit-flow-analyze-remediate` | `0.5.0` | Analyze artifact consistency and route bounded remediation |
-| `speckit-flow-implement` | `0.5.0` | Implement eligible tasks within the selected agent's scope |
+| `speckit-flow-analyze-remediate` | `0.6.0` | Analyze artifact consistency and route bounded remediation |
+| `speckit-flow-implement` | `0.7.0` | Implement eligible tasks within the selected agent's scope |
 | `speckit-flow-converge` | `0.5.0` | Compare implementation with the feature artifacts and close gaps |
 | `speckit-flow-closeout` | `0.7.0` | Review completion, approve roadmap verification, maintain wiki context, and report commit readiness |
 | `speckit-flow-wiki-lint-update` | `0.2.0` | Lint first, refresh stale registered sources, and report all unresolved wiki findings |

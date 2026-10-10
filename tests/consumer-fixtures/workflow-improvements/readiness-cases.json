@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "contract": "preparation-readiness",
+  "cases": [
+    {
+      "id": "checked-quality",
+      "criteria": [{"category": "preparation-quality", "owner": "specifier", "status": "satisfied", "evidence_current": true}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "ready",
+      "expected_blockers": []
+    },
+    {
+      "id": "unchecked-reviewer-owned-quality",
+      "criteria": [{"category": "preparation-quality", "owner": "reviewer", "status": "pending", "evidence_current": false}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["unchecked-reviewer-owned-quality"]
+    },
+    {
+      "id": "independent-review-absent",
+      "criteria": [{"category": "preparation-quality", "owner": "specifier", "status": "satisfied", "evidence_current": true}],
+      "independent_review": "missing",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["independent-review-missing"]
+    },
+    {
+      "id": "pending-implementation-and-acceptance-evidence",
+      "criteria": [
+        {"category": "implementation-evidence", "owner": "implementation", "status": "pending", "evidence_current": true},
+        {"category": "human-acceptance", "owner": "operator", "status": "pending", "evidence_current": true}
+      ],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "ready",
+      "expected_blockers": [],
+      "expected_pending_future": ["implementation-evidence", "human-acceptance"]
+    },
+    {
+      "id": "unknown-or-mixed-obligation",
+      "criteria": [{"category": "unresolved", "owner": null, "status": "pending", "evidence_current": false}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["obligation-classification-unresolved"]
+    },
+    {
+      "id": "missing-owner",
+      "criteria": [{"category": "preparation-quality", "owner": null, "status": "pending", "evidence_current": false}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["obligation-owner-missing"]
+    },
+    {
+      "id": "stale-source-digest",
+      "criteria": [{"category": "preparation-quality", "owner": "reviewer", "status": "satisfied", "evidence_current": false}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["source-evidence-stale"]
+    },
+    {
+      "id": "contradictory-markers",
+      "criteria": [{"category": "preparation-quality", "owner": "reviewer", "status": "satisfied", "source_marker": "unchecked", "evidence_current": true}],
+      "independent_review": "complete",
+      "coverage": "complete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["evidence-marker-contradiction"]
+    },
+    {
+      "id": "incomplete-criterion-coverage",
+      "criteria": [{"category": "preparation-quality", "owner": "reviewer", "status": "satisfied", "evidence_current": true}],
+      "independent_review": "complete",
+      "coverage": "incomplete",
+      "capability": "available",
+      "expected_state": "blocked",
+      "expected_blockers": ["criterion-coverage-incomplete"]
+    },
+    {
+      "id": "core-capability-unavailable",
+      "criteria": [],
+      "independent_review": "unknown",
+      "coverage": "unknown",
+      "capability": "unavailable",
+      "expected_state": "blocked",
+      "expected_reason_code": "readiness-capability-unavailable",
+      "expected_blockers": ["readiness-capability-unavailable"],
+      "resume_action": "obtain-and-install-an-authorized-compatible-core-readiness-delivery"
+    }
+  ]
+}

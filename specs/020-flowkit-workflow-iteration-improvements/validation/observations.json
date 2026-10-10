@@ -1,0 +1,519 @@
+{
+  "schema_version": "1.0",
+  "source_fixture": {
+    "path": "tests/consumer-fixtures/workflow-improvements/observations.json",
+    "sha256": "7fbbee4e90fd671cf9c6b6d555a4a343a8c4bb00ef8b9f86a0c54e9cac509fd0",
+    "observation_ids": [
+      "select-feature-explicit-choice-reprompt-20261003",
+      "select-feature-pointer-approval-stop-20261003",
+      "select-feature-explicit-intent-redundant-gates-20261005",
+      "analyze-unresolved-checklist-gate-20261003",
+      "clarify-agent-thread-limit-preflight-20261003"
+    ],
+    "immutable": true
+  },
+  "assessment_coordinates": {
+    "source_repository": "pegagio/spec-kit-flow",
+    "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+    "bundle_id": "spec-kit-flow",
+    "bundle_version": "0.15.0",
+    "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+  },
+  "readiness_recheck": {
+    "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+    "helper_state": "ready",
+    "checker_state": "ready",
+    "checker_reviewed_criterion_count": 16,
+    "blocking_ids": [],
+    "pending_future_ids": [],
+    "independent_review_path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+    "independent_review_sha256": "188379b3162d7f68836aaca5750005534089830f5a9b69a81e7216cb5bdf645f",
+    "independent_review_state": "complete",
+    "reviewed_inputs_current": true,
+    "timing": "fresh initial and immediate pre-core recheck completed before this delegated implementation pass",
+    "scope_limit": "These readiness results are preparation evidence for current Feature 020 inputs; they do not resolve the historical observations without their exact scenario tests."
+  },
+  "native_context_matrix": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t025-native-context-matrix-20261007.json",
+    "sha256": "3ae4760d3fac1aba9e99afedb4476af7ae0f19dc78cb7ef896fe7c1d659a732c",
+    "independent_review_path": "specs/020-flowkit-workflow-iteration-improvements/validation/native-matrix-independent-review-20261007.json",
+    "independent_review_sha256": "888d0b9f3c674bf3e0b7fe8837a5ad572b2b7f090c2ece03bbd0366a693b090f",
+    "result": "pass-with-context-limitations",
+    "case_count": 27,
+    "passed_launches": 27,
+    "failed_launches": 0,
+    "limits": [
+      "T022 and T023 are separate chats sharing one physical directory; the original requested checkout-versus-worktree root distinction remains unproven.",
+      "Successful exact dispatch and role-specific no-work tokens prove availability only; substantive agent behavior and live workflow results were not tested by these probes.",
+      "Effective model and reasoning effort remain unverified for all 27 requests.",
+      "Codex client version and native interface version were not observed.",
+      "T024 managed-worktree creation is parent-provenance evidence; its linked Git worktree identity is independently recorded."
+    ],
+    "independent_review_scope_limit": "The linked October 7 reviewer record had overall state blocked because separately requested T027/T028 phases were then pending; it is not a reviewer verdict on the newly integrated cases or these observation dispositions."
+  },
+  "observations": [
+    {
+      "observation_id": "select-feature-explicit-choice-reprompt-20261003",
+      "historical_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.1.1",
+        "source_sha256": "2aa47779f11a78161de28e42d7175a3ea5578a38663a64185486fbab8c6ec614"
+      },
+      "historical_observed_at": "2026-10-03T12:59:57.799698+00:00",
+      "historical_source_ids_preserved": true,
+      "requirement_links": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-008",
+        "FR-009",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007"
+      ],
+      "current_component_coordinates": {
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "disposition": "not-reproduced",
+      "exact_gap": "The historical duplicate-choice behavior was not reproduced in T027: an explicit Feature 998 target completed selection and activation without a second selection question. This case does not test every accepted reference form or ambiguity class.",
+      "evidence": [
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json",
+          "case_id": "T027-ready-live-sequence",
+          "phase": "select",
+          "receipt_sha256": "c13b51cba50acd68720ad4d5adbe979893e2e2d49bf32fb316e979bfd6e5eac8"
+        }
+      ],
+      "limits": [
+        "One disposable feature and one explicit stable target were observed; full reference-form, reorder, and ambiguity coverage is separate source-test evidence."
+      ],
+      "current_components": [
+        {
+          "id": "speckit-flow-select-feature",
+          "version": "0.2.0",
+          "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+          "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5"
+        },
+        {
+          "id": "flow-kit-controllers",
+          "version": "0.7.0",
+          "source_path": "controllers/flow-kit/scripts/python/controller.py",
+          "source_sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        }
+      ],
+      "current_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.2.0",
+        "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+        "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "requirement_ids": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-008",
+        "FR-009",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007"
+      ],
+      "test_case_ids": [
+        "T027-ready-live-sequence"
+      ],
+      "gap": "The historical duplicate-choice behavior was not reproduced in T027: an explicit Feature 998 target completed selection and activation without a second selection question. This case does not test every accepted reference form or ambiguity class."
+    },
+    {
+      "observation_id": "select-feature-pointer-approval-stop-20261003",
+      "historical_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.1.1",
+        "source_sha256": "3d76e40b08c124a24f736645dd4e854b48be2f50a3e4b39bedb2d51dfad5188d"
+      },
+      "historical_observed_at": "2026-10-03T13:13:42.308713+00:00",
+      "historical_source_ids_preserved": true,
+      "requirement_links": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-008",
+        "FR-009",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007"
+      ],
+      "current_component_coordinates": {
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "disposition": "not-reproduced",
+      "exact_gap": "The historical pointer-only approval stop was not reproduced in T027: the explicit Feature 998 request completed activation after validation and independent verification, with no separate pointer-only approval question. The case is limited to this target and its observed state.",
+      "evidence": [
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json",
+          "case_id": "T027-ready-live-sequence",
+          "phase": "select",
+          "receipt_sha256": "c13b51cba50acd68720ad4d5adbe979893e2e2d49bf32fb316e979bfd6e5eac8"
+        }
+      ],
+      "limits": [
+        "This demonstration does not cover conflicting mappings, malformed state, or a repeat activation."
+      ],
+      "current_components": [
+        {
+          "id": "speckit-flow-select-feature",
+          "version": "0.2.0",
+          "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+          "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5"
+        },
+        {
+          "id": "flow-kit-controllers",
+          "version": "0.7.0",
+          "source_path": "controllers/flow-kit/scripts/python/controller.py",
+          "source_sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        }
+      ],
+      "current_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.2.0",
+        "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+        "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "requirement_ids": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-008",
+        "FR-009",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007"
+      ],
+      "test_case_ids": [
+        "T027-ready-live-sequence"
+      ],
+      "gap": "The historical pointer-only approval stop was not reproduced in T027: the explicit Feature 998 request completed activation after validation and independent verification, with no separate pointer-only approval question. The case is limited to this target and its observed state."
+    },
+    {
+      "observation_id": "select-feature-explicit-intent-redundant-gates-20261005",
+      "historical_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.2.0",
+        "source_sha256": "8dd56f81973a4994ef3505e8a2a879bc49cfc031fabc799b9a3d89812feef2ae"
+      },
+      "historical_observed_at": "2026-10-05T16:25:44Z",
+      "historical_source_ids_preserved": true,
+      "requirement_links": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-008",
+        "FR-009",
+        "FR-021",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007",
+        "SC-008"
+      ],
+      "current_component_coordinates": {
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "disposition": "not-tested",
+      "exact_gap": "T027 exercised separately authorized phases for Feature 998, but did not request a bounded roadmap amendment plus activation and specification authoring for Feature 019 or probe the F019/019 parsing regression. The historical observation remains unresolved for those exact behaviors.",
+      "evidence": [
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json",
+          "case_id": "T027-ready-live-sequence",
+          "receipt_sha256": "c13b51cba50acd68720ad4d5adbe979893e2e2d49bf32fb316e979bfd6e5eac8"
+        }
+      ],
+      "limits": [
+        "The current Select/Specify source coordinates do not substitute for executing the historical multi-operation target scenario."
+      ],
+      "current_components": [
+        {
+          "id": "speckit-flow-select-feature",
+          "version": "0.2.0",
+          "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+          "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5"
+        },
+        {
+          "id": "speckit-flow-specify",
+          "version": "0.2.0",
+          "source_path": "workflows/speckit-flow-specify/workflow.yml",
+          "source_sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2"
+        },
+        {
+          "id": "flow-kit-controllers",
+          "version": "0.7.0",
+          "source_path": "controllers/flow-kit/scripts/python/controller.py",
+          "source_sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        }
+      ],
+      "current_component": {
+        "id": "speckit-flow-select-feature",
+        "version": "0.2.0",
+        "source_path": "workflows/speckit-flow-select-feature/workflow.yml",
+        "source_sha256": "d5bc92182f75e0f38c0f79f63d00a6e858fad4ce50f35b5514ce767d3e6b1ea5",
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "requirement_ids": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-007",
+        "FR-008",
+        "FR-009",
+        "FR-021",
+        "SC-001",
+        "SC-002",
+        "SC-003",
+        "SC-007",
+        "SC-008"
+      ],
+      "test_case_ids": [
+        "T027-ready-live-sequence"
+      ],
+      "gap": "T027 exercised separately authorized phases for Feature 998, but did not request a bounded roadmap amendment plus activation and specification authoring for Feature 019 or probe the F019/019 parsing regression. The historical observation remains unresolved for those exact behaviors."
+    },
+    {
+      "observation_id": "analyze-unresolved-checklist-gate-20261003",
+      "historical_component": {
+        "id": "speckit-flow-analyze-remediate",
+        "version": "0.4.6",
+        "source_sha256": "b9728f250735da1066ba6b07f5ddcafd9090ee0a49a3e95ecbec2abf18caa215"
+      },
+      "historical_observed_at": "2026-10-03T15:42:52.270222+00:00",
+      "historical_source_ids_preserved": true,
+      "requirement_links": [
+        "FR-001",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-021",
+        "SC-004",
+        "SC-007",
+        "SC-008"
+      ],
+      "current_component_coordinates": {
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "disposition": "not-tested",
+      "exact_gap": "The T027 Analyze run had all 16 preparation-quality criteria checked and no unresolved in-scope preparation item. It verified that a future human-acceptance obligation remained pending, but did not reproduce the historical case of an unresolved preparation checklist item incorrectly reported clean or blocking Implement.",
+      "evidence": [
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json",
+          "case_id": "T027-ready-live-sequence",
+          "phase": "analyze",
+          "receipt_sha256": "82f50e6d22616cdbed4f1d86ccbcbb67b90692cd36aa9a64043b77f1faba9e35"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+          "sha256": "188379b3162d7f68836aaca5750005534089830f5a9b69a81e7216cb5bdf645f",
+          "observed_state": "complete"
+        }
+      ],
+      "limits": [
+        "The current fresh readiness helper and Checker result establish clean preparation for the current Feature 020 inputs, not behavior under an unresolved preparation gap."
+      ],
+      "current_components": [
+        {
+          "id": "speckit-flow-analyze-remediate",
+          "version": "0.6.0",
+          "source_path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+          "source_sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+        },
+        {
+          "id": "flow-kit-controllers",
+          "version": "0.7.0",
+          "source_path": "controllers/flow-kit/scripts/python/controller.py",
+          "source_sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        },
+        {
+          "id": "flow-kit-agents",
+          "version": "0.2.0",
+          "source_path": "agents/flow-kit/manifest.yml",
+          "source_sha256": "4b6047d33a8f4f86b47c0fbd511d30ecb4116497721f69ac215cb9d01661bd89"
+        }
+      ],
+      "current_component": {
+        "id": "speckit-flow-analyze-remediate",
+        "version": "0.6.0",
+        "source_path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+        "source_sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "requirement_ids": [
+        "FR-001",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013",
+        "FR-014",
+        "FR-021",
+        "SC-004",
+        "SC-007",
+        "SC-008"
+      ],
+      "test_case_ids": [
+        "T027-ready-live-sequence"
+      ],
+      "gap": "The T027 Analyze run had all 16 preparation-quality criteria checked and no unresolved in-scope preparation item. It verified that a future human-acceptance obligation remained pending, but did not reproduce the historical case of an unresolved preparation checklist item incorrectly reported clean or blocking Implement."
+    },
+    {
+      "observation_id": "clarify-agent-thread-limit-preflight-20261003",
+      "historical_component": {
+        "id": "speckit-flow-clarify",
+        "version": "0.4.5",
+        "source_sha256": "a23a117e134aa2fefb5bb4aeb9f0c518b3e87ccf5ade57299b26a327dd9e7862"
+      },
+      "historical_observed_at": "2026-10-03T13:23:39.753577+00:00",
+      "historical_source_ids_preserved": true,
+      "requirement_links": [
+        "FR-001",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018",
+        "FR-019",
+        "FR-022",
+        "SC-005",
+        "SC-006",
+        "SC-007"
+      ],
+      "current_component_coordinates": {
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "disposition": "not-tested",
+      "exact_gap": "No current Clarify run reproduced the historical thread-capacity preflight condition. T025 records exact native role availability in three contexts but explicitly does not establish capacity limits, cleanup behavior, or the historical cause/fix.",
+      "evidence": [
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t025-native-context-matrix-20261007.json",
+          "sha256": "3ae4760d3fac1aba9e99afedb4476af7ae0f19dc78cb7ef896fe7c1d659a732c",
+          "result": "pass-with-context-limitations",
+          "case_count": 27
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/native-matrix-independent-review-20261007.json",
+          "sha256": "888d0b9f3c674bf3e0b7fe8837a5ad572b2b7f090c2ece03bbd0366a693b090f",
+          "review_outcome": "blocked",
+          "reason_code": "separately-requested-demo-phases-required"
+        }
+      ],
+      "limits": [
+        "Keep the historical capacity observation open; native availability tokens are not evidence of a repaired thread limit or cause."
+      ],
+      "current_components": [
+        {
+          "id": "speckit-flow-clarify",
+          "version": "0.5.0",
+          "source_path": "workflows/speckit-flow-clarify/workflow.yml",
+          "source_sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392"
+        },
+        {
+          "id": "flow-kit-controllers",
+          "version": "0.7.0",
+          "source_path": "controllers/flow-kit/scripts/python/controller.py",
+          "source_sha256": "72d87970b27763a43c5507e2ac1d14f4ed910edd59f4e604e7c52f51a180a810"
+        },
+        {
+          "id": "flow-kit-agents",
+          "version": "0.2.0",
+          "source_path": "agents/flow-kit/manifest.yml",
+          "source_sha256": "4b6047d33a8f4f86b47c0fbd511d30ecb4116497721f69ac215cb9d01661bd89"
+        }
+      ],
+      "current_component": {
+        "id": "speckit-flow-clarify",
+        "version": "0.5.0",
+        "source_path": "workflows/speckit-flow-clarify/workflow.yml",
+        "source_sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+        "source_repository": "pegagio/spec-kit-flow",
+        "source_revision": "8a90c078035da998447c362ff37dd314c0cb053f",
+        "bundle_id": "spec-kit-flow",
+        "bundle_version": "0.15.0",
+        "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+      },
+      "requirement_ids": [
+        "FR-001",
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "FR-018",
+        "FR-019",
+        "FR-022",
+        "SC-005",
+        "SC-006",
+        "SC-007"
+      ],
+      "test_case_ids": [
+        "t025-reconcile-all-native-agent-context-role-cases"
+      ],
+      "gap": "No current Clarify run reproduced the historical thread-capacity preflight condition. T025 records exact native role availability in three contexts but explicitly does not establish capacity limits, cleanup behavior, or the historical cause/fix."
+    }
+  ]
+}

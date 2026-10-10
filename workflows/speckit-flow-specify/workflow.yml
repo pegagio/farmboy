@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: speckit-flow-specify
   name: Author Active Specification
-  version: "0.2.0"
+  version: "0.3.0"
   author: pegagio
   description: Author the selected active specification with cited context, verified roadmap linkage, and a shared roadmap brief.
 requires:
@@ -120,17 +120,110 @@ steps:
     expression: '{{ steps.prepare-specification-outcome.output.state }}'
     cases:
       ready-for-brief:
-        - id: brief-against-roadmap
+        - id: assess-specification-authoring-quality
+          type: prompt
           flow_kit:
             delegated: true
             agent: FlowKit-Reviewer
-          command: speckit.flow-roadmap.brief
-          integration: '{{ inputs.integration }}'
-          input:
-            args: >-
-              Run the roadmap brief with these exact verified constraints: {{ steps.prepare-specification-outcome.output.brief_args }}. Resolve only this selected entry and actual specification directory. Return the full brief, constraints, and errors in a report output field. Do not implement or invoke another workflow.
+          prompt: >-
+            Independently review the current exact active specification {{ steps.prepare-specification-outcome.output.brief_args }} before the roadmap brief. Verify author-quality criteria, required clarification, the current exact spec and checklist digests, and the already observed unique linkage from this invocation. Do not require a Complete header, plan/tasks, implementation, verification, or acceptance. If any requirement is missing or unresolved, return state blocked with exact IDs and safe resumption. If ready, persist a strict authored-ready assessment and `specification_ready` packet under the selected feature's `validation/phase-lifecycle/` directory, using only repository-relative paths and current SHA-256 values. The assessment must use the approved owner schema, reviewer `FlowKit-Reviewer`, kind `independent-authoring-review`, and cover authoring-quality, clarification, linkage, and independent-review. Return state ready, packet path and digest, assessment path and digest, and the exact reviewed input map. Do not change source artifacts or invoke another workflow.
+        - id: route-specification-authoring-quality
+          type: switch
+          expression: '{{ steps.assess-specification-authoring-quality.output.state }}'
+          cases:
+            ready:
+              - id: brief-against-roadmap
+                flow_kit:
+                  delegated: true
+                  agent: FlowKit-Roadmap Agent
+                command: speckit.flow-roadmap.brief
+                integration: '{{ inputs.integration }}'
+                input:
+                  args: >-
+                    Run the additive authored-ready brief using the current packet {{ steps.assess-specification-authoring-quality.output.specification_ready_path }} and exact verified constraints {{ steps.prepare-specification-outcome.output.brief_args }}. Resolve only the selected entry and actual specification directory. Pass the packet through `--specification-ready`; preserve the full brief, constraints and errors in a report output field. Do not implement or invoke another workflow.
+              - id: assess-specification-milestone-evidence
+                type: prompt
+                flow_kit:
+                  delegated: true
+                  agent: FlowKit-Reviewer
+                prompt: >-
+                  Independently combine the current authored-ready assessment {{ steps.assess-specification-authoring-quality.output.assessment_path }} and authored-ready brief output {{ steps.brief-against-roadmap.output.report }} for the exact feature and entry selected in this Specify invocation. Verify all seven `specced` checks: authoring-quality, clarification, independent-review, roadmap-brief, linkage, dependencies, and consequential-decisions. A Must-Address finding, stale input, unsettled decision, invalid prerequisite, or missing exact brief blocks. Do not require the later Complete label, plan/tasks, implementation or future acceptance. If ready, persist a strict current independent assessment under `validation/phase-lifecycle/`, with reviewer `FlowKit-Reviewer`, kind `independent-review`, current feature scope and input digests, and complete check coverage. Return its repository-relative path and digest, the exact reviewed inputs, state, and any unresolved IDs.
+              - id: assess-roadmap-brief-milestone
+                type: prompt
+                flow_kit:
+                  delegated: true
+                  agent: FlowKit-Roadmap Agent
+                prompt: >-
+                  Independently verify the exact current authored-ready brief report {{ steps.brief-against-roadmap.output.report }} for this selected feature. Confirm unique active pointer and roadmap linkage, current spec scope, valid prerequisites/dependencies, and no unresolved Must-Address alignment finding. Persist a strict current assessment with reviewer `FlowKit-Roadmap Agent`, kind `roadmap-brief`, the applicable roadmap-brief and dependencies checks, current artifact digests, and no unresolved IDs under the feature's `validation/phase-lifecycle/` directory. Return state ready or blocked, path, digest and source evidence. The report is evidence only and does not grant trust or mutation authority.
+              - id: prepare-specification-lifecycle-request
+                type: prompt
+                flow_kit:
+                  delegated: true
+                  agent: FlowKit-Reviewer
+                prompt: >-
+                  Prepare one strict lifecycle request for this exact Specify run using the current authoring assessment at {{ steps.assess-specification-authoring-quality.output.assessment_path }}, current milestone assessment at {{ steps.assess-specification-milestone-evidence.output.assessment_path }}, roadmap assessment at {{ steps.assess-roadmap-brief-milestone.output.assessment_path }}, authored-ready brief {{ steps.brief-against-roadmap.output.report }}, active pointer, unique roadmap entry and source evidence. Include every current required source and reviewed-input digest; use policy SHA-256 `09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4`, phase specify, mode normal unless a separately substantiated bounded recovery is required, and only the `planned→specced` edge. Persist the request under the feature's `validation/phase-lifecycle/` directory and return its relative path and digest. Preserve pending implementation and acceptance obligations. Never infer trusted invocation from this file.
+              - id: prepare-specification-lifecycle-transition
+                type: prompt
+                prompt: >-
+                  Invoke the deterministic FlowKit adapter with the exact request {{ steps.prepare-specification-lifecycle-request.output.request_path }} using `python3 .specify/flow-kit/scripts/python/controller.py phase-lifecycle --project "$PWD"` and JSON stdin. Return the complete assessment as `lifecycle_assessment`; do not call the owner's apply operation or write the roadmap. Preserve blocked/question details and the exact resume action.
+              - id: route-specification-lifecycle-transition
+                type: switch
+                expression: '{{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.state }}'
+                cases:
+                  ready:
+                    - id: revalidate-specification-lifecycle-transition
+                      type: prompt
+                      prompt: >-
+                        Rebuild the exact prior request with action `revalidate` and its unchanged proposal from {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}. Invoke `python3 .specify/flow-kit/scripts/python/controller.py phase-lifecycle --project "$PWD"` with the revalidation JSON on stdin immediately before the effect. Return the full assessment; any changed source, target, evidence, proposal or policy blocks and must not reach the owner write.
+
+                        Rendered callback arguments:
+                        ```json
+                        {"action":"revalidate","request_path":"{{ steps.prepare-specification-lifecycle-request.output.request_path }}","prepared_proposal": {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}}
+                        ```
+                    - id: route-specification-lifecycle-revalidation
+                      type: switch
+                      expression: '{{ steps.revalidate-specification-lifecycle-transition.output.lifecycle_assessment.state }}'
+                      cases:
+                        ready:
+                          - id: apply-specification-lifecycle-transition
+                            type: command
+                            command: speckit.flow-roadmap.write
+                            integration: '{{ inputs.integration }}'
+                            input:
+                              args: >-
+                                PHASE_MILESTONE_REQUEST={{ steps.prepare-specification-lifecycle-request.output.request_path }} Apply only the one current `planned→specced` proposal prepared and revalidated in this exact trusted Specify invocation. Use the versioned phase-milestone mode and return its complete receipt and actual effect/record state. Do not enter ordinary roadmap-delta mode.
+                            flow_kit:
+                              delegated: true
+                              agent: FlowKit-Roadmap Agent
+                          - id: verify-specification-lifecycle-transition
+                            type: prompt
+                            flow_kit:
+                              delegated: true
+                              agent: FlowKit-Reviewer
+                            prompt: >-
+                              Independently verify the owner command's actual receipt and current roadmap bytes against the revalidated proposal for the exact feature and roadmap entry selected by this Specify invocation. Accept only a current applied `planned→specced` event with matching source/evidence digests and no duplicate transition. Preserve failed recording, not-applied, indeterminate or post-effect guard outcomes as blocked. Return state verified or blocked, exact receipt, current hashes and safe resumption; never infer Verify, Git integration, publication or acceptance.
+                        no-op:
+                          - id: verify-existing-specification-lifecycle-state-after-revalidation
+                            type: prompt
+                            flow_kit:
+                              delegated: true
+                              agent: FlowKit-Reviewer
+                            prompt: >-
+                              Independently verify that current reviewed evidence supports the retained already-specced roadmap state and that the no-op assessment contains no transition event, patch or duplicate history. Return state verified or blocked with current evidence and exact resumption; do not treat the state label alone as proof.
+                        blocked: []
+                        question: []
+                  no-op:
+                    - id: verify-existing-specification-lifecycle-state
+                      type: prompt
+                      flow_kit:
+                        delegated: true
+                        agent: FlowKit-Reviewer
+                      prompt: Independently verify current evidence for the consistent advanced state and confirm no duplicate event, downgrade, or loss of verification provenance. Return verified or blocked with current hashes.
+                  blocked: []
+                  question: []
+            blocked: []
       blocked: []
   - id: report-specification-outcome
     type: prompt
     prompt: >-
-      Present the authored or revised active specification, exact directory and roadmap entry, verified linkage, completed brief, and any approved repair. Missing, failed, or mismatched brief output is a blocker. Report stopped outcomes and partial artifacts with the exact question or recovery action. Do not claim a new spec is specced unless the roadmap records that state; any lifecycle patch requires explicit approval rather than inferred success. Stop here. Clarify, Plan, Git integration, and acceptance remain separate operator actions.
+      Present the authored or revised active specification, exact directory and roadmap entry, verified linkage, authored-ready review, lifecycle brief and current lifecycle receipt/no-op verification. A new spec is specced only after the current owner receipt is independently verified; missing/failed/stale evidence, a blocked/question result, partial effect or unverified no-op is an exact blocker. Preserve the lifecycle outcome and safe resumption. The explicit verified gate, Clarify, Plan, Git integration and acceptance remain separate operator actions; stop here without invoking another workflow.

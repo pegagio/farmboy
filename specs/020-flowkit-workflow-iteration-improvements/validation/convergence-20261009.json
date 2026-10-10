@@ -1,0 +1,276 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-09",
+  "workflow_id": "speckit-flow-converge",
+  "workflow_version": "0.5.0",
+  "workflow_sha256": "f743bb5f08c10bc0a5d68e9ce5ac5ad97723069fed636e354c2c964bb0beb239",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "state": "complete",
+  "scope": "Current amended buildable implementation; explicit T066/T077 dogfooding deferrals remain untested future validation obligations.",
+  "source_report": {
+    "path": ".specify/flow-controllers/runs/0c6ccaa5-d076-4b9f-8091-c19e95672088/converge-pass1.json",
+    "sha256": "7eb85a14c8fe9fd31b7c4fb93f210bb1b8e1b0736a79a7931e488a741e632411"
+  },
+  "independent_assessment": {
+    "path": ".specify/flow-controllers/runs/0c6ccaa5-d076-4b9f-8091-c19e95672088/assessment-pass1.json",
+    "sha256": "85e123aa56b98c59dc9c702cd02ebd59ce041265e319b6695fd22a01c58e3916"
+  },
+  "outcome_envelope": {
+    "state": "complete",
+    "reason_code": "current-buildable-scope-converged",
+    "evidence": [
+      {
+        "path": ".specify/flow-controllers/runs/0c6ccaa5-d076-4b9f-8091-c19e95672088/converge-pass1.json",
+        "sha256": "7eb85a14c8fe9fd31b7c4fb93f210bb1b8e1b0736a79a7931e488a741e632411"
+      },
+      {
+        "path": ".specify/flow-controllers/runs/0c6ccaa5-d076-4b9f-8091-c19e95672088/implementation-delta-pass1.json",
+        "sha256": "c265a6c84f98a9361c8fffc9dc1fb0813ba13279065f5ff76f94299ea901ee87"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+        "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+        "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/readiness.py",
+        "sha256": "6396ffad00c842cec2234beaf56d31caa87d6bc0317fc469d45f904e97e7b725"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+      },
+      {
+        "path": "tests/test_implementation_progress.py",
+        "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+      },
+      {
+        "path": "tests/test_snapshot_validation.py",
+        "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+      },
+      {
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+        "sha256": "27329d3567bce3e8af089bc59cf5c6d5ee2f7814954356724cac2ad570ed4e11"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-independent-review.json",
+        "sha256": "9d8598b08e530b786387a9b24de3be12f086dec088237468212666fc54e07662"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/deferred-dogfooding.json",
+        "sha256": "c9dbf6edb4a87950415dbb1cedc2551c51e0573eaee8209169493cdbec048ef2"
+      }
+    ],
+    "remaining_ids": [],
+    "resolved_ids": []
+  },
+  "implementation_delta": {
+    "base_commit": "2f8c34931294f73e2b7f70bb08ed79ca98fa53e8",
+    "branch": "",
+    "boundary": "Git HEAD to current selected-scope working tree before convergence; untracked additions explicitly absent in base",
+    "files": [
+      {
+        "path": "controllers/flow-kit/controller-protocol.md",
+        "before_exists": true,
+        "before_sha256": "606f597c4aa0644ca1a439a19e8cb6109efbb9116d0675ccf271f50fd00a82b3",
+        "after_sha256": "ea0c3996edd9cd258415bc8cf9d8badf88f92cbb569a9af54babd90f4b15d2b8"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "before_exists": true,
+        "before_sha256": "f0efe8724c4b4e8dfe3728eb4e2eb3ca828cba0f06cea9ac9dafca63ceba95a3",
+        "after_sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+      },
+      {
+        "path": "docs/installation.md",
+        "before_exists": true,
+        "before_sha256": "efd4891217df68877c1605bd374ddc57a04c0477bbbe5da35ecb1f921934f333",
+        "after_sha256": "52fbd733c7420b8ef20cf08cd8314b49849323dc3c7527afba02d74874eaaa63"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+        "before_exists": true,
+        "before_sha256": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5",
+        "after_sha256": "27329d3567bce3e8af089bc59cf5c6d5ee2f7814954356724cac2ad570ed4e11"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/deferred-dogfooding.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "c9dbf6edb4a87950415dbb1cedc2551c51e0573eaee8209169493cdbec048ef2"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-progress-reassessment.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "300e35a4bb102b48716c134a9939232bf574c2d478cfce94877deb86f195a552"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "before_exists": true,
+        "before_sha256": "a9d7f8a276b61b8cdb84b04d68c4dca19a9a8cf2956ea8724fa87e2f994a4e27",
+        "after_sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-native-cases.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "e08bf09bd8014fd7ee86a1292e6e005b8d18459c8118fa7be5945128b6beeec6"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-summary.md",
+        "before_exists": true,
+        "before_sha256": "1e22ed1d3ab837fe566b749c8ae547d1184902068b63c894fb7a7484e4282233",
+        "after_sha256": "33c0e2b9f0bab90d2ae33a4665cc1b9b54afdae01458b7ab2638e0af24319aef"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-native-cases.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "3b9fade9ee54c0270186a9581035701826baf6ab57c5ad217036c6f3e821b718"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-snapshot.json",
+        "before_exists": true,
+        "before_sha256": "de185e509e42dc8877da33f2e3e15075a9d51cfddc38a0054a3a2f4e93f86186",
+        "after_sha256": "0bef032dd1c5155ee02a6c394092ca858b75c9e0728edff4908efd42ad4093a0"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md",
+        "before_exists": true,
+        "before_sha256": "0c213f0bcf1efb14a701d95792c3e62a7756fe7c1f48296f16832b6bec929c95",
+        "after_sha256": "494857fea0f40d1e355b3b43342c740ef9f0aca88b09c5adde185b8e45b72d63"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+        "before_exists": true,
+        "before_sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f",
+        "after_sha256": "b9ada6785860873e3e71d18b76ba8d9c2798839370d25e607538e8d92c67ebc9"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-analyze-result.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "cb09ad81c89e7309d3b08be1497c6252252ff9d2677f188f069be3e0600fa65c"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-completion.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "6cf349e25eaccc8b95f896b0c8b287672bdc686298cebcc10de9344e71d91b65"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-evidence-reconciliation.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "0a5e8e9480fcf3c518446f842a9f42ba48b62100b5b925e3969c855f5251eb27"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-independent-review.json",
+        "before_exists": false,
+        "before_sha256": null,
+        "after_sha256": "9d8598b08e530b786387a9b24de3be12f086dec088237468212666fc54e07662"
+      },
+      {
+        "path": "tests/consumer-fixtures/semantic-review-topology.json",
+        "before_exists": true,
+        "before_sha256": "489af69b8e3552cdd3e4d485c076aa6d57e12217f7e6dae500bad7f09f3c9188",
+        "after_sha256": "c290706fb76d1069b5a84dde76fbc0b42f88f855123a89e3c96aacac5b9dba8a"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "before_exists": true,
+        "before_sha256": "92a96f8f89d9150e282cb90138c21cf00245f203e7909cfd23d14b21fcf5a791",
+        "after_sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+      },
+      {
+        "path": "tests/test_controller.py",
+        "before_exists": true,
+        "before_sha256": "7f2a04f18be2a401d48f771cc18580a38bd1f7b4f5dfd1ba05f95ec050dd9504",
+        "after_sha256": "0d24da75907d6523ff0a3c6db64c40db2a0a2ca4016dfc3d5059617bc1409081"
+      },
+      {
+        "path": "tests/test_implementation_progress.py",
+        "before_exists": true,
+        "before_sha256": "13de16207232f3e9cb06590e29cab5f61cfb26e1404005881770e76a1903abb6",
+        "after_sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+      },
+      {
+        "path": "tests/test_snapshot_validation.py",
+        "before_exists": true,
+        "before_sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9",
+        "after_sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+      },
+      {
+        "path": "tests/test_workflow_improvements.py",
+        "before_exists": true,
+        "before_sha256": "a9982d532aff4bbdedb86d954a1d690aa2db779a859862fc9123dbecf9ca2ec3",
+        "after_sha256": "5d9ebbb27a25c15cb29ab9096eb3d1d1c9b3a0108551898984a964b99866d415"
+      },
+      {
+        "path": "tests/test_workflow_paths.py",
+        "before_exists": true,
+        "before_sha256": "0c73d480044a4baa18b99e41dbf118e6f4d67c838a140120736290561bc64489",
+        "after_sha256": "8ec2a0cee38c71c722533d921991a8538ce9267adec065b9124dc0f9ae7be756"
+      },
+      {
+        "path": "workflows/README.md",
+        "before_exists": true,
+        "before_sha256": "96f53ca76e6482ea0b7b0c7580f7a85baea36edfc6c801f1a12c8ac405d572c5",
+        "after_sha256": "e0002912dd9598cdda4ba14ba160b7e9e9aa541f673aca9faa7116c4ce7d7916"
+      },
+      {
+        "path": "workflows/speckit-flow-implement/flowchart.md",
+        "before_exists": true,
+        "before_sha256": "3469016120f609150413b25d37cdfe150ca90e5ec71b69b50cb03fb47562a47d",
+        "after_sha256": "e652b2ba703dff56e3dc5caa422c2c8ede09f3a551b42ddf18fe2ef457090ca1"
+      },
+      {
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "before_exists": true,
+        "before_sha256": "5df8be2a04301afc68ba9d4b208a1c33742620b2534891e5612b61730941b3f6",
+        "after_sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+      }
+    ],
+    "source_scope": "Feature020 named controller/workflow/docs/tests and feature artifacts"
+  },
+  "independent_focused_tests_passed": 174,
+  "task_plan_unchanged": true,
+  "tasks_appended": [],
+  "unbuilt_actionable_finding_ids": [],
+  "deferred_validation_task_ids": [
+    "T066",
+    "T077"
+  ],
+  "remaining_manual_validation": "Unobserved; dogfooding pending with expected scenario coverage retained in validation/deferred-dogfooding.json.",
+  "feature_acceptance_established": false,
+  "roadmap_verification_established": false,
+  "installed_adoption_established": false,
+  "historical_implement_run_resumed": false,
+  "closeout_invoked_automatically": false
+}

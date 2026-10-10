@@ -1,12 +1,8 @@
 ---
 title: FlowKit agent configuration and consumer delivery
 type: decision
-sources:
-- S025
-- S026
-- S018
-- S027
-updated: '2026-10-05'
+sources: [S025, S026, S018, S027, S005]
+updated: '2026-10-09'
 ---
 
 # FlowKit agent configuration and consumer delivery
@@ -22,13 +18,14 @@ Native `model` and `model_reasoning_effort` fields contain the approved pairs; w
 | FlowKit-Roadmap Agent; FlowKit-Wiki Curator | `gpt-6.1-sol` / `low` | Bounded approved-ledger work and cited-source bookkeeping |
 | FlowKit-Specifier; FlowKit-Planner; FlowKit-Reviewer | `gpt-6.1-sol` / `high` | Product, architecture and independent semantic judgment |
 | FlowKit-Code Reviewer | `gpt-6.1-sol` / `medium` | Independent selected implementation/test assessment |
+| FlowKit-Readiness Checker | `gpt-6-luna` / `medium` | Bounded read-only preparation assessment (S005) |
 | FlowKit-Coder; FlowKit-Tasker | `gpt-6-luna` / `high` | Approved eligible coding/task derivation with dependency/test reasoning and independent review |
 
-Every pair and its qualitative rationale is operator-approved; no project benchmark establishes savings or quality equivalence. (S026)
+The eight Feature 017 pairs are operator-approved; the later guide adds the Checker configuration and rationale. These are requested definitions, not observed effective settings or measured quality/cost equivalence. (S026, S005)
 
 ## Consumer ownership and lifecycle
 
-Bundle install and explicit install-missing add absent configurations, preserving existing files. Refresh replaces available defaults only; explicit reset-one/reset-all discards customizations only in selected current manifest targets. Removal preserves consumer copies. Old, retired and unrelated definitions survive for operator inspection/removal; prefixes confer no overwrite authority. Per-copy ownership hashes, automatic customization detection and merging remain excluded. (S026)
+Bundle install and explicit install-missing add absent configurations, preserving existing files. Refresh replaces available defaults only; explicit reset-one/reset-all discards customizations only in selected current manifest targets. Removal preserves consumer copies. Old, retired and unrelated definitions survive for operator inspection/removal; prefixes confer no overwrite authority. Per-copy ownership hashes, automatic customization detection and merging remain excluded. The current guide confirms these consumer-preserving operations and explicitly selected reset authority. (S026, S005)
 
 Portable human/JSON reports identify package version/digests/source provenance, normalized operation inputs and each target's actual created, preserved-existing, reset, failed or not-attempted disposition. Duplicate identities, unsafe destinations and mixed versions block usable-inventory claims. Arbitrary unsafe identity evidence is redacted and marked `identity_redacted`; reports omit host paths and secrets. Partial completion states written targets and bounded recovery, rather than implying rollback: retry absent paths or the same explicitly selected reset after inspecting results. (S026)
 

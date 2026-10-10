@@ -19,7 +19,9 @@ EXPECTED_AGENTS = {
     "flowkit-coder.toml": "FlowKit-Coder",
     "flowkit-code-reviewer.toml": "FlowKit-Code Reviewer",
     "flowkit-wiki-curator.toml": "FlowKit-Wiki Curator",
+    "flowkit-readiness-checker.toml": "FlowKit-Readiness Checker",
 }
+EXISTING_ROOT_MIRRORS = set(EXPECTED_AGENTS) - {"flowkit-readiness-checker.toml"}
 
 
 def walk_steps(steps: list[dict]):
@@ -36,7 +38,7 @@ class AgentConfigTests(unittest.TestCase):
     """All workflow assignments resolve to native, role-specific TOML files."""
 
     def test_agentFiles_haveExpectedNamesAndRequiredInstructions(self) -> None:
-        agent_dir = ROOT / ".codex/agents"
+        agent_dir = ROOT / "agents/flow-kit/agents"
         self.assertEqual(set(EXPECTED_AGENTS), {path.name for path in agent_dir.glob("*.toml")})
         for filename, expected_name in EXPECTED_AGENTS.items():
             with self.subTest(agent=expected_name):
@@ -44,8 +46,9 @@ class AgentConfigTests(unittest.TestCase):
                 self.assertEqual(expected_name, data.get("name"))
                 self.assertTrue(data.get("description", "").strip())
                 self.assertTrue(data.get("developer_instructions", "").strip())
-                canonical = ROOT / "agents/flow-kit/agents" / filename
-                self.assertEqual(canonical.read_bytes(), (agent_dir / filename).read_bytes())
+                self.assertEqual(expected_name, tomllib.loads((agent_dir / filename).read_text())['name'])
+                if filename in EXISTING_ROOT_MIRRORS:
+                    self.assertEqual((agent_dir / filename).read_bytes(), (ROOT / ".codex/agents" / filename).read_bytes())
 
     def test_approvedSettingsAndOutputContracts_areExplicit(self) -> None:
         for filename in EXPECTED_AGENTS:
@@ -53,8 +56,9 @@ class AgentConfigTests(unittest.TestCase):
             if filename in ("flowkit-coder.toml", "flowkit-tasker.toml"):
                 pair = ("gpt-6-luna", "high")
             else:
-                effort = "low" if filename in ("flowkit-roadmap-agent.toml", "flowkit-wiki-curator.toml") else "medium" if filename == "flowkit-code-reviewer.toml" else "high"
-                pair = ("gpt-6.1-sol", effort)
+                effort = "low" if filename in ("flowkit-roadmap-agent.toml", "flowkit-wiki-curator.toml") else "medium" if filename in ("flowkit-code-reviewer.toml", "flowkit-readiness-checker.toml") else "high"
+                model = "gpt-6-luna" if filename == "flowkit-readiness-checker.toml" else "gpt-6.1-sol"
+                pair = (model, effort)
             with self.subTest(agent=filename):
                 self.assertEqual(pair, (data.get("model"), data.get("model_reasoning_effort")))
                 self.assertEqual({"name", "description", "developer_instructions", "model", "model_reasoning_effort"}, set(data))
@@ -104,13 +108,13 @@ class AgentConfigTests(unittest.TestCase):
         implement = assignments("speckit-flow-implement")
         self.assertNotEqual(plan["create-plan"], plan["verify-plan-output"])
         self.assertNotEqual(tasks["generate-tasks"], tasks["verify-task-output"])
-        self.assertNotEqual(implement["implement-eligible-work"], implement["assess-implementation-after-pass"])
+        self.assertNotEqual(implement["run-scoped-source-implementation"], implement["assess-implementation-after-pass"])
         self.assertEqual("FlowKit-Code Reviewer", implement["assess-implementation-after-pass"])
 
 
     def test_postImplementationReviewNodes_useDistinctCodeReviewerAndCoder(self) -> None:
         for purpose, review_id, coder_id in (
-            ('implement', 'assess-implementation-after-pass', 'implement-eligible-work'),
+            ('implement', 'assess-implementation-after-pass', 'run-scoped-source-implementation'),
             ('converge', 'assess-convergence', 'implement-remediation'),
             ('closeout', 'assess-closeout-debrief', 'implement-closeout-eligible-tasks'),
         ):

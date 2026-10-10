@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-06",
+  "workflow_id": "speckit-flow-implement",
+  "installed_workflow_version": "0.5.0",
+  "run_summary": ".specify/flow-controllers/runs/49eab81b-ccf2-4254-8901-ffd60a8ea499/summary.json",
+  "state": "blocked",
+  "reason_code": "readiness-residuals-without-task-completion",
+  "resume_action": "finish-existing-readiness-residuals-and-reinvoke-implement",
+  "remaining_implementation_ids": [
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T036"
+  ],
+  "new_completed_task_ids": [],
+  "completed_total": 26,
+  "task_count": 44,
+  "resolved_boundaries": [
+    "No-separator and prefixed malformed markers reject before core startup.",
+    "Exact before/after write rollback and ordinary retry are validated across all four compound targets.",
+    "Unrecognized concurrent bytes block compensation and preserve all potentially needed outputs."
+  ],
+  "remaining_findings": [
+    {
+      "id": "F020-OCT6-R001",
+      "task_id": "T016",
+      "related_task_ids": [
+        "T015",
+        "T018"
+      ],
+      "artifact_location": "controllers/flow-kit/scripts/python/readiness.py:170",
+      "observed_deficiency": "A parseable checked line containing an additional literal unchecked marker (- [x] Good - [ ] hidden) still reports ready despite the core unchecked scan.",
+      "exact_correction": "Validate every additional core marker on a parsed line; reject ambiguous formatting or account fully before ready, and add copied-controller regression."
+    },
+    {
+      "id": "F020-OCT6-R005",
+      "task_id": "T016",
+      "related_task_ids": [
+        "T015",
+        "T017"
+      ],
+      "artifact_location": "controllers/flow-kit/scripts/python/controller.py",
+      "observed_deficiency": "The copied controller returns exit code zero after a recorder write failure, contrary to the nonzero helper-error contract.",
+      "exact_correction": "Preserve structured rollback/recovery output while returning nonzero for recorder/helper errors; ordinary successful blocked assessments remain valid transport."
+    }
+  ],
+  "validation": {
+    "independent_focused_tests": 143,
+    "workflow_projection": "11 source workflows, zero unexplained terminals",
+    "diff_check": "passed",
+    "remaining_counterexamples": "Independently reproduced; passing tests do not discharge them."
+  },
+  "evidence": [
+    {
+      "path": "controllers/flow-kit/scripts/python/readiness.py",
+      "sha256": "1c880210bc2a443acf4f8bc91ea786432c30958b1f029489df9139c07dba8f35"
+    },
+    {
+      "path": "controllers/flow-kit/scripts/python/controller.py",
+      "sha256": "11e5409e4ef00426426010bad1f76c4d5fa55fb502a071e9dd575813767bf9a4"
+    },
+    {
+      "path": "tests/test_readiness.py",
+      "sha256": "d3f6e8a48bfc42999199f3c068898f5721335f8d114cfc1b2cdf147280d751e3"
+    },
+    {
+      "path": "tests/test_readiness_workflow_routes.py",
+      "sha256": "3126815d879c7c9faf5b09f85f83b7b93275bdb1ecc860330286f952801eb3b4"
+    },
+    {
+      "path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+      "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+    },
+    {
+      "path": "workflows/speckit-flow-implement/workflow.yml",
+      "sha256": "ea3805ba6c4e0d936954000725b87fe4dab426f1f4451886eaf1d939c0bec6f6"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/preparation-readiness.md",
+      "sha256": "11386073ca90f42842a608227836e85d65f16ee5da3adac24b835c9be2bb856c"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+      "sha256": "f5731edb5235168f673a4c004d80d0558ccb2989165c3d578bd728aea28dfdf0"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/summary.md",
+      "sha256": "42bf4f3bd79f6f007078bcf046e3a084c5520ca35d1d2a546ea65eff4b1f2e92"
+    }
+  ],
+  "separate_limits": [
+    "T037 production catalog remains blocked by clean reviewed sources and matching tags; no Git operations authorized.",
+    "Roadmap, 27 native-context cases, combined verification and feature acceptance remain deferred/unverified."
+  ]
+}

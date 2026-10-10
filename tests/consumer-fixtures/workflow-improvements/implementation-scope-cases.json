@@ -1,0 +1,1647 @@
+{
+  "schema_version": "1.0",
+  "contract": "implementation-scope",
+  "case_map": {
+    "user_stories": [
+      "US7"
+    ],
+    "functional_requirements": [
+      "FR-039",
+      "FR-040",
+      "FR-041",
+      "FR-042",
+      "FR-043",
+      "FR-044",
+      "FR-045",
+      "FR-046",
+      "FR-047",
+      "FR-048"
+    ],
+    "success_criteria": [
+      "SC-017",
+      "SC-018",
+      "SC-019",
+      "SC-020",
+      "SC-021",
+      "SC-022"
+    ]
+  },
+  "cases": [
+    {
+      "id": "SI001",
+      "acceptance_scenario": "AC1",
+      "requirements": [
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "SC-017",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "unfinished_task_ids": [
+          "T052",
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "blocked_task_ids": [
+          "T052",
+          "T069"
+        ]
+      },
+      "task_proofs": [],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T052",
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "pending_task_ids": [
+          "T052",
+          "T069"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI002",
+      "acceptance_scenario": "AC2",
+      "requirements": [
+        "FR-040",
+        "FR-041",
+        "FR-042",
+        "FR-043",
+        "FR-046",
+        "SC-018",
+        "SC-019",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T050",
+          "T051",
+          "T052"
+        ],
+        "eligible_task_ids": [
+          "T050",
+          "T051"
+        ],
+        "owner_source_required_for": "T052"
+      },
+      "task_proofs": [
+        {
+          "task_id": "T050",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": true,
+          "permitted_effect_route_observed": true,
+          "before_after_state_observed": true,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        },
+        {
+          "task_id": "T051",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": true,
+          "permitted_effect_route_observed": true,
+          "before_after_state_observed": true,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        }
+      ],
+      "route": {
+        "preparation_node": "prepare-scoped-prerequisites",
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "first_source_node": "implement-tasks",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 2,
+        "source_attempts_started": 1,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation"
+          },
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "first-source-execution"
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 2
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "owner_source": {
+        "task_id": "T052",
+        "checkout_identity_observed": true,
+        "access_observed": true,
+        "guidance_observed": true,
+        "source_route_observed": true,
+        "task_authority_observed": true,
+        "missing_installed_output_is_blocker": false
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T050",
+          "T051",
+          "T052"
+        ],
+        "eligible_task_ids": [
+          "T052"
+        ],
+        "pending_task_ids": [],
+        "completed_task_ids": [
+          "T050",
+          "T051"
+        ],
+        "administrative_prerequisite_ids": [
+          "T050",
+          "T051"
+        ],
+        "implementation_completed_task_ids": [],
+        "outside_task_ids": [],
+        "substantive_progress": false,
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [
+        "prepare-scoped-prerequisites",
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI003",
+      "acceptance_scenario": "AC3",
+      "requirements": [
+        "FR-039",
+        "FR-040",
+        "FR-047",
+        "SC-017",
+        "SC-021",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "explicit-subset",
+        "requested_task_ids": [
+          "T050",
+          "T051"
+        ],
+        "all_feature_task_ids": [
+          "T050",
+          "T051",
+          "T052"
+        ]
+      },
+      "task_proofs": [
+        {
+          "task_id": "T050",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": true,
+          "permitted_effect_route_observed": true,
+          "before_after_state_observed": true,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        },
+        {
+          "task_id": "T051",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": true,
+          "permitted_effect_route_observed": true,
+          "before_after_state_observed": true,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        }
+      ],
+      "proof_variants": [
+        "asserted-approval",
+        "reviewer-role-string",
+        "marker-only",
+        "partial-requirements"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 0,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation"
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "complete",
+        "requested_task_ids": [
+          "T050",
+          "T051"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [],
+        "completed_task_ids": [
+          "T050",
+          "T051"
+        ],
+        "administrative_prerequisite_ids": [
+          "T050",
+          "T051"
+        ],
+        "implementation_completed_task_ids": [],
+        "outside_task_ids": [
+          "T052"
+        ],
+        "substantive_progress": false,
+        "invalid_proof_state": "blocked",
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "none"
+    },
+    {
+      "id": "SI004",
+      "acceptance_scenario": "AC4",
+      "requirements": [
+        "FR-039",
+        "FR-043",
+        "FR-045",
+        "SC-021",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "explicit-subset",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "proposed_effect_task_id": "T069"
+      },
+      "task_proofs": [],
+      "decision_variants": [
+        "unanswered",
+        "answered-and-revalidated"
+      ],
+      "route": {
+        "question_node": "prepare-scoped-prerequisites",
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 0,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation"
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "needs-human",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [
+          "T069"
+        ],
+        "reason_code": "operator-decision-required",
+        "resume_action": "resume-same-child-after-operator-answer"
+      },
+      "expected_route": [
+        "prepare-scoped-prerequisites"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "resume-same-child-after-operator-answer"
+    },
+    {
+      "id": "SI005",
+      "acceptance_scenario": "AC5",
+      "requirements": [
+        "FR-041",
+        "FR-044",
+        "FR-047",
+        "SC-019",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "known_defect_ids": [
+          "F020-EXAMPLE-001"
+        ],
+        "initially_blocked_task_ids": [
+          "T069"
+        ],
+        "task_dependencies": {
+          "T069": [
+            "T068"
+          ]
+        }
+      },
+      "task_proofs": [
+        {
+          "task_id": "T068",
+          "completion_kind": "substantive-implementation",
+          "requirements_complete": true,
+          "activation_preimage_observed": true,
+          "source_effect_observed": true,
+          "validation_observed": true,
+          "independent_review_attributed": true
+        }
+      ],
+      "history_mutations": [
+        "rewrite-original-scope",
+        "rewrite-defect-before",
+        "reuse-old-task-activation"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 1
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 1,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "first-source-execution"
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": true,
+        "previous_assessment": {
+          "remaining_ids": [
+            "finding:F020-EXAMPLE-001",
+            "task:T069"
+          ]
+        },
+        "current_assessment": {
+          "resolved_ids": [
+            "finding:F020-EXAMPLE-001",
+            "task:T068"
+          ]
+        }
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [
+          "T069"
+        ],
+        "pending_task_ids": [],
+        "completed_task_ids": [
+          "T068"
+        ],
+        "implementation_completed_task_ids": [
+          "T068"
+        ],
+        "outside_task_ids": [],
+        "substantive_progress": true,
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI006",
+      "acceptance_scenario": "AC6",
+      "requirements": [
+        "FR-041",
+        "FR-044",
+        "SC-019",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "known_defect_ids": [
+          "F020-EXAMPLE-001",
+          "F020-EXAMPLE-002"
+        ],
+        "correction_owner_task_id": "T068"
+      },
+      "task_proofs": [],
+      "finding_variants": [
+        "one-prior-resolved",
+        "new-finding",
+        "unchanged-prior",
+        "renamed-prior",
+        "omitted-prior",
+        "retroactive-before"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 1
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 1,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "first-source-execution"
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": true,
+        "previous_assessment": {
+          "remaining_ids": [
+            "finding:F020-EXAMPLE-001",
+            "finding:F020-EXAMPLE-002"
+          ]
+        },
+        "current_assessment": {
+          "resolved_ids": [
+            "finding:F020-EXAMPLE-001"
+          ],
+          "new_finding_ids": [
+            "F020-EXAMPLE-003"
+          ],
+          "unresolved_ids": [
+            "finding:F020-EXAMPLE-002",
+            "finding:F020-EXAMPLE-003"
+          ]
+        }
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "pending_task_ids": [],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "substantive_progress": true,
+        "new_findings_remain_open": true,
+        "invalid_history_state": "blocked",
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI007",
+      "acceptance_scenario": "AC7",
+      "requirements": [
+        "FR-042",
+        "FR-043",
+        "FR-045",
+        "SC-018",
+        "SC-019",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T050",
+          "T051",
+          "T068"
+        ],
+        "pending_consequential_input": true,
+        "independent_source_task_ids": [
+          "T068"
+        ]
+      },
+      "task_proofs": [
+        {
+          "task_id": "T050",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": true,
+          "permitted_effect_route_observed": true,
+          "before_after_state_observed": true,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        }
+      ],
+      "question_variants": [
+        "same-child-answer",
+        "unchanged-preparation-repeat",
+        "counterfeit-input",
+        "undeclared-node"
+      ],
+      "route": {
+        "preparation_node": "prepare-scoped-prerequisites",
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "first_source_node": "implement-tasks",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 0,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation"
+          },
+          {
+            "kind": "question",
+            "same_child_resume": true,
+            "consumes_session": false
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T050",
+          "T051",
+          "T068"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "pending_task_ids": [
+          "T051"
+        ],
+        "completed_task_ids": [
+          "T050"
+        ],
+        "administrative_prerequisite_ids": [
+          "T050"
+        ],
+        "implementation_completed_task_ids": [],
+        "outside_task_ids": [],
+        "substantive_progress": false,
+        "same_child_resume": true,
+        "question_adds_session": false,
+        "unchanged_repeat_state": "blocked",
+        "reason_code": null,
+        "resume_action": null
+      },
+      "expected_route": [
+        "prepare-scoped-prerequisites",
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI008",
+      "acceptance_scenario": "AC8",
+      "requirements": [
+        "FR-042",
+        "FR-045",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "readiness_inputs_current": false,
+        "checker_agrees": false
+      },
+      "task_proofs": [],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": "readiness-evidence-stale",
+        "resume_action": "refresh-reviewed-artifacts-and-readiness",
+        "coder_dispatch_allowed": false
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "refresh-reviewed-artifacts-and-readiness"
+    },
+    {
+      "id": "SI009",
+      "acceptance_scenario": "AC9",
+      "requirements": [
+        "FR-046",
+        "FR-042",
+        "SC-018",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T052"
+        ],
+        "owner_source_required": true
+      },
+      "task_proofs": [],
+      "owner_source": {
+        "task_id": "T052",
+        "checkout_identity_observed": true,
+        "access_observed": true,
+        "guidance_observed": true,
+        "source_route_observed": true,
+        "task_authority_observed": true,
+        "missing_installed_output_is_blocker": false
+      },
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T052"
+        ],
+        "eligible_task_ids": [
+          "T052"
+        ],
+        "pending_task_ids": [],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": null,
+        "resume_action": null,
+        "source_effects_permitted": true
+      },
+      "expected_route": [
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI010",
+      "acceptance_scenario": "AC10",
+      "requirements": [
+        "FR-045",
+        "FR-046",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T052"
+        ],
+        "owner_source_required": true
+      },
+      "owner_source_variants": [
+        "checkout-absent",
+        "access-denied",
+        "authority-conflict",
+        "route-missing",
+        "unsafe-effect",
+        "installed-output-missing-only"
+      ],
+      "task_proofs": [],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T052"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T052"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": "owner-source-route-unverified",
+        "resume_action": "establish-owner-source-route-and-access",
+        "installed_output_only_variant_state": "continue"
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "establish-owner-source-route-and-access"
+    },
+    {
+      "id": "SI011",
+      "acceptance_scenario": "AC11",
+      "requirements": [
+        "FR-043",
+        "FR-044",
+        "FR-045",
+        "SC-019",
+        "SC-020",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "known_defect_ids": [
+          "F020-EXAMPLE-001"
+        ]
+      },
+      "task_proofs": [
+        {
+          "task_id": "T068",
+          "completion_kind": "administrative-prerequisite",
+          "requirements_complete": true,
+          "trusted_decision_observed": false,
+          "permitted_effect_route_observed": false,
+          "before_after_state_observed": false,
+          "no_source_effect_observed": true,
+          "independent_review_attributed": true
+        }
+      ],
+      "attempt_variants": [
+        "successful",
+        "no-effect",
+        "failed-dispatch",
+        "question-stopped"
+      ],
+      "tamper_variants": [
+        "decision-only",
+        "checklist-only",
+        "marker-only",
+        "report-only",
+        "rename-finding",
+        "arbitrary-proof-path",
+        "new-eligible-task",
+        "erase-attempt",
+        "replace-baseline-empty",
+        "first-assessment-exemption"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "preparation_node": "prepare-scoped-prerequisites",
+        "first_source_node": "implement-tasks",
+        "source_attempts_started": 1
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 1,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "first-source-execution"
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true,
+            "outcome": "question-stopped"
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": true,
+        "previous_assessment": {
+          "remaining_ids": [
+            "finding:F020-EXAMPLE-001",
+            "task:T069"
+          ]
+        },
+        "current_assessment": {
+          "resolved_ids": [],
+          "remaining_ids": [
+            "finding:F020-EXAMPLE-001",
+            "task:T069"
+          ]
+        },
+        "expected_action": "blocked",
+        "expected_blocker": "no-progress",
+        "exemption_flags": []
+      },
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "substantive_progress": false,
+        "first_source_route_allowed": false,
+        "preparation_route_allowed": false,
+        "reason_code": "no-progress",
+        "resume_action": "resolve-a-prior-recorded-substantive-finding"
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "resolve-a-prior-recorded-substantive-finding"
+    },
+    {
+      "id": "SI012",
+      "acceptance_scenario": "AC12",
+      "requirements": [
+        "FR-043",
+        "FR-045",
+        "FR-047",
+        "SC-020",
+        "SC-021",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "source_attempts_started": 3
+      },
+      "task_proofs": [],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "preparation_node": "prepare-scoped-prerequisites",
+        "first_source_node": "implement-tasks",
+        "source_attempts_started": 3
+      },
+      "history": {
+        "coder_sessions_started": 5,
+        "source_attempts_started": 3,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation",
+            "coder_sessions_started": 1,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "operator-input",
+            "same_child_resume": true,
+            "consumes_session": false,
+            "coder_sessions_started": 1,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "session-outcome",
+            "outcome": "question-stopped",
+            "coder_sessions_started": 1,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation",
+            "coder_sessions_started": 2,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "session-outcome",
+            "outcome": "completed",
+            "coder_sessions_started": 2,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "first-source-execution",
+            "coder_sessions_started": 3,
+            "source_attempts_started": 0
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true,
+            "coder_sessions_started": 3,
+            "source_attempts_started": 1
+          },
+          {
+            "kind": "session-outcome",
+            "outcome": "completed",
+            "coder_sessions_started": 3,
+            "source_attempts_started": 1
+          },
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "corrective-source-execution",
+            "coder_sessions_started": 4,
+            "source_attempts_started": 1
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true,
+            "coder_sessions_started": 4,
+            "source_attempts_started": 2
+          },
+          {
+            "kind": "session-outcome",
+            "outcome": "failed-dispatch",
+            "coder_sessions_started": 4,
+            "source_attempts_started": 2
+          },
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "corrective-source-execution",
+            "coder_sessions_started": 5,
+            "source_attempts_started": 2
+          },
+          {
+            "kind": "source-attempt-start",
+            "before_dispatch": true,
+            "coder_sessions_started": 5,
+            "source_attempts_started": 3
+          },
+          {
+            "kind": "session-outcome",
+            "outcome": "question-stopped",
+            "coder_sessions_started": 5,
+            "source_attempts_started": 3
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 5,
+        "attempted_continuation": true,
+        "terminal_fifth_completion_allowed": true
+      },
+      "generic_no_progress": {
+        "required": true,
+        "previous_assessment": {
+          "remaining_ids": [
+            "finding:F020-EXAMPLE-001"
+          ]
+        },
+        "current_assessment": {
+          "resolved_ids": [
+            "finding:F020-EXAMPLE-001"
+          ]
+        }
+      },
+      "tamper_variants": [
+        "counter-rewind",
+        "branch-reset",
+        "new-answer-refill",
+        "eligibility-refill",
+        "failed-dispatch-refund"
+      ],
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "iterations_used": 5,
+        "coder_sessions_started": 5,
+        "source_attempts_started": 3,
+        "reason_code": "loop-cap-exhausted",
+        "resume_action": "start-new-explicit-implement-invocation-if-authorized",
+        "sixth_dispatch_allowed": false
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "start-new-explicit-implement-invocation-if-authorized"
+    },
+    {
+      "id": "SI013",
+      "acceptance_scenario": "AC13",
+      "requirements": [
+        "FR-040",
+        "FR-042",
+        "FR-045",
+        "FR-047",
+        "SC-018",
+        "SC-021",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068",
+          "T069",
+          "T070"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "individually_blocked_task_ids": [
+          "T069"
+        ],
+        "global_readiness_failure_variant": true
+      },
+      "task_proofs": [],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "continue",
+        "requested_task_ids": [
+          "T068",
+          "T069",
+          "T070"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ],
+        "pending_task_ids": [
+          "T069",
+          "T070"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": null,
+        "resume_action": null,
+        "global_failure_variant_state": "blocked",
+        "partial_effects_preserved": true,
+        "full_scope_complete": false
+      },
+      "expected_route": [
+        "implement-tasks"
+      ],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "continue-authorized-implement-scope"
+    },
+    {
+      "id": "SI014",
+      "acceptance_scenario": "AC14",
+      "requirements": [
+        "FR-039",
+        "FR-040",
+        "FR-041",
+        "FR-047",
+        "SC-017",
+        "SC-019",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ]
+      },
+      "task_proofs": [],
+      "request_variants": [
+        "child-narrows",
+        "generated-expands",
+        "external-recommends-replacement"
+      ],
+      "tamper_variants": [
+        "scope-digest",
+        "history-predecessor",
+        "task-description",
+        "request-reference"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 0,
+        "source_attempts_started": 0,
+        "events": []
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 0
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068",
+          "T069"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": "scope-integrity-failed",
+        "resume_action": "reestablish-trusted-request-and-current-snapshot",
+        "actual_request_retained": true
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "reestablish-trusted-request-and-current-snapshot"
+    },
+    {
+      "id": "SI015",
+      "acceptance_scenario": "AC15",
+      "requirements": [
+        "FR-043",
+        "FR-045",
+        "FR-047",
+        "SC-020",
+        "SC-021",
+        "FR-048",
+        "SC-022"
+      ],
+      "setup": {
+        "request_kind": "full-feature",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [
+          "T068"
+        ]
+      },
+      "task_proofs": [],
+      "assignment_variants": [
+        "required-assignment-absent",
+        "consequential-question-unanswered"
+      ],
+      "route": {
+        "entry_node": "route-scoped-entry",
+        "execution_node": "route-scoped-execution",
+        "question_node": "prepare-scoped-prerequisites",
+        "source_attempts_started": 0
+      },
+      "history": {
+        "coder_sessions_started": 1,
+        "source_attempts_started": 0,
+        "events": [
+          {
+            "kind": "session-start",
+            "before_dispatch": true,
+            "execution_kind": "preparation"
+          },
+          {
+            "kind": "question",
+            "same_child_resume": true,
+            "pending": true
+          }
+        ]
+      },
+      "budget": {
+        "maximum_coder_sessions": 5,
+        "expected_sessions": 1
+      },
+      "generic_no_progress": {
+        "required": false,
+        "previous_assessment": null,
+        "current_assessment": null
+      },
+      "expected": {
+        "state": "blocked",
+        "requested_task_ids": [
+          "T068"
+        ],
+        "eligible_task_ids": [],
+        "pending_task_ids": [
+          "T068"
+        ],
+        "completed_task_ids": [],
+        "outside_task_ids": [],
+        "reason_code": "required-assignment-or-input-unavailable",
+        "resume_action": "restore-exact-assignment-or-answer-same-child-question",
+        "fallback_allowed": false,
+        "earlier_progress_authorizes_fallback": false
+      },
+      "expected_route": [],
+      "evidence": [
+        "setup",
+        "task_proofs",
+        "route",
+        "history",
+        "budget",
+        "generic_no_progress"
+      ],
+      "provenance": {
+        "request": "trusted-main-controller-interaction",
+        "current_inputs": "reviewed-feature-artifacts-and-digests",
+        "history": "independently-retained-controller-record",
+        "review": "exact-assigned-independent-reviewer",
+        "child_assertions_grant_authority": false
+      },
+      "safe_resume": "restore-exact-assignment-or-answer-same-child-question"
+    }
+  ]
+}

@@ -1,15 +1,5 @@
-# Wiki Lint Report — 2026-10-05
+# Wiki Integration Check — 2026-10-09
 
-No findings.
+The merge preserves Feature 019 agent-environment guidance and Feature 020 workflow contracts. Feature 019 retains source IDs S027–S028; Feature 020 sources are remapped to S029–S031 to preserve distinct citation identities.
 
-Full fresh pass: 20 pages, 28 registered sources and 100 bounded contradiction pairs sharing a citation or direct link. Checks completed: index drift, relative links and registered citations, incoming-link orphans, semantic contradictions, source/date freshness and citation coverage. All check counts are zero. Applied fixes: 0; suggested fixes: 0.
-
-Page metadata, index membership and citation references are valid. All synthesized claim groups carry source IDs; the role table is supported by its adjacent cited paragraph. Related-link bibliographies assert no new product facts. The maximum page body has 579 words, within the 600-word limit.
-
-F019-WIKI-INSTALL-GUIDANCE is resolved: S005 now records current local agent preparation/check, explicit mise invocation, the skill-tools exception and reusable adoption guide. Earlier failure evidence remains distinct from current preparation and unproven full catalog/native validation. Previously corrected S018 mechanism/disposition and freshness findings remain resolved.
-
-Three preserved conflict markers explicitly record chronological supersession. They establish no new unresolved authority choice: earlier mechanism/copy-ownership/catalog scopes remain history alongside their later approved boundaries. Date-only revalidation proof matches current page hashes and changes no substantive claim; it earns zero progress credit.
-
-All 15 frozen curated source groups (39 distinct raw files) retain their recorded bytes. No page, index, source registry, schema or configuration changed during lint. Only this report was written.
-
-Next action: no action is needed.
+Structural validation passed: 25 indexed pages, 31 unique registered source IDs with existing targets, valid declared citations and relative page links, no merge markers, both verified roadmap entries and all 6 original feedback observations preserved. Earlier branch lint results remain historical evidence and do not establish a semantic lint pass for the combined wiki.

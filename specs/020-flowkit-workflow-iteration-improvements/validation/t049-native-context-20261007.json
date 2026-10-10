@@ -1,0 +1,390 @@
+{
+  "acceptance": "not-assessed",
+  "case_id": "t049-native-agent-launches-fresh-chat-in-existing-prepared-checkout",
+  "checkout_identity": {
+    "basis": "T049 primary checkout Git directory equals its common directory. T023 records a distinct linked checkout with its Git directory under .git/worktrees and the common directory at .git.",
+    "distinct_from_t023_prepared_linked_worktree": true,
+    "git_common_directory": ".git",
+    "git_directory": ".git",
+    "git_top_level": ".",
+    "primary_gitdir_equals_common": true,
+    "repository": "pegagio/spec-kit-flow",
+    "t023_git_common_directory": ".git",
+    "t023_git_directory": ".git/worktrees/spec-kit-flow"
+  },
+  "component_provenance": {
+    "bundle_id": "spec-kit-flow",
+    "bundle_version": "0.15.0",
+    "client_version": "unobserved",
+    "component_id": "flow-kit-agents",
+    "component_version": "0.2.0",
+    "interface_version": "unobserved",
+    "native_interface": "collaboration.spawn_agent",
+    "package_sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+    "source_commit": "8a90c078035da998447c362ff37dd314c0cb053f",
+    "source_ref": null,
+    "source_repository": "https://github.com/pegagio/spec-kit-flow",
+    "source_sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193",
+    "tested_cli_version": "not-invoked; native availability probe only"
+  },
+  "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+  "context_kind": "prepared-checkout-future-chat",
+  "date": "2026-10-07",
+  "effective_settings": {
+    "effective_model_observed": false,
+    "effective_reasoning_effort_observed": false,
+    "requested_toml_values_are_not_runtime_evidence": true
+  },
+  "evidence": [
+    {
+      "path": "validation/t049-preparation-20261007.json",
+      "sha256": "b009ec571983ff5c809b09c6e8428f18bc2affeb90c8938859bd2461de59a370"
+    },
+    {
+      "path": "validation/t022-fresh-chat-20261007.json",
+      "relationship": "distinct checkout context; preserve separate prior evidence",
+      "sha256": "3889d4dedbe561960354d0ef09386d5f0dbd9b46a7cdc8f6daf8d4e278d201a8"
+    },
+    {
+      "path": "validation/t023-fresh-chat-20261007.json",
+      "relationship": "prepared linked-worktree context; Git identity compared above",
+      "sha256": "fefa4b3dd1292107cd610ccec5095a6df01e2ba52c3ce4012ebc02ceea500090"
+    }
+  ],
+  "expected": "A fresh top-level chat in the existing prepared primary checkout requests all nine exact native agent identities serially, with the prepared checkout physically distinct from the T023 linked worktree.",
+  "limitations": [
+    "This was a fresh chat in the existing prepared primary checkout; it was not the first-ever chat and was not a new-worktree first-chat test.",
+    "Only no-work native availability was tested; substantive agent behavior, live workflow quality, and feature acceptance were not tested.",
+    "Effective model and reasoning effort, client/interface versions, and native agent pane visibility were unobserved.",
+    "Requested TOML model and effort values are configuration evidence only and do not establish effective runtime settings.",
+    "The historical capacity scenario remains not-tested; this evidence does not establish a capacity repair or cause."
+  ],
+  "native_cases": [
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-roadmap-agent",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-roadmap-agent.toml",
+      "definition_sha256_after": "3b1af3a8f10f49a242e3b93757c0aa498716c74f1580ab66450bc0769813c430",
+      "definition_sha256_before": "3b1af3a8f10f49a242e3b93757c0aa498716c74f1580ab66450bc0769813c430",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 1,
+        "requested_exact_identity": "FlowKit-Roadmap Agent"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Roadmap Agent",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "resume_action": null,
+      "sequence": 1,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-specifier",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-specifier.toml",
+      "definition_sha256_after": "ec03abb43f6484c167fa2c402dc4e0c11ae81c1d4bd585a6b3d6eae8fa55e798",
+      "definition_sha256_before": "ec03abb43f6484c167fa2c402dc4e0c11ae81c1d4bd585a6b3d6eae8fa55e798",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 2,
+        "requested_exact_identity": "FlowKit-Specifier"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Specifier",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "resume_action": null,
+      "sequence": 2,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-planner",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-planner.toml",
+      "definition_sha256_after": "0d81ec28c1bbcc78f1c51fdbe35852cc1ec027e5ffe0e6888684fc06659ab64e",
+      "definition_sha256_before": "0d81ec28c1bbcc78f1c51fdbe35852cc1ec027e5ffe0e6888684fc06659ab64e",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 3,
+        "requested_exact_identity": "FlowKit-Planner"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Planner",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "resume_action": null,
+      "sequence": 3,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-tasker",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-tasker.toml",
+      "definition_sha256_after": "d6a0b2e2652a50e1bbcc68a9c1b2f3bfa4ba8624f243b1aed7465c5bb8ec5f67",
+      "definition_sha256_before": "d6a0b2e2652a50e1bbcc68a9c1b2f3bfa4ba8624f243b1aed7465c5bb8ec5f67",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 4,
+        "requested_exact_identity": "FlowKit-Tasker"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Tasker",
+      "requested_model": "gpt-6-luna",
+      "requested_reasoning_effort": "high",
+      "resume_action": null,
+      "sequence": 4,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-reviewer",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-reviewer.toml",
+      "definition_sha256_after": "040bfbae778035010e200207c5aa08add37d0511c16c9a577f64be801248c40a",
+      "definition_sha256_before": "040bfbae778035010e200207c5aa08add37d0511c16c9a577f64be801248c40a",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 5,
+        "requested_exact_identity": "FlowKit-Reviewer"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Reviewer",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "high",
+      "resume_action": null,
+      "sequence": 5,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-coder",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-coder.toml",
+      "definition_sha256_after": "05a24b06539f090dc4153f9c447e780fb66deb48fb28176e21ef5b5c8681dcfe",
+      "definition_sha256_before": "05a24b06539f090dc4153f9c447e780fb66deb48fb28176e21ef5b5c8681dcfe",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 6,
+        "requested_exact_identity": "FlowKit-Coder"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Coder",
+      "requested_model": "gpt-6-luna",
+      "requested_reasoning_effort": "high",
+      "resume_action": null,
+      "sequence": 6,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-code-reviewer",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-code-reviewer.toml",
+      "definition_sha256_after": "4b0b03e5bb816e8e22009bc8caf3e23e52ecfd8a029f4dd1e20fe0365173e7e1",
+      "definition_sha256_before": "4b0b03e5bb816e8e22009bc8caf3e23e52ecfd8a029f4dd1e20fe0365173e7e1",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 7,
+        "requested_exact_identity": "FlowKit-Code Reviewer"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Code Reviewer",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "medium",
+      "resume_action": null,
+      "sequence": 7,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-wiki-curator",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-wiki-curator.toml",
+      "definition_sha256_after": "4f744f0ee9b5b2fac2b980c287c2b2dfacc3ba535cb91854f8a61445c32971f4",
+      "definition_sha256_before": "4f744f0ee9b5b2fac2b980c287c2b2dfacc3ba535cb91854f8a61445c32971f4",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 8,
+        "requested_exact_identity": "FlowKit-Wiki Curator"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Wiki Curator",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "resume_action": null,
+      "sequence": 8,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    },
+    {
+      "actual_token": "FLOWKIT_READY",
+      "case_id": "t049-flowkit-readiness-checker",
+      "context_id": "01a11810-73cc-7370-ac55-8f31ca214d1e",
+      "definition_path": ".codex/agents/flowkit-readiness-checker.toml",
+      "definition_sha256_after": "8932ab5dc87feb9b0e9bd50f0ac1665faed9313fa7e3f46459a1e3713561f64f",
+      "definition_sha256_before": "8932ab5dc87feb9b0e9bd50f0ac1665faed9313fa7e3f46459a1e3713561f64f",
+      "definition_unchanged": true,
+      "effective_model": "unobserved",
+      "effective_reasoning_effort": "unobserved",
+      "effective_settings": {
+        "model": "unobserved",
+        "reasoning_effort": "unobserved"
+      },
+      "error_summary": null,
+      "evidence": {
+        "actual_response": "FLOWKIT_READY",
+        "expected_token": "FLOWKIT_READY",
+        "native_interface": "collaboration.spawn_agent",
+        "request_sequence": 9,
+        "requested_exact_identity": "FlowKit-Readiness Checker"
+      },
+      "expected_token": "FLOWKIT_READY",
+      "model_effort_override_supplied": false,
+      "requested_agent_type": "FlowKit-Readiness Checker",
+      "requested_model": "gpt-6-luna",
+      "requested_reasoning_effort": "medium",
+      "resume_action": null,
+      "sequence": 9,
+      "serial_response_received_before_next_request": true,
+      "state": "passed"
+    }
+  ],
+  "observed": "All nine exact native requests returned FLOWKIT_READY serially in one fresh top-level chat. Git metadata identifies this primary checkout as physically distinct from the T023 linked worktree. Pre-chat preparation, current package metadata, all nine definition hashes, feature pointer, repository state, and Git index were preserved during the probes.",
+  "preparation": {
+    "cache": {
+      "artifact": "flow-kit-agents-0.2.0.zip",
+      "id": "flow-kit-agents",
+      "sha256": "fb1d352cb6a72636ef499ec65789f79b41509dc83601c41a043bca0c36b43e35",
+      "source_commit": "8a90c078035da998447c362ff37dd314c0cb053f",
+      "source_repository": "https://github.com/pegagio/spec-kit-flow",
+      "source_sha256": "a2be0f069401a47cfbdbce985725853c947fe3ef138caad9895aaedfb3c62193",
+      "status": "snapshot",
+      "version": "0.2.0"
+    },
+    "definition_count": 9,
+    "evidence_path": "validation/t049-preparation-20261007.json",
+    "evidence_sha256": "b009ec571983ff5c809b09c6e8428f18bc2affeb90c8938859bd2461de59a370",
+    "preparation_fingerprints_matched_before_chat": true,
+    "preparation_fingerprints_unchanged_after_probes": true,
+    "status": "complete"
+  },
+  "preservation": {
+    "active_feature_pointer_preserved": true,
+    "definition_hashes_unchanged": true,
+    "git_index_unchanged": true,
+    "head_unchanged": true,
+    "source_or_governance_files_changed": false,
+    "workflow_or_core_skill_invoked": false,
+    "working_tree_status_unchanged": true
+  },
+  "requirements": [
+    "FR-017",
+    "FR-018",
+    "FR-019",
+    "FR-022",
+    "SC-005"
+  ],
+  "result": "pass-with-limitations",
+  "schema_version": "1.0",
+  "task_id": "T049"
+}

@@ -1,0 +1,345 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-06",
+  "state": "current-source-reconciliation-with-independent-review-incorporated",
+  "scope": "FR-025/SC-011 automatic pre-correction baseline and independent closure validation",
+  "commands": [
+    {
+      "command": "skill-tools Python -m unittest tests.test_implement_task_revision tests.test_implementation_progress tests.test_readiness_workflow_routes tests.test_workflow_improvements -q",
+      "result": "50 tests passed; fresh independent Code Reviewer rerun"
+    },
+    {
+      "command": "skill-tools Python -m unittest tests.test_readiness tests.test_controller tests.test_workflow_graph -q",
+      "result": "96 tests passed; fresh independent Code Reviewer rerun"
+    },
+    {
+      "command": "skill-tools Python tools/validate_workflows.py --json --fail-on-unexplained",
+      "result": "exit 0; eleven source graphs have no unexplained terminals"
+    },
+    {
+      "command": "git diff --check -- scoped test and validation paths",
+      "result": "exit 0; reviewer independently checked the scoped delta, including untracked contents"
+    }
+  ],
+  "cases": [
+    "Prior defect resolution continues with owning task unchecked and second defect open.",
+    "Copied controller validates the actual closure result.",
+    "New findings remain and receive zero retrospective progress.",
+    "Omitted, renamed, invented, wrong-owner and stale claims block.",
+    "Scope mutation and rewritten baseline block.",
+    "Parent completion cannot hide remaining defect.",
+    "No-progress and five-pass cap retain their stops.",
+    "Two-pass checked-marker change cannot silently erase independently pending parent task.",
+    "Actual validated Tasker reopening extends the baseline, preserves findings/history, earns zero task-only progress and permits subsequent code closure.",
+    "Invalid before-description, specification scope, finding correction and revision state reject before baseline transition."
+  ],
+  "source_evidence": [
+    {
+      "path": "controllers/flow-kit/scripts/python/controller.py",
+      "sha256": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0"
+    },
+    {
+      "path": "controllers/flow-kit/scripts/python/readiness.py",
+      "sha256": "6396ffad00c842cec2234beaf56d31caa87d6bc0317fc469d45f904e97e7b725"
+    },
+    {
+      "path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+      "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+    },
+    {
+      "path": "workflows/speckit-flow-implement/workflow.yml",
+      "sha256": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335"
+    },
+    {
+      "path": "controllers/flow-kit/controller-protocol.md",
+      "sha256": "443c31383457fbb990ebdbe1a6eb9f2a91c37c6a811604f22acbd1f6202647e9"
+    },
+    {
+      "path": "workflows/speckit-flow-implement/flowchart.md",
+      "sha256": "7c3694c0f9be3cb0ae97acbe8ae00064b30e6ee3b0ac8d648dcea3a8c4617426"
+    },
+    {
+      "path": "workflows/README.md",
+      "sha256": "9f87a3b60241f9afaf857c46be627ff0ff86520635e4c890a68f2c5f0ae0dad4"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/quickstart.md",
+      "sha256": "175614b5403aae893756cf9a3cb329761039639669cb1de672a163ecf46d3759"
+    },
+    {
+      "path": "controllers/flow-kit/manifest.yml",
+      "sha256": "f80ea72867b63b960b37901c0673f08c4871348f0cacf1d765ac45852cc1a391"
+    },
+    {
+      "path": "agents/flow-kit/manifest.yml",
+      "sha256": "4b6047d33a8f4f86b47c0fbd511d30ecb4116497721f69ac215cb9d01661bd89"
+    },
+    {
+      "path": "bundles/spec-kit-flow/bundle.yml",
+      "sha256": "13fb86dad1800888dec15e89942d47922f4edf8a09310d2fb4dec5c7c75238c1"
+    },
+    {
+      "path": "tests/test_implement_task_revision.py",
+      "sha256": "581359c69b6666fe75a0e49695c9958ea35c4463498100e7018658a81177734e"
+    },
+    {
+      "path": "tests/test_implementation_progress.py",
+      "sha256": "7d7802bb712af84a171554dfea70c622a617031a3d2323123d1c87677ffa4193"
+    },
+    {
+      "path": "tests/test_readiness_workflow_routes.py",
+      "sha256": "21393985ae1608edf6ab5da175f9234285488ce976ace260bf28068cc969d061"
+    },
+    {
+      "path": "tests/test_workflow_improvements.py",
+      "sha256": "ea765063d4cb50ed13c867954e718e24a269816d68b5b5f0058466e1145d8890"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+      "sha256": "c2015cd9b284ccfabf858ab5711db030252541ac79ed3600b82d7867997204db"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-validation-20261006-final.json",
+      "sha256": "736bbc41186728cfe41f2d95d971b336a3de8a70f416e5d53c0dc5ad29fe27df"
+    }
+  ],
+  "limits": [
+    "The incorporated independent review covers focused source/helper/rendered/simulated-consumer evidence; it does not establish the 27-context native matrix or effective settings.",
+    "The parent controller establishes exact native role dispatch; the serialized reviewer label alone does not authenticate it.",
+    "Production catalog delivery, metadata-matching reviewed tags, deferred roadmap compatibility, and combined feature verification remain outside this pass.",
+    "No Git integration, publication, roadmap verification, workflow acceptance, or feature acceptance is established."
+  ],
+  "historical_state": "source-implemented-independently-reviewed",
+  "historical_independent_code_review": {
+    "agent": "FlowKit-Code Reviewer",
+    "result": "No remaining material defect in reviewed automation and corrected handoffs.",
+    "resolved_findings": [
+      "F020-PROGRESS-R001",
+      "F020-PROGRESS-R002"
+    ],
+    "validation": "80 focused tests and separate negative transition probes passed",
+    "limits": "Source behavior only; installed adoption, live closure dispatch and acceptance unverified."
+  },
+  "historical_limits": [
+    "Task markers unchanged; readiness prerequisites and version/package delivery remain outstanding, no whole Feature 020 completion claim.",
+    "Existing installed controller/workflow remain unchanged; new helper commands require compatible source delivery.",
+    "T016 non-object recorder payload validation remains separately outstanding.",
+    "No Git integration, production catalog generation, native-context matrix, model-setting or feature acceptance claim."
+  ],
+  "current_reconciliation": {
+    "date": "2026-10-06",
+    "scope": "Evidence-only follow-up after independent assessment of the first resumed Implement pass.",
+    "pass2_baseline_sha256": "a2d5e686a52796a210cddda815760e4b7b0d82f838707e59ee454e95b364c7a9",
+    "pass1_reviewed_baseline_sha256": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0",
+    "independent_review": {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/independent-review-implement-pass1-20261006.json",
+      "sha256": "c919847a8593e560700c8dc4280683bf78a7ee094a0663c827356bc0ac22e6aa",
+      "state": "continue; no new code correctness defect or regression found; T047 and T036 evidence incorporation remained required at review time",
+      "completed_task_ids_substantiated": [
+        "T017",
+        "T018",
+        "T045",
+        "T046"
+      ],
+      "resolved_finding_ids": [
+        "F020-RESUME-R001"
+      ],
+      "still_open_finding_ids_at_review": [
+        "F020-RESUME-R002",
+        "F020-RESUME-R003"
+      ]
+    },
+    "task_markers": {
+      "checked_after_independent_whole-task_substantiation": [
+        "T017",
+        "T018",
+        "T045",
+        "T046",
+        "T047",
+        "T036"
+      ],
+      "deferred_or_unselected_task_markers_unchanged": true
+    },
+    "current_source_digests": {
+      "controllers/flow-kit/scripts/python/controller.py": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0",
+      "controllers/flow-kit/scripts/python/readiness.py": "6396ffad00c842cec2234beaf56d31caa87d6bc0317fc469d45f904e97e7b725",
+      "workflows/speckit-flow-analyze-remediate/workflow.yml": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6",
+      "workflows/speckit-flow-implement/workflow.yml": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+      "controllers/flow-kit/controller-protocol.md": "443c31383457fbb990ebdbe1a6eb9f2a91c37c6a811604f22acbd1f6202647e9",
+      "workflows/speckit-flow-implement/flowchart.md": "7c3694c0f9be3cb0ae97acbe8ae00064b30e6ee3b0ac8d648dcea3a8c4617426",
+      "workflows/README.md": "9f87a3b60241f9afaf857c46be627ff0ff86520635e4c890a68f2c5f0ae0dad4",
+      "specs/020-flowkit-workflow-iteration-improvements/quickstart.md": "175614b5403aae893756cf9a3cb329761039639669cb1de672a163ecf46d3759",
+      "controllers/flow-kit/manifest.yml": "f80ea72867b63b960b37901c0673f08c4871348f0cacf1d765ac45852cc1a391",
+      "agents/flow-kit/manifest.yml": "4b6047d33a8f4f86b47c0fbd511d30ecb4116497721f69ac215cb9d01661bd89",
+      "bundles/spec-kit-flow/bundle.yml": "13fb86dad1800888dec15e89942d47922f4edf8a09310d2fb4dec5c7c75238c1",
+      "tests/test_implement_task_revision.py": "581359c69b6666fe75a0e49695c9958ea35c4463498100e7018658a81177734e",
+      "tests/test_implementation_progress.py": "7d7802bb712af84a171554dfea70c622a617031a3d2323123d1c87677ffa4193",
+      "tests/test_readiness_workflow_routes.py": "21393985ae1608edf6ab5da175f9234285488ce976ace260bf28068cc969d061",
+      "tests/test_workflow_improvements.py": "ea765063d4cb50ed13c867954e718e24a269816d68b5b5f0058466e1145d8890",
+      "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json": "c2015cd9b284ccfabf858ab5711db030252541ac79ed3600b82d7867997204db",
+      "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-validation-20261006-final.json": "736bbc41186728cfe41f2d95d971b336a3de8a70f416e5d53c0dc5ad29fe27df"
+    },
+    "source_versions_and_pins": {
+      "controller_package": "flow-kit-controllers 0.7.0; delivered through bundle controller source, no separate bundle pin",
+      "agent_package": "flow-kit-agents 0.2.0; bundle pin 0.2.0",
+      "analyze_workflow": "speckit-flow-analyze-remediate 0.6.0; bundle pin matches",
+      "implement_workflow": "speckit-flow-implement 0.6.0; bundle pin matches",
+      "bundle": "spec-kit-flow 0.15.0",
+      "core_cli_pin": "1.0.10.dev0+pegagio.2 (unchanged)",
+      "roadmap_extension_pin": "0.2.1 (compatibility verification deferred; unchanged)"
+    },
+    "development_snapshot": {
+      "status": "refreshed before this invocation",
+      "verified_matching_source_hashes": {
+        "controller.py": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0",
+        "implement_workflow.yml": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+        "analyze_workflow.yml": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+      },
+      "limitation": "Byte equality establishes development snapshot adoption only; it does not establish production release, live native launch, or effective settings."
+    },
+    "reviewed_validation": [
+      {
+        "command": "skill-tools Python -m unittest tests.test_implement_task_revision tests.test_implementation_progress tests.test_readiness_workflow_routes tests.test_workflow_improvements -q",
+        "result": "50 tests passed; independent rerun"
+      },
+      {
+        "command": "skill-tools Python -m unittest tests.test_readiness tests.test_controller tests.test_workflow_graph -q",
+        "result": "96 tests passed; independent rerun"
+      },
+      {
+        "command": "skill-tools Python tools/validate_workflows.py --json --fail-on-unexplained",
+        "result": "exit 0; eleven source graphs have no unexplained terminals"
+      },
+      {
+        "command": "git diff --check -- scoped test and validation paths",
+        "result": "exit 0; untracked contents were reviewed through independently verified snapshot delta"
+      }
+    ],
+    "readiness_evidence": {
+      "review": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+        "sha256": "c2015cd9b284ccfabf858ab5711db030252541ac79ed3600b82d7867997204db",
+        "result": "complete; all 16 preparation criteria passed"
+      },
+      "T015_T016": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-validation-20261006-final.json",
+        "sha256": "736bbc41186728cfe41f2d95d971b336a3de8a70f416e5d53c0dc5ad29fe27df",
+        "result": "independently substantiated and recorded by Tasker in prior pass"
+      }
+    },
+    "status": "T017/T018/T045/T046/T047/T036 requirements are recorded complete; the first four were independently substantiated in the incorporated fresh review, and T047/T036 were completed after incorporating that review evidence and current reconciliations. Final independent assessment remains responsible for checking the updated evidence records.",
+    "deferred": [
+      "T004/T012 roadmap compatibility",
+      "T022-T025 native-context matrix",
+      "T027-T032 combined verification",
+      "T037 production catalog generation, requiring clean reviewed metadata-matching tags",
+      "Git integration",
+      "feature acceptance"
+    ]
+  },
+  "previous_reconciliation": {
+    "date": "2026-10-06",
+    "scope": "Refreshed Implement pass for T017, T018, T045, T046, T047 and T036; no task marker edits.",
+    "immutable_initial_baseline_sha256": "07264ec4122e4ca1d13a822a1abfbaaa11033e4d1f0a80563bbcf9965d5033bd",
+    "selected_task_ids": [
+      "T017",
+      "T018",
+      "T045",
+      "T046",
+      "T047",
+      "T036"
+    ],
+    "current_readiness_review": {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+      "sha256": "c2015cd9b284ccfabf858ab5711db030252541ac79ed3600b82d7867997204db",
+      "state": "complete"
+    },
+    "previously_completed_readiness_work": {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-validation-20261006-final.json",
+      "sha256": "736bbc41186728cfe41f2d95d971b336a3de8a70f416e5d53c0dc5ad29fe27df",
+      "result": "T015/T016 independently substantiated and recorded by Tasker in the prior pass."
+    },
+    "source_versions": {
+      "controller_package": {
+        "version": "0.7.0",
+        "manifest": "controllers/flow-kit/manifest.yml",
+        "sha256": "f80ea72867b63b960b37901c0673f08c4871348f0cacf1d765ac45852cc1a391",
+        "controller_sha256": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0"
+      },
+      "agent_package": {
+        "version": "0.2.0",
+        "manifest": "agents/flow-kit/manifest.yml",
+        "sha256": "4b6047d33a8f4f86b47c0fbd511d30ecb4116497721f69ac215cb9d01661bd89"
+      },
+      "analyze_workflow": {
+        "version": "0.6.0",
+        "path": "workflows/speckit-flow-analyze-remediate/workflow.yml",
+        "sha256": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+      },
+      "implement_workflow": {
+        "version": "0.6.0",
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "sha256": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335"
+      },
+      "bundle": {
+        "version": "0.15.0",
+        "path": "bundles/spec-kit-flow/bundle.yml",
+        "sha256": "13fb86dad1800888dec15e89942d47922f4edf8a09310d2fb4dec5c7c75238c1"
+      },
+      "core_cli_pin": "1.0.10.dev0+pegagio.2",
+      "roadmap_extension_pin": "0.2.1 (compatibility verification deferred)",
+      "controller_pin": "Delivered through bundle controller source; no separate bundle pin."
+    },
+    "development_snapshot": {
+      "status": "installed and refreshed with bundle 0.15.0 before this pass",
+      "matches_source": {
+        "controller": "46eab59fac68c7c9384029ea170b2cf34923373e5186f244f8974b927af2a2a0",
+        "implement_workflow": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335",
+        "analyze_workflow": "d13d5de749dbd6a41f139d07e53312c0b7f09adf27cc3750549bc10187a6fbb6"
+      },
+      "scope": "Byte equality with the installed development snapshot only; no production catalog/release or live native launch/effective-settings evidence."
+    },
+    "validation": [
+      {
+        "command": "skill-tools Python -m unittest tests.test_implement_task_revision tests.test_implementation_progress tests.test_readiness_workflow_routes tests.test_workflow_improvements -q",
+        "result": "50 tests passed. Covers all six repaired stable-ID lookups, preserved Tasker/preflight/snapshot/scope/semantic/validator/consumer assertions, partial-defect closure with parent open, no-progress and five-pass stops, production-rendered Implement continuation guarded by readiness, fresh Analyze and Checker routing, and initial and repeated readiness gates."
+      },
+      {
+        "command": "skill-tools Python -m unittest tests.test_readiness_workflow_routes -q",
+        "result": "3 tests passed."
+      }
+    ],
+    "review_status": {
+      "agent": "FlowKit-Code Reviewer",
+      "state": "pending",
+      "note": "A fresh independent review of the current implementation delta and validation is required before task completion."
+    },
+    "task_status": "No task markers changed in this pass. T017/T018/T045/T046/T047/T036 await controller-owned independent assessment and any exact Tasker reconciliation.",
+    "reconciliation_notes": [
+      "The six test failures were caused by tests finding a do-while only at the workflow top level. They now locate implementation-continuation-loop by stable ID through the production nested graph; all test cases and safety assertions remain.",
+      "The dedicated implementation-progress suite remains the source of detailed finding identity/closure cases; production-route assertions remain in tests/test_implement_task_revision.py and readiness-route checks in tests/test_readiness_workflow_routes.py.",
+      "T015/T016 completion is supported by the prior recorded independent evidence above; no repeat claim or new native matrix evidence is made."
+    ],
+    "current_source_digests": {
+      "tests/test_implement_task_revision.py": "581359c69b6666fe75a0e49695c9958ea35c4463498100e7018658a81177734e",
+      "tests/test_implementation_progress.py": "7d7802bb712af84a171554dfea70c622a617031a3d2323123d1c87677ffa4193",
+      "tests/test_readiness_workflow_routes.py": "21393985ae1608edf6ab5da175f9234285488ce976ace260bf28068cc969d061",
+      "tests/test_workflow_improvements.py": "ea765063d4cb50ed13c867954e718e24a269816d68b5b5f0058466e1145d8890",
+      "specs/020-flowkit-workflow-iteration-improvements/validation/summary.md": "4a09267ffeb53eb6bce47b96e557d88d527b3006d80779639d86ad791a501c79"
+    }
+  },
+  "previous_commands": [
+    {
+      "command": "skill-tools Python -m unittest tests.test_implementation_progress tests.test_controller tests.test_readiness_workflow_routes tests.test_workflow_graph",
+      "result": "80 passed"
+    },
+    {
+      "command": "skill-tools Python tools/validate_workflows.py --json --fail-on-unexplained",
+      "result": "11 source definitions, no unexplained terminals"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ]
+}

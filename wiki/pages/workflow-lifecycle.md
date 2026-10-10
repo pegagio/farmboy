@@ -1,17 +1,8 @@
 ---
 title: Workflow lifecycle
 type: concept
-sources:
-- S002
-- S006
-- S007
-- S010
-- S013
-- S017
-- S018
-- S019
-- S021
-updated: 2026-10-05
+sources: [S002, S006, S007, S010, S013, S017, S018, S019, S021, S029]
+updated: '2026-10-09'
 ---
 
 # Workflow lifecycle
@@ -55,6 +46,8 @@ Clarify assesses residual ambiguity after operator-answered bounded sessions. Pl
 ## Abandoned work
 
 Feature 018’s [capacity proposal](./workflow-agent-capacity-proposal.md) authorizes no further implementation. Its artifacts remain historical; the capacity issue is unresolved and no replacement is selected. (S018)
+
+[Feature 020 contract](./feature020-workflow-lifecycle.md). (S029)
 
 ## Related pages
 

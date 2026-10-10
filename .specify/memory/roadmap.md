@@ -1,6 +1,17 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.23.0 / 1.22.4 → 1.24.0
+Bump rationale: MINOR — reconcile the approved Feature 021 addition with develop's Feature 020 lifecycle and qualified verification history.
+Changes: preserve both feature entries, all prior lifecycle evidence and governing decisions; retain the separately required constitutional identity amendment.
+Specs affected: 020 and 021 (ledger integration only; statuses remain verified and planned respectively).
+Open questions added/resolved: preserve Feature 021's approved naming and migration questions; resolve none.
+Notes: Direct operator request on 2026-10-09 to merge develop into farmboy. Prior reports from both branches are retained below. No new feature scope, acceptance, publication or consumer migration is granted.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.22.2 → 1.23.0
 Bump rationale: MINOR — add the explicitly approved FarmBoy project, skill, workflow and associated agent naming feature without changing existing lifecycle states or runtime behavior.
 
@@ -16,9 +27,83 @@ Open questions added/resolved: Add Feature 021 identifier-mapping, consumer-comp
 Notes: Provenance: direct operator selection of FarmBoy and the Spec et Labora tagline, followed by explicit approval of the Feature 021 roadmap proposal on 2026-10-08. Governing repository evidence: .specify/memory/constitution.md and the existing .specify/memory/roadmap.md. Feature 020 remains reserved for parallel work and is not reconstructed from another checkout. No specification directory is assigned; this amendment grants no implementation, publication, external repository rename, consumer migration or Git integration authority.
 -->
 
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.22.3 → 1.22.4
+Bump rationale: PATCH — record qualified verification of entry 020 and correct its stale planned summary.
+Feature-local operator waiver preserves unperformed T066/T077 manual cases; later dogfooding findings are defects, not mandatory matrix work.
+Original milestone events, unrelated entries, dependencies and governing decisions are preserved. No acceptance, Git integration, release or publication effect.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.22.2 → 1.22.3
+Bump rationale: PATCH — evidence-backed adjacent lifecycle status/provenance for entry 020.
+Effect: lifecycle-feea7fc34b5d4018419cbab041634f17; owner closeout; actual occurrence 2026-10-09T19:39:48.027967Z.
+Unrelated entries, decisions and history preserved. No verified, acceptance, integration or publication effect.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.22.1 → 1.22.2
+Bump rationale: PATCH — evidence-backed adjacent lifecycle status/provenance for entry 020.
+Effect: lifecycle-17640d8a7a1b93b3fd5dc03494959646; owner implement; actual occurrence 2026-10-09T19:35:23.038956Z.
+Unrelated entries, decisions and history preserved. No verified, acceptance, integration or publication effect.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.22.0 → 1.22.1
+Bump rationale: PATCH — evidence-backed adjacent lifecycle status/provenance for entry 020.
+Effect: lifecycle-4f2aa461b8a3c0dd36ce037448c9e3ec; owner specify; actual occurrence 2026-10-09T19:22:58.296931Z.
+Unrelated entries, decisions and history preserved. No verified, acceptance, integration or publication effect.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.21.0 → 1.22.0
+Bump rationale: MINOR — add the operator-requested phase-owned lifecycle milestones, evidence boundaries and bounded stale-state recovery to Feature 020's planned scope.
+
+Changes this revision:
+  - Add Specify ownership of planned→specced after current authoring, quality, review and roadmap-brief evidence.
+  - Add Implement ownership of specced→in-progress after current readiness and eligible-scope evidence, before coding.
+  - Add Close Out ownership of in-progress→implemented after current full-scope implementation and independent-review evidence, before the existing explicit verified gate.
+  - Record bounded ordered recovery and preserve Feature 020's planned status, dependencies, verification gate and all unrelated ledger content.
+
+Specs affected: 020 (planned; FR-026–FR-038 and SC-012–SC-016 added)
+Open questions added/resolved: Phase ownership and evidence boundaries are defined in the active Feature 020 amendment. Detailed prospective runtime policy still requires the explicit T051 decision; compatible extension delivery remains separately required.
+
+Notes: Direct operator request on 2026-10-07 identified the stale planned state as a workflow lifecycle defect and authorized defining phase ownership, evidence and operator-decision boundaries in Feature 020. The additive entry text follows that approved feature scope and current contract proposal in specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md. This roadmap amendment preserves planned; it does not authorize current runtime lifecycle writes, amend the constitution, install a workflow, publish components, or accept implementation.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.22.1 → 1.22.2
+Bump rationale: PATCH — record Feature 019's independently reviewed implementation verification and reconcile its resolved planning notes within the existing approved scope.
+
+Changes this revision:
+  - Change only Feature 019 from implemented to verified after fresh full-delta debrief and explicit operator approval of this exact patch.
+  - Reconcile Feature 019's environment and utility decisions and resolved planning questions with its reviewed plan, implementation and bounded validation.
+  - Preserve prior superseded designs, all other entries, dependencies and Feature 017's original failure and evidence limitations.
+  - Grant no acceptance, publication, actual external-project adoption or Git integration.
+
+Specs affected: 019 (verification lifecycle and resolved planning bookkeeping only)
+Open questions added/resolved: Resolve Feature 019 preparation/invocation and extra-utility questions; retain their original wording as historical questions.
+
+Notes: Evidence: specs/019-catalog-python-runtime-prerequisites/roadmap-reviews/debrief-20261005T200520Z.md, tasks.md and validation.md. Review covers the complete attributable baseline-to-WORKTREE snapshot; local results and a disposable second-project fixture do not establish full catalog lifecycle, stock Specify compatibility or other-platform support.
+-->
+
 # Spec Kit Flow — Spec Roadmap
 
 This living roadmap records the project's completed specifications and leaves room for future features. It is not a commitment to new scope or sequence. The [constitution](constitution.md) governs this ledger; each entry points to its feature specification. The operator designated entries 001–011 verified on 2026-09-26; later entries carry their own lifecycle states below.
+
+The Feature 020 integration preserves Feature 019's independently approved verification and Feature 020's lifecycle history. Both branches used revision 1.22.2 independently; the original sync reports retain that branch history, while the combined ledger retains the latest existing revision, 1.22.4. This reconciliation changes no feature scope, status, qualification or milestone provenance.
 
 ## Contents
 
@@ -51,7 +136,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 021 is planned for the approved FarmBoy rename; the current constitutional identities continue to govern until explicitly amended. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 020 is verified for its reviewed buildable implementation and observed automated/native validation, with its operator-waived, unperformed T066/T077 manual matrices recorded in the entry qualification below. Feature 021 is planned for the approved FarmBoy rename; the current constitutional identities continue to govern until explicitly amended. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -267,6 +352,24 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Superseded scope**: Earlier catalog-only, repository-wide FlowKit execution inventory, compatibility and shared-Specify interpreter proposals are retained in historical planning/review artifacts. The operator explicitly rejected that coupling on 2026-10-05. The revised specification governs. The previous integration plan was ineligible after that correction; the subsequently reviewed simple agent-environment plan dated 2026-10-05 replaced it and governs the completed implementation recorded in `specs/019-catalog-python-runtime-prerequisites/plan.md`, `tasks.md` and `validation.md`.
 - **Spec dir**: `specs/019-catalog-python-runtime-prerequisites`
 
+### 020 — FlowKit Workflow Iteration and Improvements  [status: verified]
+
+
+
+
+<!-- flow-roadmap-lifecycle {"effect_id":"lifecycle-feea7fc34b5d4018419cbab041634f17","entry_id":"020","executing_phase":"closeout","feature_directory":"specs/020-flowkit-workflow-iteration-improvements","from_status":"in-progress","occurred_at":"2026-10-09T19:39:48.027967Z","owning_phase":"closeout","patch_sha256":"c78666f016c8b300eb132d8a0342867343366435108a5693a4839f8fc11a6f6b","roadmap_before_sha256":"43023e1edca12c9c000fe2d32803c31ab64a73a0fd6212c0346cf736226609e6","run_id":"20e5d4a4-aff8-471d-9ee9-e89ecc909792","scope_sha256":"a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75","to_status":"implemented","workflow_id":"speckit-flow-closeout","workflow_version":"0.8.0"} -->
+<!-- flow-roadmap-lifecycle {"effect_id":"lifecycle-17640d8a7a1b93b3fd5dc03494959646","entry_id":"020","executing_phase":"closeout","feature_directory":"specs/020-flowkit-workflow-iteration-improvements","from_status":"specced","occurred_at":"2026-10-09T19:35:23.038956Z","owning_phase":"implement","patch_sha256":"928df6e52e9f0b2c7737623d75d1731ba964189f74b9cbceccff1fa372c97af9","roadmap_before_sha256":"d232601beb9080da214182653ed295334ac6f2f29771497b2c8ea8fc334b27e4","run_id":"20e5d4a4-aff8-471d-9ee9-e89ecc909792","scope_sha256":"a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75","to_status":"in-progress","workflow_id":"speckit-flow-closeout","workflow_version":"0.8.0"} -->
+<!-- flow-roadmap-lifecycle {"effect_id":"lifecycle-4f2aa461b8a3c0dd36ce037448c9e3ec","entry_id":"020","executing_phase":"closeout","feature_directory":"specs/020-flowkit-workflow-iteration-improvements","from_status":"planned","occurred_at":"2026-10-09T19:22:58.296931Z","owning_phase":"specify","patch_sha256":"5bd1e1767158b596fcd81a20fdf3de7d3984ff9d33eb79b400a6ddf6517973cd","roadmap_before_sha256":"e324fb9c3a241e1a7c7084647faee55c5585be1f3046cc48fd78ebaf91d6fa71","run_id":"20e5d4a4-aff8-471d-9ee9-e89ecc909792","scope_sha256":"a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75","to_status":"specced","workflow_id":"speckit-flow-closeout","workflow_version":"0.8.0"} -->
+- **Description**: Iterate on FlowKit workflows through one bounded feature addressing the five consolidated feedback observations across explicit intent and feature selection, Analyze/Implement checklist readiness, and named-agent availability in future chats and Codex-managed worktrees.
+- **Outcome**: Clear operator instructions carry through the requested operations without redundant selection or approval prompts; uniquely resolving feature references are accepted; Analyze leaves an accurate implementation-readiness state; a project installed once supplies FlowKit skills and exact named-agent definitions to future chats in its checkout and Codex-managed worktrees, with tested preparation requirements and explicit reporting of client startup limitations. Specify records `specced` after current authoring and independent quality/brief evidence; Implement records `in-progress` after readiness and eligible-scope checks, before coding; Close Out records `implemented` after full-scope implementation and independent review, before the existing explicit `verified` gate.
+- **Scope (in)**: Reproduce and reassess the five observations against current components; reconcile workflow/controller handling of direct authorization, stable feature IDs and menu positions; add declared Implement task-revision steps using exact FlowKit-Tasker for routine in-scope review corrections without repeated reopening approval, preserving history, independent code review, bounded progress and consequential gates; clarify Select Feature lifecycle rules so activation of a planned item without an authored specification retains planned, never implies specced or in-progress, and does not request a separate lifecycle decision solely because activation was requested; define handling for existing specifications and active pointers, with regression coverage for first activation, repeat activation and genuine state conflicts; propose any necessary governing-contract amendments through their explicit human gates; reconcile checklist ownership and preimplementation checks with future implementation and acceptance evidence; verify tracked agent definitions and installed payload propagation through the existing Git and `.worktreeinclude` mechanisms; correct supported project propagation configuration if validation identifies a gap; document one-time project installation and future-session discovery; validate exact native named-agent launches in an existing prepared checkout, a prepared worktree and the first chat created with a new Codex-managed worktree; record any client startup ordering failure without treating it as a missing installation or requiring installation for each chat; define evidence-supported Specify `planned→specced`, Implement `specced→in-progress`, and Close Out `in-progress→implemented` transitions, their phase-owned evidence and bounded ordered recovery of stale state while preserving the explicit `verified` gate; update affected source, documentation and regression coverage; validate each improvement area independently and demonstrate their combined sequential workflow behavior with component, CLI and client provenance.
+- **Scope (out)**: An open-ended workflow cleanup backlog; unrelated workflow phases or features; catalog Python prerequisite work referenced as Feature 019/DEP017-01; implementation of Feature 016's centralized probing; reactivation of abandoned Feature 018; agent-thread capacity increases or child lifecycle cleanup; changes to Codex application or runtime code; discovery reload or repair for already-running chats; installation per chat or per agent; guarantees that FlowKit can control Codex chat initialization order; unreviewed model, effort, capacity-setting or lifecycle-control choices; silent consumer configuration changes; generic-agent fallback; implicit later workflow invocation, roadmap verification, Git integration, publication or feature acceptance.
+- **Depends on**: 013, 014, 015, 017.
+- **Governed by**: C-01, C-02, C-03, C-04, C-05.
+- **Notes**: On 2026-10-05 the operator approved reopening T006/T008/T009/T010 for F020-R001–F020-R004 and explicitly added Tasker-owned routine task revision to this feature. This authorizes the scoped task changes and future reviewed source route, not unrelated task expansion or other workflow invocation. The operator explicitly included clarification of Select Feature status-transition rules in this feature on 2026-10-05 after repeated selection and activation instructions produced an unnecessary lifecycle question. Carry this requirement into the specification and task set. The operator requested one work item covering all three areas on 2026-10-05. Provenance: `.specify/workflow-feedback/exports/consolidated-workflow-issues-20261005/report.json` and its Markdown projection in commit `c4ff53c`, report ID `consolidated-workflow-issues-20261005`, integrity `sha256:2ed9a33656c5fa7ddcc0429d43c658c1f91e360c2731cc319a92b8b4bf962776`. Included observation IDs: `select-feature-explicit-choice-reprompt-20261003`, `select-feature-pointer-approval-stop-20261003`, `select-feature-explicit-intent-redundant-gates-20261005`, `analyze-unresolved-checklist-gate-20261003`, and `clarify-agent-thread-limit-preflight-20261003`. These describe earlier observed versions and do not establish current reproduction. Keep the three areas separately traceable in specification requirements, tasks and validation within this single feature. The operator narrowed the agent area on 2026-10-05 to future-session and new-worktree availability after one project installation, using existing supported project configuration, documentation and validation. Feature 018's abandoned proposal and unresolved thread-capacity observation remain historical evidence; this feature no longer promises their capacity remedy. The first-chat startup ordering explanation is a hypothesis to test, not an established Codex lifecycle contract. A fresh-chat workaround may be documented if needed; no FlowKit reinstallation per chat is expected. Feature 016 remains independent and is not a prerequisite unless later review establishes an approved dependency. On 2026-10-07 the operator asked to fix Feature 020's missing phase-owned lifecycle transitions before feature acceptance; the new specification and phase-lifecycle contract define the evidence and decision boundaries. The three original owner effects now record specced, in-progress and implemented at their actual occurrence times; their original scope evidence is preserved. Current closeout applies the operator-approved feature-local T066/T077 manual-validation waiver described below; later dogfooding findings are reported as defects, with no mandatory matrix completion obligation.
+- **Verification qualification**: The Complete specification and current independent implementation assessment support the reviewed buildable scope and attributable automated/native validation; the [fresh debrief](../../specs/020-flowkit-workflow-iteration-improvements/roadmap-reviews/debrief-20261009T201232Z.md) recommends verified with zero Must-Address findings. Fresh convergence records 178 feature tests and 28 owner tests passed with zero skips; current independent policy reassessment verifies unchanged implementation/test inputs and does not claim new test execution. On 2026-10-09 the operator explicitly waived the unperformed T066/T077 manual matrices for this feature's closeout and future completion, as recorded in [the current specification qualification](../../specs/020-flowkit-workflow-iteration-improvements/spec.md#feature-020-closeout-qualification) and [waiver ledger](../../specs/020-flowkit-workflow-iteration-improvements/validation/waived-manual-validation.json). Those task rows remain unchecked, zero dogfooding/manual-case observations are recorded, and actor-level manual-path equivalence remains unobserved. Later dogfooding findings are defects for separately authorized work. This bounded verification does not imply feature/The Diagram acceptance, universal availability or adoption, effective native settings, publication, release or Git integration; acceptance and release remain pending.
+- **Spec dir**: `specs/020-flowkit-workflow-iteration-improvements/`
+
 ### 021 — FarmBoy Project and Workflow Naming  [status: planned]
 
 - **Description**: Rename Spec Kit Flow / FlowKit to FarmBoy and reconcile its associated skills and workflows.
@@ -339,4 +442,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.23.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-08
+**Version**: 1.24.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-09

@@ -10,7 +10,7 @@ sources:
 - S019
 - S021
 - S027
-updated: '2026-10-05'
+updated: '2026-10-09'
 ---
 
 # Bundle and workflow model
@@ -52,6 +52,8 @@ The ten active workflows are Select Feature, Specify, Clarify, Plan, Tasks, Anal
 ## Roadmap dispositions
 
 Features 001–015 are verified; 016 is planned, 017 retains qualified verification, and 018's [capacity proposal](./workflow-agent-capacity-proposal.md) is abandoned. Verified 019 selects a project `.venv`, existing mise/uv, pinned PyYAML and explicit invocation; no extra utilities. Its [portable guide](./agent-python-environment.md) preserves existing settings. macOS arm64 evidence establishes no full catalog repair, stock Specify compatibility, real adoption, acceptance, publication or Git authority. DEP017-01 history remains qualified. (S018)
+
+Feature 020’s [qualified verification and manual waiver](./feature020-verification-qualification.md) preserves unobserved manual equivalence and separate acceptance/release authority. (S018)
 
 ## Related pages
 

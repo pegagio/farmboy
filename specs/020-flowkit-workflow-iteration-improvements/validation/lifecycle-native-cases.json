@@ -1,0 +1,674 @@
+{
+  "cases": [
+    {
+      "assigned_source_step_ids": [
+        "prepare-specification-request",
+        "draft-specification"
+      ],
+      "child_task_id": "root/flowkit_specifier_t065_specify_launch",
+      "context": "specify",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Specifier",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-specify",
+      "workflow_source_path": "workflows/speckit-flow-specify/workflow.yml",
+      "workflow_source_sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",
+      "workflow_source_version": "0.3.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "assess-created-spec-linkage",
+        "verify-repaired-spec-linkage",
+        "assess-specification-authoring-quality",
+        "assess-specification-milestone-evidence",
+        "prepare-specification-lifecycle-request",
+        "verify-specification-lifecycle-transition",
+        "verify-existing-specification-lifecycle-state-after-revalidation",
+        "verify-existing-specification-lifecycle-state"
+      ],
+      "child_task_id": "root/flowkit_reviewer_t065_specify_launch",
+      "context": "specify",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Reviewer",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-specify",
+      "workflow_source_path": "workflows/speckit-flow-specify/workflow.yml",
+      "workflow_source_sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",
+      "workflow_source_version": "0.3.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "inspect-active-feature",
+        "brief-against-roadmap",
+        "assess-roadmap-brief-milestone",
+        "apply-specification-lifecycle-transition"
+      ],
+      "child_task_id": "root/flowkit_roadmap_t065_specify_launch",
+      "context": "specify",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Roadmap Agent",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-specify",
+      "workflow_source_path": "workflows/speckit-flow-specify/workflow.yml",
+      "workflow_source_sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",
+      "workflow_source_version": "0.3.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "run-scoped-preparation",
+        "run-scoped-source-implementation"
+      ],
+      "child_task_id": "root/flowkit_coder_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Coder",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "assess-implementation-after-pass"
+      ],
+      "child_task_id": "root/flowkit_code_reviewer_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Code Reviewer",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "check-readiness-before-core",
+        "check-readiness-before-reentry"
+      ],
+      "child_task_id": "root/flowkit_readiness_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Readiness Checker",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "assess-implementation-state",
+        "assess-implementation-start-milestone",
+        "verify-implementation-start-milestone",
+        "verify-existing-implementation-start-state-after-revalidation",
+        "verify-existing-implementation-start-state"
+      ],
+      "child_task_id": "root/flowkit_reviewer_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Reviewer",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "apply-implementation-start-milestone"
+      ],
+      "child_task_id": "root/flowkit_roadmap_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Roadmap Agent",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "revise-task-plan",
+        "track-reviewed-task-outcomes",
+        "track-reviewed-completion"
+      ],
+      "child_task_id": "root/flowkit_tasker_t065_implement_launch",
+      "context": "implement",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Tasker",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-implement",
+      "workflow_source_path": "workflows/speckit-flow-implement/workflow.yml",
+      "workflow_source_sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "mark-converged-specification-complete",
+        "reconcile-closeout-specification"
+      ],
+      "child_task_id": "root/flowkit_specifier_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Specifier",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "reconcile-closeout-plan"
+      ],
+      "child_task_id": "root/flowkit_planner_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Planner",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "implement-closeout-eligible-tasks"
+      ],
+      "child_task_id": "root/flowkit_coder_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Coder",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "assess-closeout-readiness",
+        "assess-closeout-lifecycle-edge",
+        "prepare-closeout-lifecycle-request",
+        "verify-closeout-lifecycle-transition",
+        "verify-closeout-lifecycle-noop-after-revalidation",
+        "verify-existing-closeout-lifecycle-state",
+        "debrief-roadmap",
+        "analyze-closeout-artifacts",
+        "assess-closeout-task-eligibility",
+        "lint-wiki",
+        "assess-wiki-maintenance",
+        "verify-closeout-readiness"
+      ],
+      "child_task_id": "root/flowkit_reviewer_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Reviewer",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "assess-implemented-lifecycle-milestone",
+        "assess-closeout-debrief"
+      ],
+      "child_task_id": "root/flowkit_code_reviewer_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Code Reviewer",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "apply-closeout-lifecycle-transition",
+        "prepare-wiki-maintenance"
+      ],
+      "child_task_id": "root/flowkit_roadmap_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Roadmap Agent",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "reconcile-closeout-tasks"
+      ],
+      "child_task_id": "root/flowkit_tasker_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Tasker",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    },
+    {
+      "assigned_source_step_ids": [
+        "ingest-curated-context"
+      ],
+      "child_task_id": "root/flowkit_wiki_t065_closeout_launch",
+      "context": "closeout",
+      "context_kind": "fresh-native-child-with-no-inherited-conversation",
+      "expected_response": "FLOWKIT_NATIVE_READY",
+      "model_effort_visibility": "not-observed",
+      "native_agent_type_requested": "FlowKit-Wiki Curator",
+      "native_spawn_succeeded": true,
+      "native_ui_settings_visibility": "not-observed",
+      "observed_response": "FLOWKIT_NATIVE_READY",
+      "response_matches": true,
+      "state": "passed",
+      "task_id": "T065",
+      "workflow_executed": false,
+      "workflow_id": "speckit-flow-closeout",
+      "workflow_source_path": "workflows/speckit-flow-closeout/workflow.yml",
+      "workflow_source_sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+      "workflow_source_version": "0.8.0"
+    }
+  ],
+  "counts": {
+    "failed": 0,
+    "passed": 17,
+    "total": 17
+  },
+  "date": "2026-10-08",
+  "dispatch_surface": "Codex native custom-agent selection via collaboration.spawn_agent agent_type",
+  "isolated_contexts": "Each case used a distinct fresh child with fork_turns none. All were on the current prepared project; no separate checkout or workflow execution was claimed.",
+  "limits": [
+    "No workflow phase executed.",
+    "Exact native selection and launch acknowledgement confirmed only.",
+    "Effective model/effort values, native settings UI visibility and broader client compatibility not observed.",
+    "Source graph provenance does not mean those source workflow phases were executed or installed into this current consumer.",
+    "Four early duplicate Coder probes excluded from this parent-verified matrix."
+  ],
+  "observation_source": {
+    "path": ".specify/flow-controllers/runs/50d03b8c-21ed-4d6c-966e-e927a3c0137b/native-launch-observations-pass2.json",
+    "sha256": "03dc17236b379d5f8f0b419101c0f1305542a0db3a9331751d51a9c641c79b76"
+  },
+  "operator_authorization": "direct-human-request-for-T065-T076-isolated-no-work-launches",
+  "schema_version": "1.0",
+  "source_package_provenance": {
+    "bundle": {
+      "path": "bundles/spec-kit-flow/bundle.yml",
+      "sha256": "4a6c517932b4b1cfc9022bb361c0bbd9233ea91d146661fe92610d5c34b50c5f"
+    },
+    "consumer_skill_record": {
+      "path": ".specify/flow-kit/skills-install.json",
+      "sha256": "95f3186e0c8723b9e965db2def6ce0a31fe95d1a01655e603aa0411b8c664f75"
+    },
+    "controller_manifest": {
+      "path": "controllers/flow-kit/manifest.yml",
+      "sha256": "a979e1234a7e128112be4ace1fe32a1e54e4a887875e2b181c16c4a89be8d227"
+    },
+    "graphs": [
+      {
+        "assignments": [
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "inspect-active-feature"
+          },
+          {
+            "agent_name": "FlowKit-Specifier",
+            "step_id": "prepare-specification-request"
+          },
+          {
+            "agent_name": "FlowKit-Specifier",
+            "step_id": "draft-specification"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-created-spec-linkage"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-repaired-spec-linkage"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-specification-authoring-quality"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "brief-against-roadmap"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-specification-milestone-evidence"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "assess-roadmap-brief-milestone"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "prepare-specification-lifecycle-request"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "apply-specification-lifecycle-transition"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-specification-lifecycle-transition"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-existing-specification-lifecycle-state-after-revalidation"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-existing-specification-lifecycle-state"
+          }
+        ],
+        "path": "workflows/speckit-flow-specify/workflow.yml",
+        "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2",
+        "version": "0.3.0",
+        "workflow_id": "speckit-flow-specify"
+      },
+      {
+        "assignments": [
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-implementation-state"
+          },
+          {
+            "agent_name": "FlowKit-Readiness Checker",
+            "step_id": "check-readiness-before-core"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-implementation-start-milestone"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "apply-implementation-start-milestone"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-implementation-start-milestone"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-existing-implementation-start-state-after-revalidation"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-existing-implementation-start-state"
+          },
+          {
+            "agent_name": "FlowKit-Coder",
+            "step_id": "run-scoped-preparation"
+          },
+          {
+            "agent_name": "FlowKit-Coder",
+            "step_id": "run-scoped-source-implementation"
+          },
+          {
+            "agent_name": "FlowKit-Code Reviewer",
+            "step_id": "assess-implementation-after-pass"
+          },
+          {
+            "agent_name": "FlowKit-Tasker",
+            "step_id": "revise-task-plan"
+          },
+          {
+            "agent_name": "FlowKit-Tasker",
+            "step_id": "track-reviewed-task-outcomes"
+          },
+          {
+            "agent_name": "FlowKit-Readiness Checker",
+            "step_id": "check-readiness-before-reentry"
+          },
+          {
+            "agent_name": "FlowKit-Tasker",
+            "step_id": "track-reviewed-completion"
+          }
+        ],
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "sha256": "f2ea19240cb7e9c73a95f247021fe2976e403325a733557ef64c939871a57d82",
+        "version": "0.8.0",
+        "workflow_id": "speckit-flow-implement"
+      },
+      {
+        "assignments": [
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-closeout-readiness"
+          },
+          {
+            "agent_name": "FlowKit-Specifier",
+            "step_id": "mark-converged-specification-complete"
+          },
+          {
+            "agent_name": "FlowKit-Code Reviewer",
+            "step_id": "assess-implemented-lifecycle-milestone"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-closeout-lifecycle-edge"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "prepare-closeout-lifecycle-request"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "apply-closeout-lifecycle-transition"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-closeout-lifecycle-transition"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-closeout-lifecycle-noop-after-revalidation"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-existing-closeout-lifecycle-state"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "debrief-roadmap"
+          },
+          {
+            "agent_name": "FlowKit-Code Reviewer",
+            "step_id": "assess-closeout-debrief"
+          },
+          {
+            "agent_name": "FlowKit-Specifier",
+            "step_id": "reconcile-closeout-specification"
+          },
+          {
+            "agent_name": "FlowKit-Planner",
+            "step_id": "reconcile-closeout-plan"
+          },
+          {
+            "agent_name": "FlowKit-Tasker",
+            "step_id": "reconcile-closeout-tasks"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "analyze-closeout-artifacts"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-closeout-task-eligibility"
+          },
+          {
+            "agent_name": "FlowKit-Coder",
+            "step_id": "implement-closeout-eligible-tasks"
+          },
+          {
+            "agent_name": "FlowKit-Roadmap Agent",
+            "step_id": "prepare-wiki-maintenance"
+          },
+          {
+            "agent_name": "FlowKit-Wiki Curator",
+            "step_id": "ingest-curated-context"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "lint-wiki"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "assess-wiki-maintenance"
+          },
+          {
+            "agent_name": "FlowKit-Reviewer",
+            "step_id": "verify-closeout-readiness"
+          }
+        ],
+        "path": "workflows/speckit-flow-closeout/workflow.yml",
+        "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8",
+        "version": "0.8.0",
+        "workflow_id": "speckit-flow-closeout"
+      }
+    ]
+  },
+  "state": "complete",
+  "task_id": "T065"
+}
