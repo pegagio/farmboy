@@ -130,10 +130,10 @@ class CatalogReleaseTests(unittest.TestCase):
         }
         expected_versions = {
             "farmboy-wiki-lint-update": "0.2.0",
-            "farmboy-start-feature": "0.6.0", "farmboy-select-feature": "0.2.0", "farmboy-specify": "0.3.0", "farmboy-clarify": "0.5.0",
+            "farmboy-start-feature": "0.6.0", "farmboy-select-feature": "0.2.0", "farmboy-specify": "0.4.0", "farmboy-clarify": "0.5.0",
             "farmboy-plan": "0.5.0", "farmboy-tasks": "0.5.0",
-            "farmboy-analyze-remediate": "0.6.0", "farmboy-implement": "0.8.0",
-            "farmboy-converge": "0.5.0", "farmboy-closeout": "0.8.0",
+            "farmboy-analyze-remediate": "0.6.0", "farmboy-implement": "0.9.0",
+            "farmboy-converge": "0.5.0", "farmboy-closeout": "0.9.0",
         }
         step_pattern = __import__("re").compile(r"^(\s*)- id: ([A-Za-z0-9_-]+)$")
         for workflow_id, expected_steps in expectations.items():

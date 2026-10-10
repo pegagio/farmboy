@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: farmboy-closeout
   name: Close Out Feature
-  version: "0.8.0"
+  version: "0.9.0"
   author: pegagio
   description: Debrief and reconcile through one bounded waterfall, approve exact roadmap verification, maintain wiki context, and report commit readiness without committing.
 requires:
@@ -145,7 +145,7 @@ steps:
                           integration: '{{ inputs.integration }}'
                           input:
                             args: >-
-                              PHASE_MILESTONE_REQUEST={{ steps.prepare-closeout-lifecycle-request.output.request_path }} Apply only the current revalidated adjacent edge returned by the owner. Return the complete receipt and actual effect/record state. Do not use ordinary delta mode or alter the existing later explicit `verified` gate.
+                              {{ steps.revalidate-closeout-lifecycle-transition.output.lifecycle_assessment.roadmap_delta }}
                           farmboy:
                             delegated: true
                             agent: FarmBoy Roadmap Agent
@@ -154,7 +154,7 @@ steps:
                           farmboy:
                             delegated: true
                             agent: FarmBoy Reviewer
-                          prompt: Independently verify the exact owner receipt, actual current roadmap bytes, scope and evidence hashes. Accept only the applied adjacent edge or an evidence-supported event-free no-op. Confirm any applied occurrence time is the actual owner event time, never a reconstructed date. Return verified/blocked and current_status; preserve every partial effect and exact safe resumption. This does not satisfy the separate `verified` gate, Git integration, publication or acceptance.
+                          prompt: Independently verify the generic amendment using FarmBoy controller phase-lifecycle action `verify-effect` with the exact revalidated proposal, trusted command_succeeded boolean and main-retained occurred_at timestamp. Retain its persisted workflow receipt and current roadmap/source/evidence hashes. Accept only the applied adjacent edge or an evidence-supported event-free no-op. Confirm any applied occurrence time is the actual main-observed command effect time, never a reconstructed date. Return verified/blocked and current_status; preserve every partial effect and exact safe resumption. This does not satisfy the separate `verified` gate, Git integration, publication or acceptance.
                       no-op:
                         - id: verify-closeout-lifecycle-noop-after-revalidation
                           type: prompt

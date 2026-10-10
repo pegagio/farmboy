@@ -348,7 +348,7 @@ class WorkflowPathTests(unittest.TestCase):
 
     def testLifecycleMilestonesGateSpecifyImplementAndCloseoutEffects(self) -> None:
         specify = load_workflow("farmboy-specify")
-        self.assertEqual("0.3.0", specify["workflow"]["version"])
+        self.assertEqual("0.4.0", specify["workflow"]["version"])
         outcome = find_step(specify["steps"], "route-specification-outcome")
         ready = outcome["cases"]["ready-for-brief"]
         self.assertEqual(["assess-specification-authoring-quality", "route-specification-authoring-quality"],
@@ -356,22 +356,27 @@ class WorkflowPathTests(unittest.TestCase):
         quality_route = find_step(ready, "route-specification-authoring-quality")
         self.assertEqual(["speckit.flow-roadmap.brief", "speckit.flow-roadmap.write"], commands(quality_route["cases"]["ready"]))
         self.assertEqual([], quality_route["cases"]["blocked"])
+        brief_args = find_step(ready, "brief-against-roadmap")["input"]["args"]
+        self.assertIn("--authoring-complete true", brief_args)
+        self.assertIn("--spec-target", brief_args)
+        self.assertIn("--roadmap-entry", brief_args)
+        self.assertNotIn("--specification-ready", brief_args)
         specify_apply = find_step(ready, "apply-specification-lifecycle-transition")
         self.assertEqual("command", specify_apply["type"])
         self.assertEqual("speckit.flow-roadmap.write", specify_apply["command"])
         self.assertEqual("FarmBoy Roadmap Agent", specify_apply["farmboy"]["agent"])
-        self.assertIn("planned→specced", find_step(ready, "apply-specification-lifecycle-transition")["input"]["args"])
+        self.assertIn("roadmap_delta", find_step(ready, "apply-specification-lifecycle-transition")["input"]["args"])
         self.assertIn("FarmBoy Reviewer", find_step(ready, "verify-specification-lifecycle-transition")["farmboy"]["agent"])
 
         implement = load_workflow("farmboy-implement")
-        self.assertEqual("0.8.0", implement["workflow"]["version"])
+        self.assertEqual("0.9.0", implement["workflow"]["version"])
         steps = implement["steps"]
         lifecycle = find_step(steps, "route-implementation-start-milestone")
         implement_apply = find_step(steps, "apply-implementation-start-milestone")
         self.assertEqual("command", implement_apply["type"])
         self.assertEqual("speckit.flow-roadmap.write", implement_apply["command"])
         self.assertEqual("FarmBoy Roadmap Agent", implement_apply["farmboy"]["agent"])
-        self.assertIn("specced→in-progress", find_step(steps, "apply-implementation-start-milestone")["input"]["args"])
+        self.assertIn("roadmap_delta", find_step(steps, "apply-implementation-start-milestone")["input"]["args"])
         coding_route = find_step(steps, "route-readiness-before-core")
         self.assertEqual("verify-lifecycle-and-readiness-before-coding",
                          find_step(steps, "verify-lifecycle-and-readiness-before-coding")["id"])
@@ -387,7 +392,7 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertNotIn("speckit.verify", commands(steps))
 
         closeout = load_workflow("farmboy-closeout")
-        self.assertEqual("0.8.0", closeout["workflow"]["version"])
+        self.assertEqual("0.9.0", closeout["workflow"]["version"])
         closeout_apply = find_step(closeout["steps"], "apply-closeout-lifecycle-transition")
         self.assertEqual("command", closeout_apply["type"])
         self.assertEqual("speckit.flow-roadmap.write", closeout_apply["command"])
@@ -418,8 +423,8 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertIn("normal", recovery_evidence["cases"])
         self.assertEqual([], recovery_evidence["cases"]["normal"])
         apply_closeout = find_step(recovery["steps"], "apply-closeout-lifecycle-transition")
-        self.assertIn("current revalidated adjacent edge", apply_closeout["input"]["args"])
-        self.assertIn("not use ordinary delta mode", apply_closeout["input"]["args"])
+        self.assertIn("roadmap_delta", apply_closeout["input"]["args"])
+        self.assertNotIn("PHASE_MILESTONE_REQUEST", apply_closeout["input"]["args"])
         self.assertEqual("FarmBoy Roadmap Agent", apply_closeout["farmboy"]["agent"])
         edge_route = find_step(recovery["steps"], "route-closeout-lifecycle-edge")
         self.assertIn("only when exactly one adjacent effect was applied", edge_route["prompt"])

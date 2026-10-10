@@ -36,7 +36,7 @@ except ImportError:  # The package can also be imported by repository tests.
     recorder_error_report = None  # type: ignore[assignment]
 
 try:
-    from phase_lifecycle import LifecycleError, prepare as prepare_phase_lifecycle, revalidate as revalidate_phase_lifecycle, strict_json as strict_lifecycle_json, validate_receipt as validate_lifecycle_receipt, validate_recovery_start_history
+    from phase_lifecycle import LifecycleError, prepare as prepare_phase_lifecycle, revalidate as revalidate_phase_lifecycle, strict_json as strict_lifecycle_json, validate_receipt as validate_lifecycle_receipt, validate_recovery_start_history, workflow_check as workflow_lifecycle_check
 except ImportError:  # The package can also be imported by repository tests.
     LifecycleError = ValueError  # type: ignore[assignment,misc]
     prepare_phase_lifecycle = None  # type: ignore[assignment]
@@ -44,6 +44,7 @@ except ImportError:  # The package can also be imported by repository tests.
     strict_lifecycle_json = None  # type: ignore[assignment]
     validate_lifecycle_receipt = None  # type: ignore[assignment]
     validate_recovery_start_history = None  # type: ignore[assignment]
+    workflow_lifecycle_check = None  # type: ignore[assignment]
 
 try:
     import implementation_scope as implementation_scope_module
@@ -2672,6 +2673,17 @@ def main(argv: list[str] | None = None) -> int:
                     reason = str(error) or "lifecycle-receipt-invalid"
                     result = {"state": "blocked", "reason_code": reason,
                               "blocking_ids": [reason], "resume_action": "supply-a-contract-valid-current-receipt"}
+        elif payload.get("action") in {"validate-specification-ready", "verify-effect"}:
+            try:
+                if workflow_lifecycle_check is None:
+                    raise LifecycleError("lifecycle-helper-unavailable")
+                result = workflow_lifecycle_check(args.project, payload)
+                operation_failed = result.get("state") == "blocked"
+            except (LifecycleError, ImportError, OSError, RuntimeError, KeyError, TypeError, ValueError, AttributeError) as error:
+                operation_failed = True
+                reason = str(error) if isinstance(error, LifecycleError) else "workflow-lifecycle-check-failed"
+                result = {"state": "blocked", "reason_code": reason,
+                          "blocking_ids": [reason], "resume_action": "restore-current-workflow-evidence"}
         elif payload.get("action") in {"prepare", "revalidate"}:
             operation = prepare_phase_lifecycle if payload.get("action") == "prepare" else revalidate_phase_lifecycle
             if operation is None:

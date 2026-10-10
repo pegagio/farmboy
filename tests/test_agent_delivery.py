@@ -404,6 +404,8 @@ class NativeAgentBundleTests(unittest.TestCase):
         executable = os.environ.get("SPECIFY_BIN")
         if not executable or not Path(executable).is_file():
             self.skipTest("set SPECIFY_BIN to the supported installed CLI")
+        roadmap_source = os.environ.get("FARMBOY_TEST_ROADMAP_SOURCE")
+        source_overrides = {"flow-roadmap": Path(roadmap_source)} if roadmap_source else None
         with tempfile.TemporaryDirectory(prefix="farmboy-agent-native-") as directory:
             project = Path(directory)
             completed = subprocess.run([executable, "init", "--here", "--force", "--non-interactive", "--integration", "codex", "--integration-options=--skills"], cwd=project, text=True, capture_output=True)
@@ -420,7 +422,7 @@ class NativeAgentBundleTests(unittest.TestCase):
                 path.write_bytes(content)
             payload_before = {path: path.read_bytes() for path in payload_files}
             with patch.object(catalog, "selected_specify", return_value=executable):
-                catalog.install(project, False, development_snapshot=True)
+                catalog.install(project, False, development_snapshot=True, source_overrides=source_overrides)
                 configs = project / ".codex/agents"
                 manifest_entries = catalog.agent_manifest()["agents"]
                 self.assertEqual(9, len(manifest_entries))
@@ -437,7 +439,7 @@ class NativeAgentBundleTests(unittest.TestCase):
                 unrelated = configs / "unrelated.toml"
                 unrelated.write_text('name="Unrelated"\n')
                 before = {p.name: p.read_bytes() for p in configs.glob("*.toml")}
-                catalog.install(project, True, development_snapshot=True)
+                catalog.install(project, True, development_snapshot=True, source_overrides=source_overrides)
                 self.assertEqual(before, {p.name: p.read_bytes() for p in configs.glob("*.toml")})
                 self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})
                 result = catalog.agent_operation(project, "reset", agent="FarmBoy Coder")

@@ -24,12 +24,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -71,8 +71,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -105,12 +105,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -152,8 +152,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -178,8 +178,8 @@
               "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
               "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
               ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-              "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-              "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f"
+              "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+              "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6"
             },
             "dependency_states": [],
             "pending_future_ids": [
@@ -193,12 +193,12 @@
               "assessments": [
                 {
                   "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                  "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                  "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                   "kind": "independent-review"
                 },
                 {
                   "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                  "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                  "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                   "kind": "independent-review"
                 }
               ],
@@ -234,7 +234,7 @@
           "from_status": "specced",
           "to_status": "in-progress",
           "expected_roadmap_sha256": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-          "patch_sha256": "e48aa5552f703b9d511e36d75f1cedfafe086c252f842cabe8ca957f4913c332",
+          "patch_sha256": "e8a528742a3288a3e2d1e3538f00e79d593fc9f75a51ef45be85dbc9dded73ad",
           "effect_id": "run-implement-1-start-901",
           "recovery": {
             "mode": "normal",
@@ -274,12 +274,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -321,8 +321,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -356,12 +356,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -403,8 +403,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -448,12 +448,12 @@
         "assessments": [
           {
             "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-            "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+            "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
             "kind": "independent-review"
           },
           {
             "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-            "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "kind": "independent-review"
           }
         ],
@@ -518,8 +518,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -535,12 +535,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -576,7 +576,7 @@
         "from_status": "specced",
         "to_status": "in-progress",
         "expected_roadmap_sha256": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-        "patch_sha256": "f13414b21d22eee0058b7bcfb144c96dbb707bde9560bf068927db17c76d80a4",
+        "patch_sha256": "b684a4ccd674d0c6246d229e0b192a3a37ba969fb929ffccb48398a0b4e83677",
         "effect_id": "run-implement-1-start-901",
         "recovery": {
           "mode": "normal",
@@ -607,8 +607,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -624,12 +624,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -665,7 +665,7 @@
         "from_status": "specced",
         "to_status": "implemented",
         "expected_roadmap_sha256": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-        "patch_sha256": "2d649197a4cb82656a8e23c58a9eaa205aaa93d6eda153fdbbd06666f3fb75d8",
+        "patch_sha256": "b65cdb8192188c776bb96ab510cce28ec300322f7ff1e87014e8186ff6df7612",
         "effect_id": "run-implement-1-start-901",
         "recovery": {
           "mode": "normal",
@@ -697,8 +697,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -710,12 +710,12 @@
         "evidence": [
           {
             "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-            "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+            "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
             "kind": "independent-review"
           },
           {
             "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-            "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "kind": "independent-review"
           }
         ],
@@ -758,8 +758,8 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/operator-decisions.json": "aad75c08b79b47d940f4a274d2b814ad31d667e351b40e16ce88e509519c0284",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
           },
@@ -935,7 +935,7 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-authoring-review-0.json",
-                "sha256": "2919f8ffd1885fc676ae6f7949b6cd34de2603b900c161643b25d997b54328a3",
+                "sha256": "08586ac57cf892a1aa9a7ee650b5ea7fd3f8286145ba8ab6396de91a1bbca3b8",
                 "kind": "independent-review"
               },
               {
@@ -986,7 +986,7 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/closeout-decisions.json": "4a6dbe1b5394f1d117d3697dd6eb322fd32b43e7c7f8e5a3e86deae4c12bf4d5",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-authoring-review-0.json": "2919f8ffd1885fc676ae6f7949b6cd34de2603b900c161643b25d997b54328a3",
+            "specs/901-phase-lifecycle/validation/current-authoring-review-0.json": "08586ac57cf892a1aa9a7ee650b5ea7fd3f8286145ba8ab6396de91a1bbca3b8",
             "specs/901-phase-lifecycle/validation/current-authoring-review-1.json": "15cec5a3afdab7bb220635cf43a0be26dc9efac0c5bf29f5703b0c12ce8eba58"
           },
           "dependency_states": [],
@@ -1018,7 +1018,7 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-authoring-review-0.json",
-                "sha256": "2919f8ffd1885fc676ae6f7949b6cd34de2603b900c161643b25d997b54328a3",
+                "sha256": "08586ac57cf892a1aa9a7ee650b5ea7fd3f8286145ba8ab6396de91a1bbca3b8",
                 "kind": "independent-review"
               },
               {
@@ -1058,12 +1058,12 @@
             "assessments": [
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-0.json",
-                "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
+                "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
                 "kind": "independent-review"
               },
               {
                 "path": "specs/901-phase-lifecycle/validation/current-start-review-1.json",
-                "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+                "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
                 "kind": "independent-review"
               }
             ],
@@ -1111,10 +1111,10 @@
             "specs/901-phase-lifecycle/spec.md": "208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751",
             "specs/901-phase-lifecycle/validation/closeout-decisions.json": "4a6dbe1b5394f1d117d3697dd6eb322fd32b43e7c7f8e5a3e86deae4c12bf4d5",
             ".specify/memory/roadmap.md": "253e0bbe476bc0f5770738b0f5d26a3096c17804f931c89dacc838bc0840d3a5",
-            "specs/901-phase-lifecycle/validation/current-authoring-review-0.json": "2919f8ffd1885fc676ae6f7949b6cd34de2603b900c161643b25d997b54328a3",
+            "specs/901-phase-lifecycle/validation/current-authoring-review-0.json": "08586ac57cf892a1aa9a7ee650b5ea7fd3f8286145ba8ab6396de91a1bbca3b8",
             "specs/901-phase-lifecycle/validation/current-authoring-review-1.json": "15cec5a3afdab7bb220635cf43a0be26dc9efac0c5bf29f5703b0c12ce8eba58",
-            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663",
-            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f",
+            "specs/901-phase-lifecycle/validation/current-start-review-0.json": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3",
+            "specs/901-phase-lifecycle/validation/current-start-review-1.json": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6",
             "specs/901-phase-lifecycle/validation/unsubstantiated-start-activity.json": "72919de858bb0e0e6752e0508ec4722aa1115f9f79884b1dc9b5c8d13ab1db8e",
             "specs/901-phase-lifecycle/plan.md": "67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29",
             "specs/901-phase-lifecycle/tasks.md": "3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e"
@@ -1374,16 +1374,16 @@
       "sha256": "4a6dbe1b5394f1d117d3697dd6eb322fd32b43e7c7f8e5a3e86deae4c12bf4d5"
     },
     "specs/901-phase-lifecycle/validation/current-start-review-0.json": {
-      "content": "{\"artifact_digests\":{\"specs/901-phase-lifecycle/plan.md\":\"67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29\",\"specs/901-phase-lifecycle/spec.md\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"specs/901-phase-lifecycle/tasks.md\":\"3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e\"},\"feature_directory\":\"specs/901-phase-lifecycle\",\"kind\":\"independent-review\",\"required_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"reviewer\":\"FlowKit-Reviewer\",\"satisfied_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"schema_version\":\"1.0\",\"scope_sha256\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"state\":\"complete\",\"unresolved_ids\":[]}",
-      "sha256": "07d4e6ae1fd9ea5e7a5f9170c03899fb7735802b345b78b37acc4a238d223663"
+      "content": "{\"artifact_digests\":{\"specs/901-phase-lifecycle/plan.md\":\"67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29\",\"specs/901-phase-lifecycle/spec.md\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"specs/901-phase-lifecycle/tasks.md\":\"3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e\"},\"feature_directory\":\"specs/901-phase-lifecycle\",\"kind\":\"independent-review\",\"required_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"reviewer\":\"FarmBoy Reviewer\",\"satisfied_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"schema_version\":\"1.0\",\"scope_sha256\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"state\":\"complete\",\"unresolved_ids\":[]}",
+      "sha256": "0834377d72383fe8787060837d38eaa767f617f1c26748b3082468a94cc417a3"
     },
     "specs/901-phase-lifecycle/validation/current-start-review-1.json": {
-      "content": "{\"artifact_digests\":{\"specs/901-phase-lifecycle/plan.md\":\"67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29\",\"specs/901-phase-lifecycle/spec.md\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"specs/901-phase-lifecycle/tasks.md\":\"3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e\"},\"feature_directory\":\"specs/901-phase-lifecycle\",\"kind\":\"independent-review\",\"required_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"reviewer\":\"FlowKit-Readiness Checker\",\"satisfied_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"schema_version\":\"1.0\",\"scope_sha256\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"state\":\"complete\",\"unresolved_ids\":[]}",
-      "sha256": "ebffa56f787bf19ea91dc8768615ad43b01d2310414c7ae5f6866b4c51a7552f"
+      "content": "{\"artifact_digests\":{\"specs/901-phase-lifecycle/plan.md\":\"67a2c544798857d2a34c3fc4e6001b0b0f13f9e714fa1ddf75f2f19238c02a29\",\"specs/901-phase-lifecycle/spec.md\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"specs/901-phase-lifecycle/tasks.md\":\"3674d09bb0bc1845b689dfdbb16b6756e4ee47719e67a6b749febaed30e1b75e\"},\"feature_directory\":\"specs/901-phase-lifecycle\",\"kind\":\"independent-review\",\"required_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"reviewer\":\"FarmBoy Readiness Checker\",\"satisfied_check_ids\":[\"current-artifacts\",\"dependencies\",\"readiness\",\"eligible-scope\",\"native-assignments\"],\"schema_version\":\"1.0\",\"scope_sha256\":\"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\",\"state\":\"complete\",\"unresolved_ids\":[]}",
+      "sha256": "6b5c0aa094669942ec4160aec341f6815f92f38b7bbbcaf0850190d6d9b9c5b6"
     },
     "specs/901-phase-lifecycle/validation/current-authoring-review-0.json": {
-      "content": "{\"artifact_digests\": {\"specs/901-phase-lifecycle/spec.md\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\"}, \"feature_directory\": \"specs/901-phase-lifecycle\", \"kind\": \"independent-review\", \"required_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"reviewer\": \"FlowKit-Reviewer\", \"satisfied_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"schema_version\": \"1.0\", \"scope_sha256\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\", \"state\": \"complete\", \"unresolved_ids\": []}",
-      "sha256": "2919f8ffd1885fc676ae6f7949b6cd34de2603b900c161643b25d997b54328a3"
+      "content": "{\"artifact_digests\": {\"specs/901-phase-lifecycle/spec.md\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\"}, \"feature_directory\": \"specs/901-phase-lifecycle\", \"kind\": \"independent-review\", \"required_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"reviewer\": \"FarmBoy Reviewer\", \"satisfied_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"schema_version\": \"1.0\", \"scope_sha256\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\", \"state\": \"complete\", \"unresolved_ids\": []}",
+      "sha256": "08586ac57cf892a1aa9a7ee650b5ea7fd3f8286145ba8ab6396de91a1bbca3b8"
     },
     "specs/901-phase-lifecycle/validation/current-authoring-review-1.json": {
       "content": "{\"artifact_digests\": {\"specs/901-phase-lifecycle/spec.md\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\"}, \"feature_directory\": \"specs/901-phase-lifecycle\", \"kind\": \"independent-review\", \"required_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"reviewer\": \"FarmBoy Roadmap Agent\", \"satisfied_check_ids\": [\"authoring-quality\", \"clarification\", \"independent-review\", \"roadmap-brief\", \"linkage\", \"dependencies\", \"consequential-decisions\"], \"schema_version\": \"1.0\", \"scope_sha256\": \"208510d68ae278c63ad60d90c6a9724cf1e52e2e533ac5753904a645b7c13751\", \"state\": \"complete\", \"unresolved_ids\": []}",

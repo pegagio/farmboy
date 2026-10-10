@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate lifecycle evidence and delegate read-only preparation to its owner."""
+"""Validate workflow-owned lifecycle evidence and prepare generic roadmap deltas."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ import hashlib
 import importlib.util
 import json
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
 
@@ -851,71 +851,56 @@ def validate_assessment(project: Path, assessment: Any, request: dict[str, Any])
     return assessment
 
 
-def _owner_module(project: Path) -> Any:
-    """Load the registered compatible owner helper; no installed copy is edited."""
-    script_relative = ".specify/extensions/flow-roadmap/scripts/python/phase_lifecycle.py"
-    manifest_relative = ".specify/extensions/flow-roadmap/extension.yml"
-    try:
-        import yaml
-    except ImportError as error:
-        raise LifecycleError("lifecycle-owner-runtime-unavailable") from error
-    try:
-        manifest_raw = _read_current(project, manifest_relative)
-        _read_current(project, script_relative)
-    except LifecycleError as error:
-        if str(error) == "source-file-unavailable":
-            raise LifecycleError("lifecycle-owner-contract-unavailable") from error
-        raise
-    try:
-        manifest = yaml.safe_load(manifest_raw.decode("utf-8"))
-    except (OSError, UnicodeError, ValueError) as error:
-        raise LifecycleError("lifecycle-owner-manifest-invalid") from error
-    extension = manifest.get("extension", {}) if isinstance(manifest, dict) else {}
-    if not isinstance(extension, dict):
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
-    version = extension.get("version")
-    if extension.get("id") != "flow-roadmap" or not isinstance(version, str):
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
-    try:
-        version_tuple = tuple(int(part) for part in version.split("."))
-    except ValueError as error:
-        raise LifecycleError("lifecycle-owner-version-invalid") from error
-    if len(version_tuple) != 3 or version_tuple < (0, 3, 0):
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
-    declared = [item.get("file") for item in (manifest.get("provides", {}).get("scripts", [])) if isinstance(item, dict)]
-    if "scripts/python/phase_lifecycle.py" not in declared:
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
-    script = project / script_relative
-    spec = importlib.util.spec_from_file_location("farmboy_registered_roadmap_lifecycle", script)
+def _workflow_module(project: Path) -> Any:
+    """Load the policy shipped beside this controller, never extension policy."""
+    script = Path(__file__).with_name("milestone_policy.py")
+    spec = importlib.util.spec_from_file_location("farmboy_workflow_milestone_policy", script)
     if spec is None or spec.loader is None:
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
+        raise LifecycleError("lifecycle-workflow-policy-unavailable")
     module = importlib.util.module_from_spec(spec)
-    script_before = _digest_bytes(_read_current(project, script_relative))
-    try:
-        spec.loader.exec_module(module)
-    except (ImportError, OSError, RuntimeError, ValueError) as error:
-        raise LifecycleError("lifecycle-owner-contract-unavailable") from error
-    if _digest_bytes(_read_current(project, script_relative)) != script_before:
-        raise LifecycleError("lifecycle-owner-source-changed-during-load")
-    if not callable(getattr(module, "evaluate", None)) or not callable(getattr(module, "validate_receipt", None)):
-        raise LifecycleError("lifecycle-owner-contract-unavailable")
+    spec.loader.exec_module(module)
     return module
 
 
+def roadmap_delta(proposal: dict[str, Any]) -> str:
+    """Render a complete authorized amendment through the ordinary write command."""
+    validate_proposal(proposal)
+    delta = {
+        "roadmap_path": proposal["recovery"]["roadmap_path"],
+        "entry_id": proposal["snapshot"]["entry_id"],
+        "feature_directory": proposal["snapshot"]["feature_directory"],
+        "expected_roadmap_sha256": proposal["expected_roadmap_sha256"],
+        "from_status": proposal["from_status"], "to_status": proposal["to_status"],
+        "authorization_reference": proposal["decision"]["reference"],
+        "evidence_paths": sorted({ref["path"] for group in proposal["milestone_evidence"]
+                                  for ref in group["assessments"] + group["historical_activity"]}),
+    }
+    return ("Apply this explicitly authorized roadmap delta: " + json.dumps(delta, sort_keys=True)
+            + ". Revalidate the current configured path, entry identity, mapping and exact preimage digest immediately before effect; stop on drift. "
+            "Change only the selected status heading, update the standard version, amendment date and Sync Impact Report with the authorization and evidence provenance. "
+            "Preserve all other entry bytes and existing history. Report actual changes and failures; this delta grants no verification, acceptance or Git authority.")
+
+
 def prepare(project: Path, request: Any) -> dict[str, Any]:
-    """Validate current evidence and ask the roadmap owner for read-only evaluation."""
+    """Validate current evidence against the locally owned milestone policy."""
     try:
         request = validate_request(project, request)
-        owner = _owner_module(project)
-        result = owner.evaluate(project, request, __import__("yaml"))
-        return validate_assessment(project, result, request)
+        policy = _workflow_module(project)
+        try:
+            result = policy.evaluate(project, request, __import__("yaml"))
+        except policy.ContractError as error:
+            raise LifecycleError(str(error)) from error
+        result = validate_assessment(project, result, request)
+        if result["state"] == "ready":
+            result = {**result, "roadmap_delta": roadmap_delta(result["proposal"])}
+        return result
     except LifecycleError as error:
         return {"state": "blocked", "reason_code": str(error), "evidence": [],
                 "blocking_ids": [str(error)], "resume_action": "restore-current-approved-lifecycle-evidence-and-rerun"}
-    except (ImportError, OSError, RuntimeError, TypeError, ValueError):
-        return {"state": "blocked", "reason_code": "lifecycle-owner-evaluation-failed", "evidence": [],
-                "blocking_ids": ["lifecycle-owner-evaluation-failed"],
-                "resume_action": "inspect-the-current-owner-package-and-rerun-preparation"}
+    except (ImportError, OSError, RuntimeError, TypeError, ValueError, KeyError, AttributeError):
+        return {"state": "blocked", "reason_code": "lifecycle-workflow-evaluation-failed", "evidence": [],
+                "blocking_ids": ["lifecycle-workflow-evaluation-failed"],
+                "resume_action": "inspect-the-current-workflow-policy-and-rerun-preparation"}
 
 
 def revalidate(project: Path, request: Any) -> dict[str, Any]:
@@ -924,3 +909,153 @@ def revalidate(project: Path, request: Any) -> dict[str, Any]:
         return {"state": "blocked", "reason_code": "revalidate-request-required", "evidence": [],
                 "blocking_ids": ["revalidate-request-required"], "resume_action": "supply-the-original-prepared-proposal"}
     return prepare(project, request)
+
+
+def workflow_check(project: Path, payload: Any) -> dict[str, Any]:
+    """Validate authoring proof or independently read back a generic amendment."""
+    import yaml
+    policy = _workflow_module(project)
+    if payload.get("action") == "validate-specification-ready":
+        _exact(payload, {"action", "packet_path"}, "authoring-check")
+        try:
+            return {"state": "ready", **policy.validate_specification_ready(project, payload["packet_path"], yaml)}
+        except policy.ContractError as error:
+            raise LifecycleError(str(error)) from error
+    _exact(payload, {"action", "proposal", "command_succeeded", "occurred_at"}, "effect-check")
+    if payload["action"] != "verify-effect" or not isinstance(payload["command_succeeded"], bool):
+        raise LifecycleError("effect-check-invalid")
+    proposal = validate_proposal(payload["proposal"])
+    try:
+        occurred = datetime.fromisoformat(payload["occurred_at"].replace("Z", "+00:00"))
+        if occurred.tzinfo is None or occurred.utcoffset() is None:
+            raise ValueError("missing timezone")
+    except (AttributeError, TypeError, ValueError) as error:
+        raise LifecycleError("receipt-occurrence-invalid") from error
+    roadmap = proposal["recovery"]["roadmap_path"]
+    original = proposal["recovery"]["source_preimage"].encode()
+    if _digest_bytes(original) != proposal["expected_roadmap_sha256"]:
+        raise LifecycleError("proposal-preimage-invalid")
+    snapshot = proposal["snapshot"]
+    refs = next((group["assessments"] for group in proposal["milestone_evidence"]
+                 if group["milestone"] == proposal["to_status"]), [])
+    base = {"schema_version": VERSION, "feature_directory": snapshot["feature_directory"],
+            "entry_id": snapshot["entry_id"], "phase": snapshot["phase"],
+            "scope_sha256": snapshot["scope_sha256"], "evidence": refs, "record_state": "recorded"}
+    reason = "write-effect-not-established"
+    observed = None
+    try:
+        observed = _read_current(project, roadmap)
+        ledger = policy.entries(original.decode())
+        selected = ledger[snapshot["entry_id"]]
+        if selected["status"] != proposal["from_status"] or selected["spec_dir"] != snapshot["feature_directory"]:
+            raise LifecycleError("proposal-entry-preimage-invalid")
+        heading = original.decode()[selected["start"]:selected["heading_end"]]
+        updated = heading.replace(f"[status: {proposal['from_status']}]", f"[status: {proposal['to_status']}]", 1)
+        expected = original.decode()[:selected["start"]] + updated + original.decode()[selected["heading_end"]:]
+        def normalize(value: str) -> tuple[str, tuple[int, int, int], str]:
+            # All prior reports and ledger bytes remain part of the preimage.
+            footers = list(policy.FOOTER.finditer(value))
+            if len(footers) != 1:
+                raise LifecycleError("roadmap-version-footer-invalid")
+            footer = footers[0]
+            version = tuple(int(footer.group(i)) for i in (1, 2, 3))
+            date = footer.group(0).rsplit(":", 1)[-1].strip()
+            normalized = value[:footer.start()] + f"<version-footer ratified={footer[4]}>" + value[footer.end():]
+            return normalized, version, date
+        expected_text, before_version, _ = normalize(expected)
+        impact_match = re.match(r"\A<!--\s*SYNC IMPACT REPORT\b.*?-->\n", observed.decode(), flags=re.S)
+        if impact_match is None:
+            raise LifecycleError("roadmap-delta-provenance-missing")
+        impact = impact_match.group(0)
+        actual_text, after_version, after_date = normalize(observed.decode()[impact_match.end():])
+        if (actual_text != expected_text or after_version != (*before_version[:2], before_version[2] + 1)
+                or after_date != occurred.astimezone(timezone.utc).date().isoformat()):
+            raise LifecycleError("roadmap-delta-readback-mismatch")
+        authorization = re.findall(r"^Authorization: (.*)$", impact, flags=re.M)
+        evidence_lines = re.findall(r"^Evidence paths: (.*)$", impact, flags=re.M)
+        expected_paths = sorted({ref["path"] for group in proposal["milestone_evidence"]
+                                 for ref in group["assessments"] + group["historical_activity"]})
+        if (authorization != [proposal["decision"]["reference"]] or len(evidence_lines) != 1
+                or strict_json(evidence_lines[0]) != expected_paths):
+            raise LifecycleError("roadmap-delta-provenance-missing")
+        receipt = {**base, "effect_state": "applied", "effect_id": proposal["effect_id"],
+                   "owning_phase": OWNERS[proposal["to_status"]], "from_status": proposal["from_status"],
+                   "to_status": proposal["to_status"], "occurred_at": payload["occurred_at"],
+                   "roadmap_before_sha256": proposal["expected_roadmap_sha256"], "roadmap_after_sha256": _digest_bytes(observed)}
+    except (LifecycleError, policy.ContractError, KeyError, UnicodeError, ValueError) as error:
+        reason = str(error) or reason
+        state = "not-applied" if observed == original else "indeterminate"
+        receipt = {**base, "effect_state": state, "proposed_effect_id": proposal["effect_id"],
+                   "owning_phase": OWNERS[proposal["to_status"]], "proposed_from_status": proposal["from_status"],
+                   "proposed_to_status": proposal["to_status"], "reason_code": reason,
+                   "roadmap_before_sha256": proposal["expected_roadmap_sha256"]}
+        if observed is not None:
+            receipt["roadmap_after_sha256" if state == "not-applied" else "observed_roadmap_sha256"] = _digest_bytes(observed)
+    source_stable = True
+    for path, expected_sha256 in snapshot["source_map"].items():
+        if path == roadmap:
+            continue
+        try:
+            if _digest_bytes(_read_current(project, path)) != expected_sha256:
+                source_stable = False
+        except LifecycleError:
+            source_stable = False
+    try:
+        for group in proposal["milestone_evidence"]:
+            _validate_group(project, group, snapshot,
+                            require_start_attestation=proposal["recovery"]["mode"] == "recovery"
+                            and group["milestone"] == "in-progress" and snapshot["phase"] != "implement")
+    except (LifecycleError, KeyError, TypeError, ValueError):
+        source_stable = False
+    try:
+        if policy.roadmap_configuration(project, yaml)["roadmap_path"] != roadmap:
+            source_stable = False
+    except (policy.ContractError, OSError, KeyError, TypeError, ValueError):
+        source_stable = False
+    validate_receipt(receipt)
+    receipt = _record_effect_receipt(project, proposal, receipt)
+    verified = (receipt["effect_state"] == "applied" and receipt["record_state"] == "recorded"
+                and source_stable and payload["command_succeeded"])
+    if not source_stable:
+        reason = "post-effect-source-changed"
+    elif not payload["command_succeeded"]:
+        reason = "roadmap-command-failed-after-readback"
+    elif receipt["record_state"] == "failed":
+        reason = receipt["record_error"]
+    return {"state": "verified" if verified else "blocked", "receipt": receipt,
+            "current_status": proposal["to_status"] if receipt["effect_state"] == "applied" else "unestablished",
+            "reason_code": "generic-delta-independently-verified" if verified else reason,
+            "resume_action": "retain-receipt-and-reassess-current-state-before-any-retry"}
+
+
+def _record_effect_receipt(project: Path, proposal: dict, receipt: dict) -> dict:
+    """Persist only workflow evidence; never mutate the independently owned ledger."""
+    import os
+    relative = f"{proposal['snapshot']['feature_directory']}/validation/phase-lifecycle/{proposal['effect_id']}.json"
+    try:
+        # Reject every existing symlink before creating directories or a record.
+        _relative(relative)
+        cursor = project
+        for part in Path(relative).parts:
+            cursor /= part
+            if cursor.is_symlink():
+                raise LifecycleError("receipt-path-symlink")
+        target = project / relative
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            retained = strict_json(_read_current(project, relative).decode())
+            validate_receipt(retained)
+            if retained != receipt:
+                raise LifecycleError("receipt-collision-requires-reassessment")
+            return retained
+        raw = (json.dumps(receipt, sort_keys=True) + "\n").encode()
+        descriptor = os.open(target, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
+        with os.fdopen(descriptor, "wb") as stream:
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        if _read_current(project, relative) != raw:
+            raise LifecycleError("receipt-readback-mismatch")
+    except (OSError, LifecycleError, ValueError):
+        receipt = {**receipt, "record_state": "failed", "record_error": "workflow-receipt-persistence-failed"}
+    return validate_receipt(receipt)

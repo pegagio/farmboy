@@ -3,7 +3,7 @@ schema_version: "1.0"
 workflow:
   id: "farmboy-implement"
   name: "Implement Eligible Work"
-  version: "0.8.0"
+  version: "0.9.0"
   author: "pegagio"
   description: "Repeat the existing implementation skill while eligible tasks remain and progress is evidenced, stopping on completion or a specific bounded blocker."
 
@@ -89,7 +89,7 @@ steps:
                 integration: '{{ inputs.integration }}'
                 input:
                   args: >-
-                    PHASE_MILESTONE_REQUEST={{ steps.assess-implementation-start-milestone.output.request_path }} Apply only this invocation's revalidated adjacent `specced→in-progress` owner proposal before any substantive coding. Return the structured receipt and actual effect/record state; do not use ordinary delta mode.
+                    {{ steps.revalidate-implementation-start-milestone.output.lifecycle_assessment.roadmap_delta }}
                 farmboy:
                   delegated: true
                   agent: FarmBoy Roadmap Agent
@@ -99,7 +99,7 @@ steps:
                   delegated: true
                   agent: FarmBoy Reviewer
                 prompt: >-
-                  Independently verify the owner's exact receipt, actual current roadmap state and source/evidence digests. Accept only an applied `specced→in-progress` receipt or independently supported event-free no-op; confirm it precedes any Coder dispatch. Failed, stale, not-applied, indeterminate or partial outcomes block coding and retain a safe resumption. Return state verified or blocked and the exact evidence. Do not claim completion, verification or acceptance.
+                  Independently verify the workflow receipt derived from the generic amendment, actual current roadmap state and source/evidence digests. Accept only an applied `specced→in-progress` receipt or independently supported event-free no-op; confirm it precedes any Coder dispatch. Failed, stale, not-applied, indeterminate or partial outcomes block coding and retain a safe resumption. Return state verified or blocked and the exact evidence. Do not claim completion, verification or acceptance. Use FarmBoy controller phase-lifecycle action `verify-effect` with the exact revalidated proposal, trusted command_succeeded boolean and main-retained occurred_at timestamp. Persist the returned workflow receipt under validation/phase-lifecycle/; re-read and hash it before returning verified.
             no-op:
               - id: verify-existing-implementation-start-state-after-revalidation
                 type: prompt
