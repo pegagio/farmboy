@@ -1,4 +1,4 @@
-"""Preservation checks for consumer-owned files across FlowKit skill lifecycle."""
+"""Preservation checks for consumer-owned files across FarmBoy skill lifecycle."""
 
 from __future__ import annotations
 

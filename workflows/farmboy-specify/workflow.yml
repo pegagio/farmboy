@@ -1,0 +1,229 @@
+schema_version: '1.0'
+workflow:
+  id: farmboy-specify
+  name: Author Active Specification
+  version: "0.3.0"
+  author: pegagio
+  description: Author the selected active specification with cited context, verified roadmap linkage, and a shared roadmap brief.
+requires:
+  speckit_version: '>=1.0.10.dev0'
+  integrations:
+    any:
+      - codex
+inputs:
+  integration:
+    type: string
+    default: codex
+    enum:
+      - codex
+  linkage_patch_decision:
+    type: string
+    default: ''
+steps:
+  - id: inspect-active-feature
+    type: prompt
+    prompt: >-
+      Read .specify/feature.json and the roadmap without modifying either. Return state ready or blocked; exact selected_entry_id; actual_spec_dir ending in slash; feature_brief containing approved outcome, scope, and dependencies; and evidence. Blocked includes required operator input; give the cause, question, and recovery action. Resolve only the active feature_directory and the unique roadmap entry whose Spec dir matches it. A reserved directory or missing spec.md is valid for authoring; do not create another feature or renumber the target. Missing or malformed pointer, escaping paths, absent or competing roadmap ownership, or unsettled product/authority/scope decisions stop with the exact operator action. Do not auto-select from the roadmap or invoke selection.
+    farmboy:
+      delegated: true
+      agent: FarmBoy Roadmap Agent
+  - id: route-active-feature
+    type: switch
+    expression: '{{ steps.inspect-active-feature.output.state }}'
+    cases:
+      ready:
+        - id: retrieve-governing-context
+          command: speckit.flow-wiki.query
+          integration: '{{ inputs.integration }}'
+          input:
+            args: >-
+              For exact operator-selected roadmap entry {{ steps.inspect-active-feature.output.selected_entry_id }}, retrieve cited governing decisions, constraints, dependencies, and coverage classification before any roadmap mutation. Return the cited context and coverage gaps in a report output field. Report Partial or Uncovered rather than inventing a fact. Do not change the roadmap or start another workflow.
+        - id: prepare-specification-request
+          type: prompt
+          prompt: >-
+            Prepare specification authoring for exact active entry {{ steps.inspect-active-feature.output.selected_entry_id }} at {{ steps.inspect-active-feature.output.actual_spec_dir }} using this approved feature brief: {{ steps.inspect-active-feature.output.feature_brief }} and cited context: {{ steps.retrieve-governing-context.output.report }}. Return state ready or blocked and specification_args. Blocked includes missing prerequisites and required operator input; report the cause and recovery action. Ready requires sufficient governing context and no unapproved consequential decision. Include explicit SPECIFY_FEATURE_DIRECTORY equal to the active directory in specification_args. Author or revise only that specification, preserving reviewed decisions and existing content; do not select a new feature, create another target, or infer lifecycle acceptance.
+          farmboy:
+            delegated: true
+            agent: FarmBoy Specifier
+        - id: route-specification-readiness
+          type: switch
+          expression: '{{ steps.prepare-specification-request.output.state }}'
+          cases:
+            ready:
+              - id: draft-specification
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Specifier
+                command: speckit.specify
+                integration: '{{ inputs.integration }}'
+                input:
+                  args: >-
+                    {{ steps.prepare-specification-request.output.specification_args }} Return actual_spec_dir and the authoring report. Honor the explicit SPECIFY_FEATURE_DIRECTORY and preserve .specify/feature.json identity; do not invoke another workflow.
+              - id: assess-created-spec-linkage
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Reviewer
+                type: prompt
+                integration: '{{ inputs.integration }}'
+                prompt: >-
+                  Inspect the created specification at {{ steps.draft-specification.output.actual_spec_dir }} and .specify/feature.json feature_directory, then compare them with every roadmap Spec dir mapping. Use exact selected_entry_id {{ steps.inspect-active-feature.output.selected_entry_id }} and never infer identity from feature number alone. Return one structured result with state (linked, repairable, or blocked), selected_entry_id, actual_spec_dir, and evidence. Format actual_spec_dir as a repository-relative directory ending in slash. Use linked only when that one entry has exactly one exact mapping to this directory and no other entry claims the same directory. Use repairable only when the selected entry is uniquely identified and its Spec dir is missing or stale, no other entry claims the actual directory, and you can present a minimal exact patch to that row as proposed_patch. Write the patch as the exact Markdown row with the path inside backticks and no trailing punctuation inside the backticks. Return blocked with the exact cause and recovery action for conflicting ownership, ambiguous identity, or required operator input. Do not edit the roadmap. Require the observed directory to equal the active target {{ steps.inspect-active-feature.output.actual_spec_dir }}; return blocked for unexpected target creation or pointer drift, never authorize a roadmap patch to legitimize a new target.
+              - id: route-created-spec-linkage
+                type: switch
+                expression: '{{ steps.assess-created-spec-linkage.output.state }}'
+                cases:
+                  repairable:
+                    - id: review-spec-dir-patch
+                      type: gate
+                      message: |-
+                        Review this exact Spec dir patch for roadmap entry {{ steps.assess-created-spec-linkage.output.selected_entry_id }} and directory {{ steps.assess-created-spec-linkage.output.actual_spec_dir }}:
+                        {{ steps.assess-created-spec-linkage.output.proposed_patch }}
+                        Approve only this patch verbatim; amendment or deferral makes no roadmap change.
+                      options:
+                        - approve-exact-patch
+                        - amend
+                        - defer
+                      verdict_input: linkage_patch_decision
+                      on_reject: skip
+                    - id: route-spec-dir-patch-decision
+                      type: switch
+                      expression: '{{ steps.review-spec-dir-patch.output.choice }}'
+                      transition_labels:
+                        approve-exact-patch: approved
+                        default: not-approved
+                      cases:
+                        approve-exact-patch:
+                          - id: apply-approved-spec-dir-patch
+                            command: speckit.flow-roadmap.write
+                            integration: '{{ inputs.integration }}'
+                            input:
+                              args: >-
+                                Apply only this exact Spec dir patch, which was explicitly approved at review-spec-dir-patch, for roadmap entry {{ steps.assess-created-spec-linkage.output.selected_entry_id }} and actual directory {{ steps.assess-created-spec-linkage.output.actual_spec_dir }}: {{ steps.assess-created-spec-linkage.output.proposed_patch }}. Do not infer the target from its feature number or broaden the patch.
+                          - id: verify-repaired-spec-linkage
+                            farmboy:
+                              delegated: true
+                              agent: FarmBoy Reviewer
+                            type: prompt
+                            integration: '{{ inputs.integration }}'
+                            prompt: >-
+                              Re-read the roadmap after the approved write and re-check .specify/feature.json plus the actual created spec directory. Return a structured result with state and fresh evidence. Return state linked only if selected_entry_id {{ steps.assess-created-spec-linkage.output.selected_entry_id }} is the unique exact owner of actual_spec_dir {{ steps.assess-created-spec-linkage.output.actual_spec_dir }}. The directory and pointer must also still equal the original active target {{ steps.inspect-active-feature.output.actual_spec_dir }}; otherwise return blocked. For any failed verification return blocked with the exact cause and recovery action; do not propose another repair in this invocation. Do not edit the roadmap.
+                      default: []
+                  linked: []
+                  blocked: []
+            blocked: []
+      blocked: []
+  - id: prepare-specification-outcome
+    type: prompt
+    prompt: >-
+      Use only completed outputs from this invocation. Return state ready-for-brief or blocked and brief_args for a verified link. A blocked result records the cause, any human question or original gate choice, and the smallest recovery action. Explicit amendments or deferrals also stop through blocked without being treated as approval. Authoring requires a ready active target and sufficient context; otherwise skip the brief. Both an initially linked directory and an exactly approved repair with fresh verify-repaired-spec-linkage state linked reach the shared brief. The directory must still equal the original active target; invalid states, command failure, pointer drift, conflicts, ambiguous ownership, amendments, and deferrals cannot authorize a brief. Construct explicit SPEC_TARGET and ROADMAP_ENTRY from the verified pair. Preserve partial artifacts and report the exact blocker or recovery action without invoking another workflow.
+  - id: route-specification-outcome
+    type: switch
+    expression: '{{ steps.prepare-specification-outcome.output.state }}'
+    cases:
+      ready-for-brief:
+        - id: assess-specification-authoring-quality
+          type: prompt
+          farmboy:
+            delegated: true
+            agent: FarmBoy Reviewer
+          prompt: >-
+            Independently review the current exact active specification {{ steps.prepare-specification-outcome.output.brief_args }} before the roadmap brief. Verify author-quality criteria, required clarification, the current exact spec and checklist digests, and the already observed unique linkage from this invocation. Do not require a Complete header, plan/tasks, implementation, verification, or acceptance. If any requirement is missing or unresolved, return state blocked with exact IDs and safe resumption. If ready, persist a strict authored-ready assessment and `specification_ready` packet under the selected feature's `validation/phase-lifecycle/` directory, using only repository-relative paths and current SHA-256 values. The assessment must use the approved owner schema, reviewer `FarmBoy Reviewer`, kind `independent-authoring-review`, and cover authoring-quality, clarification, linkage, and independent-review. Return state ready, packet path and digest, assessment path and digest, and the exact reviewed input map. Do not change source artifacts or invoke another workflow.
+        - id: route-specification-authoring-quality
+          type: switch
+          expression: '{{ steps.assess-specification-authoring-quality.output.state }}'
+          cases:
+            ready:
+              - id: brief-against-roadmap
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Roadmap Agent
+                command: speckit.flow-roadmap.brief
+                integration: '{{ inputs.integration }}'
+                input:
+                  args: >-
+                    Run the additive authored-ready brief using the current packet {{ steps.assess-specification-authoring-quality.output.specification_ready_path }} and exact verified constraints {{ steps.prepare-specification-outcome.output.brief_args }}. Resolve only the selected entry and actual specification directory. Pass the packet through `--specification-ready`; preserve the full brief, constraints and errors in a report output field. Do not implement or invoke another workflow.
+              - id: assess-specification-milestone-evidence
+                type: prompt
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Reviewer
+                prompt: >-
+                  Independently combine the current authored-ready assessment {{ steps.assess-specification-authoring-quality.output.assessment_path }} and authored-ready brief output {{ steps.brief-against-roadmap.output.report }} for the exact feature and entry selected in this Specify invocation. Verify all seven `specced` checks: authoring-quality, clarification, independent-review, roadmap-brief, linkage, dependencies, and consequential-decisions. A Must-Address finding, stale input, unsettled decision, invalid prerequisite, or missing exact brief blocks. Do not require the later Complete label, plan/tasks, implementation or future acceptance. If ready, persist a strict current independent assessment under `validation/phase-lifecycle/`, with reviewer `FarmBoy Reviewer`, kind `independent-review`, current feature scope and input digests, and complete check coverage. Return its repository-relative path and digest, the exact reviewed inputs, state, and any unresolved IDs.
+              - id: assess-roadmap-brief-milestone
+                type: prompt
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Roadmap Agent
+                prompt: >-
+                  Independently verify the exact current authored-ready brief report {{ steps.brief-against-roadmap.output.report }} for this selected feature. Confirm unique active pointer and roadmap linkage, current spec scope, valid prerequisites/dependencies, and no unresolved Must-Address alignment finding. Persist a strict current assessment with reviewer `FarmBoy Roadmap Agent`, kind `roadmap-brief`, the applicable roadmap-brief and dependencies checks, current artifact digests, and no unresolved IDs under the feature's `validation/phase-lifecycle/` directory. Return state ready or blocked, path, digest and source evidence. The report is evidence only and does not grant trust or mutation authority.
+              - id: prepare-specification-lifecycle-request
+                type: prompt
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Reviewer
+                prompt: >-
+                  Prepare one strict lifecycle request for this exact Specify run using the current authoring assessment at {{ steps.assess-specification-authoring-quality.output.assessment_path }}, current milestone assessment at {{ steps.assess-specification-milestone-evidence.output.assessment_path }}, roadmap assessment at {{ steps.assess-roadmap-brief-milestone.output.assessment_path }}, authored-ready brief {{ steps.brief-against-roadmap.output.report }}, active pointer, unique roadmap entry and source evidence. Include every current required source and reviewed-input digest; use policy SHA-256 `09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4`, phase specify, mode normal unless a separately substantiated bounded recovery is required, and only the `planned→specced` edge. Persist the request under the feature's `validation/phase-lifecycle/` directory and return its relative path and digest. Preserve pending implementation and acceptance obligations. Never infer trusted invocation from this file.
+              - id: prepare-specification-lifecycle-transition
+                type: prompt
+                prompt: >-
+                  Invoke the deterministic FarmBoy adapter with the exact request {{ steps.prepare-specification-lifecycle-request.output.request_path }} using `python3 .specify/farmboy/scripts/python/controller.py phase-lifecycle --project "$PWD"` and JSON stdin. Return the complete assessment as `lifecycle_assessment`; do not call the owner's apply operation or write the roadmap. Preserve blocked/question details and the exact resume action.
+              - id: route-specification-lifecycle-transition
+                type: switch
+                expression: '{{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.state }}'
+                cases:
+                  ready:
+                    - id: revalidate-specification-lifecycle-transition
+                      type: prompt
+                      prompt: >-
+                        Rebuild the exact prior request with action `revalidate` and its unchanged proposal from {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}. Invoke `python3 .specify/farmboy/scripts/python/controller.py phase-lifecycle --project "$PWD"` with the revalidation JSON on stdin immediately before the effect. Return the full assessment; any changed source, target, evidence, proposal or policy blocks and must not reach the owner write.
+
+                        Rendered callback arguments:
+                        ```json
+                        {"action":"revalidate","request_path":"{{ steps.prepare-specification-lifecycle-request.output.request_path }}","prepared_proposal": {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}}
+                        ```
+                    - id: route-specification-lifecycle-revalidation
+                      type: switch
+                      expression: '{{ steps.revalidate-specification-lifecycle-transition.output.lifecycle_assessment.state }}'
+                      cases:
+                        ready:
+                          - id: apply-specification-lifecycle-transition
+                            type: command
+                            command: speckit.flow-roadmap.write
+                            integration: '{{ inputs.integration }}'
+                            input:
+                              args: >-
+                                PHASE_MILESTONE_REQUEST={{ steps.prepare-specification-lifecycle-request.output.request_path }} Apply only the one current `planned→specced` proposal prepared and revalidated in this exact trusted Specify invocation. Use the versioned phase-milestone mode and return its complete receipt and actual effect/record state. Do not enter ordinary roadmap-delta mode.
+                            farmboy:
+                              delegated: true
+                              agent: FarmBoy Roadmap Agent
+                          - id: verify-specification-lifecycle-transition
+                            type: prompt
+                            farmboy:
+                              delegated: true
+                              agent: FarmBoy Reviewer
+                            prompt: >-
+                              Independently verify the owner command's actual receipt and current roadmap bytes against the revalidated proposal for the exact feature and roadmap entry selected by this Specify invocation. Accept only a current applied `planned→specced` event with matching source/evidence digests and no duplicate transition. Preserve failed recording, not-applied, indeterminate or post-effect guard outcomes as blocked. Return state verified or blocked, exact receipt, current hashes and safe resumption; never infer Verify, Git integration, publication or acceptance.
+                        no-op:
+                          - id: verify-existing-specification-lifecycle-state-after-revalidation
+                            type: prompt
+                            farmboy:
+                              delegated: true
+                              agent: FarmBoy Reviewer
+                            prompt: >-
+                              Independently verify that current reviewed evidence supports the retained already-specced roadmap state and that the no-op assessment contains no transition event, patch or duplicate history. Return state verified or blocked with current evidence and exact resumption; do not treat the state label alone as proof.
+                        blocked: []
+                        question: []
+                  no-op:
+                    - id: verify-existing-specification-lifecycle-state
+                      type: prompt
+                      farmboy:
+                        delegated: true
+                        agent: FarmBoy Reviewer
+                      prompt: Independently verify current evidence for the consistent advanced state and confirm no duplicate event, downgrade, or loss of verification provenance. Return verified or blocked with current hashes.
+                  blocked: []
+                  question: []
+            blocked: []
+      blocked: []
+  - id: report-specification-outcome
+    type: prompt
+    prompt: >-
+      Present the authored or revised active specification, exact directory and roadmap entry, verified linkage, authored-ready review, lifecycle brief and current lifecycle receipt/no-op verification. A new spec is specced only after the current owner receipt is independently verified; missing/failed/stale evidence, a blocked/question result, partial effect or unverified no-op is an exact blocker. Preserve the lifecycle outcome and safe resumption. The explicit verified gate, Clarify, Plan, Git integration and acceptance remain separate operator actions; stop here without invoking another workflow.

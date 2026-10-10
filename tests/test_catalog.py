@@ -20,7 +20,7 @@ class CatalogReleaseTests(unittest.TestCase):
         source.mkdir()
         version = catalog.bundle_components()[1]["extensions"]["flow-roadmap"]
         (source / "extension.yml").write_text(
-            f'schema_version: "1.0"\nextension:\n  id: "flow-roadmap"\n  name: "FlowKit Roadmap"\n  version: "{version}"\n  author: "pegagio"\nrequires:\n  specify_cli_version: ">=1.0.10"\n',
+            f'schema_version: "1.0"\nextension:\n  id: "flow-roadmap"\n  name: "FarmBoy Roadmap"\n  version: "{version}"\n  author: "pegagio"\nrequires:\n  specify_cli_version: ">=1.0.10"\n',
             encoding="utf-8",
         )
         subprocess.run(["git", "init", "-q"], cwd=source, check=True, capture_output=True)
@@ -43,21 +43,21 @@ class CatalogReleaseTests(unittest.TestCase):
 
     def test_controllerManifest_hasTenStableBindingsAndDisplayNames(self) -> None:
         manifest = catalog.controller_manifest()
-        self.assertEqual("flow-kit-controllers", manifest["package_id"])
+        self.assertEqual("farmboy-controllers", manifest["package_id"])
         self.assertEqual("1.0.10.dev0+pegagio.2", manifest["specify_cli_version"])
         self.assertEqual(10, len(manifest["controllers"]))
         self.assertEqual(
             [
-                ("flow-kit-select-feature", "FlowKit Select Feature", "speckit-flow-select-feature"),
-                ("flow-kit-specify", "FlowKit Specify", "speckit-flow-specify"),
-                ("flow-kit-clarify", "FlowKit Clarify", "speckit-flow-clarify"),
-                ("flow-kit-plan", "FlowKit Plan", "speckit-flow-plan"),
-                ("flow-kit-tasks", "FlowKit Tasks", "speckit-flow-tasks"),
-                ("flow-kit-analyze-remediate", "FlowKit Analyze", "speckit-flow-analyze-remediate"),
-                ("flow-kit-implement", "FlowKit Implement", "speckit-flow-implement"),
-                ("flow-kit-converge", "FlowKit Converge", "speckit-flow-converge"),
-                ("flow-kit-closeout", "FlowKit Close Out", "speckit-flow-closeout"),
-                ("flow-kit-wiki-lint-update", "FlowKit Wiki Lint Update", "speckit-flow-wiki-lint-update"),
+                ("farmboy-select-feature", "FarmBoy Select Feature", "farmboy-select-feature"),
+                ("farmboy-specify", "FarmBoy Specify", "farmboy-specify"),
+                ("farmboy-clarify", "FarmBoy Clarify", "farmboy-clarify"),
+                ("farmboy-plan", "FarmBoy Plan", "farmboy-plan"),
+                ("farmboy-tasks", "FarmBoy Tasks", "farmboy-tasks"),
+                ("farmboy-analyze-remediate", "FarmBoy Analyze", "farmboy-analyze-remediate"),
+                ("farmboy-implement", "FarmBoy Implement", "farmboy-implement"),
+                ("farmboy-converge", "FarmBoy Converge", "farmboy-converge"),
+                ("farmboy-closeout", "FarmBoy Close Out", "farmboy-closeout"),
+                ("farmboy-wiki-lint-update", "FarmBoy Wiki Lint Update", "farmboy-wiki-lint-update"),
             ],
             [(item["skill_id"], item["display_name"], item["workflow_id"]) for item in manifest["controllers"]],
         )
@@ -69,11 +69,11 @@ class CatalogReleaseTests(unittest.TestCase):
             with zipfile.ZipFile(archive) as package:
                 names = set(package.namelist())
                 members = {name: package.read(name).decode("utf-8") for name in names}
-                self.assertIn(".specify/flow-kit/manifest.yml", names)
-                self.assertIn(".specify/flow-kit/controller-protocol.md", names)
-                self.assertIn(".specify/flow-kit/scripts/python/controller.py", names)
-                self.assertEqual(10, sum(name.endswith("/SKILL.md") and name.startswith(".agents/skills/flow-kit-") for name in names))
-                self.assertEqual(10, sum(name.endswith("/agents/openai.yaml") and name.startswith(".agents/skills/flow-kit-") for name in names))
+                self.assertIn(".specify/farmboy/manifest.yml", names)
+                self.assertIn(".specify/farmboy/controller-protocol.md", names)
+                self.assertIn(".specify/farmboy/scripts/python/controller.py", names)
+                self.assertEqual(10, sum(name.endswith("/SKILL.md") and name.startswith(".agents/skills/farmboy-") for name in names))
+                self.assertEqual(10, sum(name.endswith("/agents/openai.yaml") and name.startswith(".agents/skills/farmboy-") for name in names))
                 for skill_id, display_name, _ in catalog.CONTROLLER_BINDINGS:
                     metadata = members[f".agents/skills/{skill_id}/agents/openai.yaml"]
                     self.assertIn(f'display_name: "{display_name}"', metadata)
@@ -81,59 +81,59 @@ class CatalogReleaseTests(unittest.TestCase):
 
     def test_namedAgentAssignments_matchReviewedWorkflowPackage(self) -> None:
         expectations = {
-            "speckit-flow-start-feature": {},
-            "speckit-flow-select-feature": {
-                "list-roadmap-options": "FlowKit-Roadmap Agent", "prepare-feature-selection": "FlowKit-Roadmap Agent",
-                "verify-feature-selection": "FlowKit-Reviewer",
+            "farmboy-start-feature": {},
+            "farmboy-select-feature": {
+                "list-roadmap-options": "FarmBoy Roadmap Agent", "prepare-feature-selection": "FarmBoy Roadmap Agent",
+                "verify-feature-selection": "FarmBoy Reviewer",
             },
-            "speckit-flow-specify": {
-                "inspect-active-feature": "FlowKit-Roadmap Agent", "prepare-specification-request": "FlowKit-Specifier",
-                "draft-specification": "FlowKit-Specifier", "assess-created-spec-linkage": "FlowKit-Reviewer",
-                "verify-repaired-spec-linkage": "FlowKit-Reviewer", "brief-against-roadmap": "FlowKit-Roadmap Agent",
+            "farmboy-specify": {
+                "inspect-active-feature": "FarmBoy Roadmap Agent", "prepare-specification-request": "FarmBoy Specifier",
+                "draft-specification": "FarmBoy Specifier", "assess-created-spec-linkage": "FarmBoy Reviewer",
+                "verify-repaired-spec-linkage": "FarmBoy Reviewer", "brief-against-roadmap": "FarmBoy Roadmap Agent",
             },
-            "speckit-flow-clarify": {
-                "clarify-session": "FlowKit-Specifier", "assess-clarification-after-session": "FlowKit-Reviewer",
+            "farmboy-clarify": {
+                "clarify-session": "FarmBoy Specifier", "assess-clarification-after-session": "FarmBoy Reviewer",
             },
-            "speckit-flow-plan": {
-                "create-plan": "FlowKit-Planner", "verify-plan-output": "FlowKit-Reviewer",
+            "farmboy-plan": {
+                "create-plan": "FarmBoy Planner", "verify-plan-output": "FarmBoy Reviewer",
             },
-            "speckit-flow-tasks": {
-                "generate-tasks": "FlowKit-Tasker", "verify-task-output": "FlowKit-Reviewer",
+            "farmboy-tasks": {
+                "generate-tasks": "FarmBoy Tasker", "verify-task-output": "FarmBoy Reviewer",
             },
-            "speckit-flow-analyze-remediate": {
-                "remediate-specification": "FlowKit-Specifier", "remediate-plan": "FlowKit-Planner",
-                "remediate-tasks": "FlowKit-Tasker", "analyze-artifacts": "FlowKit-Reviewer", "assess-analysis": "FlowKit-Reviewer",
+            "farmboy-analyze-remediate": {
+                "remediate-specification": "FarmBoy Specifier", "remediate-plan": "FarmBoy Planner",
+                "remediate-tasks": "FarmBoy Tasker", "analyze-artifacts": "FarmBoy Reviewer", "assess-analysis": "FarmBoy Reviewer",
             },
-            "speckit-flow-implement": {
-                "assess-implementation-state": "FlowKit-Reviewer", "run-scoped-preparation": "FlowKit-Coder",
-                "run-scoped-source-implementation": "FlowKit-Coder",
-                "assess-implementation-after-pass": "FlowKit-Code Reviewer",
+            "farmboy-implement": {
+                "assess-implementation-state": "FarmBoy Reviewer", "run-scoped-preparation": "FarmBoy Coder",
+                "run-scoped-source-implementation": "FarmBoy Coder",
+                "assess-implementation-after-pass": "FarmBoy Code Reviewer",
             },
-            "speckit-flow-converge": {
-                "append-task-remediation": "FlowKit-Tasker", "reconcile-convergence-specification": "FlowKit-Specifier",
-                "reconcile-convergence-plan": "FlowKit-Planner", "reconcile-convergence-tasks": "FlowKit-Tasker",
-                "analyze-remediation-tasks": "FlowKit-Reviewer", "assess-remediation-eligibility": "FlowKit-Reviewer",
-                "implement-remediation": "FlowKit-Coder", "assess-convergence": "FlowKit-Code Reviewer",
+            "farmboy-converge": {
+                "append-task-remediation": "FarmBoy Tasker", "reconcile-convergence-specification": "FarmBoy Specifier",
+                "reconcile-convergence-plan": "FarmBoy Planner", "reconcile-convergence-tasks": "FarmBoy Tasker",
+                "analyze-remediation-tasks": "FarmBoy Reviewer", "assess-remediation-eligibility": "FarmBoy Reviewer",
+                "implement-remediation": "FarmBoy Coder", "assess-convergence": "FarmBoy Code Reviewer",
             },
-            "speckit-flow-closeout": {
-                "assess-closeout-readiness": "FlowKit-Reviewer", "mark-converged-specification-complete": "FlowKit-Specifier",
-                "debrief-roadmap": "FlowKit-Reviewer", "assess-closeout-debrief": "FlowKit-Code Reviewer",
-                "reconcile-closeout-specification": "FlowKit-Specifier", "reconcile-closeout-plan": "FlowKit-Planner",
-                "reconcile-closeout-tasks": "FlowKit-Tasker", "analyze-closeout-artifacts": "FlowKit-Reviewer",
-                "assess-closeout-task-eligibility": "FlowKit-Reviewer", "implement-closeout-eligible-tasks": "FlowKit-Coder",
-                "prepare-wiki-maintenance": "FlowKit-Roadmap Agent", "ingest-curated-context": "FlowKit-Wiki Curator",
-                "lint-wiki": "FlowKit-Reviewer", "assess-wiki-maintenance": "FlowKit-Reviewer", "verify-closeout-readiness": "FlowKit-Reviewer",
+            "farmboy-closeout": {
+                "assess-closeout-readiness": "FarmBoy Reviewer", "mark-converged-specification-complete": "FarmBoy Specifier",
+                "debrief-roadmap": "FarmBoy Reviewer", "assess-closeout-debrief": "FarmBoy Code Reviewer",
+                "reconcile-closeout-specification": "FarmBoy Specifier", "reconcile-closeout-plan": "FarmBoy Planner",
+                "reconcile-closeout-tasks": "FarmBoy Tasker", "analyze-closeout-artifacts": "FarmBoy Reviewer",
+                "assess-closeout-task-eligibility": "FarmBoy Reviewer", "implement-closeout-eligible-tasks": "FarmBoy Coder",
+                "prepare-wiki-maintenance": "FarmBoy Roadmap Agent", "ingest-curated-context": "FarmBoy Wiki Curator",
+                "lint-wiki": "FarmBoy Reviewer", "assess-wiki-maintenance": "FarmBoy Reviewer", "verify-closeout-readiness": "FarmBoy Reviewer",
             },
         }
-        expectations["speckit-flow-wiki-lint-update"] = {
-            "lint-wiki": "FlowKit-Reviewer", "assess-wiki-findings": "FlowKit-Reviewer", "refresh-stale-source": "FlowKit-Wiki Curator",
+        expectations["farmboy-wiki-lint-update"] = {
+            "lint-wiki": "FarmBoy Reviewer", "assess-wiki-findings": "FarmBoy Reviewer", "refresh-stale-source": "FarmBoy Wiki Curator",
         }
         expected_versions = {
-            "speckit-flow-wiki-lint-update": "0.2.0",
-            "speckit-flow-start-feature": "0.6.0", "speckit-flow-select-feature": "0.2.0", "speckit-flow-specify": "0.3.0", "speckit-flow-clarify": "0.5.0",
-            "speckit-flow-plan": "0.5.0", "speckit-flow-tasks": "0.5.0",
-            "speckit-flow-analyze-remediate": "0.6.0", "speckit-flow-implement": "0.8.0",
-            "speckit-flow-converge": "0.5.0", "speckit-flow-closeout": "0.8.0",
+            "farmboy-wiki-lint-update": "0.2.0",
+            "farmboy-start-feature": "0.6.0", "farmboy-select-feature": "0.2.0", "farmboy-specify": "0.3.0", "farmboy-clarify": "0.5.0",
+            "farmboy-plan": "0.5.0", "farmboy-tasks": "0.5.0",
+            "farmboy-analyze-remediate": "0.6.0", "farmboy-implement": "0.8.0",
+            "farmboy-converge": "0.5.0", "farmboy-closeout": "0.8.0",
         }
         step_pattern = __import__("re").compile(r"^(\s*)- id: ([A-Za-z0-9_-]+)$")
         for workflow_id, expected_steps in expectations.items():
@@ -159,7 +159,7 @@ class CatalogReleaseTests(unittest.TestCase):
                 agent_key_indent = indent + "  "
                 agent_value_indent = indent + "    "
                 if step_id in expected_steps:
-                    self.assertIn(agent_key_indent + "flow_kit:", block, f"{workflow_id}:{step_id}")
+                    self.assertIn(agent_key_indent + "farmboy:", block, f"{workflow_id}:{step_id}")
                     self.assertIn(agent_value_indent + "delegated: true", block, f"{workflow_id}:{step_id}")
                     matching_agents = [line.strip().removeprefix("agent: ") for line in block if line.startswith(agent_value_indent + "agent: ")]
                     self.assertEqual([expected_steps[step_id]], matching_agents, f"{workflow_id}:{step_id}")
@@ -183,15 +183,15 @@ class CatalogReleaseTests(unittest.TestCase):
             archive = project / "controller-package.zip"
             catalog.package_controller(archive)
             catalog.install_controller_package(project, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            record = json.loads((project / ".specify/flow-kit/skills-install.json").read_text(encoding="utf-8"))
+            record = json.loads((project / ".specify/farmboy/skills-install.json").read_text(encoding="utf-8"))
             self.assertEqual("installed", record["status"])
             self.assertEqual(10, len(record["controllers"]))
             catalog.remove_controller_package(project)
             self.assertTrue(recovery.is_file())
             self.assertTrue(feedback.is_file())
             self.assertEqual("consumer-owned", local_skill.read_text(encoding="utf-8"))
-            self.assertFalse((project / ".specify/flow-kit/skills-install.json").exists())
-            self.assertFalse((project / ".agents/skills/flow-kit-tasks").exists())
+            self.assertFalse((project / ".specify/farmboy/skills-install.json").exists())
+            self.assertFalse((project / ".agents/skills/farmboy-tasks").exists())
 
     def testRefreshRetiresUnchangedDeprecatedLauncherButBlocksEditedCopy(self) -> None:
         for edited in (False, True):
@@ -200,10 +200,10 @@ class CatalogReleaseTests(unittest.TestCase):
                 archive = project / "controllers.zip"
                 catalog.package_controller(archive)
                 catalog.install_controller_package(project, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
-                legacy = project / ".agents/skills/flow-kit-start-feature/SKILL.md"
+                legacy = project / ".agents/skills/farmboy-start-feature/SKILL.md"
                 legacy.parent.mkdir(parents=True)
                 legacy.write_text("legacy owned launcher")
-                record_path = project / ".specify/flow-kit/skills-install.json"
+                record_path = project / ".specify/farmboy/skills-install.json"
                 record = json.loads(record_path.read_text())
                 record["files"][legacy.relative_to(project).as_posix()] = catalog.digest(legacy)
                 record_path.write_text(json.dumps(record))
@@ -215,12 +215,12 @@ class CatalogReleaseTests(unittest.TestCase):
                 else:
                     catalog.install_controller_package(project, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="snapshot")
                     self.assertFalse(legacy.exists())
-                    self.assertTrue((project / ".agents/skills/flow-kit-select-feature/SKILL.md").exists())
+                    self.assertTrue((project / ".agents/skills/farmboy-select-feature/SKILL.md").exists())
 
     def test_controllerInstall_preflightsNameCollisionBeforeWriting(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
-            conflict = project / ".agents/skills/flow-kit-clarify/SKILL.md"
+            conflict = project / ".agents/skills/farmboy-clarify/SKILL.md"
             conflict.parent.mkdir(parents=True)
             conflict.write_text("consumer-owned", encoding="utf-8")
             archive = project / "controller-package.zip"
@@ -228,7 +228,7 @@ class CatalogReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "consumer-owned path conflicts"):
                 catalog.install_controller_package(project, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
             self.assertEqual("consumer-owned", conflict.read_text(encoding="utf-8"))
-            self.assertFalse((project / ".specify/flow-kit/skills-install.json").exists())
+            self.assertFalse((project / ".specify/farmboy/skills-install.json").exists())
 
     def test_controllerRefresh_installsSkillsForLegacyBundleWithoutOwnershipRecord(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -236,15 +236,15 @@ class CatalogReleaseTests(unittest.TestCase):
             archive = project / "controller-package.zip"
             catalog.package_controller(archive)
             catalog.install_controller_package(project, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="released")
-            record = json.loads((project / ".specify/flow-kit/skills-install.json").read_text(encoding="utf-8"))
+            record = json.loads((project / ".specify/farmboy/skills-install.json").read_text(encoding="utf-8"))
             self.assertEqual("installed", record["status"])
             self.assertEqual(10, len(record["controllers"]))
-            self.assertTrue((project / ".agents/skills/flow-kit-tasks/SKILL.md").is_file())
+            self.assertTrue((project / ".agents/skills/farmboy-tasks/SKILL.md").is_file())
 
     def test_controllerRefresh_legacyBundleRejectsConsumerSkillCollision(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
-            conflict = project / ".agents/skills/flow-kit-tasks/SKILL.md"
+            conflict = project / ".agents/skills/farmboy-tasks/SKILL.md"
             conflict.parent.mkdir(parents=True)
             conflict.write_text("consumer-owned", encoding="utf-8")
             archive = project / "controller-package.zip"
@@ -252,7 +252,7 @@ class CatalogReleaseTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "consumer-owned path conflicts"):
                 catalog.install_controller_package(project, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="released")
             self.assertEqual("consumer-owned", conflict.read_text(encoding="utf-8"))
-            self.assertFalse((project / ".specify/flow-kit/skills-install.json").exists())
+            self.assertFalse((project / ".specify/farmboy/skills-install.json").exists())
 
     def test_controllerRefreshAndRemoval_preserveLocallyEditedOwnedFile(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -260,11 +260,11 @@ class CatalogReleaseTests(unittest.TestCase):
             archive = project / "controller-package.zip"
             catalog.package_controller(archive)
             catalog.install_controller_package(project, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            edited = project / ".agents/skills/flow-kit-tasks/SKILL.md"
+            edited = project / ".agents/skills/farmboy-tasks/SKILL.md"
             edited.write_text(edited.read_text(encoding="utf-8") + "\nlocal edit\n", encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "locally changed FlowKit-owned"):
+            with self.assertRaisesRegex(ValueError, "locally changed FarmBoy owned"):
                 catalog.install_controller_package(project, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            with self.assertRaisesRegex(ValueError, "locally changed FlowKit-owned"):
+            with self.assertRaisesRegex(ValueError, "locally changed FarmBoy owned"):
                 catalog.remove_controller_package(project)
             self.assertIn("local edit", edited.read_text(encoding="utf-8"))
 
@@ -272,12 +272,12 @@ class CatalogReleaseTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             project = root / "consumer"
-            record_path = project / ".specify/flow-kit/skills-install.json"
+            record_path = project / ".specify/farmboy/skills-install.json"
             record_path.parent.mkdir(parents=True)
             outside = root / "outside.txt"
             outside.write_text("consumer-owned", encoding="utf-8")
             record_path.write_text(json.dumps({
-                "package": "flow-kit-controllers", "status": "installed",
+                "package": "farmboy-controllers", "status": "installed",
                 "files": {"../outside.txt": catalog.digest(outside)},
             }), encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "ownership path"):
@@ -316,8 +316,8 @@ class CatalogReleaseTests(unittest.TestCase):
             with patch.object(catalog, "_atomic_bytes", side_effect=fail_once):
                 with self.assertRaisesRegex(OSError, "partial install failure"):
                     catalog.install_controller_package(project, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            self.assertFalse((project / ".specify/flow-kit/skills-install.json").exists())
-            self.assertFalse(any((project / ".agents/skills").glob("flow-kit-*/**/*")))
+            self.assertFalse((project / ".specify/farmboy/skills-install.json").exists())
+            self.assertFalse(any((project / ".agents/skills").glob("farmboy-*/**/*")))
 
     def test_install_allowsSourceCheckout_butRejectsNestedTarget(self) -> None:
         with patch.object(catalog, "verified_release", side_effect=ValueError("release checked")):
@@ -327,7 +327,7 @@ class CatalogReleaseTests(unittest.TestCase):
                 catalog.install(catalog.ROOT / "workflows", False)
 
     def test_verifiedRelease_rejectsSnapshotRelabeledAsReleased(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-status-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-catalog-status-") as temporary:
             temporary_catalog = Path(temporary)
             temporary_release = temporary_catalog / "release.json"
             release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
@@ -339,7 +339,7 @@ class CatalogReleaseTests(unittest.TestCase):
                     catalog.verified_release(temporary_catalog, temporary_release)
 
     def test_developmentSnapshot_usesExplicitCompatibleExtensionSource(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-extension-source-") as source_dir, tempfile.TemporaryDirectory(prefix="spec-kit-flow-source-snapshot-") as snapshot_dir:
+        with tempfile.TemporaryDirectory(prefix="farmboy-extension-source-") as source_dir, tempfile.TemporaryDirectory(prefix="farmboy-source-snapshot-") as snapshot_dir:
             source = Path(source_dir)
             version = catalog.bundle_components()[1]["extensions"]["flow-roadmap"]
             (source / "extension.yml").write_text(
@@ -356,15 +356,26 @@ class CatalogReleaseTests(unittest.TestCase):
             self.assertEqual(subprocess.run(["git", "rev-parse", "HEAD"], cwd=source, text=True, capture_output=True, check=True).stdout.strip(), entry["source_commit"])
             self.assertFalse(entry["source_dirty"])
             self.assertTrue((snapshot / "packages" / entry["artifact"]).is_file())
+            feedback = release["extensions"]["farmboy-feedback"]
+            self.assertEqual("https://github.com/pegagio/spec-kit-flow", feedback["source_repository"])
+            self.assertEqual("farmboy-feedback-0.2.1.zip", feedback["artifact"])
+            self.assertTrue(feedback["source_dirty"])
+            self.assertTrue((snapshot / "packages" / feedback["artifact"]).is_file())
             self.assertEqual(release, catalog.verified_release(snapshot, snapshot / "release.json"))
 
     def test_developmentSnapshot_requiresSourceWhenExtensionPinChanges(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-source-snapshot-") as snapshot_dir:
-            with self.assertRaisesRegex(ValueError, "development snapshot source required for changed extension pin"):
-                catalog.build_development_snapshot(Path(snapshot_dir))
+        with tempfile.TemporaryDirectory(prefix="farmboy-source-snapshot-") as temporary:
+            previous = json.loads(catalog.RELEASE.read_text(encoding="utf-8"))
+            previous["extensions"]["flow-roadmap"]["version"] = "0.2.0"
+            previous_release = Path(temporary) / "previous-release.json"
+            previous_release.write_text(json.dumps(previous), encoding="utf-8")
+            snapshot = Path(temporary) / "snapshot"
+            with patch.object(catalog, "RELEASE", previous_release):
+                with self.assertRaisesRegex(ValueError, "development snapshot source required for changed extension pin"):
+                    catalog.build_development_snapshot(snapshot)
 
     def test_verifiedRelease_rejectsControllerInventoryMismatch(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-controller-inventory-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-controller-inventory-") as temporary:
             temporary_catalog = Path(temporary)
             release_path = temporary_catalog / "release.json"
             release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
@@ -375,7 +386,7 @@ class CatalogReleaseTests(unittest.TestCase):
                     catalog.verified_release(temporary_catalog, release_path)
 
     def test_install_rejectsSnapshot_beforeStartingCatalog(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-consumer-") as project:
+        with tempfile.TemporaryDirectory(prefix="farmboy-consumer-") as project:
             Path(project, ".specify").mkdir()
             snapshot = {"status": "snapshot"}
             with patch.object(catalog, "verified_release", return_value=snapshot):
@@ -386,7 +397,7 @@ class CatalogReleaseTests(unittest.TestCase):
                     catalog.install(Path(project), True, True)
 
     def test_snapshotDogfood_allowsOnlyInitializedRootOrTemporaryConsumers(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-dogfood-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-dogfood-") as temporary:
             root = Path(temporary).resolve() / "source"
             root.mkdir()
             other = Path(temporary).resolve() / "other"
@@ -419,7 +430,7 @@ class CatalogReleaseTests(unittest.TestCase):
                         catalog.install(disposable, True, True)
 
     def test_releaseTag_requiresAnnotatedTagAtCheckedOutCommit(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-release-tag-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-release-tag-") as temporary:
             source = Path(temporary)
             for arguments in (
                 ("init", "-q"),
@@ -439,12 +450,12 @@ class CatalogReleaseTests(unittest.TestCase):
                 catalog.release_tag(source, "1.0.0", "0" * 40)
 
     def test_localReleaseSources_rejectDirtyWorkflowAndBundle(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-release-source-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-release-source-") as temporary:
             root = Path(temporary)
             for arguments in (("init", "-q"), ("config", "user.name", "Example Maintainer"), ("config", "user.email", "maintainer@example.invalid")):
                 subprocess.run(["git", *arguments], cwd=root, check=True, capture_output=True)
             workflow = root / "workflows/example/workflow.yml"
-            bundle = root / "bundles/spec-kit-flow/bundle.yml"
+            bundle = root / "bundles/farmboy/bundle.yml"
             workflow.parent.mkdir(parents=True)
             bundle.parent.mkdir(parents=True)
             workflow.write_text("version: 1\n", encoding="utf-8")
@@ -459,14 +470,14 @@ class CatalogReleaseTests(unittest.TestCase):
                 path.write_text("version: 1\n", encoding="utf-8")
 
     def test_verifiedRelease_rejectsChangedPackage_whenChecksumNoLongerMatches(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-integrity-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-catalog-integrity-") as temporary:
             temporary_catalog = Path(temporary)
             temporary_release = temporary_catalog / "release.json"
             release = catalog.build_development_snapshot(temporary_catalog, source_overrides={"flow-roadmap": self.compatible_roadmap_source(temporary_catalog)})
-            package = temporary_catalog / "packages" / release["extensions"]["flow-feedback"]["artifact"]
+            package = temporary_catalog / "packages" / release["extensions"]["farmboy-feedback"]["artifact"]
             package.write_bytes(package.read_bytes() + b"changed")
             with patch.object(catalog, "CATALOG", temporary_catalog), patch.object(catalog, "RELEASE", temporary_release):
-                with self.assertRaisesRegex(ValueError, "missing or mismatched: flow-feedback"):
+                with self.assertRaisesRegex(ValueError, "missing or mismatched: farmboy-feedback"):
                     catalog.verified_release(temporary_catalog, temporary_release)
 
 
@@ -501,9 +512,9 @@ class AgentPackageValidationTests(unittest.TestCase):
                     catalog.validate_agent_manifest(manifest)
 
     def test_malformedAndMismatchedDefinitions_rejected(self):
-        for content in (b'invalid = [', b'name="Wrong"\ndescription="D"\ndeveloper_instructions="I"', b'name="FlowKit-Planner"'):
+        for content in (b'invalid = [', b'name="Wrong"\ndescription="D"\ndeveloper_instructions="I"', b'name="FarmBoy Planner"'):
             with self.subTest(content=content), self.assertRaises(ValueError):
-                catalog.validate_agent_definition(content, 'FlowKit-Planner')
+                catalog.validate_agent_definition(content, 'FarmBoy Planner')
 
     def test_regularSourcesAndArchive_allowlistAndVersion_checked(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -529,8 +540,8 @@ class AgentPackageValidationTests(unittest.TestCase):
     def test_resetOnlyCurrentManifestTargets(self):
         manifest = catalog.agent_manifest()
         self.assertEqual(manifest['agents'], catalog.select_agent_targets(manifest, all_agents=True))
-        self.assertEqual(1, len(catalog.select_agent_targets(manifest, agent='FlowKit-Planner')))
-        for args in ({}, {'agent': '*'}, {'agent': 'Planner'}, {'agent': 'FlowKit-Planner', 'all_agents': True}):
+        self.assertEqual(1, len(catalog.select_agent_targets(manifest, agent='FarmBoy Planner')))
+        for args in ({}, {'agent': '*'}, {'agent': 'Planner'}, {'agent': 'FarmBoy Planner', 'all_agents': True}):
             with self.subTest(args=args), self.assertRaises(ValueError):
                 catalog.select_agent_targets(manifest, **args)
 

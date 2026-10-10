@@ -112,7 +112,7 @@ def _capture_post_pass_command(prompt: str) -> list[str]:
     except ValueError as error:
         raise AssertionError(f"installed production capture command is malformed: {error}") from error
     if (len(command) != 5 or command[0] != "python3"
-            or command[1] != ".specify/flow-kit/scripts/python/controller.py"
+            or command[1] != ".specify/farmboy/scripts/python/controller.py"
             or command[2] != "post-pass-capture" or command[3] != "--project"):
         raise AssertionError(f"installed production capture command is unsupported: {command}")
     project = command[4]
@@ -242,7 +242,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "observed_deficiency": "A follow-up implementation task is needed to finish the reviewed route.",
             "exact_correction": "Add the reviewed follow-up implementation task and preserve its selected identity.",
             "evidence": current_evidence}
-        reviewer_review = {"reviewer": "FlowKit-Code Reviewer",
+        reviewer_review = {"reviewer": "FarmBoy Code Reviewer",
             "baseline_sha256": baseline_capture["baseline_sha256"],
             "findings": [{"id": progress_finding["id"], "task_id": "T002", "status": "resolved",
                 "evidence": current_evidence,
@@ -257,12 +257,12 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         tasker_result = {"revision_state": "updated", "feature_directory": feature, "tasks_path": f"{feature}/tasks.md",
             "tasks_before_sha256": before_sha, "tasks_after_sha256": hashlib.sha256(after.encode()).hexdigest(),
             "finding_ids": ["F020-R001"],
-            "task_mappings": [{"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FlowKit-Tasker"}],
+            "task_mappings": [{"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FarmBoy Tasker"}],
             "reopened_task_ids": [], "added_task_ids": ["T003"], "preserved_completed_task_ids": ["T001"]}
         frozen_scope = {"findings": [{"id": task_revision_finding["id"],
             "exact_correction": task_revision_finding["exact_correction"]}],
             "eligible_task_owners": {}, "approved_specification_sha256": spec_sha,
-            "permitted_added_task_owner": "FlowKit-Tasker", "tasker_owner": "FlowKit-Tasker"}
+            "permitted_added_task_owner": "FarmBoy Tasker", "tasker_owner": "FarmBoy Tasker"}
         revision_scope_sha = controller_module.task_revision_scope_digest(feature, f"{feature}/tasks.md", frozen_scope)
         semantic_review = {"reviewer": "main-controller", "state": "approved", "finding_ids": ["F020-R001"],
             "task_ids": ["T003"], "scope_sha256": revision_scope_sha,
@@ -474,11 +474,11 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         tasker_evidence_file.write_text(json.dumps({"kind": "tasker-marker-tracking", "task_ids": ["T003"]}) + "\n")
         reviewer_evidence_file.write_text(json.dumps({"kind": "independent-marker-review", "task_ids": ["T003"]}) + "\n")
         marker_event = {"predecessor_event_sha256": successor["sha256"], "scope_sha256": scope["scope_sha256"],
-            "tasker_assignment": "FlowKit-Tasker", "tasks_before_text": after, "tasks_after_text": checked_after,
+            "tasker_assignment": "FarmBoy Tasker", "tasks_before_text": after, "tasks_after_text": checked_after,
             "tasker_result": {"state": "ready", "tasks_before_sha256": hashlib.sha256(after.encode()).hexdigest(),
                 "tasks_after_sha256": hashlib.sha256(checked_after.encode()).hexdigest(), "completed_task_ids": ["T003"],
                 "evidence": [{"path": tasker_evidence_path, "sha256": sha(tasker_evidence_file)}]},
-            "reviewer_result": {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T003"],
+            "reviewer_result": {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T003"],
                 "evidence": [{"path": reviewer_evidence_path, "sha256": sha(reviewer_evidence_file)}]}}
         marker_event["sha256"] = digest(marker_event)
         tasks_path.write_text(checked_after, encoding="utf-8")
@@ -490,7 +490,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             raise AssertionError(f"installed marker successor did not follow the revision chain: {tracked_scope}")
         source_path.write_text("def result(): return 'corrected'\n", encoding="utf-8")
         current_source_evidence = [{"path": f"{feature}/implementation.py", "sha256": sha(source_path)}]
-        progress_review = {"reviewer": "FlowKit-Code Reviewer",
+        progress_review = {"reviewer": "FarmBoy Code Reviewer",
             "baseline_sha256": baseline_capture["baseline_sha256"],
             "findings": [{"id": progress_finding["id"], "task_id": "T002", "status": "resolved",
                 "resolution_summary": "The original reproduction now passes against the corrected source.",
@@ -534,25 +534,25 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         if unsubstantiated.get("state") != "blocked":
             raise AssertionError(f"installed Tasker checkbox was treated as completion proof: {unsubstantiated}")
         (consumer / f"{feature}/validation/completion-review.json").write_text(
-            json.dumps({"reviewer": "FlowKit-Code Reviewer", "task_ids": ["T002", "T003"],
+            json.dumps({"reviewer": "FarmBoy Code Reviewer", "task_ids": ["T002", "T003"],
                         "finding_ids": [progress_finding["id"]]}, sort_keys=True) + "\n", encoding="utf-8")
         completion_review_evidence = [{"path": f"{feature}/validation/completion-review.json",
                                        "sha256": sha(consumer / f"{feature}/validation/completion-review.json")}]
         (consumer / f"{feature}/validation/tasker-final-tracking.json").write_text(
-            json.dumps({"owner": "FlowKit-Tasker", "completed_task_ids": ["T002"]}, sort_keys=True) + "\n",
+            json.dumps({"owner": "FarmBoy Tasker", "completed_task_ids": ["T002"]}, sort_keys=True) + "\n",
             encoding="utf-8")
         (consumer / f"{feature}/validation/reviewer-final-tracking.json").write_text(
-            json.dumps({"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T002"]}, sort_keys=True) + "\n",
+            json.dumps({"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T002"]}, sort_keys=True) + "\n",
             encoding="utf-8")
         final_tasks = checked_after.replace("- [ ] T002", "- [x] T002")
         final_tasker_event = {"predecessor_event_sha256": marker_event["sha256"],
-            "scope_sha256": scope["scope_sha256"], "tasker_assignment": "FlowKit-Tasker",
+            "scope_sha256": scope["scope_sha256"], "tasker_assignment": "FarmBoy Tasker",
             "tasks_before_text": checked_after, "tasks_after_text": final_tasks,
             "tasker_result": {"state": "ready", "tasks_before_sha256": hashlib.sha256(checked_after.encode()).hexdigest(),
                 "tasks_after_sha256": hashlib.sha256(final_tasks.encode()).hexdigest(), "completed_task_ids": ["T002"],
                 "evidence": [{"path": f"{feature}/validation/tasker-final-tracking.json",
                               "sha256": sha(consumer / f"{feature}/validation/tasker-final-tracking.json")}]},
-            "reviewer_result": {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T002"],
+            "reviewer_result": {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T002"],
                 "evidence": [{"path": f"{feature}/validation/reviewer-final-tracking.json",
                               "sha256": sha(consumer / f"{feature}/validation/reviewer-final-tracking.json")}]}}
         final_tasker_event["sha256"] = digest(final_tasker_event)
@@ -561,7 +561,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         t003_source.write_text("def successor(): return 'corrected'\n", encoding="utf-8")
         final_source_evidence = [{"path": f"{feature}/implementation.py", "sha256": sha(source_path)},
                                  {"path": f"{feature}/tasker-successor.py", "sha256": sha(t003_source)}]
-        completion_review = {"reviewer": "FlowKit-Code Reviewer",
+        completion_review = {"reviewer": "FarmBoy Code Reviewer",
             "baseline_sha256": baseline_capture["baseline_sha256"],
             "findings": [{"id": progress_finding["id"], "task_id": "T002", "status": "resolved",
                 "resolution_summary": "The original finding is fixed and its behavior regression passed.",
@@ -607,7 +607,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
                 "completion_kind": "substantive-implementation", "scope_sha256": scope["scope_sha256"],
                 "requirements": [{"requirement_id": "behavior", "satisfied": True, "evidence": [source_item]}],
                 "proof_evidence": [source_item],
-                "review_evidence": {"reviewer": "FlowKit-Code Reviewer", "verdict": "complete",
+                "review_evidence": {"reviewer": "FarmBoy Code Reviewer", "verdict": "complete",
                     "reference": f"{feature}/validation/completion-review.json",
                     "sha256": sha(consumer / f"{feature}/validation/completion-review.json")},
                 "activation_sha256": digest(activation_packets[task_id]),
@@ -1048,7 +1048,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                 # the modeled Coder effect below.
                 initial_readiness_inputs = {f"{feature}/{name}": sha(feature_root / name)
                                             for name in ("spec.md", "plan.md", "tasks.md")}
-                initial_reviewer_report = {"reviewer": "FlowKit-Reviewer", "state": "complete",
+                initial_reviewer_report = {"reviewer": "FarmBoy Reviewer", "state": "complete",
                     "findings": [], "reviewed_inputs": initial_readiness_inputs}
                 initial_readiness = controller_module.assess_readiness(
                     consumer, feature, initial_reviewer_report)
@@ -1147,7 +1147,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                     source_path.write_text(f"reviewed implementation for {case_id}/{task_id}\n", encoding="utf-8")
                     source_change = {"path": f"{feature}/{source_path.name}",
                         "before_sha256": before_sha256, "after_sha256": sha(source_path),
-                        "reviewer": "FlowKit-Code Reviewer", "verdict": "complete"}
+                        "reviewer": "FarmBoy Code Reviewer", "verdict": "complete"}
                     chronology_operations.append({"operation": "substantive-source-effect", "task_id": task_id,
                         "path": source_change["path"], "before_sha256": before_sha256,
                         "after_sha256": source_change["after_sha256"]})
@@ -1191,10 +1191,10 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             tasker_record = {"state": "ready", "tasks_before_sha256": hashlib.sha256(before_text.encode()).hexdigest(),
                 "tasks_after_sha256": hashlib.sha256(after_text.encode()).hexdigest(),
                 "completed_task_ids": transition_completed, "evidence": tasker_evidence}
-            reviewer_record = {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": transition_completed,
+            reviewer_record = {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": transition_completed,
                 "evidence": reviewer_evidence}
             transition = {"predecessor_event_sha256": "0" * 64, "scope_sha256": scope["scope_sha256"],
-                "tasker_assignment": "FlowKit-Tasker", "tasks_before_text": before_text,
+                "tasker_assignment": "FarmBoy Tasker", "tasks_before_text": before_text,
                 "tasks_after_text": after_text, "tasker_result": tasker_record,
                 "reviewer_result": reviewer_record}
             transition["sha256"] = digest(transition)
@@ -1243,7 +1243,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             raise AssertionError(f"{case_id}: installed readiness helper is unavailable")
         readiness_inputs = {f"{feature}/{name}": sha(feature_root / name)
                             for name in ("spec.md", "plan.md", "tasks.md")}
-        reviewer_report = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        reviewer_report = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                            "reviewed_inputs": readiness_inputs}
         if case_id == "SI008":
             # Keep the independent verdict bound to the earlier plan, then make it stale.
@@ -1310,7 +1310,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                          "completion_kind": kind, "scope_sha256": scope["scope_sha256"],
                          "requirements": [{"requirement_id": requirements[0], "satisfied": True, "evidence": ev}],
                          "proof_evidence": ev,
-                         "review_evidence": {"reviewer": "FlowKit-Code Reviewer", "verdict": "complete",
+                         "review_evidence": {"reviewer": "FarmBoy Code Reviewer", "verdict": "complete",
                                              "reference": f"deterministic-review-{case_id}-{task_id}", "sha256": "c" * 64}}
                 if kind == "administrative-prerequisite":
                     administrative_effect = task_transition_proofs[task_id]["administrative_effect"]
@@ -1475,7 +1475,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             baseline_finding = baseline_capture["baseline"]["findings"][0]
             current_evidence = [{"path": baseline_finding["evidence"][0]["path"],
                                  "sha256": sha(consumer / baseline_finding["evidence"][0]["path"])}]
-            review = {"reviewer": "FlowKit-Code Reviewer",
+            review = {"reviewer": "FarmBoy Code Reviewer",
                 "baseline_sha256": baseline_capture["baseline_sha256"],
                 "findings": [{"id": baseline_finding["id"], "task_id": baseline_finding["task_id"],
                     "status": "unresolved", "evidence": current_evidence}],
@@ -1525,7 +1525,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                     "sha256": sha(consumer / source_change["path"])})
                 task_completion_evidence.extend(proof["reviewer_evidence"])
                 task_completion_evidence.extend(proof["tasker_evidence"])
-            review = {"reviewer": "FlowKit-Code Reviewer",
+            review = {"reviewer": "FarmBoy Code Reviewer",
                 "baseline_sha256": baseline_capture["baseline_sha256"], "findings": review_findings,
                 "new_findings": new_findings, "completed_task_ids": completed_source_tasks}
             if task_completion_evidence:

@@ -1,6 +1,6 @@
 # Agent Python Environment
 
-This guide provides a small, opt-in project-local Python setup for agents that need PyYAML during ordinary repository work. It uses existing mise and uv, installs no Python packages globally, and keeps each project's `.venv` local. It is separate from Spec Kit Flow bundle installation. The unchanged recipe and its check support Python `3.11.16`; leave different existing Python pins untouched pending an operator decision. This recipe does not validate alternate Python versions.
+This guide provides a small, opt-in project-local Python setup for agents that need PyYAML during ordinary repository work. It uses existing mise and uv, installs no Python packages globally, and keeps each project's `.venv` local. It is separate from FarmBoy bundle installation. The unchanged recipe and its check support Python `3.11.16`; leave different existing Python pins untouched pending an operator decision. This recipe does not validate alternate Python versions.
 
 ## Copyable project inputs
 

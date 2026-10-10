@@ -1,96 +1,98 @@
 {
   "agent_package": {
-    "artifact": "flow-kit-agents-0.1.0.zip",
-    "id": "flow-kit-agents",
-    "sha256": "410266fc9dc79a78ed267c58a96e745a7e1980db6f9bd1c9a444b15402bb7f0f",
-    "source_commit": "ced0e9e67e49d1ff757e41e313445d5b504a8f9f",
+    "artifact": "farmboy-agents-0.2.0.zip",
+    "id": "farmboy-agents",
+    "sha256": "e12aaf80e5ae88f06180efdba2d4154fe5658bf15ebfe21e58f7b61bb307e39a",
+    "source_commit": "b6dcae9de22147f867717e322c7bb2cb8a240715",
     "source_repository": "https://github.com/pegagio/spec-kit-flow",
-    "source_sha256": "40e0ee5b2862ff7e701fcc744fb8a75965fe73b4751d0f7980622e557dc1cf5c",
+    "source_sha256": "e638cd309f584b7f567e0ab6d2e53f65a220d8b1cd7b91a6a2f665be01988cf2",
     "status": "snapshot",
-    "version": "0.1.0"
+    "version": "0.2.0"
   },
-  "bundle_version": "0.14.0",
+  "bundle_version": "0.18.0",
   "controller_package": {
-    "artifact": "flow-kit-controllers-0.6.0.zip",
+    "artifact": "farmboy-controllers-0.8.0.zip",
     "controllers": [
       {
-        "display_name": "FlowKit Select Feature",
-        "skill_id": "flow-kit-select-feature",
-        "workflow_id": "speckit-flow-select-feature"
+        "display_name": "FarmBoy Select Feature",
+        "skill_id": "farmboy-select-feature",
+        "workflow_id": "farmboy-select-feature"
       },
       {
-        "display_name": "FlowKit Specify",
-        "skill_id": "flow-kit-specify",
-        "workflow_id": "speckit-flow-specify"
+        "display_name": "FarmBoy Specify",
+        "skill_id": "farmboy-specify",
+        "workflow_id": "farmboy-specify"
       },
       {
-        "display_name": "FlowKit Clarify",
-        "skill_id": "flow-kit-clarify",
-        "workflow_id": "speckit-flow-clarify"
+        "display_name": "FarmBoy Clarify",
+        "skill_id": "farmboy-clarify",
+        "workflow_id": "farmboy-clarify"
       },
       {
-        "display_name": "FlowKit Plan",
-        "skill_id": "flow-kit-plan",
-        "workflow_id": "speckit-flow-plan"
+        "display_name": "FarmBoy Plan",
+        "skill_id": "farmboy-plan",
+        "workflow_id": "farmboy-plan"
       },
       {
-        "display_name": "FlowKit Tasks",
-        "skill_id": "flow-kit-tasks",
-        "workflow_id": "speckit-flow-tasks"
+        "display_name": "FarmBoy Tasks",
+        "skill_id": "farmboy-tasks",
+        "workflow_id": "farmboy-tasks"
       },
       {
-        "display_name": "FlowKit Analyze",
-        "skill_id": "flow-kit-analyze-remediate",
-        "workflow_id": "speckit-flow-analyze-remediate"
+        "display_name": "FarmBoy Analyze",
+        "skill_id": "farmboy-analyze-remediate",
+        "workflow_id": "farmboy-analyze-remediate"
       },
       {
-        "display_name": "FlowKit Implement",
-        "skill_id": "flow-kit-implement",
-        "workflow_id": "speckit-flow-implement"
+        "display_name": "FarmBoy Implement",
+        "skill_id": "farmboy-implement",
+        "workflow_id": "farmboy-implement"
       },
       {
-        "display_name": "FlowKit Converge",
-        "skill_id": "flow-kit-converge",
-        "workflow_id": "speckit-flow-converge"
+        "display_name": "FarmBoy Converge",
+        "skill_id": "farmboy-converge",
+        "workflow_id": "farmboy-converge"
       },
       {
-        "display_name": "FlowKit Close Out",
-        "skill_id": "flow-kit-closeout",
-        "workflow_id": "speckit-flow-closeout"
+        "display_name": "FarmBoy Close Out",
+        "skill_id": "farmboy-closeout",
+        "workflow_id": "farmboy-closeout"
       },
       {
-        "display_name": "FlowKit Wiki Lint Update",
-        "skill_id": "flow-kit-wiki-lint-update",
-        "workflow_id": "speckit-flow-wiki-lint-update"
+        "display_name": "FarmBoy Wiki Lint Update",
+        "skill_id": "farmboy-wiki-lint-update",
+        "workflow_id": "farmboy-wiki-lint-update"
       }
     ],
-    "id": "flow-kit-controllers",
-    "sha256": "bc96a2236230ed4248f4bb5fd066c21dcde671f4d0260f937529ec5e601e122e",
-    "source_commit": "ced0e9e67e49d1ff757e41e313445d5b504a8f9f",
+    "id": "farmboy-controllers",
+    "sha256": "5aa365ff5ec585415248499ecc2418e93a4e43338977279a1cd49a6f42e2842d",
+    "source_commit": "b6dcae9de22147f867717e322c7bb2cb8a240715",
     "source_dirty": true,
-    "source_sha256": "bc96a2236230ed4248f4bb5fd066c21dcde671f4d0260f937529ec5e601e122e",
-    "version": "0.6.0"
+    "source_sha256": "5aa365ff5ec585415248499ecc2418e93a4e43338977279a1cd49a6f42e2842d",
+    "version": "0.8.0"
   },
   "extensions": {
-    "flow-feedback": {
-      "artifact": "flow-feedback-0.2.1.zip",
+    "farmboy-feedback": {
+      "artifact": "farmboy-feedback-0.2.1.zip",
       "author": "pegagio",
-      "name": "Spec Kit Flow Feedback",
-      "sha256": "c666b11aa9f10c49ef879191a30a1f06d593d6fe7e404d71a0fc7145d0c75670",
-      "source_commit": "6b4c680d0b284f08e149cd0464e4c1f752b5cb7c",
+      "name": "FarmBoy Feedback",
+      "sha256": "6eb29db32dfb072470fc0b558b0f064381161dc2f94c400d994885a94ca2a058",
+      "source_commit": "b6dcae9de22147f867717e322c7bb2cb8a240715",
+      "source_dirty": true,
       "source_repository": "https://github.com/pegagio/spec-kit-flow",
       "source_tag": null,
       "version": "0.2.1"
     },
     "flow-roadmap": {
-      "artifact": "flow-roadmap-0.2.1.zip",
+      "artifact": "flow-roadmap-0.3.0.zip",
       "author": "pegagio",
       "name": "FlowKit Roadmap",
-      "sha256": "2b60d4d63d883ac4772ba8b2e4118de53e4d57765a02f5eac8e25f9a50806a50",
+      "sha256": "063727ec62061be0b101a4b619040f17397e68019838084710a24b8d233e97c1",
       "source_commit": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+      "source_dirty": true,
       "source_repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
-      "source_tag": "v0.2.1",
-      "version": "0.2.1"
+      "source_tag": null,
+      "version": "0.3.0"
     },
     "flow-wiki": {
       "artifact": "flow-wiki-2.0.1.zip",
@@ -106,44 +108,44 @@
   "schema_version": "1.0",
   "status": "snapshot",
   "workflows": {
-    "speckit-flow-analyze-remediate": {
-      "sha256": "3eb892e9b7ef85f32ce1d1bbd7350446b0fd872b1c260f527732ca275fc8e347",
+    "farmboy-analyze-remediate": {
+      "sha256": "4cd4ec13cf7a4bbb980a9196d45f7ee2e7c0fd63ac810d7a1474732d3e423f92",
+      "version": "0.6.0"
+    },
+    "farmboy-clarify": {
+      "sha256": "0fcbf4c54373ff4dd86916ec56ae486477cac2f73d58679caef68d6e8411a949",
       "version": "0.5.0"
     },
-    "speckit-flow-clarify": {
-      "sha256": "fb038e9ad3c778113497cf33462e302c86f09da708d050032b08a4a45fd56392",
+    "farmboy-closeout": {
+      "sha256": "5f9779190aa2592c85595451cdfeef53bc2d015ac3015fc6423a60a456dca010",
+      "version": "0.8.0"
+    },
+    "farmboy-converge": {
+      "sha256": "66bf8e3b04a8b1a770191539cdb1903c0db18d475c761642fea62e2fc5c000ea",
       "version": "0.5.0"
     },
-    "speckit-flow-closeout": {
-      "sha256": "9edc3a629da571d66b6a7deb97468e96c7f37ae23346c3d2652bd24ad89369fc",
-      "version": "0.7.0"
+    "farmboy-implement": {
+      "sha256": "57941248a4390a93479d65857853d704f16a6b3729ebb0ba917dca6c1e45c6ec",
+      "version": "0.8.0"
     },
-    "speckit-flow-converge": {
-      "sha256": "cdedebde93afe957cada251267845ffb6a7246f87aaef0bff984bdedcd04c8e0",
+    "farmboy-plan": {
+      "sha256": "84422ea96280ec293986b7a689fdfd4297a5f0a15b852bf50b6706fd8b1669cf",
       "version": "0.5.0"
     },
-    "speckit-flow-implement": {
-      "sha256": "436f01755581ddcaa2a52d18648e450c6563bb246b85a63a97f428923da48192",
-      "version": "0.5.0"
-    },
-    "speckit-flow-plan": {
-      "sha256": "8ce6bc69dab9a46d4350a952d05b089ae923fb801f729dc34bb3003af4aaf0e9",
-      "version": "0.5.0"
-    },
-    "speckit-flow-select-feature": {
-      "sha256": "90adbb56a95c8c92a266655c043ac35736976a1ec2d5867c5e6cd21193195b4c",
+    "farmboy-select-feature": {
+      "sha256": "3935d342fa627f503688d38633485932b188faa79f802fb97e2f315fa72c251a",
       "version": "0.2.0"
     },
-    "speckit-flow-specify": {
-      "sha256": "49a5c19e086123feae7cf718b3c9a49124d57a51314460e86b2fff272e6042e2",
-      "version": "0.2.0"
+    "farmboy-specify": {
+      "sha256": "9aa575f07573637e86895e3ef6e9a49e5a536473b034bf90eabe47d510a537ac",
+      "version": "0.3.0"
     },
-    "speckit-flow-tasks": {
-      "sha256": "12de4b2ba7c2f382aa32860a545e3966c19ebb7f0e566c1bdc0fb5e98e2ded0e",
+    "farmboy-tasks": {
+      "sha256": "7434fc4d8aa02e5cf51ef358a03ae3cf165b536099fa5086d82169c4f029981f",
       "version": "0.5.0"
     },
-    "speckit-flow-wiki-lint-update": {
-      "sha256": "5e0c05d36ac7b99c1908bb3e7eaf60f483cfcc8867769fd9057441edcbd2553e",
+    "farmboy-wiki-lint-update": {
+      "sha256": "895422e94452ee042739b6464f6e71dea4cbd50d55c0317c9856f5df76fc2b53",
       "version": "0.2.0"
     }
   }

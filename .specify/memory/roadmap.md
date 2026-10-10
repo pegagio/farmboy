@@ -1,6 +1,56 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.25.0 → 1.26.0
+Bump rationale: MINOR — include the directly approved owned feedback and delegation-parser rename in Feature 021.
+Changes: rename both owned feedback extensions and their existing command/skill identities; replace the flow_kit delegation key and owned readers with farmboy, preserving existing behavior and nested fields. Independent roadmap/wiki and core commands stay unchanged.
+Specs affected: 021 (planned; owned rename coverage expanded).
+Open questions added/resolved: Feedback/parser inclusion is settled by direct operator instruction; constitutional identity approval remains required before implementation.
+Notes: Direct operator scope instruction on 2026-10-10. No migration, compatibility fallback, implementation, constitutional amendment, lifecycle advancement or Git integration is authorized by this record. All other feature entries and historical reports are preserved.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.24.1 → 1.25.0
+Bump rationale: MINOR — record the directly approved Feature 021 scope correction to a pure rename cutover.
+Changes: remove consumer migration, compatibility, new management commands, journals and recovery/test-matrix scope; settle canonical names and retain existing behavior. Preserve all other features, states, dependencies and historical evidence.
+Specs affected: 021 (planned; scope narrowed).
+Open questions added/resolved: Naming and compatibility are settled; consumer migration is excluded. The constitutional identity amendment remains open.
+Notes: Direct operator instruction on 2026-10-10: no migration feature, pure cutover, just a rename. Previous scope/review records remain historical; this amendment does not implement the rename, amend the constitution, advance lifecycle or authorize Git integration.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.24.0 → 1.24.1
+Bump rationale: PATCH — restore the approved Feature 021 activation mapping after merging develop.
+Changes: restore only the selected Spec dir linkage; preserve all feature states, dependencies and merged lifecycle evidence.
+Specs affected: 021 (directory mapping only).
+Open questions added/resolved: none.
+Notes: Original activation was explicitly approved on 2026-10-08. This restores the uncommitted selection change preserved before the operator-requested merge on 2026-10-09. The original activation report is retained below; the active pointer still identifies the same target. No specification is created.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.23.0 → 1.23.1
+Bump rationale: PATCH — record the explicitly approved Feature 021 target-directory mapping while preserving its planned lifecycle and existing approved scope.
+
+Changes this revision:
+  - Add Feature 021's Spec dir mapping to specs/021-farmboy-project-workflow-naming for separately invoked specification authoring.
+  - Preserve every feature's lifecycle, scope, dependencies and historical verification evidence.
+  - Retain the separate constitutional amendment required before rename implementation.
+
+Specs affected: 021 (target-directory linkage only)
+Open questions added/resolved: none; identifier, consumer-compatibility and constitutional-amendment decisions remain open.
+
+Notes: Provenance: direct operator selection of Feature 021 and explicit approval of the exact directory mapping and active-pointer payload at the installed Select Feature activation gate on 2026-10-08. The target directory and specification are not created by this amendment. Pointer activation and independent verification are subsequent declared steps; this roadmap change alone does not establish activation, authoring, implementation, publication, Git integration or acceptance.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.23.0 / 1.22.4 → 1.24.0
 Bump rationale: MINOR — reconcile the approved Feature 021 addition with develop's Feature 020 lifecycle and qualified verification history.
 Changes: preserve both feature entries, all prior lifecycle evidence and governing decisions; retain the separately required constitutional identity amendment.
@@ -372,21 +422,28 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 
 ### 021 — FarmBoy Project and Workflow Naming  [status: planned]
 
-- **Description**: Rename Spec Kit Flow / FlowKit to FarmBoy and reconcile its associated skills and workflows.
-- **Outcome**: Operators encounter consistent FarmBoy branding and invocation names across the project's supported interfaces, with existing workflow behavior and human gates preserved.
-- **Scope (in)**: Project branding and owned repository/bundle identities; skill and workflow names, identifiers, paths and references; associated project-owned agent names; installation and migration guidance; affected documentation, packaging and validation. Obtain an explicit constitutional amendment for the identity requirements before implementation.
-- **Scope (out)**: Building the future code factory; unrelated workflow behavior changes; independently owned Spec Kit commands or extension identities; retrospective rewrites of merged feature history; publication, external repository renames, automatic consumer migration or Git integration.
+- **Description**: Rename Spec Kit Flow / FlowKit to FarmBoy through a pure name cutover, including associated skills, workflows, project-owned agents, both feedback extensions and delegation metadata parsing.
+- **Outcome**: Consistent FarmBoy names and invocation references with existing workflow and management behavior preserved; no migration feature or compatibility layer.
+- **Scope (in)**: Owned branding, repository/bundle identities, skill/workflow/agent names, identifiers, source paths and references; owned feedback capture/report/intake extension, command and skill identities; `flow_kit` → `farmboy` metadata key and owned parsers/validators; current usage/install documentation, packaging metadata and existing test expectations. Obtain a separately approved constitutional identity amendment before implementation.
+- **Scope (out)**: Consumer migration or legacy conversion, old-name invocation aliases, new management commands/options, journals/adoption detection/recovery orchestration, checkpoint transfer, future factory behavior, independent command/extension renaming, historical rewrites, external repository renames/publication or Git integration.
 - **Depends on**: 011, 013, 014, 017.
 - **Governed by**: C-01, C-02, C-03, C-04, C-05.
-- **Notes**: Direct operator naming decision: FarmBoy, with “Spec et Labora” as the tagline. Exact identifier mappings and compatibility treatment for existing consumer installations remain specification decisions. The current constitution retains the old identities until separately amended.
+- **Notes**: Direct operator decisions establish FarmBoy, “Spec et Labora”, `farmboy` project/bundle identity, `farmboy-<purpose>` skills/workflows and `FarmBoy <role>` agents. On 2026-10-10 the operator explicitly removed the migration feature: this is a pure rename, with existing installations handled separately. This supersedes prior consumer-migration guidance scope and derived migration design. The operator also explicitly includes the feedback code and `flow_kit` parser/key in this project; both are owned here. Independent roadmap/wiki and core command identities remain unchanged; nested delegation and feedback data semantics are preserved without old-name adapters. The approved planning-only exception remains limited to Feature 021 research/design; constitution and implementation authority remain unchanged.
+- **Spec dir**: `specs/021-farmboy-project-workflow-naming`
 
 ## Open Questions
 
-Feature 021's naming and migration decisions remain open for specification and explicit governance review:
+Feature 021's naming and cutover scope are settled by direct operator decisions recorded in its [specification](../../specs/021-farmboy-project-workflow-naming/spec.md). Canonical names are `farmboy`, `farmboy-<purpose>` and `FarmBoy <role>`; old invocation aliases and consumer migration are excluded. Detailed source substitutions and validation follow the narrowed plan.
 
+The previously listed naming/compatibility questions are retained as superseded history:
 - Which exact FarmBoy names and identifiers replace the project-owned repository/bundle, skills, workflows and associated agents while preserving independently owned command and extension identities?
 - What compatibility, alias, installation, refresh and migration treatment should existing consumers receive without overwriting consumer-owned customizations or evidence?
+
+The governing question remains open for separate review and approval before implementation:
+
 - What exact constitutional amendment replaces the mandated Spec Kit Flow identities while preserving generic component boundaries and human-directed authority?
+
+The planning-only exception grants neither that amendment nor implementation authority.
 
 Feature 019's following planning questions are resolved by its [reviewed plan](../../specs/019-catalog-python-runtime-prerequisites/plan.md), [utility assessment](../../specs/019-catalog-python-runtime-prerequisites/research.md) and [validation](../../specs/019-catalog-python-runtime-prerequisites/validation.md). The selected convention is existing mise/uv with a project-local `.venv`, explicit `mise exec -- python`, one required pinned PyYAML package and no additional utilities. Portable guide adoption remains explicit and preserves existing configuration. The original questions were:
 
@@ -442,4 +499,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.24.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-09
+**Version**: 1.26.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-10

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "contract": "combined-workflow-sequence",
-  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "feature_directory": "specs/020-farmboy-workflow-iteration-improvements",
   "cases": [
     {
       "id": "ready-sequence-contract",

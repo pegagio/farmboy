@@ -9,9 +9,9 @@
   "native_identity_required": true,
   "native_release_proof_required": true,
   "workflows": [
-    "speckit-flow-plan",
-    "speckit-flow-tasks",
-    "speckit-flow-analyze-remediate"
+    "farmboy-plan",
+    "farmboy-tasks",
+    "farmboy-analyze-remediate"
   ],
   "sequence": {
     "minimum_completed_invocations": 3,

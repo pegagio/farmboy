@@ -1,4 +1,4 @@
-"""Tests for the FlowKit Codex workflow controller helper."""
+"""Tests for the FarmBoy Codex workflow controller helper."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
-CONTROLLER_DIR = ROOT / "controllers/flow-kit/scripts/python"
+CONTROLLER_DIR = ROOT / "controllers/farmboy/scripts/python"
 
 
 def load_module(name: str, path: Path):
@@ -51,7 +51,7 @@ class RuntimeDiscoveryTests(unittest.TestCase):
     """Runtime discovery must fail closed before loading a workflow."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_runtime", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_runtime", CONTROLLER_DIR / "controller.py")
 
     def test_locateRuntime_prefersMiseSelectedExecutable(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -92,20 +92,20 @@ class InstalledDefinitionTests(unittest.TestCase):
     """The controller reads the composed definition without native execution."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_definition", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_definition", CONTROLLER_DIR / "controller.py")
 
     def test_loadDefinition_usesSelectedProjectAndReturnsProvenance(self) -> None:
         selected = Path("/consumer/project")
-        definition = {"workflow": {"id": "speckit-flow-tasks", "version": "0.2.0"}, "steps": []}
+        definition = {"workflow": {"id": "farmboy-tasks", "version": "0.2.0"}, "steps": []}
         with patch.object(self.controller, "WorkflowEngine") as engine_class:
             engine_class.return_value.load_workflow.return_value = type(
                 "Definition", (), {"data": definition, "source_path": Path("/consumer/project/.specify/workflows/tasks/workflow.yml"), "version": "0.2.0"}
             )()
-            result = self.controller.load_installed_definition(selected, "speckit-flow-tasks")
+            result = self.controller.load_installed_definition(selected, "farmboy-tasks")
         engine_class.assert_called_once_with(selected)
-        engine_class.return_value.load_workflow.assert_called_once_with("speckit-flow-tasks")
+        engine_class.return_value.load_workflow.assert_called_once_with("farmboy-tasks")
         self.assertEqual("0.2.0", result["version"])
-        self.assertEqual("speckit-flow-tasks", result["workflow"]["id"])
+        self.assertEqual("farmboy-tasks", result["workflow"]["id"])
         self.assertTrue(result["source_path"].endswith("workflow.yml"))
 
     def test_loadDefinition_neverExecutesNativeWorkflow(self) -> None:
@@ -128,52 +128,52 @@ class InstalledDefinitionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             paths = [
-                ".agents/skills/flow-kit-tasks/SKILL.md",
-                ".agents/skills/flow-kit-tasks/agents/openai.yaml",
-                ".specify/flow-kit/manifest.yml",
-                ".specify/flow-kit/controller-protocol.md",
-                ".specify/flow-kit/scripts/bootstrap.sh",
-                ".specify/flow-kit/scripts/python/controller.py",
-                ".specify/flow-kit/scripts/python/recovery.py",
+                ".agents/skills/farmboy-tasks/SKILL.md",
+                ".agents/skills/farmboy-tasks/agents/openai.yaml",
+                ".specify/farmboy/manifest.yml",
+                ".specify/farmboy/controller-protocol.md",
+                ".specify/farmboy/scripts/bootstrap.sh",
+                ".specify/farmboy/scripts/python/controller.py",
+                ".specify/farmboy/scripts/python/recovery.py",
             ]
             files = {}
             for relative in paths:
                 target = project / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
-                content = f"name: flow-kit-tasks\n" if relative.endswith("SKILL.md") else "fixture\n"
+                content = f"name: farmboy-tasks\n" if relative.endswith("SKILL.md") else "fixture\n"
                 if relative.endswith("manifest.yml"):
                     content = 'package:\n  version: "0.1.0"\n'
                 target.write_text(content, encoding="utf-8")
                 files[relative] = __import__("hashlib").sha256(content.encode()).hexdigest()
             record = {
-                "package": "flow-kit-controllers", "version": "0.1.0", "status": "installed", "files": files,
-                "controllers": [{"skill_id": "flow-kit-tasks", "workflow_id": "speckit-flow-tasks"}],
+                "package": "farmboy-controllers", "version": "0.1.0", "status": "installed", "files": files,
+                "controllers": [{"skill_id": "farmboy-tasks", "workflow_id": "farmboy-tasks"}],
             }
-            record_path = project / ".specify/flow-kit/skills-install.json"
+            record_path = project / ".specify/farmboy/skills-install.json"
             record_path.write_text(json.dumps(record), encoding="utf-8")
-            self.controller.verify_controller_install(project, "flow-kit-tasks", "speckit-flow-tasks")
+            self.controller.verify_controller_install(project, "farmboy-tasks", "farmboy-tasks")
             (project / paths[0]).write_text("changed", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "was changed"):
-                self.controller.verify_controller_install(project, "flow-kit-tasks", "speckit-flow-tasks")
+                self.controller.verify_controller_install(project, "farmboy-tasks", "farmboy-tasks")
 
 
 class NamedAgentAssignmentTests(unittest.TestCase):
     """Delegated steps resolve only to their reviewed native Codex agent names."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_agents", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_agents", CONTROLLER_DIR / "controller.py")
 
     def test_collectAgentAssignments_preservesDistinctNamesPerStep(self) -> None:
         steps = [
-            {"id": "edit", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
-            {"id": "review", "type": "command", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}},
+            {"id": "edit", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Coder"}},
+            {"id": "review", "type": "command", "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}},
             {"id": "summary", "type": "prompt", "prompt": "Summarize in the main task."},
         ]
         assignments = self.controller.collect_agent_assignments(steps)
         self.assertEqual(
             [
-                self.controller.StepAssignmentIntent("edit", "FlowKit-Coder"),
-                self.controller.StepAssignmentIntent("review", "FlowKit-Reviewer"),
+                self.controller.StepAssignmentIntent("edit", "FarmBoy Coder"),
+                self.controller.StepAssignmentIntent("review", "FarmBoy Reviewer"),
             ],
             assignments,
         )
@@ -183,13 +183,13 @@ class NamedAgentAssignmentTests(unittest.TestCase):
             {
                 "id": "route",
                 "type": "switch",
-                "cases": {"review": [{"id": "verify", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}]},
-                "default": [{"id": "build", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Code Reviewer"}}],
+                "cases": {"review": [{"id": "verify", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}}]},
+                "default": [{"id": "build", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Code Reviewer"}}],
             }
         ]
         assignments = self.controller.collect_agent_assignments(steps)
         self.assertEqual(
-            [("verify", "FlowKit-Reviewer"), ("build", "FlowKit-Code Reviewer")],
+            [("verify", "FarmBoy Reviewer"), ("build", "FarmBoy Code Reviewer")],
             [(row.step_id, row.agent_name) for row in assignments],
         )
 
@@ -201,11 +201,11 @@ class NamedAgentAssignmentTests(unittest.TestCase):
                 [
                     "inspect",
                     "--project", "/consumer",
-                    "--workflow-id", "speckit-flow-tasks",
+                    "--workflow-id", "farmboy-tasks",
                     "--specify", "/usr/bin/specify",
                     "--expected-version", "1.0.10.dev0+pegagio.2",
-                    "--skill-id", "flow-kit-tasks",
-                    "--override", "agent=FlowKit-Coder",
+                    "--skill-id", "farmboy-tasks",
+                    "--override", "agent=FarmBoy Coder",
                 ]
             )
         self.assertEqual(2, error.exception.code)
@@ -215,16 +215,16 @@ class GraphPreflightTests(unittest.TestCase):
     """Graph validation covers nested branches before any execution starts."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_graph", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_graph", CONTROLLER_DIR / "controller.py")
         self.workflow = {
             "inputs": {"feature_context": {"required": True}},
             "steps": [
-                {"id": "delegated-prompt", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
+                {"id": "delegated-prompt", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Coder"}},
                 {"id": "review-verdict", "type": "gate", "options": ["approve", "defer"]},
                 {"id": "route-result", "type": "switch", "cases": {"primary": [
-                    {"id": "nested-delegated-command", "command": "speckit.fixture", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}
+                    {"id": "nested-delegated-command", "command": "speckit.fixture", "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}}
                 ]}, "default": [
-                    {"id": "alternate-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Code Reviewer"}}
+                    {"id": "alternate-agent", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Code Reviewer"}}
                 ]},
             ],
         }
@@ -232,7 +232,7 @@ class GraphPreflightTests(unittest.TestCase):
     def test_collectAgentAssignments_includesUntakenNestedBranches(self) -> None:
         assignments = self.controller.collect_agent_assignments(self.workflow["steps"])
         self.assertEqual(
-            [("delegated-prompt", "FlowKit-Coder"), ("nested-delegated-command", "FlowKit-Reviewer"), ("alternate-agent", "FlowKit-Code Reviewer")],
+            [("delegated-prompt", "FarmBoy Coder"), ("nested-delegated-command", "FarmBoy Reviewer"), ("alternate-agent", "FarmBoy Code Reviewer")],
             [(item.step_id, item.agent_name) for item in assignments],
         )
 
@@ -291,48 +291,52 @@ class GraphPreflightTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "different name"):
                 self.controller.resolve_installed_skill(Path(temporary), "speckit.tasks")
 
-    def test_agentMigration_rejectsOldNamesEvenInUntakenNestedBranches(self) -> None:
+    def test_agentPreflight_rejectsUnreviewedNamesEvenInUntakenNestedBranches(self) -> None:
         for name in ("Roadmap Agent", "Specifier", "Planner", "Tasker", "Reviewer", "Coder", "Code Reviewer", "Wiki Curator"):
             graph = [{"id": "route", "type": "switch", "cases": {"taken": []}, "default": [
-                {"id": "old-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": name}}
+                {"id": "old-agent", "type": "prompt", "farmboy": {"delegated": True, "agent": name}}
             ]}]
             with self.subTest(name=name), self.assertRaisesRegex(ValueError, "old-agent"):
                 self.controller.collect_agent_assignments(graph)
 
     def test_validateDefinition_rejectsWorkflowLevelAgentDefaults(self) -> None:
-        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FlowKit-Coder"}, "steps": []}
+        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FarmBoy Coder"}, "steps": []}
         with self.assertRaisesRegex(ValueError, "workflow-level"):
             self.controller.validate_workflow_definition(definition)
 
     def test_delegationBoundary_keepsMainTaskStepAndGateOutOfChildAssignments(self) -> None:
         graph = [
             {"id": "main-work", "type": "prompt", "prompt": "summarize"},
-            {"id": "delegated-work", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FlowKit-Coder"}},
+            {"id": "delegated-work", "type": "prompt", "farmboy": {"delegated": True, "agent": "FarmBoy Coder"}},
             {"id": "human-review", "type": "gate", "options": ["continue"]},
         ]
         assignments = self.controller.collect_agent_assignments(graph)
-        self.assertEqual([("delegated-work", "FlowKit-Coder")], [(item.step_id, item.agent_name) for item in assignments])
+        self.assertEqual([("delegated-work", "FarmBoy Coder")], [(item.step_id, item.agent_name) for item in assignments])
+
+    def test_delegationBoundary_ignoresOldFlowKitContainer(self) -> None:
+        graph = [{"id": "old-key", "type": "prompt", "flow_kit": {"delegated": True, "agent": "FarmBoy Coder"}}]
+        self.assertEqual([], self.controller.collect_agent_assignments(graph))
 
     def test_delegationBoundary_rejectsAgentOnNonDelegatedStepAndDelegatedGate(self) -> None:
         for graph in (
-            [{"id": "main-work", "type": "prompt", "agent": "FlowKit-Coder"}],
-            [{"id": "human-review", "type": "gate", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}}],
-            [{"id": "route", "type": "switch", "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}, "cases": {}}],
+            [{"id": "main-work", "type": "prompt", "agent": "FarmBoy Coder"}],
+            [{"id": "human-review", "type": "gate", "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}}],
+            [{"id": "route", "type": "switch", "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}, "cases": {}}],
         ):
             with self.subTest(graph=graph), self.assertRaises(ValueError):
                 self.controller.validate_workflow_graph(graph)
 
     def test_agentPreflight_rejectsMissingUnknownMalformedAndLegacyAssignmentsAcrossBranches(self) -> None:
         invalid_graphs = (
-            ([{"id": "missing-agent", "type": "prompt", "flow_kit": {"delegated": True}}], "missing-agent"),
-            ([{"id": "unknown-agent", "type": "prompt", "flow_kit": {"delegated": True, "agent": "Researcher"}}], "unknown-agent"),
-            ([{"id": "case-mismatch", "type": "prompt", "flow_kit": {"delegated": True, "agent": "coder"}}], "case-mismatch"),
-            ([{"id": "malformed", "type": "prompt", "flow_kit": "FlowKit-Coder"}], "malformed"),
-            ([{"id": "null-metadata", "type": "prompt", "flow_kit": None}], "null-metadata"),
+            ([{"id": "missing-agent", "type": "prompt", "farmboy": {"delegated": True}}], "missing-agent"),
+            ([{"id": "unknown-agent", "type": "prompt", "farmboy": {"delegated": True, "agent": "Researcher"}}], "unknown-agent"),
+            ([{"id": "case-mismatch", "type": "prompt", "farmboy": {"delegated": True, "agent": "coder"}}], "case-mismatch"),
+            ([{"id": "malformed", "type": "prompt", "farmboy": "FarmBoy Coder"}], "malformed"),
+            ([{"id": "null-metadata", "type": "prompt", "farmboy": None}], "null-metadata"),
             ([{"id": "legacy-model", "type": "prompt", "model": "gpt-6-sol"}], "legacy-model"),
             ([{"id": "route", "type": "switch", "cases": {"taken": []}, "default": [
                 {"id": "invalid-untaken", "type": "command", "command": "speckit.fixture",
-                 "flow_kit": {"delegated": True, "agent": "coder"}}
+                 "farmboy": {"delegated": True, "agent": "coder"}}
             ]}], "invalid-untaken"),
         )
         for graph, expected_step_id in invalid_graphs:
@@ -340,7 +344,7 @@ class GraphPreflightTests(unittest.TestCase):
                 self.controller.collect_agent_assignments(graph)
 
     def test_agentPreflight_rejectsWorkflowLevelDefault(self) -> None:
-        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FlowKit-Tasker"}, "steps": []}
+        definition = {"workflow": {"id": "test", "version": "1.0", "agent": "FarmBoy Tasker"}, "steps": []}
         with self.assertRaisesRegex(ValueError, "workflow-level agent"):
             self.controller.validate_workflow_definition(definition)
 
@@ -352,14 +356,14 @@ class GraphPreflightTests(unittest.TestCase):
             "max_iterations": 5,
             "steps": [
                 {"id": "correct", "type": "command", "command": "speckit.tasks",
-                 "flow_kit": {"delegated": True, "agent": "FlowKit-Tasker"}},
+                 "farmboy": {"delegated": True, "agent": "FarmBoy Tasker"}},
                 {"id": "assess", "type": "prompt",
-                 "flow_kit": {"delegated": True, "agent": "FlowKit-Reviewer"}},
+                 "farmboy": {"delegated": True, "agent": "FarmBoy Reviewer"}},
             ],
         }]
         self.controller.validate_workflow_graph(graph)
         self.assertEqual(
-            [("correct", "FlowKit-Tasker"), ("assess", "FlowKit-Reviewer")],
+            [("correct", "FarmBoy Tasker"), ("assess", "FarmBoy Reviewer")],
             [(item.step_id, item.agent_name) for item in self.controller.collect_agent_assignments(graph)],
         )
 
@@ -538,7 +542,7 @@ class GraphPreflightTests(unittest.TestCase):
         after_loop = continue_nodes[1]
         self.assertIn("needs-human", after_loop["cases"])
         manual = route["cases"]["manual-fallback"][0]
-        self.assertNotIn("flow_kit", manual)
+        self.assertNotIn("farmboy", manual)
         rejected = [{"id": "outer", "type": "do-while", "condition": False, "max_iterations": 2,
                      "steps": [{"id": "inner", "type": "do-while", "condition": False,
                                 "max_iterations": 2, "steps": [{"id": "inside", "type": "prompt"}]}]}]
@@ -571,7 +575,7 @@ class HumanInteractionTests(unittest.TestCase):
     """Interactive answers stay explicit and bound to the original child."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_interaction", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_interaction", CONTROLLER_DIR / "controller.py")
         self.question = {
             "kind": "question", "step_id": "clarify-specification",
             "question": "Which workflows should the dashboard show?",
@@ -641,9 +645,9 @@ class HumanInteractionTests(unittest.TestCase):
         self.assertEqual({"choice": "defer"}, json.loads(output.getvalue()))
 
     def test_clarifyNeedsHumanStopsWithoutAStopOnlyGateOrPlanning(self) -> None:
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-clarify/workflow.yml").read_text(encoding="utf-8"))
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-clarify/workflow.yml").read_text(encoding="utf-8"))
         self.assertNotIn("clarification_decision", workflow["inputs"])
-        self.assertFalse(any("speckit-flow-plan" in str(step) for step in workflow["steps"]))
+        self.assertFalse(any("farmboy-plan" in str(step) for step in workflow["steps"]))
         self.assertFalse(any(step.get("type") == "gate" for step in workflow["steps"]))
         assessment = {"state": "needs-human", "reason_code": "product-decision", "resume_action": "ask-operator"}
         self.assertEqual({"action": "needs-human", "resume_action": "ask-operator"},
@@ -657,16 +661,16 @@ class RecoveryTests(unittest.TestCase):
     """Stopped runs keep compact, portable evidence without reverting edits."""
 
     def setUp(self) -> None:
-        self.recovery = load_module("flowkit_controller_recovery", CONTROLLER_DIR / "recovery.py")
+        self.recovery = load_module("farmboy_controller_recovery", CONTROLLER_DIR / "recovery.py")
 
     def test_createAndUpdateSummary_recordsBoundedStepEvidence(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(
                 project,
-                {"workflow": {"id": "speckit-flow-tasks", "version": "0.2.0"}, "sha256": "a" * 64},
+                {"workflow": {"id": "farmboy-tasks", "version": "0.2.0"}, "sha256": "a" * 64},
                 {"bundle_record": {"sha256": "b" * 64, "device": 1, "inode": 2}, "skill_record": {"sha256": "c" * 64, "device": 1, "inode": 3}},
-                [{"step_id": "generate-tasks", "agent_name": "FlowKit-Tasker"}],
+                [{"step_id": "generate-tasks", "agent_name": "FarmBoy Tasker"}],
                 preflight_passed=True,
             )
             path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
@@ -741,7 +745,7 @@ class RecoveryTests(unittest.TestCase):
     def test_recoveryCli_createsSummaryFromSuccessfulPreflightInput(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             payload = {
-                "workflow": {"workflow": {"id": "speckit-flow-tasks", "version": "0.2.0"}, "sha256": "a" * 64},
+                "workflow": {"workflow": {"id": "farmboy-tasks", "version": "0.2.0"}, "sha256": "a" * 64},
                 "fingerprints": {}, "assignments": [], "preflight_passed": True,
             }
             output = io.StringIO()
@@ -824,7 +828,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
         sys.path.insert(0, str(CONTROLLER_DIR))
         self.addCleanup(sys.path.remove, str(CONTROLLER_DIR))
         load_module("implementation_scope", CONTROLLER_DIR / "implementation_scope.py")
-        self.controller = load_module("flowkit_controller_scoped_implementation", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_scoped_implementation", CONTROLLER_DIR / "controller.py")
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
@@ -884,17 +888,17 @@ class ScopedImplementationControllerTests(unittest.TestCase):
         self.write(task_path, after_text)
         tasker_path = f"{self.feature}/validation/tasker-tracking.json"
         reviewer_path = f"{self.feature}/validation/reviewer-completion.json"
-        tasker_record = {"source": "exact FlowKit-Tasker marker-only tracking result", "task_ids": ["T001"]}
-        reviewer_record = {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T001"]}
+        tasker_record = {"source": "exact FarmBoy Tasker marker-only tracking result", "task_ids": ["T001"]}
+        reviewer_record = {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T001"]}
         self.write(tasker_path, tasker_record)
         self.write(reviewer_path, reviewer_record)
         evidence = lambda path: [{"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()}]
         event = {"predecessor_event_sha256": "0" * 64, "scope_sha256": payload["scope"]["scope_sha256"],
-            "tasker_assignment": "FlowKit-Tasker", "tasks_before_text": before_text, "tasks_after_text": after_text,
+            "tasker_assignment": "FarmBoy Tasker", "tasks_before_text": before_text, "tasks_after_text": after_text,
             "tasker_result": {"state": "ready", "tasks_before_sha256": hashlib.sha256(before_text.encode()).hexdigest(),
                 "tasks_after_sha256": hashlib.sha256(after_text.encode()).hexdigest(), "completed_task_ids": ["T001"],
                 "evidence": evidence(tasker_path)},
-            "reviewer_result": {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T001"],
+            "reviewer_result": {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T001"],
                 "evidence": evidence(reviewer_path)}}
         event["sha256"] = hashlib.sha256(json.dumps(event, sort_keys=True, separators=(",", ":"),
                                                       ensure_ascii=False).encode()).hexdigest()
@@ -959,7 +963,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
             self.controller.validate_workflow_graph([malformed])
 
     def testImplementationScopeCarrierRejectsBooleanConditionThroughInspect(self) -> None:
-        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        definition = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text(encoding="utf-8"))
         loop = find_workflow_step(definition["steps"], "implementation-loop")
         for condition in (True, False, None, 1, "{{ steps.route-scoped-execution.output.state }}"):
             with self.subTest(condition=condition):
@@ -971,18 +975,18 @@ class ScopedImplementationControllerTests(unittest.TestCase):
                         patch.object(self.controller.subprocess, "run", return_value=type("Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"})()):
                     with self.assertRaisesRegex(ValueError, "exact route-scoped-execution condition"):
                         self.controller.main([
-                            "inspect", "--project", str(self.root), "--workflow-id", "speckit-flow-implement",
+                            "inspect", "--project", str(self.root), "--workflow-id", "farmboy-implement",
                             "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
-                            "--skill-id", "flow-kit-implement", "--input", "feature_context=specs/020-test",
+                            "--skill-id", "farmboy-implement", "--input", "feature_context=specs/020-test",
                         ])
-        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        definition = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text(encoding="utf-8"))
         self.controller.validate_workflow_definition(definition)
         legacy_loop = {"id": "legacy-loop", "type": "do-while", "condition": True,
             "max_iterations": 2, "steps": [{"id": "legacy-body", "type": "prompt", "prompt": "Continue."}]}
         self.controller.validate_workflow_graph([legacy_loop])
 
     def testInspectSerializesReviewedLoopModeIntoDispatchDefinition(self) -> None:
-        definition = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        definition = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text(encoding="utf-8"))
         output = io.StringIO()
         with patch.object(self.controller, "verify_controller_install", return_value={}), \
                 patch.object(self.controller, "load_installed_definition", return_value=definition), \
@@ -990,9 +994,9 @@ class ScopedImplementationControllerTests(unittest.TestCase):
                 patch.object(self.controller.subprocess, "run", return_value=type("Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"})()), \
                 redirect_stdout(output):
             status = self.controller.main([
-                "inspect", "--project", str(self.root), "--workflow-id", "speckit-flow-implement",
+                "inspect", "--project", str(self.root), "--workflow-id", "farmboy-implement",
                 "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
-                "--skill-id", "flow-kit-implement", "--input", "feature_context=specs/020-test",
+                "--skill-id", "farmboy-implement", "--input", "feature_context=specs/020-test",
             ])
         self.assertEqual(0, status)
         inspected = json.loads(output.getvalue())

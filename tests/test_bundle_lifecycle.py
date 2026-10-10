@@ -1,4 +1,4 @@
-"""End-to-end lifecycle coverage for the local Spec Kit Flow bundle.
+"""End-to-end lifecycle coverage for the local FarmBoy bundle.
 
 The test stands up an ephemeral localhost catalog. It is test infrastructure,
 not a distributable catalog: it packages the declared extension prerequisites
@@ -28,24 +28,24 @@ from tools import catalog
 
 ROOT = Path(__file__).parents[1]
 SPECIFY_BIN = Path(os.environ.get("SPECIFY_BIN", "specify"))
-ROADMAP_SOURCE = os.environ.get("SPEC_KIT_FLOW_TEST_ROADMAP_SOURCE")
-WIKI_SOURCE = os.environ.get("SPEC_KIT_FLOW_TEST_WIKI_SOURCE")
+ROADMAP_SOURCE = os.environ.get("FARMBOY_TEST_ROADMAP_SOURCE")
+WIKI_SOURCE = os.environ.get("FARMBOY_TEST_WIKI_SOURCE")
 WORKFLOW_IDS = (
-    "speckit-flow-select-feature",
-    "speckit-flow-specify",
-    "speckit-flow-clarify",
-    "speckit-flow-plan",
-    "speckit-flow-tasks",
-    "speckit-flow-analyze-remediate",
-    "speckit-flow-implement",
-    "speckit-flow-converge",
-    "speckit-flow-closeout",
-    "speckit-flow-wiki-lint-update",
+    "farmboy-select-feature",
+    "farmboy-specify",
+    "farmboy-clarify",
+    "farmboy-plan",
+    "farmboy-tasks",
+    "farmboy-analyze-remediate",
+    "farmboy-implement",
+    "farmboy-converge",
+    "farmboy-closeout",
+    "farmboy-wiki-lint-update",
 )
 CONSUMER_FIXTURE = ROOT / "tests/consumer-fixtures/independent-workflow.yml"
 ROADMAP_ID = "flow-roadmap"
 WIKI_ID = "flow-wiki"
-FEEDBACK_ID = "flow-feedback"
+FEEDBACK_ID = "farmboy-feedback"
 
 
 def sha256(path: Path) -> str:
@@ -147,7 +147,7 @@ class LocalCatalog:
                 "id": workflow_id,
                 "name": workflow_id,
                 "version": workflow_version,
-                "description": "Spec Kit Flow lifecycle-test workflow.",
+                "description": "FarmBoy lifecycle-test workflow.",
                 "author": "pegagio",
                 "url": f"PLACEHOLDER/assets/workflows/{workflow_id}/workflow.yml",
                 "tags": ["fixture"],
@@ -189,7 +189,7 @@ class BundleLifecycleTests(unittest.TestCase):
             raise unittest.SkipTest("SPECIFY_BIN does not exist")
         if not ROADMAP_SOURCE or not WIKI_SOURCE:
             raise unittest.SkipTest(
-                "set SPEC_KIT_FLOW_TEST_ROADMAP_SOURCE and SPEC_KIT_FLOW_TEST_WIKI_SOURCE"
+                "set FARMBOY_TEST_ROADMAP_SOURCE and FARMBOY_TEST_WIKI_SOURCE"
             )
 
     def run_specify(self, consumer: Path, environment: dict[str, str], *args: str) -> str:
@@ -208,7 +208,7 @@ class BundleLifecycleTests(unittest.TestCase):
         return completed.stdout
 
     def test_installRejectsIncompatibleWiki_expectedNoBundleRecord_whenVersionDoesNotMatch(self):
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-version-mismatch-") as directory:
+        with tempfile.TemporaryDirectory(prefix="farmboy-version-mismatch-") as directory:
             fixture = Path(directory)
             consumer = fixture / "consumer"
             consumer.mkdir()
@@ -231,7 +231,7 @@ class BundleLifecycleTests(unittest.TestCase):
                     "--integration", "codex", "--integration-options=--skills",
                 )
                 install = subprocess.run(
-                    [str(SPECIFY_BIN), "bundle", "install", str(ROOT / "bundles/spec-kit-flow/bundle.yml")],
+                    [str(SPECIFY_BIN), "bundle", "install", str(ROOT / "bundles/farmboy/bundle.yml")],
                     cwd=consumer, env=environment, text=True, stdout=subprocess.PIPE,
                     stderr=subprocess.STDOUT, check=False,
                 )
@@ -244,7 +244,7 @@ class BundleLifecycleTests(unittest.TestCase):
                     self.assertFalse(json.loads(record_path.read_text(encoding="utf-8"))["bundles"])
 
     def test_installUpdateRemoveAndFeedbackExport_expectedGenericConsumer_whenCatalogIsAvailable(self):
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-lifecycle-") as directory:
+        with tempfile.TemporaryDirectory(prefix="farmboy-lifecycle-") as directory:
             fixture = Path(directory)
             consumer = fixture / "consumer"
             consumer.mkdir()
@@ -295,12 +295,12 @@ class BundleLifecycleTests(unittest.TestCase):
                     environment,
                     "bundle",
                     "install",
-                    str(ROOT / "bundles/spec-kit-flow/bundle.yml"),
+                    str(ROOT / "bundles/farmboy/bundle.yml"),
                 )
                 self.assertEqual(consumer_owned_hashes, {path: sha256(path) for path in consumer_owned})
 
                 record = json.loads((consumer / ".specify/bundle-records.json").read_text(encoding="utf-8"))
-                self.assertEqual("spec-kit-flow", record["bundles"][0]["bundle_id"])
+                self.assertEqual("farmboy", record["bundles"][0]["bundle_id"])
                 contributions = record["bundles"][0]["contributed_components"]
                 self.assertEqual(
                     {("extensions", extension_id) for extension_id in extensions}
@@ -312,12 +312,13 @@ class BundleLifecycleTests(unittest.TestCase):
                     self.assertTrue((consumer / ".specify/extensions" / extension_id).is_dir())
                 self.assertFalse((consumer / ".specify/extensions/roadmap").exists())
                 self.assertFalse((consumer / ".specify/extensions/wiki").exists())
+                self.assertFalse((consumer / ".specify/extensions/flow-feedback").exists())
                 self.assertFalse((consumer / ".specify/extensions/speckit-flow-feedback").exists())
-                feedback_manifest = (consumer / ".specify/extensions/flow-feedback/extension.yml").read_text(encoding="utf-8")
-                self.assertIn("- name: speckit.flow-feedback.capture", feedback_manifest)
-                self.assertIn("- name: speckit.flow-feedback.report", feedback_manifest)
-                self.assertNotIn("speckit.speckit-flow-feedback.", feedback_manifest)
-                for workflow_id in ("speckit-flow-select-feature", "speckit-flow-specify", "speckit-flow-closeout"):
+                feedback_manifest = (consumer / ".specify/extensions/farmboy-feedback/extension.yml").read_text(encoding="utf-8")
+                self.assertIn("- name: speckit.farmboy-feedback.capture", feedback_manifest)
+                self.assertIn("- name: speckit.farmboy-feedback.report", feedback_manifest)
+                self.assertNotIn("speckit.flow-feedback.", feedback_manifest)
+                for workflow_id in ("farmboy-select-feature", "farmboy-specify", "farmboy-closeout"):
                     workflow = (consumer / ".specify/workflows" / workflow_id / "workflow.yml").read_text(encoding="utf-8")
                     commands = re.findall(r'^\s+command: ["\']?(speckit\.flow-(?:roadmap|wiki)\.[a-z-]+)', workflow, re.MULTILINE)
                     self.assertTrue(commands, workflow_id)
@@ -327,10 +328,10 @@ class BundleLifecycleTests(unittest.TestCase):
                         self.assertIn(f"- name: {command}", manifest)
                 for workflow_id in WORKFLOW_IDS:
                     self.assertTrue((consumer / ".specify/workflows" / workflow_id / "workflow.yml").is_file())
-                self.assertFalse((consumer / ".specify/extensions/speckit-flow-feedback-maintainer").exists())
+                self.assertFalse((consumer / ".specify/extensions/farmboy-feedback-maintainer").exists())
                 self.assertFalse(any("diagram" in path.name.lower() for path in (consumer / ".specify/extensions").iterdir()))
                 self.assertTrue(independent.is_file())
-                self.run_specify(consumer, environment, "workflow", "resolve", "speckit-flow-converge")
+                self.run_specify(consumer, environment, "workflow", "resolve", "farmboy-converge")
                 codex_stub = fixture / "codex-stub"
                 shutil.copy2(ROOT / "tests/consumer-fixtures/codex-stub.sh", codex_stub)
                 codex_stub.chmod(0o755)
@@ -340,43 +341,43 @@ class BundleLifecycleTests(unittest.TestCase):
                 # Inventory-driven selection needs a real human gate; a no-op child cannot supply it.
                 # Direct-controller selection and activation are covered by deterministic fixtures.
                 clarify_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-clarify",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-clarify",
                     "--input", "feature_context=disposable consumer fixture",
                     "--json",
                 )
                 self.assertEqual("completed", json.loads(clarify_run)["status"])
                 feature_files_after_clarify = set((consumer / "specs").rglob("*")) if (consumer / "specs").exists() else set()
                 self.assertEqual(feature_files_before, feature_files_after_clarify)
-                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "speckit-flow-plan")
+                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "farmboy-plan")
                 plan_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-plan",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-plan",
                     "--input", "feature_context=disposable consumer fixture",
                     "--input", "plan_review_decision=defer", "--json",
                 )
                 self.assertEqual("completed", json.loads(plan_run)["status"])
                 feature_files_after_plan = set((consumer / "specs").rglob("*")) if (consumer / "specs").exists() else set()
                 self.assertEqual(feature_files_before, feature_files_after_plan)
-                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "speckit-flow-tasks")
+                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "farmboy-tasks")
                 tasks_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-tasks",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-tasks",
                     "--input", "feature_context=disposable consumer fixture",
                     "--input", "task_review_decision=defer", "--json",
                 )
                 self.assertEqual("completed", json.loads(tasks_run)["status"])
                 feature_files_after_tasks = set((consumer / "specs").rglob("*")) if (consumer / "specs").exists() else set()
                 self.assertEqual(feature_files_before, feature_files_after_tasks)
-                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "speckit-flow-analyze-remediate")
+                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "farmboy-analyze-remediate")
                 analysis_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-analyze-remediate",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-analyze-remediate",
                     "--input", "feature_context=disposable consumer fixture",
                     "--input", "analysis_disposition=clean", "--json",
                 )
                 self.assertEqual("completed", json.loads(analysis_run)["status"])
                 feature_files_after_analysis = set((consumer / "specs").rglob("*")) if (consumer / "specs").exists() else set()
                 self.assertEqual(feature_files_before, feature_files_after_analysis)
-                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "speckit-flow-implement")
+                self.run_specify(consumer, workflow_environment, "workflow", "resolve", "farmboy-implement")
                 implementation_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-implement",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-implement",
                     "--input", "feature_context=disposable consumer fixture",
                     "--input", "implementation_result=blocked", "--json",
                 )
@@ -384,7 +385,7 @@ class BundleLifecycleTests(unittest.TestCase):
                 feature_files_after_implementation = set((consumer / "specs").rglob("*")) if (consumer / "specs").exists() else set()
                 self.assertEqual(feature_files_before, feature_files_after_implementation)
                 workflow_run = self.run_specify(
-                    consumer, workflow_environment, "workflow", "run", "speckit-flow-converge",
+                    consumer, workflow_environment, "workflow", "run", "farmboy-converge",
                     "--input", "feature_context=disposable consumer fixture",
                     "--input", "convergence_result=clean", "--json",
                 )
@@ -397,7 +398,7 @@ class BundleLifecycleTests(unittest.TestCase):
                 observation = {
                     "observation_id": "converge-terminal-prompt-001",
                     "observed_at": "2026-09-21T12:00:00Z",
-                    "component": {"id": "speckit-flow-converge", "version": "0.1.0", "digest": "sha256:" + sha256(ROOT / "workflows/speckit-flow-converge/workflow.yml")},
+                    "component": {"id": "farmboy-converge", "version": "0.1.0", "digest": "sha256:" + sha256(ROOT / "workflows/farmboy-converge/workflow.yml")},
                     "integration": "codex",
                     "consumer_project_ref": "generic-clean-consumer",
                     "execution_profile": {"role": "worker", "capability": "standard"},
@@ -409,11 +410,11 @@ class BundleLifecycleTests(unittest.TestCase):
                     "suggested_change_target": "workflow-source",
                     "reporter_disposition": "observed",
                 }
-                if os.environ.get("SPEC_KIT_FLOW_TEST_OBSERVATION"):
-                    observation = json.loads(Path(os.environ["SPEC_KIT_FLOW_TEST_OBSERVATION"]).read_text(encoding="utf-8"))
+                if os.environ.get("FARMBOY_TEST_OBSERVATION"):
+                    observation = json.loads(Path(os.environ["FARMBOY_TEST_OBSERVATION"]).read_text(encoding="utf-8"))
                 observation_file = consumer / "observation.json"
                 observation_file.write_text(json.dumps(observation), encoding="utf-8")
-                feedback_script = consumer / ".specify/extensions/flow-feedback/scripts/python/workflow_feedback.py"
+                feedback_script = consumer / ".specify/extensions/farmboy-feedback/scripts/python/workflow_feedback.py"
                 journal = consumer / ".specify/workflow-feedback/observations.jsonl"
                 report_json = consumer / "feedback-report.json"
                 report_markdown = consumer / "feedback-report.md"
@@ -438,10 +439,10 @@ class BundleLifecycleTests(unittest.TestCase):
                 exported = json.loads(report_json.read_text(encoding="utf-8"))
                 self.assertEqual(observation["component"], exported["observations"][0]["component"])
                 self.assertEqual("generic-clean-consumer", exported["producer"])
-                if os.environ.get("SPEC_KIT_FLOW_TEST_REPORT_OUTPUT"):
-                    shutil.copy2(report_json, os.environ["SPEC_KIT_FLOW_TEST_REPORT_OUTPUT"])
+                if os.environ.get("FARMBOY_TEST_REPORT_OUTPUT"):
+                    shutil.copy2(report_json, os.environ["FARMBOY_TEST_REPORT_OUTPUT"])
 
-                maintainer_script = ROOT / "extensions/speckit-flow-feedback-maintainer/scripts/python/workflow_feedback_intake.py"
+                maintainer_script = ROOT / "extensions/farmboy-feedback-maintainer/scripts/python/workflow_feedback_intake.py"
                 intake_root = fixture / "maintainer"
                 intake_arguments = (
                     "--disposition", "workflow-source-change",
@@ -477,7 +478,7 @@ class BundleLifecycleTests(unittest.TestCase):
                     environment,
                     "bundle",
                     "install",
-                    str(ROOT / "bundles/spec-kit-flow/bundle.yml"),
+                    str(ROOT / "bundles/farmboy/bundle.yml"),
                     "--refresh",
                 )
                 self.assertEqual(consumer_owned_hashes, {path: sha256(path) for path in consumer_owned})
@@ -487,20 +488,20 @@ class BundleLifecycleTests(unittest.TestCase):
                     {(component["kind"], component["id"]) for component in refreshed_record["bundles"][0]["contributed_components"]},
                 )
                 self.assertTrue(independent.is_file())
-                self.run_specify(consumer, environment, "bundle", "remove", "spec-kit-flow")
+                self.run_specify(consumer, environment, "bundle", "remove", "farmboy")
                 self.assertEqual(consumer_owned_hashes, {path: sha256(path) for path in consumer_owned})
-                self.assertFalse((consumer / ".specify/extensions/flow-feedback").exists())
-                self.assertFalse((consumer / ".specify/workflows/speckit-flow-converge").exists())
+                self.assertFalse((consumer / ".specify/extensions/farmboy-feedback").exists())
+                self.assertFalse((consumer / ".specify/workflows/farmboy-converge").exists())
                 self.assertTrue(independent.is_file())
                 self.assertTrue(report_json.is_file())
                 self.assertTrue(journal.is_file())
 
 
-class FlowKitControllerLifecycleTests(unittest.TestCase):
+class FarmBoyControllerLifecycleTests(unittest.TestCase):
     """Exercise direct skill package ownership independently of Specify components."""
 
     def test_installRefreshRemovePreservesConsumerSkillsAndRecovery(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="flow-kit-controller-consumer-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-controller-consumer-") as temporary:
             consumer = Path(temporary)
             recovery = consumer / ".specify/flow-controllers/runs/retained/summary.json"
             recovery.parent.mkdir(parents=True)
@@ -525,30 +526,30 @@ class FlowKitControllerLifecycleTests(unittest.TestCase):
             self.assertEqual("consumer-owned", local_skill.read_text(encoding="utf-8"))
             self.assertEqual(agent_hashes, {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in custom_agents})
             self.assertTrue(recovery.is_file())
-            self.assertFalse((consumer / ".agents/skills/flow-kit-tasks/SKILL.md").exists())
-            self.assertFalse((consumer / ".specify/flow-kit/skills-install.json").exists())
+            self.assertFalse((consumer / ".agents/skills/farmboy-tasks/SKILL.md").exists())
+            self.assertFalse((consumer / ".specify/farmboy/skills-install.json").exists())
 
     def test_nameConflictAndEditedOwnedFileBlockLifecycleChanges(self) -> None:
-        with tempfile.TemporaryDirectory(prefix="flow-kit-controller-conflict-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-controller-conflict-") as temporary:
             consumer = Path(temporary)
             archive = consumer / "controller-package.zip"
             catalog.package_controller(archive)
-            conflict = consumer / ".agents/skills/flow-kit-clarify/SKILL.md"
+            conflict = consumer / ".agents/skills/farmboy-clarify/SKILL.md"
             conflict.parent.mkdir(parents=True)
             conflict.write_text("consumer-owned", encoding="utf-8")
             with self.assertRaisesRegex(ValueError, "consumer-owned path conflicts"):
                 catalog.install_controller_package(consumer, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
             self.assertEqual("consumer-owned", conflict.read_text(encoding="utf-8"))
-            self.assertFalse((consumer / ".specify/flow-kit/skills-install.json").exists())
+            self.assertFalse((consumer / ".specify/farmboy/skills-install.json").exists())
 
             conflict.unlink()
             conflict.parent.rmdir()
             catalog.install_controller_package(consumer, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            owned = consumer / ".agents/skills/flow-kit-clarify/SKILL.md"
+            owned = consumer / ".agents/skills/farmboy-clarify/SKILL.md"
             owned.write_text(owned.read_text(encoding="utf-8") + "local edit\n", encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "locally changed FlowKit-owned"):
+            with self.assertRaisesRegex(ValueError, "locally changed FarmBoy owned"):
                 catalog.install_controller_package(consumer, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="snapshot")
-            with self.assertRaisesRegex(ValueError, "locally changed FlowKit-owned"):
+            with self.assertRaisesRegex(ValueError, "locally changed FarmBoy owned"):
                 catalog.remove_controller_package(consumer)
             self.assertIn("local edit", owned.read_text(encoding="utf-8"))
 

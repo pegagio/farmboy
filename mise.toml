@@ -89,15 +89,15 @@ description = "Build reviewed catalog packages from roadmap and wiki source chec
 run = "python3 tools/catalog.py build"
 
 [tasks."catalog:install"]
-description = "Install the pinned Spec Kit Flow bundle into a consumer project"
+description = "Install the pinned FarmBoy bundle into a consumer project"
 run = "python3 tools/catalog.py install"
 
 [tasks."catalog:refresh"]
-description = "Refresh the pinned Spec Kit Flow bundle in a consumer project"
+description = "Refresh the pinned FarmBoy bundle in a consumer project"
 run = "python3 tools/catalog.py refresh"
 
 [tasks."catalog:remove"]
-description = "Remove the Spec Kit Flow bundle and unchanged FlowKit controller skills from a consumer project"
+description = "Remove the FarmBoy bundle and unchanged FarmBoy controller skills from a consumer project"
 run = "python3 tools/catalog.py remove"
 
 [tasks."catalog:agents"]

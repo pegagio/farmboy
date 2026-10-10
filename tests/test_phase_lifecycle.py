@@ -1,4 +1,4 @@
-"""Tests for strict FlowKit phase-lifecycle evidence handling."""
+"""Tests for strict FarmBoy phase-lifecycle evidence handling."""
 
 from __future__ import annotations
 
@@ -17,12 +17,12 @@ from unittest.mock import patch
 
 
 ROOT = Path(__file__).parents[1]
-MODULE_PATH = ROOT / "controllers/flow-kit/scripts/python/phase_lifecycle.py"
+MODULE_PATH = ROOT / "controllers/farmboy/scripts/python/phase_lifecycle.py"
 FIXTURE_PATH = ROOT / "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json"
 
 
 def load_module():
-    spec = importlib.util.spec_from_file_location("flowkit_phase_lifecycle_under_test", MODULE_PATH)
+    spec = importlib.util.spec_from_file_location("farmboy_phase_lifecycle_under_test", MODULE_PATH)
     if spec is None or spec.loader is None:
         raise AssertionError(f"could not load {MODULE_PATH}")
     module = importlib.util.module_from_spec(spec)
@@ -71,12 +71,12 @@ class RecoveryStartHistoryTests(unittest.TestCase):
         baseline = {"baseline": baseline_body, "baseline_sha256": baseline_digest,
                     "remaining_ids": ["task:T001"], "state": "captured"}
         source_run = {
-            "run_id": "source-implement-run", "workflow_id": "speckit-flow-implement", "status": "stopped",
+            "run_id": "source-implement-run", "workflow_id": "farmboy-implement", "status": "stopped",
             "started_at": "2026-10-01T12:00:00+00:00",
             "steps": {"implement-eligible-work": {"status": "completed"},
                       "capture-implementation-baseline": {"status": "completed"}},
-            "child_tasks": [{"agent": "FlowKit-Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
-            "effective_assignments": [{"agent_name": "FlowKit-Coder", "step_id": "implement-eligible-work"}],
+            "child_tasks": [{"agent": "FarmBoy Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
+            "effective_assignments": [{"agent_name": "FarmBoy Coder", "step_id": "implement-eligible-work"}],
             "changed_files": [f"{self.feature}/implementation.py"],
             "baseline_evidence": {"baseline_sha256": baseline_digest, "path": paths["baseline"]},
         }
@@ -87,7 +87,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             "baseline": baseline,
             "source_run": source_run,
             "status_run": {
-                "run_id": "authorized-status-run", "workflow_id": "speckit-flow-closeout",
+                "run_id": "authorized-status-run", "workflow_id": "farmboy-closeout",
                 "steps": {"mark-converged-specification-complete": {"status": "completed"}},
                 "changed_files": [paths["current_spec"]],
             },
@@ -130,7 +130,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             source_summary = json.loads((root / packet["trusted_inputs"]["source_run"]["path"]).read_text())
             self.assertEqual("validated", validated["state"])
             self.assertEqual(source_summary["started_at"], validated["occurred_at"])
-            self.assertEqual("speckit-flow-implement", validated["source_workflow_id"])
+            self.assertEqual("farmboy-implement", validated["source_workflow_id"])
             self.assertEqual("capture-implementation-baseline", validated["completed_step_ids"][0])
             self.assertEqual(["T001"], validated["future_manual_task_ids"])
             self.assertEqual(packet["current_scope_sha256"], validated["scope_sha256"])
@@ -140,7 +140,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             packet = self._materialize(root)
-            command = [sys.executable, str(ROOT / "controllers/flow-kit/scripts/python/controller.py"),
+            command = [sys.executable, str(ROOT / "controllers/farmboy/scripts/python/controller.py"),
                        "phase-lifecycle", "--project", str(root)]
             result = subprocess.run(command, input=json.dumps(packet), text=True,
                                     capture_output=True, check=False)
@@ -230,8 +230,8 @@ class RecoveryStartHistoryTests(unittest.TestCase):
                 f"{feature}/spec.md": packet["trusted_inputs"]["current_spec"]["sha256"],
                 f"{feature}/plan.md": sha(b"plan\n"),
                 f"{feature}/tasks.md": sha(b"tasks\n"),
-                "controllers/flow-kit/scripts/python/phase_lifecycle.py": sha(
-                    (ROOT / "controllers/flow-kit/scripts/python/phase_lifecycle.py").read_bytes()),
+                "controllers/farmboy/scripts/python/phase_lifecycle.py": sha(
+                    (ROOT / "controllers/farmboy/scripts/python/phase_lifecycle.py").read_bytes()),
                 "tests/test_phase_lifecycle.py": sha((ROOT / "tests/test_phase_lifecycle.py").read_bytes()),
             }
             for relative, digest in artifact_paths.items():
@@ -253,7 +253,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             snapshot = {
                 "feature_directory": feature,
                 "scope_sha256": packet["current_scope_sha256"],
-                "workflow_id": "speckit-flow-closeout",
+                "workflow_id": "farmboy-closeout",
                 "workflow_version": "0.8.0",
                 "run_id": "closeout-current-run",
                 "source_map": source_map,
@@ -262,9 +262,9 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             dispatch_summary = {
                 "run_id": snapshot["run_id"], "workflow_id": snapshot["workflow_id"],
                 "workflow_version": snapshot["workflow_version"],
-                "child_tasks": [{"agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                "child_tasks": [{"agent": "FarmBoy Reviewer", "step_id": "attest-recovery-start",
                                  "child_id": "native-reviewer-child"}],
-                "effective_assignments": [{"agent_name": "FlowKit-Reviewer", "step_id": "attest-recovery-start"}],
+                "effective_assignments": [{"agent_name": "FarmBoy Reviewer", "step_id": "attest-recovery-start"}],
             }
             dispatch_file = root / dispatch_summary_path
             dispatch_file.parent.mkdir(parents=True, exist_ok=True)
@@ -278,7 +278,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
                 "feature_directory": feature, "scope_sha256": packet["current_scope_sha256"],
                 "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
                 "run_id": snapshot["run_id"], "step_id": "attest-recovery-start",
-                "agent": "FlowKit-Reviewer", "child_id": "native-reviewer-child",
+                "agent": "FarmBoy Reviewer", "child_id": "native-reviewer-child",
                 "source_summary": source_summary_ref}
             witness_file = root / witness_path
             witness_file.write_text(json.dumps(witness, sort_keys=True))
@@ -287,7 +287,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             source_map[witness_path] = witness_ref["sha256"]
             record = {
                 "schema_version": "1.0", "kind": "authorized-implementation-start",
-                "reviewer": "FlowKit-Reviewer", "state": "ready", "feature_directory": feature,
+                "reviewer": "FarmBoy Reviewer", "state": "ready", "feature_directory": feature,
                 "scope_sha256": packet["current_scope_sha256"], "workflow_id": snapshot["workflow_id"],
                 "workflow_version": snapshot["workflow_version"], "run_id": snapshot["run_id"],
                 "step_id": "attest-recovery-start", "child_id": "native-reviewer-child",
@@ -297,7 +297,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
                 "history_validation": {"path": validation_path, "sha256": sha(validation_bytes)},
                 "dispatch_witness": witness_ref,
                 "recorded_dispatch": {
-                    "agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                    "agent": "FarmBoy Reviewer", "step_id": "attest-recovery-start",
                     "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
                     "run_id": snapshot["run_id"], "child_id": "native-reviewer-child",
                 },
@@ -316,7 +316,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             validated = self.module._validate_start_attestation(root, reference, snapshot)
             self.assertEqual("native-reviewer-child", validated["child_id"])
 
-            record["reviewer"] = "FlowKit-Readiness Checker"
+            record["reviewer"] = "FarmBoy Readiness Checker"
             record_bytes = json.dumps(record, sort_keys=True).encode()
             record_file.write_bytes(record_bytes)
             reference["sha256"] = sha(record_bytes)
@@ -362,7 +362,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             "feature_directory": "specs/901-phase-lifecycle",
             "entry_id": "901",
             "phase": "implement",
-            "workflow_id": "speckit-flow-implement",
+            "workflow_id": "farmboy-implement",
             "workflow_version": "0.7.0",
             "run_id": "run-implement-1",
             "current_status": "specced",
@@ -381,7 +381,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             "feature_directory": snapshot["feature_directory"],
             "entry_id": "901",
             "run_id": "run-implement-1",
-            "workflow_id": "speckit-flow-implement",
+            "workflow_id": "farmboy-implement",
             "workflow_version": "0.7.0",
             "mode": "normal",
             "decision_reference": decision_path,
@@ -430,12 +430,12 @@ class PhaseLifecycleTests(unittest.TestCase):
         baseline_path.parent.mkdir(parents=True, exist_ok=True)
         baseline_path.write_text(json.dumps(baseline, sort_keys=True))
         source_run = {
-            "run_id": "source-implement-run", "workflow_id": "speckit-flow-implement", "status": "stopped",
+            "run_id": "source-implement-run", "workflow_id": "farmboy-implement", "status": "stopped",
             "started_at": "2026-10-01T12:00:00+00:00",
             "steps": {"implement-eligible-work": {"status": "completed"},
                       "capture-implementation-baseline": {"status": "completed"}},
-            "child_tasks": [{"agent": "FlowKit-Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
-            "effective_assignments": [{"agent_name": "FlowKit-Coder", "step_id": "implement-eligible-work"}],
+            "child_tasks": [{"agent": "FarmBoy Coder", "step_id": "implement-eligible-work", "child_id": "coder-child-1"}],
+            "effective_assignments": [{"agent_name": "FarmBoy Coder", "step_id": "implement-eligible-work"}],
             "changed_files": [f"{feature}/implementation.py"],
             "baseline_evidence": {"baseline_sha256": baseline_digest, "path": references["baseline"]},
         }
@@ -445,7 +445,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         code_path = root / f"{feature}/implementation.py"
         code_path.write_text("implementation evidence\n")
         status_run = {
-            "run_id": "authorized-status-run", "workflow_id": "speckit-flow-closeout",
+            "run_id": "authorized-status-run", "workflow_id": "farmboy-closeout",
             "steps": {"mark-converged-specification-complete": {"status": "completed"}},
             "changed_files": [spec_path],
         }
@@ -471,7 +471,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         readiness_payload = {"action": "record-review", "feature_directory": feature,
                              "reviewer_report": reviewer_report}
         readiness_command = [sys.executable,
-            str(root / ".specify/flow-kit/scripts/python/controller.py"),
+            str(root / ".specify/farmboy/scripts/python/controller.py"),
             "readiness", "--project", str(root)]
         readiness_recorded = subprocess.run(readiness_command, input=json.dumps(readiness_payload),
             text=True, capture_output=True, check=False)
@@ -492,7 +492,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             "current_scope_sha256": sha(current_spec), "trusted_inputs": trusted_inputs,
         }
         history_command = [sys.executable,
-            str(root / ".specify/flow-kit/scripts/python/controller.py"),
+            str(root / ".specify/farmboy/scripts/python/controller.py"),
             "phase-lifecycle", "--project", str(root)]
         history_result = subprocess.run(history_command, input=json.dumps(history_packet),
             text=True, capture_output=True, check=False)
@@ -534,7 +534,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             "feature_directory": feature, "scope_sha256": sha(current_spec),
             "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
             "run_id": snapshot["run_id"], "step_id": "attest-recovery-start",
-            "agent": "FlowKit-Reviewer", "child_id": "native-reviewer-child",
+            "agent": "FarmBoy Reviewer", "child_id": "native-reviewer-child",
             "source_summary": captured_summary_ref}
         witness_file = root / witness_path
         witness_file.write_text(json.dumps(witness, sort_keys=True))
@@ -640,7 +640,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertIsInstance(raw_duplicate, str)
         with self.assertRaisesRegex(ValueError, "duplicate-json-key"):
             self.module.strict_json(raw_duplicate)
-        controller_path = ROOT / "controllers/flow-kit/scripts/python/controller.py"
+        controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
         duplicate_cli = subprocess.run(
             [sys.executable, str(controller_path), "phase-lifecycle", "--project", str(self.root)],
             input=raw_duplicate, text=True, capture_output=True, check=False,
@@ -771,18 +771,18 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertEqual(before, after)
 
     def test_controllerProvidesDedicatedLifecycleCommand(self) -> None:
-        controller_path = ROOT / "controllers/flow-kit/scripts/python/controller.py"
-        spec = importlib.util.spec_from_file_location("flowkit_controller_for_lifecycle_test", controller_path)
+        controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
+        spec = importlib.util.spec_from_file_location("farmboy_controller_for_lifecycle_test", controller_path)
         assert spec is not None and spec.loader is not None
         controller = importlib.util.module_from_spec(spec)
         with patch.dict(sys.modules, {"phase_lifecycle": self.module,
-                                      "flowkit_controller_for_lifecycle_test": controller}):
+                                      "farmboy_controller_for_lifecycle_test": controller}):
             spec.loader.exec_module(controller)
         self.assertTrue(callable(controller.prepare_phase_lifecycle))
         self.assertTrue(callable(controller.validate_lifecycle_receipt))
 
     def test_controllerCliRunsPrepareAndReportsMissingOwnerDelivery(self) -> None:
-        controller_path = ROOT / "controllers/flow-kit/scripts/python/controller.py"
+        controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
         result = subprocess.run(
             [sys.executable, str(controller_path), "phase-lifecycle", "--project", str(self.root)],
             input=json.dumps(self.request()), text=True, capture_output=True, check=False,
@@ -796,7 +796,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         """Run LC001-LC015 against the independently versioned owner in temp consumers.
 
         The owner source is deliberately supplied by the validation invocation, not
-        vendored into FlowKit. Each mapped owner test creates and mutates only its
+        vendored into FarmBoy. Each mapped owner test creates and mutates only its
         own temporary consumer, then asserts actual roadmap bytes and receipts.
         """
         source = os.environ.get("FLOW_ROADMAP_SOURCE")
@@ -813,13 +813,13 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertEqual(expected_ids, [case["id"] for case in matrix])
         sys.path.insert(0, str(owner_test.parent))
         self.addCleanup(sys.path.remove, str(owner_test.parent))
-        owner_spec = importlib.util.spec_from_file_location("flowkit_external_owner_lifecycle_tests", owner_test)
+        owner_spec = importlib.util.spec_from_file_location("farmboy_external_owner_lifecycle_tests", owner_test)
         if owner_spec is None or owner_spec.loader is None:
             self.fail("could not load current owner lifecycle tests")
         owner_module = importlib.util.module_from_spec(owner_spec)
         owner_spec.loader.exec_module(owner_module)
         roadmap_tests_path = owner_root / "tests/python/test_review_contract.py"
-        roadmap_spec = importlib.util.spec_from_file_location("flowkit_external_roadmap_review_tests", roadmap_tests_path)
+        roadmap_spec = importlib.util.spec_from_file_location("farmboy_external_roadmap_review_tests", roadmap_tests_path)
         if roadmap_spec is None or roadmap_spec.loader is None:
             self.fail("could not load current owner brief contract tests")
         roadmap_module = importlib.util.module_from_spec(roadmap_spec)
@@ -847,7 +847,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             checks = ["authoring-quality", "clarification", "linkage", "independent-review"]
             artifacts = {path: owner_module.sha(authoring_root / path) for path in (spec_path, quality_path)}
             review = {
-                "schema_version": "1.0", "kind": "independent-authoring-review", "reviewer": "FlowKit-Reviewer",
+                "schema_version": "1.0", "kind": "independent-authoring-review", "reviewer": "FarmBoy Reviewer",
                 "state": "complete", "feature_directory": feature, "scope_sha256": scope_digest,
                 "artifact_digests": artifacts, "required_check_ids": checks,
                 "satisfied_check_ids": checks, "unresolved_ids": [],
@@ -911,12 +911,12 @@ class PhaseLifecycleTests(unittest.TestCase):
         import re
         import yaml
 
-        controller_path = ROOT / "controllers/flow-kit/scripts/python/controller.py"
-        spec = importlib.util.spec_from_file_location("flowkit_controller_for_lifecycle_graph", controller_path)
+        controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
+        spec = importlib.util.spec_from_file_location("farmboy_controller_for_lifecycle_graph", controller_path)
         self.assertIsNotNone(spec and spec.loader)
         controller = importlib.util.module_from_spec(spec)
         with patch.dict(sys.modules, {"phase_lifecycle": self.module,
-                                      "flowkit_controller_for_lifecycle_graph": controller}):
+                                      "farmboy_controller_for_lifecycle_graph": controller}):
             spec.loader.exec_module(controller)
 
         def find(nodes: list[dict], wanted: str) -> dict:
@@ -939,7 +939,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         workflows = {}
         for phase in ("specify", "implement", "closeout"):
             workflows[phase] = yaml.safe_load(
-                (ROOT / f"workflows/speckit-flow-{phase}/workflow.yml").read_text(encoding="utf-8"))
+                (ROOT / f"workflows/farmboy-{phase}/workflow.yml").read_text(encoding="utf-8"))
 
         route_cases = {
             "LC001": ("specify", "route-specification-lifecycle-transition", "ready"),
@@ -1009,7 +1009,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 "production_nodes": step_ids, "rendered_payload_count": len(rendered)}
 
         # Drive each LC fixture through an actual prepared consumer snapshot,
-        # the FlowKit lifecycle adapter, and the production workflow route.
+        # the FarmBoy lifecycle adapter, and the production workflow route.
         # Only semantic agent outputs are fixtures; owner/adapter state is read
         # from the disposable project created for each case.
         def prepare_production_case(case_id: str, phase: str, current: str,
@@ -1039,8 +1039,8 @@ class PhaseLifecycleTests(unittest.TestCase):
                         record["artifact_digests"].update(immutable_digests)
                         record_path.write_text(json.dumps(record, sort_keys=True), encoding="utf-8")
                         reference["sha256"] = owner_module.sha(record_path)
-            workflow_path = ROOT / f"workflows/speckit-flow-{phase}/workflow.yml"
-            graph_relative = f".specify/workflows/speckit-flow-{phase}/workflow.yml"
+            workflow_path = ROOT / f"workflows/farmboy-{phase}/workflow.yml"
+            graph_relative = f".specify/workflows/farmboy-{phase}/workflow.yml"
             graph = yaml.safe_load(workflow_path.read_text(encoding="utf-8"))
             scaffold["workflow_version"] = graph["workflow"]["version"]
             scaffold["snapshot"]["workflow_version"] = graph["workflow"]["version"]
@@ -1050,12 +1050,12 @@ class PhaseLifecycleTests(unittest.TestCase):
                     for reference in group["assessments"]:
                         scaffold["snapshot"]["source_map"][reference["path"]] = reference["sha256"]
             for relative, source_path in ((graph_relative, workflow_path),
-                                          (".specify/flow-kit/manifest.yml", ROOT / "controllers/flow-kit/manifest.yml")):
+                                          (".specify/farmboy/manifest.yml", ROOT / "controllers/farmboy/manifest.yml")):
                 destination = owner_case.root / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_bytes(source_path.read_bytes())
                 scaffold["snapshot"]["source_map"][relative] = owner_module.sha(destination)
-            for relative in (".specify/flow-kit/skills-install.json", ".specify/bundle-records.json"):
+            for relative in (".specify/farmboy/skills-install.json", ".specify/bundle-records.json"):
                 destination = owner_case.root / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_text("{}\n", encoding="utf-8")
@@ -1293,7 +1293,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 and receipt.get("roadmap_after_sha256") == owner_module.sha(owner_case.roadmap)
                 and revalidated["proposal"]["expected_roadmap_sha256"] == receipt["roadmap_before_sha256"] else "blocked",
                 "receipt": receipt, "roadmap_sha256": owner_module.sha(owner_case.roadmap)}
-            verify_result["receipt_validation"] = {"flowkit": "passed", "owner": "passed",
+            verify_result["receipt_validation"] = {"farmboy": "passed", "owner": "passed",
                 "receipt_sha256": digest(receipt), "observed_roadmap_sha256": verify_result["roadmap_sha256"]}
             source_outputs[verify_id] = verify_result
             return {"adapter": adapter, "revalidated": revalidated, "branch": revalidated_branch,
@@ -1314,13 +1314,13 @@ class PhaseLifecycleTests(unittest.TestCase):
                     "rendered_command_argument_path": rendered_request_path,
                     "owner_receipt_sha256": digest(receipt),
                     "owner_effect_state": receipt.get("effect_state"),
-                    "receipt_validators": ["flowkit", "flow-roadmap owner"],
+                    "receipt_validators": ["farmboy", "flow-roadmap owner"],
                     "verified_roadmap_sha256": verify_result["roadmap_sha256"]}}
 
         # Rebuild the canonical negative recovery request on an initialized
         # current owner consumer. Its sole invalidity is an unsubstantiated
         # historical start edge, so the exact packet traverses the real
-        # rendered request-path command, FlowKit adapter, and external owner.
+        # rendered request-path command, FarmBoy adapter, and external owner.
         canonical_case = owner_module.LifecycleTests(
             "test_three_phase_owned_adjacent_effects_preserve_unrelated_bytes")
         canonical_case.setUp()
@@ -1397,18 +1397,18 @@ class PhaseLifecycleTests(unittest.TestCase):
             canonical_request["snapshot"]["dependency_states"] = owner_support["snapshot"]["dependency_states"]
             canonical_request["snapshot"]["pending_future_ids"] = owner_support["snapshot"]["pending_future_ids"]
             canonical_graph = owner_module.yaml.safe_load(
-                (ROOT / "workflows/speckit-flow-closeout/workflow.yml").read_text(encoding="utf-8"))
-            graph_relative = ".specify/workflows/speckit-flow-closeout/workflow.yml"
+                (ROOT / "workflows/farmboy-closeout/workflow.yml").read_text(encoding="utf-8"))
+            graph_relative = ".specify/workflows/farmboy-closeout/workflow.yml"
             installed_inputs = {
-                graph_relative: ROOT / "workflows/speckit-flow-closeout/workflow.yml",
-                ".specify/flow-kit/manifest.yml": ROOT / "controllers/flow-kit/manifest.yml",
+                graph_relative: ROOT / "workflows/farmboy-closeout/workflow.yml",
+                ".specify/farmboy/manifest.yml": ROOT / "controllers/farmboy/manifest.yml",
             }
             for relative, source_path in installed_inputs.items():
                 destination = canonical_case.root / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_bytes(source_path.read_bytes())
                 canonical_request["snapshot"]["source_map"][relative] = owner_module.sha(destination)
-            for relative in (".specify/flow-kit/skills-install.json", ".specify/bundle-records.json"):
+            for relative in (".specify/farmboy/skills-install.json", ".specify/bundle-records.json"):
                 destination = canonical_case.root / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_text("{}\n", encoding="utf-8")
@@ -1523,7 +1523,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 elif case_id == "LC006":
                     owner_module.write(owner_case.root / owner_case.feature / "spec.md", "stale source\n")
                 elif case_id == "LC011":
-                    (owner_case.root / f".specify/workflows/speckit-flow-{phase}/workflow.yml").unlink()
+                    (owner_case.root / f".specify/workflows/farmboy-{phase}/workflow.yml").unlink()
                 elif case_id == "LC014":
                     pass  # mutate only after a ready assessment below
 
@@ -1679,7 +1679,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 else:
                     self.module.validate_receipt(receipt)
                     owner_module.phase.validate_receipt(receipt)
-        actual_case_results["LC008"] = {"workflow": "speckit-flow-closeout",
+        actual_case_results["LC008"] = {"workflow": "farmboy-closeout",
             "route_node_id": "route-closeout-lifecycle-transition", "adapter_state": "ready",
             "effect_state": "applied", "edges": ["planned→specced", "specced→in-progress", "in-progress→implemented"]}
         actual_case_results["LC013"]["receipt_fixture_vectors_additional"] = len(receipt_cases)
@@ -1690,10 +1690,10 @@ class PhaseLifecycleTests(unittest.TestCase):
         # case would have passed before when only generic prompt text was checked.
         mutation_case, mutation_packet, _ = prepare_production_case(
             "LC007-producer-field-mutation", "implement", "in-progress", "normal", ["in-progress"],
-            producer_mutation={"workflow_id": "speckit-flow-specify"})
+            producer_mutation={"workflow_id": "farmboy-specify"})
         try:
             submitted = json.loads(mutation_case.forwarded_packet_path.read_text(encoding="utf-8"))
-            self.assertEqual("speckit-flow-specify", mutation_case.production_callback_output["request"]["workflow_id"])
+            self.assertEqual("farmboy-specify", mutation_case.production_callback_output["request"]["workflow_id"])
             self.assertEqual(mutation_case.production_callback_output["request"], submitted)
             self.assertIn(str(mutation_case.forwarded_packet_path.relative_to(mutation_case.root)),
                           mutation_case.production_forwarded_prompt)
@@ -1720,7 +1720,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         try:
             before = owner_module.sha(revalidation_case.roadmap)
             result = execute_ready_production_route(revalidation_case, revalidation_request,
-                revalidation_graph, "implement", revalidation_mutation={"workflow_id": "speckit-flow-specify"})
+                revalidation_graph, "implement", revalidation_mutation={"workflow_id": "farmboy-specify"})
             self.assertEqual("blocked", result["revalidated"].get("state"), result["revalidated"])
             self.assertEqual([], result["branch"])
             self.assertIsNone(result["owner_receipt"])
@@ -1907,15 +1907,15 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertEqual({f"LC{number:03d}" for number in range(1, 16)}, set(observations))
 
         # Feed complete, current owner proof through each actual production
-        # graph and the FlowKit adapter. Tiny owner graphs and direct calls to
+        # graph and the FarmBoy adapter. Tiny owner graphs and direct calls to
         # owner unit-test methods remain useful contract evidence, but cannot
         # establish that the shipped Specify, Implement, and Close Out routes
         # satisfy the owner's installed-graph checks.
         for phase_name, current_status in (("specify", "planned"), ("implement", "specced"),
                                            ("closeout", "in-progress")):
             with self.subTest(production_phase=phase_name):
-                graph_relative = f".specify/workflows/speckit-flow-{phase_name}/workflow.yml"
-                graph_source = ROOT / f"workflows/speckit-flow-{phase_name}/workflow.yml"
+                graph_relative = f".specify/workflows/farmboy-{phase_name}/workflow.yml"
+                graph_source = ROOT / f"workflows/farmboy-{phase_name}/workflow.yml"
                 owner_case = owner_module.LifecycleTests("test_three_phase_owned_adjacent_effects_preserve_unrelated_bytes")
                 owner_case.setUp()
                 try:
@@ -1941,14 +1941,14 @@ class PhaseLifecycleTests(unittest.TestCase):
                             request["snapshot"]["source_map"][reference["path"]] = reference["sha256"]
                     installed_inputs = {
                         graph_relative: graph_source,
-                        ".specify/flow-kit/manifest.yml": ROOT / "controllers/flow-kit/manifest.yml",
+                        ".specify/farmboy/manifest.yml": ROOT / "controllers/farmboy/manifest.yml",
                     }
                     for relative, source_path in installed_inputs.items():
                         destination = owner_case.root / relative
                         destination.parent.mkdir(parents=True, exist_ok=True)
                         destination.write_bytes(source_path.read_bytes())
                         request["snapshot"]["source_map"][relative] = owner_module.sha(destination)
-                    for relative in (".specify/flow-kit/skills-install.json", ".specify/bundle-records.json"):
+                    for relative in (".specify/farmboy/skills-install.json", ".specify/bundle-records.json"):
                         destination = owner_case.root / relative
                         destination.parent.mkdir(parents=True, exist_ok=True)
                         destination.write_text("{}\n", encoding="utf-8")
@@ -1983,16 +1983,16 @@ class PhaseLifecycleTests(unittest.TestCase):
             checklist = recovery_case.root / checklist_path
             checklist.parent.mkdir(parents=True, exist_ok=True)
             checklist.write_text("# Recovery preparation\n\n- [x] Current recovery scope reviewed\n", encoding="utf-8")
-            package = recovery_case.root / ".specify/flow-kit/scripts/python"
+            package = recovery_case.root / ".specify/farmboy/scripts/python"
             package.mkdir(parents=True, exist_ok=True)
-            for source in (ROOT / "controllers/flow-kit/scripts/python").glob("*.py"):
+            for source in (ROOT / "controllers/farmboy/scripts/python").glob("*.py"):
                 (package / source.name).write_bytes(source.read_bytes())
 
             dispatch_entries = [
-                ("FlowKit-Roadmap Agent", "assess-recovery-roadmap-brief", "roadmap-child"),
-                ("FlowKit-Reviewer", "assess-recovery-preparation", "preparation-reviewer-child"),
-                ("FlowKit-Readiness Checker", "assess-recovery-readiness", "readiness-checker-child"),
-                ("FlowKit-Reviewer", "attest-recovery-start", "native-reviewer-child"),
+                ("FarmBoy Roadmap Agent", "assess-recovery-roadmap-brief", "roadmap-child"),
+                ("FarmBoy Reviewer", "assess-recovery-preparation", "preparation-reviewer-child"),
+                ("FarmBoy Readiness Checker", "assess-recovery-readiness", "readiness-checker-child"),
+                ("FarmBoy Reviewer", "attest-recovery-start", "native-reviewer-child"),
             ]
             dispatch_summary = {
                 "run_id": recovery_request["run_id"],
@@ -2018,12 +2018,12 @@ class PhaseLifecycleTests(unittest.TestCase):
                     "artifact_digests": artifacts, "required_check_ids": required,
                     "satisfied_check_ids": required, "unresolved_ids": []}
 
-            roadmap_brief = {"reviewer": "FlowKit-Roadmap Agent", "state": "ready",
+            roadmap_brief = {"reviewer": "FarmBoy Roadmap Agent", "state": "ready",
                              "feature_directory": feature,
                              "scope_sha256": source_digests[f"{feature}/spec.md"],
                              "source_digests": source_digests, "unresolved_ids": [],
                              "linkage": "current selected roadmap entry matches this feature",
-                             "assessment": phase_assessment("FlowKit-Roadmap Agent", "specced",
+                             "assessment": phase_assessment("FarmBoy Roadmap Agent", "specced",
                                 {path: digest for path, digest in source_digests.items()
                                  if path.endswith(("spec.md", "plan.md", "tasks.md"))})}
             brief_file = recovery_case.root / brief_path
@@ -2038,10 +2038,10 @@ class PhaseLifecycleTests(unittest.TestCase):
             self.assertIn(source_digests[f"{feature}/spec.md"], json.dumps(roadmap_brief))
 
             reviewer_inputs = {**source_digests}
-            reviewer_report = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+            reviewer_report = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                                "reviewed_inputs": reviewer_inputs,
                                "satisfied_criteria": [], "future_classifications": [],
-                               "phase_assessment": phase_assessment("FlowKit-Reviewer", "specced",
+                               "phase_assessment": phase_assessment("FarmBoy Reviewer", "specced",
                                   {path: digest for path, digest in source_digests.items()
                                    if path.endswith(("spec.md", "plan.md", "tasks.md"))})}
             prep_prompt = controller.render_template(
@@ -2050,7 +2050,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             self.assertIn("readiness.record_review", prep_prompt)
             self.assertEqual(source_digests, reviewer_report["reviewed_inputs"])
             flow_outputs["assess-recovery-preparation"] = {"reviewer_report": reviewer_report,
-                "role_fixture": "FlowKit-Reviewer judgment bound to current source digests"}
+                "role_fixture": "FarmBoy Reviewer judgment bound to current source digests"}
 
             record_step = find(graph_document["steps"], "record-recovery-preparation")
             rendered_record = controller.render_template(record_step["prompt"], route_inputs, flow_outputs)
@@ -2061,7 +2061,7 @@ class PhaseLifecycleTests(unittest.TestCase):
 
             readiness_command = [sys.executable, str(package / "controller.py"),
                                  "readiness", "--project", str(recovery_case.root)]
-            for invalid_report in ({**reviewer_report, "reviewer": "FlowKit-Readiness Checker"},
+            for invalid_report in ({**reviewer_report, "reviewer": "FarmBoy Readiness Checker"},
                                    {**reviewer_report, "reviewed_inputs": {**reviewer_inputs,
                                      f"{feature}/spec.md": "0" * 64}}):
                 rejected = subprocess.run(readiness_command,
@@ -2094,15 +2094,15 @@ class PhaseLifecycleTests(unittest.TestCase):
             flow_outputs["assess-recovery-readiness"] = {
                 "assessment": readiness_proof["readiness_assessment"],
                 "phase_assessment": phase_assessment(
-                    "FlowKit-Readiness Checker", "in-progress", checker_artifacts),
-                "reviewer": "FlowKit-Readiness Checker", "state": "complete",
+                    "FarmBoy Readiness Checker", "in-progress", checker_artifacts),
+                "reviewer": "FarmBoy Readiness Checker", "state": "complete",
                 "source_digests": source_digests, "role_fixture": "fresh exact-scope independent judgment"}
             flow_outputs["record-recovery-preparation"] = {
                 "path": receipt["path"], "sha256": receipt["sha256"],
                 "history_path": readiness_proof["history_path"],
                 "history_sha256": readiness_proof["history_sha256"]}
             readiness_prompt = controller.render_template(readiness_step["prompt"], route_inputs, flow_outputs)
-            self.assertEqual("FlowKit-Readiness Checker", readiness_step["flow_kit"]["agent"])
+            self.assertEqual("FarmBoy Readiness Checker", readiness_step["farmboy"]["agent"])
 
             history_ref = {"path": readiness_proof["history_path"],
                            "sha256": readiness_proof["history_sha256"]}
@@ -2117,7 +2117,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             attestation_path = f"{feature}/validation/phase-lifecycle/authorized-implementation-start.json"
             attestation = {
                 "schema_version": "1.0", "kind": "authorized-implementation-start",
-                "reviewer": "FlowKit-Reviewer", "state": "ready", "feature_directory": feature,
+                "reviewer": "FarmBoy Reviewer", "state": "ready", "feature_directory": feature,
                 "scope_sha256": recovery_request["snapshot"]["scope_sha256"],
                 "workflow_id": recovery_request["workflow_id"],
                 "workflow_version": recovery_request["workflow_version"],
@@ -2128,7 +2128,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 "occurred_at": readiness_proof["history_validation"]["occurred_at"],
                 "history_validation": history_ref,
                 "dispatch_witness": route_inputs["main_retained_dispatch_witness"],
-                "recorded_dispatch": {"agent": "FlowKit-Reviewer", "step_id": "attest-recovery-start",
+                "recorded_dispatch": {"agent": "FarmBoy Reviewer", "step_id": "attest-recovery-start",
                     "workflow_id": recovery_request["workflow_id"],
                     "workflow_version": recovery_request["workflow_version"],
                     "run_id": recovery_request["run_id"], "child_id": "native-reviewer-child"},
@@ -2147,12 +2147,12 @@ class PhaseLifecycleTests(unittest.TestCase):
                     group["historical_activity"] = [attestation_ref]
             flow_outputs["attest-recovery-start"] = {"attestation": attestation,
                 "path": attestation_path, "sha256": attestation_ref["sha256"],
-                "role_fixture": "FlowKit-Reviewer attestation bound to validated current invocation"}
+                "role_fixture": "FarmBoy Reviewer attestation bound to validated current invocation"}
             self.assertIn(attestation_ref["sha256"], json.dumps(flow_outputs["attest-recovery-start"]))
 
             implemented_artifacts = readiness_proof["artifact_digests"]
             implemented_assessment = phase_assessment(
-                "FlowKit-Code Reviewer", "implemented", implemented_artifacts)
+                "FarmBoy Code Reviewer", "implemented", implemented_artifacts)
             flow_outputs["assess-implemented-lifecycle-milestone"] = {
                 "phase_assessment": implemented_assessment,
                 "role_fixture": "retained completed implementation assessment"}
@@ -2187,12 +2187,12 @@ class PhaseLifecycleTests(unittest.TestCase):
                     roadmap = roadmap_output["report"]
                     checker = selected_outputs["assess-recovery-readiness"]
                     recorder = selected_outputs["record-recovery-preparation"]
-                    if (reviewer.get("reviewer") != "FlowKit-Reviewer"
+                    if (reviewer.get("reviewer") != "FarmBoy Reviewer"
                             or reviewer.get("reviewed_inputs") != source_digests
                             or reviewer.get("reviewed_inputs", {}).get(f"{feature}/spec.md") != current_spec_digest
-                            or roadmap.get("reviewer") != "FlowKit-Roadmap Agent"
+                            or roadmap.get("reviewer") != "FarmBoy Roadmap Agent"
                             or roadmap.get("source_digests") != source_digests
-                            or checker.get("reviewer") != "FlowKit-Readiness Checker"
+                            or checker.get("reviewer") != "FarmBoy Readiness Checker"
                             or checker.get("source_digests") != source_digests):
                         raise ValueError("recovery producer role or current input binding is invalid")
                     brief_path_value, brief_digest_value = roadmap_output.get("path"), roadmap_output.get("sha256")
@@ -2287,13 +2287,13 @@ class PhaseLifecycleTests(unittest.TestCase):
                     return group
                 if mode == "recovery":
                     milestone_entries.append(group_for("specced", [
-                        ("assess-recovery-preparation", "FlowKit-Reviewer"),
-                        ("assess-recovery-roadmap-brief", "FlowKit-Roadmap Agent")]))
+                        ("assess-recovery-preparation", "FarmBoy Reviewer"),
+                        ("assess-recovery-roadmap-brief", "FarmBoy Roadmap Agent")]))
                     milestone_entries.append(group_for("in-progress", [
-                        ("assess-recovery-preparation", "FlowKit-Reviewer"),
-                        ("assess-recovery-readiness", "FlowKit-Readiness Checker")], history=True))
+                        ("assess-recovery-preparation", "FarmBoy Reviewer"),
+                        ("assess-recovery-readiness", "FarmBoy Readiness Checker")], history=True))
                 milestone_entries.append(group_for("implemented", [
-                    ("assess-implemented-lifecycle-milestone", "FlowKit-Code Reviewer")]))
+                    ("assess-implemented-lifecycle-milestone", "FarmBoy Code Reviewer")]))
                 request_packet = {"schema_version": "1.0", "action": "prepare", "phase": "closeout",
                     "feature_directory": feature, "entry_id": snapshot["entry_id"],
                     "run_id": snapshot["run_id"], "workflow_id": snapshot["workflow_id"],
@@ -2330,7 +2330,7 @@ class PhaseLifecycleTests(unittest.TestCase):
                 build_final_request("recovery", "planned", missing_outputs)
 
             wrong_role_outputs = copy.deepcopy(flow_outputs)
-            wrong_role_outputs["assess-recovery-readiness"]["reviewer"] = "FlowKit-Reviewer"
+            wrong_role_outputs["assess-recovery-readiness"]["reviewer"] = "FarmBoy Reviewer"
             with self.assertRaisesRegex(ValueError, "producer role or current input binding"):
                 build_final_request("recovery", "planned", wrong_role_outputs)
 
@@ -2398,12 +2398,12 @@ class PhaseLifecycleTests(unittest.TestCase):
                         self.assertEqual([], recovery_request["milestone_evidence"][0]["historical_activity"])
                         static_required = {".specify/memory/constitution.md", f"{feature}/spec.md",
                             f"{feature}/plan.md", f"{feature}/tasks.md", ".specify/feature.json",
-                            ".specify/flow-kit/manifest.yml", ".specify/flow-kit/skills-install.json",
+                            ".specify/farmboy/manifest.yml", ".specify/farmboy/skills-install.json",
                             ".specify/bundle-records.json", ".specify/extensions/flow-roadmap/extension.yml",
                             ".specify/extensions/flow-roadmap/scripts/python/load_config.py",
                             ".specify/extensions/flow-roadmap/scripts/python/review_contract.py",
                             ".specify/extensions/flow-roadmap/scripts/python/phase_lifecycle.py",
-                            ".specify/workflows/speckit-flow-closeout/workflow.yml",
+                            ".specify/workflows/farmboy-closeout/workflow.yml",
                             ".specify/memory/roadmap.md", recovery_request["decision_reference"]}
                         self.assertTrue(static_required.issubset(recovery_request["snapshot"]["source_map"]),
                             sorted(static_required - recovery_request["snapshot"]["source_map"].keys()))
@@ -2450,7 +2450,7 @@ class PhaseLifecycleTests(unittest.TestCase):
             WorkflowPathTests.setUpClass()
             graph_test.setUp()
             try:
-                closeout = load_workflow("speckit-flow-closeout")
+                closeout = load_workflow("farmboy-closeout")
                 gate = find_step(closeout["steps"], "approve-roadmap-transition")
                 route = find_step(closeout["steps"], "route-roadmap-transition")
                 verification_cases = fixture["operator_resolution_cases"]["LC015"]
@@ -2466,8 +2466,8 @@ class PhaseLifecycleTests(unittest.TestCase):
         # Validate the focused question/answer boundary with explicit fixture
         # choices. This is a deterministic routing check, not an inferred answer.
         from tests.test_controller import load_module as load_controller_module
-        controller_path = ROOT / "controllers/flow-kit/scripts/python/controller.py"
-        controller_module = load_controller_module("flowkit_lifecycle_matrix_controller", controller_path)
+        controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
+        controller_module = load_controller_module("farmboy_lifecycle_matrix_controller", controller_path)
         question_case = fixture["operator_resolution_cases"]["LC012"]
         question = question_case["question"]
         self.assertEqual("resolve-phase-lifecycle-conflict",
@@ -2479,7 +2479,7 @@ class PhaseLifecycleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "same child"):
             controller_module.resolve_child_answer(question, "1", question_case["same_child_id"], "different-child")
 
-        report_output = os.environ.get("SPEC_KIT_FLOW_LIFECYCLE_CASE_REPORT")
+        report_output = os.environ.get("FARMBOY_LIFECYCLE_CASE_REPORT")
         if report_output:
             report_path = Path(report_output)
             report_path.parent.mkdir(parents=True, exist_ok=True)

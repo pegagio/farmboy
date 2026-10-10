@@ -16,7 +16,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
-CONTROLLER_DIR = ROOT / "controllers/flow-kit/scripts/python"
+CONTROLLER_DIR = ROOT / "controllers/farmboy/scripts/python"
 sys.path.insert(0, str(CONTROLLER_DIR))
 
 
@@ -34,11 +34,11 @@ class FeatureReferenceTests(unittest.TestCase):
     """Feature references resolve independently of menu order and generic gates."""
 
     def setUp(self) -> None:
-        self.selection = load_module("flowkit_selection_test", CONTROLLER_DIR / "selection.py")
+        self.selection = load_module("farmboy_selection_test", CONTROLLER_DIR / "selection.py")
         self.entries = [
-            {"id": "020", "title": "FlowKit Workflow Iteration and Improvements"},
+            {"id": "020", "title": "FarmBoy Workflow Iteration and Improvements"},
             {"id": "002", "title": "Clarify Specification"},
-            {"id": "017", "title": "FlowKit Agent Configuration"},
+            {"id": "017", "title": "FarmBoy Agent Configuration"},
         ]
 
     def resolve(self, reference: str, kind: str = "auto", menu_order: list[str] | None = None):
@@ -54,7 +54,7 @@ class FeatureReferenceTests(unittest.TestCase):
                 self.assertEqual("selected", result["state"])
                 self.assertEqual("020", result["selected_entry_id"])
                 self.assertEqual("stable-id", result["match_method"])
-        self.assertEqual("020", self.resolve("flowkit workflow iteration and improvements", "exact-title")["selected_entry_id"])
+        self.assertEqual("020", self.resolve("farmboy workflow iteration and improvements", "exact-title")["selected_entry_id"])
         self.assertEqual("020", self.resolve("020", "canonical-answer")["selected_entry_id"])
 
     def test_explicitMenuPositions_followPresentedOrder(self) -> None:
@@ -73,8 +73,8 @@ class FeatureReferenceTests(unittest.TestCase):
         self.assertEqual("feature-reference-conflict", result["reason_code"])
 
     def test_duplicateTitleAndMalformedInventory_blockOrReportAmbiguity(self) -> None:
-        self.entries.append({"id": "021", "title": "FlowKit Workflow Iteration and Improvements"})
-        result = self.resolve("FlowKit Workflow Iteration and Improvements", "exact-title")
+        self.entries.append({"id": "021", "title": "FarmBoy Workflow Iteration and Improvements"})
+        result = self.resolve("FarmBoy Workflow Iteration and Improvements", "exact-title")
         self.assertEqual("ambiguous", result["state"])
         self.assertEqual({"020", "021"}, set(result["candidate_ids"]))
         invalid = self.selection.resolve_feature_reference("020", "stable-id", self.entries, ["unknown"])
@@ -116,7 +116,7 @@ class FeatureActivationTests(unittest.TestCase):
     """Activation revalidates a complete current snapshot before pointer writes."""
 
     def setUp(self) -> None:
-        self.controller = load_module("flowkit_controller_feature_activation", CONTROLLER_DIR / "controller.py")
+        self.controller = load_module("farmboy_controller_feature_activation", CONTROLLER_DIR / "controller.py")
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)
         self.project = Path(self.temporary.name)
@@ -125,12 +125,12 @@ class FeatureActivationTests(unittest.TestCase):
         (self.project / ".specify/feature.json").write_text('{"consumer_field":"keep"}\n', encoding="utf-8")
         self.roadmap = metadata / "roadmap.md"
         self.roadmap.write_text("roadmap snapshot\n", encoding="utf-8")
-        self.spec_dir = self.project / "specs/020-flowkit-workflow-iteration-improvements"
+        self.spec_dir = self.project / "specs/020-farmboy-workflow-iteration-improvements"
         self.spec_dir.mkdir(parents=True)
         (self.spec_dir / "spec.md").write_bytes(b"existing spec bytes\n")
         self.entries = [
             {"id": "001", "title": "Foundation", "status": "verified", "feature_directory": "specs/001-foundation", "dependency_ids": [], "spec_sha256": None},
-            {"id": "020", "title": "Workflow Improvements", "status": "planned", "feature_directory": "specs/020-flowkit-workflow-iteration-improvements", "dependency_ids": ["001"], "spec_sha256": hashlib.sha256((self.spec_dir / "spec.md").read_bytes()).hexdigest()},
+            {"id": "020", "title": "Workflow Improvements", "status": "planned", "feature_directory": "specs/020-farmboy-workflow-iteration-improvements", "dependency_ids": ["001"], "spec_sha256": hashlib.sha256((self.spec_dir / "spec.md").read_bytes()).hexdigest()},
         ]
 
     def snapshot(self) -> dict:
@@ -156,7 +156,7 @@ class FeatureActivationTests(unittest.TestCase):
         pointer = self.project / ".specify/feature.json"
         active = json.loads(pointer.read_text(encoding="utf-8"))
         self.assertEqual("keep", active["consumer_field"])
-        self.assertEqual("specs/020-flowkit-workflow-iteration-improvements", active["feature_directory"])
+        self.assertEqual("specs/020-farmboy-workflow-iteration-improvements", active["feature_directory"])
         repeated = self.controller.activate_selected_feature(self.project, self.snapshot())
         self.assertEqual("complete", repeated["state"])
         self.assertFalse(repeated["activation"]["changed"])
@@ -167,7 +167,7 @@ class FeatureActivationTests(unittest.TestCase):
         snapshot = self.snapshot()
         result = self.controller.activate_selected_feature(self.project, snapshot)
         self.assertEqual("complete", result["state"])
-        self.assertEqual({"feature_directory": "specs/020-flowkit-workflow-iteration-improvements"},
+        self.assertEqual({"feature_directory": "specs/020-farmboy-workflow-iteration-improvements"},
                          json.loads(pointer.read_text(encoding="utf-8")))
         self.assertEqual(b"existing spec bytes\n", (self.spec_dir / "spec.md").read_bytes())
 
@@ -300,7 +300,7 @@ class FeatureWorkflowRoutingTests(unittest.TestCase):
     """The reviewed workflow keeps selection and consequential patch gates distinct."""
 
     def test_interestDoesNotSelect_andNoopPatchSkipsOnlyPatchApproval(self) -> None:
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-select-feature/workflow.yml").read_text(encoding="utf-8"))
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-select-feature/workflow.yml").read_text(encoding="utf-8"))
         self.assertIn("Do not select from interest alone", workflow["steps"][0]["prompt"])
         resolve = next(step for step in workflow["steps"] if step["id"] == "resolve-feature-request")
         self.assertIn("typed resolve-feature helper", resolve["prompt"])
@@ -321,8 +321,8 @@ class FeatureWorkflowRoutingTests(unittest.TestCase):
         self.assertIn("{{ steps.prepare-feature-selection.output.proposed_patch }}", patch_command["input"]["args"])
 
     def testRenderedSelectionRoutes_directSkipsRepeatChoiceAndAmbiguousRequestAsksFocusedQuestion(self) -> None:
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-select-feature/workflow.yml").read_text(encoding="utf-8"))
-        controller = load_module("flowkit_controller_selection_routes", CONTROLLER_DIR / "controller.py")
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-select-feature/workflow.yml").read_text(encoding="utf-8"))
+        controller = load_module("farmboy_controller_selection_routes", CONTROLLER_DIR / "controller.py")
         route = next(step for step in workflow["steps"] if step["id"] == "route-feature-intent")
         outputs = {
             "resolve-feature-request": {"state": "selected", "selected_entry_id": "020"},
@@ -338,8 +338,8 @@ class FeatureWorkflowRoutingTests(unittest.TestCase):
         self.assertEqual([], controller.select_switch_branch(rendered, "deferred"))
 
     def testRenderedPatchRoutes_useStringStatesThroughProductionRendererAndBranchSelector(self) -> None:
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-select-feature/workflow.yml").read_text(encoding="utf-8"))
-        controller = load_module("flowkit_controller_patch_routes", CONTROLLER_DIR / "controller.py")
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-select-feature/workflow.yml").read_text(encoding="utf-8"))
+        controller = load_module("farmboy_controller_patch_routes", CONTROLLER_DIR / "controller.py")
         intent_route = next(step for step in workflow["steps"] if step["id"] == "route-feature-intent")
         readiness = next(step for step in intent_route["cases"]["selected"] if step["id"] == "route-selection-readiness")
         route = readiness["cases"]["ready"][0]
@@ -365,7 +365,7 @@ class ReadinessEnvelopeCompatibilityTests(unittest.TestCase):
     """Readiness detail remains separate from the controller's strict outcome envelope."""
 
     def test_readinessPayloadIsNotAcceptedAsAnOutcomeEnvelopeField(self) -> None:
-        controller = load_module("flowkit_controller_readiness_envelope", CONTROLLER_DIR / "controller.py")
+        controller = load_module("farmboy_controller_readiness_envelope", CONTROLLER_DIR / "controller.py")
         with tempfile.TemporaryDirectory() as directory:
             project = Path(directory)
             evidence = project / "spec.md"
@@ -386,8 +386,8 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
     """Production Implement routing permits independently verified partial progress."""
 
     def test_partialDefectResolutionKeepsParentOpenAndUsesGuardedReentry(self) -> None:
-        controller = load_module("flowkit_controller_implementation_progress_route", CONTROLLER_DIR / "controller.py")
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        controller = load_module("farmboy_controller_implementation_progress_route", CONTROLLER_DIR / "controller.py")
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text(encoding="utf-8"))
 
         def find_step(nodes, step_id):
             for node in nodes:
@@ -457,8 +457,8 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
         self.assertFalse(controller.evaluate_loop_condition(loop["condition"], blocked_readiness))
 
     def test_scopedCallbackForwardsExactStateDependentReviewerEnvelope(self) -> None:
-        controller = load_module("flowkit_controller_implementation_progress_envelope", CONTROLLER_DIR / "controller.py")
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text(encoding="utf-8"))
+        controller = load_module("farmboy_controller_implementation_progress_envelope", CONTROLLER_DIR / "controller.py")
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text(encoding="utf-8"))
         def find_step(nodes, step_id):
             for node in nodes:
                 if node.get("id") == step_id:
@@ -486,7 +486,7 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
                 rendered = controller.render_template(execution, {"feature_context": "specs/020-example"}, {
                     "route-scoped-entry": {"scope": {"scope_sha256": "a" * 64},
                         "previous_assessment": {"state": "continue"}, "baseline": {"baseline_sha256": "b" * 64}},
-                    "assess-implementation-after-pass": {"outcome_envelope": envelope, "review": {"reviewer": "FlowKit-Code Reviewer"}},
+                    "assess-implementation-after-pass": {"outcome_envelope": envelope, "review": {"reviewer": "FarmBoy Code Reviewer"}},
                     "gate-readiness-before-core": {"readiness_gate": {"state": "ready"}},
                     "capture-post-pass-state": {"post_pass_state": {"producer_records": []}},
                 })

@@ -1,4 +1,4 @@
-"""Tests for the deterministic, read-only FlowKit readiness report."""
+"""Tests for the deterministic, read-only FarmBoy readiness report."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ from unittest.mock import patch
 
 
 ROOT = Path(__file__).parents[1]
-MODULE_PATH = ROOT / "controllers/flow-kit/scripts/python/readiness.py"
+MODULE_PATH = ROOT / "controllers/farmboy/scripts/python/readiness.py"
 SPEC = "specs/fixture/spec.md"
 PLAN = "specs/fixture/plan.md"
 TASKS = "specs/fixture/tasks.md"
@@ -25,7 +25,7 @@ CHECKLIST = "specs/fixture/checklists/requirements.md"
 
 
 def load_module():
-    spec = importlib.util.spec_from_file_location("flowkit_readiness_under_test", MODULE_PATH)
+    spec = importlib.util.spec_from_file_location("farmboy_readiness_under_test", MODULE_PATH)
     if spec is None or spec.loader is None:
         raise AssertionError(f"could not load {MODULE_PATH}")
     module = importlib.util.module_from_spec(spec)
@@ -58,7 +58,7 @@ class ReadinessTests(unittest.TestCase):
         record = {
             "schema_version": "1.0",
             "state": "complete",
-            "reviewer": "FlowKit-Reviewer",
+            "reviewer": "FarmBoy Reviewer",
             "reviewer_verdict_sha256": "a" * 64,
             "reviewed_inputs": {path: digest(self.root / path) for path in paths},
         }
@@ -107,10 +107,10 @@ class ReadinessTests(unittest.TestCase):
                 self.assertEqual("readiness-checklist-item-malformed", report["reason_code"])
 
     def test_installedControllerBlocksNoSeparatorAndPrefixedCoreMarkers(self) -> None:
-        package = self.root / ".specify/flow-kit/scripts/python"
+        package = self.root / ".specify/farmboy/scripts/python"
         package.mkdir(parents=True)
         for filename in ("controller.py", "readiness.py", "selection.py"):
-            source = ROOT / "controllers/flow-kit/scripts/python" / filename
+            source = ROOT / "controllers/farmboy/scripts/python" / filename
             if source.exists():
                 shutil.copy2(source, package / filename)
         command = [sys.executable, str(package / "controller.py"), "readiness", "--project", str(self.root)]
@@ -125,10 +125,10 @@ class ReadinessTests(unittest.TestCase):
                 self.assertIn("readiness-checklist-item-malformed", report["blocking_ids"])
 
     def test_installedControllerBlocksParsedLineWithHiddenUncheckedMarker(self) -> None:
-        package = self.root / ".specify/flow-kit/scripts/python"
+        package = self.root / ".specify/farmboy/scripts/python"
         package.mkdir(parents=True)
         for filename in ("controller.py", "readiness.py", "selection.py"):
-            source = ROOT / "controllers/flow-kit/scripts/python" / filename
+            source = ROOT / "controllers/farmboy/scripts/python" / filename
             if source.exists():
                 shutil.copy2(source, package / filename)
         command = [sys.executable, str(package / "controller.py"), "readiness", "--project", str(self.root)]
@@ -146,7 +146,7 @@ class ReadinessTests(unittest.TestCase):
         self.add_current_review()
         review_path = self.root / "specs/fixture/validation/readiness-review.json"
         review = json.loads(review_path.read_text())
-        review["reviewer"] = "FlowKit-Specifier"
+        review["reviewer"] = "FarmBoy Specifier"
         review_path.write_text(json.dumps(review, sort_keys=True))
         report = self.readiness.assess(self.root, "specs/fixture")
         self.assertEqual("blocked", report["state"])
@@ -169,7 +169,7 @@ class ReadinessTests(unittest.TestCase):
             ],
         }, sort_keys=True))
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [original_classification]}
         result = self.readiness.record_review(self.root, "specs/fixture", verdict)
@@ -191,7 +191,7 @@ class ReadinessTests(unittest.TestCase):
                           "category": "human-acceptance", "owner": "operator", "due_phase": "acceptance",
                           "expected_evidence": "decision"}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         with self.assertRaisesRegex(self.readiness.ReadinessError, "duplicate-text-ambiguous"):
@@ -209,7 +209,7 @@ class ReadinessTests(unittest.TestCase):
                           "category": "human-acceptance", "owner": "operator", "due_phase": "acceptance",
                           "expected_evidence": "decision"}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         review_destination = self.root / "specs/fixture/validation/readiness-review.json"
@@ -230,7 +230,7 @@ class ReadinessTests(unittest.TestCase):
                                   "source_item": criterion["source_item"], "category": "human-acceptance",
                                   "owner": "operator", "due_phase": "acceptance", "expected_evidence": "decision"}
                 paths = [SPEC, PLAN, TASKS, CHECKLIST]
-                verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+                verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                            "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                            "future_classifications": [classification]}
                 target = self.root / relative
@@ -329,10 +329,10 @@ class ReadinessTests(unittest.TestCase):
 
     def test_recorderPersistsOnlyExactFreshReviewerVerdict(self) -> None:
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths}}
         with self.assertRaisesRegex(self.readiness.ReadinessError, "invalid-or-stale"):
-            self.readiness.record_review(self.root, "specs/fixture", {**verdict, "reviewer": "FlowKit-Coder"})
+            self.readiness.record_review(self.root, "specs/fixture", {**verdict, "reviewer": "FarmBoy Coder"})
         self.assertFalse((self.root / "specs/fixture/validation/readiness-review.json").exists())
         self.readiness.record_review(self.root, "specs/fixture", verdict)
         report = self.readiness.assess(self.root, "specs/fixture")
@@ -345,7 +345,7 @@ class ReadinessTests(unittest.TestCase):
     def test_taskStatusOnlyChangesPreserveCurrentReviewAcrossCoderAndTaskerReentry(self) -> None:
         (self.root / TASKS).write_text("# Tasks\n- [ ] T001 Implement route\n- [x] T002 Existing behavior\n")
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths}}
         self.readiness.record_review(self.root, "specs/fixture", verdict)
 
@@ -367,7 +367,7 @@ class ReadinessTests(unittest.TestCase):
     def test_taskDescriptionChangeStalesReviewEvenWhenTaskMarkerIsTheOnlyStatusDelta(self) -> None:
         (self.root / TASKS).write_text("# Tasks\n- [ ] T001 Implement route\n")
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths}}
         self.readiness.record_review(self.root, "specs/fixture", verdict)
         tasks = self.root / TASKS
@@ -385,7 +385,7 @@ class ReadinessTests(unittest.TestCase):
             "due_phase": "acceptance", "expected_evidence": "recorded operator verdict",
         }
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         result = self.readiness.record_review(self.root, "specs/fixture", verdict)
@@ -432,7 +432,7 @@ class ReadinessTests(unittest.TestCase):
                    self.root / CHECKLIST]
         before = {path: path.read_bytes() for path in targets}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         original_write = self.readiness._atomic_write
@@ -478,7 +478,7 @@ class ReadinessTests(unittest.TestCase):
                           "category": "human-acceptance", "owner": "operator", "due_phase": "acceptance",
                           "expected_evidence": "recorded operator verdict"}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         ledger_path = self.root / "specs/fixture/validation/future-obligations.json"
@@ -509,14 +509,14 @@ class ReadinessTests(unittest.TestCase):
                           "category": "human-acceptance", "owner": "operator", "due_phase": "acceptance",
                           "expected_evidence": "recorded operator verdict"}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         source_before = (self.root / CHECKLIST).read_bytes()
-        package = self.root / ".specify/flow-kit/scripts/python"
+        package = self.root / ".specify/farmboy/scripts/python"
         package.mkdir(parents=True)
         for filename in ("controller.py", "readiness.py", "selection.py"):
-            source = ROOT / "controllers/flow-kit/scripts/python" / filename
+            source = ROOT / "controllers/farmboy/scripts/python" / filename
             if source.exists():
                 shutil.copy2(source, package / filename)
         readiness_spec = importlib.util.spec_from_file_location("readiness", package / "readiness.py")
@@ -525,10 +525,10 @@ class ReadinessTests(unittest.TestCase):
         prior_readiness = sys.modules.get("readiness")
         sys.modules["readiness"] = copied_readiness
         readiness_spec.loader.exec_module(copied_readiness)
-        controller_spec = importlib.util.spec_from_file_location("copied_flowkit_controller", package / "controller.py")
+        controller_spec = importlib.util.spec_from_file_location("copied_farmboy_controller", package / "controller.py")
         self.assertIsNotNone(controller_spec)
         copied_controller = importlib.util.module_from_spec(controller_spec)
-        sys.modules["copied_flowkit_controller"] = copied_controller
+        sys.modules["copied_farmboy_controller"] = copied_controller
         controller_spec.loader.exec_module(copied_controller)
         try:
             request = {"action": "record-review", "feature_directory": "specs/fixture", "reviewer_report": verdict}
@@ -565,7 +565,7 @@ class ReadinessTests(unittest.TestCase):
             self.assertFalse((self.root / "specs/fixture/validation/future-obligations.json").exists())
         finally:
             sys.modules.pop("readiness", None)
-            sys.modules.pop("copied_flowkit_controller", None)
+            sys.modules.pop("copied_farmboy_controller", None)
             if prior_readiness is not None:
                 sys.modules["readiness"] = prior_readiness
 
@@ -585,9 +585,9 @@ class ReadinessTests(unittest.TestCase):
         self.assertEqual([future["id"]], fresh["pending_future_ids"])
 
     def testNonObjectReviewPayloadsFailBothInstalledEntryPointsBeforeEffect(self) -> None:
-        package = self.root / ".specify/flow-kit/scripts/python"
+        package = self.root / ".specify/farmboy/scripts/python"
         package.mkdir(parents=True)
-        for source in (ROOT / "controllers/flow-kit/scripts/python").glob("*.py"):
+        for source in (ROOT / "controllers/farmboy/scripts/python").glob("*.py"):
             shutil.copy2(source, package / source.name)
         feature = self.root / "specs/fixture"
         before = {str(p.relative_to(feature)): p.read_bytes() for p in feature.rglob("*") if p.is_file()}
@@ -630,7 +630,7 @@ class ReadinessTests(unittest.TestCase):
                                                      "--feature-directory", "specs/fixture"]))
         self.assertEqual("blocked", json.loads(assessment_output.getvalue())["state"])
 
-        request = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        request = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path)
                                        for path in (SPEC, PLAN, TASKS, CHECKLIST)}}
         output = io.StringIO()
@@ -652,7 +652,7 @@ class ReadinessTests(unittest.TestCase):
                           "category": "implementation-evidence", "owner": "implementation",
                           "due_phase": "implementation", "expected_evidence": "test result"}
         paths = [SPEC, PLAN, TASKS, CHECKLIST]
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": {path: digest(self.root / path) for path in paths},
                    "future_classifications": [classification]}
         result = self.readiness.record_review(self.root, "specs/fixture", verdict)
@@ -670,7 +670,7 @@ class ReadinessTests(unittest.TestCase):
         (self.root / custom_path).write_text("# Reviewer checklist\n- [ ] CHK001 Reviewed requirement\n")
         before = {path: digest(self.root / path) for path in (SPEC, PLAN, TASKS, CHECKLIST, custom_path)}
         custom_criteria, _ = self.readiness._items([(custom_path, (self.root / custom_path).read_bytes())])
-        verdict = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        verdict = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                    "reviewed_inputs": before, "satisfied_criteria": [custom_criteria[0]["id"]]}
         result = self.readiness.record_review(self.root, "specs/fixture", verdict)
         self.assertIn(custom_path, result["updated_paths"])
@@ -683,16 +683,16 @@ class ReadinessTests(unittest.TestCase):
         self.assertEqual(before[custom_path], report["independent_review"]["reviewed_inputs"][custom_path])
 
     def test_installedConsumerControllerCommandAssessesAndRecordsExactReviewerEvidence(self) -> None:
-        package = self.root / ".specify/flow-kit/scripts/python"
+        package = self.root / ".specify/farmboy/scripts/python"
         package.mkdir(parents=True)
         for filename in ("controller.py", "readiness.py", "selection.py"):
-            source = ROOT / "controllers/flow-kit/scripts/python" / filename
+            source = ROOT / "controllers/farmboy/scripts/python" / filename
             if source.exists():
                 shutil.copy2(source, package / filename)
         checklist = self.root / CHECKLIST
         checklist.write_text(checklist.read_text().replace("[ ]", "[x]"))
         report_inputs = {path: digest(self.root / path) for path in (SPEC, PLAN, TASKS, CHECKLIST)}
-        reviewer_report = {"reviewer": "FlowKit-Reviewer", "state": "complete", "findings": [],
+        reviewer_report = {"reviewer": "FarmBoy Reviewer", "state": "complete", "findings": [],
                            "reviewed_inputs": report_inputs}
         command = [sys.executable, str(package / "controller.py"), "readiness", "--project", str(self.root)]
         assessed = subprocess.run(command, input=json.dumps({"feature_directory": "specs/fixture",
@@ -712,7 +712,7 @@ class ReadinessTests(unittest.TestCase):
         self.assertEqual("ready", json.loads(persisted.stdout)["state"])
         review_path = self.root / "specs/fixture/validation/readiness-review.json"
         persisted_review = json.loads(review_path.read_text())
-        persisted_review["reviewer"] = "FlowKit-Specifier"
+        persisted_review["reviewer"] = "FarmBoy Specifier"
         review_path.write_text(json.dumps(persisted_review))
         rejected = subprocess.run(command, input=json.dumps({"feature_directory": "specs/fixture"}),
                                   text=True, capture_output=True, check=False)

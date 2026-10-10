@@ -17,7 +17,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
-CONTROLLER_DIR = ROOT / "controllers/flow-kit/scripts/python"
+CONTROLLER_DIR = ROOT / "controllers/farmboy/scripts/python"
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(CONTROLLER_DIR))
 from tools.catalog import controller_package_files
@@ -65,7 +65,7 @@ class ImplementTaskRevisionRouteTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.controller = load_controller()
-        cls.workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text())
+        cls.workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text())
 
     def test_openCorrectionTaskSkipsTaskerAndClosedOrMissingTaskUsesExactAssignment(self) -> None:
         loop = find_step(self.workflow["steps"], "implementation-loop")
@@ -94,9 +94,9 @@ class ImplementTaskRevisionRouteTests(unittest.TestCase):
         tasker_step = next(item for item in snapshot_route["cases"]["ready"]
                            if item.get("id") == "revise-task-plan")
         tasker_steps = revision
-        self.assertEqual("FlowKit-Tasker", assignments["revise-task-plan"])
+        self.assertEqual("FarmBoy Tasker", assignments["revise-task-plan"])
         self.assertEqual("speckit.tasks", tasker_step["command"])
-        self.assertTrue(tasker_step["flow_kit"]["delegated"])
+        self.assertTrue(tasker_step["farmboy"]["delegated"])
         self.assertEqual("route-task-revision", task_revision_route["id"])
 
         for case_id, task_revision_action, choice, expected, finding_task_id in (
@@ -117,7 +117,7 @@ class ImplementTaskRevisionRouteTests(unittest.TestCase):
                 })},
                 "freeze-task-revision-scope": {
                     "frozen_scope": json.dumps({"findings": [], "eligible_task_owners": {},
-                                                 "permitted_added_task_owner": "FlowKit-Tasker"}),
+                                                 "permitted_added_task_owner": "FarmBoy Tasker"}),
                     "scope_sha256": "scope-digest",
                 },
                 "revise-task-plan": {"tasker_result_json": json.dumps({"revision_state": "updated", "finding_ids": ["F020-R001"]})},
@@ -203,12 +203,12 @@ class ImplementTaskRevisionRouteTests(unittest.TestCase):
         self.assertIn("The 031 consumer scope", rendered_semantic["prompt"])
 
     def testUnavailableOrInvalidTaskerAssignmentFailsWorkflowPreflight(self) -> None:
-        changed = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text())
+        changed = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text())
         loop = find_step(changed["steps"], "implementation-loop")
         self.assertIsNotNone(loop)
         outcome = find_step(loop["steps"], "route-post-assessment")
         tasker = find_step(changed["steps"], "revise-task-plan")
-        tasker["flow_kit"]["agent"] = "FlowKit-Unreviewed"
+        tasker["farmboy"]["agent"] = "FarmBoy Unreviewed"
         with self.assertRaisesRegex(ValueError, "unknown or invalid Codex agent"):
             self.controller.collect_agent_assignments(changed["steps"])
 
@@ -257,9 +257,9 @@ class TaskRevisionValidationTests(unittest.TestCase):
         self.tasks_path.write_text(self.before, encoding="utf-8")
         self.frozen_scope = {
             "findings": [{"id": "F020-R001", "exact_correction": "Correct the absent-pointer activation regression."}],
-            "eligible_task_owners": {"T002": "FlowKit-Tasker"},
-            "permitted_added_task_owner": "FlowKit-Tasker",
-            "tasker_owner": "FlowKit-Tasker",
+            "eligible_task_owners": {"T002": "FarmBoy Tasker"},
+            "permitted_added_task_owner": "FarmBoy Tasker",
+            "tasker_owner": "FarmBoy Tasker",
             "approved_specification_sha256": hashlib.sha256(
                 (feature_dir / "spec.md").read_bytes()).hexdigest(),
         }
@@ -277,7 +277,7 @@ class TaskRevisionValidationTests(unittest.TestCase):
             "tasks_before_sha256": hashlib.sha256(self.before.encode()).hexdigest(),
             "tasks_after_sha256": hashlib.sha256(after.encode()).hexdigest(),
             "finding_ids": ["F020-R001"],
-            "task_mappings": [{"finding_id": "F020-R001", "task_ids": mapped_ids, "owner": "FlowKit-Tasker"}],
+            "task_mappings": [{"finding_id": "F020-R001", "task_ids": mapped_ids, "owner": "FarmBoy Tasker"}],
             "reopened_task_ids": reopened_ids,
             "added_task_ids": added_ids,
             "preserved_completed_task_ids": ["T001"],
@@ -416,9 +416,9 @@ class TaskRevisionValidationTests(unittest.TestCase):
                 self.assertEqual(expected_reason, self.controller.validate_task_revision(self.project, payload)["reason_code"])
 
         for mappings in (
-            [{"finding_id": "F020-R999", "task_ids": ["T003"], "owner": "FlowKit-Tasker"}],
+            [{"finding_id": "F020-R999", "task_ids": ["T003"], "owner": "FarmBoy Tasker"}],
             [],
-            [{"finding_id": "F020-R002", "task_ids": ["T003"], "owner": "FlowKit-Tasker"}],
+            [{"finding_id": "F020-R002", "task_ids": ["T003"], "owner": "FarmBoy Tasker"}],
         ):
             with self.subTest(task_mappings=mappings):
                 payload = self.payload(after, changed={"task_mappings": mappings})
@@ -428,7 +428,7 @@ class TaskRevisionValidationTests(unittest.TestCase):
     def testFrozenOwnerAndIndependentSemanticReviewRejectWrongOwnerAndUnrelatedScope(self) -> None:
         after = self.before + "- [ ] T003 [US1] Correct F020-R001 absent-pointer activation\n"
         wrong_owner = self.payload(after, changed={"task_mappings": [
-            {"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FlowKit-Coder"}
+            {"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FarmBoy Coder"}
         ]})
         self.assertEqual("task-revision-wrong-owner", self.controller.validate_task_revision(self.project, wrong_owner)["reason_code"])
 
@@ -445,10 +445,10 @@ class TaskRevisionValidationTests(unittest.TestCase):
         after = "- [X] T001 Keep verified implementation\n- [ ] T002 Existing F020-R001 correction task\n"
         payload = self.payload(after, changed={"reopened_task_ids": ["T002"], "added_task_ids": [],
                                                "preserved_completed_task_ids": ["T001"]})
-        payload["frozen_scope"]["eligible_task_owners"]["T002"] = "FlowKit-Coder"
+        payload["frozen_scope"]["eligible_task_owners"]["T002"] = "FarmBoy Coder"
         self.assertEqual("task-revision-owner-snapshot-invalid", self.controller.validate_task_revision(self.project, payload)["reason_code"])
 
-        self.frozen_scope["eligible_task_owners"]["T002"] = "FlowKit-Tasker"
+        self.frozen_scope["eligible_task_owners"]["T002"] = "FarmBoy Tasker"
         payload = self.payload(after, changed={"reopened_task_ids": ["T002"], "added_task_ids": [],
                                                "preserved_completed_task_ids": ["T001"]})
         payload["semantic_review"]["scope_sha256"] = "0" * 64
@@ -482,7 +482,7 @@ class InstalledConsumerTaskRevisionTests(unittest.TestCase):
 
     def testLiteralRenderedValidationCommandAcceptsAndRejectsConsumerRevision(self) -> None:
         controller = load_controller()
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text())
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text())
         loop = find_step(workflow["steps"], "implementation-loop")
         self.assertIsNotNone(loop)
         revise_steps = find_step(workflow["steps"], "route-task-revision-preflight")["cases"]["ready"]
@@ -490,9 +490,9 @@ class InstalledConsumerTaskRevisionTests(unittest.TestCase):
         validation = find_step(workflow["steps"], "validate-task-revision")
         preflight = find_step(workflow["steps"], "preflight-task-revision-snapshot")
         prompt = validation["prompt"]
-        scope_match = re.search(r"`(python3 \.specify/flow-kit/scripts/python/controller\.py task-revision-scope)`", freeze["prompt"])
-        preflight_match = re.search(r"`(python3 \.specify/flow-kit/scripts/python/controller\.py task-revision-preflight --project \"\$PWD\")`", preflight["prompt"])
-        match = re.search(r"`(python3 \.specify/flow-kit/scripts/python/controller\.py validate-task-revision --project \"\$PWD\")`", prompt)
+        scope_match = re.search(r"`(python3 \.specify/farmboy/scripts/python/controller\.py task-revision-scope)`", freeze["prompt"])
+        preflight_match = re.search(r"`(python3 \.specify/farmboy/scripts/python/controller\.py task-revision-preflight --project \"\$PWD\")`", preflight["prompt"])
+        match = re.search(r"`(python3 \.specify/farmboy/scripts/python/controller\.py validate-task-revision --project \"\$PWD\")`", prompt)
         self.assertIsNotNone(scope_match, "workflow must freeze scope with the installed helper before Tasker")
         self.assertIsNotNone(preflight_match, "workflow must run the installed preflight before reading tasks")
         self.assertIsNotNone(match, "workflow must name the literal installed helper command")
@@ -500,15 +500,15 @@ class InstalledConsumerTaskRevisionTests(unittest.TestCase):
         preflight_command = preflight_match.group(1)
         command = match.group(1)
 
-        with tempfile.TemporaryDirectory(prefix="flowkit-installed-controller-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-installed-controller-") as temporary:
             consumer = Path(temporary)
             for relative, source in controller_package_files().items():
                 destination = consumer / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(source, destination)
-            installed_helper = consumer / ".specify/flow-kit/scripts/python/controller.py"
+            installed_helper = consumer / ".specify/farmboy/scripts/python/controller.py"
             self.assertTrue(installed_helper.is_file())
-            self.assertFalse((consumer / "controllers/flow-kit/scripts/python/controller.py").exists())
+            self.assertFalse((consumer / "controllers/farmboy/scripts/python/controller.py").exists())
 
             feature = consumer / "specs/020-consumer-fixture"
             feature.mkdir(parents=True)
@@ -538,8 +538,8 @@ class InstalledConsumerTaskRevisionTests(unittest.TestCase):
             self.assertEqual("task-revision-digest-mismatch", json.loads(immediate.stdout)["reason_code"])
             frozen_scope = {
                 "findings": [{"id": "F020-R001", "exact_correction": "Correct the absent-pointer activation regression."}],
-                "eligible_task_owners": {"T002": "FlowKit-Tasker"},
-                "permitted_added_task_owner": "FlowKit-Tasker", "tasker_owner": "FlowKit-Tasker",
+                "eligible_task_owners": {"T002": "FarmBoy Tasker"},
+                "permitted_added_task_owner": "FarmBoy Tasker", "tasker_owner": "FarmBoy Tasker",
                 "approved_specification_sha256": snapshot_result["specification_sha256"],
             }
             tasks_path_relative = "specs/020-consumer-fixture/tasks.md"
@@ -557,7 +557,7 @@ class InstalledConsumerTaskRevisionTests(unittest.TestCase):
                 "tasks_before_sha256": hashlib.sha256(before.encode()).hexdigest(),
                 "tasks_after_sha256": hashlib.sha256(after.encode()).hexdigest(),
                 "finding_ids": ["F020-R001"],
-                "task_mappings": [{"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FlowKit-Tasker"}],
+                "task_mappings": [{"finding_id": "F020-R001", "task_ids": ["T003"], "owner": "FarmBoy Tasker"}],
                 "reopened_task_ids": [], "added_task_ids": ["T003"],
                 "preserved_completed_task_ids": ["T001"],
             }

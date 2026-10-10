@@ -1,0 +1,3 @@
+interface:
+  display_name: "FarmBoy Start Feature"
+  short_description: "Start an eligible feature from the roadmap."

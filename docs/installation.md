@@ -1,6 +1,6 @@
-# Install and Use Spec Kit Flow
+# Install and Use FarmBoy
 
-Use the catalog tasks in this repository to install or refresh the bundle. They serve the checked-in release packages on localhost for the duration of each command, so you do not need separate roadmap or wiki source checkouts to install it. The [bundle manifest](../bundles/spec-kit-flow/bundle.yml) and [release metadata](../catalog/release.json) are the sources for current component versions.
+Use the catalog tasks in this repository to install or refresh the bundle. They serve the checked-in release packages on localhost for the duration of each command, so you do not need separate roadmap or wiki source checkouts to install it. The [bundle manifest](../bundles/farmboy/bundle.yml) and [release metadata](../catalog/release.json) are the sources for current component versions.
 
 Ordinary catalog install and refresh use the checked-in release packages only from a checkout whose source matches that release; the installer rejects a catalog/source mismatch. To dogfood uncommitted source changes, use explicit development-snapshot mode in this repository’s initialized root or a disposable initialized consumer under the system temporary directory. Snapshot installation records unreleased provenance and does not change the checked-in catalog. Local packaging and installation do not imply publication.
 
@@ -16,7 +16,7 @@ Ordinary catalog install and refresh use the checked-in release packages only fr
 
 ## Prepare the checkout
 
-Run these commands from the Spec Kit Flow checkout. You need `mise` and access to the Specify CLI pinned in `mise.toml`. The repository does not distribute that CLI.
+Run these commands from the FarmBoy checkout. You need `mise` and access to the Specify CLI pinned in `mise.toml`. The repository does not distribute that CLI.
 
 ```sh
 cd /path/to/spec-kit-flow
@@ -58,7 +58,7 @@ For Codex skill integration, initialize a new disposable consumer with the skill
 specify init --here --force --non-interactive --integration codex --integration-options="--skills"
 ```
 
-The supported catalog install also installs ten direct FlowKit skills, shared controller files, and `.specify/flow-kit/skills-install.json`. Native `specify bundle install` manages the workflows and extensions, not those direct skills. Use the FlowKit catalog task so both parts are installed and verified together.
+The supported catalog install also installs ten direct FarmBoy skills, shared controller files, and `.specify/farmboy/skills-install.json`. Native `specify bundle install` manages the workflows and extensions, not those direct skills. Use the FarmBoy catalog task so both parts are installed and verified together.
 
 After installation, adoption of project governance is a separate operator decision. Follow the [consumer adoption review](consumer-adoption.md) to inspect active agent guidance and governance, review exact changes, and record the evidence. Installation does not edit those project-owned files or confirm adoption.
 
@@ -78,13 +78,13 @@ Snapshot mode builds a temporary catalog from current source and checked-in exte
 
 ## Dogfood this repository
 
-Use a checkout whose source matches the checked-in release as a consumer when developing Spec Kit Flow. From its root, install the release if no `spec-kit-flow` bundle is present:
+Use a checkout whose source matches the checked-in release as a consumer when developing FarmBoy. From its root, install the release if no `farmboy` bundle is present:
 
 ```sh
 mise run catalog:install .
 ```
 
-If `specify bundle list` already shows `spec-kit-flow`, refresh the existing installation instead:
+If `specify bundle list` already shows `farmboy`, refresh the existing installation instead:
 
 ```sh
 mise run catalog:refresh .
@@ -98,26 +98,26 @@ mise run catalog:refresh . --development-snapshot
 
 For an initialized checkout with no bundle installed, use `mise run catalog:install . --development-snapshot`. These commands preserve project-owned agents, governance, feature artifacts, wiki content, and controller run history under the same installation ownership checks. They do not commit, publish, or invoke a workflow. Normal release installation continues to require matching release metadata.
 
-Both catalog commands install or refresh the ten active Specify workflows **and** the ten direct FlowKit Codex skills in `.agents/skills/flow-kit-*/`. They also write the separate skill ownership record under `.specify/flow-kit/`. Verify both parts from this checkout:
+Both catalog commands install or refresh the ten active Specify workflows **and** the ten direct FarmBoy Codex skills in `.agents/skills/farmboy-*/`. They also write the separate skill ownership record under `.specify/farmboy/`. Verify both parts from this checkout:
 
 ```sh
 mise exec -- specify bundle list
 mise exec -- specify workflow list
-ls .agents/skills/flow-kit-*/SKILL.md
-test -f .specify/flow-kit/skills-install.json
+ls .agents/skills/farmboy-*/SKILL.md
+test -f .specify/farmboy/skills-install.json
 ```
 
-The skill picker should then show FlowKit Select Feature, FlowKit Specify, FlowKit Clarify, FlowKit Plan, FlowKit Tasks, FlowKit Analyze, FlowKit Implement, FlowKit Converge, and FlowKit Close Out in a Codex task for this project. If a task was already open before installation, open a fresh task to check discovery. Edit reviewed source under `controllers/`, `workflows/`, and the extension source packages, not the installed copies under `.agents/skills/` or `.specify/`. This repository ignores local installation records and installed payloads.
+The skill picker should then show FarmBoy Select Feature, FarmBoy Specify, FarmBoy Clarify, FarmBoy Plan, FarmBoy Tasks, FarmBoy Analyze, FarmBoy Implement, FarmBoy Converge, and FarmBoy Close Out in a Codex task for this project. If a task was already open before installation, open a fresh task to check discovery. Edit reviewed source under `controllers/`, `workflows/`, and the extension source packages, not the installed copies under `.agents/skills/` or `.specify/`. This repository ignores local installation records and installed payloads.
 
 ### Roadmap lifecycle during feature work
 
 Specify owns the `planned→specced` transition after current specification-quality and clarification checks, independent review, a current roadmap brief, unique linkage, valid dependencies, and resolution of consequential decisions. It does not require a Complete specification, plan, tasks, implementation, or future acceptance. Implement owns `specced→in-progress` before its first Coder dispatch; current reviewed artifacts, dependency closure, fresh Readiness Checker evidence, eligible authorized scope, and exact required assignments must all be present. Close Out owns `in-progress→implemented` before its first roadmap debrief; it needs attributable completion of the selected scope, current convergence, required validation, independent Code Reviewer evidence, and no buildable unresolved defect. A Complete header or checked tasks alone is insufficient.
 
-These routes require the compatible `flow-roadmap` extension version `>=0.3.0` with its declared lifecycle helper. FlowKit's deterministic adapter hashes and validates the request, source map, assessments, decision evidence, dependencies, and pending future obligations, then calls the owner in read-only evaluation mode. The adapter never writes roadmap bytes. The workflow revalidates the exact prepared proposal and source snapshot immediately before the assigned Roadmap Agent invokes the owner's versioned phase-milestone write. A separate Reviewer checks the actual discriminated receipt and current roadmap state before coding or debrief begins. Missing owner capability, stale or untrusted proof, contradictory state, failed or partial effects, and unavailable recovery stop with exact evidence and a safe resumption action. Manual execution follows the same prepare → revalidate → owner write → independent receipt verification order; do not substitute ordinary roadmap delta mode.
+These routes require the compatible `flow-roadmap` extension version `>=0.3.0` with its declared lifecycle helper. FarmBoy's deterministic adapter hashes and validates the request, source map, assessments, decision evidence, dependencies, and pending future obligations, then calls the owner in read-only evaluation mode. The adapter never writes roadmap bytes. The workflow revalidates the exact prepared proposal and source snapshot immediately before the assigned Roadmap Agent invokes the owner's versioned phase-milestone write. A separate Reviewer checks the actual discriminated receipt and current roadmap state before coding or debrief begins. Missing owner capability, stale or untrusted proof, contradictory state, failed or partial effects, and unavailable recovery stop with exact evidence and a safe resumption action. Manual execution follows the same prepare → revalidate → owner write → independent receipt verification order; do not substitute ordinary roadmap delta mode.
 
 Consistent equal or advanced state is retained without duplicate events or downgrade. Recovery records only independently substantiated adjacent transitions at their actual occurrence times; deferred, abandoned, or ambiguous states require focused operator resolution. `implemented` does not satisfy Close Out's existing explicit `verified` approval gate, and none of these milestones implies Git integration, publication, or feature acceptance. Completion of Specify, Implement, or Close Out never invokes another workflow.
 
-After installing in this checkout, new local Codex-managed worktrees copy its ignored installation records, FlowKit skill ownership record, extension and workflow payloads, and generated agent files through `.worktreeinclude`. No worktree setup script is needed. Run `mise install` in a worktree if the pinned tools are not already available there.
+After installing in this checkout, new local Codex-managed worktrees copy its ignored installation records, FarmBoy skill ownership record, extension and workflow payloads, and generated agent files through `.worktreeinclude`. No worktree setup script is needed. Run `mise install` in a worktree if the pinned tools are not already available there.
 
 The copy reflects the source checkout's installed bundle. After changing reviewed release packages, run `mise run catalog:refresh .` in that checkout before creating a worktree. A fresh clone, remote worktree, or plain `git worktree add` does not receive this ignored state; run `mise run catalog:install .` there after preparing the checkout. The workflow registry can contain a temporary localhost catalog URL; use the catalog refresh task to update the bundle.
 
@@ -126,44 +126,44 @@ The copy reflects the source checkout's installed bundle. After changing reviewe
 Inspect the workflow before running it in the installed project. Inspect selection and specification authoring as separate workflows:
 
 ```sh
-specify workflow info speckit-flow-select-feature
-specify workflow info speckit-flow-specify
-$flow-kit-select-feature
+specify workflow info farmboy-select-feature
+specify workflow info farmboy-specify
+$farmboy-select-feature
 # After selection completes, separately invoke:
-$flow-kit-specify
+$farmboy-specify
 ```
 
 The workflow stops at human review gates. Invoke each later workflow separately. The [workflow guide](../workflows/README.md) gives the route and manual fallback. While editing a workflow in this repository, you can run its source `workflow.yml` by path to test an uninstalled change.
 
-In the Codex app, invoke the corresponding FlowKit skill in a task whose selected project is the consumer. The visible names, skill IDs, and required inputs are:
+In the Codex app, invoke the corresponding FarmBoy skill in a task whose selected project is the consumer. The visible names, skill IDs, and required inputs are:
 
 | Display name | Skill invocation | Required input |
 | --- | --- | --- |
-| FlowKit Select Feature | `$flow-kit-select-feature` | optional `feature_request` |
-| FlowKit Specify | `$flow-kit-specify` | active `.specify/feature.json` |
-| FlowKit Clarify | `$flow-kit-clarify` | `feature_context` |
-| FlowKit Plan | `$flow-kit-plan` | `feature_context` |
-| FlowKit Tasks | `$flow-kit-tasks` | `feature_context` |
-| FlowKit Analyze | `$flow-kit-analyze-remediate` | `feature_context` |
-| FlowKit Implement | `$flow-kit-implement` | `feature_context` |
-| FlowKit Converge | `$flow-kit-converge` | `feature_context` |
-| FlowKit Close Out | `$flow-kit-closeout` | `feature_context` |
+| FarmBoy Select Feature | `$farmboy-select-feature` | optional `feature_request` |
+| FarmBoy Specify | `$farmboy-specify` | active `.specify/feature.json` |
+| FarmBoy Clarify | `$farmboy-clarify` | `feature_context` |
+| FarmBoy Plan | `$farmboy-plan` | `feature_context` |
+| FarmBoy Tasks | `$farmboy-tasks` | `feature_context` |
+| FarmBoy Analyze | `$farmboy-analyze-remediate` | `feature_context` |
+| FarmBoy Implement | `$farmboy-implement` | `feature_context` |
+| FarmBoy Converge | `$farmboy-converge` | `feature_context` |
+| FarmBoy Close Out | `$farmboy-closeout` | `feature_context` |
 
-For example, enter `$flow-kit-tasks feature_context=013` in the selected project's Codex task. Optional workflow inputs have defaults and can be supplied in the same `key=value` form. The controller locates the selected compatible Specify executable (preferring the project's mise selection), reads the installed composed workflow without executing native workflow dispatch, and stops before workflow work if runtime, workflow, input, or skill provenance checks fail.
+For example, enter `$farmboy-tasks feature_context=013` in the selected project's Codex task. Optional workflow inputs have defaults and can be supplied in the same `key=value` form. The controller locates the selected compatible Specify executable (preferring the project's mise selection), reads the installed composed workflow without executing native workflow dispatch, and stops before workflow work if runtime, workflow, input, or skill provenance checks fail.
 
-Before workflow work, the FlowKit controller validates every delegated step name, including untaken branches, and probes each distinct native agent with that exact name as the Codex `agent_type`. Codex's native subagent activity shows each launched child. Probe labels include the agent name; work-child labels include the agent name and step ID, while the pane may also show model and reasoning effort. The task label helps the operator see what was launched; the exact `agent_type` request establishes native selection. FlowKit does not require a separate launch message or a per-run agent, model, or effort override. Each delegated step uses a bounded child; steps without explicit delegation metadata and all gates stay in the main task. The main task presents child questions as numbered options plus a custom answer when allowed and relays the response to the same child.
+Before workflow work, the FarmBoy controller validates every delegated step name, including untaken branches, and probes each distinct native agent with that exact name as the Codex `agent_type`. Codex's native subagent activity shows each launched child. Probe labels include the agent name; work-child labels include the agent name and step ID, while the pane may also show model and reasoning effort. The task label helps the operator see what was launched; the exact `agent_type` request establishes native selection. FarmBoy does not require a separate launch message or a per-run agent, model, or effort override. Each delegated step uses a bounded child; steps without explicit delegation metadata and all gates stay in the main task. The main task presents child questions as numbered options plus a custom answer when allowed and relays the response to the same child.
 
 Codex custom-agent files are consumer-owned. Catalog installation adds missing reviewed defaults; you can then edit them directly. The native configuration fields look like this shortened example:
 
 ```toml
-name = "FlowKit-Reviewer"
+name = "FarmBoy Reviewer"
 description = "Independently assesses workflow artifacts."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "high"
 developer_instructions = "Follow the task scope and return a concise result to the parent."
 ```
 
-Use the exact reviewed work-type name declared by the workflow step. The canonical package supplies FlowKit-Roadmap Agent, FlowKit-Specifier, FlowKit-Planner, FlowKit-Tasker, FlowKit-Reviewer, FlowKit-Coder, FlowKit-Code Reviewer, FlowKit-Wiki Curator, and FlowKit-Readiness Checker. The catalog validates package TOML and readable project identities during delivery; the workflow controller delegates native configuration loading and model/effort resolution to Codex. Install-missing preserves existing copies, refresh updates available defaults only, and removal retains all copies. Explicit reset replaces selected current targets. See [agent delivery instructions](#agent-configuration-and-consumer-copies). A successful workflow loader check does not establish that native `specify workflow run` performs FlowKit's named-agent dispatch procedure; use the direct FlowKit Codex skill for that behavior and retain the manual workflow path as fallback.
+Use the exact reviewed work-type name declared by the workflow step. The canonical package supplies FarmBoy Roadmap Agent, FarmBoy Specifier, FarmBoy Planner, FarmBoy Tasker, FarmBoy Reviewer, FarmBoy Coder, FarmBoy Code Reviewer, FarmBoy Wiki Curator, and FarmBoy Readiness Checker. The catalog validates package TOML and readable project identities during delivery; the workflow controller delegates native configuration loading and model/effort resolution to Codex. Install-missing preserves existing copies, refresh updates available defaults only, and removal retains all copies. Explicit reset replaces selected current targets. See [agent delivery instructions](#agent-configuration-and-consumer-copies). A successful workflow loader check does not establish that native `specify workflow run` performs FarmBoy's named-agent dispatch procedure; use the direct FarmBoy Codex skill for that behavior and retain the manual workflow path as fallback.
 
 ## Refresh or remove the bundle
 
@@ -179,25 +179,25 @@ For an in-repository installation, use `mise run catalog:refresh .` instead. Use
 To remove the bundle, run this in the installed project:
 
 ```sh
-specify bundle remove spec-kit-flow
+specify bundle remove farmboy
 specify bundle list
 ```
 
 Confirm that unrelated components remain. The consumer's feedback journal is local evidence and should remain available after removal.
 
-For a supported complete removal of the bundle and its direct FlowKit skills, run the catalog command from the source checkout:
+For a supported complete removal of the bundle and its direct FarmBoy skills, run the catalog command from the source checkout:
 
 ```sh
 mise run catalog:remove /path/to/my-project
 ```
 
-It checks the recorded skill inventory and file digests before calling native bundle removal, then removes only unchanged FlowKit-owned skills and the ownership record. A collision or locally edited owned file stops removal for review. Recovery summaries under `.specify/flow-controllers/runs/`, unrelated skills, feedback, and independently installed components are preserved. The native `specify bundle remove` command alone removes the bundle contents but does not manage direct Codex skills.
+It checks the recorded skill inventory and file digests before calling native bundle removal, then removes only unchanged FarmBoy owned skills and the ownership record. A collision or locally edited owned file stops removal for review. Recovery summaries under `.specify/flow-controllers/runs/`, unrelated skills, feedback, and independently installed components are preserved. The native `specify bundle remove` command alone removes the bundle contents but does not manage direct Codex skills.
 
 After refresh, reassess current project state with the [consumer adoption review](consumer-adoption.md); refresh does not edit or confirm adoption. Bundle removal also leaves project-owned guidance, governance, feature history, and adoption review records intact.
 
 ## Build release packages
 
-Maintainers need clean checkouts of the independent roadmap and wiki repositories at annotated release tags matching the [bundle manifest](../bundles/spec-kit-flow/bundle.yml). From this repository's root, run:
+Maintainers need clean checkouts of the independent roadmap and wiki repositories at annotated release tags matching the [bundle manifest](../bundles/farmboy/bundle.yml). From this repository's root, run:
 
 ```sh
 mise run catalog:build /path/to/spec-kit-flow-roadmap /path/to/spec-kit-flow-wiki
@@ -208,26 +208,26 @@ The builder checks source IDs, versions, tags, and cleanliness, then writes dete
 
 ## Start Feature deprecation
 
-Current source replaces Start Feature with separately invoked Select Feature and Specify. Selection updates the exactly approved roadmap delta and active pointer without writing a specification; Specify authors the active target and runs its brief. Controller refresh removes an unchanged owned `flow-kit-start-feature` launcher and installs the replacements; a locally edited retired launcher blocks refresh for operator resolution. Historical catalog releases still contain the old workflow. Do not infer replacement discovery until the current development snapshot has been installed or refreshed. The deprecated source is retained as a stop-only compatibility notice, outside active bundle bindings.
+Current source replaces Start Feature with separately invoked Select Feature and Specify. Selection updates the exactly approved roadmap delta and active pointer without writing a specification; Specify authors the active target and runs its brief. Controller refresh removes an unchanged owned `farmboy-start-feature` launcher and installs the replacements; a locally edited retired launcher blocks refresh for operator resolution. Historical catalog releases still contain the old workflow. Do not infer replacement discovery until the current development snapshot has been installed or refreshed. The deprecated source is retained as a stop-only compatibility notice, outside active bundle bindings.
 
 
 ## Agent Configuration and Consumer Copies
 
-The development bundle includes `flow-kit-agents` 0.2.0, composed from canonical `agents/flow-kit/` source. Installed files under `.codex/agents/` are consumer-owned and may be edited directly. Package-level source/artifact digests establish provenance; FlowKit does not hash, classify, own or merge consumer copies.
+The development bundle includes `farmboy-agents` 0.2.0, composed from canonical `agents/farmboy/` source. Installed files under `.codex/agents/` are consumer-owned and may be edited directly. Package-level source/artifact digests establish provenance; FarmBoy does not hash, classify, own or merge consumer copies.
 
 | Role | Model | Effort |
 |---|---|---|
-| FlowKit-Roadmap Agent | `gpt-6.1-sol` | low |
-| FlowKit-Specifier | `gpt-6.1-sol` | high |
-| FlowKit-Planner | `gpt-6.1-sol` | high |
-| FlowKit-Tasker | `gpt-6-luna` | high |
-| FlowKit-Reviewer | `gpt-6.1-sol` | high |
-| FlowKit-Coder | `gpt-6-luna` | high |
-| FlowKit-Code Reviewer | `gpt-6.1-sol` | medium |
-| FlowKit-Wiki Curator | `gpt-6.1-sol` | low |
-| FlowKit-Readiness Checker | `gpt-6-luna` | medium |
+| FarmBoy Roadmap Agent | `gpt-6.1-sol` | low |
+| FarmBoy Specifier | `gpt-6.1-sol` | high |
+| FarmBoy Planner | `gpt-6.1-sol` | high |
+| FarmBoy Tasker | `gpt-6-luna` | high |
+| FarmBoy Reviewer | `gpt-6.1-sol` | high |
+| FarmBoy Coder | `gpt-6-luna` | high |
+| FarmBoy Code Reviewer | `gpt-6.1-sol` | medium |
+| FarmBoy Wiki Curator | `gpt-6.1-sol` | low |
+| FarmBoy Readiness Checker | `gpt-6-luna` | medium |
 
-Specifier, Planner and Reviewer retain depth for product, architecture and cross-artifact judgment. Coder and Tasker use bounded approved inputs with independent review. Roadmap/Wiki work is scoped bookkeeping; Code Reviewer independently checks selected implementation at medium effort. The Readiness Checker performs routine, read-only validation of a deterministic FlowKit report at Luna/Medium. This rationale is engineering judgment rather than a measured quality/cost comparison. Native support, requested configuration, live exact-role dispatch and observed effective settings are distinct evidence categories.
+Specifier, Planner and Reviewer retain depth for product, architecture and cross-artifact judgment. Coder and Tasker use bounded approved inputs with independent review. Roadmap/Wiki work is scoped bookkeeping; Code Reviewer independently checks selected implementation at medium effort. The Readiness Checker performs routine, read-only validation of a deterministic FarmBoy report at Luna/Medium. This rationale is engineering judgment rather than a measured quality/cost comparison. Native support, requested configuration, live exact-role dispatch and observed effective settings are distinct evidence categories.
 
 ### Install and Customize
 
@@ -240,7 +240,7 @@ mise run catalog:agents -- install-missing "$consumer_project" --json
 
 The first command already runs install-missing; the second is useful after refresh or to retry absent copies. Edit the resulting native files directly to customize instructions, model or effort. Changes are version-controlled by the consuming project according to its own policy.
 
-Prepare the project-level agent definitions once per selected consumer checkout, not once per chat. When the project tracks `.codex/agents/`, commit or otherwise propagate the reviewed definitions through the consumer's normal project process. When that directory is ignored or local-only, use the project's approved worktree setup/propagation mechanism; a fresh chat does not copy definitions between checkouts. After installing the current bundle, confirm that `.codex/agents/flowkit-readiness-checker.toml` names exactly `FlowKit-Readiness Checker` and requests `gpt-6-luna` with `medium` effort. A present file proves only configuration availability. It does not prove that the current Codex interface can request or launch that exact type, nor that the requested settings are effective.
+Prepare the project-level agent definitions once per selected consumer checkout, not once per chat. When the project tracks `.codex/agents/`, commit or otherwise propagate the reviewed definitions through the consumer's normal project process. When that directory is ignored or local-only, use the project's approved worktree setup/propagation mechanism; a fresh chat does not copy definitions between checkouts. After installing the current bundle, confirm that `.codex/agents/farmboy-readiness-checker.toml` names exactly `FarmBoy Readiness Checker` and requests `gpt-6-luna` with `medium` effort. A present file proves only configuration availability. It does not prove that the current Codex interface can request or launch that exact type, nor that the requested settings are effective.
 
 To test a native agent launch, first prepare the chosen project as above, then open a fresh Codex task/chat attached to that same checkout and invoke the workflow skill that declares the assignment. The workflow controller probes the exact native agent name before creating workflow state. Record the actual launch/token or exact dispatch error separately from configuration presence; do not reinstall for each chat or substitute a generic agent. Until a fresh-chat exact-name launch is observed, report the definition as present and native availability as unverified. The Feature 020 Checker launch cases remain deferred and are not evidence of success in this source pass.
 
@@ -256,7 +256,7 @@ mise run catalog:agents -- install-missing "$consumer_project" --json
 To discard selected customizations and reapply cached defaults, explicitly reset one exact current name or all current manifest entries:
 
 ```bash
-mise run catalog:agents -- reset "$consumer_project" --agent "FlowKit-Planner" --json
+mise run catalog:agents -- reset "$consumer_project" --agent "FarmBoy Planner" --json
 mise run catalog:agents -- reset "$consumer_project" --all --json
 ```
 
@@ -272,10 +272,10 @@ Human and JSON output report package/source provenance, selected inputs, manifes
 
 ### Preparation readiness and implementation handoff
 
-Analyze and Remediate combines fresh `speckit.analyze` findings with a deterministic FlowKit readiness report and an exact read-only FlowKit-Readiness Checker assessment. The Checker uses the reviewed `gpt-6-luna`/medium definition and cannot edit artifacts, supply substantive independent review, or mark future work complete. Safe gaps return to the smallest declared owner: Specifier for specification, Planner for plan, Tasker for tasks, the actual FlowKit-Reviewer for substantive judgment, or the authorized main-task recorder for a current exact Reviewer verdict. Each correction is followed by fresh analysis and readiness checks. Only substantive resolution of a stable finding counts as progress; no-progress, repeated findings, unavailable owners, consequential choices, and the six-assessment/five-correction cap stop with evidence and a safe resumption action.
+Analyze and Remediate combines fresh `speckit.analyze` findings with a deterministic FarmBoy readiness report and an exact read-only FarmBoy Readiness Checker assessment. The Checker uses the reviewed `gpt-6-luna`/medium definition and cannot edit artifacts, supply substantive independent review, or mark future work complete. Safe gaps return to the smallest declared owner: Specifier for specification, Planner for plan, Tasker for tasks, the actual FarmBoy Reviewer for substantive judgment, or the authorized main-task recorder for a current exact Reviewer verdict. Each correction is followed by fresh analysis and readiness checks. Only substantive resolution of a stable finding counts as progress; no-progress, repeated findings, unavailable owners, consequential choices, and the six-assessment/five-correction cap stop with evidence and a safe resumption action.
 
 The main-task recorder may persist a current independent Reviewer verdict, satisfy only exact custom quality markers identified by that verdict, and relocate clearly post-implementation or acceptance obligations to a feature-local pending ledger. Future obligations remain pending and outside `checklists/`; recording or relocating them does not complete them. The helper preserves original reviewed-input hashes and auditable before/after changes. A task checkbox completion or same-text reopen alone does not stale preparation review; any task wording, specification, plan, checklist, or evidence change still requires current review.
 
-Implement runs the same helper and Checker before invoking the unchanged `speckit.implement` checklist gate, and rechecks after every Code Reviewer `continue` plus any authorized Tasker revise/skip route. It sends no next Coder pass when current readiness is blocked or stale, even when code review said continue. A blocked handoff reports the exact finding and `$flow-kit-analyze-remediate` resumption action; it never invokes Analyze automatically. Core checklist behavior and core source remain unchanged. These source definitions do not establish that the additive Checker has launched natively; exact-agent availability is separate evidence.
+Implement runs the same helper and Checker before invoking the unchanged `speckit.implement` checklist gate, and rechecks after every Code Reviewer `continue` plus any authorized Tasker revise/skip route. It sends no next Coder pass when current readiness is blocked or stale, even when code review said continue. A blocked handoff reports the exact finding and `$farmboy-analyze-remediate` resumption action; it never invokes Analyze automatically. Core checklist behavior and core source remain unchanged. These source definitions do not establish that the additive Checker has launched natively; exact-agent availability is separate evidence.
 
-The Implement workflow also captures the trusted full-feature or exact explicit-subset request before its initial assessment, and keeps that immutable request separate from current eligible work. Its seven-node `implementation_scope` carrier is valid only on `implementation-loop` in `speckit-flow-implement`, with an exact five-pass limit and a final nondelegated `route-scoped-execution` prompt. After review and any executed Tasker route, the workflow calls the installed controller's shared `post-pass-capture --project "$PWD"` operation, also exercised by the supported harness. The operation consumes only the selected branch's actual Tasker result and validator output, proves the route-entry history digest is an ancestor of current durable history, appends only the validator's returned successor, revalidates the full chain against current task bytes, and recomputes eligibility. Revision and task-outcome validators must return `ready`; the completion validator may return `complete` only with current whole-task proof for every requested task and no buildable finding, while a blocked result takes precedence. Missing, stale, unsupported, or untaken-branch outputs block the route with a stable resumption action; the original route-entry snapshot remains an immutable predecessor. The workflow routes to administrative preparation or first-source execution only before any source attempt. The controller durably appends a session-start record before each new Coder dispatch and a source-attempt record before source work in consumer-local `.specify/flow-controllers/implementation-history/`; failed launches and question-stopped sessions count, while answers resumed in the same child do not. Readiness, owner-source access, authorization, task-specific activation and the shared five-session/five-attempt limit remain enforced. Once source work has started, every continuation uses independently reviewed prior/current substantive progress through the existing generic no-progress and cap predicate. Administrative proof and task-marker updates do not count as implementation progress; FlowKit-Tasker owns task updates.
+The Implement workflow also captures the trusted full-feature or exact explicit-subset request before its initial assessment, and keeps that immutable request separate from current eligible work. Its seven-node `implementation_scope` carrier is valid only on `implementation-loop` in `farmboy-implement`, with an exact five-pass limit and a final nondelegated `route-scoped-execution` prompt. After review and any executed Tasker route, the workflow calls the installed controller's shared `post-pass-capture --project "$PWD"` operation, also exercised by the supported harness. The operation consumes only the selected branch's actual Tasker result and validator output, proves the route-entry history digest is an ancestor of current durable history, appends only the validator's returned successor, revalidates the full chain against current task bytes, and recomputes eligibility. Revision and task-outcome validators must return `ready`; the completion validator may return `complete` only with current whole-task proof for every requested task and no buildable finding, while a blocked result takes precedence. Missing, stale, unsupported, or untaken-branch outputs block the route with a stable resumption action; the original route-entry snapshot remains an immutable predecessor. The workflow routes to administrative preparation or first-source execution only before any source attempt. The controller durably appends a session-start record before each new Coder dispatch and a source-attempt record before source work in consumer-local `.specify/flow-controllers/implementation-history/`; failed launches and question-stopped sessions count, while answers resumed in the same child do not. Readiness, owner-source access, authorization, task-specific activation and the shared five-session/five-attempt limit remain enforced. Once source work has started, every continuation uses independently reviewed prior/current substantive progress through the existing generic no-progress and cap predicate. Administrative proof and task-marker updates do not count as implementation progress; FarmBoy Tasker owns task updates.

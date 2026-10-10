@@ -1,8 +1,8 @@
 schema_version: "1.0"
 
 workflow:
-  id: "flow-kit-controller-fixture"
-  name: "FlowKit Controller Fixture"
+  id: "farmboy-controller-fixture"
+  name: "FarmBoy Controller Fixture"
   version: "0.2.0"
   author: "pegagio"
   description: "Exercise clean-before-loop, bounded continuation, gates, and manual fallback."
@@ -20,9 +20,9 @@ inputs:
 steps:
   - id: assess-initial
     type: prompt
-    flow_kit:
+    farmboy:
       delegated: true
-      agent: FlowKit-Reviewer
+      agent: FarmBoy Reviewer
     prompt: "Assess current evidence for {{ inputs.feature_context }} and return a validated outcome envelope."
   - id: route-initial
     type: switch
@@ -41,16 +41,16 @@ steps:
             - id: corrective-command
               command: "speckit.fixture"
               integration: "codex"
-              flow_kit:
+              farmboy:
                 delegated: true
-                agent: FlowKit-Tasker
+                agent: FarmBoy Tasker
               input:
                 args: "Correct {{ inputs.feature_context }} using the current evidence."
             - id: assess-loop
               type: prompt
-              flow_kit:
+              farmboy:
                 delegated: true
-                agent: FlowKit-Reviewer
+                agent: FarmBoy Reviewer
               prompt: "Reassess after this pass and return the outcome envelope."
         - id: route-after-loop
           type: switch

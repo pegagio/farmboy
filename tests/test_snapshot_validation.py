@@ -41,7 +41,7 @@ from implementation_scope_snapshot import (
 
 SPECIFY_BIN = os.environ.get("SPECIFY_BIN", "specify")
 RELEASE_PATH = ROOT / "catalog/release.json"
-BUNDLE_PATH = ROOT / "bundles/spec-kit-flow/bundle.yml"
+BUNDLE_PATH = ROOT / "bundles/farmboy/bundle.yml"
 INDEPENDENT_WORKFLOW = ROOT / "tests/consumer-fixtures/independent-workflow.yml"
 
 
@@ -68,10 +68,10 @@ def extract_pinned_extension(extension_id: str, destination: Path) -> tuple[Path
 def installed_payload_inventory(consumer: Path, agent_entries: list[dict[str, str]]) -> dict[str, object]:
     """Digest actual files owned by the installed bundle packages."""
     owned_roots = {
-        "flow-kit-controllers": [consumer / ".specify/flow-kit"],
+        "farmboy-controllers": [consumer / ".specify/farmboy"],
         "flow-roadmap": [consumer / ".specify/extensions/flow-roadmap"],
         "flow-wiki": [consumer / ".specify/extensions/flow-wiki"],
-        "flow-feedback": [consumer / ".specify/extensions/flow-feedback"],
+        "farmboy-feedback": [consumer / ".specify/extensions/farmboy-feedback"],
     }
     paths: dict[str, str] = {}
     components: dict[str, str] = {}
@@ -97,18 +97,18 @@ def installed_payload_inventory(consumer: Path, agent_entries: list[dict[str, st
             raise AssertionError(f"installed agent payload is missing: {entry['destination']}")
         relative = path.relative_to(consumer).as_posix()
         paths[relative] = sha256(path)
-        components[relative] = "flow-kit-agents"
-    for skill_id in ("flow-kit-select-feature", "flow-kit-specify", "flow-kit-clarify",
-                     "flow-kit-plan", "flow-kit-tasks", "flow-kit-analyze-remediate",
-                     "flow-kit-implement", "flow-kit-converge", "flow-kit-closeout",
-                     "flow-kit-wiki-lint-update"):
+        components[relative] = "farmboy-agents"
+    for skill_id in ("farmboy-select-feature", "farmboy-specify", "farmboy-clarify",
+                     "farmboy-plan", "farmboy-tasks", "farmboy-analyze-remediate",
+                     "farmboy-implement", "farmboy-converge", "farmboy-closeout",
+                     "farmboy-wiki-lint-update"):
         root = consumer / ".agents/skills" / skill_id
         if not root.is_dir():
             raise AssertionError(f"installed launched skill is missing: {skill_id}")
         for path in sorted(item for item in root.rglob("*") if item.is_file()):
             relative = path.relative_to(consumer).as_posix()
             paths[relative] = sha256(path)
-            components[relative] = "flow-kit-controllers"
+            components[relative] = "farmboy-controllers"
     return {"owned_files": [{"path": path, "component_id": components[path], "sha256": paths[path]}
                             for path in sorted(paths)],
             "owned_file_count": len(paths), "owned_payload_sha256": paths}
@@ -122,7 +122,7 @@ class SnapshotValidationTests(unittest.TestCase):
         if specify_path is None:
             self.skipTest(f"Specify CLI not found: {SPECIFY_BIN}")
 
-        with tempfile.TemporaryDirectory(prefix="spec-kit-flow-snapshot-") as temporary:
+        with tempfile.TemporaryDirectory(prefix="farmboy-snapshot-") as temporary:
             fixture = Path(temporary)
             consumer = fixture / "consumer"
             consumer.mkdir()
@@ -196,15 +196,14 @@ class SnapshotValidationTests(unittest.TestCase):
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path.write_text(contents, encoding="utf-8")
                 consumer_hashes = {path: sha256(path) for path in consumer_files}
-                agent_manifest = yaml.safe_load((ROOT / "agents/flow-kit/manifest.yml").read_text(encoding="utf-8"))
+                agent_manifest = yaml.safe_load((ROOT / "agents/farmboy/manifest.yml").read_text(encoding="utf-8"))
                 agent_entries = agent_manifest["agents"]
                 self.assertEqual(9, len(agent_entries))
-                tracked_paths = subprocess.run(
-                    ["git", "ls-files", "--", *[entry["destination"] for entry in agent_entries]],
-                    cwd=ROOT, text=True, capture_output=True, check=True,
-                ).stdout.splitlines()
-                tracked_agent_files = {ROOT / path: sha256(ROOT / path) for path in tracked_paths}
-                self.assertTrue(tracked_agent_files, "the source checkout should preserve its tracked agent configurations")
+                source_agent_files = {
+                    ROOT / "agents/farmboy" / entry["file"]: sha256(ROOT / "agents/farmboy" / entry["file"])
+                    for entry in agent_entries
+                }
+                self.assertTrue(source_agent_files, "the source checkout should preserve its FarmBoy agent package configurations")
                 run_specify("workflow", "add", "--dev", str(INDEPENDENT_WORKFLOW))
                 unrelated_workflow = consumer / ".specify/workflows/independent-consumer-check/workflow.yml"
                 self.assertTrue(unrelated_workflow.is_file())
@@ -213,7 +212,7 @@ class SnapshotValidationTests(unittest.TestCase):
                 catalog_install_output = run_catalog("install")
                 installed_record = json.loads((consumer / ".specify/bundle-records.json").read_text(encoding="utf-8"))
                 installed = installed_record["bundles"][0]
-                self.assertEqual("spec-kit-flow", installed["bundle_id"])
+                self.assertEqual("farmboy", installed["bundle_id"])
                 contributions = installed["contributed_components"]
                 expected_components = {
                     ("extensions", ROADMAP_ID), ("extensions", WIKI_ID), ("extensions", FEEDBACK_ID),
@@ -231,20 +230,20 @@ class SnapshotValidationTests(unittest.TestCase):
                     {(item["kind"], item["id"], item["version"]) for item in refreshed_contributions},
                 )
                 self.assertEqual(consumer_hashes, {path: sha256(path) for path in consumer_files})
-                self.assertEqual(tracked_agent_files, {path: sha256(path) for path in tracked_agent_files})
+                self.assertEqual(source_agent_files, {path: sha256(path) for path in source_agent_files})
                 self.assertEqual(unrelated_hash, sha256(unrelated_workflow))
                 installed_inventory = installed_payload_inventory(consumer, agent_entries)
 
-                installed_controller_path = consumer / ".specify/flow-kit/scripts/python/controller.py"
-                installed_scope_path = consumer / ".specify/flow-kit/scripts/python/implementation_scope.py"
-                installed_implement_path = consumer / ".specify/workflows/speckit-flow-implement/workflow.yml"
+                installed_controller_path = consumer / ".specify/farmboy/scripts/python/controller.py"
+                installed_scope_path = consumer / ".specify/farmboy/scripts/python/implementation_scope.py"
+                installed_implement_path = consumer / ".specify/workflows/farmboy-implement/workflow.yml"
                 installed_lifecycle_paths = {
-                    "controller_manifest": consumer / ".specify/flow-kit/manifest.yml",
+                    "controller_manifest": consumer / ".specify/farmboy/manifest.yml",
                     "controller": installed_controller_path,
-                    "phase_lifecycle": consumer / ".specify/flow-kit/scripts/python/phase_lifecycle.py",
-                    "specify_workflow": consumer / ".specify/workflows/speckit-flow-specify/workflow.yml",
+                    "phase_lifecycle": consumer / ".specify/farmboy/scripts/python/phase_lifecycle.py",
+                    "specify_workflow": consumer / ".specify/workflows/farmboy-specify/workflow.yml",
                     "implement_workflow": installed_implement_path,
-                    "closeout_workflow": consumer / ".specify/workflows/speckit-flow-closeout/workflow.yml",
+                    "closeout_workflow": consumer / ".specify/workflows/farmboy-closeout/workflow.yml",
                 }
                 self.assertTrue(installed_controller_path.is_file(),
                                 f"installed controller missing; found={list(consumer.rglob('controller.py'))}")
@@ -294,7 +293,7 @@ class SnapshotValidationTests(unittest.TestCase):
                 self.assertEqual("ready", capture_dispatch["result_state"])
                 self.assertEqual(0, capture_dispatch["return_code"])
                 self.assertEqual(list(POST_PASS_CAPTURE_FIELDS), capture_dispatch["request_fields"])
-                self.assertEqual(["python3", ".specify/flow-kit/scripts/python/controller.py",
+                self.assertEqual(["python3", ".specify/farmboy/scripts/python/controller.py",
                                   "post-pass-capture", "--project", "$PWD"],
                                  capture_dispatch["command_template"])
                 self.assertTrue(capture_dispatch["project_argument_bound_to_consumer"])
@@ -407,7 +406,7 @@ class SnapshotValidationTests(unittest.TestCase):
                 self.assertEqual({"specify": "0.3.0", "implement": "0.8.0", "closeout": "0.8.0"},
                                  installed_workflow_versions)
                 installed_controller_manifest = yaml.safe_load(
-                    (consumer / ".specify/flow-kit/manifest.yml").read_text(encoding="utf-8"))
+                    (consumer / ".specify/farmboy/manifest.yml").read_text(encoding="utf-8"))
                 installed_roadmap_manifest = extension_manifest(consumer / ".specify/extensions/flow-roadmap")
                 source_revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
                     text=True, capture_output=True, check=True).stdout.strip()
@@ -420,7 +419,7 @@ class SnapshotValidationTests(unittest.TestCase):
                     "controller_package_version": installed_controller_manifest["package"]["version"],
                     "workflow_version": yaml.safe_load(installed_implement_path.read_text(encoding="utf-8"))["workflow"]["version"],
                     "bundle_version": yaml.safe_load(BUNDLE_PATH.read_text(encoding="utf-8"))["bundle"]["version"],
-                    "flowkit_source": {"repository": "https://github.com/pegagio/spec-kit-flow",
+                    "farmboy_source": {"repository": "https://github.com/pegagio/spec-kit-flow",
                         "revision": source_revision, "dirty_state": "dirty"},
                     "roadmap_source": {"repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
                         "revision": roadmap_revision, "dirty_state": "dirty",
@@ -428,8 +427,8 @@ class SnapshotValidationTests(unittest.TestCase):
                         "manifest_sha256": sha256(consumer / ".specify/extensions/flow-roadmap/extension.yml"),
                         "source_manifest_sha256": sha256(roadmap_source / "extension.yml")},
                     "implementation_capture_source": {
-                        "controller_sha256": sha256(ROOT / "controllers/flow-kit/scripts/python/controller.py"),
-                        "workflow_sha256": sha256(ROOT / "workflows/speckit-flow-implement/workflow.yml"),
+                        "controller_sha256": sha256(ROOT / "controllers/farmboy/scripts/python/controller.py"),
+                        "workflow_sha256": sha256(ROOT / "workflows/farmboy-implement/workflow.yml"),
                         "installed_controller_sha256": sha256(installed_controller_path),
                         "installed_workflow_sha256": sha256(installed_implement_path)},
                     "consumer_preservation": "project-owned files and unrelated installed workflow retained through refresh and removal",
@@ -438,13 +437,13 @@ class SnapshotValidationTests(unittest.TestCase):
                     "production_tags_or_publication": "not part of this validation",
                 }
                 self.assertEqual(15, len(matrix["cases"]))
-                report_output = os.environ.get("SPEC_KIT_FLOW_IMPLEMENTATION_SCOPE_REPORT")
+                report_output = os.environ.get("FARMBOY_IMPLEMENTATION_SCOPE_REPORT")
                 if report_output:
                     report_path = Path(report_output)
                     report_path.parent.mkdir(parents=True, exist_ok=True)
                     report_path.write_text(json.dumps(matrix, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-                snapshot_output = os.environ.get("SPEC_KIT_FLOW_LIFECYCLE_SNAPSHOT_REPORT")
+                snapshot_output = os.environ.get("FARMBOY_LIFECYCLE_SNAPSHOT_REPORT")
                 if snapshot_output:
                     snapshot_path = Path(snapshot_output)
                     snapshot_path.parent.mkdir(parents=True, exist_ok=True)
@@ -474,9 +473,9 @@ class SnapshotValidationTests(unittest.TestCase):
 
                 run_catalog("remove")
                 self.assertEqual(consumer_hashes, {path: sha256(path) for path in consumer_files})
-                self.assertEqual(tracked_agent_files, {path: sha256(path) for path in tracked_agent_files})
+                self.assertEqual(source_agent_files, {path: sha256(path) for path in source_agent_files})
                 self.assertEqual(unrelated_hash, sha256(unrelated_workflow))
-                self.assertFalse((consumer / ".specify/workflows/speckit-flow-implement/workflow.yml").exists())
+                self.assertFalse((consumer / ".specify/workflows/farmboy-implement/workflow.yml").exists())
                 self.assertFalse((consumer / ".specify/extensions/flow-roadmap").exists())
                 self.assertFalse((consumer / ".specify/extensions/flow-wiki").exists())
 
@@ -520,9 +519,9 @@ class SnapshotValidationTests(unittest.TestCase):
                     "This validates the local bundle snapshot against declared component versions; it does not establish publication or consumer adoption.",
                 ],
             }
-            self.assertEqual("spec-kit-flow", provenance["snapshot"]["bundle_id"])
+            self.assertEqual("farmboy", provenance["snapshot"]["bundle_id"])
             self.assertTrue(all(provenance["components"][key]["source_commit"] for key in (ROADMAP_ID, WIKI_ID, FEEDBACK_ID)))
-            report_output = os.environ.get("SPEC_KIT_FLOW_SNAPSHOT_REPORT")
+            report_output = os.environ.get("FARMBOY_SNAPSHOT_REPORT")
             if report_output:
                 report_path = Path(report_output)
                 report_path.parent.mkdir(parents=True, exist_ok=True)

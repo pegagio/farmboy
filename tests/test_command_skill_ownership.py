@@ -15,7 +15,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
-SOURCE_CONTROLLER = ROOT / "controllers/flow-kit/scripts/python/controller.py"
+SOURCE_CONTROLLER = ROOT / "controllers/farmboy/scripts/python/controller.py"
 COMMAND_ID = "speckit.flow-wiki.query"
 SKILL_NAME = "speckit-flow-wiki-query"
 EXTENSION_ID = "flow-wiki"
@@ -91,7 +91,7 @@ class CommandSkillOwnershipTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.controller = load_controller(SOURCE_CONTROLLER, "flowkit_owner_test_controller")
+        cls.controller = load_controller(SOURCE_CONTROLLER, "farmboy_owner_test_controller")
 
     def test_actualRegisteredWikiCommand_resolvesWithObservedOwnershipEvidence(self) -> None:
         result = self.controller.resolve_installed_skill(ROOT, "speckit.flow-wiki.query")
@@ -108,10 +108,10 @@ class CommandSkillOwnershipTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             consumer = OwnerConsumer(root)
-            controller_path = root / ".specify/flow-kit/scripts/python/controller.py"
+            controller_path = root / ".specify/farmboy/scripts/python/controller.py"
             controller_path.parent.mkdir(parents=True)
             shutil.copy2(SOURCE_CONTROLLER, controller_path)
-            copied = load_controller(controller_path, "flowkit_owner_copied_controller")
+            copied = load_controller(controller_path, "farmboy_owner_copied_controller")
             result = copied.resolve_installed_skill(root, COMMAND_ID)
         self.assertEqual("registered-extension", result["provenance"])
         self.assertEqual(EXTENSION_ID, result["owner_id"])

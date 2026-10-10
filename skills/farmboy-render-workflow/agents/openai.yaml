@@ -1,0 +1,4 @@
+interface:
+  display_name: "FarmBoy Render Workflow"
+  short_description: "Create Mermaid diagrams from FarmBoy workflow YAML"
+  default_prompt: "Use $farmboy-render-workflow to diagram the workflow I specify."

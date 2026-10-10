@@ -1,0 +1,41 @@
+schema_version: "1.0"
+
+package:
+  id: "farmboy-controllers"
+  version: "0.8.0"
+  compatible_codex: true
+
+requires:
+  specify_cli_version: "1.0.10.dev0+pegagio.2"
+
+controllers:
+  - skill_id: "farmboy-select-feature"
+    display_name: "FarmBoy Select Feature"
+    workflow_id: "farmboy-select-feature"
+  - skill_id: "farmboy-specify"
+    display_name: "FarmBoy Specify"
+    workflow_id: "farmboy-specify"
+  - skill_id: "farmboy-clarify"
+    display_name: "FarmBoy Clarify"
+    workflow_id: "farmboy-clarify"
+  - skill_id: "farmboy-plan"
+    display_name: "FarmBoy Plan"
+    workflow_id: "farmboy-plan"
+  - skill_id: "farmboy-tasks"
+    display_name: "FarmBoy Tasks"
+    workflow_id: "farmboy-tasks"
+  - skill_id: "farmboy-analyze-remediate"
+    display_name: "FarmBoy Analyze"
+    workflow_id: "farmboy-analyze-remediate"
+  - skill_id: "farmboy-implement"
+    display_name: "FarmBoy Implement"
+    workflow_id: "farmboy-implement"
+  - skill_id: "farmboy-converge"
+    display_name: "FarmBoy Converge"
+    workflow_id: "farmboy-converge"
+  - skill_id: "farmboy-closeout"
+    display_name: "FarmBoy Close Out"
+    workflow_id: "farmboy-closeout"
+  - skill_id: "farmboy-wiki-lint-update"
+    display_name: "FarmBoy Wiki Lint Update"
+    workflow_id: "farmboy-wiki-lint-update"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "FarmBoy Clarify"
+  short_description: "Clarify an operator-selected active specification."

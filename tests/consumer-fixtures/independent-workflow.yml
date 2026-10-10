@@ -5,9 +5,9 @@ workflow:
   name: "Independent Consumer Check"
   version: "0.1.0"
   author: "pegagio"
-  description: "Unrelated consumer component retained when Spec Kit Flow is removed."
+  description: "Unrelated consumer component retained when FarmBoy is removed."
 
 steps:
   - id: stop
     type: prompt
-    prompt: "This workflow belongs to the consumer, not the Spec Kit Flow bundle."
+    prompt: "This workflow belongs to the consumer, not the FarmBoy bundle."

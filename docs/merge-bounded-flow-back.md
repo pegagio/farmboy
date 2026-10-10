@@ -23,7 +23,7 @@ The following section is intended for inclusion in project instructions that age
 ## Merge-Bounded Feature Work
 
 - Before the designated integration branch accepts a feature, treat its `spec.md`, `plan.md`, `tasks.md`, and implementation as one mutable change set. Flow accepted discoveries to the affected artifacts and reconcile their consequences before continuing from the changed direction.
-- Flag missing checks and unresolved divergence. Recommend the applicable operator-invoked FlowKit analysis/remediation, convergence, or pre-merge review. Do not launch workflows or their underlying commands independently. Known divergence blocks implementation or merge until reconciliation or an explicitly documented operator resolution.
+- Flag missing checks and unresolved divergence. Recommend the applicable operator-invoked FarmBoy analysis/remediation, convergence, or pre-merge review. Do not launch workflows or their underlying commands independently. Known divergence blocks implementation or merge until reconciliation or an explicitly documented operator resolution.
 - Acceptance into the project's designated integration branch freezes the feature's meaning. Make later behavioral changes in a new feature directory and reference earlier features they materially amend, replace, or depend on. Preserve the merged feature as history; allow editorial corrections only when meaning stays unchanged.
 ```
 
@@ -41,9 +41,9 @@ The project MUST use the **Merge-Bounded Flow-Back Spec Persistence Model**.
   - A change to intended behavior MUST be reflected in `spec.md`.
   - A change to technical approach MUST be reflected in `plan.md`;
   - A change to the required work MUST be reflected in `tasks.md`.
-- **Operator-directed consistency gates**: The operator decides when to invoke FlowKit workflows. The agent MUST flag missing checks and unresolved divergence, ask the operator when existing feature decisions do not settle a conflict, and MUST NOT launch a workflow or its underlying commands without an operator instruction. Known divergence MUST block implementation or merge until the artifacts are reconciled or the operator directs a documented resolution.
-  - After tasking or consequential artifact reconciliation, the agent SHOULD recommend the FlowKit analyze/remediate workflow before implementation starts or resumes.
-  - After implementation, the agent SHOULD recommend the FlowKit convergence workflow until no gaps remain.
+- **Operator-directed consistency gates**: The operator decides when to invoke FarmBoy workflows. The agent MUST flag missing checks and unresolved divergence, ask the operator when existing feature decisions do not settle a conflict, and MUST NOT launch a workflow or its underlying commands without an operator instruction. Known divergence MUST block implementation or merge until the artifacts are reconciled or the operator directs a documented resolution.
+  - After tasking or consequential artifact reconciliation, the agent SHOULD recommend the FarmBoy analyze/remediate workflow before implementation starts or resumes.
+  - After implementation, the agent SHOULD recommend the FarmBoy convergence workflow until no gaps remain.
   - Before merge, the agent SHOULD recommend the project's applicable validation and a joint review of the artifact and implementation diffs.
 - **Merge freezes history**: Acceptance into the project's designated integration branch is the persistence boundary. After that merge, the feature directory MUST be treated as a semantically immutable historical record. Editorial corrections MAY improve presentation only when they do not alter meaning.
 - **Later changes flow forward**: A later requirement or behavioral change MUST be expressed in a new feature directory. The new feature MUST reference any earlier feature that it amends, replaces, or depends on when that relationship is material, and MUST NOT rewrite the earlier feature to describe the new outcome retroactively.

@@ -1,0 +1,54 @@
+schema_version: "1.0"
+
+bundle:
+  id: "farmboy"
+  name: "FarmBoy"
+  version: "0.18.0"
+  role: "developer"
+  description: "Human-directed, merge-bounded flow-back workflows and portable feedback for Spec-Driven Development."
+  author: "pegagio"
+  license: "MIT"
+
+requires:
+  speckit_version: ">=1.0.10.dev0"
+  tools: ["python3"]
+  mcp: []
+
+integration:
+  id: "codex"
+
+provides:
+  extensions:
+    - id: "flow-roadmap"
+      version: "0.3.0"
+    - id: "flow-wiki"
+      version: "2.0.1"
+    - id: "farmboy-feedback"
+      version: "0.2.1"
+  workflows:
+    - id: "farmboy-select-feature"
+      version: "0.2.0"
+    - id: "farmboy-specify"
+      version: "0.3.0"
+    - id: "farmboy-clarify"
+      version: "0.5.0"
+    - id: "farmboy-plan"
+      version: "0.5.0"
+    - id: "farmboy-tasks"
+      version: "0.5.0"
+    - id: "farmboy-analyze-remediate"
+      version: "0.6.0"
+    - id: "farmboy-implement"
+      version: "0.8.0"
+    - id: "farmboy-converge"
+      version: "0.5.0"
+    - id: "farmboy-closeout"
+      version: "0.8.0"
+    - id: "farmboy-wiki-lint-update"
+      version: "0.2.0"
+
+tags: ["workflow", "spec-driven-development", "flow-back", "codex"]
+
+agent_package:
+  id: "farmboy-agents"
+  version: "0.2.0"

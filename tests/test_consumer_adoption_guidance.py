@@ -15,7 +15,7 @@ class ConsumerAdoptionGuidanceTests(unittest.TestCase):
         text = GUIDANCE.read_text(encoding="utf-8").lower()
         for phrase in (
             "one mutable change set", "changes flow back", "designated integration branch",
-            "new feature", "active agent guidance", "operator", "flowkit",
+            "new feature", "active agent guidance", "operator", "farmboy",
             "analysis/remediation", "convergence", "pre-merge", "missing checks",
             "unresolved divergence",
         ):

@@ -14,7 +14,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).parents[1]
-SCRIPTS = ROOT / "controllers/flow-kit/scripts/python"
+SCRIPTS = ROOT / "controllers/farmboy/scripts/python"
 sys.path.insert(0, str(SCRIPTS))
 spec = importlib.util.spec_from_file_location("progress_controller", SCRIPTS / "controller.py")
 controller = importlib.util.module_from_spec(spec)
@@ -50,7 +50,7 @@ class ImplementationProgressTests(unittest.TestCase):
                 "exact_correction": "Correct this behavior", "evidence": self.evidence()}
 
     def review(self, resolved=True):
-        return {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": self.capture["baseline_sha256"],
+        return {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": self.capture["baseline_sha256"],
                 "findings": [{"id": x["id"], "task_id": "T016", "status": "resolved" if i == 0 and resolved else "unresolved",
                               "resolution_summary": "Original reproducer and regression now pass",
                               "evidence": self.evidence()} for i, x in enumerate(self.findings)],
@@ -107,7 +107,7 @@ class ImplementationProgressTests(unittest.TestCase):
         regression.write_text("Both original reproducers now pass\n")
         evidence = self.evidence() + [{"path": regression.relative_to(self.root).as_posix(),
                                       "sha256": hashlib.sha256(regression.read_bytes()).hexdigest()}]
-        following = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": first["baseline_sha256"],
+        following = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": first["baseline_sha256"],
                      "findings": [{"id": "R002", "task_id": "T016", "status": "resolved",
                                    "resolution_summary": "Earlier source fix plus final regression substantiate closure",
                                    "evidence": evidence}], "new_findings": [], "completed_task_ids": []}
@@ -127,7 +127,7 @@ class ImplementationProgressTests(unittest.TestCase):
         finding = legacy["findings"][0]
         finding["evidence"] = finding.pop("current_evidence")
         digest = controller._progress_digest(legacy)
-        review = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": digest,
+        review = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": digest,
                   "findings": [{"id": "R002", "task_id": "T016", "status": "resolved",
                                 "resolution_summary": "Original source effect and current reproducer verified",
                                 "evidence": self.evidence()}], "new_findings": [], "completed_task_ids": []}
@@ -292,7 +292,7 @@ class ImplementationProgressTests(unittest.TestCase):
     def test_wrongReviewerStaleEvidenceAndScopeMutationReject(self):
         self.fix()
         review = self.review()
-        review["reviewer"] = "FlowKit-Coder"
+        review["reviewer"] = "FarmBoy Coder"
         self.assertEqual("blocked", self.validate(review)["state"])
         review = self.review()
         (self.root / self.path).write_text("Changed after independent review\n")
@@ -313,7 +313,7 @@ class ImplementationProgressTests(unittest.TestCase):
             item["status"] = "resolved"
         first = self.validate(review)
         self.assertEqual(["task:T016"], first["remaining_ids"])
-        following = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": first["baseline_sha256"],
+        following = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": first["baseline_sha256"],
                      "findings": [], "new_findings": [], "completed_task_ids": []}
         second = controller.validate_implementation_progress(self.root, {"baseline": first["baseline"],
                    "baseline_sha256": first["baseline_sha256"], "review": following})
@@ -334,7 +334,7 @@ class ImplementationProgressTests(unittest.TestCase):
                    "exact_correction": fixture.frozen_scope["findings"][0]["exact_correction"], "evidence": evidence}
         capture = controller.capture_implementation_baseline(fixture.project, {
             "feature_directory": fixture.feature, "selected_task_ids": ["T001"], "findings": [finding]})
-        fixture.frozen_scope["eligible_task_owners"] = {"T001": "FlowKit-Tasker"}
+        fixture.frozen_scope["eligible_task_owners"] = {"T001": "FarmBoy Tasker"}
         fixture.frozen_scope["approved_specification_sha256"] = capture["baseline"]["specification_sha256"]
         after = "- [ ] T001 Keep verified implementation — correct F020-R001 absent-pointer regression\n- [ ] T002 Existing open work\n"
         payload = fixture.payload(after, changed={"reopened_task_ids": ["T001"], "added_task_ids": [],
@@ -347,7 +347,7 @@ class ImplementationProgressTests(unittest.TestCase):
         self.assertFalse(transition["substantive_progress"])
         self.assertEqual(capture["baseline"]["findings"], transition["baseline"]["findings"])
         source.write_text("Bug fixed\n")
-        review = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": transition["baseline_sha256"],
+        review = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": transition["baseline_sha256"],
                   "findings": [{"id": "F020-R001", "task_id": "T001", "status": "resolved",
                                 "resolution_summary": "Exact regression now passes", "evidence": [
                                     {"path": path, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}]}],
@@ -370,7 +370,7 @@ class ImplementationProgressTests(unittest.TestCase):
             destination = fixture.project / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(source, destination)
-        helper = fixture.project / ".specify/flow-kit/scripts/python/controller.py"
+        helper = fixture.project / ".specify/farmboy/scripts/python/controller.py"
 
         def invoke(command, payload):
             args = [sys.executable, str(helper), command]
@@ -392,7 +392,7 @@ class ImplementationProgressTests(unittest.TestCase):
                          "selected_task_ids": ["T001"], "findings": [finding]})
         self.assertEqual("ready", capture["state"])
         fixture.frozen_scope["findings"][0]["id"] = identifier
-        fixture.frozen_scope["eligible_task_owners"] = {"T001": "FlowKit-Tasker"}
+        fixture.frozen_scope["eligible_task_owners"] = {"T001": "FarmBoy Tasker"}
         fixture.frozen_scope["approved_specification_sha256"] = capture["baseline"]["specification_sha256"]
         frozen = invoke("task-revision-scope", {"feature_directory": fixture.feature,
                         "tasks_path": f"{fixture.feature}/tasks.md", "frozen_scope": fixture.frozen_scope})
@@ -402,7 +402,7 @@ class ImplementationProgressTests(unittest.TestCase):
                                        f"[ ] T001 Keep verified implementation — correct {identifier}")
         revision = fixture.payload(after, changed={
             "finding_ids": [identifier], "task_mappings": [
-                {"finding_id": identifier, "task_ids": ["T001"], "owner": "FlowKit-Tasker"}],
+                {"finding_id": identifier, "task_ids": ["T001"], "owner": "FarmBoy Tasker"}],
             "reopened_task_ids": ["T001"], "added_task_ids": [], "preserved_completed_task_ids": []},
             semantic_changes={"finding_ids": [identifier]})
         self.assertEqual("ready", invoke("validate-task-revision", revision)["state"])
@@ -413,7 +413,7 @@ class ImplementationProgressTests(unittest.TestCase):
         self.assertFalse(transition["substantive_progress"])
         self.assertEqual([finding], transition["baseline"]["findings"])
         source.write_text("Bug fixed\n")
-        review = {"reviewer": "FlowKit-Code Reviewer", "baseline_sha256": transition["baseline_sha256"],
+        review = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": transition["baseline_sha256"],
                   "findings": [{"id": identifier, "task_id": "T001", "status": "resolved",
                                 "resolution_summary": "Exact regression now passes", "evidence": [
                                     {"path": path, "sha256": hashlib.sha256(source.read_bytes()).hexdigest()}]}],
@@ -442,7 +442,7 @@ class ImplementationProgressTests(unittest.TestCase):
 
     def test_sourceWorkflowUsesAutomaticCaptureAndValidation(self):
         import yaml
-        workflow = yaml.safe_load((ROOT / "workflows/speckit-flow-implement/workflow.yml").read_text())
+        workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text())
         controller.validate_workflow_graph(workflow["steps"])
         capture = next(x for x in workflow["steps"] if x["id"] == "capture-implementation-baseline")
         rendered = controller.render_template(capture, {"feature_context": self.feature}, {})
@@ -459,7 +459,7 @@ class ImplementationProgressTests(unittest.TestCase):
                     if match:
                         return match
         assessor = find(workflow["steps"], "assess-implementation-after-pass")
-        self.assertEqual("FlowKit-Code Reviewer", assessor["flow_kit"]["agent"])
+        self.assertEqual("FarmBoy Code Reviewer", assessor["farmboy"]["agent"])
         prompt = controller.render_template(assessor, {"feature_context": self.feature}, {})["prompt"]
         self.assertIn("implementation-progress", prompt)
         self.assertIn("even while its parent task remains open", prompt)
@@ -467,7 +467,7 @@ class ImplementationProgressTests(unittest.TestCase):
 
     def test_copiedControllerCLIProvesPartialClosure(self):
         import shutil
-        target = self.root / ".specify/flow-kit/scripts/python"
+        target = self.root / ".specify/farmboy/scripts/python"
         target.mkdir(parents=True)
         for source in SCRIPTS.glob("*.py"):
             shutil.copyfile(source, target / source.name)

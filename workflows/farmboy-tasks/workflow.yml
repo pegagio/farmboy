@@ -1,0 +1,53 @@
+schema_version: "1.0"
+
+workflow:
+  id: "farmboy-tasks"
+  name: "Generate Implementation Tasks"
+  version: "0.5.0"
+  author: "pegagio"
+  description: "Run the task generation skill and retry specific output gaps until the task plan is populated or a bounded stop."
+
+requires:
+  speckit_version: ">=1.0.10.dev0+pegagio.2"
+  integrations:
+    any: ["codex"]
+
+inputs:
+  feature_context:
+    type: string
+    required: true
+    prompt: "Identify the planned feature to decompose into tasks"
+  integration:
+    type: string
+    default: "codex"
+    enum: ["codex"]
+
+steps:
+  - id: tasks-output-loop
+    type: do-while
+    condition: "{{ steps.verify-task-output.output.state == 'continue' }}"
+    max_iterations: 5
+    steps:
+      - id: prepare-task-request
+        type: prompt
+        prompt: >-
+          Prepare the speckit.tasks argument string for {{ inputs.feature_context }}. On the first pass, inspect the existing task artifact and record stable IDs for missing files, placeholder sections, malformed task entries, or missing story/dependency coverage required by the core skill and reviewed design as the progress baseline. On later passes, preserve the latest verify-task-output findings verbatim in args, including stable ID, artifact_location, violated_requirement or accepted decision, observed_deficiency, and exact_correction; do not rename repeated findings or reduce them to IDs. Use the latest verify-task-output remaining_ids and exact file/section or coverage details. Return task_history recording existing task IDs, completion markers, and completed task descriptions; remaining_ids containing those stable gap IDs; and args directing the core skill to generate or complete tasks within the reviewed specification and design, preserve existing task IDs and completion markers, retain completed work and approved decisions, ask the operator for substantive product decisions, and report the artifact path, task counts, and any exact blocker. Do not change specification or design, implement tasks, run Analyze, or invoke another FarmBoy workflow.
+      - id: generate-tasks
+        command: "speckit.tasks"
+        integration: "{{ inputs.integration }}"
+        farmboy:
+          delegated: true
+          agent: FarmBoy Tasker
+        input:
+          args: "{{ steps.prepare-task-request.output.args }}"
+      - id: verify-task-output
+        type: prompt
+        farmboy:
+          delegated: true
+          agent: FarmBoy Reviewer
+        prompt: >-
+          Use these pre-pass gap IDs as the progress baseline: {{ steps.prepare-task-request.output.remaining_ids }}. Preserve and compare this pre-pass task history: {{ steps.prepare-task-request.output.task_history }}. Independently review tasks.md for {{ inputs.feature_context }} against the core task skill's required deliverables and current reviewed specification and plan. Check that the artifact is populated, has unique task IDs, checklist entries with required story labels and concrete file paths, applicable phases and story tasks, independent test criteria, dependencies, parallel examples, and implementation strategy. Confirm that tasks cover the approved requirements and planned design without introducing unsupported scope; identify exact missing story or necessary dependency coverage, contradictions, untestable tasks, and unresolved placeholders. Accept justified not-applicable sections and preserve existing completion markers; unchecked implementation tasks do not make task generation incomplete. Keep this review focused on task quality and coverage; do not perform the separate cross-artifact Analyze phase. Return a structured outcome envelope with state complete, continue, or blocked; a stable reason_code; repository-relative evidence paths with current SHA-256 digests; remaining_ids identifying each exact output or review gap; resolved_ids identifying gaps from the prepared baseline or prior verification now filled; and exactly one of next_step_id or resume_action as required. Include an existing spec or plan as evidence if tasks.md is missing. Use complete only when the required task plan is populated and independently reviewed without material gaps. Use continue for specific gaps safely repairable by speckit.tasks and set next_step_id to prepare-task-request. Use blocked for a required operator decision, a material upstream design gap, missing prerequisite, lost task history, or unsafe retry, with a stable resume_action. Preserve the exact operator question or blocker in the report. Return findings as a separate workflow-specific result alongside the strict assessment envelope, with stable ID, artifact_location, violated_requirement or accepted decision, observed_deficiency, and exact_correction for each semantic defect. Fresh review must confirm substantive resolution of each prior finding and retain new blocking findings. Wording-only or digest-only edits, renamed or repeated findings, and successful commands do not prove resolution. Preserve an unanswered product question verbatim for same-child operator relay or blocked recovery; never infer its answer. Command success or changed bytes alone is not completion or progress. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
+  - id: report-task-outcome
+    type: prompt
+    prompt: >-
+      Report the latest verified task-generation outcome for {{ inputs.feature_context }} and present tasks.md for operator review, with task counts and story breakdown when available. Identify exact remaining gaps, any blocker or operator question, and the safe resumption action when incomplete. No progress or exhaustion of the five-pass safety limit is a bounded stop, not generation completion. Stop this workflow here. Task review, Analyze, and implementation require separate operator action.

@@ -1,8 +1,8 @@
 ---
 name: consumer-local-review
-description: A consumer-owned skill used to verify FlowKit lifecycle preservation.
+description: A consumer-owned skill used to verify FarmBoy lifecycle preservation.
 ---
 
 # Consumer Local Review
 
-This fixture is not owned by FlowKit and must survive install, refresh, and removal.
+This fixture is not owned by FarmBoy and must survive install, refresh, and removal.

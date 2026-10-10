@@ -1,4 +1,0 @@
-interface:
-  display_name: "FlowKit Render Workflow"
-  short_description: "Create Mermaid diagrams from FlowKit workflow YAML"
-  default_prompt: "Use $flowkit-render-workflow to diagram the workflow I specify."

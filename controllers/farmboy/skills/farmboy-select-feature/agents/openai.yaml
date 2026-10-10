@@ -1,0 +1,3 @@
+interface:
+  display_name: "FarmBoy Select Feature"
+  short_description: "Choose and activate a roadmap feature without a spec."

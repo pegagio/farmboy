@@ -1,0 +1,30 @@
+schema_version: "1.0"
+
+extension:
+  id: farmboy-feedback
+  name: "FarmBoy Feedback"
+  version: "0.2.1"
+  description: "Portable local workflow feedback capture and report export"
+  author: pegagio
+  license: MIT
+
+requires:
+  speckit_version: ">=1.0.1"
+  tools:
+    - name: python3
+      required: true
+
+provides:
+  commands:
+    - name: speckit.farmboy-feedback.capture
+      file: commands/speckit.farmboy-feedback.capture.md
+      description: "Validate and append one sanitized workflow-feedback observation"
+    - name: speckit.farmboy-feedback.report
+      file: commands/speckit.farmboy-feedback.report.md
+      description: "Export a portable workflow-feedback JSON report and Markdown projection"
+
+tags:
+  - workflow
+  - feedback
+  - local-first
+  - portable

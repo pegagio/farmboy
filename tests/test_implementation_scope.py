@@ -10,7 +10,7 @@ import sys
 import unittest
 
 ROOT = Path(__file__).parents[1]
-SCRIPTS = ROOT / "controllers/flow-kit/scripts/python"
+SCRIPTS = ROOT / "controllers/farmboy/scripts/python"
 sys.path.insert(0, str(SCRIPTS))
 
 
@@ -94,10 +94,10 @@ class ImplementationScopeTests(unittest.TestCase):
         after_sha = hashlib.sha256(after.encode()).hexdigest()
         evidence_ref = evidence()
         event = {"predecessor_event_sha256": "0" * 64, "scope_sha256": self.scope["scope_sha256"],
-            "tasker_assignment": "FlowKit-Tasker", "tasks_before_text": before, "tasks_after_text": after,
+            "tasker_assignment": "FarmBoy Tasker", "tasks_before_text": before, "tasks_after_text": after,
             "tasker_result": {"state": "ready", "tasks_before_sha256": before_sha,
                 "tasks_after_sha256": after_sha, "completed_task_ids": ["T068"], "evidence": evidence_ref},
-            "reviewer_result": {"reviewer": "FlowKit-Code Reviewer", "completed_task_ids": ["T068"],
+            "reviewer_result": {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T068"],
                 "evidence": evidence_ref}}
         event["sha256"] = canonical_digest(event)
         tracking = [event]
@@ -183,7 +183,7 @@ class ImplementationScopeTests(unittest.TestCase):
             "completion_kind": "administrative-prerequisite", "scope_sha256": self.scope["scope_sha256"],
             "requirements": [{"requirement_id": "approval", "satisfied": True, "evidence": evidence()}],
             "proof_evidence": evidence("specs/020-test/receipt.json"),
-            "review_evidence": {"reviewer": "FlowKit-Code Reviewer", "verdict": "complete", "reference": "review-1", "sha256": "c" * 64},
+            "review_evidence": {"reviewer": "FarmBoy Code Reviewer", "verdict": "complete", "reference": "review-1", "sha256": "c" * 64},
             "trusted_decision_references": ["main-task-answer-1"], "permitted_effect_route": "declared-roadmap-write",
             "administrative_state_before": {"state": {"status": "planned"}, "sha256": "d" * 64, "evidence": evidence()},
             "administrative_state_after": {"state": {"status": "planned"}, "sha256": "e" * 64, "evidence": evidence("specs/020-test/after.json")},
@@ -217,7 +217,7 @@ class ImplementationScopeTests(unittest.TestCase):
             "completion_kind": "substantive-implementation", "scope_sha256": self.scope["scope_sha256"],
             "requirements": [{"requirement_id": "code", "satisfied": True, "evidence": evidence()}],
             "proof_evidence": evidence("specs/020-test/proof.json"),
-            "review_evidence": {"reviewer": "FlowKit-Code Reviewer", "verdict": "complete", "reference": "review-1", "sha256": "c" * 64},
+            "review_evidence": {"reviewer": "FarmBoy Code Reviewer", "verdict": "complete", "reference": "review-1", "sha256": "c" * 64},
             "activation_sha256": "d" * 64, "source_delta_evidence": evidence("src/helper.py"),
             "validation_evidence": evidence("tests/result.json"),
         }
@@ -294,7 +294,7 @@ class ImplementationScopeTests(unittest.TestCase):
 
     def testOwnerSourceRequiresObservedRouteAccessAndPortableCoordinates(self):
         owner = {
-            "task_id": "T052", "component_id": "speckit-flow-roadmap", "source_identity": "pegagio/spec-kit-flow-roadmap",
+            "task_id": "T052", "component_id": "farmboy-roadmap", "source_identity": "pegagio/spec-kit-flow-roadmap",
             "source_coordinates": {"repository": "pegagio/spec-kit-flow-roadmap", "revision": "abc123", "dirty_state": "clean", "relative_paths": ["scripts/python/phase_lifecycle.py"]},
             "access_state": "read-write", "guidance_evidence": evidence("AGENTS.md"),
             "source_route": {"state": "permitted", "description": "Task-owned source changes", "evidence": evidence("constitution.md")},
@@ -622,7 +622,7 @@ class ImplementationScopeTests(unittest.TestCase):
             proof = {"task_id": "T051", "task_description_sha256": classification["task_description_sha256"],
                 "completion_kind": "substantive-implementation", "scope_sha256": requested["scope_sha256"],
                 "requirements": [{"requirement_id": "code", "satisfied": True, "evidence": evidence()}],
-                "proof_evidence": evidence(), "review_evidence": {"reviewer": "FlowKit-Code Reviewer",
+                "proof_evidence": evidence(), "review_evidence": {"reviewer": "FarmBoy Code Reviewer",
                     "verdict": "complete", "reference": "retained-review", "sha256": "c" * 64},
                 "activation_sha256": "d" * 64, "source_delta_evidence": evidence(), "validation_evidence": evidence()}
             prerequisite = {"task_id": "T051", "description": description, "requirement_ids": ["code"],

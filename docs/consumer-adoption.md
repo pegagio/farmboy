@@ -1,6 +1,6 @@
 # Consumer Adoption Review
 
-Use this runbook after installing or refreshing FlowKit when a project wants to assess the Merge-Bounded Flow-Back Spec Persistence Model. Installation and refresh make reusable components available; neither changes project-owned governance nor establishes adoption.
+Use this runbook after installing or refreshing FarmBoy when a project wants to assess the Merge-Bounded Flow-Back Spec Persistence Model. Installation and refresh make reusable components available; neither changes project-owned governance nor establishes adoption.
 
 The runbook is an operator-directed manual procedure. An agent may inspect files and draft a proposal when the operator explicitly asks, but it must leave constitutional decisions, material conflict resolution, and workflow invocation with the operator.
 
@@ -43,15 +43,15 @@ An explicit decline takes precedence; otherwise unresolved evidence takes preced
 
 ## New installation, refresh, and removal
 
-After a new install or refresh, begin a fresh inspection of current consumer files. Refresh does not overwrite project-owned guidance and an old confirmed worksheet cannot be carried forward as current evidence. Record the installed component identities, versions, and digests separately from the runbook/template source revision or digest. Test these operations only in a disposable initialized consumer; do not remove FlowKit from a real project as part of validation.
+After a new install or refresh, begin a fresh inspection of current consumer files. Refresh does not overwrite project-owned guidance and an old confirmed worksheet cannot be carried forward as current evidence. Record the installed component identities, versions, and digests separately from the runbook/template source revision or digest. Test these operations only in a disposable initialized consumer; do not remove FarmBoy from a real project as part of validation.
 
-Removal affects installed FlowKit components according to the installation guide. It does not authorize deleting the consumer's constitution, active guidance, merged feature history, or adoption review. Check hashes before and after install, refresh, and removal to demonstrate preservation.
+Removal affects installed FarmBoy components according to the installation guide. It does not authorize deleting the consumer's constitution, active guidance, merged feature history, or adoption review. Check hashes before and after install, refresh, and removal to demonstrate preservation.
 
 ## Manual agent prompt
 
 An operator may copy this prompt into a selected consumer task:
 
-> Review this project's adoption of the Merge-Bounded Flow-Back model using the reviewed consumer-adoption runbook and worksheet. Inspect active agent guidance, applicable governance, and the project's designated integration boundary. Map M1–M5 to evidence in both guidance and governance, preserving equivalent or stricter project wording when each complete rule is satisfied. Prepare minimal exact patches for missing rules and show all proposed changes, affected paths, rationale, and baseline digests before asking for decisions. Do not apply constitutional amendments or resolve material conflicts without the operator's explicit decision on the exact patch. Recheck baselines before applying accepted changes, then reinspect and report confirmed, partial, declined, or unresolved with final evidence and limitations. Flag missing checks and recommend a relevant FlowKit workflow for separate operator invocation; do not invoke a workflow or its underlying command.
+> Review this project's adoption of the Merge-Bounded Flow-Back model using the reviewed consumer-adoption runbook and worksheet. Inspect active agent guidance, applicable governance, and the project's designated integration boundary. Map M1–M5 to evidence in both guidance and governance, preserving equivalent or stricter project wording when each complete rule is satisfied. Prepare minimal exact patches for missing rules and show all proposed changes, affected paths, rationale, and baseline digests before asking for decisions. Do not apply constitutional amendments or resolve material conflicts without the operator's explicit decision on the exact patch. Recheck baselines before applying accepted changes, then reinspect and report confirmed, partial, declined, or unresolved with final evidence and limitations. Flag missing checks and recommend a relevant FarmBoy workflow for separate operator invocation; do not invoke a workflow or its underlying command.
 
 ## Evidence limits
 

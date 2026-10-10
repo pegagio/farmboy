@@ -5,8 +5,8 @@
 .specify/extensions/.registry
 .specify/workflows/workflow-registry.json
 .specify/bundle-records.json
-.specify/extensions/flow-feedback/
+.specify/extensions/farmboy-feedback/
 .specify/extensions/flow-roadmap/
 .specify/extensions/flow-wiki/
-.specify/flow-kit/
-.specify/workflows/speckit-flow-*/
+.specify/farmboy/
+.specify/workflows/farmboy-*/

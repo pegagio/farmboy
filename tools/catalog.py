@@ -1,4 +1,4 @@
-"""Build and serve the checked-in Spec Kit Flow catalog for bundle installation."""
+"""Build and serve the checked-in FarmBoy catalog for bundle installation."""
 
 from __future__ import annotations
 
@@ -23,32 +23,32 @@ from posixpath import normpath
 
 
 ROOT = Path(__file__).resolve().parents[1]
-BUNDLE = ROOT / "bundles/spec-kit-flow/bundle.yml"
+BUNDLE = ROOT / "bundles/farmboy/bundle.yml"
 CATALOG = ROOT / "catalog"
 RELEASE = CATALOG / "release.json"
-CONTROLLER_SOURCE = ROOT / "controllers/flow-kit"
-CONTROLLER_PACKAGE_ID = "flow-kit-controllers"
+CONTROLLER_SOURCE = ROOT / "controllers/farmboy"
+CONTROLLER_PACKAGE_ID = "farmboy-controllers"
 EXTENSION_SOURCES = {
     "flow-roadmap": "roadmap",
     "flow-wiki": "wiki",
-    "flow-feedback": "feedback",
+    "farmboy-feedback": "feedback",
 }
 CONTROLLER_BINDINGS = (
-    ("flow-kit-select-feature", "FlowKit Select Feature", "speckit-flow-select-feature"),
-    ("flow-kit-specify", "FlowKit Specify", "speckit-flow-specify"),
-    ("flow-kit-clarify", "FlowKit Clarify", "speckit-flow-clarify"),
-    ("flow-kit-plan", "FlowKit Plan", "speckit-flow-plan"),
-    ("flow-kit-tasks", "FlowKit Tasks", "speckit-flow-tasks"),
-    ("flow-kit-analyze-remediate", "FlowKit Analyze", "speckit-flow-analyze-remediate"),
-    ("flow-kit-implement", "FlowKit Implement", "speckit-flow-implement"),
-    ("flow-kit-converge", "FlowKit Converge", "speckit-flow-converge"),
-    ("flow-kit-closeout", "FlowKit Close Out", "speckit-flow-closeout"),
-    ("flow-kit-wiki-lint-update", "FlowKit Wiki Lint Update", "speckit-flow-wiki-lint-update"),
+    ("farmboy-select-feature", "FarmBoy Select Feature", "farmboy-select-feature"),
+    ("farmboy-specify", "FarmBoy Specify", "farmboy-specify"),
+    ("farmboy-clarify", "FarmBoy Clarify", "farmboy-clarify"),
+    ("farmboy-plan", "FarmBoy Plan", "farmboy-plan"),
+    ("farmboy-tasks", "FarmBoy Tasks", "farmboy-tasks"),
+    ("farmboy-analyze-remediate", "FarmBoy Analyze", "farmboy-analyze-remediate"),
+    ("farmboy-implement", "FarmBoy Implement", "farmboy-implement"),
+    ("farmboy-converge", "FarmBoy Converge", "farmboy-converge"),
+    ("farmboy-closeout", "FarmBoy Close Out", "farmboy-closeout"),
+    ("farmboy-wiki-lint-update", "FarmBoy Wiki Lint Update", "farmboy-wiki-lint-update"),
 )
 
 
-AGENT_SOURCE = ROOT / "agents/flow-kit"
-AGENT_PACKAGE_ID = "flow-kit-agents"
+AGENT_SOURCE = ROOT / "agents/farmboy"
+AGENT_PACKAGE_ID = "farmboy-agents"
 
 
 def validate_agent_manifest(manifest: object) -> dict[str, object]:
@@ -244,7 +244,7 @@ def cache_agent_defaults(project: Path, archive: Path, metadata: dict[str, objec
         fail("agent-package-digest-mismatch")
     _, members = validate_agent_archive(archive, str(metadata["version"]))
     validate_agent_source_digest(members, metadata)
-    target = _agent_path(project, ".specify/flow-kit/agent-defaults")
+    target = _agent_path(project, ".specify/farmboy/agent-defaults")
     target.parent.mkdir(parents=True, exist_ok=True)
     if target.exists() and not target.is_dir():
         fail("agent-cache-not-directory")
@@ -270,7 +270,7 @@ def cache_agent_defaults(project: Path, archive: Path, metadata: dict[str, objec
 
 def remove_agent_defaults(project: Path) -> None:
     """Remove available defaults only; copied configurations are consumer-owned."""
-    target = _agent_path(project, ".specify/flow-kit/agent-defaults")
+    target = _agent_path(project, ".specify/farmboy/agent-defaults")
     if target.exists():
         if not target.is_dir():
             fail("agent-cache-not-directory")
@@ -290,8 +290,8 @@ def agent_operation(project: Path, operation: str, *, agent: str | None = None,
     try:
         if not project.is_dir() or not _agent_path(project, ".specify").is_dir():
             fail("project-not-initialized")
-        metadata_file = _agent_path(project, ".specify/flow-kit/agent-defaults/manifest.json")
-        archive = _agent_path(project, ".specify/flow-kit/agent-defaults/package.zip")
+        metadata_file = _agent_path(project, ".specify/farmboy/agent-defaults/manifest.json")
+        archive = _agent_path(project, ".specify/farmboy/agent-defaults/package.zip")
         metadata = validate_agent_metadata(json.loads(metadata_file.read_text()))
         if metadata.get("id") != AGENT_PACKAGE_ID or digest(archive) != metadata.get("sha256"):
             fail("agent-cache-integrity-mismatch")
@@ -475,7 +475,7 @@ def source_commit(source: Path, tracked_path: str = ".") -> str:
 def require_local_release_sources_clean(root: Path) -> None:
     """Require committed bundle and workflow definitions for a released catalog."""
     status = subprocess.run(
-        ["git", "status", "--porcelain", "--", "bundles/spec-kit-flow/bundle.yml", "workflows", "agents/flow-kit"],
+        ["git", "status", "--porcelain", "--", "bundles/farmboy/bundle.yml", "workflows", "agents/farmboy"],
         cwd=root, text=True, capture_output=True, check=True,
     ).stdout.strip()
     if status:
@@ -565,7 +565,7 @@ def controller_package_files() -> dict[str, Path]:
         if source.is_symlink():
             fail(f"controller package cannot contain symlinks: {source.name}")
         relative = source.relative_to(CONTROLLER_SOURCE)
-        files[(Path(".specify/flow-kit") / relative).as_posix()] = source
+        files[(Path(".specify/farmboy") / relative).as_posix()] = source
     declared_ids = {item["skill_id"] for item in manifest["controllers"]}
     skill_root = CONTROLLER_SOURCE / "skills"
     observed_ids = {path.name for path in skill_root.iterdir() if path.is_dir()}
@@ -632,10 +632,10 @@ def _safe_package_members(archive_path: Path) -> dict[str, bytes]:
                 fail("controller package contains an unsafe path")
             if member.is_dir():
                 continue
-            if not (name.startswith(".specify/flow-kit/") or re.match(r"^\.agents/skills/flow-kit-[^/]+/", name)):
+            if not (name.startswith(".specify/farmboy/") or re.match(r"^\.agents/skills/farmboy-[^/]+/", name)):
                 fail(f"controller package contains an unexpected path: {name}")
             members[name] = archive.read(member)
-    if not members or ".specify/flow-kit/manifest.yml" not in members:
+    if not members or ".specify/farmboy/manifest.yml" not in members:
         fail("controller package is missing its manifest")
     return members
 
@@ -665,42 +665,42 @@ def _read_ownership_record(record_path: Path) -> dict[str, object]:
     try:
         record = json.loads(record_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
-        fail(f"FlowKit skill ownership record is unreadable: {error}")
+        fail(f"FarmBoy skill ownership record is unreadable: {error}")
     if record.get("package") != CONTROLLER_PACKAGE_ID or not isinstance(record.get("files"), dict):
-        fail("FlowKit skill ownership record is malformed")
+        fail("FarmBoy skill ownership record is malformed")
     if record.get("status") != "installed":
-        fail(f"FlowKit skill package is in incomplete state: {record.get('status')}")
+        fail(f"FarmBoy skill package is in incomplete state: {record.get('status')}")
     return record
 
 
 def _owned_target(project: Path, relative: str) -> Path:
-    """Confine recorded package files to the direct FlowKit package inventory."""
+    """Confine recorded package files to the direct FarmBoy package inventory."""
     if not isinstance(relative, str) or not relative or "\\" in relative:
-        fail("invalid FlowKit ownership path")
+        fail("invalid FarmBoy ownership path")
     path = Path(relative)
     parts = path.parts
     if path.is_absolute() or path.as_posix() != relative or ".." in parts:
-        fail(f"invalid FlowKit ownership path: {relative}")
-    skills = {skill_id for skill_id, _, _ in CONTROLLER_BINDINGS} | {"flow-kit-start-feature"}
+        fail(f"invalid FarmBoy ownership path: {relative}")
+    skills = {skill_id for skill_id, _, _ in CONTROLLER_BINDINGS} | {"farmboy-start-feature"}
     skill_path = (
         len(parts) >= 4 and parts[:2] == (".agents", "skills")
         and parts[2] in skills and parts[3:] in {("SKILL.md",), ("agents", "openai.yaml")}
     )
     helper_path = (
-        parts[:2] == (".specify", "flow-kit")
+        parts[:2] == (".specify", "farmboy")
         and (parts[2:] in {("manifest.yml",), ("controller-protocol.md",)} or
              (len(parts) >= 4 and parts[2] == "scripts"))
     )
     if not (skill_path or helper_path):
-        fail(f"invalid FlowKit ownership path: {relative}")
+        fail(f"invalid FarmBoy ownership path: {relative}")
     target = project / path
     cursor = project
     for part in parts:
         cursor /= part
         if cursor.is_symlink():
-            fail(f"FlowKit ownership path crosses a symlink: {relative}")
+            fail(f"FarmBoy ownership path crosses a symlink: {relative}")
     if not target.resolve(strict=False).is_relative_to(project.resolve()):
-        fail(f"FlowKit ownership path escapes consumer project: {relative}")
+        fail(f"FarmBoy ownership path escapes consumer project: {relative}")
     return target
 
 
@@ -716,9 +716,9 @@ def install_controller_package(
     """Install or refresh the direct skill package with digest-based ownership."""
     project = Path(project).resolve()
     members = _safe_package_members(Path(archive_path))
-    manifest_text = members[".specify/flow-kit/manifest.yml"].decode("utf-8")
+    manifest_text = members[".specify/farmboy/manifest.yml"].decode("utf-8")
     package_version = field(manifest_text.split("package:\n", 1)[1].split("\nrequires:", 1)[0], "version")
-    record_path = project / ".specify/flow-kit/skills-install.json"
+    record_path = project / ".specify/farmboy/skills-install.json"
     record_exists = record_path.is_file()
     old_record: dict[str, object] | None = None
     old_record_bytes: bytes | None = None
@@ -729,7 +729,7 @@ def install_controller_package(
         old_owned = old_record["files"]
     else:
         if record_exists:
-            fail("FlowKit skills are already installed; use refresh")
+            fail("FarmBoy skills are already installed; use refresh")
         old_owned = {}
     for relative, content in members.items():
         target = _owned_target(project, relative)
@@ -737,10 +737,10 @@ def install_controller_package(
         if owned_before:
             expected = old_owned[relative]
             if not target.is_file() or digest(target) != expected:
-                fail(f"locally changed FlowKit-owned file blocks replacement: {relative}")
+                fail(f"locally changed FarmBoy owned file blocks replacement: {relative}")
             old_files[relative] = target.read_bytes()
         elif target.exists():
-            fail(f"consumer-owned path conflicts with FlowKit skills: {relative}")
+            fail(f"consumer-owned path conflicts with FarmBoy skills: {relative}")
         else:
             old_files[relative] = None
     if refresh and isinstance(old_owned, dict):
@@ -748,7 +748,7 @@ def install_controller_package(
             target = _owned_target(project, relative)
             if relative not in members:
                 if not target.is_file() or digest(target) != expected:
-                    fail(f"locally changed obsolete FlowKit-owned file blocks refresh: {relative}")
+                    fail(f"locally changed obsolete FarmBoy owned file blocks refresh: {relative}")
                 old_files[relative] = target.read_bytes()
     manifest = json.loads(json.dumps(controller_manifest())) if CONTROLLER_SOURCE.is_dir() else {}
     current_bindings = manifest.get("controllers", [])
@@ -771,7 +771,7 @@ def install_controller_package(
             _atomic_bytes(_owned_target(project, relative), content)
         observed = {relative: digest(_owned_target(project, relative)) for relative in members}
         if observed != files_record:
-            fail("installed FlowKit skill inventory differs from the package")
+            fail("installed FarmBoy skill inventory differs from the package")
         if refresh and isinstance(old_owned, dict):
             for relative in old_owned:
                 if relative not in members:
@@ -796,18 +796,18 @@ def install_controller_package(
 
 
 def remove_controller_package(project: Path, *, preflight_only: bool = False) -> None:
-    """Remove only unchanged files recorded as FlowKit-owned."""
+    """Remove only unchanged files recorded as FarmBoy owned."""
     project = Path(project).resolve()
-    record_path = project / ".specify/flow-kit/skills-install.json"
+    record_path = project / ".specify/farmboy/skills-install.json"
     if not record_path.is_file():
-        fail("FlowKit skill ownership record is missing")
+        fail("FarmBoy skill ownership record is missing")
     record = _read_ownership_record(record_path)
     owned = record["files"]
     assert isinstance(owned, dict)
     for relative, expected in owned.items():
         target = _owned_target(project, relative)
         if not target.is_file() or digest(target) != expected:
-            fail(f"locally changed FlowKit-owned file blocks removal: {relative}")
+            fail(f"locally changed FarmBoy owned file blocks removal: {relative}")
     if preflight_only:
         return
     record["status"] = "removing"
@@ -816,7 +816,7 @@ def remove_controller_package(project: Path, *, preflight_only: bool = False) ->
         _owned_target(project, relative).unlink()
     remaining = [relative for relative in owned if _owned_target(project, relative).exists()]
     if remaining:
-        fail(f"FlowKit skill removal incomplete: {', '.join(remaining)}")
+        fail(f"FarmBoy skill removal incomplete: {', '.join(remaining)}")
     record_path.unlink()
     for relative in owned:
         parent = _owned_target(project, relative).parent
@@ -829,15 +829,15 @@ def remove_controller_package(project: Path, *, preflight_only: bool = False) ->
 
 
 def remove(project: Path) -> None:
-    """Remove the Specify bundle and unchanged FlowKit-owned Codex skills."""
+    """Remove the Specify bundle and unchanged FarmBoy owned Codex skills."""
     project = Path(project).resolve()
     if not project.is_dir() or ROOT in project.parents:
         fail("removal target must be an existing consumer outside the source checkout")
     if not (project / ".specify").is_dir():
         fail("removal target is not an initialized Specify consumer")
-    record = project / ".specify/flow-kit/skills-install.json"
+    record = project / ".specify/farmboy/skills-install.json"
     if not record.is_file():
-        fail("FlowKit skill ownership record is missing")
+        fail("FarmBoy skill ownership record is missing")
     remove_controller_package(project, preflight_only=True)
     expected_specify = tomllib.loads((ROOT / "mise.toml").read_text(encoding="utf-8"))["tools"]["pipx:specify-cli"]
     specify = selected_specify(project)
@@ -846,7 +846,7 @@ def remove(project: Path) -> None:
     version = subprocess.run([specify, "--version"], cwd=project, text=True, capture_output=True, check=True).stdout.strip()
     if version != f"specify {expected_specify}":
         fail(f"expected Specify {expected_specify}, found {version}")
-    subprocess.run([specify, "bundle", "remove", "spec-kit-flow"], cwd=project, check=True)
+    subprocess.run([specify, "bundle", "remove", "farmboy"], cwd=project, check=True)
     remove_controller_package(project)
     remove_agent_defaults(project)
 
@@ -870,28 +870,28 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
     sources = {
         "flow-roadmap": roadmap.resolve(),
         "flow-wiki": wiki.resolve(),
-        "flow-feedback": ROOT / "extensions/flow-feedback",
+        "farmboy-feedback": ROOT / "extensions/farmboy-feedback",
     }
     release: dict[str, object] = {
         "schema_version": "1.0", "bundle_version": bundle_version,
         "status": "snapshot" if snapshot else "released",
         "extensions": {}, "workflows": {},
     }
-    with tempfile.TemporaryDirectory(prefix="spec-kit-flow-build-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="farmboy-build-") as temporary:
         packages = Path(temporary)
         for extension_id, source in sources.items():
             metadata = extension_metadata(source)
             expected = components["extensions"][extension_id]
             if metadata["id"] != extension_id or metadata["version"] != expected:
                 fail(f"{source} must declare {extension_id} version {expected}")
-            tracked_path = "extensions/flow-feedback" if extension_id == "flow-feedback" else "."
-            commit = source_commit(ROOT if extension_id == "flow-feedback" else source, tracked_path)
-            tag = None if extension_id == "flow-feedback" or snapshot else release_tag(source, expected, commit)
+            tracked_path = "extensions/farmboy-feedback" if extension_id == "farmboy-feedback" else "."
+            commit = source_commit(ROOT if extension_id == "farmboy-feedback" else source, tracked_path)
+            tag = None if extension_id == "farmboy-feedback" or snapshot else release_tag(source, expected, commit)
             artifact = f"{extension_id}-{expected}.zip"
             package_extension(source, packages / artifact, extension_id)
             release["extensions"][extension_id] = {
                 "version": expected, "name": metadata["name"], "author": metadata["author"],
-                "source_repository": "https://github.com/pegagio/spec-kit-flow" if extension_id == "flow-feedback" else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
+                "source_repository": "https://github.com/pegagio/spec-kit-flow" if extension_id == "farmboy-feedback" else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
                 "source_commit": commit, "source_tag": tag,
                 "artifact": artifact, "sha256": digest(packages / artifact),
             }
@@ -904,7 +904,7 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
         controller_archive = packages / f"{CONTROLLER_PACKAGE_ID}-{controller_manifest()['version']}.zip"
         controller = package_controller(controller_archive)
         status = subprocess.run(
-            ["git", "status", "--porcelain", "--", "controllers/flow-kit"],
+            ["git", "status", "--porcelain", "--", "controllers/farmboy"],
             cwd=ROOT, text=True, capture_output=True, check=True,
         ).stdout.strip()
         commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, capture_output=True, check=True).stdout.strip()
@@ -916,7 +916,7 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
             "source_commit": commit, "source_dirty": bool(status),
             "source_sha256": controller["sha256"], "controllers": controller["controllers"],
         }
-        release["agent_package"] = package_agents(packages / f"flow-kit-agents-{agent_manifest()['package']['version']}.zip", status=release["status"])
+        release["agent_package"] = package_agents(packages / f"farmboy-agents-{agent_manifest()['package']['version']}.zip", status=release["status"])
         if RELEASE.exists():
             previous = json.loads(RELEASE.read_text(encoding="utf-8"))
             if not snapshot and previous.get("status") == "released" and previous["bundle_version"] == bundle_version and previous != release:
@@ -925,7 +925,7 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
         for artifact in packages.iterdir():
             shutil.copy2(artifact, CATALOG / "packages" / artifact.name)
         RELEASE.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"Built catalog for spec-kit-flow {bundle_version} with {len(sources)} extensions and {len(components['workflows'])} workflows")
+    print(f"Built catalog for FarmBoy {bundle_version} with {len(sources)} extensions and {len(components['workflows'])} workflows")
 
 
 def verified_release(catalog_dir: Path | None = None, release_path: Path | None = None) -> dict[str, object]:
@@ -961,7 +961,7 @@ def verified_release(catalog_dir: Path | None = None, release_path: Path | None 
             fail(f"workflow source differs from catalog release: {workflow_id}")
     controller = release.get("controller_package")
     if not isinstance(controller, dict) or controller.get("id") != CONTROLLER_PACKAGE_ID:
-        fail("catalog has no FlowKit controller package record")
+        fail("catalog has no FarmBoy controller package record")
     current_manifest = controller_manifest()
     if controller.get("version") != current_manifest["version"]:
         fail("catalog controller package version differs from the reviewed manifest")
@@ -969,7 +969,7 @@ def verified_release(catalog_dir: Path | None = None, release_path: Path | None 
     if not package_path.is_file() or digest(package_path) != controller.get("sha256"):
         fail("catalog controller package is missing or has a checksum mismatch")
     members = _safe_package_members(package_path)
-    packaged_manifest = members[".specify/flow-kit/manifest.yml"].decode("utf-8")
+    packaged_manifest = members[".specify/farmboy/manifest.yml"].decode("utf-8")
     packaged_bindings = re.findall(
         r'^  - skill_id: "([^"]+)"\n    display_name: "([^"]+)"\n    workflow_id: "([^"]+)"',
         packaged_manifest, re.MULTILINE,
@@ -997,8 +997,10 @@ def build_development_snapshot(destination: Path, *, source_overrides: dict[str,
     extensions: dict[str, object] = {}
     source_overrides = source_overrides or {}
     for extension_id, version in components["extensions"].items():
-        previous_entry = previous["extensions"][extension_id]
+        previous_entry = previous["extensions"].get(extension_id)
         source = source_overrides.get(extension_id)
+        if extension_id == "farmboy-feedback" and source is None:
+            source = ROOT / "extensions/farmboy-feedback"
         if source is not None:
             source = Path(source).resolve()
             metadata = extension_metadata(source)
@@ -1013,11 +1015,17 @@ def build_development_snapshot(destination: Path, *, source_overrides: dict[str,
                                     text=True, capture_output=True, check=True).stdout.strip()
             extensions[extension_id] = {
                 "version": version, "name": metadata["name"], "author": metadata["author"],
-                "source_repository": f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
+                "source_repository": (
+                    "https://github.com/pegagio/spec-kit-flow"
+                    if extension_id == "farmboy-feedback"
+                    else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}"
+                ),
                 "source_commit": commit, "source_tag": None, "source_dirty": bool(status),
                 "artifact": artifact_name, "sha256": digest(artifact),
             }
         else:
+            if previous_entry is None:
+                fail(f"development snapshot source required for new extension identity: {extension_id}")
             if previous_entry["version"] != version:
                 fail(f"development snapshot source required for changed extension pin: {extension_id}")
             artifact = CATALOG / "packages" / previous_entry["artifact"]
@@ -1035,7 +1043,7 @@ def build_development_snapshot(destination: Path, *, source_overrides: dict[str,
     controller_path = package_dir / f"{CONTROLLER_PACKAGE_ID}-{controller_manifest()['version']}.zip"
     controller = package_controller(controller_path)
     status = subprocess.run(
-        ["git", "status", "--porcelain", "--", "controllers/flow-kit"],
+        ["git", "status", "--porcelain", "--", "controllers/farmboy"],
         cwd=ROOT, text=True, capture_output=True, check=True,
     ).stdout.strip()
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True, capture_output=True, check=True).stdout.strip()
@@ -1052,7 +1060,7 @@ def build_development_snapshot(destination: Path, *, source_overrides: dict[str,
             "source_sha256": controller["sha256"], "controllers": controller["controllers"],
         },
     }
-    release["agent_package"] = package_agents(package_dir / f"flow-kit-agents-{agent_manifest()['package']['version']}.zip")
+    release["agent_package"] = package_agents(package_dir / f"farmboy-agents-{agent_manifest()['package']['version']}.zip")
     release_file = destination / "release.json"
     release_file.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     verified_release(destination, release_file)
@@ -1065,7 +1073,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
     if not project.is_dir():
         fail(f"consumer project directory does not exist: {project}")
     if ROOT in project.parents:
-        fail("consumer project must not be nested inside the Spec Kit Flow source checkout")
+        fail("consumer project must not be nested inside the FarmBoy source checkout")
     snapshot_directory: tempfile.TemporaryDirectory[str] | None = None
     catalog_dir = CATALOG
     release_path = RELEASE
@@ -1075,7 +1083,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
             fail("development snapshots require the source checkout root or a disposable consumer under the system temporary directory")
         if not (project / ".specify").is_dir():
             fail("development snapshot target must already be initialized as a Specify consumer")
-        snapshot_directory = tempfile.TemporaryDirectory(prefix="flowkit-snapshot-catalog-")
+        snapshot_directory = tempfile.TemporaryDirectory(prefix="farmboy-snapshot-catalog-")
         catalog_dir = Path(snapshot_directory.name)
         try:
             release = build_development_snapshot(catalog_dir, source_overrides=source_overrides)
@@ -1104,7 +1112,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
     agent_record = release["agent_package"]
     agent_archive = catalog_dir / "packages" / agent_record["artifact"]
     validate_agent_archive(agent_archive, agent_record["version"])
-    with tempfile.TemporaryDirectory(prefix="spec-kit-flow-catalog-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="farmboy-catalog-") as temporary:
         directory = Path(temporary)
         assets = directory / "assets"
         assets.mkdir()
@@ -1123,7 +1131,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
             extensions = {
                 extension_id: {
                     "name": entry["name"], "version": entry["version"],
-                    "description": "Spec Kit Flow release component", "author": entry["author"],
+                    "description": "FarmBoy release component", "author": entry["author"],
                     "download_url": f"{base}/assets/{entry['artifact']}", "sha256": entry["sha256"],
                 }
                 for extension_id, entry in release["extensions"].items()
@@ -1131,8 +1139,8 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
             workflow_entries = {
                 workflow_id: {
                     "id": workflow_id, "name": workflow_id, "version": entry["version"],
-                    "description": "Spec Kit Flow workflow", "author": "pegagio",
-                    "url": f"{base}/assets/workflows/{workflow_id}.yml", "tags": ["spec-kit-flow"],
+                    "description": "FarmBoy workflow", "author": "pegagio",
+                    "url": f"{base}/assets/workflows/{workflow_id}.yml", "tags": ["farmboy"],
                 }
                 for workflow_id, entry in release["workflows"].items()
             }
@@ -1145,7 +1153,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
             if refresh:
                 command.append("--refresh")
             action = "Refreshing" if refresh else "Installing"
-            print(f"{action} spec-kit-flow {release['bundle_version']} in {project}", flush=True)
+            print(f"{action} FarmBoy {release['bundle_version']} in {project}", flush=True)
             subprocess.run(command, cwd=project, env=environment, check=True)
             install_controller_package(
                 project, controller_archive, refresh=refresh,
@@ -1176,7 +1184,7 @@ def main() -> int:
         consumer.add_argument("project", type=Path)
         consumer.add_argument("--development-snapshot", action="store_true", help="build and use an unreleased snapshot in the initialized source checkout root or a disposable consumer")
         consumer.add_argument("--roadmap-source", type=Path, help="use this reviewed flow-roadmap checkout in the disposable development snapshot")
-    remover = commands.add_parser("remove", help="remove the bundle and unchanged FlowKit-owned controllers")
+    remover = commands.add_parser("remove", help="remove the bundle and unchanged FarmBoy owned controllers")
     remover.add_argument("project", type=Path)
     agents = commands.add_parser("agents", help="Manage consumer-owned agent copies")
     actions = agents.add_subparsers(dest="agent_command", required=True)

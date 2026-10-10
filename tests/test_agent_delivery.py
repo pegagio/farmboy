@@ -44,7 +44,7 @@ class AgentDeliveryTests(unittest.TestCase):
         package_directory.mkdir(parents=True)
         shutil.copy2(self.archive, package_directory / self.metadata["artifact"])
         bundle = self.root / "bundle.yml"
-        bundle.write_text(yaml.safe_dump({"agent_package": {"id": "flow-kit-agents", "version": "9.9.9"}}))
+        bundle.write_text(yaml.safe_dump({"agent_package": {"id": "farmboy-agents", "version": "9.9.9"}}))
         with patch.object(catalog, "BUNDLE", bundle), self.assertRaisesRegex(ValueError, "bundle pin"):
             catalog.verify_agent_release({"agent_package": self.metadata}, destination)
         source = self.root / "symlink-source"
@@ -64,14 +64,14 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual(["created"] * 9, [t["outcome"] for t in result["targets"]])
         entries = catalog.agent_manifest()["agents"]
         self.assertEqual(9, len(entries))
-        self.assertEqual(9, len(list(directory.glob("flowkit-*.toml"))))
+        self.assertEqual(9, len(list(directory.glob("farmboy-*.toml"))))
         for entry in entries:
             with self.subTest(agent=entry["name"]):
                 self.assertEqual(
                     (catalog.AGENT_SOURCE / entry["file"]).read_bytes(),
                     (self.project / entry["destination"]).read_bytes(),
                 )
-        target = directory / "flowkit-coder.toml"
+        target = directory / "farmboy-coder.toml"
         target.write_text(target.read_text() + "# consumer customization\n")
         before = {p.name: p.read_bytes() for p in directory.iterdir()}
         self.assertEqual("complete", self.operation()["status"])
@@ -81,9 +81,9 @@ class AgentDeliveryTests(unittest.TestCase):
     def test_explicitResetOneAndAll_andRemoval(self):
         self.operation()
         directory = self.project / ".codex/agents"
-        target = directory / "flowkit-coder.toml"
+        target = directory / "farmboy-coder.toml"
         target.write_text(target.read_text() + "# custom\n")
-        result = self.operation("reset", agent="FlowKit-Coder")
+        result = self.operation("reset", agent="FarmBoy Coder")
         self.assertEqual("complete", result["status"])
         self.assertEqual(["reset"], [t["outcome"] for t in result["targets"]])
         self.assertNotIn(b"# custom", target.read_bytes())
@@ -120,10 +120,10 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual(10, len(list(directory.iterdir())))
 
     def test_invalidSelectorsAndCache_failBeforeWrites(self):
-        for kwargs in ({}, {"agent": "Unknown"}, {"agent": "FlowKit-Coder", "all_agents": True}):
+        for kwargs in ({}, {"agent": "Unknown"}, {"agent": "FarmBoy Coder", "all_agents": True}):
             self.assertEqual("failed", self.operation("reset", **kwargs)["status"])
             self.assertFalse((self.project / ".codex").exists())
-        cache = self.project / ".specify/flow-kit/agent-defaults"
+        cache = self.project / ".specify/farmboy/agent-defaults"
         (cache / "package.zip").write_bytes(b"tampered")
         self.assertEqual("failed", self.operation()["status"])
         self.assertFalse((self.project / ".codex").exists())
@@ -137,7 +137,7 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual("failed", self.operation()["status"])
         self.assertEqual(2, len(list(directory.iterdir())))
         a.unlink(); b.unlink()
-        target = directory / "flowkit-coder.toml"
+        target = directory / "farmboy-coder.toml"
         target.symlink_to(self.archive)
         self.assertEqual("failed", self.operation()["status"])
         target.unlink(); target.mkdir()
@@ -165,7 +165,7 @@ class AgentDeliveryTests(unittest.TestCase):
         }, result["conflict"])
         self.assertEqual(["not-attempted"] * 9, [entry["outcome"] for entry in result["targets"]])
         self.assertEqual(before, {path.name: path.read_bytes() for path in directory.iterdir()})
-        self.assertFalse(any(path.name.startswith("flowkit-") for path in directory.iterdir()))
+        self.assertFalse(any(path.name.startswith("farmboy-") for path in directory.iterdir()))
 
     def test_duplicatePrivatePathIdentity_isRedactedInHumanAndJsonReports(self):
         directory = self.project / ".codex/agents"
@@ -205,7 +205,7 @@ class AgentDeliveryTests(unittest.TestCase):
                 self.assertEqual([".codex/agents/first.toml", ".codex/agents/second.toml"], result["conflict"]["paths"])
                 self.assertNotIn(private_identity, serialized + diagnostics)
                 self.assertEqual(before, {path.name: path.read_bytes() for path in directory.iterdir()})
-                self.assertFalse(any(path.name.startswith("flowkit-") for path in directory.iterdir()))
+                self.assertFalse(any(path.name.startswith("farmboy-") for path in directory.iterdir()))
 
     def test_destinationIdentityConflict_reportsBothRelativePathsBeforeWrites(self):
         entry = catalog.agent_manifest()["agents"][0]
@@ -245,16 +245,16 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertIn(f"source: {self.metadata['source_repository']}@{self.metadata['source_commit']}", output)
         self.assertIn(f"source_sha256: {self.metadata['source_sha256']}", output)
         self.assertIn("inputs: agent=none all=false", output)
-        self.assertIn(".codex/agents/flowkit-coder.toml: created", output)
+        self.assertIn(".codex/agents/farmboy-coder.toml: created", output)
         self.assertEqual("", diagnostics)
 
-        coder = self.project / ".codex/agents/flowkit-coder.toml"
+        coder = self.project / ".codex/agents/farmboy-coder.toml"
         coder.write_text(coder.read_text() + "# custom\n")
-        status, output, diagnostics = invoke("reset", str(self.project), "--agent", "FlowKit-Coder")
+        status, output, diagnostics = invoke("reset", str(self.project), "--agent", "FarmBoy Coder")
         self.assertEqual(0, status)
-        self.assertIn("inputs: agent=FlowKit-Coder all=false", output)
+        self.assertIn("inputs: agent=FarmBoy Coder all=false", output)
         self.assertIn("warning: Reset discards customizations in the selected current targets.", output)
-        self.assertIn(".codex/agents/flowkit-coder.toml: reset", output)
+        self.assertIn(".codex/agents/farmboy-coder.toml: reset", output)
         self.assertEqual("", diagnostics)
 
         original = catalog._atomic_bytes
@@ -269,9 +269,9 @@ class AgentDeliveryTests(unittest.TestCase):
             status, output, diagnostics = invoke("reset", str(self.project), "--all")
         self.assertEqual(1, status)
         self.assertIn("inputs: agent=none all=true", output)
-        self.assertIn(".codex/agents/flowkit-roadmap-agent.toml: reset", output)
-        self.assertIn(".codex/agents/flowkit-specifier.toml: failed", output)
-        self.assertIn(".codex/agents/flowkit-planner.toml: not-attempted", output)
+        self.assertIn(".codex/agents/farmboy-roadmap-agent.toml: reset", output)
+        self.assertIn(".codex/agents/farmboy-specifier.toml: failed", output)
+        self.assertIn(".codex/agents/farmboy-planner.toml: not-attempted", output)
         self.assertIn("recovery: Inspect target outcomes and retry the same explicit operation after resolving the reported failure.", output)
         self.assertIn("catalog: PermissionError", diagnostics)
         self.assertNotIn(str(self.project), output + diagnostics)
@@ -337,7 +337,7 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertNotIn("/host/private", json.dumps(result))
 
     def test_failedCacheReplacement_keepsPreviousDefaults(self):
-        target = self.project / ".specify/flow-kit/agent-defaults/package.zip"
+        target = self.project / ".specify/farmboy/agent-defaults/package.zip"
         before = target.read_bytes()
         invalid = dict(self.metadata, sha256="0" * 64)
         with self.assertRaises(ValueError):
@@ -348,7 +348,7 @@ class AgentDeliveryTests(unittest.TestCase):
         invalid = dict(self.metadata, source_sha256="0" * 64)
         with self.assertRaises(ValueError):
             catalog.cache_agent_defaults(self.project, self.archive, invalid)
-        metadata_path = self.project / ".specify/flow-kit/agent-defaults/manifest.json"
+        metadata_path = self.project / ".specify/farmboy/agent-defaults/manifest.json"
         self.assertEqual(self.metadata, json.loads(metadata_path.read_text()))
         metadata_path.write_text(json.dumps(invalid))
         result = self.operation()
@@ -366,7 +366,7 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual([target], list(target.parent.iterdir()))
 
     def test_cacheSwapFailure_restoresPreviousDirectory(self):
-        before = (self.project / ".specify/flow-kit/agent-defaults/package.zip").read_bytes()
+        before = (self.project / ".specify/farmboy/agent-defaults/package.zip").read_bytes()
         original = catalog.os.replace
         calls = 0
         def fail_stage(source, target):
@@ -377,7 +377,7 @@ class AgentDeliveryTests(unittest.TestCase):
             return original(source, target)
         with patch.object(catalog.os, "replace", side_effect=fail_stage), self.assertRaises(PermissionError):
             catalog.cache_agent_defaults(self.project, self.archive, self.metadata)
-        self.assertEqual(before, (self.project / ".specify/flow-kit/agent-defaults/package.zip").read_bytes())
+        self.assertEqual(before, (self.project / ".specify/farmboy/agent-defaults/package.zip").read_bytes())
 
     def test_symlinkAncestor_andNonportableMetadata_rejected(self):
         outside = self.root / "outside"
@@ -404,7 +404,7 @@ class NativeAgentBundleTests(unittest.TestCase):
         executable = os.environ.get("SPECIFY_BIN")
         if not executable or not Path(executable).is_file():
             self.skipTest("set SPECIFY_BIN to the supported installed CLI")
-        with tempfile.TemporaryDirectory(prefix="flowkit-agent-native-") as directory:
+        with tempfile.TemporaryDirectory(prefix="farmboy-agent-native-") as directory:
             project = Path(directory)
             completed = subprocess.run([executable, "init", "--here", "--force", "--non-interactive", "--integration", "codex", "--integration-options=--skills"], cwd=project, text=True, capture_output=True)
             self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
@@ -424,7 +424,7 @@ class NativeAgentBundleTests(unittest.TestCase):
                 configs = project / ".codex/agents"
                 manifest_entries = catalog.agent_manifest()["agents"]
                 self.assertEqual(9, len(manifest_entries))
-                self.assertEqual(9, len(list(configs.glob("flowkit-*.toml"))))
+                self.assertEqual(9, len(list(configs.glob("farmboy-*.toml"))))
                 for entry in manifest_entries:
                     with self.subTest(agent=entry["name"]):
                         self.assertEqual(
@@ -432,7 +432,7 @@ class NativeAgentBundleTests(unittest.TestCase):
                             (project / entry["destination"]).read_bytes(),
                         )
                 self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})
-                coder = configs / "flowkit-coder.toml"
+                coder = configs / "farmboy-coder.toml"
                 coder.write_text(coder.read_text() + "# Native consumer customization\n")
                 unrelated = configs / "unrelated.toml"
                 unrelated.write_text('name="Unrelated"\n')
@@ -440,11 +440,11 @@ class NativeAgentBundleTests(unittest.TestCase):
                 catalog.install(project, True, development_snapshot=True)
                 self.assertEqual(before, {p.name: p.read_bytes() for p in configs.glob("*.toml")})
                 self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})
-                result = catalog.agent_operation(project, "reset", agent="FlowKit-Coder")
+                result = catalog.agent_operation(project, "reset", agent="FarmBoy Coder")
                 self.assertEqual("complete", result["status"])
                 self.assertNotIn(b"# Native consumer", coder.read_bytes())
                 reset_before = {p.name: p.read_bytes() for p in configs.glob("*.toml")}
                 catalog.remove(project)
                 self.assertEqual(reset_before, {p.name: p.read_bytes() for p in configs.glob("*.toml")})
-                self.assertFalse((project / ".specify/flow-kit/agent-defaults").exists())
+                self.assertFalse((project / ".specify/farmboy/agent-defaults").exists())
                 self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})

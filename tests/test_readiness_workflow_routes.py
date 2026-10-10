@@ -11,7 +11,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
-CONTROLLER_PATH = ROOT / "controllers/flow-kit/scripts/python/controller.py"
+CONTROLLER_PATH = ROOT / "controllers/farmboy/scripts/python/controller.py"
 
 
 def load_controller():
@@ -54,7 +54,7 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
         cls.controller = load_controller()
 
     def test_analyzeSwitchRendersExactRecorderAndSkipBranches(self) -> None:
-        analyze = workflow("speckit-flow-analyze-remediate")
+        analyze = workflow("farmboy-analyze-remediate")
         route = find(analyze["steps"], "route-readiness-recording")
         for action, expected in (("run", ["record-readiness-evidence"]), ("skip", [])):
             rendered = self.controller.render_template(
@@ -62,7 +62,7 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
                 {"feature_context": "specs/020-example", "integration": "codex"},
                 {"prepare-analysis-flowback": {
                     "readiness_record_action": action,
-                    "readiness_record_args": '{"reviewer":"FlowKit-Reviewer"}',
+                    "readiness_record_args": '{"reviewer":"FarmBoy Reviewer"}',
                 }},
             )
             selected = self.controller.select_switch_branch(rendered, action)
@@ -72,16 +72,16 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
                     selected[0]["prompt"],
                     {"feature_context": "specs/020-example"},
                     {"prepare-analysis-flowback": {
-                        "readiness_record_args": '{"reviewer":"FlowKit-Reviewer"}',
+                        "readiness_record_args": '{"reviewer":"FarmBoy Reviewer"}',
                     }},
                 )
-                self.assertIn('"reviewer":"FlowKit-Reviewer"', prompt)
+                self.assertIn('"reviewer":"FarmBoy Reviewer"', prompt)
                 self.assertIn("action: record-review", prompt)
                 self.assertIn("Never mark built-in author checklist items", prompt)
                 self.assertNotIn("/Users/", prompt)
 
     def test_analyzeRemediationUsesFreshAnalysisCheckerAndSmallestOwner(self) -> None:
-        analyze = workflow("speckit-flow-analyze-remediate")
+        analyze = workflow("farmboy-analyze-remediate")
         loop = find(analyze["steps"], "analysis-remediation-loop")
         self.assertEqual(6, loop["max_iterations"])
         self.assertTrue(loop["assessment_only_first_pass"])
@@ -89,9 +89,9 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
         analyze_step = find(body, "analyze-artifacts")
         checker = find(body, "check-readiness")
         assessor = find(body, "assess-analysis")
-        self.assertEqual("FlowKit-Reviewer", analyze_step["flow_kit"]["agent"])
-        self.assertEqual({"delegated": True, "agent": "FlowKit-Readiness Checker"}, checker["flow_kit"])
-        self.assertEqual("FlowKit-Reviewer", assessor["flow_kit"]["agent"])
+        self.assertEqual("FarmBoy Reviewer", analyze_step["farmboy"]["agent"])
+        self.assertEqual({"delegated": True, "agent": "FarmBoy Readiness Checker"}, checker["farmboy"])
+        self.assertEqual("FarmBoy Reviewer", assessor["farmboy"]["agent"])
         checker_prompt = self.controller.render_template(
             checker["prompt"], {"feature_context": "specs/020-example"},
             {"assess-readiness-evidence": {"readiness_report_json": '{"state":"ready"}'},
@@ -108,21 +108,21 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
         )
         self.assertIn("Keep artifact findings and readiness findings distinct", assessor_prompt)
         self.assertIn("After any correction, the next bounded pass must rerun fresh Analyze and Checker assessment", assessor_prompt)
-        for step_id, agent in (("remediate-specification", "FlowKit-Specifier"),
-                                ("remediate-plan", "FlowKit-Planner"),
-                                ("remediate-tasks", "FlowKit-Tasker")):
-            self.assertEqual(agent, find(body, step_id)["flow_kit"]["agent"])
+        for step_id, agent in (("remediate-specification", "FarmBoy Specifier"),
+                                ("remediate-plan", "FarmBoy Planner"),
+                                ("remediate-tasks", "FarmBoy Tasker")):
+            self.assertEqual(agent, find(body, step_id)["farmboy"]["agent"])
         self.assertIn("smallest authorized owner", find(body, "prepare-analysis-flowback")["prompt"])
 
     def test_checkerMetadataAndImplementGatePrecedeCoreCommand(self) -> None:
-        implement = workflow("speckit-flow-implement")
+        implement = workflow("farmboy-implement")
         loop = find(implement["steps"], "implementation-loop")
         body = loop["steps"]
         before_loop = implement["steps"]
         checker = next(step for step in before_loop if step["id"] == "check-readiness-before-core")
-        self.assertEqual({"delegated": True, "agent": "FlowKit-Readiness Checker"}, checker["flow_kit"])
+        self.assertEqual({"delegated": True, "agent": "FarmBoy Readiness Checker"}, checker["farmboy"])
         for source_step in ("run-scoped-preparation", "run-scoped-source-implementation"):
-            self.assertEqual("FlowKit-Coder", find(body, source_step)["flow_kit"]["agent"])
+            self.assertEqual("FarmBoy Coder", find(body, source_step)["farmboy"]["agent"])
         self.assertLess([step["id"] for step in implement["steps"]].index(checker["id"]),
                         [step["id"] for step in implement["steps"]].index("route-readiness-before-core"))
         gate = next(step for step in before_loop if step["id"] == "gate-readiness-before-core")
@@ -134,7 +134,7 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
         self.assertIn("Immediately before entering the implementation loop, rerun the installed readiness helper", rendered)
         self.assertEqual({"assess-implementation-state", "assess-implementation-start-milestone"},
                          {step["id"] for step in before_loop
-                          if step.get("flow_kit", {}).get("agent") == "FlowKit-Reviewer"})
+                          if step.get("farmboy", {}).get("agent") == "FarmBoy Reviewer"})
         initial_route = next(step for step in before_loop if step["id"] == "route-readiness-before-core")
         self.assertIn("Do not dispatch core implementation", initial_route["cases"]["blocked"][0]["prompt"])
         for state, expected in (("ready", ["implementation-loop"]), ("blocked", ["stop-readiness-before-core"])):

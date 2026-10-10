@@ -119,7 +119,7 @@ def project_workflow(definition: dict[str, Any]) -> dict[str, Any]:
     for node, parent, branch in flattened:
         step_id = node.get("id")
         kind = node_kind(node)
-        assignment = node.get("flow_kit")
+        assignment = node.get("farmboy")
         if isinstance(assignment, dict) and assignment.get("delegated") is True:
             assignments.append({"step_id": step_id, "agent": assignment.get("agent"), "parent": parent, "branch": branch})
         if kind == "switch":
@@ -160,7 +160,7 @@ def project_workflow(definition: dict[str, Any]) -> dict[str, Any]:
 
 def load_workflows() -> list[dict[str, Any]]:
     """Read active and deprecated source workflow definitions in stable order."""
-    paths = sorted(WORKFLOW_ROOT.glob("speckit-flow-*/workflow.yml"))
+    paths = sorted(WORKFLOW_ROOT.glob("farmboy-*/workflow.yml"))
     definitions = []
     for path in paths:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))

@@ -1,8 +1,8 @@
 {
   "closeout": [
     {
-      "flow_kit": {
-        "agent": "FlowKit-Reviewer",
+      "farmboy": {
+        "agent": "FarmBoy Reviewer",
         "delegated": true
       },
       "id": "assess-closeout-readiness",
@@ -22,8 +22,8 @@
               "run": [
                 {
                   "command": "speckit.specify",
-                  "flow_kit": {
-                    "agent": "FlowKit-Specifier",
+                  "farmboy": {
+                    "agent": "FarmBoy Specifier",
                     "delegated": true
                   },
                   "id": "mark-converged-specification-complete"
@@ -36,8 +36,8 @@
             "type": "switch"
           },
           {
-            "flow_kit": {
-              "agent": "FlowKit-Code Reviewer",
+            "farmboy": {
+              "agent": "FarmBoy Code Reviewer",
               "delegated": true
             },
             "id": "assess-implemented-lifecycle-milestone",
@@ -52,9 +52,9 @@
               {
                 "id": "assess-closeout-lifecycle-edge",
                 "type": "prompt",
-                "flow_kit": {
+                "farmboy": {
                   "delegated": true,
-                  "agent": "FlowKit-Reviewer"
+                  "agent": "FarmBoy Reviewer"
                 }
               },
               {
@@ -67,17 +67,17 @@
                       "id": "assess-recovery-roadmap-brief",
                       "type": "command",
                       "command": "speckit.flow-roadmap.brief",
-                      "flow_kit": {
+                      "farmboy": {
                         "delegated": true,
-                        "agent": "FlowKit-Roadmap Agent"
+                        "agent": "FarmBoy Roadmap Agent"
                       }
                     },
                     {
                       "id": "assess-recovery-preparation",
                       "type": "prompt",
-                      "flow_kit": {
+                      "farmboy": {
                         "delegated": true,
-                        "agent": "FlowKit-Reviewer"
+                        "agent": "FarmBoy Reviewer"
                       }
                     },
                     {
@@ -87,17 +87,17 @@
                     {
                       "id": "assess-recovery-readiness",
                       "type": "prompt",
-                      "flow_kit": {
+                      "farmboy": {
                         "delegated": true,
-                        "agent": "FlowKit-Readiness Checker"
+                        "agent": "FarmBoy Readiness Checker"
                       }
                     },
                     {
                       "id": "attest-recovery-start",
                       "type": "prompt",
-                      "flow_kit": {
+                      "farmboy": {
                         "delegated": true,
-                        "agent": "FlowKit-Reviewer"
+                        "agent": "FarmBoy Reviewer"
                       }
                     }
                   ],
@@ -133,17 +133,17 @@
                             "id": "apply-closeout-lifecycle-transition",
                             "type": "command",
                             "command": "speckit.flow-roadmap.write",
-                            "flow_kit": {
+                            "farmboy": {
                               "delegated": true,
-                              "agent": "FlowKit-Roadmap Agent"
+                              "agent": "FarmBoy Roadmap Agent"
                             }
                           },
                           {
                             "id": "verify-closeout-lifecycle-transition",
                             "type": "prompt",
-                            "flow_kit": {
+                            "farmboy": {
                               "delegated": true,
-                              "agent": "FlowKit-Reviewer"
+                              "agent": "FarmBoy Reviewer"
                             }
                           }
                         ],
@@ -151,9 +151,9 @@
                           {
                             "id": "verify-closeout-lifecycle-noop-after-revalidation",
                             "type": "prompt",
-                            "flow_kit": {
+                            "farmboy": {
                               "delegated": true,
-                              "agent": "FlowKit-Reviewer"
+                              "agent": "FarmBoy Reviewer"
                             }
                           }
                         ],
@@ -166,9 +166,9 @@
                     {
                       "id": "verify-existing-closeout-lifecycle-state",
                       "type": "prompt",
-                      "flow_kit": {
+                      "farmboy": {
                         "delegated": true,
-                        "agent": "FlowKit-Reviewer"
+                        "agent": "FarmBoy Reviewer"
                       }
                     }
                   ],
@@ -199,15 +199,15 @@
                   "steps": [
                     {
                       "command": "speckit.flow-roadmap.debrief",
-                      "flow_kit": {
-                        "agent": "FlowKit-Reviewer",
+                      "farmboy": {
+                        "agent": "FarmBoy Reviewer",
                         "delegated": true
                       },
                       "id": "debrief-roadmap"
                     },
                     {
-                      "flow_kit": {
-                        "agent": "FlowKit-Code Reviewer",
+                      "farmboy": {
+                        "agent": "FarmBoy Code Reviewer",
                         "delegated": true
                       },
                       "id": "assess-closeout-debrief",
@@ -227,8 +227,8 @@
                               "run": [
                                 {
                                   "command": "speckit.specify",
-                                  "flow_kit": {
-                                    "agent": "FlowKit-Specifier",
+                                  "farmboy": {
+                                    "agent": "FarmBoy Specifier",
                                     "delegated": true
                                   },
                                   "id": "reconcile-closeout-specification"
@@ -245,8 +245,8 @@
                               "run": [
                                 {
                                   "command": "speckit.plan",
-                                  "flow_kit": {
-                                    "agent": "FlowKit-Planner",
+                                  "farmboy": {
+                                    "agent": "FarmBoy Planner",
                                     "delegated": true
                                   },
                                   "id": "reconcile-closeout-plan"
@@ -263,8 +263,8 @@
                               "run": [
                                 {
                                   "command": "speckit.tasks",
-                                  "flow_kit": {
-                                    "agent": "FlowKit-Tasker",
+                                  "farmboy": {
+                                    "agent": "FarmBoy Tasker",
                                     "delegated": true
                                   },
                                   "id": "reconcile-closeout-tasks"
@@ -278,15 +278,15 @@
                           },
                           {
                             "command": "speckit.analyze",
-                            "flow_kit": {
-                              "agent": "FlowKit-Reviewer",
+                            "farmboy": {
+                              "agent": "FarmBoy Reviewer",
                               "delegated": true
                             },
                             "id": "analyze-closeout-artifacts"
                           },
                           {
-                            "flow_kit": {
-                              "agent": "FlowKit-Reviewer",
+                            "farmboy": {
+                              "agent": "FarmBoy Reviewer",
                               "delegated": true
                             },
                             "id": "assess-closeout-task-eligibility",
@@ -299,8 +299,8 @@
                               "continue": [
                                 {
                                   "command": "speckit.implement",
-                                  "flow_kit": {
-                                    "agent": "FlowKit-Coder",
+                                  "farmboy": {
+                                    "agent": "FarmBoy Coder",
                                     "delegated": true
                                   },
                                   "id": "implement-closeout-eligible-tasks"
@@ -366,8 +366,8 @@
       "type": "switch"
     },
     {
-      "flow_kit": {
-        "agent": "FlowKit-Roadmap Agent",
+      "farmboy": {
+        "agent": "FarmBoy Roadmap Agent",
         "delegated": true
       },
       "id": "prepare-wiki-maintenance",
@@ -388,23 +388,23 @@
               },
               {
                 "command": "speckit.flow-wiki.ingest",
-                "flow_kit": {
-                  "agent": "FlowKit-Wiki Curator",
+                "farmboy": {
+                  "agent": "FarmBoy Wiki Curator",
                   "delegated": true
                 },
                 "id": "ingest-curated-context"
               },
               {
                 "command": "speckit.flow-wiki.lint",
-                "flow_kit": {
-                  "agent": "FlowKit-Reviewer",
+                "farmboy": {
+                  "agent": "FarmBoy Reviewer",
                   "delegated": true
                 },
                 "id": "lint-wiki"
               },
               {
-                "flow_kit": {
-                  "agent": "FlowKit-Reviewer",
+                "farmboy": {
+                  "agent": "FarmBoy Reviewer",
                   "delegated": true
                 },
                 "id": "assess-wiki-maintenance",
@@ -414,8 +414,8 @@
             "type": "do-while"
           },
           {
-            "flow_kit": {
-              "agent": "FlowKit-Reviewer",
+            "farmboy": {
+              "agent": "FarmBoy Reviewer",
               "delegated": true
             },
             "id": "verify-closeout-readiness",
@@ -438,8 +438,8 @@
       "type": "prompt"
     },
     {
-      "flow_kit": {
-        "agent": "FlowKit-Reviewer",
+      "farmboy": {
+        "agent": "FarmBoy Reviewer",
         "delegated": true
       },
       "id": "assess-implementation-state",
@@ -454,8 +454,8 @@
       "type": "prompt"
     },
     {
-      "flow_kit": {
-        "agent": "FlowKit-Readiness Checker",
+      "farmboy": {
+        "agent": "FarmBoy Readiness Checker",
         "delegated": true
       },
       "id": "check-readiness-before-core",
@@ -466,8 +466,8 @@
       "type": "prompt"
     },
     {
-      "flow_kit": {
-        "agent": "FlowKit-Reviewer",
+      "farmboy": {
+        "agent": "FarmBoy Reviewer",
         "delegated": true
       },
       "id": "assess-implementation-start-milestone",
@@ -482,8 +482,8 @@
         "blocked": [],
         "no-op": [
           {
-            "flow_kit": {
-              "agent": "FlowKit-Reviewer",
+            "farmboy": {
+              "agent": "FarmBoy Reviewer",
               "delegated": true
             },
             "id": "verify-existing-implementation-start-state",
@@ -501,8 +501,8 @@
               "blocked": [],
               "no-op": [
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Reviewer",
+                  "farmboy": {
+                    "agent": "FarmBoy Reviewer",
                     "delegated": true
                   },
                   "id": "verify-existing-implementation-start-state-after-revalidation",
@@ -513,16 +513,16 @@
               "ready": [
                 {
                   "command": "speckit.flow-roadmap.write",
-                  "flow_kit": {
-                    "agent": "FlowKit-Roadmap Agent",
+                  "farmboy": {
+                    "agent": "FarmBoy Roadmap Agent",
                     "delegated": true
                   },
                   "id": "apply-implementation-start-milestone",
                   "type": "command"
                 },
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Reviewer",
+                  "farmboy": {
+                    "agent": "FarmBoy Reviewer",
                     "delegated": true
                   },
                   "id": "verify-implementation-start-milestone",
@@ -578,8 +578,8 @@
                     },
                     {
                       "command": "speckit.implement",
-                      "flow_kit": {
-                        "agent": "FlowKit-Coder",
+                      "farmboy": {
+                        "agent": "FarmBoy Coder",
                         "delegated": true
                       },
                       "id": "run-scoped-preparation"
@@ -604,8 +604,8 @@
                     },
                     {
                       "command": "speckit.implement",
-                      "flow_kit": {
-                        "agent": "FlowKit-Coder",
+                      "farmboy": {
+                        "agent": "FarmBoy Coder",
                         "delegated": true
                       },
                       "id": "run-scoped-source-implementation"
@@ -621,8 +621,8 @@
                 "type": "switch"
               },
               {
-                "flow_kit": {
-                  "agent": "FlowKit-Code Reviewer",
+                "farmboy": {
+                  "agent": "FarmBoy Code Reviewer",
                   "delegated": true
                 },
                 "id": "assess-implementation-after-pass",
@@ -634,8 +634,8 @@
                   "complete": [
                     {
                       "command": "speckit.tasks",
-                      "flow_kit": {
-                        "agent": "FlowKit-Tasker",
+                      "farmboy": {
+                        "agent": "FarmBoy Tasker",
                         "delegated": true
                       },
                       "id": "track-reviewed-completion"
@@ -691,8 +691,8 @@
                                     "ready": [
                                       {
                                         "command": "speckit.tasks",
-                                        "flow_kit": {
-                                          "agent": "FlowKit-Tasker",
+                                        "farmboy": {
+                                          "agent": "FarmBoy Tasker",
                                           "delegated": true
                                         },
                                         "id": "revise-task-plan"
@@ -770,8 +770,8 @@
                     },
                     {
                       "command": "speckit.tasks",
-                      "flow_kit": {
-                        "agent": "FlowKit-Tasker",
+                      "farmboy": {
+                        "agent": "FarmBoy Tasker",
                         "delegated": true
                       },
                       "id": "track-reviewed-task-outcomes"
@@ -785,8 +785,8 @@
                       "type": "prompt"
                     },
                     {
-                      "flow_kit": {
-                        "agent": "FlowKit-Readiness Checker",
+                      "farmboy": {
+                        "agent": "FarmBoy Readiness Checker",
                         "delegated": true
                       },
                       "id": "check-readiness-before-reentry",
@@ -846,8 +846,8 @@
   ],
   "specify": [
     {
-      "flow_kit": {
-        "agent": "FlowKit-Roadmap Agent",
+      "farmboy": {
+        "agent": "FarmBoy Roadmap Agent",
         "delegated": true
       },
       "id": "inspect-active-feature",
@@ -862,8 +862,8 @@
             "id": "retrieve-governing-context"
           },
           {
-            "flow_kit": {
-              "agent": "FlowKit-Specifier",
+            "farmboy": {
+              "agent": "FarmBoy Specifier",
               "delegated": true
             },
             "id": "prepare-specification-request",
@@ -875,15 +875,15 @@
               "ready": [
                 {
                   "command": "speckit.specify",
-                  "flow_kit": {
-                    "agent": "FlowKit-Specifier",
+                  "farmboy": {
+                    "agent": "FarmBoy Specifier",
                     "delegated": true
                   },
                   "id": "draft-specification"
                 },
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Reviewer",
+                  "farmboy": {
+                    "agent": "FarmBoy Reviewer",
                     "delegated": true
                   },
                   "id": "assess-created-spec-linkage",
@@ -906,8 +906,8 @@
                               "id": "apply-approved-spec-dir-patch"
                             },
                             {
-                              "flow_kit": {
-                                "agent": "FlowKit-Reviewer",
+                              "farmboy": {
+                                "agent": "FarmBoy Reviewer",
                                 "delegated": true
                               },
                               "id": "verify-repaired-spec-linkage",
@@ -947,8 +947,8 @@
         "blocked": [],
         "ready-for-brief": [
           {
-            "flow_kit": {
-              "agent": "FlowKit-Reviewer",
+            "farmboy": {
+              "agent": "FarmBoy Reviewer",
               "delegated": true
             },
             "id": "assess-specification-authoring-quality",
@@ -960,31 +960,31 @@
               "ready": [
                 {
                   "command": "speckit.flow-roadmap.brief",
-                  "flow_kit": {
-                    "agent": "FlowKit-Roadmap Agent",
+                  "farmboy": {
+                    "agent": "FarmBoy Roadmap Agent",
                     "delegated": true
                   },
                   "id": "brief-against-roadmap"
                 },
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Reviewer",
+                  "farmboy": {
+                    "agent": "FarmBoy Reviewer",
                     "delegated": true
                   },
                   "id": "assess-specification-milestone-evidence",
                   "type": "prompt"
                 },
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Roadmap Agent",
+                  "farmboy": {
+                    "agent": "FarmBoy Roadmap Agent",
                     "delegated": true
                   },
                   "id": "assess-roadmap-brief-milestone",
                   "type": "prompt"
                 },
                 {
-                  "flow_kit": {
-                    "agent": "FlowKit-Reviewer",
+                  "farmboy": {
+                    "agent": "FarmBoy Reviewer",
                     "delegated": true
                   },
                   "id": "prepare-specification-lifecycle-request",
@@ -999,8 +999,8 @@
                     "blocked": [],
                     "no-op": [
                       {
-                        "flow_kit": {
-                          "agent": "FlowKit-Reviewer",
+                        "farmboy": {
+                          "agent": "FarmBoy Reviewer",
                           "delegated": true
                         },
                         "id": "verify-existing-specification-lifecycle-state",
@@ -1018,8 +1018,8 @@
                           "blocked": [],
                           "no-op": [
                             {
-                              "flow_kit": {
-                                "agent": "FlowKit-Reviewer",
+                              "farmboy": {
+                                "agent": "FarmBoy Reviewer",
                                 "delegated": true
                               },
                               "id": "verify-existing-specification-lifecycle-state-after-revalidation",
@@ -1030,16 +1030,16 @@
                           "ready": [
                             {
                               "command": "speckit.flow-roadmap.write",
-                              "flow_kit": {
-                                "agent": "FlowKit-Roadmap Agent",
+                              "farmboy": {
+                                "agent": "FarmBoy Roadmap Agent",
                                 "delegated": true
                               },
                               "id": "apply-specification-lifecycle-transition",
                               "type": "command"
                             },
                             {
-                              "flow_kit": {
-                                "agent": "FlowKit-Reviewer",
+                              "farmboy": {
+                                "agent": "FarmBoy Reviewer",
                                 "delegated": true
                               },
                               "id": "verify-specification-lifecycle-transition",

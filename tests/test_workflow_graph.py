@@ -1,4 +1,4 @@
-"""Machine-checkable branch and gate coverage for every FlowKit workflow."""
+"""Machine-checkable branch and gate coverage for every FarmBoy workflow."""
 
 from __future__ import annotations
 
@@ -57,13 +57,13 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        cls.inventory = load_module("flowkit_workflow_inventory", ROOT / "tools/validate_workflows.py")
+        cls.inventory = load_module("farmboy_workflow_inventory", ROOT / "tools/validate_workflows.py")
 
     def test_activeAndDeprecatedWorkflowsExposeStopsAndAssignmentsWithRequiredGates(self) -> None:
         projections = [self.inventory.project_workflow(item) for item in self.inventory.load_workflows()]
         expected = {
-            "speckit-flow-start-feature", "speckit-flow-select-feature", "speckit-flow-specify", "speckit-flow-clarify", "speckit-flow-plan", "speckit-flow-tasks",
-            "speckit-flow-analyze-remediate", "speckit-flow-implement", "speckit-flow-converge", "speckit-flow-closeout", "speckit-flow-wiki-lint-update",
+            "farmboy-start-feature", "farmboy-select-feature", "farmboy-specify", "farmboy-clarify", "farmboy-plan", "farmboy-tasks",
+            "farmboy-analyze-remediate", "farmboy-implement", "farmboy-converge", "farmboy-closeout", "farmboy-wiki-lint-update",
         }
         self.assertEqual(expected, {item["workflow_id"] for item in projections})
         for projection in projections:
@@ -71,12 +71,12 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                 self.assertTrue(projection["entry_step_id"])
                 self.assertEqual("unverified", projection["native_agent_selection"]["status"])
                 self.assertIn("does not request native Codex subagents", projection["native_agent_selection"]["reason"])
-                if projection["workflow_id"] == "speckit-flow-start-feature":
+                if projection["workflow_id"] == "farmboy-start-feature":
                     self.assertFalse(projection["assignments"])
                     self.assertFalse(projection["branches"])
                     continue
-                if projection["workflow_id"] in {"speckit-flow-clarify", "speckit-flow-implement", "speckit-flow-plan", "speckit-flow-tasks", "speckit-flow-analyze-remediate", "speckit-flow-converge", "speckit-flow-wiki-lint-update"}:
-                    if projection["workflow_id"] in {"speckit-flow-implement", "speckit-flow-analyze-remediate", "speckit-flow-converge", "speckit-flow-wiki-lint-update"}:
+                if projection["workflow_id"] in {"farmboy-clarify", "farmboy-implement", "farmboy-plan", "farmboy-tasks", "farmboy-analyze-remediate", "farmboy-converge", "farmboy-wiki-lint-update"}:
+                    if projection["workflow_id"] in {"farmboy-implement", "farmboy-analyze-remediate", "farmboy-converge", "farmboy-wiki-lint-update"}:
                         self.assertTrue(projection["branches"])
                     else:
                         self.assertFalse(projection["branches"])
@@ -86,8 +86,8 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                     self.assertTrue(projection["human_decisions"])
                 self.assertTrue(projection["assignments"])
                 self.assertIn("unexplained_terminal_paths", projection)
-        analyze = next(item for item in projections if item["workflow_id"] == "speckit-flow-analyze-remediate")
-        implement = next(item for item in projections if item["workflow_id"] == "speckit-flow-implement")
+        analyze = next(item for item in projections if item["workflow_id"] == "farmboy-analyze-remediate")
+        implement = next(item for item in projections if item["workflow_id"] == "farmboy-implement")
         self.assertEqual("analysis-remediation-loop", analyze["entry_step_id"])
         self.assertTrue(analyze["continuation_edges"])
         self.assertEqual("establish-implementation-scope", implement["entry_step_id"])
@@ -98,8 +98,8 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                                    if path.get("reason") == "operator-selected-return-command-ends-current-workflow"}
             for item in projections
         }
-        self.assertEqual(set(), returned["speckit-flow-plan"])
-        self.assertEqual(set(), returned["speckit-flow-tasks"])
+        self.assertEqual(set(), returned["farmboy-plan"])
+        self.assertEqual(set(), returned["farmboy-tasks"])
 
     def testOnlyGatedReturnCommandsReceiveTheExplicitBoundedReturnClassification(self) -> None:
         definition = {
@@ -136,8 +136,8 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def testSelectionAndSpecificationSeparateMutationAuthority(self) -> None:
         workflows = {w["workflow"]["id"]: w for w in self.inventory.load_workflows()}
-        selection = workflows["speckit-flow-select-feature"]
-        authoring = workflows["speckit-flow-specify"]
+        selection = workflows["farmboy-select-feature"]
+        authoring = workflows["farmboy-specify"]
         self.assertEqual(["speckit.flow-roadmap.write"], commands(selection["steps"]))
         self.assertNotIn("speckit.specify", commands(selection["steps"]))
         self.assertEqual(1, len(self.inventory.project_workflow(selection)["human_decisions"]))
@@ -148,14 +148,14 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
         self.assertEqual(1, len(self.inventory.project_workflow(authoring)["human_decisions"]))
         self.assertEqual("inspect-active-feature", authoring["steps"][0]["id"])
         self.assertEqual(["speckit.flow-wiki.query", "speckit.specify", "speckit.flow-roadmap.write", "speckit.flow-roadmap.brief", "speckit.flow-roadmap.write"], commands(authoring["steps"]))
-        deprecated = workflows["speckit-flow-start-feature"]
+        deprecated = workflows["farmboy-start-feature"]
         self.assertTrue(deprecated["workflow"]["deprecated"])
         self.assertEqual([], commands(deprecated["steps"]))
         self.assertEqual(1, len(deprecated["steps"]))
 
     def testPlanGraphLoopsThroughCorePlanningAndOutputVerification(self) -> None:
         workflow = next(item for item in self.inventory.load_workflows()
-                        if item["workflow"]["id"] == "speckit-flow-plan")
+                        if item["workflow"]["id"] == "farmboy-plan")
         self.assertEqual(["plan-output-loop", "report-plan-outcome"],
                          [step["id"] for step in workflow["steps"]])
         self.assertEqual(["speckit.plan"], commands(workflow["steps"]))
@@ -167,7 +167,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def testClarifyGraphKeepsOperatorQuestionsAndNeverStartsPlan(self) -> None:
         workflow = next(item for item in self.inventory.load_workflows()
-                        if item["workflow"]["id"] == "speckit-flow-clarify")
+                        if item["workflow"]["id"] == "farmboy-clarify")
         steps = workflow["steps"]
         loop = find_step(steps, "clarification-session-loop")
         self.assertEqual(5, loop["max_iterations"])
@@ -184,7 +184,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def testTasksGraphUsesOnlyCoreSkillAndOutputLoop(self) -> None:
         workflow = next(item for item in self.inventory.load_workflows()
-                        if item["workflow"]["id"] == "speckit-flow-tasks")
+                        if item["workflow"]["id"] == "farmboy-tasks")
         self.assertEqual(["tasks-output-loop", "report-task-outcome"],
                          [step["id"] for step in workflow["steps"]])
         self.assertEqual(["speckit.tasks"], commands(workflow["steps"]))
@@ -201,7 +201,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def testConvergeGraphOrdersRemediationAndStopsWithoutStartingCloseOut(self) -> None:
         workflow = next(item for item in self.inventory.load_workflows()
-                        if item["workflow"]["id"] == "speckit-flow-converge")
+                        if item["workflow"]["id"] == "farmboy-converge")
         steps = workflow["steps"]
         loop, report = steps
         self.assertEqual("convergence-remediation-loop", loop["id"])
@@ -226,7 +226,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def testCloseoutGraphSharesCorrectionAndMaintainsVerifiedContext(self) -> None:
         workflow = next(item for item in self.inventory.load_workflows()
-                        if item["workflow"]["id"] == "speckit-flow-closeout")
+                        if item["workflow"]["id"] == "farmboy-closeout")
         steps = workflow["steps"]
         self.assertEqual("assess-closeout-readiness", steps[0]["id"])
         loop = find_step(steps, "closeout-debrief-loop")
@@ -271,7 +271,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
         expected_delegated = set()
         for step_id, node in nodes.items():
             notation, label = declarations[step_id]
-            assigned = node.get('flow_kit', {}).get('agent')
+            assigned = node.get('farmboy', {}).get('agent')
             agents = re.findall(r'\(([^()]*)\)', label)
             self.assertEqual([assigned] if assigned else [], agents,
                              f"{step_id}: agent label differs from source")
@@ -285,7 +285,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                 opening, closing = shapes[kind]
                 self.assertTrue(notation.startswith(opening) and notation.endswith(closing),
                                 f"{step_id}: wrong {kind} shape")
-            if node.get('flow_kit', {}).get('delegated') is True:
+            if node.get('farmboy', {}).get('delegated') is True:
                 expected_delegated.add(aliases[step_id])
             if kind == 'do-while':
                 self.assertIn(f"max_iterations: {node['max_iterations']}", label)
@@ -307,12 +307,12 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
 
     def test_diagramMetadataRejectsPhantomMissingAndIncorrectDeclarations(self) -> None:
         workflow = next(w for w in self.inventory.load_workflows()
-                        if w['workflow']['id'] == 'speckit-flow-plan')
-        original = (ROOT / 'workflows/speckit-flow-plan/flowchart.md').read_text()
+                        if w['workflow']['id'] == 'farmboy-plan')
+        original = (ROOT / 'workflows/farmboy-plan/flowchart.md').read_text()
         mutations = {
-            'phantom-loop-agent': ('plan-output-loop<br/>condition:', 'plan-output-loop<br/>(FlowKit-Reviewer)condition:'),
-            'missing-agent': ('<br/>(FlowKit-Planner)', ''),
-            'wrong-agent': ('(FlowKit-Planner)', '(FlowKit-Tasker)'),
+            'phantom-loop-agent': ('plan-output-loop<br/>condition:', 'plan-output-loop<br/>(FarmBoy Reviewer)condition:'),
+            'missing-agent': ('<br/>(FarmBoy Planner)', ''),
+            'wrong-agent': ('(FarmBoy Planner)', '(FarmBoy Tasker)'),
             'wrong-command': ('command: speckit.plan', 'command: speckit.tasks'),
             'wrong-id': ('prepare-plan-request', 'prepare-other-request'),
             'wrong-shape': ('prepare["prepare-plan-request"]', 'prepare(["prepare-plan-request"])'),
@@ -330,24 +330,24 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
     def test_manualPlanAndTasksPreserveIndependentSemanticReviewContract(self) -> None:
         readme = (ROOT / 'workflows/README.md').read_text()
         for purpose, heading, following, author, review_id in (
-            ('plan', 'planning', 'task-generation', 'FlowKit-Planner', 'verify-plan-output'),
-            ('tasks', 'task-generation', 'analysis and remediation', 'FlowKit-Tasker', 'verify-task-output'),
+            ('plan', 'planning', 'task-generation', 'FarmBoy Planner', 'verify-plan-output'),
+            ('tasks', 'task-generation', 'analysis and remediation', 'FarmBoy Tasker', 'verify-task-output'),
         ):
             with self.subTest(workflow=purpose):
                 manual = readme.split('## Manual ' + heading + ' path', 1)[1].split(
                     '## Manual ' + following + ' path', 1)[0]
                 workflow = next(w for w in self.inventory.load_workflows()
-                                if w['workflow']['id'] == 'speckit-flow-' + purpose)
+                                if w['workflow']['id'] == 'farmboy-' + purpose)
                 review = find_step(workflow['steps'], review_id)
                 prepare = workflow['steps'][0]['steps'][0]
-                self.assertEqual('FlowKit-Reviewer', review['flow_kit']['agent'])
-                self.assertEqual(author, workflow['steps'][0]['steps'][1]['flow_kit']['agent'])
+                self.assertEqual('FarmBoy Reviewer', review['farmboy']['agent'])
+                self.assertEqual(author, workflow['steps'][0]['steps'][1]['farmboy']['agent'])
                 self.assertEqual(5, workflow['steps'][0]['max_iterations'])
                 for field in ('artifact_location', 'violated_requirement', 'observed_deficiency', 'exact_correction'):
                     self.assertIn(field, manual)
                     self.assertIn(field, review['prompt'])
                     self.assertIn(field, prepare['prompt'])
-                for phrase in ('independent FlowKit-Reviewer', 'structural and semantic', author,
+                for phrase in ('independent FarmBoy Reviewer', 'structural and semantic', author,
                                'verbatim', 'Fresh review', 'substantive resolution',
                                'new blocking findings', 'Wording-only or digest-only',
                                'renamed or repeated findings', 'successful commands',
@@ -359,7 +359,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                               'preserving task IDs, completion markers', manual)
 
     def test_assessmentPromptsDeclareBothIdentifierGrammars(self) -> None:
-        protocol = (ROOT / "controllers/flow-kit/controller-protocol.md").read_text()
+        protocol = (ROOT / "controllers/farmboy/controller-protocol.md").read_text()
         self.assertIn("must omit `next_step_id`, `gate_step_id`, and `resume_action`", protocol)
         self.assertNotIn("exactly one route field", protocol)
         grammar = "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
@@ -377,7 +377,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                     self.assertIn("for `blocked`, include only a stable `resume_action`", prompt)
                     self.assertNotIn("exactly one state-appropriate route", prompt)
                     assessed.add(workflow["workflow"]["id"])
-        self.assertEqual({"speckit-flow-" + purpose for purpose in (
+        self.assertEqual({"farmboy-" + purpose for purpose in (
             "analyze-remediate", "clarify", "closeout", "converge", "implement",
             "plan", "tasks", "wiki-lint-update")}, assessed)
 
@@ -388,9 +388,9 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                 {b: topology(c) for b, c in v.items()} if k == 'cases' else v
                 for k, v in n.items() if k in ('id', 'type', 'command', 'condition',
                     'max_iterations', 'assessment_before_correction', 'assessment_only_first_pass',
-                    'expression', 'cases', 'default', 'steps', 'flow_kit')} for n in nodes]
+                    'expression', 'cases', 'default', 'steps', 'farmboy')} for n in nodes]
         for purpose, expected in baseline.items():
-            workflow = yaml.safe_load((ROOT / 'workflows' / ('speckit-flow-' + purpose) / 'workflow.yml').read_text())
+            workflow = yaml.safe_load((ROOT / 'workflows' / ('farmboy-' + purpose) / 'workflow.yml').read_text())
             with self.subTest(workflow=purpose):
                 self.assertEqual(expected, topology(workflow['steps']))
 
