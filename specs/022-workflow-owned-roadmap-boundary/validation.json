@@ -1,0 +1,104 @@
+{
+  "baseline_commit": "b6dcae9de22147f867717e322c7bb2cb8a240715",
+  "branch": "codex/roadmap-boundary-correction",
+  "components": {
+    "flow-kit-controllers": "0.9.0",
+    "flow-roadmap": "0.4.0",
+    "spec-kit-flow": "0.18.0",
+    "speckit-flow-closeout": "0.9.0",
+    "speckit-flow-implement": "0.9.0",
+    "speckit-flow-specify": "0.4.0"
+  },
+  "controller_archive_sha256": "de7948d146518335454b2dbb45b5153aa46ce0502a29e76270fd56a75e5d3d5a",
+  "farmboy_checkpoint": "87227a1",
+  "farmboy_status": "paused-preserved",
+  "limitations": [
+    "Four optional integration cases are skipped in the default source suite; delivered generic configuration and installed joint composition passed separately.",
+    "Installed phase assessment records are synthetic; live installed workflow phase dispatch remains unverified.",
+    "Linux is untested and the separate integration-None native prompt-dispatch failure remains unresolved.",
+    "Historical catalog archives and primary consumer installations remain unchanged.",
+    "Feature acceptance, commit and Git integration remain separate operator decisions."
+  ],
+  "post_review_editorial_adjustments": [
+    {
+      "change": "Remove extra blank line at EOF for staged whitespace validation.",
+      "commit_sha256": "563aeb28d2361cfb310b5124151f933d12f08cf203a8c31d500dc251a13f0ee3",
+      "path": "controllers/flow-kit/scripts/python/milestone_policy.py",
+      "reviewed_sha256": "db783965e6416973df3cd7c23afbaedc058bb09940df137277731e2888b8fa2c",
+      "semantic_change": false
+    }
+  ],
+  "results": {
+    "diff_check": "passed",
+    "final_recovery_checks": {
+      "boundary_tests": 23,
+      "outcome": "passed",
+      "phase_lifecycle_tests": 30,
+      "workflow_graph_tests": 15
+    },
+    "generic_boundary_suite_with_delivered_configuration": {
+      "outcome": "passed",
+      "skipped": 0,
+      "tests": 23
+    },
+    "joint_installed_integration": {
+      "errors": 0,
+      "failures": 0,
+      "outcome": "passed",
+      "phase_subcases": 3,
+      "record": "specs/022-workflow-owned-roadmap-boundary/joint-validation.json",
+      "skipped": 0,
+      "tests": 1
+    },
+    "privacy_scan": "passed",
+    "source_suite": {
+      "outcome": "passed",
+      "skipped": 4,
+      "tests": 355
+    },
+    "temporary_controller_packaging": "passed",
+    "workflow_terminals": {
+      "outcome": "passed",
+      "unexplained": 0
+    }
+  },
+  "review": {
+    "artifact_reviewer": "FlowKit-Reviewer",
+    "code_reviewer": "FlowKit-Code Reviewer",
+    "commit_authorized": false,
+    "corrected_findings": 4,
+    "record": "specs/022-workflow-owned-roadmap-boundary/review.json",
+    "remaining_buildable_findings": 0
+  },
+  "roadmap_cleanup": {
+    "commit": "7eec0b73b49d4d242d491530da5011de62b4d211",
+    "committed_source_hashes_verified": 13,
+    "repository": "pegagio/spec-kit-flow-roadmap",
+    "source_dirty": false,
+    "version": "0.4.0"
+  },
+  "schema_version": "1.0",
+  "source_sha256": {
+    "bundles/spec-kit-flow/bundle.yml": "94b808280c31e430ff9b58e9ae81b525c4da5a4d17176aa0283fc3f67c503d66",
+    "controllers/flow-kit/controller-protocol.md": "55ac15f32169a672c1210f83ff158ae45d3464364d7dc4d8c094c1ba8a0b0f50",
+    "controllers/flow-kit/manifest.yml": "98a47cee4eb29f21a14b1f4d5e564d261557167f6ed5dc42d1c0fef2b25f4bd5",
+    "controllers/flow-kit/scripts/python/controller.py": "93e4c13abbacc1e521c721ec84eaa598abd734f787e5e6c0f46602d84b7121bb",
+    "controllers/flow-kit/scripts/python/milestone_policy.py": "563aeb28d2361cfb310b5124151f933d12f08cf203a8c31d500dc251a13f0ee3",
+    "controllers/flow-kit/scripts/python/phase_lifecycle.py": "1d1b2f553a9178ebb87455d67eb36d6c116cc7b7f918c160c35595662ac1887a",
+    "docs/installation.md": "743acd60a74388c513c414214cb1e4b583167c989c967765d3e255e1285a2b35",
+    "tests/test_catalog.py": "06ba8c3670202bced135fbd20a150374577cf7b2cea5b27c5d851bab81eaa188",
+    "tests/test_phase_lifecycle.py": "458d59d461525a605351d78ab744f2d154409e491045a34dcaadfe8fb9753a2f",
+    "tests/test_workflow_paths.py": "0dc46840261a7d8bf229f25238756dd42984c82d64ed4631729b77be91ed0e13",
+    "tests/test_workflow_roadmap_boundary.py": "fa20ae77338c5829121642e3436cab8e052733ffb6e2fb125ae22103216e57e7",
+    "workflows/speckit-flow-closeout/workflow.yml": "127c39284e3a0d69ab06a9427465631c3c2cbc32d19e612480bf33e7d55dc651",
+    "workflows/speckit-flow-implement/workflow.yml": "746c134e52267c8b1d474119faef8f8ee4b26d920d9dc30bdec99c6164ff4b46",
+    "workflows/speckit-flow-specify/workflow.yml": "fc9963733c0bfdb02aa0ee7f06eca412d5994138e81c34e8efd6bfe5a636dece"
+  },
+  "transferred_policy_provenance": {
+    "commit": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+    "path": "scripts/python/phase_lifecycle.py",
+    "repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
+    "source_dirty": true,
+    "source_sha256": "29bf665ba93f6269e0d49cb257234addade369bf421b66440ceb9a14c4bc14e1"
+  }
+}

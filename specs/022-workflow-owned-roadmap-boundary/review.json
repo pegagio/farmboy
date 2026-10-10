@@ -1,0 +1,117 @@
+{
+  "artifact_sha256": {
+    "extension-handoff.md": "cb458fca696d6543a173a85b1db3e6f2bc07ce447910e9268c095476a5c51902",
+    "joint-validation.json": "10c8bd69493caf5af6979967831a273010f6fcefa1eeab5319799084a709672f",
+    "plan.md": "2e483a5199b2dfbbf1f3ba93c34eb2d188e3d33e2283069a75ab6e154ee2d9ce",
+    "spec.md": "265ce7fe7aca1f5911fdf52280846c9d91fe947b18d0567e0d4bee62798d1ca6",
+    "tasks.md": "5a38c06e1529ee71c63d9e99901026922edb634c47aa5f5f53c65e152ccf9a03",
+    "validation.json": "1fa2dcad8d28bae83730be86d9d1499ded9aac212b1967d4f4bbc1f156e20081"
+  },
+  "authority": "direct-operator-review-request-20261010",
+  "baseline_commit": "b6dcae9de22147f867717e322c7bb2cb8a240715",
+  "branch": "codex/roadmap-boundary-correction",
+  "farmboy": {
+    "checkpoint": "87227a1",
+    "state": "paused-clean"
+  },
+  "feature_directory": "specs/022-workflow-owned-roadmap-boundary",
+  "findings": [
+    {
+      "id": "CR-001",
+      "priority": 1,
+      "problem": "Readback accepted deletion or alteration of historical Sync Impact Reports.",
+      "resolution": "Compare every prior report and ledger byte; remove only one newly prepended report from observed bytes.",
+      "state": "resolved"
+    },
+    {
+      "id": "CR-002",
+      "priority": 2,
+      "problem": "Readback did not verify complete exact provenance in the newly added report.",
+      "resolution": "Require the exact Authorization field and complete sorted Evidence paths JSON, including retained activity and every milestone group.",
+      "state": "resolved"
+    },
+    {
+      "id": "CR-003",
+      "priority": 2,
+      "problem": "Offset-bearing observed timestamps could disagree with the writer UTC amendment date.",
+      "resolution": "Compare the observation timestamp normalized to UTC and retain its original occurrence representation in the receipt.",
+      "state": "resolved"
+    },
+    {
+      "id": "AR-001",
+      "priority": 2,
+      "problem": "Replacement tests omitted all-phase advanced no-ops and full Close Out recovery regression coverage.",
+      "resolution": "Add all-phase equal/advanced no-ops, three adjacent recovery edges with strict retained history/native-dispatch witness, prior receipt/history preservation and missing/stale intermediate proof blocks.",
+      "state": "resolved"
+    }
+  ],
+  "git": {
+    "commit_authorized": false,
+    "committed": false,
+    "integrated": false,
+    "pushed": false
+  },
+  "limitations": [
+    "Four optional integration cases are skipped in the default source suite; delivered generic configuration and installed joint composition passed separately.",
+    "Installed phase assessment records are synthetic; live installed workflow phase dispatch remains unverified.",
+    "Linux is untested and the separate integration-None native prompt-dispatch failure remains unresolved.",
+    "Historical catalog archives and primary consumer installations remain unchanged.",
+    "Feature acceptance, commit and Git integration remain separate operator decisions."
+  ],
+  "post_review_editorial_adjustments": [
+    {
+      "change": "Remove extra blank line at EOF for staged whitespace validation.",
+      "commit_sha256": "563aeb28d2361cfb310b5124151f933d12f08cf203a8c31d500dc251a13f0ee3",
+      "path": "controllers/flow-kit/scripts/python/milestone_policy.py",
+      "reviewed_sha256": "db783965e6416973df3cd7c23afbaedc058bb09940df137277731e2888b8fa2c",
+      "semantic_change": false
+    }
+  ],
+  "remaining_buildable_findings": [],
+  "reviews": [
+    {
+      "outcome": "AR-001 coverage gap resolved; no remaining material artifact gap after record refresh",
+      "role": "FlowKit-Reviewer",
+      "task": "artifact_review"
+    },
+    {
+      "independent_tests": {
+        "boundary": 23,
+        "boundary_skips": 0,
+        "phase_lifecycle": 30
+      },
+      "outcome": "all three reported defects resolved; no remaining actionable correctness finding in reviewed scope",
+      "role": "FlowKit-Code Reviewer",
+      "source_sha256": {
+        "controllers/flow-kit/scripts/python/controller.py": "93e4c13abbacc1e521c721ec84eaa598abd734f787e5e6c0f46602d84b7121bb",
+        "controllers/flow-kit/scripts/python/milestone_policy.py": "db783965e6416973df3cd7c23afbaedc058bb09940df137277731e2888b8fa2c",
+        "controllers/flow-kit/scripts/python/phase_lifecycle.py": "1d1b2f553a9178ebb87455d67eb36d6c116cc7b7f918c160c35595662ac1887a",
+        "tests/test_workflow_roadmap_boundary.py": "fa20ae77338c5829121642e3436cab8e052733ffb6e2fb125ae22103216e57e7"
+      },
+      "task": "code_review"
+    }
+  ],
+  "schema_version": "1.0",
+  "status": "ready-for-explicit-commit",
+  "validation": {
+    "delivered_boundary": {
+      "outcome": "passed",
+      "skipped": 0,
+      "tests": 23
+    },
+    "installed_joint": {
+      "outcome": "passed",
+      "phase_subcases": 3,
+      "skipped": 0,
+      "tests": 1
+    },
+    "privacy_and_whitespace": "passed",
+    "source_suite": {
+      "outcome": "passed",
+      "skipped": 4,
+      "tests": 355
+    },
+    "temporary_packaging": "passed",
+    "workflow_unexplained_terminals": 0
+  }
+}
