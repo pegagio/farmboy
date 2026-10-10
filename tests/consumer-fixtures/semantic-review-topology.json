@@ -1,379 +1,79 @@
 {
-  "plan": [
-    {
-      "id": "plan-output-loop",
-      "type": "do-while",
-      "condition": "{{ steps.verify-plan-output.output.state == 'continue' }}",
-      "max_iterations": 5,
-      "steps": [
-        {
-          "id": "prepare-plan-request",
-          "type": "prompt"
-        },
-        {
-          "id": "create-plan",
-          "command": "speckit.plan",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Planner"
-          }
-        },
-        {
-          "id": "verify-plan-output",
-          "type": "prompt",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Reviewer"
-          }
-        }
-      ]
-    },
-    {
-      "id": "report-plan-outcome",
-      "type": "prompt"
-    }
-  ],
-  "tasks": [
-    {
-      "id": "tasks-output-loop",
-      "type": "do-while",
-      "condition": "{{ steps.verify-task-output.output.state == 'continue' }}",
-      "max_iterations": 5,
-      "steps": [
-        {
-          "id": "prepare-task-request",
-          "type": "prompt"
-        },
-        {
-          "id": "generate-tasks",
-          "command": "speckit.tasks",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Tasker"
-          }
-        },
-        {
-          "id": "verify-task-output",
-          "type": "prompt",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Reviewer"
-          }
-        }
-      ]
-    },
-    {
-      "id": "report-task-outcome",
-      "type": "prompt"
-    }
-  ],
-  "implement": [
-    {
-      "id": "assess-implementation-state",
-      "type": "prompt",
-      "flow_kit": {
-        "delegated": true,
-        "agent": "FlowKit-Reviewer"
-      }
-    },
-    {
-      "id": "implementation-continuation-loop",
-      "type": "do-while",
-      "condition": "{{ steps.assess-implementation-after-pass.output.state == 'continue' }}",
-      "max_iterations": 5,
-      "steps": [
-        {
-          "id": "implement-eligible-work",
-          "command": "speckit.implement",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Coder"
-          }
-        },
-        {
-          "id": "assess-implementation-after-pass",
-          "type": "prompt",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Code Reviewer"
-          }
-        }
-      ]
-    },
-    {
-      "id": "report-implementation-outcome",
-      "type": "prompt"
-    }
-  ],
-  "converge": [
-    {
-      "id": "convergence-remediation-loop",
-      "type": "do-while",
-      "condition": "{{ steps.assess-convergence.output.state == 'continue' }}",
-      "max_iterations": 6,
-      "steps": [
-        {
-          "id": "append-task-remediation",
-          "command": "speckit.converge",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Tasker"
-          }
-        },
-        {
-          "id": "assess-convergence",
-          "type": "prompt",
-          "flow_kit": {
-            "delegated": true,
-            "agent": "FlowKit-Code Reviewer"
-          }
-        },
-        {
-          "id": "route-convergence-correction",
-          "type": "switch",
-          "expression": "{{ steps.assess-convergence.output.state }}",
-          "cases": {
-            "continue": [
-              {
-                "id": "prepare-convergence-flowback",
-                "type": "prompt"
-              },
-              {
-                "id": "route-specification-remediation",
-                "type": "switch",
-                "expression": "{{ steps.prepare-convergence-flowback.output.spec_action }}",
-                "cases": {
-                  "run": [
-                    {
-                      "id": "reconcile-convergence-specification",
-                      "command": "speckit.specify",
-                      "flow_kit": {
-                        "delegated": true,
-                        "agent": "FlowKit-Specifier"
-                      }
-                    }
-                  ],
-                  "skip": []
-                }
-              },
-              {
-                "id": "route-plan-remediation",
-                "type": "switch",
-                "expression": "{{ steps.prepare-convergence-flowback.output.plan_action }}",
-                "cases": {
-                  "run": [
-                    {
-                      "id": "reconcile-convergence-plan",
-                      "command": "speckit.plan",
-                      "flow_kit": {
-                        "delegated": true,
-                        "agent": "FlowKit-Planner"
-                      }
-                    }
-                  ],
-                  "skip": []
-                }
-              },
-              {
-                "id": "route-task-remediation",
-                "type": "switch",
-                "expression": "{{ steps.prepare-convergence-flowback.output.task_action }}",
-                "cases": {
-                  "run": [
-                    {
-                      "id": "reconcile-convergence-tasks",
-                      "command": "speckit.tasks",
-                      "flow_kit": {
-                        "delegated": true,
-                        "agent": "FlowKit-Tasker"
-                      }
-                    }
-                  ],
-                  "skip": []
-                }
-              },
-              {
-                "id": "analyze-remediation-tasks",
-                "command": "speckit.analyze",
-                "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Reviewer"
-                }
-              },
-              {
-                "id": "assess-remediation-eligibility",
-                "type": "prompt",
-                "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Reviewer"
-                }
-              },
-              {
-                "id": "route-remediation-implementation",
-                "type": "switch",
-                "expression": "{{ steps.assess-remediation-eligibility.output.state }}",
-                "cases": {
-                  "continue": [
-                    {
-                      "id": "implement-remediation",
-                      "command": "speckit.implement",
-                      "flow_kit": {
-                        "delegated": true,
-                        "agent": "FlowKit-Coder"
-                      }
-                    }
-                  ],
-                  "complete": [],
-                  "blocked": []
-                }
-              }
-            ],
-            "complete": [],
-            "blocked": []
-          }
-        }
-      ],
-      "assessment_before_correction": true
-    },
-    {
-      "id": "report-convergence-outcome",
-      "type": "prompt"
-    }
-  ],
   "closeout": [
     {
-      "id": "assess-closeout-readiness",
-      "type": "prompt",
       "flow_kit": {
-        "delegated": true,
-        "agent": "FlowKit-Reviewer"
-      }
+        "agent": "FlowKit-Reviewer",
+        "delegated": true
+      },
+      "id": "assess-closeout-readiness",
+      "type": "prompt"
     },
     {
-      "id": "route-initial-closeout",
-      "type": "switch",
-      "expression": "{{ steps.assess-closeout-readiness.output.state }}",
       "cases": {
+        "blocked": [],
+        "complete": [],
         "continue": [
           {
             "id": "prepare-closeout-status",
             "type": "prompt"
           },
           {
-            "id": "route-closeout-status",
-            "type": "switch",
-            "expression": "{{ steps.prepare-closeout-status.output.status_action }}",
             "cases": {
               "run": [
                 {
-                  "id": "mark-converged-specification-complete",
                   "command": "speckit.specify",
                   "flow_kit": {
-                    "delegated": true,
-                    "agent": "FlowKit-Specifier"
-                  }
+                    "agent": "FlowKit-Specifier",
+                    "delegated": true
+                  },
+                  "id": "mark-converged-specification-complete"
                 }
               ],
               "skip": []
-            }
+            },
+            "expression": "{{ steps.prepare-closeout-status.output.status_action }}",
+            "id": "route-closeout-status",
+            "type": "switch"
           },
           {
-            "id": "closeout-debrief-loop",
+            "flow_kit": {
+              "agent": "FlowKit-Code Reviewer",
+              "delegated": true
+            },
+            "id": "assess-implemented-lifecycle-milestone",
+            "type": "prompt"
+          },
+          {
+            "id": "closeout-lifecycle-recovery-loop",
             "type": "do-while",
-            "assessment_before_correction": true,
-            "condition": "{{ steps.assess-closeout-debrief.output.state == 'continue' }}",
-            "max_iterations": 6,
+            "max_iterations": 3,
+            "condition": "{{ steps.route-closeout-lifecycle-edge.output.state == 'continue' }}",
             "steps": [
               {
-                "id": "debrief-roadmap",
-                "command": "speckit.flow-roadmap.debrief",
+                "id": "assess-closeout-lifecycle-edge",
+                "type": "prompt",
                 "flow_kit": {
                   "delegated": true,
                   "agent": "FlowKit-Reviewer"
                 }
               },
               {
-                "id": "assess-closeout-debrief",
-                "type": "prompt",
-                "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Code Reviewer"
-                }
-              },
-              {
-                "id": "route-closeout-correction",
+                "id": "route-closeout-recovery-evidence",
                 "type": "switch",
-                "expression": "{{ steps.assess-closeout-debrief.output.state }}",
+                "expression": "{{ steps.assess-closeout-lifecycle-edge.output.route }}",
                 "cases": {
-                  "continue": [
+                  "recovery": [
                     {
-                      "id": "prepare-closeout-flowback",
-                      "type": "prompt"
-                    },
-                    {
-                      "id": "route-closeout-specification-remediation",
-                      "type": "switch",
-                      "expression": "{{ steps.prepare-closeout-flowback.output.spec_action }}",
-                      "cases": {
-                        "run": [
-                          {
-                            "id": "reconcile-closeout-specification",
-                            "command": "speckit.specify",
-                            "flow_kit": {
-                              "delegated": true,
-                              "agent": "FlowKit-Specifier"
-                            }
-                          }
-                        ],
-                        "skip": []
-                      }
-                    },
-                    {
-                      "id": "route-closeout-plan-remediation",
-                      "type": "switch",
-                      "expression": "{{ steps.prepare-closeout-flowback.output.plan_action }}",
-                      "cases": {
-                        "run": [
-                          {
-                            "id": "reconcile-closeout-plan",
-                            "command": "speckit.plan",
-                            "flow_kit": {
-                              "delegated": true,
-                              "agent": "FlowKit-Planner"
-                            }
-                          }
-                        ],
-                        "skip": []
-                      }
-                    },
-                    {
-                      "id": "route-closeout-tasks-remediation",
-                      "type": "switch",
-                      "expression": "{{ steps.prepare-closeout-flowback.output.task_action }}",
-                      "cases": {
-                        "run": [
-                          {
-                            "id": "reconcile-closeout-tasks",
-                            "command": "speckit.tasks",
-                            "flow_kit": {
-                              "delegated": true,
-                              "agent": "FlowKit-Tasker"
-                            }
-                          }
-                        ],
-                        "skip": []
-                      }
-                    },
-                    {
-                      "id": "analyze-closeout-artifacts",
-                      "command": "speckit.analyze",
+                      "id": "assess-recovery-roadmap-brief",
+                      "type": "command",
+                      "command": "speckit.flow-roadmap.brief",
                       "flow_kit": {
                         "delegated": true,
-                        "agent": "FlowKit-Reviewer"
+                        "agent": "FlowKit-Roadmap Agent"
                       }
                     },
                     {
-                      "id": "assess-closeout-task-eligibility",
+                      "id": "assess-recovery-preparation",
                       "type": "prompt",
                       "flow_kit": {
                         "delegated": true,
@@ -381,87 +81,305 @@
                       }
                     },
                     {
-                      "id": "route-closeout-implementation",
-                      "type": "switch",
-                      "expression": "{{ steps.assess-closeout-task-eligibility.output.state }}",
-                      "cases": {
-                        "continue": [
-                          {
-                            "id": "implement-closeout-eligible-tasks",
-                            "command": "speckit.implement",
-                            "flow_kit": {
-                              "delegated": true,
-                              "agent": "FlowKit-Coder"
-                            }
-                          }
-                        ],
-                        "complete": [],
-                        "blocked": []
+                      "id": "record-recovery-preparation",
+                      "type": "prompt"
+                    },
+                    {
+                      "id": "assess-recovery-readiness",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Readiness Checker"
+                      }
+                    },
+                    {
+                      "id": "attest-recovery-start",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Reviewer"
                       }
                     }
                   ],
-                  "complete": [],
+                  "normal": [],
                   "blocked": []
                 }
+              },
+              {
+                "id": "prepare-closeout-lifecycle-request",
+                "type": "prompt"
+              },
+              {
+                "id": "prepare-closeout-lifecycle-transition",
+                "type": "prompt"
+              },
+              {
+                "id": "route-closeout-lifecycle-transition",
+                "type": "switch",
+                "expression": "{{ steps.prepare-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
+                "cases": {
+                  "ready": [
+                    {
+                      "id": "revalidate-closeout-lifecycle-transition",
+                      "type": "prompt"
+                    },
+                    {
+                      "id": "route-closeout-lifecycle-revalidation",
+                      "type": "switch",
+                      "expression": "{{ steps.revalidate-closeout-lifecycle-transition.output.lifecycle_assessment.state }}",
+                      "cases": {
+                        "ready": [
+                          {
+                            "id": "apply-closeout-lifecycle-transition",
+                            "type": "command",
+                            "command": "speckit.flow-roadmap.write",
+                            "flow_kit": {
+                              "delegated": true,
+                              "agent": "FlowKit-Roadmap Agent"
+                            }
+                          },
+                          {
+                            "id": "verify-closeout-lifecycle-transition",
+                            "type": "prompt",
+                            "flow_kit": {
+                              "delegated": true,
+                              "agent": "FlowKit-Reviewer"
+                            }
+                          }
+                        ],
+                        "no-op": [
+                          {
+                            "id": "verify-closeout-lifecycle-noop-after-revalidation",
+                            "type": "prompt",
+                            "flow_kit": {
+                              "delegated": true,
+                              "agent": "FlowKit-Reviewer"
+                            }
+                          }
+                        ],
+                        "blocked": [],
+                        "question": []
+                      }
+                    }
+                  ],
+                  "no-op": [
+                    {
+                      "id": "verify-existing-closeout-lifecycle-state",
+                      "type": "prompt",
+                      "flow_kit": {
+                        "delegated": true,
+                        "agent": "FlowKit-Reviewer"
+                      }
+                    }
+                  ],
+                  "blocked": [],
+                  "question": []
+                }
+              },
+              {
+                "id": "route-closeout-lifecycle-edge",
+                "type": "prompt"
               }
             ]
+          },
+          {
+            "id": "verify-implemented-lifecycle-before-debrief",
+            "type": "prompt"
+          },
+          {
+            "cases": {
+              "blocked": [],
+              "question": [],
+              "verified": [
+                {
+                  "assessment_before_correction": true,
+                  "condition": "{{ steps.assess-closeout-debrief.output.state == 'continue' }}",
+                  "id": "closeout-debrief-loop",
+                  "max_iterations": 6,
+                  "steps": [
+                    {
+                      "command": "speckit.flow-roadmap.debrief",
+                      "flow_kit": {
+                        "agent": "FlowKit-Reviewer",
+                        "delegated": true
+                      },
+                      "id": "debrief-roadmap"
+                    },
+                    {
+                      "flow_kit": {
+                        "agent": "FlowKit-Code Reviewer",
+                        "delegated": true
+                      },
+                      "id": "assess-closeout-debrief",
+                      "type": "prompt"
+                    },
+                    {
+                      "cases": {
+                        "blocked": [],
+                        "complete": [],
+                        "continue": [
+                          {
+                            "id": "prepare-closeout-flowback",
+                            "type": "prompt"
+                          },
+                          {
+                            "cases": {
+                              "run": [
+                                {
+                                  "command": "speckit.specify",
+                                  "flow_kit": {
+                                    "agent": "FlowKit-Specifier",
+                                    "delegated": true
+                                  },
+                                  "id": "reconcile-closeout-specification"
+                                }
+                              ],
+                              "skip": []
+                            },
+                            "expression": "{{ steps.prepare-closeout-flowback.output.spec_action }}",
+                            "id": "route-closeout-specification-remediation",
+                            "type": "switch"
+                          },
+                          {
+                            "cases": {
+                              "run": [
+                                {
+                                  "command": "speckit.plan",
+                                  "flow_kit": {
+                                    "agent": "FlowKit-Planner",
+                                    "delegated": true
+                                  },
+                                  "id": "reconcile-closeout-plan"
+                                }
+                              ],
+                              "skip": []
+                            },
+                            "expression": "{{ steps.prepare-closeout-flowback.output.plan_action }}",
+                            "id": "route-closeout-plan-remediation",
+                            "type": "switch"
+                          },
+                          {
+                            "cases": {
+                              "run": [
+                                {
+                                  "command": "speckit.tasks",
+                                  "flow_kit": {
+                                    "agent": "FlowKit-Tasker",
+                                    "delegated": true
+                                  },
+                                  "id": "reconcile-closeout-tasks"
+                                }
+                              ],
+                              "skip": []
+                            },
+                            "expression": "{{ steps.prepare-closeout-flowback.output.task_action }}",
+                            "id": "route-closeout-tasks-remediation",
+                            "type": "switch"
+                          },
+                          {
+                            "command": "speckit.analyze",
+                            "flow_kit": {
+                              "agent": "FlowKit-Reviewer",
+                              "delegated": true
+                            },
+                            "id": "analyze-closeout-artifacts"
+                          },
+                          {
+                            "flow_kit": {
+                              "agent": "FlowKit-Reviewer",
+                              "delegated": true
+                            },
+                            "id": "assess-closeout-task-eligibility",
+                            "type": "prompt"
+                          },
+                          {
+                            "cases": {
+                              "blocked": [],
+                              "complete": [],
+                              "continue": [
+                                {
+                                  "command": "speckit.implement",
+                                  "flow_kit": {
+                                    "agent": "FlowKit-Coder",
+                                    "delegated": true
+                                  },
+                                  "id": "implement-closeout-eligible-tasks"
+                                }
+                              ]
+                            },
+                            "expression": "{{ steps.assess-closeout-task-eligibility.output.state }}",
+                            "id": "route-closeout-implementation",
+                            "type": "switch"
+                          }
+                        ]
+                      },
+                      "expression": "{{ steps.assess-closeout-debrief.output.state }}",
+                      "id": "route-closeout-correction",
+                      "type": "switch"
+                    }
+                  ],
+                  "type": "do-while"
+                }
+              ]
+            },
+            "expression": "{{ steps.verify-implemented-lifecycle-before-debrief.output.state }}",
+            "id": "route-implemented-lifecycle-before-debrief",
+            "type": "switch"
           }
-        ],
-        "complete": [],
-        "blocked": []
-      }
+        ]
+      },
+      "expression": "{{ steps.assess-closeout-readiness.output.state }}",
+      "id": "route-initial-closeout",
+      "type": "switch"
     },
     {
       "id": "prepare-roadmap-verification",
       "type": "prompt"
     },
     {
-      "id": "route-roadmap-verification",
-      "type": "switch",
-      "expression": "{{ steps.prepare-roadmap-verification.output.state }}",
       "cases": {
+        "already-verified": [],
+        "blocked": [],
         "patch-ready": [
           {
             "id": "approve-roadmap-transition",
             "type": "gate"
           },
           {
-            "id": "route-roadmap-transition",
-            "type": "switch",
-            "expression": "{{ steps.approve-roadmap-transition.output.choice }}",
             "cases": {
               "approve-patch": [
                 {
-                  "id": "apply-approved-roadmap-verification",
-                  "command": "speckit.flow-roadmap.write"
+                  "command": "speckit.flow-roadmap.write",
+                  "id": "apply-approved-roadmap-verification"
                 }
               ]
             },
-            "default": []
+            "default": [],
+            "expression": "{{ steps.approve-roadmap-transition.output.choice }}",
+            "id": "route-roadmap-transition",
+            "type": "switch"
           }
-        ],
-        "already-verified": [],
-        "blocked": []
-      }
+        ]
+      },
+      "expression": "{{ steps.prepare-roadmap-verification.output.state }}",
+      "id": "route-roadmap-verification",
+      "type": "switch"
     },
     {
-      "id": "prepare-wiki-maintenance",
-      "type": "prompt",
       "flow_kit": {
-        "delegated": true,
-        "agent": "FlowKit-Roadmap Agent"
-      }
+        "agent": "FlowKit-Roadmap Agent",
+        "delegated": true
+      },
+      "id": "prepare-wiki-maintenance",
+      "type": "prompt"
     },
     {
-      "id": "route-wiki-maintenance",
-      "type": "switch",
-      "expression": "{{ steps.prepare-wiki-maintenance.output.state }}",
       "cases": {
+        "blocked": [],
         "ready": [
           {
-            "id": "wiki-reconciliation-loop",
-            "type": "do-while",
             "condition": "{{ steps.assess-wiki-maintenance.output.state == 'continue' }}",
+            "id": "wiki-reconciliation-loop",
             "max_iterations": 5,
             "steps": [
               {
@@ -469,45 +387,690 @@
                 "type": "prompt"
               },
               {
-                "id": "ingest-curated-context",
                 "command": "speckit.flow-wiki.ingest",
                 "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Wiki Curator"
-                }
+                  "agent": "FlowKit-Wiki Curator",
+                  "delegated": true
+                },
+                "id": "ingest-curated-context"
               },
               {
-                "id": "lint-wiki",
                 "command": "speckit.flow-wiki.lint",
                 "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Reviewer"
-                }
+                  "agent": "FlowKit-Reviewer",
+                  "delegated": true
+                },
+                "id": "lint-wiki"
               },
               {
-                "id": "assess-wiki-maintenance",
-                "type": "prompt",
                 "flow_kit": {
-                  "delegated": true,
-                  "agent": "FlowKit-Reviewer"
-                }
+                  "agent": "FlowKit-Reviewer",
+                  "delegated": true
+                },
+                "id": "assess-wiki-maintenance",
+                "type": "prompt"
               }
-            ]
+            ],
+            "type": "do-while"
           },
           {
-            "id": "verify-closeout-readiness",
-            "type": "prompt",
             "flow_kit": {
-              "delegated": true,
-              "agent": "FlowKit-Reviewer"
-            }
+              "agent": "FlowKit-Reviewer",
+              "delegated": true
+            },
+            "id": "verify-closeout-readiness",
+            "type": "prompt"
           }
-        ],
-        "blocked": []
-      }
+        ]
+      },
+      "expression": "{{ steps.prepare-wiki-maintenance.output.state }}",
+      "id": "route-wiki-maintenance",
+      "type": "switch"
     },
     {
       "id": "report-closeout-outcome",
+      "type": "prompt"
+    }
+  ],
+  "implement": [
+    {
+      "id": "establish-implementation-scope",
+      "type": "prompt"
+    },
+    {
+      "flow_kit": {
+        "agent": "FlowKit-Reviewer",
+        "delegated": true
+      },
+      "id": "assess-implementation-state",
+      "type": "prompt"
+    },
+    {
+      "id": "capture-implementation-baseline",
+      "type": "prompt"
+    },
+    {
+      "id": "assess-readiness-before-core",
+      "type": "prompt"
+    },
+    {
+      "flow_kit": {
+        "agent": "FlowKit-Readiness Checker",
+        "delegated": true
+      },
+      "id": "check-readiness-before-core",
+      "type": "prompt"
+    },
+    {
+      "id": "gate-readiness-before-core",
+      "type": "prompt"
+    },
+    {
+      "flow_kit": {
+        "agent": "FlowKit-Reviewer",
+        "delegated": true
+      },
+      "id": "assess-implementation-start-milestone",
+      "type": "prompt"
+    },
+    {
+      "id": "prepare-implementation-start-milestone",
+      "type": "prompt"
+    },
+    {
+      "cases": {
+        "blocked": [],
+        "no-op": [
+          {
+            "flow_kit": {
+              "agent": "FlowKit-Reviewer",
+              "delegated": true
+            },
+            "id": "verify-existing-implementation-start-state",
+            "type": "prompt"
+          }
+        ],
+        "question": [],
+        "ready": [
+          {
+            "id": "revalidate-implementation-start-milestone",
+            "type": "prompt"
+          },
+          {
+            "cases": {
+              "blocked": [],
+              "no-op": [
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Reviewer",
+                    "delegated": true
+                  },
+                  "id": "verify-existing-implementation-start-state-after-revalidation",
+                  "type": "prompt"
+                }
+              ],
+              "question": [],
+              "ready": [
+                {
+                  "command": "speckit.flow-roadmap.write",
+                  "flow_kit": {
+                    "agent": "FlowKit-Roadmap Agent",
+                    "delegated": true
+                  },
+                  "id": "apply-implementation-start-milestone",
+                  "type": "command"
+                },
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Reviewer",
+                    "delegated": true
+                  },
+                  "id": "verify-implementation-start-milestone",
+                  "type": "prompt"
+                }
+              ]
+            },
+            "expression": "{{ steps.revalidate-implementation-start-milestone.output.lifecycle_assessment.state }}",
+            "id": "route-implementation-start-revalidation",
+            "type": "switch"
+          }
+        ]
+      },
+      "expression": "{{ steps.prepare-implementation-start-milestone.output.lifecycle_assessment.state }}",
+      "id": "route-implementation-start-milestone",
+      "type": "switch"
+    },
+    {
+      "id": "verify-lifecycle-and-readiness-before-coding",
+      "type": "prompt"
+    },
+    {
+      "cases": {
+        "blocked": [
+          {
+            "id": "stop-readiness-before-core",
+            "type": "prompt"
+          }
+        ],
+        "default": [
+          {
+            "id": "stop-readiness-before-core-unrecognized",
+            "type": "prompt"
+          }
+        ],
+        "ready": [
+          {
+            "condition": "{{ steps.route-scoped-execution.output.state == \"continue\" }}",
+            "id": "implementation-loop",
+            "max_iterations": 5,
+            "steps": [
+              {
+                "id": "route-scoped-entry",
+                "type": "prompt"
+              },
+              {
+                "cases": {
+                  "default": [],
+                  "prepare-scoped-prerequisites": [
+                    {
+                      "id": "record-preparation-session-start",
+                      "type": "prompt"
+                    },
+                    {
+                      "command": "speckit.implement",
+                      "flow_kit": {
+                        "agent": "FlowKit-Coder",
+                        "delegated": true
+                      },
+                      "id": "run-scoped-preparation"
+                    },
+                    {
+                      "id": "record-preparation-session-outcome",
+                      "type": "prompt"
+                    }
+                  ]
+                },
+                "expression": "{{ steps.route-scoped-entry.output.next_step_id }}",
+                "id": "prepare-scoped-prerequisites",
+                "type": "switch"
+              },
+              {
+                "cases": {
+                  "default": [],
+                  "implement-tasks": [
+                    {
+                      "id": "record-source-session-and-attempt",
+                      "type": "prompt"
+                    },
+                    {
+                      "command": "speckit.implement",
+                      "flow_kit": {
+                        "agent": "FlowKit-Coder",
+                        "delegated": true
+                      },
+                      "id": "run-scoped-source-implementation"
+                    },
+                    {
+                      "id": "record-source-session-outcome",
+                      "type": "prompt"
+                    }
+                  ]
+                },
+                "expression": "{{ steps.route-scoped-entry.output.next_step_id }}",
+                "id": "implement-tasks",
+                "type": "switch"
+              },
+              {
+                "flow_kit": {
+                  "agent": "FlowKit-Code Reviewer",
+                  "delegated": true
+                },
+                "id": "assess-implementation-after-pass",
+                "type": "prompt"
+              },
+              {
+                "cases": {
+                  "blocked": [],
+                  "complete": [
+                    {
+                      "command": "speckit.tasks",
+                      "flow_kit": {
+                        "agent": "FlowKit-Tasker",
+                        "delegated": true
+                      },
+                      "id": "track-reviewed-completion"
+                    },
+                    {
+                      "id": "validate-reviewed-completion-tracking",
+                      "type": "prompt"
+                    }
+                  ],
+                  "continue": [
+                    {
+                      "cases": {
+                        "revise": [
+                          {
+                            "id": "preflight-task-revision-snapshot",
+                            "type": "prompt"
+                          },
+                          {
+                            "cases": {
+                              "blocked": [
+                                {
+                                  "id": "stop-task-revision-preflight-blocked",
+                                  "type": "prompt"
+                                }
+                              ],
+                              "ready": [
+                                {
+                                  "id": "prepare-task-revision",
+                                  "type": "prompt"
+                                },
+                                {
+                                  "id": "freeze-task-revision-scope",
+                                  "type": "prompt"
+                                },
+                                {
+                                  "id": "revalidate-task-revision-snapshot",
+                                  "type": "prompt"
+                                },
+                                {
+                                  "cases": {
+                                    "blocked": [
+                                      {
+                                        "id": "stop-task-revision-dispatch-blocked",
+                                        "type": "prompt"
+                                      }
+                                    ],
+                                    "default": [
+                                      {
+                                        "id": "stop-task-revision-dispatch-unrecognized",
+                                        "type": "prompt"
+                                      }
+                                    ],
+                                    "ready": [
+                                      {
+                                        "command": "speckit.tasks",
+                                        "flow_kit": {
+                                          "agent": "FlowKit-Tasker",
+                                          "delegated": true
+                                        },
+                                        "id": "revise-task-plan"
+                                      },
+                                      {
+                                        "id": "review-task-revision-scope",
+                                        "type": "prompt"
+                                      },
+                                      {
+                                        "id": "validate-task-revision",
+                                        "type": "prompt"
+                                      },
+                                      {
+                                        "cases": {
+                                          "blocked": [
+                                            {
+                                              "id": "stop-task-revision-result-blocked",
+                                              "type": "prompt"
+                                            }
+                                          ],
+                                          "ready": [
+                                            {
+                                              "id": "advance-progress-after-task-revision",
+                                              "type": "prompt"
+                                            },
+                                            {
+                                              "cases": {
+                                                "blocked": [
+                                                  {
+                                                    "id": "stop-progress-tasker-transition",
+                                                    "type": "prompt"
+                                                  }
+                                                ],
+                                                "ready": []
+                                              },
+                                              "expression": "{{ steps.advance-progress-after-task-revision.output.state }}",
+                                              "id": "route-progress-tasker-transition",
+                                              "type": "switch"
+                                            }
+                                          ]
+                                        },
+                                        "default": [],
+                                        "expression": "{{ steps.validate-task-revision.output.state }}",
+                                        "id": "route-task-revision-result",
+                                        "type": "switch"
+                                      }
+                                    ]
+                                  },
+                                  "expression": "{{ steps.revalidate-task-revision-snapshot.output.state }}",
+                                  "id": "route-task-revision-snapshot",
+                                  "type": "switch"
+                                }
+                              ]
+                            },
+                            "default": [
+                              {
+                                "id": "stop-task-revision-preflight-unrecognized",
+                                "type": "prompt"
+                              }
+                            ],
+                            "expression": "{{ steps.preflight-task-revision-snapshot.output.state }}",
+                            "id": "route-task-revision-preflight",
+                            "type": "switch"
+                          }
+                        ],
+                        "skip": []
+                      },
+                      "expression": "{{ steps.assess-implementation-after-pass.output.task_revision_action }}",
+                      "id": "route-task-revision",
+                      "type": "switch"
+                    },
+                    {
+                      "id": "preflight-reviewed-task-tracking",
+                      "type": "prompt"
+                    },
+                    {
+                      "command": "speckit.tasks",
+                      "flow_kit": {
+                        "agent": "FlowKit-Tasker",
+                        "delegated": true
+                      },
+                      "id": "track-reviewed-task-outcomes"
+                    },
+                    {
+                      "id": "validate-reviewed-task-tracking",
+                      "type": "prompt"
+                    },
+                    {
+                      "id": "reassess-readiness-before-reentry",
+                      "type": "prompt"
+                    },
+                    {
+                      "flow_kit": {
+                        "agent": "FlowKit-Readiness Checker",
+                        "delegated": true
+                      },
+                      "id": "check-readiness-before-reentry",
+                      "type": "prompt"
+                    },
+                    {
+                      "id": "gate-readiness-before-reentry",
+                      "type": "prompt"
+                    },
+                    {
+                      "cases": {
+                        "blocked": [
+                          {
+                            "id": "stop-readiness-before-reentry",
+                            "type": "prompt"
+                          }
+                        ],
+                        "ready": []
+                      },
+                      "default": [
+                        {
+                          "id": "stop-readiness-before-reentry-unrecognized",
+                          "type": "prompt"
+                        }
+                      ],
+                      "expression": "{{ steps.gate-readiness-before-reentry.output.readiness_gate.state }}",
+                      "id": "route-readiness-before-reentry",
+                      "type": "switch"
+                    }
+                  ]
+                },
+                "expression": "{{ steps.assess-implementation-after-pass.output.state }}",
+                "id": "route-post-assessment",
+                "type": "switch"
+              },
+              {
+                "id": "capture-post-pass-state",
+                "type": "prompt"
+              },
+              {
+                "id": "route-scoped-execution",
+                "type": "prompt"
+              }
+            ],
+            "type": "do-while"
+          }
+        ]
+      },
+      "expression": "{{ steps.verify-lifecycle-and-readiness-before-coding.output.state }}",
+      "id": "route-readiness-before-core",
+      "type": "switch"
+    },
+    {
+      "id": "report-implementation-outcome",
+      "type": "prompt"
+    }
+  ],
+  "specify": [
+    {
+      "flow_kit": {
+        "agent": "FlowKit-Roadmap Agent",
+        "delegated": true
+      },
+      "id": "inspect-active-feature",
+      "type": "prompt"
+    },
+    {
+      "cases": {
+        "blocked": [],
+        "ready": [
+          {
+            "command": "speckit.flow-wiki.query",
+            "id": "retrieve-governing-context"
+          },
+          {
+            "flow_kit": {
+              "agent": "FlowKit-Specifier",
+              "delegated": true
+            },
+            "id": "prepare-specification-request",
+            "type": "prompt"
+          },
+          {
+            "cases": {
+              "blocked": [],
+              "ready": [
+                {
+                  "command": "speckit.specify",
+                  "flow_kit": {
+                    "agent": "FlowKit-Specifier",
+                    "delegated": true
+                  },
+                  "id": "draft-specification"
+                },
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Reviewer",
+                    "delegated": true
+                  },
+                  "id": "assess-created-spec-linkage",
+                  "type": "prompt"
+                },
+                {
+                  "cases": {
+                    "blocked": [],
+                    "linked": [],
+                    "repairable": [
+                      {
+                        "id": "review-spec-dir-patch",
+                        "type": "gate"
+                      },
+                      {
+                        "cases": {
+                          "approve-exact-patch": [
+                            {
+                              "command": "speckit.flow-roadmap.write",
+                              "id": "apply-approved-spec-dir-patch"
+                            },
+                            {
+                              "flow_kit": {
+                                "agent": "FlowKit-Reviewer",
+                                "delegated": true
+                              },
+                              "id": "verify-repaired-spec-linkage",
+                              "type": "prompt"
+                            }
+                          ]
+                        },
+                        "default": [],
+                        "expression": "{{ steps.review-spec-dir-patch.output.choice }}",
+                        "id": "route-spec-dir-patch-decision",
+                        "type": "switch"
+                      }
+                    ]
+                  },
+                  "expression": "{{ steps.assess-created-spec-linkage.output.state }}",
+                  "id": "route-created-spec-linkage",
+                  "type": "switch"
+                }
+              ]
+            },
+            "expression": "{{ steps.prepare-specification-request.output.state }}",
+            "id": "route-specification-readiness",
+            "type": "switch"
+          }
+        ]
+      },
+      "expression": "{{ steps.inspect-active-feature.output.state }}",
+      "id": "route-active-feature",
+      "type": "switch"
+    },
+    {
+      "id": "prepare-specification-outcome",
+      "type": "prompt"
+    },
+    {
+      "cases": {
+        "blocked": [],
+        "ready-for-brief": [
+          {
+            "flow_kit": {
+              "agent": "FlowKit-Reviewer",
+              "delegated": true
+            },
+            "id": "assess-specification-authoring-quality",
+            "type": "prompt"
+          },
+          {
+            "cases": {
+              "blocked": [],
+              "ready": [
+                {
+                  "command": "speckit.flow-roadmap.brief",
+                  "flow_kit": {
+                    "agent": "FlowKit-Roadmap Agent",
+                    "delegated": true
+                  },
+                  "id": "brief-against-roadmap"
+                },
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Reviewer",
+                    "delegated": true
+                  },
+                  "id": "assess-specification-milestone-evidence",
+                  "type": "prompt"
+                },
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Roadmap Agent",
+                    "delegated": true
+                  },
+                  "id": "assess-roadmap-brief-milestone",
+                  "type": "prompt"
+                },
+                {
+                  "flow_kit": {
+                    "agent": "FlowKit-Reviewer",
+                    "delegated": true
+                  },
+                  "id": "prepare-specification-lifecycle-request",
+                  "type": "prompt"
+                },
+                {
+                  "id": "prepare-specification-lifecycle-transition",
+                  "type": "prompt"
+                },
+                {
+                  "cases": {
+                    "blocked": [],
+                    "no-op": [
+                      {
+                        "flow_kit": {
+                          "agent": "FlowKit-Reviewer",
+                          "delegated": true
+                        },
+                        "id": "verify-existing-specification-lifecycle-state",
+                        "type": "prompt"
+                      }
+                    ],
+                    "question": [],
+                    "ready": [
+                      {
+                        "id": "revalidate-specification-lifecycle-transition",
+                        "type": "prompt"
+                      },
+                      {
+                        "cases": {
+                          "blocked": [],
+                          "no-op": [
+                            {
+                              "flow_kit": {
+                                "agent": "FlowKit-Reviewer",
+                                "delegated": true
+                              },
+                              "id": "verify-existing-specification-lifecycle-state-after-revalidation",
+                              "type": "prompt"
+                            }
+                          ],
+                          "question": [],
+                          "ready": [
+                            {
+                              "command": "speckit.flow-roadmap.write",
+                              "flow_kit": {
+                                "agent": "FlowKit-Roadmap Agent",
+                                "delegated": true
+                              },
+                              "id": "apply-specification-lifecycle-transition",
+                              "type": "command"
+                            },
+                            {
+                              "flow_kit": {
+                                "agent": "FlowKit-Reviewer",
+                                "delegated": true
+                              },
+                              "id": "verify-specification-lifecycle-transition",
+                              "type": "prompt"
+                            }
+                          ]
+                        },
+                        "expression": "{{ steps.revalidate-specification-lifecycle-transition.output.lifecycle_assessment.state }}",
+                        "id": "route-specification-lifecycle-revalidation",
+                        "type": "switch"
+                      }
+                    ]
+                  },
+                  "expression": "{{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.state }}",
+                  "id": "route-specification-lifecycle-transition",
+                  "type": "switch"
+                }
+              ]
+            },
+            "expression": "{{ steps.assess-specification-authoring-quality.output.state }}",
+            "id": "route-specification-authoring-quality",
+            "type": "switch"
+          }
+        ]
+      },
+      "expression": "{{ steps.prepare-specification-outcome.output.state }}",
+      "id": "route-specification-outcome",
+      "type": "switch"
+    },
+    {
+      "id": "report-specification-outcome",
       "type": "prompt"
     }
   ]

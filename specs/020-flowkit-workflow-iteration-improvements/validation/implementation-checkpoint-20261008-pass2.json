@@ -1,0 +1,155 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-08",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "workflow": {
+    "id": "speckit-flow-implement",
+    "version": "0.6.0",
+    "run_id": "537ed760-73e0-4c4f-88aa-7f4dcd5e3160",
+    "summary_path": ".specify/flow-controllers/runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/summary.json"
+  },
+  "state": "continuing-corrections",
+  "requested_task_ids": [
+    "T053",
+    "T054",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T059",
+    "T060",
+    "T061",
+    "T062",
+    "T063",
+    "T064",
+    "T065",
+    "T066",
+    "T067",
+    "T070",
+    "T071",
+    "T072",
+    "T073",
+    "T074",
+    "T075",
+    "T076",
+    "T077"
+  ],
+  "independently_completed_task_ids": [
+    "T054",
+    "T059",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T073",
+    "T074"
+  ],
+  "tasks_complete": 62,
+  "tasks_total": 77,
+  "open_tasks": 15,
+  "confirmed_finding_ids": [
+    "F020-LIFECYCLE-CODE-001",
+    "F020-LIFECYCLE-CODE-006",
+    "F020-LIFECYCLE-CODE-007",
+    "F020-LIFECYCLE-CODE-008",
+    "F020-LIFECYCLE-CODE-010",
+    "F020-LIFECYCLE-CODE-011",
+    "F020-LIFECYCLE-CODE-012",
+    "F020-LIFECYCLE-CODE-013"
+  ],
+  "assessment": {
+    "state": "continue",
+    "reason_code": "reviewed-lifecycle-route-progress-with-open-scope-defects",
+    "evidence": [
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "da17f95b948faba5e96a82d67bac101abd857cce5c5b2cebf47a9b60794a6ab2"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+        "sha256": "ae8886860ad8536987360efa2b59830c7da5767fd2fd5a3be8d2ef430ca395bf"
+      },
+      {
+        "path": "tests/test_phase_lifecycle.py",
+        "sha256": "e625472b6185a28d96c146d7b40b9001625e0d510631e563f59d94091cfe4b6e"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "sha256": "90b3b408e8c2044dd5f54a118964a8d5bd1a20abf6d4c8ddafceb157ab35a417"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+        "sha256": "3da8b86c513e8d8db147b6c07280a6db45351b5d475308a16eadbf12414fc027"
+      }
+    ],
+    "remaining_ids": [
+      "task:T053",
+      "task:T060",
+      "task:T061",
+      "task:T062",
+      "task:T063",
+      "task:T064",
+      "task:T065",
+      "task:T066",
+      "task:T067",
+      "task:T070",
+      "task:T071",
+      "task:T072",
+      "task:T075",
+      "task:T076",
+      "task:T077",
+      "finding:F020-LIFECYCLE-CODE-001",
+      "finding:F020-LIFECYCLE-CODE-006",
+      "finding:F020-LIFECYCLE-CODE-007",
+      "finding:F020-LIFECYCLE-CODE-008",
+      "finding:F020-LIFECYCLE-CODE-010",
+      "finding:F020-LIFECYCLE-CODE-011",
+      "finding:F020-LIFECYCLE-CODE-012",
+      "finding:F020-LIFECYCLE-CODE-013"
+    ],
+    "resolved_ids": [
+      "finding:F020-LIFECYCLE-CODE-002",
+      "finding:F020-LIFECYCLE-CODE-003",
+      "finding:F020-LIFECYCLE-CODE-004",
+      "finding:F020-LIFECYCLE-CODE-005",
+      "finding:F020-LIFECYCLE-CODE-009",
+      "task:T055",
+      "task:T056",
+      "task:T057",
+      "task:T058",
+      "task:T073",
+      "task:T074"
+    ],
+    "next_step_id": "implement-eligible-work"
+  },
+  "tasker_tracking": {
+    "owner": "FlowKit-Tasker",
+    "changed_task_ids": [
+      "T055",
+      "T056",
+      "T057",
+      "T058",
+      "T073",
+      "T074"
+    ],
+    "marker_only": true,
+    "reverse_marker_proof": true,
+    "tasks_before_sha256": "6b82b221470b0805377db8b1b09eb274016fa6d84438048d77cab58a2b3974f8",
+    "tasks_after_sha256": "dffd0bbe4e772832430456df175c59f23cb3f504a094051f84d21fb80ebc3934"
+  },
+  "evidence": [
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/baseline-after-pass2.json",
+      "sha256": "6adcf1ba11b2ca139bcd355fc17cd8aca925549238a73a7f729c08705b85a98f"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/review-pass2.json",
+      "sha256": "254457775279a287783a1f3cc52f6fd946bf0a4073d954a82fc7a0ba89c2231a"
+    }
+  ],
+  "linux": "operator-deferred",
+  "acceptance": "pending",
+  "git_integration": "not-requested",
+  "production_release": "deferred-to-post-closeout",
+  "pass": 2
+}

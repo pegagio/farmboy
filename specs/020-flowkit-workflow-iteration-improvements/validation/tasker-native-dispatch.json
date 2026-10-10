@@ -1,0 +1,66 @@
+{
+  "case_id": "T043-native-tasker-audit",
+  "source_step": "revise-task-plan",
+  "core_command": "speckit.tasks",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "source_workflow_sha256": "18f2df5f6a9aa70c3d36b5e55dcd6b7336ad611beb7ea260142c0f28f0ff9a84",
+  "prerequisites": [
+    "T040",
+    "T042"
+  ],
+  "dispatch": {
+    "surface": "parent-native-custom-agent-api",
+    "tool": "collaboration.spawn_agent",
+    "requested_agent_type": "FlowKit-Tasker",
+    "task_name": "flowkit_tasker_native_audit020_after_source_repair",
+    "model_override": false,
+    "effort_override": false,
+    "native_request_succeeded": true
+  },
+  "actual_response": {
+    "revision_state": "unchanged",
+    "tasks_path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+    "tasks_before_sha256": "38f9d333b16e5bcf296afb3cd342a8314a646056c83b00fde797da53c69e458e",
+    "tasks_after_sha256": "38f9d333b16e5bcf296afb3cd342a8314a646056c83b00fde797da53c69e458e",
+    "finding_ids": [],
+    "reopened_task_ids": [],
+    "added_task_ids": [],
+    "preserved_completed_task_ids": [
+      "T001",
+      "T002",
+      "T003",
+      "T033",
+      "T011",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T013",
+      "T014",
+      "T020",
+      "T021",
+      "T026",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T044"
+    ]
+  },
+  "validation": {
+    "core_skill": "speckit-tasks",
+    "setup_tasks_json": "passed; resolved selected feature",
+    "task_ids_unique": 44,
+    "completed_count_at_audit": 21,
+    "task_bytes_preserved": true,
+    "after_tasks_hooks": []
+  },
+  "response_normalization": "The agent explicitly corrected a truncated after-digest in its initial JSON. The corrected digest matches the captured before value and current file bytes.",
+  "limits": [
+    "Controlled empty-findings audit; no automatic repair or task mutation claimed.",
+    "Exact native assignment verified by actual parent request and real agent response, not labels or a no-op executable.",
+    "Effective model/effort settings, consumer adoption, publication, full native-context matrix and feature acceptance remain unverified."
+  ]
+}

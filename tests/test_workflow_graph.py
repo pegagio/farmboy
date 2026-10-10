@@ -76,7 +76,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
                     self.assertFalse(projection["branches"])
                     continue
                 if projection["workflow_id"] in {"speckit-flow-clarify", "speckit-flow-implement", "speckit-flow-plan", "speckit-flow-tasks", "speckit-flow-analyze-remediate", "speckit-flow-converge", "speckit-flow-wiki-lint-update"}:
-                    if projection["workflow_id"] in {"speckit-flow-analyze-remediate", "speckit-flow-converge", "speckit-flow-wiki-lint-update"}:
+                    if projection["workflow_id"] in {"speckit-flow-implement", "speckit-flow-analyze-remediate", "speckit-flow-converge", "speckit-flow-wiki-lint-update"}:
                         self.assertTrue(projection["branches"])
                     else:
                         self.assertFalse(projection["branches"])
@@ -90,7 +90,7 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
         implement = next(item for item in projections if item["workflow_id"] == "speckit-flow-implement")
         self.assertEqual("analysis-remediation-loop", analyze["entry_step_id"])
         self.assertTrue(analyze["continuation_edges"])
-        self.assertEqual("assess-implementation-state", implement["entry_step_id"])
+        self.assertEqual("establish-implementation-scope", implement["entry_step_id"])
         self.assertTrue(implement["continuation_edges"])
         self.assertTrue(all(not item["unexplained_terminal_paths"] for item in projections))
         returned = {
@@ -140,10 +140,14 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
         authoring = workflows["speckit-flow-specify"]
         self.assertEqual(["speckit.flow-roadmap.write"], commands(selection["steps"]))
         self.assertNotIn("speckit.specify", commands(selection["steps"]))
-        self.assertEqual(2, len(self.inventory.project_workflow(selection)["human_decisions"]))
+        self.assertEqual(1, len(self.inventory.project_workflow(selection)["human_decisions"]))
+        resolver = find_step(selection["steps"], "resolve-feature-request")
+        self.assertIn("without asking the operator to repeat the choice", resolver["prompt"])
+        self.assertIn("ask one focused selection question", resolver["prompt"])
+        self.assertIn("ambiguous", resolver["prompt"])
         self.assertEqual(1, len(self.inventory.project_workflow(authoring)["human_decisions"]))
         self.assertEqual("inspect-active-feature", authoring["steps"][0]["id"])
-        self.assertEqual(["speckit.flow-wiki.query", "speckit.specify", "speckit.flow-roadmap.write", "speckit.flow-roadmap.brief"], commands(authoring["steps"]))
+        self.assertEqual(["speckit.flow-wiki.query", "speckit.specify", "speckit.flow-roadmap.write", "speckit.flow-roadmap.brief", "speckit.flow-roadmap.write"], commands(authoring["steps"]))
         deprecated = workflows["speckit-flow-start-feature"]
         self.assertTrue(deprecated["workflow"]["deprecated"])
         self.assertEqual([], commands(deprecated["steps"]))

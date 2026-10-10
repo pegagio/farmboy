@@ -19,7 +19,20 @@ flowchart TD
     n12["verify-repaired-spec-linkage<br/>(FlowKit-Reviewer)"]
     n13["prepare-specification-outcome"]
     n14@{ shape: diam, label: "route-specification-outcome" }
-    n15(["brief-against-roadmap<br/>(FlowKit-Reviewer)<br/>command: speckit.flow-roadmap.brief"])
+    lc1["assess-specification-authoring-quality<br/>(FlowKit-Reviewer)"]
+    lc2@{ shape: diam, label: "route-specification-authoring-quality" }
+    n15(["brief-against-roadmap<br/>(FlowKit-Roadmap Agent)<br/>command: speckit.flow-roadmap.brief"])
+    lc3["assess-specification-milestone-evidence<br/>(FlowKit-Reviewer)"]
+    lc4["assess-roadmap-brief-milestone<br/>(FlowKit-Roadmap Agent)"]
+    lc5["prepare-specification-lifecycle-request<br/>(FlowKit-Reviewer)"]
+    lc6["prepare-specification-lifecycle-transition"]
+    lc7@{ shape: diam, label: "route-specification-lifecycle-transition" }
+    lc8["revalidate-specification-lifecycle-transition"]
+    lc9@{ shape: diam, label: "route-specification-lifecycle-revalidation" }
+    lc10(["apply-specification-lifecycle-transition<br/>(FlowKit-Roadmap Agent)<br/>command: speckit.flow-roadmap.write"])
+    lc11["verify-specification-lifecycle-transition<br/>(FlowKit-Reviewer)"]
+    lc12["verify-existing-specification-lifecycle-state-after-revalidation<br/>(FlowKit-Reviewer)"]
+    lc13["verify-existing-specification-lifecycle-state<br/>(FlowKit-Reviewer)"]
     n16["report-specification-outcome"]
 
     start --> n01
@@ -41,17 +54,29 @@ flowchart TD
     n05 -- blocked --> n13
     n02 -- blocked --> n13
     n13 --> n14
-    n14 -- ready-for-brief --> n15
-    n15 --> n16
+    n14 -- ready-for-brief --> lc1
+    lc1 --> lc2
+    lc2 -- ready --> n15
+    lc2 -- blocked --> n16
+    n15 --> lc3 --> lc4 --> lc5 --> lc6 --> lc7
+    lc7 -- ready --> lc8 --> lc9
+    lc9 -- ready --> lc10 --> lc11 --> n16
+    lc9 -- no-op --> lc12 --> n16
+    lc9 -- blocked / question --> n16
+    lc7 -- no-op --> lc13 --> n16
+    lc7 -- blocked / question --> n16
     n14 -- blocked --> n16
 
     classDef delegated stroke:#4b5563,stroke-width:2px,stroke-dasharray:6 4
-    class n01,n04,n06,n07,n12,n15 delegated
+    class n01,n04,n06,n07,n12,lc1,n15,lc3,lc4,lc5,lc10,lc11,lc12,lc13 delegated
     style n02 stroke-dasharray:0
     style n05 stroke-dasharray:0
     style n08 stroke-dasharray:0
     style n10 stroke-dasharray:0
     style n14 stroke-dasharray:0
+    style lc2 stroke-dasharray:0
+    style lc7 stroke-dasharray:0
+    style lc9 stroke-dasharray:0
     style start fill:#111827,stroke:#111827,color:#ffffff
 ```
 

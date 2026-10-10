@@ -1,0 +1,614 @@
+{
+  "schema_version": "1.0",
+  "workflow_id": "speckit-flow-converge",
+  "workflow_version": "0.5.0",
+  "run_id": "92a217d0-1ace-4725-9858-fa450202074d",
+  "outcome": {
+    "state": "blocked",
+    "reason_code": "owner-source-route-prerequisite",
+    "evidence": [
+      {
+        "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+        "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+      },
+      {
+        "path": "tests/test_implementation_scope.py",
+        "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+      },
+      {
+        "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+        "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+        "sha256": "5f7ef7fa6832e78a44e697e1505590fca189d8f8ea54c02c7ac2d55f9fd3172e"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+        "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/spec.md",
+        "sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/plan.md",
+        "sha256": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-correction-20261007.json",
+        "sha256": "d9e4c3db956d3ea839bc5e3938fe4d14015521d4793a3a2acb00d778955fa1f8"
+      }
+    ],
+    "remaining_ids": [
+      "F020-CONVERGE-LIFECYCLE-OWNER-001",
+      "F020-CONVERGE-LIFECYCLE-ROUTES-001",
+      "F020-CONVERGE-SCOPE-INTEGRATION-001",
+      "F020-CONVERGE-SCOPE-REVIEW-001"
+    ],
+    "resolved_ids": [
+      "F020-SCOPE-CODE-006",
+      "F020-SCOPE-CODE-007"
+    ],
+    "resume_action": "establish-owner-source-route-and-access"
+  },
+  "independent_review": {
+    "reviewer": "FlowKit-Code Reviewer",
+    "attributable_delta": {
+      "verified": true,
+      "changed_paths": [
+        "controllers/flow-kit/scripts/python/implementation_scope.py",
+        "tests/test_implementation_scope.py"
+      ],
+      "before": {
+        "controllers/flow-kit/scripts/python/implementation_scope.py": "b0480d916b91e67a895572c191a905ba35cd8059e8d6d3476b05a7d935570d6b",
+        "tests/test_implementation_scope.py": "a8470215e7bf1a880826d8b57b34def7b85566dc3d0fca303ae1ab986a70c625"
+      },
+      "after": {
+        "controllers/flow-kit/scripts/python/implementation_scope.py": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064",
+        "tests/test_implementation_scope.py": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+      },
+      "boundary": "Independently hashed immutable original Converge-pass preimages and current source, matching supplied delta. The original historical six correction results remain resolved with passing current regressions; they earn no fresh correction progress."
+    },
+    "fresh_finding_results": [
+      {
+        "id": "F020-SCOPE-CODE-006",
+        "task_id": "T069",
+        "violated_requirement": "T069 scoped routing; contracts/implementation-scope.md Eligibility and Execution Gate requires an eligible scoped task before any Coder dispatch and pending scoped work must block when eligibility is exhausted.",
+        "observed_deficiency": "The post-source branch calls the generic progress predicate without checking nonempty eligible_task_ids. With one retained source attempt, a valid continue assessment retaining task:T069 and resolving prior finding:F001, eligible_task_ids=[] produces action continue, next_step_id implement-tasks. The corresponding pre-source case blocks.",
+        "exact_correction": "Require current eligible scoped work for post-source continuation as well as genuine generic progress and remaining budget. Preserve complete/blocked semantics; block a continuing assessment with no eligible task using exact pending/guard resumption. Add a focused post-source empty-eligibility regression and a positive eligible-work regression. Do not alter the generic predicate.",
+        "status": "resolved",
+        "artifact_location": "controllers/flow-kit/scripts/python/implementation_scope.py:660",
+        "resolution_evidence": "Generic progress is evaluated first; current continuation without eligible tasks blocks with scoped-work-pending and the current reason code.",
+        "focused_tests": [
+          "testPostAttemptContinuationWithNoEligibleTasksBlocksWithCurrentReason",
+          "testPostAttemptRouteCallsActualGenericPredicateWithPreAttemptAssessment"
+        ],
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          }
+        ]
+      },
+      {
+        "id": "F020-SCOPE-CODE-007",
+        "task_id": "T069",
+        "violated_requirement": "T069 scoped route/history validation; contracts/implementation-scope.md Declared Routing and Budget Integration permits preparation only while source_attempts_started==0 and says reassessment cannot reset an attempt to preparation.",
+        "observed_deficiency": "After one retained source attempt, a strict continuing assessment targeting declared prepare-scoped-prerequisites and resolving a prior finding passes the generic predicate and returns continue to preparation. validate_execution_history also accepts a subsequent preparation coder-session-start with attempts=1. Node membership alone does not enforce the reviewed state-specific route.",
+        "exact_correction": "Reject preparation routing and preparation session starts after any source-attempt start. Post-source source continuation must target the declared source node and retain the unchanged generic predicate, actual predecessor and five-session budget. Add route/history adversarial regressions, including failed-dispatch and question-stopped source attempts.",
+        "status": "resolved",
+        "artifact_location": "controllers/flow-kit/scripts/python/implementation_scope.py:535",
+        "resolution_evidence": "Post-source continuation permits only implement-tasks. Preparation session starts reject nonzero source-attempt history, including completed, failed-dispatch and question-stopped attempts.",
+        "focused_tests": [
+          "testPostAttemptPreparationRouteIsRejectedAfterGenericProgress",
+          "testPreparationSessionCannotFollowAnySourceAttemptOutcome"
+        ],
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          }
+        ]
+      }
+    ],
+    "historical_finding_results": [
+      {
+        "id": "F020-SCOPE-CODE-001",
+        "task_id": "T069",
+        "status": "resolved",
+        "current_artifact_location": "275-393",
+        "focused_test": "testCompletedOutsidePrerequisiteProofDoesNotExpandScope",
+        "resolution_evidence": "Completed outside-scope prerequisite records are canonically bound and independently classified/proven; dependency checks use those records without adding execution scope.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      },
+      {
+        "id": "F020-SCOPE-CODE-002",
+        "task_id": "T069",
+        "status": "resolved",
+        "current_artifact_location": "71-98, 604-646",
+        "focused_test": "testBlockedOrMalformedPreSourceAssessmentCannotBePromoted",
+        "resolution_evidence": "Exact strict envelope validated before routing, blocked resume preserved, malformed or missing accounting rejected.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      },
+      {
+        "id": "F020-SCOPE-CODE-003",
+        "task_id": "T069",
+        "status": "resolved",
+        "current_artifact_location": "483-600, 613-620",
+        "focused_test": "testSourceOutcomesAndInputRequireExactlyOneAttemptAndClosedRoute; testFailedDispatchRetainsAttemptAndQuestionResumesSameSession",
+        "resolution_evidence": "Source outcome/input requires exactly one correctly ordered attempt and node; failed/question states retain counts; active sessions block routing.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      },
+      {
+        "id": "F020-SCOPE-CODE-004",
+        "task_id": "T069",
+        "status": "resolved",
+        "current_artifact_location": "289-292, 396-437",
+        "focused_test": "testActivationRejectsMalformedRetainedDigestsAndUnzonedTimes; testCompletedOutsidePrerequisiteProofDoesNotExpandScope",
+        "resolution_evidence": "Required retained and record digest formats and timezone-aware occurrence times validated; eligibility predecessor compared with retained predecessor.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      },
+      {
+        "id": "F020-SCOPE-CODE-005",
+        "task_id": "T069",
+        "status": "resolved",
+        "current_artifact_location": "48-56",
+        "focused_test": "testRawPathAliasesAreRejectedAcrossEvidenceAndSourceInputs",
+        "resolution_evidence": "Raw empty/dot/dot-dot slash segments rejected before normalized path use across shared path validation.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      },
+      {
+        "id": "F020-SCOPE-FIXTURE-001",
+        "task_id": "T068",
+        "status": "resolved",
+        "current_artifact_location": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+        "focused_test": "testFixtureAccountingIsAnExactDisjointPartition",
+        "resolution_evidence": "All 15 fixture requested sets exactly partition into eligible/pending/completed; outside IDs disjoint; continuing cases contain eligible work.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+            "sha256": "f1fc555cbbc686b3f2500a3eb0d295fa28c0b18933f34b97f7325144e6a43064"
+          },
+          {
+            "path": "tests/test_implementation_scope.py",
+            "sha256": "255315efbddf8c39f6913a287246565ef5ca9fd81dd04748c797c5b91755b4e5"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+            "sha256": "826174345ab1d70ebf06a7af6abf2ea33c8b95cf5386c43cad87d2879bf3fd17"
+          }
+        ],
+        "timing": "Resolved before current Converge invocation; passing current focused suite and bounded delta show no regression; not fresh progress credit"
+      }
+    ],
+    "new_findings": [],
+    "confirmed_defects": [],
+    "task_completion": {
+      "task_id": "T069",
+      "status": "complete-with-independent-evidence",
+      "marker_observed": "checked",
+      "marker_changed": false,
+      "whole_standalone_task_requirements_substantiated": true,
+      "requirement_results": [
+        {
+          "requirement": "immutable full-feature/exact-subset scope",
+          "evidence": "validate_requested_scope; testFullScopeRetainsEveryUnfinishedTaskAndExactDigest; testExplicitSubsetMustMatchTheTrustedRequestedIDsExactly"
+        },
+        {
+          "requirement": "eligibility and completed outside-scope dependencies",
+          "evidence": "validate_task_eligibility; testEligibilityCoversWholeScopeAndSeparatesEligiblePendingCompleted; testCompletedOutsidePrerequisiteProofDoesNotExpandScope"
+        },
+        {
+          "requirement": "pre-execution completion classification and discriminated requirement-complete proof",
+          "evidence": "validate_task_completion_classification/validate_task_fulfillment_proof; testAdministrativeProofDischargesAccountingButHasNoSourceCredit; testSubstantiveProofRequiresActivationSourceDeltaValidationAndReview. Standalone schema carries administrative completion kind and forbids extra source-credit fields; scoped runtime credit production remains T070."
+        },
+        {
+          "requirement": "activation preimages and retained digests",
+          "evidence": "validate_task_activation; testActivationRequiresFreshContainedPreimageCoverageAndNoGuessedHash; testActivationRejectsMalformedRetainedDigestsAndUnzonedTimes"
+        },
+        {
+          "requirement": "actual owner source/access/guidance/route/authority record validation without runtime-output prerequisite",
+          "evidence": "validate_owner_source_assessment; testOwnerSourceRequiresObservedRouteAccessAndPortableCoordinates. This is shape/readiness validation; no actual owner inspection is claimed."
+        },
+        {
+          "requirement": "append-only pre-dispatch history, failed/questions, five-session monotonic cap",
+          "evidence": "validate_execution_history/append_execution_event; testHistoryPersistsSessionAndAttemptBeforeDispatchAndRejectsRewind; testSharedCoderBudgetCountsEverySessionAndSameChildInputAddsNone; testFailedDispatchRetainsAttemptAndQuestionResumesSameSession"
+        },
+        {
+          "requirement": "strict route/proof/history regression coverage and legacy preservation",
+          "evidence": "Current 24 scope tests plus 65 progress/controller tests pass. Only standalone helper and its tests differ in this attributable correction; generic controller was not changed."
+        }
+      ],
+      "scope_boundary": "Standalone validators and tests are substantively complete. T070 adapters/progress integration, T071 graph and T072-T077 delivery evidence are separate open tasks; no feature completion or acceptance."
+    },
+    "validation": {
+      "command": "skill-tools/bin/python -m unittest tests.test_implementation_scope tests.test_implementation_progress tests.test_controller",
+      "tests_run": 89,
+      "failures": 0,
+      "errors": 0,
+      "exit_code": 0,
+      "fresh_run": true,
+      "differential_reproduction": {
+        "focused_tests_run": 3,
+        "before_failure_subcases": 5,
+        "after_failures": 0,
+        "after_errors": 0,
+        "scope": "006 empty eligibility and 007 route/history rejection after all three attempt outcomes"
+      }
+    },
+    "remaining_gap_details": [
+      {
+        "id": "F020-CONVERGE-LIFECYCLE-OWNER-001",
+        "task_id": "T052",
+        "fact": "Existing owner-route prerequisite remains unsubstantiated in retained evidence. This reviewer read the prior owner inspection report, not the external checkout. Missing installed output is intended T052 delivery, not the source-work blocker."
+      },
+      {
+        "id": "F020-CONVERGE-LIFECYCLE-ROUTES-001",
+        "task_id": "T054-T067",
+        "fact": "Dependent lifecycle routes and delivery validation remain open in current tasks."
+      },
+      {
+        "id": "F020-CONVERGE-SCOPE-INTEGRATION-001",
+        "task_id": "T070-T077",
+        "fact": "Controller/graph integration and installed/native/manual validation remain open and dependency-blocked."
+      },
+      {
+        "id": "F020-CONVERGE-SCOPE-REVIEW-001",
+        "task_id": "T067",
+        "fact": "T069 independent review is now substantiated, including all eight historical/current finding IDs. The group remains partial solely for final combined full-scope T067 review and reconciliation, which depends on unfinished delivery tasks."
+      }
+    ],
+    "blocker": {
+      "task_id": "T052",
+      "artifact_location": "specs/020-flowkit-workflow-iteration-improvements/tasks.md:303",
+      "reason": "No currently buildable eligible source correction remains after T069. The prior actual-owner inspection found owner-specific roadmap/new-feature/Analyze governance and filesystem source-write route/access unresolved. No fresh owner inspection in this child.",
+      "resume_action": "establish-owner-source-route-and-access",
+      "safe_resumption_detail": "Reconcile the already requested T052 authority with the owner-required own-roadmap/new-feature/Analyze evidence, or obtain a focused operator resolution if no compliant existing route is substantiated. Obtain required narrow filesystem permission and revalidate actual owner identity/revision/dirty/index state before source effects. Preserve existing task scope; no repeat routine T052 authorization, implicit workflow, installed-copy edits or invented marker-only coding task. Then reassess T052 eligibility and dependent work."
+    },
+    "risks_and_validation_gaps": [
+      "End-to-end administrative credit exclusion, production controller/graph routes and installed snapshot behavior remain unvalidated here and are explicitly owned by T070-T077; standalone tests do not discharge them.",
+      "No native live-agent, manual fallback or owner delivery validation was run in this bounded review."
+    ],
+    "facts_vs_inference": {
+      "facts": "Current bytes match attributable delta digests; 89 fresh tests pass; new regressions fail on original helper; tasks remain open for delivery.",
+      "inference": "No new correctness defect in the exact bounded correction; T069 standalone fulfillment is substantiated, with integration and owner-route prerequisites outstanding."
+    },
+    "no_progress_claim": false,
+    "substantive_current_progress": [
+      "F020-SCOPE-CODE-006",
+      "F020-SCOPE-CODE-007"
+    ],
+    "operator_request": null,
+    "limitations": [
+      "No project artifact/marker writes, Git integration, workflow dispatch or acceptance.",
+      "Prior owner-route evidence was consumed as historical evidence only; it is not a fresh owner access claim."
+    ],
+    "tracking_confirmation": {
+      "kind": "ordinary-task-completion-tracking",
+      "task_id": "T069",
+      "independently_verified": true,
+      "exact_single_byte_marker_change": true,
+      "all_other_task_bytes_preserved": true,
+      "before_sha256": "5686c389cda2464f981c610168861f20220b0d9d4e3dca11c35aae1242b18b00",
+      "after_sha256": "5f7ef7fa6832e78a44e697e1505590fca189d8f8ea54c02c7ac2d55f9fd3172e",
+      "unique_ids": 77,
+      "completed": 53,
+      "open": 24,
+      "source_and_other_assessment_evidence_unchanged": true,
+      "progress_credit": 0,
+      "original_review_sha256": "59441a95f49192fb9b93fb6e6861d3368dcb3663bfc18d8ef43689ddd414066e",
+      "whole_task_completion_proof_preserved": true,
+      "validation_rerun": false,
+      "validation_rerun_reason": "Only the exact Tasker-owned single-byte completion marker changed; source/test evidence remains unchanged."
+    }
+  },
+  "task_tracking": {
+    "kind": "ordinary-task-completion-tracking",
+    "task_id": "T069",
+    "task_artifact": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+    "change": {
+      "before_marker": "[ ]",
+      "after_marker": "[X]",
+      "other_task_markers_changed": 0,
+      "other_task_ids_changed": 0
+    },
+    "task_inventory": {
+      "total_unique_ids": 77,
+      "ids_before": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T033",
+        "T011",
+        "T034",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T035",
+        "T026",
+        "T027",
+        "T028",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T036",
+        "T037",
+        "T029",
+        "T031",
+        "T030",
+        "T032",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T071",
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077"
+      ],
+      "ids_after": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T033",
+        "T011",
+        "T034",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025",
+        "T035",
+        "T026",
+        "T027",
+        "T028",
+        "T038",
+        "T039",
+        "T040",
+        "T041",
+        "T042",
+        "T043",
+        "T044",
+        "T045",
+        "T046",
+        "T047",
+        "T036",
+        "T037",
+        "T029",
+        "T031",
+        "T030",
+        "T032",
+        "T048",
+        "T049",
+        "T050",
+        "T051",
+        "T052",
+        "T053",
+        "T054",
+        "T055",
+        "T056",
+        "T057",
+        "T058",
+        "T059",
+        "T060",
+        "T061",
+        "T062",
+        "T063",
+        "T064",
+        "T065",
+        "T066",
+        "T067",
+        "T068",
+        "T069",
+        "T070",
+        "T071",
+        "T072",
+        "T073",
+        "T074",
+        "T075",
+        "T076",
+        "T077"
+      ],
+      "completed_before": 52,
+      "completed_after": 53,
+      "open_before": 25,
+      "open_after": 24
+    },
+    "sha256": {
+      "before": "5686c389cda2464f981c610168861f20220b0d9d4e3dca11c35aae1242b18b00",
+      "after": "5f7ef7fa6832e78a44e697e1505590fca189d8f8ea54c02c7ac2d55f9fd3172e"
+    },
+    "proof": {
+      "exact_single_byte_change": true,
+      "before_reconstructed_from_after": true,
+      "review_path": ".specify/flow-controllers/runs/92a217d0-1ace-4725-9858-fa450202074d/evidence/assessment-pass2-before-tracking.json",
+      "review_sha256": "59441a95f49192fb9b93fb6e6861d3368dcb3663bfc18d8ef43689ddd414066e",
+      "reviewer": "FlowKit-Code Reviewer",
+      "reviewed_task_status": "complete-with-independent-evidence",
+      "whole_standalone_requirements_substantiated": true,
+      "review_evidence_hashes_current": true,
+      "tests": {
+        "command": "skill-tools/bin/python -m unittest tests.test_implementation_scope tests.test_implementation_progress tests.test_controller",
+        "tests_run": 89,
+        "failures": 0,
+        "errors": 0,
+        "exit_code": 0,
+        "fresh_run": true,
+        "differential_reproduction": {
+          "focused_tests_run": 3,
+          "before_failure_subcases": 5,
+          "after_failures": 0,
+          "after_errors": 0,
+          "scope": "006 empty eligibility and 007 route/history rejection after all three attempt outcomes"
+        }
+      },
+      "resolved_finding_ids": [
+        "F020-SCOPE-CODE-006",
+        "F020-SCOPE-CODE-007"
+      ],
+      "overall_assessment_state": "blocked",
+      "remaining_finding_ids": [
+        "F020-CONVERGE-LIFECYCLE-OWNER-001",
+        "F020-CONVERGE-LIFECYCLE-ROUTES-001",
+        "F020-CONVERGE-SCOPE-INTEGRATION-001",
+        "F020-CONVERGE-SCOPE-REVIEW-001"
+      ],
+      "overall_blocker": {
+        "task_id": "T052",
+        "artifact_location": "specs/020-flowkit-workflow-iteration-improvements/tasks.md:303",
+        "reason": "No currently buildable eligible source correction remains after T069. The prior actual-owner inspection found owner-specific roadmap/new-feature/Analyze governance and filesystem source-write route/access unresolved. No fresh owner inspection in this child.",
+        "resume_action": "establish-owner-source-route-and-access",
+        "safe_resumption_detail": "Reconcile the already requested T052 authority with the owner-required own-roadmap/new-feature/Analyze evidence, or obtain a focused operator resolution if no compliant existing route is substantiated. Obtain required narrow filesystem permission and revalidate actual owner identity/revision/dirty/index state before source effects. Preserve existing task scope; no repeat routine T052 authorization, implicit workflow, installed-copy edits or invented marker-only coding task. Then reassess T052 eligibility and dependent work."
+      },
+      "scope_boundary": "Standalone validators and tests are substantively complete. T070 adapters/progress integration, T071 graph and T072-T077 delivery evidence are separate open tasks; no feature completion or acceptance.",
+      "progress_credit": 0,
+      "feature_acceptance_claimed": false
+    }
+  },
+  "limits": [
+    "Feature 020 is not converged. Owner source delivery and dependent lifecycle/integration/validation work remain.",
+    "No installed snapshot refresh, production release, Git integration, roadmap milestone or feature acceptance performed."
+  ]
+}

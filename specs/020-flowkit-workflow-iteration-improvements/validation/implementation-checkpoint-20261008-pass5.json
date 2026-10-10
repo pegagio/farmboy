@@ -1,0 +1,171 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-08",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "workflow": {
+    "id": "speckit-flow-implement",
+    "version": "0.6.0",
+    "run_id": "537ed760-73e0-4c4f-88aa-7f4dcd5e3160",
+    "summary_path": ".specify/flow-controllers/runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/summary.json"
+  },
+  "state": "stopped-at-bounded-cap",
+  "requested_task_ids": [
+    "T053",
+    "T054",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T059",
+    "T060",
+    "T061",
+    "T062",
+    "T063",
+    "T064",
+    "T065",
+    "T066",
+    "T067",
+    "T070",
+    "T071",
+    "T072",
+    "T073",
+    "T074",
+    "T075",
+    "T076",
+    "T077"
+  ],
+  "independently_completed_task_ids": [
+    "T054",
+    "T059",
+    "T055",
+    "T056",
+    "T057",
+    "T058",
+    "T073",
+    "T074",
+    "T060",
+    "T070",
+    "T053"
+  ],
+  "tasks_complete": 65,
+  "tasks_total": 77,
+  "open_tasks": 12,
+  "confirmed_finding_ids": [
+    "F020-LIFECYCLE-CODE-007",
+    "F020-LIFECYCLE-CODE-008",
+    "F020-LIFECYCLE-CODE-013",
+    "F020-LIFECYCLE-CODE-015"
+  ],
+  "assessment": {
+    "evidence": [
+      {
+        "path": "tests/test_phase_lifecycle.py",
+        "sha256": "46dffe45f57b5163c6a1f3e1ffd51135e2ff4c4eeb93b4bf0e018f7f4b380ee1"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "sha256": "7cff37e2b7a74212d7a02cf6eb740930e18b5a73afd5ea005b6b7ad78ecdd9cc"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+        "sha256": "fc6e33c8fe36f827fe34a9a1c8aa47e9486e158a03b76b905da3641e68889899"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "07c096f05e96ee5369a9bd60d96642c78354e30fb995ee2d6b4ffbab36daa050"
+      },
+      {
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "sha256": "515ccc6a90e6a9afa2b4120b8f091f8fc16e827c03ee974eda36f522ca7c72bf"
+      }
+    ],
+    "next_step_id": "implement-eligible-work",
+    "reason_code": "prior-contract-defects-resolved-with-eligible-corrections",
+    "remaining_ids": [
+      "task:T061",
+      "task:T062",
+      "task:T063",
+      "task:T064",
+      "task:T065",
+      "task:T066",
+      "task:T067",
+      "task:T071",
+      "task:T072",
+      "task:T075",
+      "task:T076",
+      "task:T077",
+      "finding:F020-LIFECYCLE-CODE-007",
+      "finding:F020-LIFECYCLE-CODE-008",
+      "finding:F020-LIFECYCLE-CODE-013",
+      "finding:F020-LIFECYCLE-CODE-015"
+    ],
+    "resolved_ids": [
+      "finding:F020-LIFECYCLE-CODE-006",
+      "finding:F020-LIFECYCLE-CODE-014",
+      "task:T053"
+    ],
+    "state": "continue"
+  },
+  "tasker_tracking": {
+    "owner": "FlowKit-Tasker",
+    "changed_task_ids": [
+      "T053"
+    ],
+    "marker_only": true,
+    "reverse_marker_proof": true,
+    "tasks_before_sha256": "60f70a1d1980940450bb5cf92913462fb28f4b5ef407caed1c9509c57d4cbe00",
+    "tasks_after_sha256": "212e0d9b062adb57eb099a4cc4d4b6c9279eba57593ecc41dde3ed85294e90e7"
+  },
+  "evidence": [
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/baseline-after-pass5.json",
+      "sha256": "bfd309414fc12d810e1ba1c8ef9a815f50da1212ac365425258ac3f101f9d20a"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-runs/537ed760-73e0-4c4f-88aa-7f4dcd5e3160/review-pass5.json",
+      "sha256": "f64aa5baf88d55fab5b1b2805b6a51637847c8ce326269d8eba7c679d88d1b0b"
+    }
+  ],
+  "linux": "operator-deferred",
+  "acceptance": "pending",
+  "git_integration": "not-requested",
+  "production_release": "deferred-to-post-closeout",
+  "pass": 5,
+  "bounded_controller_outcome": {
+    "state": "blocked",
+    "reason_code": "loop-cap-exhausted",
+    "resume_action": "request-new-implement-invocation",
+    "remaining_ids": [
+      "task:T061",
+      "task:T062",
+      "task:T063",
+      "task:T064",
+      "task:T065",
+      "task:T066",
+      "task:T067",
+      "task:T071",
+      "task:T072",
+      "task:T075",
+      "task:T076",
+      "task:T077",
+      "finding:F020-LIFECYCLE-CODE-007",
+      "finding:F020-LIFECYCLE-CODE-008",
+      "finding:F020-LIFECYCLE-CODE-013",
+      "finding:F020-LIFECYCLE-CODE-015"
+    ]
+  },
+  "scope_exhausted": false,
+  "next_authorized_work": {
+    "T061": "Feed production-produced lifecycle request through actual rendered helper/owner forwarding rather than a separately seeded owner-template request.",
+    "T075": "Freeze the original finding and actual activation before the SI005 T068 source effect, then review that same task/effect before T069 activation.",
+    "T064": "Reconcile all current delivery/receipt/summary hashes with corrected installed source and preserve historical receipts.",
+    "T071": "Enforce carrier only on exact implementation-loop in Implement with maximum five sessions and the approved final prompt/condition."
+  },
+  "separate_later_evidence": [
+    "T065",
+    "T066",
+    "T067",
+    "T076",
+    "T077"
+  ]
+}

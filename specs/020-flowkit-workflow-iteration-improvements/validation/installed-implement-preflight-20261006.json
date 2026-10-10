@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-06",
+  "workflow_id": "speckit-flow-implement",
+  "workflow_version": "0.6.0",
+  "workflow_sha256": "7e38b546efe866d9463c2251ad1bf9c3dde8d48c7d02cbf8d03ce8dd61b2f9bc",
+  "graph_preflight": "passed",
+  "installation_fingerprints_unchanged": true,
+  "native_probes": [
+    {
+      "agent_type": "FlowKit-Reviewer",
+      "request": "exact native agent_type; no model/effort override",
+      "result": "expected readiness token returned",
+      "activity": "no-work probe"
+    },
+    {
+      "agent_type": "FlowKit-Readiness Checker",
+      "request": "exact native agent_type; no model/effort override",
+      "result": "expected readiness token returned",
+      "activity": "no-work probe"
+    },
+    {
+      "agent_type": "FlowKit-Coder",
+      "request": "exact native agent_type; no model/effort override",
+      "result": "expected readiness token returned",
+      "activity": "no-work probe"
+    },
+    {
+      "agent_type": "FlowKit-Code Reviewer",
+      "request": "exact native agent_type; no model/effort override",
+      "result": "expected readiness token returned",
+      "activity": "no-work probe"
+    },
+    {
+      "agent_type": "FlowKit-Tasker",
+      "request": "exact native agent_type; no model/effort override",
+      "result": "expected readiness token returned",
+      "activity": "no-work probe"
+    }
+  ],
+  "assignments": [
+    {
+      "agent_name": "FlowKit-Reviewer",
+      "step_id": "assess-implementation-state"
+    },
+    {
+      "agent_name": "FlowKit-Readiness Checker",
+      "step_id": "check-readiness-before-core"
+    },
+    {
+      "agent_name": "FlowKit-Coder",
+      "step_id": "implement-eligible-work"
+    },
+    {
+      "agent_name": "FlowKit-Code Reviewer",
+      "step_id": "assess-implementation-after-pass"
+    },
+    {
+      "agent_name": "FlowKit-Tasker",
+      "step_id": "revise-task-plan"
+    },
+    {
+      "agent_name": "FlowKit-Readiness Checker",
+      "step_id": "check-readiness-before-reentry"
+    }
+  ],
+  "limits": [
+    "Current chat availability only; no three-context nine-agent matrix claim.",
+    "No workflow implementation, effective-settings proof, feature acceptance or Git action."
+  ]
+}

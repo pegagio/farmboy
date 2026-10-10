@@ -1,0 +1,337 @@
+{
+  "readiness_gate": {
+    "state": "blocked",
+    "blocker_ids": [
+      "independent-review-missing"
+    ],
+    "reason_code": "independent-review-missing",
+    "resume_action": "separately-request-analyze-for-fresh-preparation-review",
+    "source_evidence": [
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/spec.md",
+        "sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/plan.md",
+        "sha256": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+        "sha256": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+        "sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f",
+        "state": "stale"
+      }
+    ],
+    "pending_future_ids": [],
+    "active_identity_and_digest_map_unchanged": true,
+    "helper_and_checker_agree": true
+  },
+  "readiness_reentry_review": {
+    "schema_version": "1.0",
+    "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+    "state": "blocked",
+    "active_feature_identity": {
+      "path": ".specify/feature.json",
+      "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+      "matches_report": true
+    },
+    "source_evidence": [
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/spec.md",
+        "sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/plan.md",
+        "sha256": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+        "sha256": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+        "sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f"
+      }
+    ],
+    "criteria": [
+      {
+        "id": "criterion-e8f534a15bc45594",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 13,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-30b1b576c5fb1960",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 14,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-bd49815c773681ad",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 15,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-d065651928ca7306",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 16,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-84e91b57e379982e",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 22,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-19369d97de915dfc",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 23,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-c24f43e621bd0b5f",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 24,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-2b4a87148f834559",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 25,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-780c833f3748ed80",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 26,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-9d71deba72a31111",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 27,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-aef80e181f134da2",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 28,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-b575eee80e8f5713",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 29,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-c133cc7522abaa32",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 35,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-fb58b231276fc550",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 36,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-ea13a0233fa54bef",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 37,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      },
+      {
+        "id": "criterion-b0b5b6dc3cfbb22c",
+        "finding_id": "independent-review-missing",
+        "source_path": "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md",
+        "line": 38,
+        "marker": "checked",
+        "source_sha256": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "owner": "specifier",
+        "due_phase": "preparation",
+        "category": "preparation-quality"
+      }
+    ],
+    "independent_review": {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/readiness-review.json",
+      "sha256": "687c44d96c5ceaef201b59311704b84f858cdce3c8a7536fadb7f252ed216c5f",
+      "reviewer": "FlowKit-Reviewer",
+      "recorded_state": "complete",
+      "reviewed_inputs": {
+        "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "specs/020-flowkit-workflow-iteration-improvements/plan.md": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a",
+        "specs/020-flowkit-workflow-iteration-improvements/spec.md": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+        "specs/020-flowkit-workflow-iteration-improvements/tasks.md": "5fb08b3a9d6d75169137238b666b68a58866bdfc82efacfcf69eb247be891e27"
+      },
+      "current_inputs": {
+        "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751",
+        "specs/020-flowkit-workflow-iteration-improvements/plan.md": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a",
+        "specs/020-flowkit-workflow-iteration-improvements/spec.md": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+        "specs/020-flowkit-workflow-iteration-improvements/tasks.md": "5954727c6e0b31bdcf2b750a08ce4c4c392f542db5e3457df0b1f539ca7924f5"
+      },
+      "freshness": "stale",
+      "stale_paths": [
+        "specs/020-flowkit-workflow-iteration-improvements/tasks.md"
+      ],
+      "reviewer_verdict_sha256": "35a1a57af6ef36649e579e3ccccb2d61bacda91639c71f4b33dc5a8886e1d0bc"
+    },
+    "pending_future_ids": [],
+    "pending_future_obligations": [],
+    "future_classifications": [],
+    "open_task_ids": [
+      "T064",
+      "T065",
+      "T066",
+      "T067",
+      "T071",
+      "T072",
+      "T075",
+      "T076",
+      "T077"
+    ],
+    "blocking_ids": [
+      "independent-review-missing"
+    ],
+    "findings": [
+      {
+        "id": "independent-review-missing",
+        "summary": "The recorded FlowKit-Reviewer review is stale because tasks.md changed after its recorded input digest; readiness remains blocked even though all checklist criteria are checked.",
+        "affected_criteria": [
+          "criterion-e8f534a15bc45594",
+          "criterion-30b1b576c5fb1960",
+          "criterion-bd49815c773681ad",
+          "criterion-d065651928ca7306",
+          "criterion-84e91b57e379982e",
+          "criterion-19369d97de915dfc",
+          "criterion-c24f43e621bd0b5f",
+          "criterion-2b4a87148f834559",
+          "criterion-780c833f3748ed80",
+          "criterion-9d71deba72a31111",
+          "criterion-aef80e181f134da2",
+          "criterion-b575eee80e8f5713",
+          "criterion-c133cc7522abaa32",
+          "criterion-fb58b231276fc550",
+          "criterion-ea13a0233fa54bef",
+          "criterion-b0b5b6dc3cfbb22c"
+        ],
+        "stale_input_paths": [
+          "specs/020-flowkit-workflow-iteration-improvements/tasks.md"
+        ],
+        "current_task_state": {
+          "checked_count": 68,
+          "open_count": 9,
+          "open_ids": [
+            "T064",
+            "T065",
+            "T066",
+            "T067",
+            "T071",
+            "T072",
+            "T075",
+            "T076",
+            "T077"
+          ]
+        },
+        "recommended_owner": "smallest existing authorized owner for fresh Analyze preparation evidence",
+        "safe_resumption": "After a separately requested Analyze produces fresh preparation evidence, rerun the readiness assessment; do not ask the Reviewer routinely or dispatch another Coder pass while blocked."
+      }
+    ],
+    "resume_action": "separately-request-analyze-for-fresh-preparation-evidence-then-rerun-readiness-assessment",
+    "evidence_checks": {
+      "criterion_identity_and_coverage": "all 16 criteria were recalculated from source path, exact checklist text, and occurrence; IDs match the helper report and all current markers are checked",
+      "source_digest_freshness": true,
+      "recorded_review_freshness": "stale",
+      "future_obligation_preservation": "helper and recorded review contain no pending future IDs, obligations, or classifications; current open tasks remain open and are reported separately"
+    }
+  }
+}

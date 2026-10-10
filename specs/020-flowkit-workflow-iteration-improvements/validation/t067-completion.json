@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-09",
+  "task_id": "T067",
+  "state": "complete",
+  "task_counts": {
+    "total": 77,
+    "complete": 75,
+    "open": 2
+  },
+  "open_task_ids": [
+    "T066",
+    "T077"
+  ],
+  "manual_validation": "deferred to operator dogfooding; no observed results",
+  "marker_tracking": {
+    "owner": "FlowKit-Tasker",
+    "changed_byte_count": 1,
+    "tasks_before_sha256": "d727d83458d9d9468773bdf5c950712cc99af58c7acc8eb4156f156e30162547",
+    "tasks_after_sha256": "27329d3567bce3e8af089bc59cf5c6d5ee2f7814954356724cac2ad570ed4e11",
+    "all_descriptions_and_other_bytes_preserved": true,
+    "additional_substantive_progress_credit": false
+  },
+  "independent_review": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-independent-review.json",
+    "sha256": "9d8598b08e530b786387a9b24de3be12f086dec088237468212666fc54e07662",
+    "boundary": "Pretracking review; sole subsequent input change was authorized T067 checkbox."
+  },
+  "audit_coverage": {
+    "requirements": 23,
+    "criteria": 11,
+    "cases": 30,
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t067-evidence-reconciliation.json",
+    "sha256": "0a5e8e9480fcf3c518446f842a9f42ba48b62100b5b925e3969c855f5251eb27"
+  },
+  "preparation_readiness_after_tracking": "ready",
+  "analyze_run_summary": ".specify/flow-controllers/runs/fb2a981d-50e2-44d1-be5f-724baace9406/summary.json",
+  "analyze_state": "complete",
+  "analyze_assessments": 3,
+  "validation": {
+    "fresh_lifecycle_tests_passed": 22,
+    "independent_progress_and_workflow_path_tests_passed": 46
+  },
+  "feature_acceptance_established": false,
+  "installed_adoption_established": false,
+  "historical_implement_run_resumed": false,
+  "historical_implement_coder_passes": 5
+}

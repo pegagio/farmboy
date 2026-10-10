@@ -1,0 +1,48 @@
+{
+  "operation": "tasker-record-independently-substantiated-completion",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "task_ids": [
+    "T024",
+    "T025"
+  ],
+  "marker_transition": "[ ] -> [X]",
+  "task_list_path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+  "task_list_sha256_before": "46d11b6804934e70a26947d99a038cf4ec56169e7d5860cc93705df746b5d621",
+  "task_list_sha256_after": "93a3ed91495a2f1ed9126ada34fbd17b9f9818dcc671c9ed38e9b3f3711ea814",
+  "before_copy_path": "/private/tmp/implement020-final-verification-tasks-before-completion.md",
+  "independent_review_baseline_sha256": "922535368541fd9bfdb77b86bd3592d5b8d58a03a0885a89fe51875567de6e5e",
+  "proofs": [
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json",
+      "sha256": "9a3173f2a7f5feee30cec5accafc72f453842e932a7181d3bee074ecbc81b0d5"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t024-first-chat-preparation-20261007.json",
+      "sha256": "ad2eea8f70f7e65a19997dcc0cc5dd58c30d4377fe664bda16485a7210cb14f9"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t024-first-chat-20261007.json",
+      "sha256": "6c4dca62b3737612718fe229840aab342629151151435acdf5d0fcc6c66418fd"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/t025-native-context-matrix-20261007.json",
+      "sha256": "3ae4760d3fac1aba9e99afedb4476af7ae0f19dc78cb7ef896fe7c1d659a732c"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/native-matrix-independent-review-20261007.json",
+      "sha256": "888d0b9f3c674bf3e0b7fe8837a5ad572b2b7f090c2ece03bbd0366a693b090f"
+    }
+  ],
+  "preservation": {
+    "task_count": 47,
+    "completion_count_after": 41,
+    "open_count_after": 6,
+    "only_marker_changes": [
+      "T024",
+      "T025"
+    ],
+    "descriptions_order_line_positions_and_unrelated_markers_preserved": true
+  },
+  "limitation": "T022/T023 are separate future chats in the same physical prepared linked worktree; distinct checkout roots are not established. Runtime settings and client/interface identity are unobserved. These limitations remain recorded in the matrix.",
+  "scope_note": "This receipt records only T024/T025 whole-task completion; it does not claim workflow acceptance or effective runtime settings."
+}

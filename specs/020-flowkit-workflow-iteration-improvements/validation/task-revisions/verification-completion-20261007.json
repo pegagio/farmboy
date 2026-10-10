@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "tasker": "FlowKit-Tasker",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "changed_task_ids": [
+    "T004",
+    "T012",
+    "T022",
+    "T023"
+  ],
+  "task_counts": {
+    "completed_before": 35,
+    "completed_after": 39,
+    "open_after": 8,
+    "total": 47
+  },
+  "tasks_before": {
+    "path": "/private/tmp/implement020-verification-tasks-before-completion.md",
+    "sha256": "50fbef9ad75966592d4520565939d704076325773a96c77fb9e0e787197223a8"
+  },
+  "tasks_after": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+    "sha256": "46d11b6804934e70a26947d99a038cf4ec56169e7d5860cc93705df746b5d621"
+  },
+  "evidence_sha256": {
+    "specs/020-flowkit-workflow-iteration-improvements/validation/verification-pass1-independent-review-20261007.json": "fa96712aa126b9a7d9ca3b9b17b3d3803c6c112bfb4a01af4a86ec3a252c7044",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/roadmap-delivery.json": "c1f3b3fdfe53f0d4a10bed55bb8ddc240771eb6ed278ac05fb430102a1a5e623",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json": "c81adf2e2b01d498c38c8b11a6c27dfd9915cfe253bbbee0753451bea9710a7d",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/t022-fresh-chat-20261007.json": "3889d4dedbe561960354d0ef09386d5f0dbd9b46a7cdc8f6daf8d4e278d201a8",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/t023-fresh-chat-20261007.json": "fefa4b3dd1292107cd610ccec5095a6df01e2ba52c3ce4012ebc02ceea500090",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/summary.md": "68da9844fc42d3a42cdd0edc071a0e961483ce39af83894a333021bb564c12e9",
+    "bundles/spec-kit-flow/bundle.yml": "13fb86dad1800888dec15e89942d47922f4edf8a09310d2fb4dec5c7c75238c1",
+    ".specify/feature.json": "c441d10f7df483e5c2a346729ef49e7867f585618f74fc2355cf9d9d431cc136"
+  },
+  "review_sha256": "a0ca897db48111b5310edd91650092e38ccf9213e6dc28649e46adcd110577a3",
+  "conditional_disposition": {
+    "task_id": "T012",
+    "status": "not-applicable-condition-not-triggered",
+    "condition_met": false,
+    "reason": "T004 verification found no incompatibility in the six retained native trials.",
+    "roadmap_extension_pin": "0.2.1",
+    "pin_changed": false,
+    "owner_delivery_requested_or_performed": false,
+    "source_claim": "No external component delivery is claimed.",
+    "historical_deferred_note": "Preserved unchanged; the trusted 2026-10-07 resume instruction superseded the earlier deferral for this verification pass."
+  },
+  "scope": "Only markers for T004, T012, T022, and T023 changed. All 47 IDs, descriptions, order, line positions, and other 35 completion markers were preserved."
+}

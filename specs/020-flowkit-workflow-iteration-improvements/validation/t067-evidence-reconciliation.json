@@ -1,0 +1,2210 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T067",
+  "date": "2026-10-09",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "state": "reconciled-awaiting-independent-code-review",
+  "authorization": "Direct operator approval: T067 may complete its evidence audit with T066/T077 deferred to dogfooding; manual gaps and acceptance limits remain explicit.",
+  "snapshot_boundary": "before T067 completion marker tracking",
+  "coverage_counts": {
+    "functional_requirements": 23,
+    "success_criteria": 11,
+    "lifecycle_cases": 15,
+    "scope_cases": 15
+  },
+  "requirements_and_criteria": [
+    {
+      "id": "FR-026",
+      "definition": "Specify MUST own `planned` to `specced`, Implement MUST own `specced` to `in-progress`, and Close Out MUST own `in-progress` to `implemented`. Each owning phase MUST expose its prior/resulting state and supporting evidence. Selection MUST remain identity-only and MUST NOT apply these milestones. Reconciliation of stale earlier state MUST follow FR-034 rather than silently skipping transitions. [Operator amendment and governing boundary](#lifecycle-amendment-traceability-and-delivery-boundary)",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:231",
+      "case_ids": [
+        "LC001",
+        "LC003",
+        "LC005"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-027",
+      "definition": "Specify MUST record `specced` only after the exact active specification is authored or amended, author quality checks are satisfied, required clarification and independently assigned review/roadmap-brief findings are resolved, unique roadmap/spec linkage and current prerequisites are valid, and no unapproved consequential decision remains. Implementation completion and future outcome proof MUST NOT be required for this authoring milestone. File presence, a Complete label, author self-check or command exit alone MUST NOT substitute for the missing evidence.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:232",
+      "case_ids": [
+        "LC001",
+        "LC002"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-028",
+      "definition": "Implement MUST revalidate the current target, unique linkage, dependency readiness, reviewed specification/plan/tasks and preparation readiness, and confirm an eligible operator-authorized implementation scope before recording `in-progress`. That effect MUST precede substantive coding. Blocked preflight/readiness or unavailable required assignments MUST NOT advance the state. `in-progress` MUST describe authorized implementation activity without claiming completion or verification.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:233",
+      "case_ids": [
+        "LC003",
+        "LC004"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-029",
+      "definition": "Close Out MUST record `implemented` only when current attributable completion/convergence evidence and independently assigned review substantiate the full selected feature scope, required implementation validation is satisfied and no unresolved buildable implementation defect remains. Task checkboxes, successful commands, a Complete label or historical convergence on older artifact contents alone MUST NOT establish this milestone. Separately owned future human acceptance and post-closeout release obligations MUST remain visible and pending without being misclassified as completed or as buildable implementation defects.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:234",
+      "case_ids": [
+        "LC005",
+        "LC006"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-030",
+      "definition": "Close Out MUST record the substantiated `implemented` milestone before proposing `verified` through the existing roadmap-debrief prerequisites and explicit consequential verification gate. The implementation milestone MUST NOT satisfy that gate. Verification return or deferral MUST retain the completed milestone; no lifecycle result MUST imply Git integration, publication or feature/The Diagram acceptance. [Closeout boundary, S021](../../wiki/pages/closeout-and-verification-boundary.md)",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:235",
+      "case_ids": [
+        "LC005",
+        "LC006",
+        "LC015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-031",
+      "definition": "After the lifecycle contract and necessary governing changes are explicitly approved and delivered into the installed workflow, a trusted invocation of the owning phase for the exact feature MUST authorize its declared routine evidence-supported advancement without another approval solely for derived patch wording. The invocation, governing contract, current evidence and resulting effects MUST remain inspectable. This prospective requirement MUST NOT grant the present authoring run roadmap mutation authority or bypass existing installed rules.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:236",
+      "case_ids": [
+        "LC001",
+        "LC003",
+        "LC005",
+        "LC007"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-032",
+      "definition": "Immediately before each lifecycle effect, the workflow MUST revalidate the current roadmap, active identity, unique mapping, dependencies, relevant evidence freshness and governing state. Material change MUST invalidate an earlier proposal/approval for the changed effect and cause fresh assessment or focused resolution. Every permitted effect MUST preserve unrelated entry fields, earlier verification provenance and history; evidence/proposals/child outputs MUST NOT become trusted operator decisions.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:237",
+      "case_ids": [
+        "LC001",
+        "LC003",
+        "LC005",
+        "LC007",
+        "LC014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-033",
+      "definition": "An owning phase MUST retain a consistently equal or more advanced state after current validation without automatic downgrade, duplicate transition/event, fabricated history, reset of prior evidence or redundant routine approval. Later state alone MUST NOT establish missing evidence. Inconsistent advanced-state evidence MUST produce the exact gap or focused conflict resolution rather than blind retention as proof of completion.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:238",
+      "case_ids": [
+        "LC007",
+        "LC014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-034",
+      "definition": "Each affected owning workflow MUST declare how it reconciles a stale earlier entry within its approved invocation scope before continuing. Each missing milestone MUST have its own current substantiation and a permitted ordered transition; later labels and completed tasks MUST NOT silently skip milestones or invent past transition dates. Effects MUST record their actual present occurrence and truthful historical evidence. Adequately evidenced work MUST NOT be repeated solely to repair lifecycle bookkeeping. Missing proof or an absent authorized installed route MUST yield an exact blocker with safe resumption, not authority to invoke a different workflow.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:239",
+      "case_ids": [
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-035",
+      "definition": "Ambiguous or contradictory identity, linkage, scope, evidence, transition authority or recovery MUST stop for focused operator resolution before the disputed effect. Deferred/abandoned reactivation, requested regression, material scope/product changes and constitutional/authority amendments MUST retain explicit human decisions. Missing/failed prerequisites or unavailable exact assignments MUST instead be reported as attributable blockers with safe resumption; a blanket approval question MUST NOT override them.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:240",
+      "case_ids": [
+        "LC012"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-036",
+      "definition": "A successful lifecycle write followed by a later failure, or successful earlier phase work followed by a failed write, MUST retain truthful separate outcomes and current evidence for resumption. The workflow MUST report exactly which effects occurred and which did not, without automatic rollback, guessed repair or overall completion claim. Every retry MUST revalidate current state/evidence and MUST NOT reuse an earlier approval after material change.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:241",
+      "case_ids": [
+        "LC013",
+        "LC014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-037",
+      "definition": "Delivery MUST reconcile affected governing contracts, reviewed owning workflows, extension lifecycle boundaries and user-facing guidance before relying on changed authority, preserving manual fallback and component ownership. Any required constitutional/authority amendment MUST receive explicit human approval. Original requirements and earlier completion/verification evidence MUST remain historical rather than being rewritten to assert lifecycle delivery; new requirements MUST receive their own attributable implementation and validation evidence. [Constitution I, II, IV and V](../../.specify/memory/constitution.md)",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:242",
+      "case_ids": [
+        "LC001",
+        "LC002",
+        "LC003",
+        "LC004",
+        "LC005",
+        "LC006",
+        "LC007",
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011",
+        "LC012",
+        "LC013",
+        "LC014",
+        "LC015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-038",
+      "definition": "Validate all three owning phases against successful transitions, missing/stale proof, repeat/equal/advanced states, stale `planned` recovery of all required milestones, contradictory recovery, missing routes, deferred/abandoned states, partial failures and concurrent relevant-state changes. Validation MUST preserve the explicit `verified` gate and record zero inferred implementation, verification or acceptance from markers, labels or command success. Records MUST follow FR-022 provenance and claim limits.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:243",
+      "case_ids": [
+        "LC001",
+        "LC002",
+        "LC003",
+        "LC004",
+        "LC005",
+        "LC006",
+        "LC007",
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011",
+        "LC012",
+        "LC013",
+        "LC014",
+        "LC015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-039",
+      "definition": "Implement MUST establish its requested scope from the trusted operator instruction and current selected feature/task identities. A full-feature invocation without an explicit task restriction MUST include all existing unfinished requested tasks, including those currently blocked on dependencies or decisions. An explicitly bounded task selection MUST remain bounded. A generated reviewer eligibility list, task recommendation or external report MUST NOT narrow, broaden or replace operator authority. Requested scope and its provenance MUST remain inspectable; new material scope requires an explicit decision. [Operator amendment and delivery boundary](#task-scope-amendment-traceability-and-delivery-boundary)",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:245",
+      "case_ids": [
+        "SI001",
+        "SI003",
+        "SI004",
+        "SI014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-040",
+      "definition": "Implement MUST maintain a separately revalidated executable subset of the authorized task scope, with each pending task's prerequisites and actual blocker reason. Eligibility assessment MUST NOT discard initially blocked scoped tasks or reinterpret their later activation as scope expansion. Scope, current eligible/pending IDs and completion evidence MUST remain distinguishable, and overall completion MUST account for all required requested work rather than only the initial eligible subset.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:246",
+      "case_ids": [
+        "SI001",
+        "SI003",
+        "SI004",
+        "SI014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-041",
+      "definition": "Before substantive correction, Implement MUST retain attributable evidence for the full requested task scope, including initially blocked tasks, and immutable before evidence for known code defects. Later eligibility reassessment MUST preserve that scope provenance, earlier defect identities, correction history and partial effects. Newly eligible tasks MAY receive fresh task-specific evidence before their execution, but MUST NOT replace earlier before evidence or retrospectively add findings to it. An operational eligibility change MUST NOT be mislabeled as a new scope authorization or erase prior findings.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:247",
+      "case_ids": [
+        "SI005",
+        "SI006",
+        "SI011"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-042",
+      "definition": "After independently substantiated progress, prerequisite completion or an actual settled consequential answer, Implement MUST reassess current scoped-task eligibility before choosing its continuation or terminal result. When safe authorized work is available and applicable readiness, authority, review, progress and iteration guards permit execution, it MUST continue newly eligible existing scoped tasks in the same invocation without redundant task authorization or another invocation solely because the initial eligible subset was exhausted. A blocked task MUST NOT cause a scope-exhaustion stop while other safe authorized work remains executable under the common guards.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:248",
+      "case_ids": [
+        "SI002",
+        "SI007",
+        "SI013"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-043",
+      "definition": "Substantiated prerequisite completion or an actual operator answer MAY permit eligibility reassessment and first authorized execution; it MUST NOT itself count as code-defect resolution or substantive implementation progress. Decision, checklist, marker and report changes alone MUST earn zero implementation-progress credit and MUST NOT renew a stalled correction loop or reset its budget. Continued correction MUST satisfy FR-025's independent implementation-evidence guard. Consequential input MUST use the existing focused main-task gate and same-child relay; settled same-scope answers MUST NOT require routine reauthorization.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:249",
+      "case_ids": [
+        "SI002",
+        "SI007",
+        "SI013"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-044",
+      "definition": "Independent progress assessment MUST compare implementation evidence against the actual pre-correction scope and known-defect record. Only a previously unfinished scoped task completed with relevant implementation evidence or a previously recorded in-scope code defect resolved with fresh independent evidence MAY earn implementation-progress credit. New findings discovered after correction MUST remain new unresolved obligations until independently substantiated; they MUST NOT retrospectively earn resolution credit. Stable findings, task ownership, unresolved/new defects and historical correction evidence MUST survive eligibility changes without renaming or omission to claim progress.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:250",
+      "case_ids": [
+        "SI005",
+        "SI006",
+        "SI011"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-045",
+      "definition": "Same-invocation continuation MUST preserve current readiness, unchanged authority, exact available assignments, safe permitted effects, independent review and the declared iteration budget. Missing/stale proof, genuine unresolved decisions, unavailable dependencies/routes/assignments, unsafe effects, no substantive correction progress and the cap MUST retain their specific stops and safe resumption. Where only one task is blocked, other scoped tasks MAY proceed only if all applicable common guards permit it; global readiness or assignment failure MUST NOT be bypassed. Exhaustion of the initial eligible subset alone MUST NOT be a stop when FR-042 permits other authorized work.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:251",
+      "case_ids": [
+        "SI008",
+        "SI010",
+        "SI011",
+        "SI012",
+        "SI013",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-046",
+      "definition": "A requested task's external component ownership MUST NOT by itself exclude it from Implement scope or authorize additional effects. Before execution, the controller MUST validate the actual source checkout, available access, applicable owner guidance, permitted source-work route and task authority, respecting source ownership and existing change-control boundaries. A missing installed owner capability that the authorized task exists to build or deliver MUST NOT itself block inspection or otherwise permitted owner-source work; that capability remains a prerequisite before effects that actually consume it. Missing source/access/source-work route, conflicting rules, unavailable authority or an unsafe effect MUST yield the actual blocker and resumption action rather than an assumed exclusion, generic fallback, blanket approval or unrequested cross-repository repair. [Component boundaries](../../.specify/memory/constitution.md#iii-generic-source-and-component-boundaries)",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:252",
+      "case_ids": [
+        "SI002",
+        "SI009",
+        "SI010"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-047",
+      "definition": "Continuation, blocking and completion reports MUST distinguish the trusted requested task scope, current executable subset, completed effects, remaining tasks, unresolved findings, actual operator decisions and stop reason. Pending dependency work and later activation MUST retain task identity and prerequisite provenance. Partial success MUST remain attributable without guessed completion, erased failures, automatic rollback or implied acceptance; resumption MUST revalidate current scope, rules and evidence rather than silently recapturing history.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:253",
+      "case_ids": [
+        "SI004",
+        "SI007",
+        "SI013",
+        "SI014",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "FR-048",
+      "definition": "Validate full-feature and explicit-subset requests, initially blocked task activation after prerequisite/decision completion, the T050/T051-to-T052 same-invocation regression, immutable before evidence and new defects, readiness/assignment failure, external-owner permission/route failure, actual scope changes, partial effects, no-progress and cap stops. Every case MUST record its actual continuation or stop with FR-022 provenance and claim limits. Delivery MUST reconcile affected plan, tasks, reviewed workflow/controller source and user-facing guidance before reliance; the approved lifecycle policy MUST remain valid unless a separate consequential amendment is explicitly approved. Existing completion, policy approval and historical convergence MUST NOT substantiate this new behavior.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:254",
+      "case_ids": [
+        "SI001",
+        "SI002",
+        "SI003",
+        "SI004",
+        "SI005",
+        "SI006",
+        "SI007",
+        "SI008",
+        "SI009",
+        "SI010",
+        "SI011",
+        "SI012",
+        "SI013",
+        "SI014",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-012",
+      "definition": "In all three successful phase cases in Story 6 scenarios 1, 3 and 5, the owning phase records only its substantiated milestone at the specified boundary, with inspectable current evidence and zero redundant approval requests solely for routine wording. Specification authoring requires zero implementation-completion claims; implementation starts only after `in-progress` is recorded, and implementation completion precedes a verification proposal.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:292",
+      "case_ids": [
+        "LC001",
+        "LC003",
+        "LC005"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-013",
+      "definition": "In every missing/stale-proof case for each owning phase and every covered concurrent roadmap, identity, dependency, governing-state or evidence change, 100% of unsupported effects are prevented. Each result identifies the exact unmet prerequisite or focused decision and safe resumption; zero checkboxes, labels, author self-checks or successful commands stand in for required independent proof.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:293",
+      "case_ids": [
+        "LC001",
+        "LC002",
+        "LC003",
+        "LC004",
+        "LC005",
+        "LC006",
+        "LC013",
+        "LC014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-014",
+      "definition": "All equal/advanced repeat cases retain consistent state, unrelated entry content and prior verification provenance with zero downgrades or duplicate/fabricated events. One stale `planned` recovery with proof for all three milestones records them in permitted order at their actual present occurrence without repeating substantiated coding; missing proof, contradictory recovery and absent-route variants stop at the exact unsupported effect.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:294",
+      "case_ids": [
+        "LC007",
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-015",
+      "definition": "Every covered deferred/abandoned reactivation, requested regression, material scope/product or constitutional/authority case requires focused explicit resolution before the affected mutation. Both lifecycle-write-success/later-failure and earlier-work-success/write-failure cases retain truthful partial outcomes; their retries revalidate current conditions, with zero automatic rollbacks or overall completion claims from partial success.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:295",
+      "case_ids": [
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011",
+        "LC012",
+        "LC013",
+        "LC014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-016",
+      "definition": "In the successful Close Out case and verification return/deferral variants, 100% of proposals retain the separate consequential `verified` gate and pending future acceptance/release obligations. Zero implementation, verification, Git/publication or acceptance claims arise solely from labels, markers or command success. All new lifecycle requirements have attributable evidence distinct from preserved FR-001\u2013FR-025/SC-001\u2013SC-011 completion history.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:296",
+      "case_ids": [
+        "LC001",
+        "LC002",
+        "LC003",
+        "LC004",
+        "LC005",
+        "LC006",
+        "LC007",
+        "LC008",
+        "LC009",
+        "LC010",
+        "LC011",
+        "LC012",
+        "LC013",
+        "LC014",
+        "LC015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/phase_lifecycle.py",
+          "sha256": "decbfb1db5fdcc9e7f6007fd93c3c4d97b41a761592f788258a8e5e470e36ed1"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-specify/workflow.yml",
+          "sha256": "96794fa6e81e91f904e676834a85c92b3543fea92f6497ab56f1a02534bf22d2"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "workflows/speckit-flow-closeout/workflow.yml",
+          "sha256": "91f7bf21696b7a1164ba7952b169b69e5af4c01157c86c969d740c2779dd93b8"
+        },
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "87a625c8192a5a209d660fdc90a57eeb06c7888bf883cf6dd8ee7135b735f9a6"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/phase-lifecycle.md",
+          "sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T066",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-017",
+      "definition": "In the full-feature and explicit-subset cases, 100% of requested task identities and trusted authorization provenance are retained independently of initial eligibility. Zero dependency-blocked scoped tasks are silently dropped, zero generated subsets replace the request, and zero tasks outside a narrow request execute without a new trusted scope decision.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:298",
+      "case_ids": [
+        "SI001",
+        "SI003",
+        "SI004",
+        "SI014"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-018",
+      "definition": "The T050/T051-to-T052 regression and each covered prerequisite/decision-completion case reach first or continued safe authorized execution in the same invocation when current guards permit it, with zero repeated authorization or fresh-invocation requirements caused only by exhaustion of the initial eligible subset. An individual blocked task creates zero false scope-exhaustion stops while other permitted scoped work remains available.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:299",
+      "case_ids": [
+        "SI002",
+        "SI007",
+        "SI013"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-019",
+      "definition": "Every covered activation/correction case preserves the original authorized scope and known-defect before evidence with stable identities and inspectable current receipts. Zero newly discovered or renamed findings retrospectively earn defect-progress credit; all new/unresolved findings remain attributable. Decision, checklist, marker and report-only cases earn zero implementation-progress credit.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:300",
+      "case_ids": [
+        "SI002",
+        "SI005",
+        "SI006",
+        "SI007",
+        "SI011",
+        "SI013"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-020",
+      "definition": "All covered stale-readiness, unavailable-exact-assignment, missing-authority/source/access/route, unsafe-effect, no-progress and cap cases stop before the affected unauthorized execution with the exact cause and safe resumption. Every external-owner success validates actual ownership, access, route and rules; zero ownership-only exclusions, fallback executions, blanket overrides or budget resets occur.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:301",
+      "case_ids": [
+        "SI002",
+        "SI008",
+        "SI009",
+        "SI010",
+        "SI011",
+        "SI012",
+        "SI013",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-021",
+      "definition": "All covered material-scope/authority and unanswered consequential cases retain focused operator decisions before disputed effects, with same-child continuation for interactive answers. Every partial-success case distinguishes authorized, eligible, completed, pending and blocked work without erasing prior effects or failures; zero completion or acceptance claims arise solely from eligibility changes or administrative records.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:302",
+      "case_ids": [
+        "SI003",
+        "SI004",
+        "SI007",
+        "SI008",
+        "SI010",
+        "SI011",
+        "SI012",
+        "SI013",
+        "SI014",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    },
+    {
+      "id": "SC-022",
+      "definition": "All 15 Story 7 scenarios have separately attributable validation outcomes or exact untested gaps. New-scope delivery and validation remain distinct from the prior 49-task convergence, the 51/67 observed task state and approved lifecycle policy; zero historical results or policy approvals are presented as evidence that the scope/eligibility correction is implemented.",
+      "spec_location": "specs/020-flowkit-workflow-iteration-improvements/spec.md:303",
+      "case_ids": [
+        "SI001",
+        "SI002",
+        "SI003",
+        "SI004",
+        "SI005",
+        "SI006",
+        "SI007",
+        "SI008",
+        "SI009",
+        "SI010",
+        "SI011",
+        "SI012",
+        "SI013",
+        "SI014",
+        "SI015"
+      ],
+      "implementation_evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/implementation_scope.py",
+          "sha256": "d154f95f1c9315b650d89e16a4e5ff28a5fc0820d09f53f11e3fceef9eeff72d"
+        },
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "ce67115814a6bfa7effe9ce14689fdfb0e3c0e2d5866d8e5dfd51feb8c10b952"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "c57d71ceca6b28d59aedfd77c2fb4c357ec1541ad45e0e3294862b6fb6eb92f3"
+        },
+        {
+          "path": "tests/test_implementation_scope.py",
+          "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+        },
+        {
+          "path": "tests/test_implementation_progress.py",
+          "sha256": "523a19b2dd9cc2b7cc5d5c0e99aee14b0ed7bff939e15b4fbedb9057c8edd0ce"
+        },
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "8c819b628ac19439188a85502bb7f98dbcbd1423d4808177d2f66035f07f9b94"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "1f5020382e6e990a02b213cab64a729abf28a1aa33c34a46f7a6cc32ce7a50b2"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+          "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+        }
+      ],
+      "automated_validation_status": "covered by named fixture cases; current source and case proof reconciled",
+      "manual_validation_status": "deferred; no observed dogfooding results",
+      "deferred_task_id": "T077",
+      "whole_feature_acceptance": false
+    }
+  ],
+  "cases": [
+    {
+      "id": "LC001",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC001"
+      },
+      "observed_outcomes": {
+        "adapter_state": "ready",
+        "effect_state": "applied",
+        "owner_effect_state": "applied",
+        "revalidated_state": "ready",
+        "verification_state": "verified"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC002",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC002"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC003",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC003"
+      },
+      "observed_outcomes": {
+        "adapter_state": "ready",
+        "effect_state": "applied",
+        "owner_effect_state": "applied",
+        "revalidated_state": "ready",
+        "verification_state": "verified"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC004",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC004"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC005",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC005"
+      },
+      "observed_outcomes": {
+        "adapter_state": "ready",
+        "effect_state": "applied",
+        "owner_effect_state": "applied",
+        "revalidated_state": "ready",
+        "verification_state": "verified"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC006",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC006"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC007",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC007"
+      },
+      "observed_outcomes": {
+        "adapter_state": "no-op",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC008",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC008"
+      },
+      "observed_outcomes": {
+        "adapter_state": "ready",
+        "effect_state": "applied"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC009",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC009"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "applied-first-edge;blocked-missing-start-proof"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC010",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC010"
+      },
+      "observed_outcomes": {
+        "adapter_state": "question",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC011",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC011"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC012",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC012"
+      },
+      "observed_outcomes": {
+        "adapter_state": "question",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC013",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC013"
+      },
+      "observed_outcomes": {
+        "adapter_state": "ready",
+        "effect_state": "applied",
+        "owner_effect_state": "applied",
+        "revalidated_state": "ready",
+        "verification_state": "verified"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC014",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC014"
+      },
+      "observed_outcomes": {
+        "adapter_state": "blocked",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "LC015",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+        "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f",
+        "json_pointer": "/cases/LC015"
+      },
+      "observed_outcomes": {
+        "adapter_state": "no-op",
+        "effect_state": "none"
+      },
+      "execution_boundary": "fresh current-source disposable owner consumers; intended effects/stops asserted by 22-test lifecycle suite",
+      "manual_actor_validation": "deferred to T066 dogfooding"
+    },
+    {
+      "id": "SI001",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/0"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI002",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/1"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI003",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/2"
+      },
+      "observed_outcomes": {
+        "expected_state": "complete",
+        "observed_route_state": "complete",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI004",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/3"
+      },
+      "observed_outcomes": {
+        "expected_state": "needs-human",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI005",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/4"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI006",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/5"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI007",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/6"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI008",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/7"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI009",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/8"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI010",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/9"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI011",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/10"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI012",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/11"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI013",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/12"
+      },
+      "observed_outcomes": {
+        "expected_state": "continue",
+        "observed_route_state": "continue",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI014",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/13"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    },
+    {
+      "id": "SI015",
+      "record": {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+        "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa",
+        "json_pointer": "/cases/14"
+      },
+      "observed_outcomes": {
+        "expected_state": "blocked",
+        "observed_route_state": "blocked",
+        "result": "helper-executed; source baseline and scoped-progress adapter used before and after disposable effects"
+      },
+      "execution_boundary": "supported disposable installed development snapshot; current source payload hashes reconciled",
+      "manual_actor_validation": "deferred to T077 dogfooding"
+    }
+  ],
+  "source_and_delivery_evidence": [
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/spec.md",
+      "sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/plan.md",
+      "sha256": "392cd97004b22da22f609c43db3e3b3848d73ad7b709911aef77dd425fe5088a"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+      "sha256": "d727d83458d9d9468773bdf5c950712cc99af58c7acc8eb4156f156e30162547"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/deferred-dogfooding.json",
+      "sha256": "c9dbf6edb4a87950415dbb1cedc2551c51e0573eaee8209169493cdbec048ef2"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-owner-delivery.json",
+      "sha256": "b2e1be87fffc55e3328b5d10f06b8259d40eb5aeabd593efde63ca5a82b82580"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-governance.json",
+      "sha256": "8d054b9949c259e3fe406f3aed63d91c2a20047b774131ffd89983d70bdde5c8"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+      "sha256": "b980c8d35ddfe725e7e245eb23ebf2a72ee5308b9c008ac40a26948645fcc915"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-native-cases.json",
+      "sha256": "3b9fade9ee54c0270186a9581035701826baf6ab57c5ad217036c6f3e821b718"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-native-cases.json",
+      "sha256": "e08bf09bd8014fd7ee86a1292e6e005b8d18459c8118fa7be5945128b6beeec6"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-progress-reassessment.json",
+      "sha256": "300e35a4bb102b48716c134a9939232bf574c2d478cfce94877deb86f195a552"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-snapshot.json",
+      "sha256": "0bef032dd1c5155ee02a6c394092ca858b75c9e0728edff4908efd42ad4093a0"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+      "sha256": "8ad8745fc8c0ba6099fa134b7ab21aa70b07f6b2a01af00f2096d1d0289fd8aa"
+    },
+    {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases-t067-20261009.json",
+      "sha256": "137ebb4bd897dcfd941f9600d450620688dd58452d472e8d54aab4a2444d7a7f"
+    }
+  ],
+  "current_scope_analyze_run": ".specify/flow-controllers/runs/fb2a981d-50e2-44d1-be5f-724baace9406",
+  "validation_observations": [
+    {
+      "command": "FLOW_ROADMAP_SOURCE=<verified compatible owner source> SPEC_KIT_FLOW_LIFECYCLE_CASE_REPORT=<additive lifecycle receipt> PYTHONPATH=tests <skill-tools-python> -m unittest test_phase_lifecycle",
+      "tests": 22,
+      "state": "passed",
+      "observed_elapsed_seconds": 7.205
+    },
+    {
+      "command": "focused implementation/controller/graph suites",
+      "tests": 188,
+      "state": "passed",
+      "boundary": "prior current-source lineage correction; source payload unchanged since that validation"
+    },
+    {
+      "command": "supported disposable snapshot install/refresh/SI001-SI015/preservation/removal",
+      "state": "passed",
+      "boundary": "current controller/workflow payloads in implementation-scope-cases.json"
+    },
+    {
+      "command": "six exact native no-work launch probes",
+      "state": "passed",
+      "boundary": "current source-controller provenance in approved_lineage_repair_observations; launch acknowledgements only"
+    }
+  ],
+  "pending_validation_task_ids": [
+    "T066",
+    "T077"
+  ],
+  "limitations": [
+    "No manual or dogfooding observation is supplied; actor-level equivalence remains untested.",
+    "Lifecycle owner delivery/native and snapshot receipts retain their observed source coordinates; historical inventory is not silently upgraded to current installed adoption.",
+    "implementation-progress-reassessment.json is the accepted source repair at its original pre-audit task scope, not a replay against amended T067 prose.",
+    "Current local installed FlowKit remains pinned to its earlier controller/workflow; disposable snapshot success does not establish installed consumer upgrade or production release.",
+    "Effective model/effort settings and native UI visibility were not established by no-work launches.",
+    "Linux, publication, roadmap verification, convergence of the complete amended feature and feature acceptance are not inferred from this audit.",
+    "The historical Implement run remains stopped at five Coder passes; this approved audit does not reset or resume it."
+  ],
+  "feature_acceptance_established": false
+}

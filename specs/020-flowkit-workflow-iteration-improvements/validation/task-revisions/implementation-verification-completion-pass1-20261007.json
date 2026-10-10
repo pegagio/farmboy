@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "operation": "tasker-record-independently-substantiated-completion",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "task_ids": [
+    "T031",
+    "T030",
+    "T032"
+  ],
+  "marker_transition": "[ ] -> [X]",
+  "task_list_path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+  "task_list_sha256_before": "02aa276db0a5cfc977ac207b4031d450449af92699666bb9654a9213abb28c74",
+  "task_list_sha256_after": "9c5e5a06e3a94dc6401fc770d1725db5f24d4a7a6bf8cd309ba50b5f797598e4",
+  "frozen_baseline": {
+    "path": ".specify/flow-controllers/runs/ddba266e-b6ac-4563-be5c-96bb065b8082/evidence/baseline-pass1.json",
+    "baseline_sha256": "7222506a8e319fc5b9948101b46957c4311f1c3b61c6f25a50baebeb4cc463f2",
+    "file_sha256": "192e4754985b3e6c904126b69fc56a9716cd55d4d3ebea5c187fd60f230d71c9",
+    "state": "ready"
+  },
+  "independent_review": {
+    "path": ".specify/flow-controllers/runs/ddba266e-b6ac-4563-be5c-96bb065b8082/evidence/code-review-pass1.json",
+    "sha256": "33bd57d03a5861090768ff1d906b8bc930bd9bddb8a1f221c917a58da6182819",
+    "reviewer": "FlowKit-Code Reviewer",
+    "completed_task_ids": [
+      "T031",
+      "T030",
+      "T032"
+    ],
+    "remaining_finding_ids": [
+      "F020-T027-EVIDENCE-R001",
+      "F020-T028-EVIDENCE-R001",
+      "F020-T029-EVIDENCE-R001"
+    ],
+    "progress_state": "ready",
+    "substantive_progress": true,
+    "outcome_state": "continue",
+    "outcome_reason_code": "portable-validation-record-contract-gaps"
+  },
+  "completion_review_receipt": {
+    "path": "implement020-completion-pass1-code-review.json",
+    "location": "operator-supplied temporary review receipt",
+    "sha256": "eaf8c22fa596b6c0184e9d2df5e4a4fa934a1dfb4dee751590ca40ce67ddb3eb",
+    "completion_candidates": [
+      "T031",
+      "T030",
+      "T032"
+    ]
+  },
+  "task_counts": {
+    "completed_before": 42,
+    "completed_after": 45,
+    "open_after": 3,
+    "total": 48
+  },
+  "evidence_sha256": {
+    "specs/020-flowkit-workflow-iteration-improvements/validation/summary.md": "6282d5c3fb2df181f19748c46e7b66bbcfc0b81f6f2f25d64d2b75ad389f33eb",
+    "tests/test_snapshot_validation.py": "14cd2a3046ac4ef579d458432594d25c9058ccf9bc556f33544059d64d43983f",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/development-snapshot-t037-20261006.json": "50fe56055b41216e73268c50e0f8cac559a6b2fac061f6d18db42b68b1d0c348",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/command-skill-owner-resolution.json": "377f5b92117960ba82932dbb86cdcbed0e5e4cbd20f3d5fa3910679f6faeecac",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/observations.json": "ea8f4b507f155532e1d03b35936e7fb6444d5fa53d9ae8d6d9bb1b15a758e554",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/cases.json": "b1a85442af4306b357fb8cbae517f5d25ce1882122ac5e6b092db4b285195be9",
+    "tests/test_workflow_paths.py": "b84950771060e371fbdf33ce877cfd4985121e7f0d72a24b9984093f412bc09f",
+    "workflows/speckit-flow-implement/workflow.yml": "102377b9b6e258da1d342ffad4654e98ef775d298a536f02f1e1155cd8668335"
+  },
+  "checks": {
+    "all_selected_tasks_were_open": true,
+    "review_identified_exact_selected_candidates": true,
+    "baseline_and_code_review_digest_match": true,
+    "read_only_progress_ready_and_substantive": true,
+    "baseline_remaining_markers_and_descriptions_match_current_before": true,
+    "only_three_marker_bytes_changed": true,
+    "all_42_prior_completion_markers_preserved": true,
+    "T027_T028_T029_remain_open": true,
+    "all_48_task_ids_descriptions_order_and_line_positions_preserved": true,
+    "all_evidence_digests_verified": true
+  },
+  "scope_note": "Records marker updates for independently substantiated task completion only. Three evidence-contract findings remain open; this receipt does not claim acceptance."
+}

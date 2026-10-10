@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0",
+  "kind": "authorized-implementation-start",
+  "reviewer": "FlowKit-Reviewer",
+  "state": "ready",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "scope_sha256": "a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75",
+  "workflow_id": "speckit-flow-closeout",
+  "workflow_version": "0.8.0",
+  "run_id": "20e5d4a4-aff8-471d-9ee9-e89ecc909792",
+  "step_id": "attest-recovery-start",
+  "child_id": "flowkit_reviewer_recovery_start_current_2",
+  "source_run_id": "50d03b8c-21ed-4d6c-966e-e927a3c0137b",
+  "original_scope_sha256": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+  "occurred_at": "2026-10-08T23:19:57+00:00",
+  "history_validation": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/validation/phase-lifecycle/start-history-validation.json",
+    "sha256": "1dbe57fe5c2fa1951c37c49cb308ca40a45f41c7df454e60a8d26bc982449fde"
+  },
+  "recorded_dispatch": {
+    "agent": "FlowKit-Reviewer",
+    "step_id": "attest-recovery-start",
+    "workflow_id": "speckit-flow-closeout",
+    "workflow_version": "0.8.0",
+    "run_id": "20e5d4a4-aff8-471d-9ee9-e89ecc909792",
+    "child_id": "flowkit_reviewer_recovery_start_current_2"
+  },
+  "dispatch_witness": {
+    "path": ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/recovery-start-dispatch-witness.json",
+    "sha256": "4752199caccfb2f7be72dd49948926c4dddc622393d8b28431666e3c9925f6ba"
+  },
+  "required_check_ids": [
+    "authorized-status-only-bridge",
+    "completed-implementation-effect",
+    "original-occurrence-time",
+    "recorded-implement-invocation",
+    "source-scope-link"
+  ],
+  "satisfied_check_ids": [
+    "authorized-status-only-bridge",
+    "completed-implementation-effect",
+    "original-occurrence-time",
+    "recorded-implement-invocation",
+    "source-scope-link"
+  ],
+  "unresolved_ids": [],
+  "artifact_digests": {
+    ".specify/flow-controllers/runs/50d03b8c-21ed-4d6c-966e-e927a3c0137b/summary.json": "910c7834b1eccf235eacd5758ee7653c443062ad739c4f84bc53a15df58fcf6a",
+    ".specify/flow-controllers/runs/50d03b8c-21ed-4d6c-966e-e927a3c0137b/baseline-pass1.json": "cc3b941c2ea8b8f91af625ab6149df6d0352966c63e4070427671b05aacd0527",
+    ".specify/flow-controllers/runs/12c1856a-0fc2-424d-b7e4-311606020c4b/spec-before-complete.md": "f033ef2b158f227551345fec33c60b4ad477633a9ffd92d89d461bd7d8d0553a",
+    "specs/020-flowkit-workflow-iteration-improvements/spec.md": "a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75",
+    ".specify/flow-controllers/runs/12c1856a-0fc2-424d-b7e4-311606020c4b/summary.json": "60fac5ea39004d51645fd181a6299c278b878c1991bf3efc0862517dddb4d8ab",
+    ".specify/flow-controllers/runs/12c1856a-0fc2-424d-b7e4-311606020c4b/prepare-status.json": "bc3c1735a7b2ea99adf792f88ccbb46af768b5f8bc354e7ad5319733dfd6c4e6",
+    ".specify/flow-controllers/runs/12c1856a-0fc2-424d-b7e4-311606020c4b/spec-status-result.json": "22e5152a06e91b8b594c7fa6e6b27f4758c02dfa528901adb8b05bc0669d1d53",
+    ".specify/flow-controllers/runs/12c1856a-0fc2-424d-b7e4-311606020c4b/parent-spec-status-validation.json": "06a9e1791c9f439bf0bc789bfbbb12521ece9c305603c1f30bc8db3b1a77d053",
+    ".specify/feature.json": "c441d10f7df483e5c2a346729ef49e7867f585618f74fc2355cf9d9d431cc136",
+    ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/recovery-start-dispatch-witness.json": "4752199caccfb2f7be72dd49948926c4dddc622393d8b28431666e3c9925f6ba",
+    ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/dispatch-summary-at-capture.json": "096e0b670d60f0564fdda6811f3e2a1d0620c07a57c54d15263123b66c343b17",
+    "specs/020-flowkit-workflow-iteration-improvements/validation/phase-lifecycle/start-history-validation.json": "1dbe57fe5c2fa1951c37c49cb308ca40a45f41c7df454e60a8d26bc982449fde",
+    "specs/020-flowkit-workflow-iteration-improvements/plan.md": "6500cbe48b2025c6a93bb754bd4867264d3b0d195d5117c0a4703d2f250fa3fb",
+    "specs/020-flowkit-workflow-iteration-improvements/tasks.md": "dded9ef20c330a9fdd410b286e09d7374de48d38935b573cca2fa6c91900e460",
+    "specs/020-flowkit-workflow-iteration-improvements/checklists/requirements.md": "0cd856ed31d01f438cc5cecba9ad702c8459e573e0fb7e0c2f5b62f53e9dc751"
+  }
+}

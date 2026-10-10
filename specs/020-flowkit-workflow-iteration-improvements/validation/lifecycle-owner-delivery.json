@@ -1,0 +1,263 @@
+{
+  "schema_version": "1.0",
+  "parent_feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "task_id": "T052",
+  "state": "owner-delivered-reviewed-converged",
+  "approved_policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+  "owner": {
+    "repository": "pegagio/spec-kit-flow-roadmap",
+    "component_id": "flow-roadmap",
+    "component_version": "0.3.0",
+    "roadmap_entry_id": "013",
+    "feature_directory": "specs/010-evidence-backed-phase-lifecycle",
+    "source_revision": "86b0cc70054b7eca4d715fbccd6448165a85fc1f",
+    "source_branch": "codex/evidence-backed-phase-lifecycle",
+    "dirty": true,
+    "index_changed": false,
+    "published": false
+  },
+  "authorization_and_route": {
+    "trusted_origin": "direct-active-operator-approval-20261007",
+    "source_checkout_observed": true,
+    "initial_checkout_clean": true,
+    "source_work_route": "owner roadmap013 plus new spec/plan/tasks, clean analysis, core implementation, exact native independent Code Reviewer and clean core convergence",
+    "write_access": "bounded external-owner writes approved by managed filesystem review",
+    "constitutional_amendment": false,
+    "policy_amendment": false,
+    "installed_copy_edits": false
+  },
+  "delivered_capabilities": [
+    "additive specification_ready brief evidence mode preserving legacy spec-complete/debrief",
+    "phase_lifecycle evaluate prepare/revalidate and guarded single-edge apply",
+    "fixed evidence and reviewed-input coverage, unique physical mapping and verified dependency closure",
+    "strict original12-field snapshot and10-field proposal, receipt unions and actual occurrence",
+    "bounded recovery, event-free repeat handling, truthful failure/readback/receipt recovery",
+    "metadata0.3.0, three runtime scripts, supported allowlist, command/report/documentation integration"
+  ],
+  "current_source_sha256": {
+    "scripts/python/phase_lifecycle.py": "0ea94f57df99f912d209e86a8f0852e9700b4afeea6bc68bff325ebf36ec6ab6",
+    "scripts/python/review_contract.py": "da680dccb90fa76bdb68ea52a411141f0637ee30f2503569662319f771172fe4",
+    "tests/python/test_phase_lifecycle.py": "cd4fcf528b870fdf878505061cf4c656f5327d5221da6ddca3f6177dca13f57b",
+    "tests/python/test_review_contract.py": "e377acb78fc8597359d356de45ebdb02a47db130ebe36e86f1e50e5af85d4a03",
+    "extension.yml": "db7d820364c36798b2c5aa4ce3284cbd5b9b0a256b129cea927a818afefe3265",
+    "commands/speckit.flow-roadmap.write.md": "232c9bd602856f3fc854fdf2bd222c8777e1b0ff2101c7bb798201fe59f7c8d5",
+    "specs/010-evidence-backed-phase-lifecycle/contracts/phase-lifecycle.md": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+    "specs/010-evidence-backed-phase-lifecycle/contracts/owner-interface.md": "583129f2aaf2d3f39b35807f7c9949f18e92f40cb34f6f041dd8336a5eeeafad"
+  },
+  "payload_sha256": {
+    "extension.yml": "db7d820364c36798b2c5aa4ce3284cbd5b9b0a256b129cea927a818afefe3265",
+    "LICENSE": "346563d906985e51ff5a753403698d4fbd78ab73df341af64aecdd561b7c40a9",
+    "config-template.yml": "2097cad9362412e809ed64b31ede40ccbb7ecf78f95af36c9427df5cf60bb00d",
+    "scripts/python/review_contract.py": "da680dccb90fa76bdb68ea52a411141f0637ee30f2503569662319f771172fe4",
+    "scripts/python/phase_lifecycle.py": "0ea94f57df99f912d209e86a8f0852e9700b4afeea6bc68bff325ebf36ec6ab6",
+    "scripts/python/load_config.py": "24d5e6267f5002b7f6bfc5ebe47a6ddfcb636ba910cdca6b58df227c7d68641d",
+    "templates/review-report-template.md": "8f9573182e85adb6939a1eec977330de403c1fcb667813667b0aefb0d4e19b57",
+    "templates/roadmap-template.md": "be3e3e85f6484113ab2dbce19854f3703fa5dfab59b2d7de275be6132f80a370",
+    "commands/speckit.flow-roadmap.brief.md": "0fb11c28854ed602b52f563a0dce29762fa7b6230c0d3ec101e9ffd21f048819",
+    "commands/speckit.flow-roadmap.write.md": "232c9bd602856f3fc854fdf2bd222c8777e1b0ff2101c7bb798201fe59f7c8d5",
+    "commands/speckit.flow-roadmap.debrief.md": "f9d7ba0a0557c290bc3ee7286c6f5e9f331abd0fdffdf3af83f22a0f33df8d45",
+    "commands/speckit.flow-roadmap.sync.md": "d26c890076640f756172188011af45192fba34816ab587d89c40117852db3a10"
+  },
+  "tested_cli": "1.0.10.dev0+pegagio.2",
+  "validation": {
+    "macOS": {
+      "direct_disposable_full_suite": {
+        "tests_run": 143,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "canonical_disposable_mise_suite": {
+        "tests_run": 143,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "independent_focused": {
+        "lifecycle": 26,
+        "review_contract": 11,
+        "failures": 0
+      },
+      "source_payload_matches_installed_disposable": true
+    },
+    "linux": {
+      "state": "not-tested",
+      "reason": "Colima stopped; Docker daemon unavailable",
+      "operator_disposition": {
+        "state": "deferred",
+        "authority": "direct-operator-instruction-20261007",
+        "reason": "Linux is outside the current target scope.",
+        "blocks_current_implementation": false,
+        "observed_result": "not-tested",
+        "resume_condition": "Operator requests Linux validation."
+      }
+    },
+    "failed_checks_preserved": {
+      "primary_baseline_tests": 114,
+      "primary_baseline_failures": 1,
+      "reason": "pre-existing installed0.2.0/source0.2.1 mismatch",
+      "current_primary_mirror_mismatch_retained": true,
+      "initial_expected_red_cases": true,
+      "canonical_initial_environment_issue_retained": true
+    }
+  },
+  "independent_review": {
+    "native_requested_agent": "FlowKit-Code Reviewer",
+    "source_record": "specs/010-evidence-backed-phase-lifecycle/validation/independent-review.json",
+    "sha256": "4d170733a23a0738532d051f10e761290f836d1f9c5e8ca00077360171e8ed68",
+    "result": "no-confirmed-defects-in-reviewed-scope",
+    "resolved_findings": [
+      "T052-OWNER-REVIEW-001",
+      "T052-OWNER-REVIEW-002"
+    ]
+  },
+  "owner_convergence": {
+    "source_record": "specs/010-evidence-backed-phase-lifecycle/validation/convergence.json",
+    "sha256": "d238876320182e3fea6a92b28aade12df6bd008382d34a348ad798f4b7134135",
+    "actionable_buildable_gaps": 0
+  },
+  "owner_implementation_record": {
+    "source_record": "specs/010-evidence-backed-phase-lifecycle/validation/implementation.json",
+    "sha256": "478c471999dc4cf0db9c579a3aae95eb3d798da1b623dfa2f5b4efb372572df5"
+  },
+  "next_eligible_parent_tasks": [
+    "T053"
+  ],
+  "next_parent_dependency_chain": [
+    "T053",
+    "T054",
+    "T055",
+    "T056",
+    "T057",
+    "T058"
+  ],
+  "limits": [
+    "Source and disposable delivery only; no production publication, tags, commit, push, merge, roadmap milestone or acceptance.",
+    "Primary owner and parent installed snapshots remain unchanged.",
+    "Parent FlowKit controller/graph adapters, LC/native/manual cases and compatible delivery are still outstanding.",
+    "Deterministic role fixtures are not live phase/native provenance; that trust remains with the actual caller.",
+    "Linux execution is unobserved."
+  ],
+  "completion_tracking": {
+    "schema_version": "1.0",
+    "owner_tasks": {
+      "path": "specs/010-evidence-backed-phase-lifecycle/tasks.md",
+      "before_sha256": "4b48fa33d20388c01cd0e767c17cd9020166713fe3bc6263485d848acaeebe13",
+      "after_sha256": "7d683f5a240dc53b3f29b7e6f99043c31cd6a98a886eaf787e6c844a887b53d9",
+      "marked_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022"
+      ],
+      "marked_count": 22,
+      "reversing_only_markers_reproduces_before_sha256": true
+    },
+    "parent_tasks": {
+      "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+      "before_sha256": "5f7ef7fa6832e78a44e697e1505590fca189d8f8ea54c02c7ac2d55f9fd3172e",
+      "after_sha256": "4ca0557183d444aafa4d6fdd39e75af90cc6a85dbececbe5f482a4dcc75e13e9",
+      "marked_ids": [
+        "T052"
+      ],
+      "marked_count": 1,
+      "reversing_only_marker_reproduces_before_sha256": true
+    },
+    "evidence": {
+      "implementation_sha256": "b61ba539743386baa9466c76a6f7fc18d11eb94153279f4322a7a94fd934afc4",
+      "independent_review_sha256": "4d170733a23a0738532d051f10e761290f836d1f9c5e8ca00077360171e8ed68",
+      "convergence_sha256": "d238876320182e3fea6a92b28aade12df6bd008382d34a348ad798f4b7134135",
+      "parent_delivery_sha256": "b12755992d86da9a3cf3c537a13ce08553caf91d3b83dee16787c2cd357beadf",
+      "source_payload_hashes_match_implementation_record": true,
+      "component_version": "0.3.0",
+      "approved_policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+      "disposable_suites": {
+        "direct_python": {
+          "tests": 143,
+          "failures": 0,
+          "errors": 0
+        },
+        "canonical_mise": {
+          "tests": 143,
+          "failures": 0,
+          "errors": 0
+        }
+      },
+      "independent_review": "no-confirmed-defects-in-reviewed-scope",
+      "convergence": {
+        "outcome": "converged",
+        "findings": 0,
+        "tasks_assessed": 22
+      },
+      "review_hash_chain_verified": true,
+      "convergence_hash_chain_verified": true,
+      "roadmap_entry_013_status_verified_from_source": "planned"
+    },
+    "semantic_proof": {
+      "owner_tasks_selected_for_implementation": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022"
+      ],
+      "task_descriptions_and_ids_preserved": true,
+      "parent_task_description_preserved": true,
+      "owner_current_scope_fully_assessed": true,
+      "T021_limit": "macOS observed; Linux not-tested because Colima/Docker unavailable; older primary mirror retained",
+      "roadmap_entry_013_status": "planned",
+      "no_acceptance_or_publication_claim": true,
+      "unrelated_markers_preserved_by_reversible_hash_check": true
+    },
+    "limitations": [
+      "Linux execution was not tested because Colima/Docker was unavailable.",
+      "The older primary installed mirror and its known source-version mismatch remain preserved.",
+      "No publication, Git integration, roadmap lifecycle advancement, verification, or acceptance is claimed."
+    ],
+    "receipt_path": "temporary-validation-record"
+  },
+  "owner_task_completion": {
+    "complete": 22,
+    "total": 22,
+    "tasks_sha256": "7d683f5a240dc53b3f29b7e6f99043c31cd6a98a886eaf787e6c844a887b53d9"
+  },
+  "parent_task_completion": {
+    "completed_task_id": "T052",
+    "tasks_sha256": "4ca0557183d444aafa4d6fdd39e75af90cc6a85dbececbe5f482a4dcc75e13e9"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "run_id": "20e5d4a4-aff8-471d-9ee9-e89ecc909792",
+  "recorded_at": "2026-10-09T21:17:59+00:00",
+  "state": "ready-for-explicit-commit",
+  "reason_code": "qualified-verification-and-wiki-maintenance-complete",
+  "completed_correction_task_ids": [
+    "T078",
+    "T079"
+  ],
+  "completed_tasks": 77,
+  "total_tasks": 79,
+  "pending_dogfooding_task_ids": [],
+  "specification_lifecycle": "Complete",
+  "roadmap_lifecycle": "verified",
+  "convergence": {
+    "run_id": "f5152a82-f963-4c27-847b-cc58ee71a774",
+    "state": "complete",
+    "feature_tests_passed": 178,
+    "owner_tests_passed": 28,
+    "skips": 0
+  },
+  "milestone_recovery": {
+    "state": "complete",
+    "adjacent_effects_applied_and_independently_verified": 3,
+    "receipt_results": [
+      ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/apply-lifecycle-edge1-result.json",
+      ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/apply-lifecycle-edge2-result.json",
+      ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/apply-lifecycle-edge3-result.json"
+    ]
+  },
+  "debrief_path": "specs/020-flowkit-workflow-iteration-improvements/roadmap-reviews/debrief-20261009T201232Z.md",
+  "remaining_ids": [],
+  "verification_patch_available": true,
+  "roadmap_approval_choice": "approve-patch",
+  "wiki_operations_performed": true,
+  "future_obligation_ids": [
+    "F020-ACCEPTANCE",
+    "F020-RELEASE"
+  ],
+  "feature_acceptance_established": false,
+  "release_or_git_authority_established": false,
+  "safe_resumption": "Close Out is complete under the approved qualification. Git commit/integration, acceptance and production release require separately explicit instructions; future dogfooding issues are defects.",
+  "waived_unperformed_task_ids": [
+    "T066",
+    "T077"
+  ],
+  "resolved_ids": [
+    "F020-DEBRIEF-MANUAL-001",
+    "F020-DEBRIEF-ROADMAP-TEXT-002"
+  ],
+  "roadmap_version": "1.22.4",
+  "manual_validation_waived_for_closeout": true,
+  "dogfooding_policy": "Post-closeout issues are reported as defects; no mandatory future manual matrix.",
+  "verification_patch_applied": true,
+  "wiki": {
+    "state": "complete",
+    "ingest_passes": 5,
+    "lint_checks": 6,
+    "lint_findings": 0,
+    "pages": 24,
+    "registered_sources": 29,
+    "curated_source_identities": 16,
+    "frozen_source_files": 22,
+    "coverage_report": ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/wiki-source-coverage-final.json",
+    "readiness_report": ".specify/flow-controllers/runs/20e5d4a4-aff8-471d-9ee9-e89ecc909792/final-closeout-readiness-result.json"
+  },
+  "git_state": {
+    "head": "2f8c34931294f73e2b7f70bb08ed79ca98fa53e8",
+    "detached": true,
+    "staged_files": 0,
+    "commit_created": false
+  }
+}

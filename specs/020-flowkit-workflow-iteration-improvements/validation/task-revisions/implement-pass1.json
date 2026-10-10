@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "revision_state": "updated",
+  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
+  "tasks_path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+  "tasks_before_sha256": "08adb4e18b107f3b0e89df8fd13b46518ea749e76babb9ebfd9d97ce0dcf2428",
+  "tasks_after_sha256": "61b8b1428b95c9211ab67441f166b7315c504bd026020c06f427aa1a2ec7ddc5",
+  "revision_owner": "FlowKit-Tasker",
+  "authorization": {
+    "source": "Direct operator approval during the Feature 020 Implement session",
+    "scope": "Reopen T006, T008, T009, and T010 for findings F020-R001 through F020-R004, and include bounded Tasker-owned routine task revision under FR-023/SC-009."
+  },
+  "finding_refs": [
+    {
+      "id": "F020-R001",
+      "task_ids": [
+        "T006",
+        "T008"
+      ],
+      "source": "controllers/flow-kit/scripts/python/controller.py",
+      "coverage": "First activation accepts a truly absent pointer, revalidates absence before effect, creates only the pointer, and blocks malformed or changed existing pointer state."
+    },
+    {
+      "id": "F020-R002",
+      "task_ids": [
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "source": "workflows/speckit-flow-select-feature/workflow.yml",
+      "coverage": "A validated trusted direct target bypasses the redundant choice gate; ambiguous or missing intent retains focused resolution; production rendering exercises both routes."
+    },
+    {
+      "id": "F020-R003",
+      "task_ids": [
+        "T006",
+        "T009",
+        "T010"
+      ],
+      "source": "workflows/speckit-flow-select-feature/workflow.yml",
+      "coverage": "Patch routing uses branch values compatible with the controller string interface and tests rendered empty/nonempty patch paths through render_template and select_switch_branch."
+    },
+    {
+      "id": "F020-R004",
+      "task_ids": [
+        "T006",
+        "T008"
+      ],
+      "source": "controllers/flow-kit/scripts/python/controller.py",
+      "coverage": "Competing mappings resolving to the same physical directory, including an in-project symlink alias, are rejected before pointer mutation."
+    }
+  ],
+  "reopened_task_ids": [
+    "T006",
+    "T008",
+    "T009",
+    "T010"
+  ],
+  "added_task_ids": [
+    "T038",
+    "T039",
+    "T040",
+    "T041",
+    "T042",
+    "T043",
+    "T044"
+  ],
+  "preserved_completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T007",
+    "T011",
+    "T013",
+    "T014",
+    "T020",
+    "T021",
+    "T026",
+    "T033"
+  ],
+  "preserved_unchecked_existing_task_ids": [
+    "T004",
+    "T005",
+    "T012",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T022",
+    "T023",
+    "T024",
+    "T025",
+    "T027",
+    "T028",
+    "T029",
+    "T032",
+    "T034",
+    "T037"
+  ],
+  "preserved_existing_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023",
+    "T024",
+    "T025",
+    "T026",
+    "T027",
+    "T028",
+    "T029",
+    "T030",
+    "T031",
+    "T032",
+    "T033",
+    "T034",
+    "T035",
+    "T036",
+    "T037"
+  ],
+  "native_dispatch_evidence": "Not established by this task-list revision record. Future exact native Tasker execution is assigned to T043.",
+  "updated_open_task_ids": [
+    "T030",
+    "T031",
+    "T035",
+    "T036"
+  ],
+  "task_counts": {
+    "before": 37,
+    "after": 44,
+    "reopened": 4,
+    "added": 7,
+    "completed_preserved": 11
+  }
+}

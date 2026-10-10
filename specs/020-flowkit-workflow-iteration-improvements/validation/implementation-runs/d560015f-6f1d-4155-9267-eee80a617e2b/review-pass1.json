@@ -1,0 +1,235 @@
+{
+  "assessment": {
+    "state": "continue",
+    "reason_code": "eligible-corrections-remain",
+    "evidence": [
+      {
+        "path": "tests/test_phase_lifecycle.py",
+        "sha256": "35a2f3d3760d071fdb5f4196cd79863d883f392ab2463ec56564ccf8a879eb10"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "sha256": "333ea4b3ce735e3b9b232e8022b91d45dce99f9daf66be83ba0fd01b9abe8a6e"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "8c87f67d31e9ac05d226e6a0120921a0389dffa1d6bdc12fdc966ff392ec1fd2"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+        "sha256": "c06e0539937fa462fed5c0f1b80ae8a601536488382875a90d7953c54e0afc8e"
+      }
+    ],
+    "remaining_ids": [
+      "task:T061",
+      "task:T062",
+      "task:T063",
+      "task:T064",
+      "task:T065",
+      "task:T066",
+      "task:T067",
+      "task:T071",
+      "task:T072",
+      "task:T075",
+      "task:T076",
+      "task:T077",
+      "finding:F020-LIFECYCLE-CODE-007",
+      "finding:F020-LIFECYCLE-CODE-008",
+      "finding:F020-LIFECYCLE-CODE-016"
+    ],
+    "resolved_ids": [
+      "finding:F020-LIFECYCLE-CODE-013",
+      "finding:F020-LIFECYCLE-CODE-015"
+    ],
+    "next_step_id": "implement-eligible-work"
+  },
+  "task_revision_action": "skip",
+  "findings": [
+    {
+      "artifact_location": "tests/test_phase_lifecycle.py:854",
+      "evidence": [
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "35a2f3d3760d071fdb5f4196cd79863d883f392ab2463ec56564ccf8a879eb10"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json",
+          "sha256": "f9d215b67d517dbaf691fd9d8376a6242e76ba8c7a4555b7bddf127524175ea2"
+        },
+        {
+          "path": "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json",
+          "sha256": "5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb"
+        }
+      ],
+      "exact_correction": "Drive the same producer packet/proposal through rendered revalidation and actual selected owner-effect node callbacks for all phase routes, using current snapshot/source inputs and validating forwarded packet identity. Add sensitivity for a malformed revalidation or apply-node field; retain LC007 and LC013 effects and limits.",
+      "id": "F020-LIFECYCLE-CODE-007",
+      "observed_deficiency": "Typed producer callback and same-file workflow_id negative forwarding now exist, but ready cases at854-862 directly call prepare/revalidate/owner apply before selecting the production branch at914-919. Rendered revalidate/apply node outputs never drive these calls. Snapshot and milestone inputs at583-600 still come from the owner request scaffold. A malformed production revalidation/apply payload is not exercised by the matrix. Independent 22/22 lifecycle tests pass; this is a confirmed focused-validation gap, not an observed owner runtime failure.",
+      "task_id": "T061",
+      "violated_requirement": "T060/T061 actual production lifecycle graph/adapter behavior and LC001-LC015 coverage."
+    },
+    {
+      "artifact_location": "tests/implementation_scope_snapshot.py:762",
+      "evidence": [
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "333ea4b3ce735e3b9b232e8022b91d45dce99f9daf66be83ba0fd01b9abe8a6e"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+          "sha256": "e9c41471dc2d6f1bcc9c788a25756e43727d5ef39eb47e8c324cbbce4bd5c698"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9"
+        }
+      ],
+      "exact_correction": "Validate T068 activation against its actual t068.txt source preimage, original baseline and initial eligibility before its source effect, with persisted pre-dispatch history. Keep T068 progress on that original baseline. After actual T068 closure capture a separate T069 activation/baseline before a later T069 effect. Drive scoped payloads from production node callback outputs; retain exact ordered history and actual counters.",
+      "id": "F020-LIFECYCLE-CODE-008",
+      "observed_deficiency": "SI005 now freezes F020-EXAMPLE-001 on T068 before history and its source write. However T068 writes at762-765 before any validate_implementation_activation call; activation occurs at1054 only after tracking/fresh eligibility and records T069 with a separate t069-activation.txt. Fresh independently executed installed snapshot report records activation_results=[T069], never T068. The existing same-original-source correction is partial; per-task pre-effect activation remains unsubstantiated. Scope forwarding packets are still manually assembled at1124-1159 beside rendered text.",
+      "task_id": "T075",
+      "violated_requirement": "T072/T075 immutable substantive baseline, actual pre-dispatch history and generic prior/current progress validation."
+    },
+    {
+      "id": "F020-LIFECYCLE-CODE-016",
+      "task_id": "T071",
+      "artifact_location": "controllers/flow-kit/scripts/python/controller.py:363",
+      "violated_requirement": "contracts/implementation-scope.md:36 requires the exact route-scoped-execution supported condition on the special carrier; T071/T072 require fail-closed production carrier validation.",
+      "observed_deficiency": "Independent current-graph mutations condition=True and condition=False both pass validate_workflow_definition. The exact carrier condition/final-node guard is inside isinstance(condition,str) at363-389, so boolean conditions bypass it. True ignores final blocked/complete routing and False disables continuation; actual source still uses the correct string condition.",
+      "exact_correction": "Require the exact string condition for implementation_scope before generic boolean-condition handling. Add current-production mutations for True and False through validation and inspect; preserve boolean conditions on ordinary legacy loops.",
+      "evidence": [
+        {
+          "path": "controllers/flow-kit/scripts/python/controller.py",
+          "sha256": "8c87f67d31e9ac05d226e6a0120921a0389dffa1d6bdc12fdc966ff392ec1fd2"
+        },
+        {
+          "path": "tests/test_controller.py",
+          "sha256": "02239e1cdae600f4989e8aeaea1919fe887f66d1a41c1f1319010d0097271536"
+        },
+        {
+          "path": "workflows/speckit-flow-implement/workflow.yml",
+          "sha256": "0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411"
+        }
+      ]
+    }
+  ],
+  "findings_json": "[{\"artifact_location\": \"tests/test_phase_lifecycle.py:854\", \"evidence\": [{\"path\": \"tests/test_phase_lifecycle.py\", \"sha256\": \"35a2f3d3760d071fdb5f4196cd79863d883f392ab2463ec56564ccf8a879eb10\"}, {\"path\": \"specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json\", \"sha256\": \"f9d215b67d517dbaf691fd9d8376a6242e76ba8c7a4555b7bddf127524175ea2\"}, {\"path\": \"tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json\", \"sha256\": \"5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb\"}], \"exact_correction\": \"Drive the same producer packet/proposal through rendered revalidation and actual selected owner-effect node callbacks for all phase routes, using current snapshot/source inputs and validating forwarded packet identity. Add sensitivity for a malformed revalidation or apply-node field; retain LC007 and LC013 effects and limits.\", \"id\": \"F020-LIFECYCLE-CODE-007\", \"observed_deficiency\": \"Typed producer callback and same-file workflow_id negative forwarding now exist, but ready cases at854-862 directly call prepare/revalidate/owner apply before selecting the production branch at914-919. Rendered revalidate/apply node outputs never drive these calls. Snapshot and milestone inputs at583-600 still come from the owner request scaffold. A malformed production revalidation/apply payload is not exercised by the matrix. Independent 22/22 lifecycle tests pass; this is a confirmed focused-validation gap, not an observed owner runtime failure.\", \"task_id\": \"T061\", \"violated_requirement\": \"T060/T061 actual production lifecycle graph/adapter behavior and LC001-LC015 coverage.\"}, {\"artifact_location\": \"tests/implementation_scope_snapshot.py:762\", \"evidence\": [{\"path\": \"tests/implementation_scope_snapshot.py\", \"sha256\": \"333ea4b3ce735e3b9b232e8022b91d45dce99f9daf66be83ba0fd01b9abe8a6e\"}, {\"path\": \"specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json\", \"sha256\": \"e9c41471dc2d6f1bcc9c788a25756e43727d5ef39eb47e8c324cbbce4bd5c698\"}, {\"path\": \"tests/test_snapshot_validation.py\", \"sha256\": \"4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9\"}], \"exact_correction\": \"Validate T068 activation against its actual t068.txt source preimage, original baseline and initial eligibility before its source effect, with persisted pre-dispatch history. Keep T068 progress on that original baseline. After actual T068 closure capture a separate T069 activation/baseline before a later T069 effect. Drive scoped payloads from production node callback outputs; retain exact ordered history and actual counters.\", \"id\": \"F020-LIFECYCLE-CODE-008\", \"observed_deficiency\": \"SI005 now freezes F020-EXAMPLE-001 on T068 before history and its source write. However T068 writes at762-765 before any validate_implementation_activation call; activation occurs at1054 only after tracking/fresh eligibility and records T069 with a separate t069-activation.txt. Fresh independently executed installed snapshot report records activation_results=[T069], never T068. The existing same-original-source correction is partial; per-task pre-effect activation remains unsubstantiated. Scope forwarding packets are still manually assembled at1124-1159 beside rendered text.\", \"task_id\": \"T075\", \"violated_requirement\": \"T072/T075 immutable substantive baseline, actual pre-dispatch history and generic prior/current progress validation.\"}, {\"id\": \"F020-LIFECYCLE-CODE-016\", \"task_id\": \"T071\", \"artifact_location\": \"controllers/flow-kit/scripts/python/controller.py:363\", \"violated_requirement\": \"contracts/implementation-scope.md:36 requires the exact route-scoped-execution supported condition on the special carrier; T071/T072 require fail-closed production carrier validation.\", \"observed_deficiency\": \"Independent current-graph mutations condition=True and condition=False both pass validate_workflow_definition. The exact carrier condition/final-node guard is inside isinstance(condition,str) at363-389, so boolean conditions bypass it. True ignores final blocked/complete routing and False disables continuation; actual source still uses the correct string condition.\", \"exact_correction\": \"Require the exact string condition for implementation_scope before generic boolean-condition handling. Add current-production mutations for True and False through validation and inspect; preserve boolean conditions on ordinary legacy loops.\", \"evidence\": [{\"path\": \"controllers/flow-kit/scripts/python/controller.py\", \"sha256\": \"8c87f67d31e9ac05d226e6a0120921a0389dffa1d6bdc12fdc966ff392ec1fd2\"}, {\"path\": \"tests/test_controller.py\", \"sha256\": \"02239e1cdae600f4989e8aeaea1919fe887f66d1a41c1f1319010d0097271536\"}, {\"path\": \"workflows/speckit-flow-implement/workflow.yml\", \"sha256\": \"0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411\"}]}]",
+  "review": {
+    "reviewer": "FlowKit-Code Reviewer",
+    "baseline_sha256": "d443b7f4345371cc00489963f6c06a1d00bca0174a67356e157f8d6c5c421785",
+    "findings": [
+      {
+        "id": "F020-LIFECYCLE-CODE-007",
+        "task_id": "T061",
+        "status": "unresolved",
+        "evidence": [
+          {
+            "path": "tests/test_phase_lifecycle.py",
+            "sha256": "35a2f3d3760d071fdb5f4196cd79863d883f392ab2463ec56564ccf8a879eb10"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json",
+            "sha256": "f9d215b67d517dbaf691fd9d8376a6242e76ba8c7a4555b7bddf127524175ea2"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json",
+            "sha256": "5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb"
+          }
+        ]
+      },
+      {
+        "id": "F020-LIFECYCLE-CODE-008",
+        "task_id": "T075",
+        "status": "unresolved",
+        "evidence": [
+          {
+            "path": "tests/implementation_scope_snapshot.py",
+            "sha256": "333ea4b3ce735e3b9b232e8022b91d45dce99f9daf66be83ba0fd01b9abe8a6e"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+            "sha256": "e9c41471dc2d6f1bcc9c788a25756e43727d5ef39eb47e8c324cbbce4bd5c698"
+          },
+          {
+            "path": "tests/test_snapshot_validation.py",
+            "sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9"
+          }
+        ]
+      },
+      {
+        "id": "F020-LIFECYCLE-CODE-013",
+        "task_id": "T064",
+        "status": "resolved",
+        "evidence": [
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-summary.md",
+            "sha256": "3dd1e8c07e877fd91a834e10498aacb4b8104d6c05c6d7fccaa458c8e7079eda"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+            "sha256": "c06e0539937fa462fed5c0f1b80ae8a601536488382875a90d7953c54e0afc8e"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-snapshot.json",
+            "sha256": "6514d5f2169d53053623c94f98bf0f00c4a3cbf6a04189f0cd10b2f87d472a7c"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-summary.md",
+            "sha256": "ac29b2ae3f9433a2bfe8611b339b59a80237ebe4d1fe52da2e1fb585a5250440"
+          }
+        ],
+        "resolution_summary": "Current receipt nested source hashes, report links and inventory agree with corrected current source and full 77 owned payload snapshot; the historical hashes no longer occupy current receipt fields."
+      },
+      {
+        "id": "F020-LIFECYCLE-CODE-015",
+        "task_id": "T071",
+        "status": "resolved",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "8c87f67d31e9ac05d226e6a0120921a0389dffa1d6bdc12fdc966ff392ec1fd2"
+          },
+          {
+            "path": "workflows/speckit-flow-implement/workflow.yml",
+            "sha256": "0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/contracts/implementation-scope.md",
+            "sha256": "4a52f14e09770a127adf0121795057de840cada3604c1055d186eed9af63c067"
+          },
+          {
+            "path": "tests/test_workflow_paths.py",
+            "sha256": "0c73d480044a4baa18b99e41dbf118e6f4d67c838a140120736290561bc64489"
+          }
+        ],
+        "resolution_summary": "Exact implementation-loop/workflow identity, integer cap five, body order and final nondelegated prompt are enforced; original cap6 and other-workflow acceptance is eliminated. A newly reproduced boolean-condition bypass is recorded separately without retrospective closure credit."
+      }
+    ],
+    "new_findings": [
+      {
+        "id": "F020-LIFECYCLE-CODE-016",
+        "task_id": "T071",
+        "artifact_location": "controllers/flow-kit/scripts/python/controller.py:363",
+        "violated_requirement": "contracts/implementation-scope.md:36 requires the exact route-scoped-execution supported condition on the special carrier; T071/T072 require fail-closed production carrier validation.",
+        "observed_deficiency": "Independent current-graph mutations condition=True and condition=False both pass validate_workflow_definition. The exact carrier condition/final-node guard is inside isinstance(condition,str) at363-389, so boolean conditions bypass it. True ignores final blocked/complete routing and False disables continuation; actual source still uses the correct string condition.",
+        "exact_correction": "Require the exact string condition for implementation_scope before generic boolean-condition handling. Add current-production mutations for True and False through validation and inspect; preserve boolean conditions on ordinary legacy loops.",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "8c87f67d31e9ac05d226e6a0120921a0389dffa1d6bdc12fdc966ff392ec1fd2"
+          },
+          {
+            "path": "tests/test_controller.py",
+            "sha256": "02239e1cdae600f4989e8aeaea1919fe887f66d1a41c1f1319010d0097271536"
+          },
+          {
+            "path": "workflows/speckit-flow-implement/workflow.yml",
+            "sha256": "0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411"
+          }
+        ]
+      }
+    ],
+    "completed_task_ids": [],
+    "task_completion_evidence": []
+  },
+  "next_baseline_sha256": "e3b92ecf61153245dd34801dada70d83cb23922fcf0a0f888b0972e4d1d778ea"
+}

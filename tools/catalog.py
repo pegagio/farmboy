@@ -987,20 +987,44 @@ class QuietHandler(SimpleHTTPRequestHandler):
         pass
 
 
-def build_development_snapshot(destination: Path) -> dict[str, object]:
+def build_development_snapshot(destination: Path, *, source_overrides: dict[str, Path] | None = None) -> dict[str, object]:
     """Compose a disposable snapshot catalog without changing checked-in release files."""
     destination = Path(destination)
     package_dir = destination / "packages"
     package_dir.mkdir(parents=True, exist_ok=True)
     previous = json.loads(RELEASE.read_text(encoding="utf-8"))
-    extensions: dict[str, object] = {}
-    for extension_id, entry in previous["extensions"].items():
-        artifact = CATALOG / "packages" / entry["artifact"]
-        if not artifact.is_file() or digest(artifact) != entry["sha256"]:
-            fail(f"released extension package is missing or mismatched: {extension_id}")
-        shutil.copy2(artifact, package_dir / artifact.name)
-        extensions[extension_id] = entry
     bundle_version, components = bundle_components()
+    extensions: dict[str, object] = {}
+    source_overrides = source_overrides or {}
+    for extension_id, version in components["extensions"].items():
+        previous_entry = previous["extensions"][extension_id]
+        source = source_overrides.get(extension_id)
+        if source is not None:
+            source = Path(source).resolve()
+            metadata = extension_metadata(source)
+            if metadata["id"] != extension_id or metadata["version"] != version:
+                fail(f"development snapshot source does not match bundle pin: {extension_id}")
+            artifact_name = f"{extension_id}-{version}.zip"
+            artifact = package_dir / artifact_name
+            package_extension(source, artifact, extension_id)
+            status = subprocess.run(["git", "status", "--porcelain"], cwd=source,
+                                    text=True, capture_output=True, check=True).stdout.strip()
+            commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=source,
+                                    text=True, capture_output=True, check=True).stdout.strip()
+            extensions[extension_id] = {
+                "version": version, "name": metadata["name"], "author": metadata["author"],
+                "source_repository": f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
+                "source_commit": commit, "source_tag": None, "source_dirty": bool(status),
+                "artifact": artifact_name, "sha256": digest(artifact),
+            }
+        else:
+            if previous_entry["version"] != version:
+                fail(f"development snapshot source required for changed extension pin: {extension_id}")
+            artifact = CATALOG / "packages" / previous_entry["artifact"]
+            if not artifact.is_file() or digest(artifact) != previous_entry["sha256"]:
+                fail(f"released extension package is missing or mismatched: {extension_id}")
+            shutil.copy2(artifact, package_dir / artifact.name)
+            extensions[extension_id] = previous_entry
     workflows = {}
     for workflow_id, version in components["workflows"].items():
         source = ROOT / "workflows" / workflow_id / "workflow.yml"
@@ -1035,7 +1059,8 @@ def build_development_snapshot(destination: Path) -> dict[str, object]:
     return release
 
 
-def install(project: Path, refresh: bool, development_snapshot: bool = False) -> None:
+def install(project: Path, refresh: bool, development_snapshot: bool = False,
+            source_overrides: dict[str, Path] | None = None) -> None:
     project = project.resolve()
     if not project.is_dir():
         fail(f"consumer project directory does not exist: {project}")
@@ -1053,7 +1078,7 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False) ->
         snapshot_directory = tempfile.TemporaryDirectory(prefix="flowkit-snapshot-catalog-")
         catalog_dir = Path(snapshot_directory.name)
         try:
-            release = build_development_snapshot(catalog_dir)
+            release = build_development_snapshot(catalog_dir, source_overrides=source_overrides)
         except Exception:
             snapshot_directory.cleanup()
             raise
@@ -1150,6 +1175,7 @@ def main() -> int:
         consumer = commands.add_parser(name, help=f"{name} the bundle in a consumer project")
         consumer.add_argument("project", type=Path)
         consumer.add_argument("--development-snapshot", action="store_true", help="build and use an unreleased snapshot in the initialized source checkout root or a disposable consumer")
+        consumer.add_argument("--roadmap-source", type=Path, help="use this reviewed flow-roadmap checkout in the disposable development snapshot")
     remover = commands.add_parser("remove", help="remove the bundle and unchanged FlowKit-owned controllers")
     remover.add_argument("project", type=Path)
     agents = commands.add_parser("agents", help="Manage consumer-owned agent copies")
@@ -1199,7 +1225,13 @@ def main() -> int:
         elif arguments.command == "remove":
             remove(arguments.project)
         else:
-            install(arguments.project, arguments.command == "refresh", arguments.development_snapshot)
+            source_overrides = {key: value for key, value in {
+                "flow-roadmap": arguments.roadmap_source,
+            }.items() if value is not None}
+            if source_overrides and not arguments.development_snapshot:
+                fail("extension source overrides require --development-snapshot")
+            install(arguments.project, arguments.command == "refresh", arguments.development_snapshot,
+                    source_overrides=source_overrides)
     except (ValueError, OSError, subprocess.CalledProcessError, KeyError, zipfile.BadZipFile) as error:
         print(f"catalog: {error}", file=sys.stderr)
         return 1

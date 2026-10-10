@@ -1,0 +1,116 @@
+{
+  "record_type": "task-plan-amendment",
+  "feature": "020-flowkit-workflow-iteration-improvements",
+  "recorded_on": "2026-10-06",
+  "authorization": {
+    "source": "direct operator instruction in the current conversation",
+    "scope": "Add the bounded Implement continuation-on-prior-defect-resolution change to Feature 020 tasks; no implementation authorization is implied by this task-plan amendment."
+  },
+  "amendment": {
+    "reason": "Avoid stopping an otherwise authorized Implement loop solely because a previously recorded in-scope code defect was independently resolved while its owning task remains unfinished.",
+    "appended_task_ids": [
+      "T045",
+      "T046",
+      "T047"
+    ],
+    "changed_existing_task_ids": [
+      "T030",
+      "T031",
+      "T036"
+    ],
+    "preserved_existing_task_ids": [
+      "T001",
+      "T002",
+      "T003",
+      "T004",
+      "T005",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018",
+      "T019",
+      "T020",
+      "T021",
+      "T022",
+      "T023",
+      "T024",
+      "T025",
+      "T026",
+      "T027",
+      "T028",
+      "T029",
+      "T030",
+      "T031",
+      "T032",
+      "T033",
+      "T034",
+      "T035",
+      "T036",
+      "T037",
+      "T038",
+      "T039",
+      "T040",
+      "T041",
+      "T042",
+      "T043",
+      "T044"
+    ],
+    "preserved_existing_completion_markers": true,
+    "appended_tasks_marked_complete": false,
+    "substantive_task_plan_progress_credit": 0,
+    "total_task_count_before": 44,
+    "total_task_count_after": 47,
+    "completed_task_count_before": 26,
+    "completed_task_count_after": 26,
+    "open_task_count_after": 21,
+    "changed_task_descriptions": {
+      "T030": "Coverage range extended through FR-025 and SC-011.",
+      "T031": "Focused validation now includes defect-progress behavior.",
+      "T036": "Version/pin reconciliation now waits for the new source, test, guidance, and evidence tasks."
+    },
+    "dependency_order": [
+      "T045",
+      "T046",
+      "T047",
+      "T036"
+    ],
+    "preserved_stops": [
+      "no substantive progress",
+      "iteration cap",
+      "readiness failure",
+      "authority or scope change",
+      "unavailable exact assignment",
+      "unsafe or ambiguous recovery"
+    ],
+    "preserved_delivery_limits": [
+      "T037 catalog/package work remains dependent and incomplete",
+      "native 27-case verification remains separate and incomplete",
+      "installed runtime copies are not modified"
+    ]
+  },
+  "evidence": {
+    "tasks_path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+    "before_sha256": "f5731edb5235168f673a4c004d80d0558ccb2989165c3d578bd728aea28dfdf0",
+    "after_sha256": "1c570c4f57150c9c4af3b5842a1ec37fd8f4f3a28309752ad832434062d536ae",
+    "design_input_sha256": {
+      "spec.md": "9e0688d4985703cab9a1cdae9ef56e1bf362a04fcc7ca7a012899c5d5ad1618c",
+      "plan.md": "d5592da7576344fc822aca8cdfee74174a35c909048f6922b0f6dcbd5e964961",
+      "contracts/task-revision.md": "a3ffdcb5f049deda3e3b7a97af7fbe71d0691d5b9a676c1baae7c05d5a0f56ef",
+      "quickstart.md": "7ff1d3978e1fe96c32f69936ba884e8bdf8bc83ceccd9a410b65af8050638ed7"
+    },
+    "task_id_and_marker_check": "passed: all 44 prior IDs and completion markers preserved; T045-T047 are unique and unchecked; 47 IDs total.",
+    "skill_setup": "completed with the configured skill-tools Python interpreter",
+    "extension_hooks": "no before_tasks or after_tasks hooks are registered",
+    "tests_or_implementation": "none run; this operation only amended the task plan and recorded its provenance",
+    "source_changes": "none"
+  }
+}

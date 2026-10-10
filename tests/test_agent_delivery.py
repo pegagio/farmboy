@@ -33,9 +33,9 @@ class AgentDeliveryTests(unittest.TestCase):
         other = self.root / "second.zip"
         second = catalog.package_agents(other)
         self.assertEqual(self.metadata["sha256"], second["sha256"])
-        manifest, members = catalog.validate_agent_archive(other, "0.1.0")
-        self.assertEqual(8, len(manifest["agents"]))
-        self.assertEqual(9, len(members))
+        manifest, members = catalog.validate_agent_archive(other, "0.2.0")
+        self.assertEqual(9, len(manifest["agents"]))
+        self.assertEqual(10, len(members))
         self.assertNotIn(".codex/agents", " ".join(members))
 
     def test_packagePinMismatch_andSymlinkManifest_rejected(self):
@@ -61,7 +61,16 @@ class AgentDeliveryTests(unittest.TestCase):
         (directory / "unrelated.toml").write_text('name = "Unrelated"\n')
         result = self.operation()
         self.assertEqual("complete", result["status"])
-        self.assertEqual(["created"] * 8, [t["outcome"] for t in result["targets"]])
+        self.assertEqual(["created"] * 9, [t["outcome"] for t in result["targets"]])
+        entries = catalog.agent_manifest()["agents"]
+        self.assertEqual(9, len(entries))
+        self.assertEqual(9, len(list(directory.glob("flowkit-*.toml"))))
+        for entry in entries:
+            with self.subTest(agent=entry["name"]):
+                self.assertEqual(
+                    (catalog.AGENT_SOURCE / entry["file"]).read_bytes(),
+                    (self.project / entry["destination"]).read_bytes(),
+                )
         target = directory / "flowkit-coder.toml"
         target.write_text(target.read_text() + "# consumer customization\n")
         before = {p.name: p.read_bytes() for p in directory.iterdir()}
@@ -78,7 +87,7 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual("complete", result["status"])
         self.assertEqual(["reset"], [t["outcome"] for t in result["targets"]])
         self.assertNotIn(b"# custom", target.read_bytes())
-        self.assertEqual(8, len(self.operation("reset", all_agents=True)["targets"]))
+        self.assertEqual(9, len(self.operation("reset", all_agents=True)["targets"]))
         before = {p.name: p.read_bytes() for p in directory.iterdir()}
         catalog.remove_agent_defaults(self.project)
         self.assertEqual(before, {p.name: p.read_bytes() for p in directory.iterdir()})
@@ -91,7 +100,7 @@ class AgentDeliveryTests(unittest.TestCase):
         source = self.root / "source"
         shutil.copytree(catalog.AGENT_SOURCE, source)
         manifest = yaml.safe_load((source / "manifest.yml").read_text())
-        manifest["package"]["version"] = "0.2.0"
+        manifest["package"]["version"] = "0.3.0"
         manifest["agents"].append({"name": "Fixture-New Role", "file": "agents/new.toml", "destination": ".codex/agents/new.toml"})
         (source / "agents/new.toml").write_text('name = "Fixture-New Role"\ndescription = "Fixture"\ndeveloper_instructions = "No work"\nmodel="gpt-6-luna"\nmodel_reasoning_effort="high"\n')
         (source / "manifest.yml").write_text(yaml.safe_dump(manifest))
@@ -101,14 +110,14 @@ class AgentDeliveryTests(unittest.TestCase):
         self.assertEqual(before, {p.name: p.read_bytes() for p in directory.iterdir()})
         result = self.operation()
         self.assertEqual("created", result["targets"][-1]["outcome"])
-        self.assertEqual(9, len(list(directory.iterdir())))
+        self.assertEqual(10, len(list(directory.iterdir())))
         manifest["agents"] = manifest["agents"][-1:]
         (source / "manifest.yml").write_text(yaml.safe_dump(manifest))
         with patch.object(catalog, "AGENT_SOURCE", source):
             metadata = catalog.package_agents(self.archive)
         catalog.cache_agent_defaults(self.project, self.archive, metadata)
         self.assertEqual(1, len(self.operation("reset", all_agents=True)["targets"]))
-        self.assertEqual(9, len(list(directory.iterdir())))
+        self.assertEqual(10, len(list(directory.iterdir())))
 
     def test_invalidSelectorsAndCache_failBeforeWrites(self):
         for kwargs in ({}, {"agent": "Unknown"}, {"agent": "FlowKit-Coder", "all_agents": True}):
@@ -154,7 +163,7 @@ class AgentDeliveryTests(unittest.TestCase):
             "paths": [".codex/agents/first.toml", ".codex/agents/second.toml"],
             "recovery": "Rename or remove one definition after checking dependent assignments, then retry the operation.",
         }, result["conflict"])
-        self.assertEqual(["not-attempted"] * 8, [entry["outcome"] for entry in result["targets"]])
+        self.assertEqual(["not-attempted"] * 9, [entry["outcome"] for entry in result["targets"]])
         self.assertEqual(before, {path.name: path.read_bytes() for path in directory.iterdir()})
         self.assertFalse(any(path.name.startswith("flowkit-") for path in directory.iterdir()))
 
@@ -215,7 +224,7 @@ class AgentDeliveryTests(unittest.TestCase):
             "paths": [".codex/agents/custom-copy.toml", entry["destination"]],
             "recovery": "Rename or remove the competing definition after checking dependent assignments, then retry the operation.",
         }, result["conflict"])
-        self.assertEqual(["failed"] + ["not-attempted"] * 7, [target["outcome"] for target in result["targets"]])
+        self.assertEqual(["failed"] + ["not-attempted"] * 8, [target["outcome"] for target in result["targets"]])
         self.assertEqual(before, competitor.read_bytes())
         self.assertFalse(destination.exists())
 
@@ -285,7 +294,7 @@ class AgentDeliveryTests(unittest.TestCase):
         with patch.object(catalog, "_atomic_bytes", side_effect=fail_second):
             result = self.operation()
         self.assertEqual("partial", result["status"])
-        self.assertEqual(["created", "failed"] + ["not-attempted"] * 6, [t["outcome"] for t in result["targets"]])
+        self.assertEqual(["created", "failed"] + ["not-attempted"] * 7, [t["outcome"] for t in result["targets"]])
         self.assertNotIn(str(self.project), json.dumps(result))
         self.assertEqual("complete", self.operation()["status"])
 
@@ -306,7 +315,7 @@ class AgentDeliveryTests(unittest.TestCase):
             original(path, content)
         with patch.object(catalog, "_atomic_bytes", side_effect=fail_second):
             result = self.operation("reset", all_agents=True)
-        self.assertEqual(["reset", "failed"] + ["not-attempted"] * 6,
+        self.assertEqual(["reset", "failed"] + ["not-attempted"] * 7,
                          [entry["outcome"] for entry in result["targets"]])
         for entry in manifest["agents"][1:]:
             path = self.project / entry["destination"]
@@ -352,7 +361,7 @@ class AgentDeliveryTests(unittest.TestCase):
         target.mkdir(parents=True)
         result = self.operation()
         self.assertEqual("failed", result["status"])
-        self.assertEqual(["not-attempted"] * 3 + ["failed"] + ["not-attempted"] * 4,
+        self.assertEqual(["not-attempted"] * 3 + ["failed"] + ["not-attempted"] * 5,
                          [entry["outcome"] for entry in result["targets"]])
         self.assertEqual([target], list(target.parent.iterdir()))
 
@@ -399,13 +408,30 @@ class NativeAgentBundleTests(unittest.TestCase):
             project = Path(directory)
             completed = subprocess.run([executable, "init", "--here", "--force", "--non-interactive", "--integration", "codex", "--integration-options=--skills"], cwd=project, text=True, capture_output=True)
             self.assertEqual(0, completed.returncode, completed.stdout + completed.stderr)
-            feedback = project / ".specify/workflow-feedback/retained.json"
-            feedback.parent.mkdir(parents=True, exist_ok=True)
-            feedback.write_text("{}\n")
+            payload_files = {
+                project / ".worktreeinclude": b".agents/\n.specify/workflow-feedback/\n.specify/extensions/local-extension/\n",
+                project / ".agents/skills/consumer-owned/SKILL.md": b"# Consumer skill\nKeep this payload.\n",
+                project / ".specify/workflow-feedback/retained.json": b'{"consumer":"retained"}\n',
+                project / ".specify/extensions/local-extension/owned.txt": b"Unrelated component data.\n",
+                project / "consumer-config.toml": b"setting = \"consumer-owned\"\n",
+            }
+            for path, content in payload_files.items():
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(content)
+            payload_before = {path: path.read_bytes() for path in payload_files}
             with patch.object(catalog, "selected_specify", return_value=executable):
                 catalog.install(project, False, development_snapshot=True)
                 configs = project / ".codex/agents"
-                self.assertEqual(8, len(list(configs.glob("*.toml"))))
+                manifest_entries = catalog.agent_manifest()["agents"]
+                self.assertEqual(9, len(manifest_entries))
+                self.assertEqual(9, len(list(configs.glob("flowkit-*.toml"))))
+                for entry in manifest_entries:
+                    with self.subTest(agent=entry["name"]):
+                        self.assertEqual(
+                            (catalog.AGENT_SOURCE / entry["file"]).read_bytes(),
+                            (project / entry["destination"]).read_bytes(),
+                        )
+                self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})
                 coder = configs / "flowkit-coder.toml"
                 coder.write_text(coder.read_text() + "# Native consumer customization\n")
                 unrelated = configs / "unrelated.toml"
@@ -413,6 +439,7 @@ class NativeAgentBundleTests(unittest.TestCase):
                 before = {p.name: p.read_bytes() for p in configs.glob("*.toml")}
                 catalog.install(project, True, development_snapshot=True)
                 self.assertEqual(before, {p.name: p.read_bytes() for p in configs.glob("*.toml")})
+                self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})
                 result = catalog.agent_operation(project, "reset", agent="FlowKit-Coder")
                 self.assertEqual("complete", result["status"])
                 self.assertNotIn(b"# Native consumer", coder.read_bytes())
@@ -420,4 +447,4 @@ class NativeAgentBundleTests(unittest.TestCase):
                 catalog.remove(project)
                 self.assertEqual(reset_before, {p.name: p.read_bytes() for p in configs.glob("*.toml")})
                 self.assertFalse((project / ".specify/flow-kit/agent-defaults").exists())
-                self.assertEqual("{}\n", feedback.read_text())
+                self.assertEqual(payload_before, {path: path.read_bytes() for path in payload_files})

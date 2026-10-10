@@ -1,0 +1,195 @@
+{
+  "assessment": {
+    "state": "continue",
+    "reason_code": "eligible-corrections-remain",
+    "evidence": [
+      {
+        "path": "tests/test_phase_lifecycle.py",
+        "sha256": "7dd0fa0db0357837c2d4a2f84ab76227beb256f5e89a4b3d33f7aa1858acd91a"
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "sha256": "a203a69f2474d9d26c567c3dd7259823d3876d171fb213eb1fbcf4d509601c3e"
+      },
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "fda9fae3bf2ba20bd16ca24232230a5d8f92769bb28d7f842cfee3529b9dc532"
+      },
+      {
+        "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-delivery.json",
+        "sha256": "a75d97536dadc77986419f543f8b224ce35ed4c25afc2f3ba0a4509a5cc23166"
+      }
+    ],
+    "remaining_ids": [
+      "task:T061",
+      "task:T062",
+      "task:T063",
+      "task:T064",
+      "task:T065",
+      "task:T066",
+      "task:T067",
+      "task:T072",
+      "task:T075",
+      "task:T076",
+      "task:T077",
+      "finding:F020-LIFECYCLE-CODE-007",
+      "finding:F020-LIFECYCLE-CODE-008"
+    ],
+    "resolved_ids": [
+      "finding:F020-LIFECYCLE-CODE-016",
+      "task:T071"
+    ],
+    "next_step_id": "implement-eligible-work"
+  },
+  "task_revision_action": "skip",
+  "findings": [
+    {
+      "artifact_location": "tests/test_phase_lifecycle.py:677",
+      "evidence": [
+        {
+          "path": "tests/test_phase_lifecycle.py",
+          "sha256": "7dd0fa0db0357837c2d4a2f84ab76227beb256f5e89a4b3d33f7aa1858acd91a"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json",
+          "sha256": "4a6d2babc5fba4b450535c6468ddc1b570151bb62ce2631ccad5ef7500c8004b"
+        },
+        {
+          "path": "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json",
+          "sha256": "5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb"
+        }
+      ],
+      "exact_correction": "Keep the actual rendered owner command parsing and receipt checks. Route production revalidation through a semantic node callback that consumes its rendered prompt, invocation inputs and prior outputs and produces the exact request/proposal submitted to adapter revalidate. Reject malformed/missing proposal or request binding in that rendered node before the owner effect, and prove all three phase routes are sensitive to that mutation. Retain LC007/LC013 coverage.",
+      "id": "F020-LIFECYCLE-CODE-007",
+      "observed_deficiency": "Owner command argument parsing and actual owner apply/receipt validation now execute. Revalidation still renders its production prompt at677 and checks only action text at678, then separately constructs retry from request and adapter at681 and calls revalidate at692. Independent sensitivity replaced all three parsed production revalidation prompts with an instruction omitting all request/proposal input; the LC001-LC015 matrix still passed (51 mutated node instances). Thus the callback packet does not depend on the rendered revalidation instruction. This is a confirmed focused-validation gap, not an observed owner runtime failure.",
+      "task_id": "T061",
+      "violated_requirement": "T060/T061 actual production lifecycle graph/adapter behavior and LC001-LC015 coverage."
+    },
+    {
+      "artifact_location": "tests/implementation_scope_snapshot.py:508",
+      "evidence": [
+        {
+          "path": "tests/implementation_scope_snapshot.py",
+          "sha256": "a203a69f2474d9d26c567c3dd7259823d3876d171fb213eb1fbcf4d509601c3e"
+        },
+        {
+          "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+          "sha256": "8b53ddef041be68e3bab006093f4564c08bae94efb0099f282d72cb6a0225994"
+        },
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9"
+        }
+      ],
+      "exact_correction": "Preserve corrected T068 chronology and its original baseline, separate later T069 activation, SI002 admin zero-progress and immutable history. Drive scoped routing from a semantic production-node callback consuming rendered instructions and actual previous/current review, Tasker, readiness and eligibility outputs. Pass that exact callback packet to installed scoped progress; add sensitivity that rejects malformed prior/current/baseline binding in the rendered node without effects. Do not construct a parallel helper packet beside a rendered text assertion.",
+      "id": "F020-LIFECYCLE-CODE-008",
+      "observed_deficiency": "Original T068 baseline, pre-effect history, failed/no-write activation, valid persisted T068 activation and source/review/Tasker/fresh-T069 chronology are now exercised. The prior rendered-packet gap remains: route-scoped-execution is rendered once with empty inputs/outputs at508-515; run_scoped_progress independently constructs assessments and packet at1214-1232 and directly calls helper. Independent installed snapshot sensitivity replaced that parsed node prompt with an instruction to use fabricated prior/current assessments without the frozen baseline or actual rendered outputs; all SI001-SI015 still passed. Helper checks are genuine, but rendered-node callback packet feeding remains unsubstantiated.",
+      "task_id": "T075",
+      "violated_requirement": "T072/T075 immutable substantive baseline, actual pre-dispatch history and generic prior/current progress validation."
+    }
+  ],
+  "findings_json": "[{\"artifact_location\": \"tests/test_phase_lifecycle.py:677\", \"evidence\": [{\"path\": \"tests/test_phase_lifecycle.py\", \"sha256\": \"7dd0fa0db0357837c2d4a2f84ab76227beb256f5e89a4b3d33f7aa1858acd91a\"}, {\"path\": \"specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json\", \"sha256\": \"4a6d2babc5fba4b450535c6468ddc1b570151bb62ce2631ccad5ef7500c8004b\"}, {\"path\": \"tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json\", \"sha256\": \"5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb\"}], \"exact_correction\": \"Keep the actual rendered owner command parsing and receipt checks. Route production revalidation through a semantic node callback that consumes its rendered prompt, invocation inputs and prior outputs and produces the exact request/proposal submitted to adapter revalidate. Reject malformed/missing proposal or request binding in that rendered node before the owner effect, and prove all three phase routes are sensitive to that mutation. Retain LC007/LC013 coverage.\", \"id\": \"F020-LIFECYCLE-CODE-007\", \"observed_deficiency\": \"Owner command argument parsing and actual owner apply/receipt validation now execute. Revalidation still renders its production prompt at677 and checks only action text at678, then separately constructs retry from request and adapter at681 and calls revalidate at692. Independent sensitivity replaced all three parsed production revalidation prompts with an instruction omitting all request/proposal input; the LC001-LC015 matrix still passed (51 mutated node instances). Thus the callback packet does not depend on the rendered revalidation instruction. This is a confirmed focused-validation gap, not an observed owner runtime failure.\", \"task_id\": \"T061\", \"violated_requirement\": \"T060/T061 actual production lifecycle graph/adapter behavior and LC001-LC015 coverage.\"}, {\"artifact_location\": \"tests/implementation_scope_snapshot.py:508\", \"evidence\": [{\"path\": \"tests/implementation_scope_snapshot.py\", \"sha256\": \"a203a69f2474d9d26c567c3dd7259823d3876d171fb213eb1fbcf4d509601c3e\"}, {\"path\": \"specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json\", \"sha256\": \"8b53ddef041be68e3bab006093f4564c08bae94efb0099f282d72cb6a0225994\"}, {\"path\": \"tests/test_snapshot_validation.py\", \"sha256\": \"4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9\"}], \"exact_correction\": \"Preserve corrected T068 chronology and its original baseline, separate later T069 activation, SI002 admin zero-progress and immutable history. Drive scoped routing from a semantic production-node callback consuming rendered instructions and actual previous/current review, Tasker, readiness and eligibility outputs. Pass that exact callback packet to installed scoped progress; add sensitivity that rejects malformed prior/current/baseline binding in the rendered node without effects. Do not construct a parallel helper packet beside a rendered text assertion.\", \"id\": \"F020-LIFECYCLE-CODE-008\", \"observed_deficiency\": \"Original T068 baseline, pre-effect history, failed/no-write activation, valid persisted T068 activation and source/review/Tasker/fresh-T069 chronology are now exercised. The prior rendered-packet gap remains: route-scoped-execution is rendered once with empty inputs/outputs at508-515; run_scoped_progress independently constructs assessments and packet at1214-1232 and directly calls helper. Independent installed snapshot sensitivity replaced that parsed node prompt with an instruction to use fabricated prior/current assessments without the frozen baseline or actual rendered outputs; all SI001-SI015 still passed. Helper checks are genuine, but rendered-node callback packet feeding remains unsubstantiated.\", \"task_id\": \"T075\", \"violated_requirement\": \"T072/T075 immutable substantive baseline, actual pre-dispatch history and generic prior/current progress validation.\"}]",
+  "review": {
+    "reviewer": "FlowKit-Code Reviewer",
+    "baseline_sha256": "e3b92ecf61153245dd34801dada70d83cb23922fcf0a0f888b0972e4d1d778ea",
+    "findings": [
+      {
+        "id": "F020-LIFECYCLE-CODE-007",
+        "task_id": "T061",
+        "status": "unresolved",
+        "evidence": [
+          {
+            "path": "tests/test_phase_lifecycle.py",
+            "sha256": "7dd0fa0db0357837c2d4a2f84ab76227beb256f5e89a4b3d33f7aa1858acd91a"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/lifecycle-cases.json",
+            "sha256": "4a6d2babc5fba4b450535c6468ddc1b570151bb62ce2631ccad5ef7500c8004b"
+          },
+          {
+            "path": "tests/consumer-fixtures/workflow-improvements/phase-lifecycle-cases.json",
+            "sha256": "5d04b7ad0eacc05e493512dfae775f6aafea1c4a2b3f4c52d4fc03e11b4ef7cb"
+          }
+        ]
+      },
+      {
+        "id": "F020-LIFECYCLE-CODE-008",
+        "task_id": "T075",
+        "status": "unresolved",
+        "evidence": [
+          {
+            "path": "tests/implementation_scope_snapshot.py",
+            "sha256": "a203a69f2474d9d26c567c3dd7259823d3876d171fb213eb1fbcf4d509601c3e"
+          },
+          {
+            "path": "specs/020-flowkit-workflow-iteration-improvements/validation/implementation-scope-cases.json",
+            "sha256": "8b53ddef041be68e3bab006093f4564c08bae94efb0099f282d72cb6a0225994"
+          },
+          {
+            "path": "tests/test_snapshot_validation.py",
+            "sha256": "4b5996d5ee85db75639acd3db486b31ef3d5bb9011817374d99c7861783b5cb9"
+          }
+        ]
+      },
+      {
+        "id": "F020-LIFECYCLE-CODE-016",
+        "task_id": "T071",
+        "status": "resolved",
+        "evidence": [
+          {
+            "path": "controllers/flow-kit/scripts/python/controller.py",
+            "sha256": "fda9fae3bf2ba20bd16ca24232230a5d8f92769bb28d7f842cfee3529b9dc532"
+          },
+          {
+            "path": "tests/test_controller.py",
+            "sha256": "923ccd6c05392cf8ae8ef5aff85022cd6b0a692f5d162b33557bf4107bd97d74"
+          },
+          {
+            "path": "workflows/speckit-flow-implement/workflow.yml",
+            "sha256": "0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411"
+          }
+        ],
+        "resolution_summary": "Implementation-scope carrier now requires its exact string condition before generic boolean handling. Independent focused suite passes production validate/inspect mutations True, False, null, integer and malformed expressions and the valid exact carrier; legacy generic loop behavior remains. Original boolean bypass is eliminated."
+      }
+    ],
+    "new_findings": [],
+    "completed_task_ids": [
+      "T071"
+    ],
+    "task_completion_evidence": [
+      {
+        "path": "controllers/flow-kit/scripts/python/controller.py",
+        "sha256": "fda9fae3bf2ba20bd16ca24232230a5d8f92769bb28d7f842cfee3529b9dc532"
+      },
+      {
+        "path": "workflows/speckit-flow-implement/workflow.yml",
+        "sha256": "0f7330afc5f575310939f99b04f3c2741bd28004b999d7a43fe9274a89ea2411"
+      },
+      {
+        "path": "tests/test_controller.py",
+        "sha256": "923ccd6c05392cf8ae8ef5aff85022cd6b0a692f5d162b33557bf4107bd97d74"
+      },
+      {
+        "path": "tests/test_workflow_paths.py",
+        "sha256": "0c73d480044a4baa18b99e41dbf118e6f4d67c838a140120736290561bc64489"
+      },
+      {
+        "path": "tests/test_workflow_graph.py",
+        "sha256": "85e18884cf0d84a0f63024632997450afa772d91d04d99efe151887fef2ee580"
+      },
+      {
+        "path": "tests/test_implementation_scope.py",
+        "sha256": "09ebe77887726517a698749f00c124f479287bcecc44c64bb7f74a9cc61f12ae"
+      },
+      {
+        "path": "tests/test_implementation_progress.py",
+        "sha256": "13de16207232f3e9cb06590e29cab5f61cfb26e1404005881770e76a1903abb6"
+      },
+      {
+        "path": "tests/test_implement_task_revision.py",
+        "sha256": "00a787d39799ce8eb2478853dac2f82ac3a34fe6e11a4f1117a60991bd67a1dd"
+      }
+    ]
+  },
+  "next_baseline_sha256": "2229f954b6834fa1deee3b7c4e7eb29d7d38cba2965fb04413a972b30b96b6e2"
+}

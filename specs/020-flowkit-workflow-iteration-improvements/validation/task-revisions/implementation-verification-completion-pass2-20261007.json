@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-10-07",
+  "owner": "FlowKit-Tasker",
+  "feature": "Feature 020: FlowKit Workflow Iteration and Improvements",
+  "action": "ordinary proof-supported completion tracking",
+  "task_list": {
+    "path": "specs/020-flowkit-workflow-iteration-improvements/tasks.md",
+    "task_count_before": 48,
+    "checked_before": 45,
+    "open_before": [
+      "T027",
+      "T028",
+      "T029"
+    ],
+    "task_count_after": 48,
+    "checked_after": 48,
+    "open_after": [],
+    "before_sha256": "9c5e5a06e3a94dc6401fc770d1725db5f24d4a7a6bf8cd309ba50b5f797598e4",
+    "after_sha256": "df5f50859681359f3836ab7074c08b756f9e6fff91e17c0c358690f416c83a9e",
+    "changed_bytes": 3,
+    "changes": [
+      {
+        "task_id": "T027",
+        "marker_before": "[ ]",
+        "marker_after": "[X]"
+      },
+      {
+        "task_id": "T028",
+        "marker_before": "[ ]",
+        "marker_after": "[X]"
+      },
+      {
+        "task_id": "T029",
+        "marker_before": "[ ]",
+        "marker_after": "[X]"
+      }
+    ],
+    "all_task_ids_text_order_descriptions_dependencies_and_validation_steps_preserved": true
+  },
+  "independent_evidence": {
+    "reviewer": "FlowKit-Code Reviewer",
+    "evidence_sha256": "bc741b9c9f213922ca45c2ae4abd617e1c624f0c648c4251e598bf79de7ada41",
+    "baseline_sha256": "546e028466c392729f7a4454472c27a8d32e6b204e37557e0f73d73caa3cca00",
+    "findings_resolved": [
+      "F020-T027-EVIDENCE-R001",
+      "F020-T028-EVIDENCE-R001",
+      "F020-T029-EVIDENCE-R001"
+    ],
+    "new_findings": [],
+    "completed_task_ids": [
+      "T027",
+      "T028",
+      "T029"
+    ],
+    "progress_state": "ready",
+    "remaining_ids": [],
+    "task_revision_action": "skip"
+  },
+  "validation": [
+    "Verified the pre-edit task list had exactly 48 IDs, 45 checked, and only T027, T028, and T029 open.",
+    "Verified the supplied Code Reviewer evidence resolves all three task-linked findings, reports no new findings, and records ready with no remaining IDs.",
+    "Verified the tasks.md before/after byte comparison differs in exactly three bytes, one completion marker per authorized task.",
+    "Verified the post-edit task list has all 48 tasks checked and no open task IDs.",
+    "No feature acceptance or credit for the underlying implementation proof is claimed by this tracking receipt."
+  ],
+  "limits_preserved": [
+    "Effective model/effort and client version remain unverified.",
+    "T022/T023 separate chats share a physical root; original root distinction remains unproven.",
+    "Three historical scenarios remain not-tested with exact gaps; completion is truthful reassessment, not passing those missing behavioral targets.",
+    "Six phase evidence contains differing package/file digests and context overlap; records preserve exact observed coordinates, not universal consumer equivalence.",
+    "Successful raw quickstart retries were not retained; initial logs and structured receipt remain the retained evidence.",
+    "Production release, publication, universal compatibility, Git integration, feature and Diagram acceptance are not established."
+  ]
+}

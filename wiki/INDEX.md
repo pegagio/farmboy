@@ -6,6 +6,12 @@ page files, not here.
 
 ## Concept
 
+- [Feature 020 named agents for delegated steps](pages/feature020-agent-roles-and-inheritance.md)
+
+- [Feature 020 artifact flow-back and convergence](pages/feature020-artifact-flow-back-and-convergence.md)
+
+- [Feature 020 workflow lifecycle](pages/feature020-workflow-lifecycle.md)
+
 - [Named agents for delegated steps](pages/agent-roles-and-inheritance.md)
 - [Bundle and workflow model](pages/bundle-and-workflow-model.md)
 - [Codex workflow controller design](pages/codex-workflow-controllers.md)
@@ -21,6 +27,9 @@ page files, not here.
 ## Decision
 
 - [Agent Python environment](pages/agent-python-environment.md)
+- [Feature 020 qualified verification](pages/feature020-verification-qualification.md)
+
+- [Feature 020 closeout and verification boundary](pages/feature020-closeout-and-verification-boundary.md)
 
 - [FlowKit agent configuration and consumer delivery](pages/flowkit-agent-configuration-and-delivery.md)
 

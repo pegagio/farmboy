@@ -1,8 +1,8 @@
 ---
 title: Workflow graph responsibility boundaries
 type: reference
-sources: [S023]
-updated: 2026-10-02
+sources: [S023, S030]
+updated: 2026-10-09
 ---
 
 # Workflow graph responsibility boundaries
@@ -20,6 +20,12 @@ Approved roadmap writes and feature-pointer activation stay in the main task. Re
 ## Evidence limits
 
 Static graph tables establish declared source topology, not live native-agent availability, model or reasoning-effort identity, or project acceptance. Exact reviewed names and declared assignments are source facts; native selection and bounded live observations require separate evidence. Adjacent diagrams present the definitions rather than independently proving runtime behavior. (S023)
+
+## Current phase ownership and recovery roles
+
+The Feature 014 inventory above is historical topology. The current protocol keeps human approval, gates, switches and orchestration in the main task, while only the exact assigned FlowKit-Roadmap Agent invokes the versioned owner phase-milestone write. Main preparation is read-only; it revalidates the proposal and source snapshot immediately before effect. A separate FlowKit-Reviewer checks the actual discriminated receipt and current roadmap state before subsequent work. This owner delegation transfers no human approval authority. (S030)
+
+Phase ownership assigns planned→specced to Specify, specced→in-progress to Implement and in-progress→implemented to Close Out. Recovery adds exact FlowKit-Readiness Checker assessment alongside Roadmap Agent and Reviewer evidence producers; the main task binds artifacts to actual declared native dispatch rather than JSON role labels. Normal in-progress closeout skips earlier-edge recovery. Missing capability, stale evidence, contradictory state or partial effect stops at the affected boundary; lifecycle labels imply no verification, acceptance, publication or Git integration. See the [assessment contract](./controller-assessment-contract.md) for retained recovery witnesses. (S030)
 
 ## Related pages
 
