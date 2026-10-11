@@ -129,11 +129,11 @@ class CatalogReleaseTests(unittest.TestCase):
             "lint-wiki": "FarmBoy Reviewer", "assess-wiki-findings": "FarmBoy Reviewer", "refresh-stale-source": "FarmBoy Wiki Curator",
         }
         expected_versions = {
-            "farmboy-wiki-lint-update": "0.2.0",
-            "farmboy-start-feature": "0.6.0", "farmboy-select-feature": "0.2.0", "farmboy-specify": "0.4.0", "farmboy-clarify": "0.5.0",
-            "farmboy-plan": "0.5.0", "farmboy-tasks": "0.5.0",
-            "farmboy-analyze-remediate": "0.6.0", "farmboy-implement": "0.9.0",
-            "farmboy-converge": "0.5.0", "farmboy-closeout": "0.9.0",
+            "farmboy-wiki-lint-update": "0.2.1",
+            "farmboy-start-feature": "0.6.0", "farmboy-select-feature": "0.2.1", "farmboy-specify": "0.4.1", "farmboy-clarify": "0.5.1",
+            "farmboy-plan": "0.5.1", "farmboy-tasks": "0.5.1",
+            "farmboy-analyze-remediate": "0.6.1", "farmboy-implement": "0.9.1",
+            "farmboy-converge": "0.5.1", "farmboy-closeout": "0.9.2",
         }
         step_pattern = __import__("re").compile(r"^(\s*)- id: ([A-Za-z0-9_-]+)$")
         for workflow_id, expected_steps in expectations.items():
@@ -175,6 +175,9 @@ class CatalogReleaseTests(unittest.TestCase):
             (project / ".specify/workflow-feedback").mkdir(parents=True)
             recovery = project / ".specify/flow-controllers/runs/existing/summary.json"
             recovery.write_text('{"status":"stopped"}\n', encoding="utf-8")
+            current_recovery = project / ".specify/farmboy-controllers/runs/existing/summary.json"
+            current_recovery.parent.mkdir(parents=True, exist_ok=True)
+            current_recovery.write_text('{"status":"stopped"}\n', encoding="utf-8")
             feedback = project / ".specify/workflow-feedback/observations.jsonl"
             feedback.write_text('{"observation_id":"local"}\n', encoding="utf-8")
             local_skill = project / ".agents/skills/local-review/SKILL.md"
@@ -188,6 +191,7 @@ class CatalogReleaseTests(unittest.TestCase):
             self.assertEqual(10, len(record["controllers"]))
             catalog.remove_controller_package(project)
             self.assertTrue(recovery.is_file())
+            self.assertTrue(current_recovery.is_file())
             self.assertTrue(feedback.is_file())
             self.assertEqual("consumer-owned", local_skill.read_text(encoding="utf-8"))
             self.assertFalse((project / ".specify/farmboy/skills-install.json").exists())

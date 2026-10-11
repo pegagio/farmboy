@@ -483,7 +483,7 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
              "remaining_ids": [], "resolved_ids": ["task:T001"]},
         ):
             with self.subTest(state=envelope["state"]):
-                rendered = controller.render_template(execution, {"feature_context": "specs/020-example"}, {
+                rendered = controller.render_template(execution, {"feature_context": "specs/020-example", "integration": "codex"}, {
                     "route-scoped-entry": {"scope": {"scope_sha256": "a" * 64},
                         "previous_assessment": {"state": "continue"}, "baseline": {"baseline_sha256": "b" * 64}},
                     "assess-implementation-after-pass": {"outcome_envelope": envelope, "review": {"reviewer": "FarmBoy Code Reviewer"}},

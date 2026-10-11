@@ -2,7 +2,7 @@ schema_version: "1.0"
 workflow:
   id: "farmboy-wiki-lint-update"
   name: "Lint and Update Wiki"
-  version: "0.2.0"
+  version: "0.2.1"
   author: "pegagio"
   description: "Lint first, refresh identified stale registered sources individually, and repeat while findings are resolved; report every remaining wiki issue."
 requires:
@@ -39,6 +39,7 @@ steps:
           agent: FarmBoy Reviewer
       - id: assess-wiki-findings
         type: prompt
+        integration: "{{ inputs.integration }}"
         farmboy:
           delegated: true
           agent: FarmBoy Reviewer
@@ -51,6 +52,7 @@ steps:
           continue:
             - id: prepare-stale-source-refresh
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: >-
                 Exact URLs explicitly authorized by the operator: {{ inputs.authorized_urls }}. From the latest validated assess-wiki-findings remaining_ids and fresh lint report, select one safe registered stale source for refresh. Map affected page citations through sources.md to the exact normalized identity; never ingest the stale wiki page itself. Choose the source expected to resolve the most current source-backed stale findings, then registry order. Track all remaining identified sources across passes; newly discovered in-scope stale sources join that queue, and resolved sources are not re-ingested unless new substantive evidence justifies it. Return source as exactly one source token supported by speckit.flow-wiki.ingest, and affected_finding_ids. Recheck readable local project containment, scope, source identity, and current evidence before selection. A remote source requires that exact URL to have been explicitly supplied by the operator in this invocation. Uncertain or competing citations, unavailable sources, authority conflicts, or lost evidence stop before ingestion with the exact blocker or question. Do not broaden the source set, remove findings, rewrite claims directly, alter configuration, or invoke another workflow.
             - id: refresh-stale-source
@@ -65,5 +67,6 @@ steps:
           blocked: []
   - id: report-wiki-update-outcome
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: >-
       Report the latest validated wiki outcome and all completed refresh iterations. List refreshed registered source identities, affected pages, resolved findings, and every remaining finding grouped by the lint check and severity, including contradictions and other non-stale issues. Preserve exact evidence, suggested actions, required operator decisions, unprocessed stale sources, skipped or unauthorized sources, ingestion conflicts or overflow, and the smallest safe resumption action. A blocked ingestion or unresolved source-authority question stops before another lint or refresh. Report clean only from a successful fresh complete lint assessment; never from ingestion success or the absence of an executed assessment. The first check establishes the baseline; 26 checks permit at most 25 single-source refreshes followed by final confirmation. No progress, stale evidence, failed commands, or exhausted capacity is a bounded incomplete stop with remaining sources retained for resumption. Preserve successful prior wiki changes and the current lint report. Stop here. Do not commit, push, mutate feature artifacts or roadmap, accept project work, or invoke another workflow.

@@ -342,7 +342,7 @@ def resolve_configuration(project, payload, yaml):
         history_path = f"{self.feature}/validation/phase-lifecycle/start-history-validation.json"
         self.write(history_path, json.dumps(history))
         identity = {key: request[key] for key in ("workflow_id", "workflow_version", "run_id")}
-        run_prefix = f".specify/flow-controllers/runs/{request['run_id']}"
+        run_prefix = f".specify/farmboy-controllers/runs/{request['run_id']}"
         dispatch = {**identity,
                     "child_tasks": [{"agent": "FarmBoy Reviewer", "step_id": "attest-recovery-start", "child_id": "reviewer-child"}],
                     "effective_assignments": [{"agent_name": "FarmBoy Reviewer", "step_id": "attest-recovery-start"}]}

@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: farmboy-converge
   name: Converge Feature
-  version: "0.5.0"
+  version: "0.5.1"
   author: pegagio
   description: Assess convergence and repeat a shared correction waterfall, task analysis, and eligible implementation until clean or safely stopped.
 requires:
@@ -37,6 +37,7 @@ steps:
             Run speckit.converge for {{ inputs.feature_context }} against current implementation and the reviewed specification, plan, and tasks on every pass, including the first and the pass after implementation. Honor the command prerequisites and append-only task contract. Preserve all existing task IDs, completion markers, and completed work; do not modify specification, plan, or code. Return the full current findings, stable gap IDs, evidence, appended task IDs, and prerequisite errors in a report field. Leave tasks unchanged when clean. Do not invoke another workflow or take consequential decisions.
       - id: assess-convergence
         type: prompt
+        integration: "{{ inputs.integration }}"
         farmboy:
           delegated: true
           agent: FarmBoy Code Reviewer
@@ -50,6 +51,7 @@ steps:
           continue:
             - id: prepare-convergence-flowback
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: >-
                 Prepare the correction waterfall for {{ inputs.feature_context }} from the current validated assess-convergence outcome. For next_step_id reconcile-convergence-specification, set spec_action, plan_action, and task_action to run. For reconcile-convergence-plan, skip specification and run plan and tasks. For reconcile-convergence-tasks, run only tasks. For implement-remediation, skip all three artifact stages. Return implementation_args as readable text without template delimiters, preserving exact review findings verbatim and their eligible task mapping, plus those action fields and specification_args, plan_args, and task_args containing exact current findings and required downstream reconciliation. Missing evidence, unsupported routes, or required operator decisions stop before mutation. Preserve the selected existing feature, reviewed intent, task IDs, completion markers, and convergence work already recorded by speckit.converge. Do not create another feature. Routine flowback remains within the operator-issued scope; consequential changes require operator input. Do not invoke another FarmBoy workflow.
             - id: route-specification-remediation
@@ -106,6 +108,7 @@ steps:
                   Run fresh read-only analysis of current specification, plan, and tasks for {{ inputs.feature_context }}. Return full findings, severities, locations, recommendations, and prerequisite errors in a report output field. Do not modify artifacts or implement work. Missing, failed, or stale analysis cannot authorize implementation.
             - id: assess-remediation-eligibility
               type: prompt
+              integration: "{{ inputs.integration }}"
               farmboy:
                 delegated: true
                 agent: FarmBoy Reviewer
@@ -133,5 +136,6 @@ steps:
     assessment_before_correction: true
   - id: report-convergence-outcome
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: >-
       Report the latest verified outcome for {{ inputs.feature_context }}, resolved and remaining gap IDs, completed task IDs, changed artifact paths, and validation evidence. Use only current-pass outcomes. Propagate any unresolved blocked task eligibility result or implementation report; never replace it with an earlier convergence continue or complete outcome. Clean fresh convergence ends at Feature Converged; Close Out remains separately invoked. Otherwise report the exact blocker or required operator decision and safe resumption action, preserving completed work. No progress or exhaustion of five correction passes is a bounded stop, not clean convergence. Stop here; do not update the roadmap, integrate Git, or claim feature acceptance.

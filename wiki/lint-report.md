@@ -1,5 +1,11 @@
-# Wiki Integration Check — 2026-10-09
+# Wiki Lint Report — 2026-10-11
 
-The merge preserves Feature 019 agent-environment guidance and Feature 020 workflow contracts. Feature 019 retains source IDs S027–S028; Feature 020 sources are remapped to S029–S031 to preserve distinct citation identities.
+No findings.
 
-Structural validation passed: 25 indexed pages, 31 unique registered source IDs with existing targets, valid declared citations and relative page links, no merge markers, both verified roadmap entries and all 6 original feedback observations preserved. Earlier branch lint results remain historical evidence and do not establish a semantic lint pass for the combined wiki.
+The full empty-argument pass checked all six configured checks across 33 pages and 35 registered sources. Index drift, links, orphans, contradictions, stale claims and citations each returned zero findings. No mechanical fixes were needed or applied.
+
+Contradiction comparison was limited to 253 pairs sharing a source ID or a direct page link. Both current page hashes and pair relationships independently matched earlier clean evidence for 119 pairs; 134 changed pairs were read and reassessed. Refreshed README composition, invocation and ownership claims agree with current accounts; explicit historical pins, routes and accepted chronological supersession remain preserved. Both retained conflict markers describe accepted chronology rather than unresolved concurrent claims.
+
+All page metadata and registered source references are valid, relative links resolve, every page has an incoming page link, and source re-ingestion dates do not outrun page updates. Current synthesized claims carry registered source citations. Scope and authority coverage require the separate maintenance assessment; clean lint establishes no publication, consumer adoption, live-agent behavior, Linux validation or feature acceptance.
+
+No wiki page, source registry, schema or index was edited by this lint pass. No action is needed.

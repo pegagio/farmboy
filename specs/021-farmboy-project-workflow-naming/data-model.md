@@ -1,12 +1,14 @@
 # Data Model: Existing Identity Schemas
 
-This rename introduces **no new data model, persistence, journal or state machine**. The core planning deliverable is explicitly limited to existing identities and their schema-preservation rules.
+This rename introduces **no new data model, persistence, journal or state machine** relative to the separately reviewed Feature 022 correction `7a43bb3`, integrated by `6738a06` ([merge provenance](validation/boundary-merge.md)). The core planning deliverable is explicitly limited to existing identities and their schema-preservation rules.
 
 ## Naming Inventory
 
 The [naming contract](contracts/naming.md) is a reviewable documentation table, not a new runtime inventory format. Existing fields for bundle/package IDs, workflow/skill IDs, exact agent names and owned paths receive the approved values.
 
 Existing manifest, installation record, agent-default, native registry and controller evidence schemas remain unchanged apart from applicable identity/path values and the delegation-container key spelling. The one approved field-name change is the existing delegation container `flow_kit` → `farmboy`; nested `delegated` / `agent` types, dispatch rules, lifecycle vocabulary and evidence semantics remain unchanged. Both feedback extension and command identities change; existing journal/report fields and data remain intact without conversion.
+
+Existing workflow-owned milestone policy, authoring proof, generic amendment data, independent effect readback and receipts are inherited Feature 022 contracts. Preserve their fields, lifecycle vocabulary and evidence semantics under the approved identity/path/key substitutions. Roadmap 0.4.0 provides generic configuration/write/review interfaces; its removed extension phase helper and test matrix are not part of the preserved model. Earlier coupled checkpoints are historical, not the comparison baseline.
 
 ## Validation Rules
 

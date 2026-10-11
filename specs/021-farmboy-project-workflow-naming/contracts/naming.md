@@ -44,7 +44,7 @@ The controller skill and workflow share the new identifier; source remains indep
 | `flow-kit-closeout` | `speckit-flow-closeout` | `farmboy-closeout` | FarmBoy Close Out |
 | `flow-kit-wiki-lint-update` | `speckit-flow-wiki-lint-update` | `farmboy-wiki-lint-update` | FarmBoy Wiki Lint Update |
 
-Purpose inputs, defaults, step IDs, routes, bounded loops, authority checks and gates remain unchanged. Required role values change only through the exact role mapping below. No spelling simplification such as an `analyze` alias is introduced.
+Purpose inputs, defaults, step IDs, routes, bounded loops, authority checks and gates remain unchanged against reviewed Feature 022 correction `7a43bb3`, integrated by `6738a06` ([merge provenance](../validation/boundary-merge.md)). Preserve its workflow-owned `milestone_policy.py`, local authoring proof, generic roadmap 0.4.0 amendment boundary, independent effect readback and receipts. These are delivered correction behavior, not new Feature 021 policy; the old coupled baseline/checkpoint is not the graph comparison target. Required role values change only through the exact role mapping below. No spelling simplification such as an `analyze` alias is introduced.
 
 ## Agent Names
 

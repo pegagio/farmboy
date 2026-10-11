@@ -1,35 +1,48 @@
 ---
 title: Installation and release lifecycle
 type: howto
-sources: [S001, S002, S005, S016, S025]
-updated: '2026-10-09'
+sources:
+- S001
+- S002
+- S005
+- S016
+- S025
+- S032
+- S034
+updated: '2026-10-11'
 ---
 
 # Installation and release lifecycle
 
-Catalog tasks install/refresh the bundle, ten active workflows and ten direct Codex skills through a temporary localhost catalog, verifying both. Native bundle installation excludes direct skills; catalog install can initialize empty projects. (S005)
+## FarmBoy source cutover (2026-10-10)
 
-Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005)
+New source and fresh supported installations use FarmBoy names. Managed skills use `.agents/skills/farmboy-<purpose>/`, helpers use `.specify/farmboy/`, workflows use `.specify/workflows/farmboy-<purpose>/`, and default agents use `.codex/agents/farmboy-<role>.toml`. New summaries/history use `.specify/farmboy-controllers/`; completed `.specify/flow-controllers/` history remains in place. (S032)
 
-Explicit development snapshots support the initialized source root or initialized temporary consumers; nested targets and other persistent consumers are rejected. They record unreleased provenance without changing release metadata, preserve project-owned artifacts/history, and do not invoke workflows or integrate Git. (S005)
+Existing install/refresh/remove/agent-management operations preserve their behavior and ownership protections. This cutover supplies no migration, old-name alias, legacy conversion reader, customization transfer or automatic existing-consumer refresh. Actual replacement requires separate operator instructions. [Earlier installation history](./installation-history-before-farmboy.md) preserves preceding guidance. (S032)
 
-Earlier README guidance restricted snapshots to temporary consumers. That restriction is superseded here by the current guide's initialized-root route; AGENTS directs installation-path decisions to the guide and release metadata. The older restriction remains historical provenance. (S002, S005, S001)
+The documented unreleased snapshot is bundle 0.18.3, controllers 0.9.1 and Close Out 0.9.2. All 113 existing active prompt nodes bind `inputs.integration`: 111 bindings were newly added across the Clarify fix and mechanical batch, with two Specify bindings predating them. Steps, roles, gates, routes, caps and controller policy remain unchanged. (S032)
 
-After a reviewed release, use `mise run catalog:refresh <project-directory>`. Plain `specify bundle update` cannot reach the temporary catalog after the task exits or manage direct skills. Failed refresh may have changed components; a new manifest may remove formerly owned components. (S005)
+Native Specify lifecycle evidence uses a no-op Codex fixture; it proves fixture dispatch, not live FarmBoy agent execution. Linux, publication, stock compatibility, consumer adoption and acceptance remain unproved. (S032)
 
-Local Codex worktrees copy ignored installed state through `.worktreeinclude`; clones, remote and plain Git worktrees need installation. Edit reviewed source packages rather than installed copies. (S002, S005)
+Current README and guides require release/source agreement for ordinary installation and unreleased provenance for snapshots. Installing or refreshing components does not adopt governance; inspect actual authority and guidance separately. (S002, S034)
 
-Complete catalog removal checks skill ownership and digests before native removal; collisions or edited owned files stop for review. Recovery summaries, unrelated skills, independently installed components, and feedback survive. Native removal alone does not manage direct skills. Governance, guidance, feature history, and adoption records remain project-owned; adoption is a separate operator decision. (S005)
+## Retained management contracts
 
-Release building checks source IDs, versions, clean feedback source, and clean annotated external tags. Installation checks package digests, pins, and the tested CLI. Disposable lifecycle success does not establish remote publication, stock compatibility, roadmap verification, Git integration, or acceptance. (S016, S005)
+After a reviewed release, use `mise run catalog:refresh <project-directory>`. Plain `specify bundle update` cannot reach the temporary catalog after the task exits or manage direct skills. Failed refresh may have changed components; a new manifest may remove formerly owned components. (S005, S034)
 
-Select Feature and Specify are separate. Start Feature remains stop-only deprecated source outside active bindings; replacement discovery requires installation or refresh. Refresh replaces an unchanged owned retired launcher; local edits block for resolution. (S005)
+Local Codex worktrees copy ignored installed state through `.worktreeinclude`; clones, remote and plain Git worktrees need installation. Edit reviewed source packages rather than installed copies. (S002, S005, S034)
 
-The direct Codex path validates and probes every delegated branch's exact names before work. Consumer-owned agent files and Codex control optional model/effort settings. Gates and undelegated steps stay in the main task. (S005)
+Complete catalog removal checks skill ownership and digests before native removal; collisions or edited owned files stop for review. Recovery summaries, unrelated skills, independently installed components, and feedback survive. Native removal alone does not manage direct skills. Governance, guidance, feature history, and adoption records remain project-owned; adoption is a separate operator decision. (S005, S034)
 
-Earlier Feature 017 specification described prospective acquisition; the current guide documents delivery operations under [its contract](./flowkit-agent-configuration-and-delivery.md). Install-missing adds absent defaults and preserves existing, old unprefixed and unrelated files. Refresh changes only available defaults; acquiring new copies requires install-missing. Explicit reset selects one exact current name or all manifest entries, replacing or creating those targets. Unknown names, unsafe paths and competing exact identities block delivery. Renamed/retired files remain for manual migration after dependent assignments are inspected. (S025, S005)
+Release building checks source IDs, versions, clean feedback source, and clean annotated external tags. Installation checks package digests, pins, and the tested CLI. Disposable lifecycle success does not establish remote publication, stock compatibility, roadmap verification, Git integration, or acceptance. (S016, S005, S034)
 
-Human/JSON reports expose provenance, inputs, outcomes and recovery. Collisions identify portable paths; unsafe identities are redacted. Partial mutation requires inspecting outcomes, resolving the cause and retrying the explicit operation; no bundle rollback is implied. Removal deletes defaults, preserving consumer copies. (S005)
+Select Feature and Specify are separate. Start Feature remains stop-only deprecated source outside active bindings; replacement discovery requires installation or refresh. Refresh replaces an unchanged owned retired launcher; local edits block for resolution. (S005, S034)
+
+The direct Codex path validates and probes every delegated branch's exact names before work. Consumer-owned agent files and Codex control optional model/effort settings. Gates and undelegated steps stay in the main task. (S005, S034)
+
+Earlier Feature 017 specification described prospective acquisition; the current guide documents delivery operations under [its contract](./flowkit-agent-configuration-and-delivery.md). Install-missing adds absent defaults and preserves existing, old unprefixed and unrelated files. Refresh changes only available defaults; acquiring new copies requires install-missing. Explicit reset selects one exact current name or all manifest entries, replacing or creating those targets. Unknown names, unsafe paths and competing exact identities block delivery. Renamed/retired files remain for manual migration after dependent assignments are inspected. (S025, S005, S034)
+
+Human/JSON reports expose provenance, inputs, outcomes and recovery. Collisions identify portable paths; unsafe identities are redacted. Partial mutation requires inspecting outcomes, resolving the cause and retrying the explicit operation; no bundle rollback is implied. Removal deletes defaults, preserving consumer copies. (S005, S034)
 
 ## Related pages
 

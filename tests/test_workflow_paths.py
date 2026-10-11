@@ -348,7 +348,7 @@ class WorkflowPathTests(unittest.TestCase):
 
     def testLifecycleMilestonesGateSpecifyImplementAndCloseoutEffects(self) -> None:
         specify = load_workflow("farmboy-specify")
-        self.assertEqual("0.4.0", specify["workflow"]["version"])
+        self.assertEqual("0.4.1", specify["workflow"]["version"])
         outcome = find_step(specify["steps"], "route-specification-outcome")
         ready = outcome["cases"]["ready-for-brief"]
         self.assertEqual(["assess-specification-authoring-quality", "route-specification-authoring-quality"],
@@ -369,7 +369,7 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertIn("FarmBoy Reviewer", find_step(ready, "verify-specification-lifecycle-transition")["farmboy"]["agent"])
 
         implement = load_workflow("farmboy-implement")
-        self.assertEqual("0.9.0", implement["workflow"]["version"])
+        self.assertEqual("0.9.1", implement["workflow"]["version"])
         steps = implement["steps"]
         lifecycle = find_step(steps, "route-implementation-start-milestone")
         implement_apply = find_step(steps, "apply-implementation-start-milestone")
@@ -392,7 +392,9 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertNotIn("speckit.verify", commands(steps))
 
         closeout = load_workflow("farmboy-closeout")
-        self.assertEqual("0.9.0", closeout["workflow"]["version"])
+        self.assertEqual("0.9.2", closeout["workflow"]["version"])
+        self.assertIn("specs/014-flowkit-workflow-improvements", closeout["inputs"]["feature_context"]["prompt"])
+        self.assertTrue((ROOT / "specs/014-flowkit-workflow-improvements").is_dir())
         closeout_apply = find_step(closeout["steps"], "apply-closeout-lifecycle-transition")
         self.assertEqual("command", closeout_apply["type"])
         self.assertEqual("speckit.flow-roadmap.write", closeout_apply["command"])

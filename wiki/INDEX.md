@@ -6,6 +6,14 @@ page files, not here.
 
 ## Concept
 
+- [Codex workflow controller design history](pages/codex-controller-history.md)
+
+- [Controller assessment contract history](pages/controller-assessment-history.md)
+
+- [Agent delivery before FarmBoy](pages/agent-delivery-before-farmboy.md)
+
+- [Bundle model before FarmBoy](pages/bundle-model-before-farmboy.md)
+
 - [Feature 020 named agents for delegated steps](pages/feature020-agent-roles-and-inheritance.md)
 
 - [Feature 020 artifact flow-back and convergence](pages/feature020-artifact-flow-back-and-convergence.md)
@@ -38,13 +46,20 @@ page files, not here.
 - [Diagram adapter boundary](pages/diagram-adapter-boundary.md)
 - [Closeout and verification boundary](pages/closeout-and-verification-boundary.md)
 - [Project authority and review gates](pages/project-authority-and-review-gates.md)
+- [Project authority history](pages/project-authority-history.md)
 
 ## Howto
+
+- [Installation history before FarmBoy](pages/installation-history-before-farmboy.md)
 
 - [Installation and release lifecycle](pages/installation-and-release-lifecycle.md)
 - [Workflow diagram conventions](pages/workflow-diagram-conventions.md)
 
 ## Reference
+
+- [Workflow loop baselines and limits history](pages/workflow-loop-history.md)
+
+- [Workflow graph responsibility boundaries history](pages/workflow-graph-responsibility-history.md)
 
 - [Workflow loop baselines and limits](pages/workflow-loop-baselines-and-limits.md)
 - [Workflow graph responsibility boundaries](pages/workflow-graph-responsibility-boundaries.md)

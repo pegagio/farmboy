@@ -1,33 +1,28 @@
 ---
 title: Workflow graph responsibility boundaries
 type: reference
-sources: [S023, S030]
-updated: 2026-10-09
+sources: [S033]
+updated: 2026-10-11
 ---
 
 # Workflow graph responsibility boundaries
 
-The Feature 014 inventory projects source topology: authored nodes, direct parents and branches, node types, explicit delegated assignments, commands, switch outcomes, gates, and loop policies. Only explicit delegation launches a child; an absent assignment means main-task execution. Gates and switches remain in the main task. (S023)
+Historical Feature 014 topology and FlowKit phase assignments remain in [graph responsibility history](./workflow-graph-responsibility-history.md). The canonical protocol now requires exact FarmBoy names and `farmboy` delegation metadata; only explicit delegated steps launch children, while human gates, switches and orchestration stay in main. Source assignments are declarations, not live availability or model-setting evidence. (S033)
 
-## Responsibility contracts
+## Phase ownership
 
-Roadmap Agent lists and prepares feature selections, inspects the active feature, and prepares Close Out’s wiki source selection. Reviewer independently verifies selected-feature activation, created and repaired specification linkage, and the specification’s roadmap brief. These checks remain separate from Specifier’s request preparation and specification authoring. (S023)
+Specify owns planned→specced, Implement owns specced→in-progress, and Close Out owns in-progress→implemented. FarmBoy controller policy prepares current evidence and an explicit amendment for the assigned FarmBoy Roadmap Agent’s ordinary generic `speckit.flow-roadmap.write` invocation. Roadmap supplies contained configuration and generic writer/review interfaces, requiring version 0.4.0 or later; no extension lifecycle helper or phase-milestone token participates. (S033)
 
-Reviewer performs roadmap debrief, artifact analysis, task eligibility checks, wiki lint, wiki maintenance assessment, and final closeout readiness. Code Reviewer independently assesses Converge results, Close Out debrief results, and implementation after each pass. Specifier, Planner, and Tasker own declared specification, plan, and task corrections; Coder implements eligible tasks; Wiki Curator ingests selected sources. (S023)
+A separate FarmBoy Reviewer independently checks actual effect, main-retained command time, current source and ledger readback. Applied, not-applied and indeterminate receipts preserve partial-effect evidence; retry reassesses the original receipt rather than blindly repeating a write. Human approval is not transferred by delegation, and implemented status does not imply verified or accepted. (S033)
 
-Approved roadmap writes and feature-pointer activation stay in the main task. Reviewed agent names do not transfer the human’s approval authority, and empty switch bodies do not authorize downstream work without completed evidence. New approved roadmap verification and trustworthy existing verification converge on the same Close Out wiki maintenance path. (S023)
+## Recovery and correction assignments
 
-## Evidence limits
+Earlier-edge recovery requires FarmBoy Roadmap Agent brief/linkage, FarmBoy Reviewer preparation and attestation, and FarmBoy Readiness Checker assessment. Main records and validates retained history and dispatch witnesses. Normal in-progress closeout skips earlier-edge recovery; stale evidence, unavailable assignments, contradictory state or partial effects stop at the affected boundary. (S033)
 
-Static graph tables establish declared source topology, not live native-agent availability, model or reasoning-effort identity, or project acceptance. Exact reviewed names and declared assignments are source facts; native selection and bounded live observations require separate evidence. Adjacent diagrams present the definitions rather than independently proving runtime behavior. (S023)
-
-## Current phase ownership and recovery roles
-
-The Feature 014 inventory above is historical topology. The current protocol keeps human approval, gates, switches and orchestration in the main task, while only the exact assigned FlowKit-Roadmap Agent invokes the versioned owner phase-milestone write. Main preparation is read-only; it revalidates the proposal and source snapshot immediately before effect. A separate FlowKit-Reviewer checks the actual discriminated receipt and current roadmap state before subsequent work. This owner delegation transfers no human approval authority. (S030)
-
-Phase ownership assigns planned→specced to Specify, specced→in-progress to Implement and in-progress→implemented to Close Out. Recovery adds exact FlowKit-Readiness Checker assessment alongside Roadmap Agent and Reviewer evidence producers; the main task binds artifacts to actual declared native dispatch rather than JSON role labels. Normal in-progress closeout skips earlier-edge recovery. Missing capability, stale evidence, contradictory state or partial effect stops at the affected boundary; lifecycle labels imply no verification, acceptance, publication or Git integration. See the [assessment contract](./controller-assessment-contract.md) for retained recovery witnesses. (S030)
+FarmBoy Code Reviewer independently evaluates implementation findings and whole-task fulfillment against original baselines and current evidence. FarmBoy Tasker owns bounded task revisions/marker changes after review; such edits earn no substantive progress themselves. Exact names and assignments do not establish effective settings, native launch or project acceptance. (S033)
 
 ## Related pages
 
-- [Named agents for delegated steps](./agent-roles-and-inheritance.md)
-- [Controller assessment contract](./controller-assessment-contract.md)
+- [Assessment contract](./controller-assessment-contract.md)
+- [Codex controllers](./codex-workflow-controllers.md)
+- [Loop limits](./workflow-loop-baselines-and-limits.md)

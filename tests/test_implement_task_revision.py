@@ -191,7 +191,7 @@ class ImplementTaskRevisionRouteTests(unittest.TestCase):
         self.assertIn("compare the actual before/after task text", semantic_step["prompt"])
         self.assertIn("Reject invented, omitted, substituted, wrong-owner, unrelated-scope", semantic_step["prompt"])
         self.assertNotIn("Feature 020", semantic_step["prompt"])
-        rendered_semantic = self.controller.render_template(semantic_step, {"feature_context": "specs/031-consumer"}, {
+        rendered_semantic = self.controller.render_template(semantic_step, {"feature_context": "specs/031-consumer", "integration": "codex"}, {
             "prepare-task-revision": {"task_snapshot_json": json.dumps({
                 "feature_directory": "specs/031-consumer", "specification_text": "The 031 consumer scope",
                 "specification_sha256": "a" * 64,

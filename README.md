@@ -13,11 +13,11 @@ This repository owns the generic workflow and feedback source. The repository an
 
 ## What the bundle installs
 
-The [bundle source manifest](bundles/farmboy/bundle.yml) is version `0.18.0` and targets Codex. The controller package is `0.8.0`; the canonical agent package is `farmboy-agents` `0.2.0`. The checked-in catalog is an unreleased development snapshot. Specify `>=1.0.10.dev0` and Python 3 are required. The bundle pins these extensions:
+The [bundle source manifest](bundles/farmboy/bundle.yml) is version `0.18.3` and targets Codex. The controller package is `0.9.1`; the canonical agent package is `farmboy-agents` `0.2.0`. The checked-in catalog is an unreleased development snapshot. Specify `>=1.0.10.dev0` and Python 3 are required. The bundle pins these extensions:
 
 | Extension ID | Version | Purpose |
 | --- | --- | --- |
-| `flow-roadmap` | `0.3.0` | Governed roadmap changes, feature reviews, and evidence-backed lifecycle transitions; source: `spec-kit-flow-roadmap` |
+| `flow-roadmap` | `0.4.0` | Generic governed roadmap amendments and feature reviews; source: `spec-kit-flow-roadmap` |
 | `flow-wiki` | `2.0.1` | Cited project context, ingestion, and linting; source: `spec-kit-flow-wiki` |
 | `farmboy-feedback` | `0.2.1` | Local observation capture and portable report export; source: this repository |
 
@@ -25,16 +25,16 @@ It also installs the ten active workflows in [`workflows/`](workflows/README.md)
 
 | Workflow ID | Version | Role |
 | --- | --- | --- |
-| `farmboy-select-feature` | `0.2.0` | List and discuss dependencies, select and activate a feature without authoring a spec |
-| `farmboy-specify` | `0.3.0` | Author the active specification with cited context, verified linkage, and a roadmap brief |
-| `farmboy-clarify` | `0.5.0` | Run one bounded clarification session |
-| `farmboy-plan` | `0.5.0` | Review readiness and create the technical plan |
-| `farmboy-tasks` | `0.5.0` | Generate implementation tasks separately from planning |
-| `farmboy-analyze-remediate` | `0.6.0` | Analyze artifact consistency and route bounded remediation |
-| `farmboy-implement` | `0.8.0` | Implement eligible tasks within the selected agent's scope |
-| `farmboy-converge` | `0.5.0` | Compare implementation with the feature artifacts and close gaps |
-| `farmboy-closeout` | `0.8.0` | Review completion, approve roadmap verification, maintain wiki context, and report commit readiness |
-| `farmboy-wiki-lint-update` | `0.2.0` | Lint first, refresh stale registered sources, and report all unresolved wiki findings |
+| `farmboy-select-feature` | `0.2.1` | List and discuss dependencies, select and activate a feature without authoring a spec |
+| `farmboy-specify` | `0.4.1` | Author the active specification with cited context, verified linkage, and a roadmap brief |
+| `farmboy-clarify` | `0.5.1` | Run one bounded clarification session |
+| `farmboy-plan` | `0.5.1` | Review readiness and create the technical plan |
+| `farmboy-tasks` | `0.5.1` | Generate implementation tasks separately from planning |
+| `farmboy-analyze-remediate` | `0.6.1` | Analyze artifact consistency and route bounded remediation |
+| `farmboy-implement` | `0.9.1` | Implement eligible tasks within the selected agent's scope |
+| `farmboy-converge` | `0.5.1` | Compare implementation with the feature artifacts and close gaps |
+| `farmboy-closeout` | `0.9.2` | Review completion, approve roadmap verification, maintain wiki context, and report commit readiness |
+| `farmboy-wiki-lint-update` | `0.2.1` | Lint first, refresh stale registered sources, and report all unresolved wiki findings |
 
 The bundle does not include a preset or `farmboy-feedback-maintainer`. Maintainer intake belongs in this source environment, not a consumer project.
 
@@ -42,7 +42,7 @@ For ordinary repository Python work, prepare the project-local PyYAML environmen
 
 ## Installation
 
-The checked-in catalog is the local `0.18.0` development snapshot, including ten controller skills and nine consumer-owned agent defaults. Ordinary installation requires a released catalog matching source; use development-snapshot mode in an initialized source checkout or disposable consumer to test current source. A compatible Specify CLI must be available; `mise.toml` records the tested fork version. Local packaging is not publication or consumer adoption.
+The checked-in catalog is the local `0.18.3` development snapshot, including ten controller skills and nine consumer-owned agent defaults. Ordinary installation requires a released catalog matching source; use development-snapshot mode in an initialized source checkout or disposable consumer to test current source. A compatible Specify CLI must be available; `mise.toml` records the tested fork version. Local packaging is not publication or consumer adoption.
 
 To install the checked-in release from a checkout matching that release, run `mise run catalog:install /path/to/my-project` after preparing the checkout. To validate source changes that have not reached the catalog, create and initialize a disposable consumer under the system temporary directory, then use development-snapshot mode:
 

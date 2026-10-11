@@ -2,7 +2,7 @@
 title: Workflow lifecycle
 type: concept
 sources: [S002, S006, S007, S010, S013, S017, S018, S019, S021, S029]
-updated: '2026-10-09'
+updated: '2026-10-11'
 ---
 
 # Workflow lifecycle
@@ -11,7 +11,7 @@ updated: '2026-10-09'
 
 The following records retain earlier source intent; the accepted Feature 014 refinements below govern the revised workflow design. (S021)
 
-An operator prepares a constitution and approved roadmap, establishes cited wiki context, chooses an eligible feature, and invokes each workflow deliberately. The documented route is start-feature, optional clarify, plan, tasks, analyze-remediate, implement, converge, and closeout. (S002)
+Earlier README combined Start Feature, then optional Clarify, Plan, Tasks, Analyze, Implement, Converge and Close Out. Current README separately invokes Select Feature and Specify after constitution, approved roadmap and cited wiki preparation; selection never authors `spec.md`. (S002)
 
 Feature 013 used reviewed concrete step-model assignments for bounded Codex subagents. Updated Feature 015 source uses reviewed per-step native agent names instead. Human questions and review gates stay in the main task; completing one workflow does not authorize a later phase. (S002, S019)
 
@@ -35,7 +35,7 @@ Closeout requires a separately approved completion operation, an exact roadmap v
 
 Feature 014's approved scope separates read-only candidate/dependency discussion and exact human selection/activation from same-target specification authoring. Selection updates only approved roadmap state and the active pointer; specification authoring is separately invoked. It also adds independent wiki maintenance while retaining separate planning and task generation. (S018)
 
-**Accepted supersession**: S002 documents the earlier combined start-feature route; S018 now specifies separate Select Feature and Specify workflows and a stop-only deprecated combined source. This is a prospective F014 replacement, not a rewrite of verified earlier feature history. (S002, S018, S021)
+**Accepted supersession**: The earlier S002 snapshot documented the combined start-feature route; S018 specifies separate Select Feature and Specify workflows and a stop-only deprecated combined source. This is a prospective F014 replacement, not a rewrite of verified earlier feature history. (S002, S018, S021)
 
 ## Feature 014 phase boundaries
 

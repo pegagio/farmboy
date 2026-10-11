@@ -1,8 +1,17 @@
 ---
 title: Named agents for delegated steps
 type: concept
-sources: [S005, S018, S020, S021, S023, S025, S026, S029]
-updated: '2026-10-09'
+sources:
+- S005
+- S018
+- S020
+- S021
+- S023
+- S025
+- S026
+- S029
+- S032
+updated: '2026-10-11'
 ---
 
 # Named agents for delegated steps
@@ -11,7 +20,13 @@ Verified Feature 015 requires a reviewed Codex name on each explicitly delegated
 
 Its earlier vocabulary was Architect, Builder, Coder and Verifier. Feature 014 approved eight responsibility names without approval authority; Feature 017 subsequently prefixes those identities. Historical names remain provenance rather than aliases. (S020, S021, S026)
 
-## Current roles and escalation
+## FarmBoy roles and metadata (2026-10-10)
+
+Canonical names are FarmBoy Roadmap Agent, FarmBoy Specifier, FarmBoy Planner, FarmBoy Tasker, FarmBoy Reviewer, FarmBoy Coder, FarmBoy Code Reviewer, FarmBoy Wiki Curator and FarmBoy Readiness Checker. Duties, model/effort defaults and consumer editability remain unchanged. Constitution 8.0.0's bounded transition retains existing reviewed installations until separately authorized compatible installation; this creates no old-name aliases or conversion. (S032)
+
+Owned producers and readers use `farmboy.delegated` and `farmboy.agent`, preserving nested field types and dispatch semantics. The old `flow_kit` key cannot authorize a child and has no dispatch fallback. Earlier names below are historical contracts, not current FarmBoy assignments. (S032)
+
+## Earlier FlowKit roles and escalation
 
 The exact roles preserve bounded duties: FlowKit-Roadmap Agent inspects scoped evidence and applies only approved ledger patches; FlowKit-Specifier authors/clarifies the selected specification; FlowKit-Planner prepares selected planning artifacts; FlowKit-Tasker derives approved tasks while preserving IDs/completion; FlowKit-Coder implements explicitly selected eligible tasks; FlowKit-Wiki Curator maintains authorized cited knowledge. FlowKit-Reviewer independently assesses selected artifacts/alignment; FlowKit-Code Reviewer independently assesses selected implementation/tests. (S026)
 
@@ -19,21 +34,15 @@ Authors retain command-required self-checks and checklists; independent reviewer
 
 The guide adds FlowKit-Readiness Checker for read-only preparation assessment; it cannot edit artifacts, replace independent review or complete future obligations. Configuration, native launch and effective settings remain distinct. (S005)
 
-## Delegation and native evidence
+## Earlier delegation and native evidence
 
 Every delegated executable step declares `flow_kit.delegated: true` and its reviewed `flow_kit.agent`. Names alone do not delegate; nondelegated steps, switches and gates remain in the main task. Workflow defaults, role-model maps and per-run agent/model/effort overrides are excluded. Codex resolves native TOML settings and inheritance. Catalog delivery validates package TOML and readable project identities; the workflow controller does not parse custom-agent TOML or map role settings and delegates native loading and model/effort resolution to Codex. These delivery and execution responsibilities are distinct. (S020, S026, S005)
 
 The controller validates all possible assignments, including untaken branches, and confirms exact named startup before work. Missing, invalid or unavailable assignments stop without fallback. Native activity labels include agent/step launch cues; labels alone establish neither selection nor effective settings. Feature 015 rejects legacy concrete step-model declarations with a migration reason. Native Specify runner behavior requires separate evidence. (S020)
 
-## Historical delivery boundaries and supersession
+## Historical delivery
 
-Feature 015's earlier contract excluded installer modification of consumer agent files. Later approved Feature 017 superseded that acquisition exclusion with install-missing and explicitly targeted reset; the current installation guide confirms that transition. Consumer ownership continues: install-missing preserves existing copies, refresh changes available defaults only, and removal retains copies. This is an accepted chronological change, with the earlier boundary retained as history. (S020, S026, S005)
-
-Feature 014 depended on verified Feature 015 and assigned eight unprefixed roles across ten active workflows; its narrower repository-local delivery boundary remains historical scope. Its author/checker separation, reviewed exact branches and unchanged correction paths carried forward; structural/no-op evidence stays distinct from live dispatch. (S018, S021, S026)
-
-The [workflow inventory](./workflow-graph-responsibility-boundaries.md) separates graph responsibilities from native dispatch/model evidence; current approved pairs and remaining evidence limits are in [FlowKit agent delivery](./flowkit-agent-configuration-and-delivery.md). (S023, S026)
-
-[Feature 020 contract](./feature020-agent-roles-and-inheritance.md). (S029)
+[Earlier delivery and supersession](./agent-delivery-before-farmboy.md) retain Feature 015/017/020 contracts. (S032)
 
 ## Related pages
 

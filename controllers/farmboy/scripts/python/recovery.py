@@ -144,7 +144,7 @@ def create_summary(
         "status": "running",
     }
     validate_summary(summary)
-    path = Path(project_root) / ".specify/flow-controllers/runs" / run_id / "summary.json"
+    path = Path(project_root) / ".specify/farmboy-controllers/runs" / run_id / "summary.json"
     _atomic_write(path, summary)
     return summary
 
@@ -346,7 +346,7 @@ def main(argv: list[str] | None = None) -> int:
             payload["assignments"],
             preflight_passed=payload.get("preflight_passed") is True,
         )
-        result: dict[str, Any] = {"summary_path": str(args.project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"), "summary": summary}
+        result: dict[str, Any] = {"summary_path": str(args.project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"), "summary": summary}
     elif args.command == "step":
         result = update_step(args.summary, args.step_id, args.status, changed_files=payload.get("changed_files"), blocker=payload.get("blocker"))
     elif args.command == "stop":

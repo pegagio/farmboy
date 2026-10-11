@@ -445,7 +445,7 @@ class ImplementationProgressTests(unittest.TestCase):
         workflow = yaml.safe_load((ROOT / "workflows/farmboy-implement/workflow.yml").read_text())
         controller.validate_workflow_graph(workflow["steps"])
         capture = next(x for x in workflow["steps"] if x["id"] == "capture-implementation-baseline")
-        rendered = controller.render_template(capture, {"feature_context": self.feature}, {})
+        rendered = controller.render_template(capture, {"feature_context": self.feature, "integration": "codex"}, {})
         self.assertIn("implementation-baseline", rendered["prompt"])
         self.assertLess([x["id"] for x in workflow["steps"]].index(capture["id"]),
                         [x["id"] for x in workflow["steps"]].index("route-readiness-before-core"))
@@ -460,7 +460,7 @@ class ImplementationProgressTests(unittest.TestCase):
                         return match
         assessor = find(workflow["steps"], "assess-implementation-after-pass")
         self.assertEqual("FarmBoy Code Reviewer", assessor["farmboy"]["agent"])
-        prompt = controller.render_template(assessor, {"feature_context": self.feature}, {})["prompt"]
+        prompt = controller.render_template(assessor, {"feature_context": self.feature, "integration": "codex"}, {})["prompt"]
         self.assertIn("implementation-progress", prompt)
         self.assertIn("even while its parent task remains open", prompt)
         self.assertNotIn("completed at least one previously unfinished task", prompt)

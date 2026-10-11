@@ -2,7 +2,7 @@ schema_version: '1.0'
 workflow:
   id: farmboy-closeout
   name: Close Out Feature
-  version: "0.9.0"
+  version: "0.9.2"
   author: pegagio
   description: Debrief and reconcile through one bounded waterfall, approve exact roadmap verification, maintain wiki context, and report commit readiness without committing.
 requires:
@@ -14,7 +14,7 @@ inputs:
   feature_context:
     type: string
     required: true
-    prompt: Enter the exact repository-relative spec directory for the converged feature to close out (for example specs/014-farmboy-workflow-improvements)
+    prompt: Enter the exact repository-relative spec directory for the converged feature to close out (for example specs/014-flowkit-workflow-improvements)
   integration:
     type: string
     default: codex
@@ -26,6 +26,7 @@ inputs:
 steps:
   - id: assess-closeout-readiness
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: Assess current convergence, completion authority, existing specification lifecycle state, and current trusted roadmap verification evidence for {{ inputs.feature_context }}. Return a validated outcome envelope with state complete, continue, or blocked; stable reason_code; current repository-relative evidence paths with SHA-256 digests; remaining_ids; resolved_ids; and state-dependent routing fields. Complete is allowed only when current evidence proves the Complete specification and roadmap entry are already verified with no unresolved in-scope work; use reason_code already-verified. Continue when clear evidence permits an in-place Draft-to-Complete update or a fresh debrief of an existing Complete specification; set next_step_id to debrief-roadmap. Blocked includes non-clean convergence, missing or untrusted evidence, unsupported lifecycle state, unsafe recovery, or required product, constitutional, authority, or material-scope decisions; preserve the exact question or blocker and stable resume_action. Do not mutate files, infer completion from command success, or claim acceptance. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
     farmboy:
       delegated: true
@@ -37,6 +38,7 @@ steps:
       continue:
         - id: prepare-closeout-status
           type: prompt
+          integration: "{{ inputs.integration }}"
           prompt: Using the ready initial assessment for {{ inputs.feature_context }}, recheck the exact existing specification and convergence evidence. Return status_action run only for an existing Draft specification whose current convergence and completion authority are clear; otherwise skip for an already Complete specification. Unsupported lifecycle state, lost evidence, or an unsettled decision stops before any command with the exact operator question or recovery action. Do not create a specification or change scope.
         - id: route-closeout-status
           type: switch
@@ -54,6 +56,7 @@ steps:
             skip: []
         - id: assess-implemented-lifecycle-milestone
           type: prompt
+          integration: "{{ inputs.integration }}"
           farmboy:
             delegated: true
             agent: FarmBoy Code Reviewer
@@ -66,6 +69,7 @@ steps:
           steps:
             - id: assess-closeout-lifecycle-edge
               type: prompt
+              integration: "{{ inputs.integration }}"
               farmboy:
                 delegated: true
                 agent: FarmBoy Reviewer
@@ -87,6 +91,7 @@ steps:
                       agent: FarmBoy Roadmap Agent
                   - id: assess-recovery-preparation
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     farmboy:
                       delegated: true
                       agent: FarmBoy Reviewer
@@ -94,10 +99,12 @@ steps:
                       Produce a fresh `FarmBoy Reviewer` preparation judgment for this exact current specification, plan, tasks, checklists and current Roadmap Agent brief. Return `reviewer_report` in the existing `readiness.record_review` input schema, with exact current input digests, all required preparation criteria, future-obligation IDs, findings and verdict. Do not reuse a stale judgment or infer lifecycle events from task markers.
                   - id: record-recovery-preparation
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     prompt: >-
                       As the main task, invoke `python3 .specify/farmboy/scripts/python/controller.py readiness --project "$PWD"` with JSON `{"action":"record-review","feature_directory":"{{ inputs.feature_context }}","reviewer_report":{{ steps.assess-recovery-preparation.output.reviewer_report }}}` on stdin and record its output unchanged. Then invoke `controller.py phase-lifecycle` with action `validate-start-history`, current feature scope and only main-retained source references/digests. Persist the exact typed validation output to `{{ inputs.feature_context }}/validation/phase-lifecycle/start-history-validation.json`. Return the readiness helper's `path`/`sha256` and the exact history validation path/digest. Do not infer or reconstruct any input or receipt.
                   - id: assess-recovery-readiness
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     farmboy:
                       delegated: true
                       agent: FarmBoy Readiness Checker
@@ -105,6 +112,7 @@ steps:
                       Independently assess readiness from the fresh Roadmap Agent brief, main-recorded receipt at `{{ steps.record-recovery-preparation.output.path }}` and current exact-scope source evidence. Bind current input digests, native role assignment, dependencies, and all earlier-edge criteria. Return a strict ready/blocked assessment with exact paths/digests; no mutation.
                   - id: attest-recovery-start
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     farmboy:
                       delegated: true
                       agent: FarmBoy Reviewer
@@ -114,10 +122,12 @@ steps:
                 blocked: []
             - id: prepare-closeout-lifecycle-request
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: >-
                 As the main task, prepare one strict Close Out lifecycle request for this exact invocation. If route is `blocked`, stop with its stable blocker and resume action. For `normal`, use only the current `in-progress→implemented` evidence and skip all earlier recovery proof requirements. For `recovery`, consume the completed output objects from `assess-recovery-roadmap-brief`, `assess-recovery-preparation`, `record-recovery-preparation`, `assess-recovery-readiness`, and `attest-recovery-start`; use their exact paths, hashes, role judgments, recorder receipt and validated history. Bind each role to the actual native dispatch and current input digests. Verify the attestation child identity against the current run's retained native dispatch summary, then persist the attestation unchanged. Build milestone evidence from these returned values and the independently retained main snapshot; do not reuse child-discovered paths or stale scaffold records. Include every retained source reference and digest in the snapshot. Bind policy SHA-256 `09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4`, exact target, current convergence/review/validation evidence, dependencies, and pending future obligations. Request only one substantiated adjacent edge below the Close Out ceiling. Persist the request under `validation/phase-lifecycle/` with exact workflow/run/source digests. Never claim trusted authority from a child-created file or prepare `verified`.
             - id: prepare-closeout-lifecycle-transition
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: >-
                 Invoke `python3 .specify/farmboy/scripts/python/controller.py phase-lifecycle --project "$PWD"` with the strict request at {{ steps.prepare-closeout-lifecycle-request.output.request_path }} on JSON stdin. Return the full assessment as `lifecycle_assessment`; FarmBoy never writes roadmap bytes.
             - id: route-closeout-lifecycle-transition
@@ -127,6 +137,7 @@ steps:
                 ready:
                   - id: revalidate-closeout-lifecycle-transition
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     prompt: >-
                       Rebuild the same request as action `revalidate` with the exact prepared proposal and immediately run the FarmBoy adapter. Any source, scope, review, dependency or authority change blocks the effect.
 
@@ -151,6 +162,7 @@ steps:
                             agent: FarmBoy Roadmap Agent
                         - id: verify-closeout-lifecycle-transition
                           type: prompt
+                          integration: "{{ inputs.integration }}"
                           farmboy:
                             delegated: true
                             agent: FarmBoy Reviewer
@@ -158,6 +170,7 @@ steps:
                       no-op:
                         - id: verify-closeout-lifecycle-noop-after-revalidation
                           type: prompt
+                          integration: "{{ inputs.integration }}"
                           farmboy:
                             delegated: true
                             agent: FarmBoy Reviewer
@@ -167,6 +180,7 @@ steps:
                 no-op:
                   - id: verify-existing-closeout-lifecycle-state
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     farmboy:
                       delegated: true
                       agent: FarmBoy Reviewer
@@ -175,10 +189,12 @@ steps:
                 question: []
             - id: route-closeout-lifecycle-edge
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: >-
                 Use only the current prepare/revalidate/owner receipt and independent verification from this loop iteration. Return `state: continue` only when exactly one adjacent effect was applied and independently verified and current roadmap status is still below `implemented`. Return `state: complete` only when current evidence and roadmap bytes prove `implemented` or a consistent later `verified` status with no duplicate event or downgrade. Return blocked/question unchanged for any other outcome. Never infer an effect from a command exit or status label.
         - id: verify-implemented-lifecycle-before-debrief
           type: prompt
+          integration: "{{ inputs.integration }}"
           prompt: >-
             Return `state: verified` only when the full-scope Code Reviewer assessment and the last current owner milestone receipt/no-op have both been independently verified, the recovery loop returned complete, current source/evidence hashes match, and roadmap status is implemented or consistently advanced. Otherwise return blocked with exact missing evidence and safe resumption. Do not permit a roadmap debrief, verification proposal, or later action on blocked evidence.
         - id: route-implemented-lifecycle-before-debrief
@@ -202,6 +218,7 @@ steps:
                       agent: FarmBoy Reviewer
                   - id: assess-closeout-debrief
                     type: prompt
+                    integration: "{{ inputs.integration }}"
                     prompt: 'Classify this fresh debrief report for {{ inputs.feature_context }}: {{ steps.debrief-roadmap.output.report }}. Independently review implementation changes since the prior pass for code defects and relevant validation evidence. Include exact code findings and repository-relative evidence. Review an attributable implementation delta with changed paths and before/after evidence; if that boundary is unavailable, stop with an untrusted-delta recovery. Return exact review findings as a separate workflow-specific result alongside the strict envelope, retaining stable ID, task_id, artifact_location, violated requirement, observed deficiency, and exact correction. Fresh independent assessment must confirm substantive resolution and retain new blocking findings. With no safe eligible correction route, return blocked with a specific task-recording or reopening resumption action. Preserve the exact unanswered product question and never infer an answer; successful commands cannot discharge findings. A code finding may continue only when it is represented by an existing or newly recorded in-scope task that can be made eligible through the existing analysis and eligibility steps; otherwise return blocked with a precise resume_action to record or reopen the task before implementation. Return a validated outcome envelope with state complete, continue, or blocked; stable reason_code; current repository-relative evidence paths and SHA-256 digests; remaining_ids; resolved_ids; and state-dependent routing fields. Complete requires clean current convergence, an existing Complete specification, no material code-review finding, and a trusted debrief supporting either the exact proposed verification patch (reason_code patch-ready) or the already-verified roadmap entry (reason_code already-verified). Continue is limited to routine, safely repairable in-scope findings; select the highest affected next_step_id: reconcile-closeout-specification, reconcile-closeout-plan, reconcile-closeout-tasks, or implement-closeout-eligible-tasks. The first report establishes the finding baseline. Later reports must prove resolution of a prior finding; changed bytes, new tasks, checkboxes, status changes, and successful commands alone do not demonstrate progress. Blocked includes required product, constitutional, authority, material-scope, or ambiguous-recovery decisions, missing prerequisites, failed commands, stale evidence, untrusted delta, or unsafe correction. Preserve the exact question or blocker and stable resume_action without taking the consequential action. The controller validates this assessment and checks progress and the correction cap before entering the waterfall. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).'
                     farmboy:
                       delegated: true
@@ -213,6 +230,7 @@ steps:
                       continue:
                         - id: prepare-closeout-flowback
                           type: prompt
+                          integration: "{{ inputs.integration }}"
                           prompt: Prepare the shared correction waterfall for {{ inputs.feature_context }} from the current validated assess-closeout-debrief outcome and fresh debrief report. For next_step_id reconcile-closeout-specification, set spec_action, plan_action, and task_action to run. For reconcile-closeout-plan, skip specification and run plan and tasks. For reconcile-closeout-tasks, run only tasks. For implement-closeout-eligible-tasks, skip all three artifact stages. Return implementation_args as readable text without template delimiters, preserving exact review findings verbatim and their eligible task mapping, plus those action fields and specification_args, plan_args, and task_args containing exact findings and required downstream reconciliation. Include explicit SPECIFY_FEATURE_DIRECTORY equal to the existing selected target in specification_args; do not create or renumber a feature. Preserve reviewed intent, lifecycle state, task IDs, completion markers, and completed work. Missing evidence, unsupported routes, or a product, constitutional, authority, material-scope, or ambiguous-recovery decision stops before mutation with the exact operator question and stable recovery action. Do not invoke another workflow.
                         - id: route-closeout-specification-remediation
                           type: switch
@@ -266,6 +284,7 @@ steps:
                             agent: FarmBoy Reviewer
                         - id: assess-closeout-task-eligibility
                           type: prompt
+                          integration: "{{ inputs.integration }}"
                           prompt: 'Assess this fresh analyzer report: {{ steps.analyze-closeout-artifacts.output.report }} against current tasks for {{ inputs.feature_context }}. Return a validated outcome envelope with state complete, continue, or blocked, stable reason_code, current repository-relative evidence paths and SHA-256 digests, remaining_ids, resolved_ids, and state-dependent routing fields. Continue only when analysis is clean, dependent artifacts agree, and specific in-scope unfinished tasks are eligible; set next_step_id to implement-closeout-eligible-tasks and remaining_ids to their exact IDs. Complete means no eligible implementation work, not feature closeout. Blocked includes unresolved analysis, stale or missing output, failed prerequisites, uncertain eligibility, or required operator input; preserve the exact question or blocker and stable resume_action. A blocked result stops before implementation and any further debrief. Command success and checkbox claims alone are insufficient. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).'
                           farmboy:
                             delegated: true
@@ -293,6 +312,7 @@ steps:
       blocked: []
   - id: prepare-roadmap-verification
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: Use only completed outputs and validated controller decisions from this invocation. Return state patch-ready, already-verified, or blocked; selected_entry_id; exact spec_target; proposed_patch when applicable; and evidence. If the initial assessment was complete/already-verified, use that current trusted evidence without requiring a loop output. Otherwise only the latest successfully completed debrief assessment can support patch-ready or already-verified. A validated complete/patch-ready result must have the exact patch and entry from the same fresh debrief. A blocked initial or intermediate assessment, failed command, unresolved implementation blocker or question, invalid state, stale evidence, no-progress stop, or cap exhaustion yields blocked, regardless of an earlier continue or complete result. Never access a skipped step as if it ran. Preserve completed artifacts and the exact question or safe resumption action; do not mutate the roadmap.
   - id: route-roadmap-verification
     type: switch
@@ -330,6 +350,7 @@ steps:
       blocked: []
   - id: prepare-wiki-maintenance
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: Re-read the exact selected roadmap entry and existing specification for {{ inputs.feature_context }}. Return state ready or blocked, selected_entry_id, and curated_sources. Ready requires either current trusted already-verified evidence or the exact approved patch successfully applied and freshly verified as the unique roadmap mapping with the requested verification state. Command success alone is insufficient. A prior blocked outcome, missing or failed write, divergent mapping, stale evidence, amendment, return, or deferral cannot reach wiki maintenance. Keep the original approval choice and reason for reporting. For both verified paths, select feature-relevant durable roadmap, constitution, ADR, workflow, architecture, guide, and feature artifacts within the operator-issued closeout scope; exclude ordinary implementation code unless an agent-facing contract. Before freezing curated_sources, inspect the source registry and pages affected by the feature. Include readable registered local sources supporting those pages, including related installation or workflow guides, when they are inside the operator-issued project scope. Routine selection of these supporting sources is authorized by the closeout invocation and needs no separate confirmation. Record each source identity and its relevance; do not add unrelated sources, external paths, or remote URLs. If source selection requires an unsettled consequential decision or access beyond that scope, return blocked with the exact question. Existing verification does not skip wiki upkeep. Do not write files in this check.
     farmboy:
       delegated: true
@@ -346,6 +367,7 @@ steps:
           steps:
             - id: prepare-wiki-refresh
               type: prompt
+              integration: "{{ inputs.integration }}"
               prompt: Prepare one wiki source refresh within the exact curated source set {{ steps.prepare-wiki-maintenance.output.curated_sources }}. On the first pass, inspect source registry, related pages, current source bytes, and required closeout knowledge to record stable claim-level gap IDs for missing durable contracts or concrete stale claims. A source-level coverage label is a grouping only, never a progress ID; enumerate each independently verifiable missing contract before correction. For example, plan-loop-limits and plan-partial-activation are separate findings. Preserve those IDs across passes and report newly discovered missing claims without renaming unresolved findings. Include specific existing lint findings only with current verifiable evidence. On later passes, use the latest assess-wiki-maintenance remaining_ids and evidence. Map affected pages through their cited S-ids to normalized source identities; a stale page is not itself an ingestion source. Select exactly one readable, already-authorized project file or directory whose refresh can resolve the most specific gaps; source must be the single source token accepted by speckit.flow-wiki.ingest, not a list or prose instruction. Return source, baseline_remaining_ids, refresh_findings, and freshness_revalidations. refresh_findings is the exact correction checklist for every pending finding supported by the selected source, with stable ID, source section, affected wiki page, observed deficiency, and required correction. Supply that completed checklist to the ingestion child as bounded context alongside the unchanged single source token; do not expect the child to reconstruct it from a source-level label. Track pending required source coverage until source registry and cited page content or a justified no-durable-change result substantiate it; command success alone does not clear a gap. Respect ingestion's page cap, citation policy, conflict preservation, and immutable sources. Required new source authority, unresolved conflicting claims, unavailable sources, uncertain mapping, or findings unsupported by source evidence stop with the exact question or blocker. For a date-only stale warning, directly compare every affected claim and citation with the current authorized sources. If all remain supported and there is no conflict, update only the page freshness metadata to the actual revalidation date and record source and page before/after digests plus the claim-to-source proof in freshness_revalidations. This evidence-backed revalidation is routine wiki maintenance already authorized by the invocation; do not ask for a freshness exception. It earns no substantive progress credit and is not re-ingestion merely to bump timestamps. A changed source hash, newer source date, or successful command alone is insufficient. Leave warnings unresolved when claims cannot be verified or cited source access is outside the frozen scope; preserve any consequential question. Do not select the wiki page itself, expand the source set, fetch an undeclared URL, overwrite competing cited claims, or change source files. If all required sources are already represented, select one authorized closeout source for a bounded verification refresh; report justified no-change and let lint determine completion. Do not invoke another workflow.
             - id: ingest-curated-context
               command: speckit.flow-wiki.ingest
@@ -365,12 +387,14 @@ steps:
                 agent: FarmBoy Reviewer
             - id: assess-wiki-maintenance
               type: prompt
+              integration: "{{ inputs.integration }}"
               farmboy:
                 delegated: true
                 agent: FarmBoy Reviewer
               prompt: Assess current source coverage, this ingestion report {{ steps.ingest-curated-context.output.report }}, this fresh lint report {{ steps.lint-wiki.output.report }}, the prepared baseline gaps {{ steps.prepare-wiki-refresh.output.baseline_remaining_ids }}, the exact correction checklist {{ steps.prepare-wiki-refresh.output.refresh_findings }}, and freshness revalidation evidence {{ steps.prepare-wiki-refresh.output.freshness_revalidations }}. Return a validated outcome envelope with state complete, continue, or blocked; stable reason_code; current repository-relative evidence paths and SHA-256 digests; remaining_ids identifying exact page/check/source coverage gaps; resolved_ids identifying prior claim-level gaps substantively resolved; and state-dependent routing fields. Complete requires every required curated source represented or explicitly justified as having no durable new knowledge, successful ingestion and lint, and no unresolved lint findings. Continue only for specific remaining gaps that re-ingesting one source within the already-authorized curated set can safely resolve; set next_step_id to prepare-wiki-refresh. For the first pass, prove resolution of at least one prepared gap before another pass; later passes must resolve a prior claim-level remaining ID. Confirm each corrected claim independently even while other claims from the same source remain unresolved; do not require the entire source to be complete before crediting a fully resolved claim. Retain every unresolved or newly discovered claim and its grouping provenance. Source registration alone does not resolve missing claim coverage. Re-inspect affected page claims, citations, source registry, and current source evidence; new timestamps, changed bytes, and command success alone are not progress. Blocked includes conflicting sources requiring an authority decision, date-only warnings without verified claim-and-citation revalidation evidence, unknown or unavailable sources, scope expansion, malformed metadata, unsupported structural or semantic repairs, failed ingestion or lint, stale evidence, or unsafe retry. Preserve the exact question or blocker and stable resume_action. Never silently choose an authoritative claim or resolve a conflict marker. A no-progress or five-pass-cap stop remains incomplete and cannot authorize commit readiness. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
         - id: verify-closeout-readiness
           type: prompt
+          integration: "{{ inputs.integration }}"
           prompt: Use only completed outputs and validated controller decisions. Inspect the latest assess-wiki-maintenance result, source coverage evidence, ingestion/lint results, and Git changes for {{ inputs.feature_context }}. Return state ready-for-explicit-commit or blocked and report. Ready-for-explicit-commit requires a validated complete wiki assessment, every required curated source represented or justified no-change, successful current ingestion and lint with no unresolved findings, and exact changes and validation evidence available for the final report. Missing, stale, failed, blocked, no-progress, or cap-limited wiki results cannot authorize readiness even when an earlier pass succeeded. Preserve partial approved roadmap and wiki changes and the smallest recovery action. Do not repair outside the declared loop, commit, integrate Git, or claim acceptance.
           farmboy:
             delegated: true
@@ -378,4 +402,5 @@ steps:
       blocked: []
   - id: report-closeout-outcome
     type: prompt
+    integration: "{{ inputs.integration }}"
     prompt: Report this invocation's exact outcome for {{ inputs.feature_context }} using only completed outputs and validated stop decisions. Include specification status, debrief and correction evidence, resolved and remaining findings, approved roadmap patch or existing verification, wiki ingestion and lint results, Git changes, and the original roadmap approval choice. Report ready for an explicit commit only when current verified maintenance passed and the latest verify-closeout-readiness result is ready-for-explicit-commit. Missing, failed, blocked, deferred, returned, stale, invalid, no-progress, or cap-limited outcomes remain stopped with the exact operator question or blocker and smallest safe resumption action. Preserve partial state, especially roadmap verification that succeeded before wiki failure; do not silently undo approved work. Readiness is an evidenced recommendation, not permission to commit; a subsequent explicit operator request is required. Stop here. Do not commit, push, integrate Git, invoke another workflow, or claim feature acceptance.

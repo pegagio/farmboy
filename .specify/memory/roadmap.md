@@ -1,6 +1,50 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.26.3 → 1.26.4
+Bump rationale: PATCH — record Feature 021 verification supported by a fresh attributable implementation debrief.
+Changes: record the adjacent implemented → verified recommendation and align Feature 021's current summary with observed evidence and validation limits.
+Specs affected: 021 (verified); dependencies 011, 013, 014 and 017 retain verified.
+Open questions added/resolved: none.
+Notes: Fresh debrief: specs/021-farmboy-project-workflow-naming/roadmap-reviews/debrief-20261011T020448Z.md. Reviewed baseline 7a43bb37398baec7a757feb04cbb83dcb901fac4 through WORKTREE at HEAD 6738a067045b268feb7f5522d7841290ce70b3a2; snapshot sha256:c91b8e107d4e31e8ead46725212c2fad3997bad718041759525b6d8447e3402e remained stable. No unresolved findings. This amendment requires the separately gated operator approval and application readback; it does not reconstruct historical phase-owner effects or grant acceptance, publication, consumer refresh or Git integration. Preserve other entries, prior reports and existing qualifications.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.26.2 → 1.26.3
+Bump rationale: PATCH — correct Feature 021's current recorded milestone without changing product scope.
+Changes: record the adjacent in-progress → implemented current-state correction and align its current summary.
+Specs affected: 021 (implemented); dependencies 011, 013, 014 and 017 retain verified.
+Open questions added/resolved: none.
+Notes: Explicit operator approval of this exact prerequisite amendment is required before application. Current evidence: specs/021-farmboy-project-workflow-naming/validation/closeout-corrections.md, current spec/plan/tasks/checklist/quickstart and .specify/memory/constitution.md. This is a present-state ledger correction supported by actual installed FlowKit-native reviews under the constitutional transition; it does not reconstruct earlier phase-owner effects, fabricate owner receipts, verify the feature, refresh consumers, grant acceptance, publish or authorize Git integration. Preserve all prior reports, other entries and qualifications.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.26.1 → 1.26.2
+Bump rationale: PATCH — correct Feature 021's current recorded milestone without changing product scope.
+Changes: record the adjacent specced → in-progress current-state correction and align its current summary.
+Specs affected: 021 (in-progress); dependencies 011, 013, 014 and 017 retain verified.
+Open questions added/resolved: none.
+Notes: Explicit operator approval of this exact prerequisite amendment is required before application. Current evidence: specs/021-farmboy-project-workflow-naming/validation/closeout-corrections.md, current spec/plan/tasks/checklist/quickstart and .specify/memory/constitution.md. This is a present-state ledger correction supported by actual installed FlowKit-native reviews under the constitutional transition; it does not reconstruct earlier phase-owner effects, fabricate owner receipts, verify the feature, refresh consumers, grant acceptance, publish or authorize Git integration. Preserve all prior reports, other entries and qualifications.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.26.0 → 1.26.1
+Bump rationale: PATCH — correct Feature 021's current recorded milestone without changing product scope.
+Changes: record the adjacent planned → specced current-state correction and reconcile current title, summary and resolved constitutional notes.
+Specs affected: 021 (specced); dependencies 011, 013, 014 and 017 retain verified.
+Open questions added/resolved: mark the previously settled constitutional identity question resolved; preserve its historical wording.
+Notes: Explicit operator approval of this exact prerequisite amendment is required before application. Current evidence: specs/021-farmboy-project-workflow-naming/validation/closeout-corrections.md, current spec/plan/tasks/checklist/quickstart and .specify/memory/constitution.md. This is a present-state ledger correction supported by actual installed FlowKit-native reviews under the constitutional transition; it does not reconstruct earlier phase-owner effects, fabricate owner receipts, verify the feature, refresh consumers, grant acceptance, publish or authorize Git integration. Preserve all prior reports, other entries and qualifications.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.25.0 → 1.26.0
 Bump rationale: MINOR — include the directly approved owned feedback and delegation-parser rename in Feature 021.
 Changes: rename both owned feedback extensions and their existing command/skill identities; replace the flow_kit delegation key and owned readers with farmboy, preserving existing behavior and nested fields. Independent roadmap/wiki and core commands stay unchanged.
@@ -149,7 +193,7 @@ Open questions added/resolved: Resolve Feature 019 preparation/invocation and ex
 Notes: Evidence: specs/019-catalog-python-runtime-prerequisites/roadmap-reviews/debrief-20261005T200520Z.md, tasks.md and validation.md. Review covers the complete attributable baseline-to-WORKTREE snapshot; local results and a disposable second-project fixture do not establish full catalog lifecycle, stock Specify compatibility or other-platform support.
 -->
 
-# Spec Kit Flow — Spec Roadmap
+# FarmBoy — Spec Roadmap
 
 This living roadmap records the project's completed specifications and leaves room for future features. It is not a commitment to new scope or sequence. The [constitution](constitution.md) governs this ledger; each entry points to its feature specification. The operator designated entries 001–011 verified on 2026-09-26; later entries carry their own lifecycle states below.
 
@@ -186,7 +230,7 @@ These cross-cutting constraints come from the [constitution](constitution.md); t
 
 ## Planned Specs
 
-Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 020 is verified for its reviewed buildable implementation and observed automated/native validation, with its operator-waived, unperformed T066/T077 manual matrices recorded in the entry qualification below. Feature 021 is planned for the approved FarmBoy rename; the current constitutional identities continue to govern until explicitly amended. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
+Entries 001–011 record verified history. Features 012, 013, 014, and 015 are verified. Feature 016 is planned; Feature 017 is verified with its documented follow-up qualification; Feature 018 is abandoned. Feature 019 is verified for its approved agent-environment scope motivated by DEP017-01; the original catalog failure and Feature 017 qualification remain preserved, and full catalog lifecycle repair is not claimed. Feature 018's proposed capacity repair and sequencing are retained as historical intent, not an active delivery commitment; the original observation remains unresolved. Feature 020 is verified for its reviewed buildable implementation and observed automated/native validation, with its operator-waived, unperformed T066/T077 manual matrices recorded in the entry qualification below. Feature 021 is verified for the approved FarmBoy rename under Constitution 8.0.0, supported by the [fresh implementation debrief](../../specs/021-farmboy-project-workflow-naming/roadmap-reviews/debrief-20261011T020448Z.md) and documented automated/native-fixture validation. The snapshot remains unpublished; newly packaged FarmBoy live-agent behavior and Linux remain untested, and no consumer refresh, feature acceptance or Git integration is implied. Dependencies describe delivery prerequisites between these specs, not the order in which an operator must run workflow phases.
 
 ### 001 — Start Eligible Feature  [status: verified]
 
@@ -420,7 +464,7 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Verification qualification**: The Complete specification and current independent implementation assessment support the reviewed buildable scope and attributable automated/native validation; the [fresh debrief](../../specs/020-flowkit-workflow-iteration-improvements/roadmap-reviews/debrief-20261009T201232Z.md) recommends verified with zero Must-Address findings. Fresh convergence records 178 feature tests and 28 owner tests passed with zero skips; current independent policy reassessment verifies unchanged implementation/test inputs and does not claim new test execution. On 2026-10-09 the operator explicitly waived the unperformed T066/T077 manual matrices for this feature's closeout and future completion, as recorded in [the current specification qualification](../../specs/020-flowkit-workflow-iteration-improvements/spec.md#feature-020-closeout-qualification) and [waiver ledger](../../specs/020-flowkit-workflow-iteration-improvements/validation/waived-manual-validation.json). Those task rows remain unchecked, zero dogfooding/manual-case observations are recorded, and actor-level manual-path equivalence remains unobserved. Later dogfooding findings are defects for separately authorized work. This bounded verification does not imply feature/The Diagram acceptance, universal availability or adoption, effective native settings, publication, release or Git integration; acceptance and release remain pending.
 - **Spec dir**: `specs/020-flowkit-workflow-iteration-improvements/`
 
-### 021 — FarmBoy Project and Workflow Naming  [status: planned]
+### 021 — FarmBoy Project and Workflow Naming  [status: verified]
 
 - **Description**: Rename Spec Kit Flow / FlowKit to FarmBoy through a pure name cutover, including associated skills, workflows, project-owned agents, both feedback extensions and delegation metadata parsing.
 - **Outcome**: Consistent FarmBoy names and invocation references with existing workflow and management behavior preserved; no migration feature or compatibility layer.
@@ -428,7 +472,7 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Scope (out)**: Consumer migration or legacy conversion, old-name invocation aliases, new management commands/options, journals/adoption detection/recovery orchestration, checkpoint transfer, future factory behavior, independent command/extension renaming, historical rewrites, external repository renames/publication or Git integration.
 - **Depends on**: 011, 013, 014, 017.
 - **Governed by**: C-01, C-02, C-03, C-04, C-05.
-- **Notes**: Direct operator decisions establish FarmBoy, “Spec et Labora”, `farmboy` project/bundle identity, `farmboy-<purpose>` skills/workflows and `FarmBoy <role>` agents. On 2026-10-10 the operator explicitly removed the migration feature: this is a pure rename, with existing installations handled separately. This supersedes prior consumer-migration guidance scope and derived migration design. The operator also explicitly includes the feedback code and `flow_kit` parser/key in this project; both are owned here. Independent roadmap/wiki and core command identities remain unchanged; nested delegation and feedback data semantics are preserved without old-name adapters. The approved planning-only exception remains limited to Feature 021 research/design; constitution and implementation authority remain unchanged.
+- **Notes**: Direct operator decisions establish FarmBoy, “Spec et Labora”, `farmboy` project/bundle identity, `farmboy-<purpose>` skills/workflows and `FarmBoy <role>` agents. On 2026-10-10 the operator explicitly removed the migration feature: this is a pure rename, with existing installations handled separately. This supersedes prior consumer-migration guidance scope and derived migration design. The operator also explicitly includes the feedback code and `flow_kit` parser/key in this project; both are owned here. Independent roadmap/wiki and core command identities remain unchanged; nested delegation and feedback data semantics are preserved without old-name adapters. The former planning-only exception is superseded by the operator-approved Constitution 8.0.0 identity amendment and separately invoked implementation. Current correction evidence is recorded in [Closeout correction evidence](../../specs/021-farmboy-project-workflow-naming/validation/closeout-corrections.md). Present-state ledger amendments do not reconstruct historical phase-owner effects or grant verification, acceptance, publication or Git authority.
 - **Spec dir**: `specs/021-farmboy-project-workflow-naming`
 
 ## Open Questions
@@ -439,11 +483,11 @@ The previously listed naming/compatibility questions are retained as superseded 
 - Which exact FarmBoy names and identifiers replace the project-owned repository/bundle, skills, workflows and associated agents while preserving independently owned command and extension identities?
 - What compatibility, alias, installation, refresh and migration treatment should existing consumers receive without overwriting consumer-owned customizations or evidence?
 
-The governing question remains open for separate review and approval before implementation:
+The governing question was resolved by the explicitly approved and applied [Constitution 8.0.0 amendment](constitution.md) on 2026-10-10. It is retained as superseded historical context:
 
 - What exact constitutional amendment replaces the mandated Spec Kit Flow identities while preserving generic component boundaries and human-directed authority?
 
-The planning-only exception grants neither that amendment nor implementation authority.
+The former planning-only exception did not grant that amendment or implementation authority; the operator subsequently supplied those decisions separately.
 
 Feature 019's following planning questions are resolved by its [reviewed plan](../../specs/019-catalog-python-runtime-prerequisites/plan.md), [utility assessment](../../specs/019-catalog-python-runtime-prerequisites/research.md) and [validation](../../specs/019-catalog-python-runtime-prerequisites/validation.md). The selected convention is existing mise/uv with a project-local `.venv`, explicit `mise exec -- python`, one required pinned PyYAML package and no additional utilities. Portable guide adoption remains explicit and preserves existing configuration. The original questions were:
 
@@ -499,4 +543,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.26.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-10
+**Version**: 1.26.4 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-10

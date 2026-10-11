@@ -404,7 +404,7 @@ def _validate_start_attestation(project: Path, reference: dict[str, Any], snapsh
     witness_ref = _exact(record["dispatch_witness"], {"path", "sha256"}, "start-dispatch-witness-reference")
     witness_path = _relative(witness_ref["path"])
     expected_witness_path = (
-        f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
+        f".specify/farmboy-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
     witness_digest = _hash(witness_ref["sha256"])
     if (witness_path != expected_witness_path
             or snapshot["source_map"].get(witness_path) != witness_digest
@@ -416,7 +416,7 @@ def _validate_start_attestation(project: Path, reference: dict[str, Any], snapsh
                                  "start-dispatch-source-summary")
     source_summary_path = _relative(source_summary_ref["path"])
     expected_source_summary_path = (
-        f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
+        f".specify/farmboy-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
     source_summary_digest = _hash(source_summary_ref["sha256"])
     if (source_summary_path != expected_source_summary_path
             or snapshot["source_map"].get(source_summary_path) != source_summary_digest
@@ -447,7 +447,7 @@ def _validate_start_attestation(project: Path, reference: dict[str, Any], snapsh
             or not any(isinstance(item, dict) and item.get("agent_name") == witness["agent"]
                        and item.get("step_id") == witness["step_id"] for item in captured_assignments)):
         raise LifecycleError("start-attestation-dispatch-capture-unverified")
-    run_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+    run_summary_path = f".specify/farmboy-controllers/runs/{snapshot['run_id']}/summary.json"
     run_summary = strict_json(_read_current(project, run_summary_path).decode("utf-8"))
     children = run_summary.get("child_tasks") if isinstance(run_summary, dict) else None
     assignments = run_summary.get("effective_assignments") if isinstance(run_summary, dict) else None

@@ -258,7 +258,7 @@ class RecoveryStartHistoryTests(unittest.TestCase):
                 "run_id": "closeout-current-run",
                 "source_map": source_map,
             }
-            dispatch_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+            dispatch_summary_path = f".specify/farmboy-controllers/runs/{snapshot['run_id']}/summary.json"
             dispatch_summary = {
                 "run_id": snapshot["run_id"], "workflow_id": snapshot["workflow_id"],
                 "workflow_version": snapshot["workflow_version"],
@@ -269,11 +269,11 @@ class RecoveryStartHistoryTests(unittest.TestCase):
             dispatch_file = root / dispatch_summary_path
             dispatch_file.parent.mkdir(parents=True, exist_ok=True)
             dispatch_file.write_text(json.dumps(dispatch_summary, sort_keys=True))
-            capture_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json"
+            capture_path = f".specify/farmboy-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json"
             capture_file = root / capture_path
             capture_file.write_bytes(dispatch_file.read_bytes())
             source_summary_ref = {"path": capture_path, "sha256": sha(capture_file.read_bytes())}
-            witness_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json"
+            witness_path = f".specify/farmboy-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json"
             witness = {"schema_version": "1.0", "kind": "main-retained-native-dispatch-witness",
                 "feature_directory": feature, "scope_sha256": packet["current_scope_sha256"],
                 "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],
@@ -517,19 +517,19 @@ class PhaseLifecycleTests(unittest.TestCase):
             snapshot["source_map"][reference["path"]] = reference["sha256"]
         snapshot["source_map"][validation_path] = sha(validation_file.read_bytes())
         snapshot["source_map"][readiness_receipt["path"]] = readiness_receipt["sha256"]
-        main_summary_path = f".specify/flow-controllers/runs/{snapshot['run_id']}/summary.json"
+        main_summary_path = f".specify/farmboy-controllers/runs/{snapshot['run_id']}/summary.json"
         main_summary = dispatch_summary
         main_summary_file = root / main_summary_path
         main_summary_file.parent.mkdir(parents=True, exist_ok=True)
         main_summary_file.write_text(json.dumps(main_summary, sort_keys=True))
         captured_summary_path = (
-            f".specify/flow-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
+            f".specify/farmboy-controllers/runs/{snapshot['run_id']}/dispatch-summary-at-capture.json")
         captured_summary_file = root / captured_summary_path
         captured_summary_file.write_bytes(main_summary_file.read_bytes())
         captured_summary_ref = {"path": captured_summary_path,
                                  "sha256": sha(captured_summary_file.read_bytes())}
         witness_path = (
-            f".specify/flow-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
+            f".specify/farmboy-controllers/runs/{snapshot['run_id']}/recovery-start-dispatch-witness.json")
         witness = {"schema_version": "1.0", "kind": "main-retained-native-dispatch-witness",
             "feature_directory": feature, "scope_sha256": sha(current_spec),
             "workflow_id": snapshot["workflow_id"], "workflow_version": snapshot["workflow_version"],

@@ -10,34 +10,22 @@ sources:
 - S019
 - S021
 - S027
-updated: '2026-10-09'
+- S032
+- S035
+updated: '2026-10-11'
 ---
 
 # Bundle and workflow model
 
-## Earlier source contracts
+## FarmBoy cutover (2026-10-10)
 
-These records retain earlier intent; accepted Feature 014 refinements below govern revised workflows. (S021)
+Feature 021 establishes **FarmBoy**, tagline **Spec et Labora**, and project/bundle ID `farmboy`. The ten skill/workflow IDs are `farmboy-select-feature`, `farmboy-specify`, `farmboy-clarify`, `farmboy-plan`, `farmboy-tasks`, `farmboy-analyze-remediate`, `farmboy-implement`, `farmboy-converge`, `farmboy-closeout` and `farmboy-wiki-lint-update`. Old invocation names have no aliases. Deprecated `farmboy-start-feature` stays stop-only and excluded; `farmboy-render-workflow` remains independently distributed. (S032)
 
-The `spec-kit-flow` repository and bundle own generic workflow and feedback source. A bundle composes versioned components; each workflow remains an independently reviewable source package, and extensions retain their reviewed manifest IDs. (S001, S002)
+Core Spec Kit commands and independent `flow-roadmap`/`flow-wiki` identities stay unchanged. Existing purposes, responsibilities and decision boundaries are preserved against the reviewed, merged Feature 022 correction. [Earlier bundle contracts](./bundle-model-before-farmboy.md) retain historical names and pins rather than current registrations. (S032)
 
-S002 records source bundle `0.5.0` and local catalog `0.4.1`: Codex, Specify `>=1.0.10.dev0`, Python 3, and pins `flow-roadmap` `0.2.1`, `flow-wiki` `2.0.1`, consumer `flow-feedback` `0.2.1`. Roadmap and wiki have separate repositories. (S002)
+## Qualified cutover verification
 
-The bundle includes eight workflows: `speckit-flow-start-feature`, `speckit-flow-clarify`, `speckit-flow-plan`, `speckit-flow-tasks`, `speckit-flow-analyze-remediate`, `speckit-flow-implement`, `speckit-flow-converge`, and `speckit-flow-closeout`. It does not include a preset or the maintainer feedback intake component. (S001, S002)
-
-The local FlowKit catalog release adds eight direct Codex controller skills alongside the Specify bundle. Native bundle commands manage the declared workflows and extensions, while FlowKit catalog install, refresh, and removal manage the direct skills as a separate owned package. (S002)
-
-Generic source has no Diagram executable, database, registration command, canonical-state mutation, or runtime service dependency. (S001)
-
-The manifest pins compatible versions; the catalog records source commits, required tags, archive SHA-256 and workflow digests, and release status. Codex is initially supported. (S016)
-
-The amended constitution permits Codex controllers to dispatch bounded step subagents, but requires them to follow the installed, versioned workflow definition instead of copying its prompts, gates, or decision rules into a skill. Every workflow keeps a manual-prompt path when native dispatch is unavailable. (S017)
-
-Verified Feature 013 defines direct `flow-kit-*` Codex controller skills installed through the FlowKit catalog route alongside the Specify bundle. Its roadmap records bounded consumer validation, without claiming publication or broader compatibility. (S018)
-
-Verified Feature 015 replaces concrete step-model declarations in updated workflow source with explicit delegation and reviewed native agent names. (S018)
-
-Feature 013 assigns direct skills to FlowKit catalog management; native Specify commands manage declared bundle components. (S019)
+The roadmap records Feature 021's verified FarmBoy rename under Constitution 8.0.0, supported by an attributable implementation debrief and automated/native-fixture validation. That qualification is bounded: the snapshot remains unpublished, newly packaged FarmBoy live-agent behavior and Linux remain untested, and no consumer refresh, feature acceptance or Git integration follows from verification. Existing installations are handled separately; independent roadmap/wiki ownership and core command identities remain unchanged. Present-state ledger corrections do not reconstruct historical phase-owner effects or grant acceptance or publication. (S035)
 
 ## Feature 014 approved scope
 
@@ -54,6 +42,12 @@ The ten active workflows are Select Feature, Specify, Clarify, Plan, Tasks, Anal
 Features 001–015 are verified; 016 is planned, 017 retains qualified verification, and 018's [capacity proposal](./workflow-agent-capacity-proposal.md) is abandoned. Verified 019 selects a project `.venv`, existing mise/uv, pinned PyYAML and explicit invocation; no extra utilities. Its [portable guide](./agent-python-environment.md) preserves existing settings. macOS arm64 evidence establishes no full catalog repair, stock Specify compatibility, real adoption, acceptance, publication or Git authority. DEP017-01 history remains qualified. (S018)
 
 Feature 020’s [qualified verification and manual waiver](./feature020-verification-qualification.md) preserves unobserved manual equivalence and separate acceptance/release authority. (S018)
+
+## Current README composition
+
+The current README pins bundle `0.18.3`, controller package `0.9.1`, and `farmboy-agents` `0.2.0` for Codex, requiring Specify `>=1.0.10.dev0` and Python 3. Extension pins are `flow-roadmap` `0.4.0`, `flow-wiki` `2.0.1`, and `farmboy-feedback` `0.2.1`; no preset or maintainer intake is bundled. (S002)
+
+The ten-workflow table pins Select Feature `0.2.1`, Specify `0.4.1`, Clarify/Plan/Tasks `0.5.1`, Analyze `0.6.1`, Implement `0.9.1`, Converge `0.5.1`, Close Out `0.9.2`, and Wiki Lint Update `0.2.1`. Manual prompts remain available; selection and specification require separate invocations. This is an unreleased development snapshot, not publication or consumer adoption. (S002)
 
 ## Related pages
 

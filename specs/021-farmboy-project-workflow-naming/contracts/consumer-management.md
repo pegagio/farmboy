@@ -6,7 +6,7 @@ The pure rename keeps existing management interfaces and semantics. This contrac
 
 `catalog:install`, `catalog:refresh`, `catalog:remove`, `catalog:agents` and native Specify commands keep their existing options and behavior. Applicable owned package IDs and paths change according to [naming.md](naming.md); the native bundle identity becomes `farmboy`. Owned feedback extension/command identities and the delegation metadata key follow the same pure-cutover mappings; capture/report/intake semantics remain unchanged. Maintainer intake remains a separate package outside generic bundle delivery.
 
-Existing native component ownership, digest-owned controller files, consumer-owned agent copies and evidence-preservation rules remain unchanged. The rename does not redesign conflict handling, file writes, rollback or retry behavior already present in those interfaces.
+Existing native component ownership, digest-owned controller files, consumer-owned agent copies and evidence-preservation rules remain unchanged relative to reviewed Feature 022 correction `7a43bb3`, integrated by `6738a06` ([merge provenance](../validation/boundary-merge.md)). Preserve its workflow-owned milestones/authoring proof, generic roadmap 0.4.0 amendments and independent readback/receipts; no extension-owned phase helper is required. The rename does not redesign conflict handling, file writes, rollback or retry behavior already present in those interfaces.
 
 ## Cutover Boundary
 

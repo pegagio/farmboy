@@ -673,7 +673,8 @@ class RecoveryTests(unittest.TestCase):
                 [{"step_id": "generate-tasks", "agent_name": "FarmBoy Tasker"}],
                 preflight_passed=True,
             )
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
+            self.assertFalse((project / ".specify/flow-controllers").exists())
             for status in ("pending", "waiting_for_human", "running", "completed"):
                 self.recovery.update_step(path, f"status-{status}", status)
             self.recovery.update_step(path, "generate-tasks", "running")
@@ -702,7 +703,7 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             self.recovery.update_step(path, "step-one", "running")
             recovered = self.recovery.mark_interrupted_steps_incomplete(path)
         self.assertEqual("incomplete", recovered["steps"]["step-one"]["status"])
@@ -714,7 +715,7 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             self.recovery.update_step(path, "review", "waiting_for_human")
             stopped = self.recovery.stop_run(path, "operator-deferred")
         self.assertEqual("stopped", stopped["status"])
@@ -725,7 +726,7 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             for blocker in ("Child transcript: private answer", "secret private-key-material"):
                 with self.subTest(blocker=blocker), self.assertRaisesRegex(ValueError, "blocker"):
                     self.recovery.stop_run(path, blocker)
@@ -735,7 +736,7 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             legacy = json.loads(path.read_text(encoding="utf-8"))
             legacy["blocker"] = "Legacy free-text stop reason"
             path.write_text(json.dumps(legacy), encoding="utf-8")
@@ -754,13 +755,19 @@ class RecoveryTests(unittest.TestCase):
             result = json.loads(output.getvalue())
             summary_path = Path(result["summary_path"])
             self.assertTrue(summary_path.is_file())
+            self.assertEqual((".specify", "farmboy-controllers"),
+                             summary_path.relative_to(Path(temporary)).parts[:2])
+            self.assertFalse((Path(temporary) / ".specify/flow-controllers").exists())
+            self.assertEqual(summary_path.relative_to(Path(temporary)).as_posix().split("/", 2)[:2],
+                             [".specify", "farmboy-controllers"])
+            self.assertFalse((Path(temporary) / ".specify/flow-controllers").exists())
             self.assertEqual("running", json.loads(summary_path.read_text(encoding="utf-8"))["status"])
 
     def test_recoveryCli_appendsLoopPassWithoutOverwritingPriorIteration(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             payload = {"loop_id": "loop", "iteration": 1,
                        "steps": [{"step_id": "repeated", "status": "completed"}],
                        "outcome": {"state": "complete", "reason_code": "resolved"}, "evidence": []}
@@ -776,7 +783,7 @@ class RecoveryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             project = Path(temporary)
             summary = self.recovery.create_summary(project, {"workflow": {"id": "x", "version": "1"}, "sha256": "d" * 64}, {}, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             task_file = project / "tasks.md"
             task_file.write_text("T001", encoding="utf-8")
             evidence = [{"path": "tasks.md", "sha256": __import__("hashlib").sha256(task_file.read_bytes()).hexdigest()}]
@@ -805,7 +812,7 @@ class RecoveryTests(unittest.TestCase):
             fingerprints = {"bundle_record": {"sha256": "b", "device": 1, "inode": 2},
                             "skill_record": {"sha256": "c", "device": 1, "inode": 3}}
             summary = self.recovery.create_summary(project, workflow, fingerprints, [], preflight_passed=True)
-            path = project / ".specify/flow-controllers/runs" / summary["run_id"] / "summary.json"
+            path = project / ".specify/farmboy-controllers/runs" / summary["run_id"] / "summary.json"
             self.recovery.record_loop_pass(
                 path, loop_id="corrective-loop", iteration=1,
                 steps=[{"step_id": "correct", "status": "running"}],
@@ -1034,6 +1041,8 @@ class ScopedImplementationControllerTests(unittest.TestCase):
         self.assertEqual("ready", result["state"])
         self.assertEqual(1, result["coder_sessions_started"])
         retained_path = self.root / result["history_path"]
+        self.assertTrue(result["history_path"].startswith(".specify/farmboy-controllers/implementation-history/"))
+        self.assertTrue(result["history_path"].startswith(".specify/farmboy-controllers/implementation-history/"))
         self.assertTrue(retained_path.is_file())
         persisted = json.loads(retained_path.read_text(encoding="utf-8"))
         self.assertEqual(result["history_sha256"], persisted["sha256"])

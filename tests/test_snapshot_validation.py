@@ -403,7 +403,7 @@ class SnapshotValidationTests(unittest.TestCase):
                 }
                 matrix["installed_owned_payload_inventory"] = installed_inventory
                 matrix["lifecycle_workflow_versions"] = installed_workflow_versions
-                self.assertEqual({"specify": "0.4.0", "implement": "0.9.0", "closeout": "0.9.0"},
+                self.assertEqual({"specify": "0.4.1", "implement": "0.9.1", "closeout": "0.9.2"},
                                  installed_workflow_versions)
                 installed_controller_manifest = yaml.safe_load(
                     (consumer / ".specify/farmboy/manifest.yml").read_text(encoding="utf-8"))

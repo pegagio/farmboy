@@ -506,6 +506,9 @@ class FarmBoyControllerLifecycleTests(unittest.TestCase):
             recovery = consumer / ".specify/flow-controllers/runs/retained/summary.json"
             recovery.parent.mkdir(parents=True)
             recovery.write_text('{"status":"stopped"}\n', encoding="utf-8")
+            current_recovery = consumer / ".specify/farmboy-controllers/runs/retained/summary.json"
+            current_recovery.parent.mkdir(parents=True, exist_ok=True)
+            current_recovery.write_text('{"status":"stopped"}\n', encoding="utf-8")
             local_skill = consumer / ".agents/skills/consumer-review/SKILL.md"
             local_skill.parent.mkdir(parents=True)
             local_skill.write_text("consumer-owned", encoding="utf-8")
@@ -523,6 +526,8 @@ class FarmBoyControllerLifecycleTests(unittest.TestCase):
             catalog.install_controller_package(consumer, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="snapshot")
             self.assertEqual(agent_hashes, {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in custom_agents})
             catalog.remove_controller_package(consumer)
+            self.assertTrue(recovery.is_file())
+            self.assertTrue(current_recovery.is_file())
             self.assertEqual("consumer-owned", local_skill.read_text(encoding="utf-8"))
             self.assertEqual(agent_hashes, {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in custom_agents})
             self.assertTrue(recovery.is_file())

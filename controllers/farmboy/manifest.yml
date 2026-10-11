@@ -2,7 +2,7 @@ schema_version: "1.0"
 
 package:
   id: "farmboy-controllers"
-  version: "0.9.0"
+  version: "0.9.1"
   compatible_codex: true
 
 requires:

@@ -2,10 +2,10 @@
 
 **Feature Branch**: `farmboy`
 **Created**: 2026-10-09
-**Status**: Draft
+**Status**: Complete
 **Input**: Rename Spec Kit Flow / FlowKit to FarmBoy. Use “Spec et Labora”, `farmboy` for the project/bundle, `farmboy-<purpose>` for skills/workflows, and `FarmBoy <role>` for project-owned agents. The operator clarified on 2026-10-10 that this is a pure cutover: no migration feature or backward compatibility. The operator also explicitly includes project-owned feedback extensions and the `flow_kit` parser/key rename.
 
-FarmBoy is the new identity of the existing agent-driven workbench structured by Spec Kit. This feature changes names and references, not capabilities, architecture or consumer-management behavior. Building the future code factory is separate work.
+FarmBoy is the new identity of the existing agent-driven workbench structured by Spec Kit. This feature changes names and references, not capabilities, architecture or consumer-management behavior. Preservation is assessed against the separately reviewed and merged Feature 022 roadmap-boundary correction, not the earlier coupled lifecycle contract. Building the future code factory is separate work.
 
 ## Table of Contents
 
@@ -25,6 +25,8 @@ Direct operator decisions govern the current scope; earlier migration-oriented d
 - Q: What should happen to a paused workflow that was started under the old names when its consumer migrates to FarmBoy? → A: The operator controls the situation and ensures there are no paused old-name runs. Checkpoint transfer/resumption is out of scope.
 - **Owned scope addition**: Rename both project-owned feedback extensions and their existing command/skill identities, and replace the `flow_kit` delegation metadata key and this project's parsers with `farmboy`. Nested fields and behavior stay unchanged; no old-key adapter is added.
 - **Scope correction**: The operator requires a pure rename cutover, with no migration feature. This supersedes earlier consumer-migration requirements and planning; the paused-run answer introduces no guard or recovery behavior.
+- **Bounded native-dispatch exception (2026-10-10)**: The operator approved adding explicit bindings to the two existing prompt steps `assess-clarification-after-session` and `clarification-outcome-stop` in FarmBoy Clarify. Both use its existing `integration` input and default. This repairs the pre-existing Specify CLI prompt-dispatch failure in the disposable lifecycle check; it adds no step, command, gate, role, or workflow capability. At the time of this initial approval, only FarmBoy Clarify and its containing bundle were authorized to receive patch-version bumps, and no other workflow prompt binding changes were authorized. The subsequent mechanical batch approval below supersedes that limitation.
+- **Mechanical prompt-dispatch batch (2026-10-10)**: After the Clarify fix exposed the same native CLI failure in Plan, the operator approved binding every remaining unbound prompt node in the ten active FarmBoy workflows to its already-declared `inputs.integration`. A recursive inventory corrected the proposal count from 107 to 109 nodes across nine workflow files by finding two nested Implement stop prompts. Bump only the nine affected workflows and bundle pins by patch version, plus the bundle version. Keep the already-patched Clarify 0.5.1 and its two bindings. This is an explicit bounded exception to the pure rename, not a new workflow capability.
 
 ## User Scenarios and Testing
 
@@ -55,19 +57,20 @@ As a maintainer, I want names, paths, manifests, documentation and tests to agre
 
 ### User Story 3 — Preserve the Workbench Contract (Priority: P2)
 
-As an operator, I want the renamed tools to behave as before.
+As an operator, I want the renamed tools to preserve the reviewed behavior, including Feature 022's workflow-owned roadmap milestones.
 
-**Independent test**: Compare workflow definitions after normalizing approved identity/path replacements, and run the existing graph, controller and lifecycle checks.
+**Independent test**: Compare workflow definitions with the reviewed Feature 022 correction after normalizing approved identity/path replacements, and run the existing graph, controller and lifecycle checks.
 
 **Acceptance scenarios**:
 1. The ten active purposes, step IDs, core commands, gates, routes, loop limits and role responsibilities remain unchanged.
 2. Deprecated Start Feature remains stop-only and outside active delivery; planning and tasking remain separate.
 3. Manual fallback, exact named dispatch and focused human decisions remain available.
 4. Independent command/extension IDs, actual source coordinates, historical feature meaning and existing evidence remain intact.
+5. Workflows retain responsibility for milestone decisions and authoring evidence; the roadmap extension applies generic authorized amendments, and a separate reviewer verifies the actual effect and retained receipts.
 
 ### Edge Cases
 
-These cases bound replacement rather than add new runtime behavior.
+These cases bound replacement and the single explicitly approved prompt-dispatch correction.
 
 - Old text in an independent extension ID, unrelated grammar, actual URL or historical record is retained for its existing meaning.
 - A mismatched active skill/workflow/agent reference is a rename defect, not permission to add a fallback alias.
@@ -92,13 +95,13 @@ The requirements define the rename while preserving existing contracts. Stable F
 - **FR-009**: Current installation and usage documentation MUST name FarmBoy and the existing management commands correctly. No new command or option is introduced by the rename.
 - **FR-010**: The ten workflows remain independently reviewable; deprecated Start Feature remains stop-only and excluded from active delivery; planning and task generation remain separate.
 - **FR-011**: Manual fallback and installed-workflow authority MUST remain unchanged; thin skills MUST NOT duplicate workflow policy.
-- **FR-012**: Operator scope, bounded correction, same-child answer relay, consequential gates, separate phases and lifecycle/evidence semantics MUST remain unchanged. The rename grants no acceptance or Git authority.
+- **FR-012**: Operator scope, bounded correction, same-child answer relay, consequential gates, separate phases and lifecycle/evidence semantics MUST remain unchanged against the reviewed Feature 022 correction. Workflow-owned milestone decisions and authoring proof, generic authorized roadmap amendments, independent effect readback and retained receipts MUST be preserved. The rename grants no acceptance or Git authority.
 - **FR-013**: Core Spec Kit commands and independent `flow-roadmap` / `flow-wiki` identities MUST remain unchanged. Owned `flow-feedback` and `speckit-flow-feedback-maintainer` extensions, their existing command/skill identifiers and source references MUST use FarmBoy names. The existing delegation container key MUST change from `flow_kit` to `farmboy` in owned workflows, parsers and validators, with unchanged nested fields and dispatch semantics and no legacy-key fallback. Generic component ownership and The Diagram's consumer boundary remain unchanged.
 - **FR-014**: Merged feature history and existing evidence MUST retain meaning and attribution; historical names are not active naming defects.
 - **FR-015**: The constitutional identity amendment MUST receive separate explicit approval before rename implementation. This specification does not amend the constitution.
 - **FR-016**: Validation MUST focus on naming/reference consistency, coherent packages, fresh installation and existing workflow/controller/lifecycle regressions. No legacy migration matrix or migration-specific failure/retry tests are required.
 - **FR-017**: Validation records MUST identify actual source/package versions, digests, CLI and observed results, preserving distinctions between static checks, dispatch, live behavior, release and acceptance.
-- **FR-018**: This feature MUST NOT implement the future factory, migration/compatibility tooling, checkpoint transfer, new command capabilities, unrelated schemas or recovery behavior, unrelated workflow changes, external renames/publication or Git integration.
+- **FR-018**: This feature MUST NOT implement the future factory, migration/compatibility tooling, checkpoint transfer, new command capabilities, unrelated schemas or recovery behavior, external renames/publication or Git integration. The only workflow behavior correction permitted is explicit `inputs.integration` binding on the 109 existing prompt nodes that lacked it when audited, with patch-version bumps; no step, role, gate, route, question-cap or validator-policy changes are authorized.
 
 ### Key Entities
 
@@ -110,7 +113,7 @@ These criteria assess the rename without adding consumer-upgrade functionality.
 
 - **SC-001**: All ten purposes and nine existing roles resolve under the approved FarmBoy names in a fresh supported installation; no old invocation alias dispatches them.
 - **SC-002**: Reviewed current owned surfaces have consistent mappings and zero unresolved active naming references; every retained old occurrence has an existing independent, unrelated grammar or historical reason; active owned parser metadata uses only `farmboy`.
-- **SC-003**: Existing regression tests pass with renamed expectations, including existing ownership and removal protections; workflow definitions differ only by approved identity/path substitutions.
+- **SC-003**: Existing regression tests pass with renamed expectations, including existing ownership and removal protections; workflow definitions differ from the reviewed Feature 022 correction only by approved identity/path substitutions.
 - **SC-004**: The cutover introduces zero new command capabilities/options, migration records/readers, compatibility adapters or recovery mechanisms.
 - **SC-005**: All ten workflow purposes and decision boundaries remain unchanged; deprecated Start Feature has zero active bindings and remains stop-only.
 - **SC-006**: Independent identities, actual coordinates and historical/evidence meaning remain intact.
@@ -118,18 +121,22 @@ These criteria assess the rename without adding consumer-upgrade functionality.
 
 ## Assumptions
 
-The operator accepts a breaking name change and controls replacement of existing personal installations separately.
+The operator accepts a breaking name change and controls replacement of existing personal installations separately. The operator approved the 109-node prompt binding batch as a bounded correction to native CLI dispatch in this project's disposable lifecycle tests; no unrelated workflow behavior changes are authorized.
 
 - There is no requirement to support upgrading an old-name installation to FarmBoy.
 - There are no paused old-name runs to transfer; no guard or refusal check is added.
 - Clear natural-language action labels may accompany canonical prefixed identifiers.
-- Existing architectures, dependencies and management mechanisms are reused; only approved identity/path values and the delegation-container key spelling change.
+- The reviewed Feature 022 architecture, compatible independent roadmap 0.4.0 interface and management mechanisms are reused; only approved identity/path values and the delegation-container key spelling change within Feature 021.
 - The selected feature directory and active identity remain unchanged.
 
 ## Authority and Dependencies
 
 Direct operator approval settles the name, tagline and canonical naming scheme. The 2026-10-10 pure-cutover instruction supersedes consumer-migration design and requirements. Earlier brief/planning review artifacts describe the superseded scope and are not current verification of these revised artifacts.
 
-[Feature 021](../../.specify/memory/roadmap.md#021--farmboy-project-and-workflow-naming--status-planned) retains verified prerequisites 011, 013, 014 and 017. [Constitution 8.0.0](../../.specify/memory/constitution.md), explicitly approved and applied by the operator on 2026-10-10, establishes the approved FarmBoy identities, including both owned feedback extensions and the `farmboy` delegation key. This satisfies the separate approval requirement in FR-015; implementation must verify the amendment and requires its own operator invocation. Existing reviewed source and installations remain operative during the constitution's bounded cutover transition.
+[Feature 022](../022-workflow-owned-roadmap-boundary/spec.md), its [independent review record](../022-workflow-owned-roadmap-boundary/review.md), and the [boundary merge validation](validation/boundary-merge.md) establish the corrected behavioral baseline. Reviewed correction `7a43bb3` was integrated into FarmBoy by merge `6738a06`, preserving rename checkpoint `87227a1`. The shared pre-rename commit `b6dcae9` and that checkpoint describe earlier states; they are not the behavioral comparison baseline for final rename preservation. Workflow-owned lifecycle policy and the generic roadmap 0.4.0 boundary are already delivered Feature 022 effects, not new Feature 021 functionality. Feature 022's historical artifacts remain unchanged.
 
-The earlier planning-only exception authorized research/design under Constitution 7.0.0 and remains historical phase authority; it did not authorize tasks, implementation or a constitutional edit. The subsequent explicit Tasks invocation separately authorized task drafting, and its assigned independent reviewer completed task-quality review. That evidence does not establish a fresh standalone Plan review of the pure-cutover design. Current analysis/remediation reconciles mutable artifacts without granting implementation or acceptance.
+[Feature 021](../../.specify/memory/roadmap.md#021--farmboy-project-and-workflow-naming--status-verified) retains verified prerequisites 011, 013, 014 and 017. [Constitution 8.0.0](../../.specify/memory/constitution.md), explicitly approved and applied by the operator on 2026-10-10, establishes the approved FarmBoy identities, including both owned feedback extensions and the `farmboy` delegation key. This satisfies the separate approval requirement in FR-015; implementation must verify the amendment and requires its own operator invocation. Existing reviewed source and installations remain operative during the constitution's bounded cutover transition.
+
+The earlier planning-only exception authorized research/design under Constitution 7.0.0 and remains historical phase authority; it did not authorize tasks, implementation or a constitutional edit. The subsequent explicit Tasks invocation separately authorized task drafting, and its assigned independent reviewer completed task-quality review. That evidence does not establish a fresh standalone Plan review of the pure-cutover design. Current analysis/remediation reconciles mutable artifacts without granting implementation or acceptance. The operator's implementation invocation and later explicit approvals authorize only the existing Feature 021 task IDs, the Clarify fix, and the enumerated mechanical prompt-binding batch/version updates.
+
+The prior implementation pass marked T001–T012 complete and recorded implementation and validation evidence in [tasks.md](tasks.md) and [quickstart.md](quickstart.md), including resolution of the initial native CLI dispatch failures in the local native CLI fixture. Subsequent Close Out findings CR021-001, CR021-002 and CR021-003 led the operator to authorize reopening T002, T003, T006, T008, T010 and T012 for bounded corrections and fresh implementation, validation, independent review and convergence evidence. Consult [tasks.md](tasks.md) and [quickstart.md](quickstart.md) for the current correction and validation state; the prior results remain historical evidence. Validation does not establish live installed agent execution, Linux validation or feature acceptance. Existing consumers remain unrefreshed; no push, publication or acceptance is authorized.

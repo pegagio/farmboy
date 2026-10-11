@@ -2295,7 +2295,7 @@ def _implementation_history_path(project_root: Path, scope: dict[str, Any]) -> t
     run_id = scope.get("run_id")
     if not isinstance(run_id, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]{0,99}", run_id):
         raise ValueError("implementation-history-run-id-invalid")
-    relative = Path(".specify/flow-controllers/implementation-history") / f"{run_id}.json"
+    relative = Path(".specify/farmboy-controllers/implementation-history") / f"{run_id}.json"
     path = Path(project_root).resolve() / relative
     cursor = Path(project_root).resolve()
     for part in relative.parts[:-1]:
