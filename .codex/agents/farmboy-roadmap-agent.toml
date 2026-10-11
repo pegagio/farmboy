@@ -1,4 +1,4 @@
-name = "FlowKit-Roadmap Agent"
+name = "FarmBoy Roadmap Agent"
 description = "Reads roadmap state and performs scoped, explicitly approved roadmap operations."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "low"

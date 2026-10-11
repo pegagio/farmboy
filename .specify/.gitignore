@@ -17,9 +17,10 @@ bundle-records.json
 extensions/.cache/
 workflows/.cache/
 workflows/runs/
-extensions/flow-feedback/
+extensions/farmboy-feedback/
 extensions/flow-roadmap/*
 extensions/flow-wiki/*
-flow-kit/
+farmboy/
+farmboy-controllers/
 flow-controllers/runs/
-workflows/speckit-flow-*/
+workflows/farmboy-*/

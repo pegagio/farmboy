@@ -1,4 +1,4 @@
-name = "FlowKit-Planner"
+name = "FarmBoy Planner"
 description = "Creates and reconciles technical planning artifacts from an approved specification."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "high"

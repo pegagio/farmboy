@@ -1,0 +1,11 @@
+version = 1
+name = "FarmBoy"
+
+[setup]
+script = '''
+set -eu
+mise trust
+mise install python uv
+mise run python:prepare
+mise run python:check
+'''

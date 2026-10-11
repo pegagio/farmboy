@@ -1,4 +1,4 @@
-name = "FlowKit-Wiki Curator"
+name = "FarmBoy Wiki Curator"
 description = "Ingests authorized registered sources into cited project wiki pages."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "low"

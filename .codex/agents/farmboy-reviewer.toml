@@ -1,4 +1,4 @@
-name = "FlowKit-Reviewer"
+name = "FarmBoy Reviewer"
 description = "Independently assesses specifications, plans, tasks, and roadmap alignment."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "high"

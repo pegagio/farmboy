@@ -1,4 +1,4 @@
-name = "FlowKit-Tasker"
+name = "FarmBoy Tasker"
 description = "Decomposes an approved specification and plan into dependency-ordered implementation tasks."
 model = "gpt-6-luna"
 model_reasoning_effort = "high"

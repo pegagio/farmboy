@@ -1,4 +1,4 @@
-name = "FlowKit-Specifier"
+name = "FarmBoy Specifier"
 description = "Authors or clarifies a feature specification within its approved target and scope."
 model = "gpt-6.1-sol"
 model_reasoning_effort = "high"
