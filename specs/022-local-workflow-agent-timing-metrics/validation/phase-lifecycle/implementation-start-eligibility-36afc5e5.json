@@ -1,0 +1,134 @@
+{
+  "eligibility": {
+    "all_tasks_unchecked": true,
+    "dependency_states": [
+      {
+        "entry_id": "001",
+        "status": "verified"
+      },
+      {
+        "entry_id": "002",
+        "status": "verified"
+      },
+      {
+        "entry_id": "003",
+        "status": "verified"
+      },
+      {
+        "entry_id": "004",
+        "status": "verified"
+      },
+      {
+        "entry_id": "005",
+        "status": "verified"
+      },
+      {
+        "entry_id": "006",
+        "status": "verified"
+      },
+      {
+        "entry_id": "007",
+        "status": "verified"
+      },
+      {
+        "entry_id": "008",
+        "status": "verified"
+      },
+      {
+        "entry_id": "009",
+        "status": "verified"
+      },
+      {
+        "entry_id": "010",
+        "status": "verified"
+      },
+      {
+        "entry_id": "011",
+        "status": "verified"
+      },
+      {
+        "entry_id": "013",
+        "status": "verified"
+      },
+      {
+        "entry_id": "014",
+        "status": "verified"
+      },
+      {
+        "entry_id": "015",
+        "status": "verified"
+      },
+      {
+        "entry_id": "017",
+        "status": "verified"
+      },
+      {
+        "entry_id": "021",
+        "status": "verified"
+      }
+    ],
+    "duplicate_transition_authorized": false,
+    "existing_start_receipt": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json",
+    "initial_dependency_frontier": [
+      "T001",
+      "T005"
+    ],
+    "pending_future_ids": [],
+    "requested_task_ids": [
+      "T001",
+      "T005",
+      "T002",
+      "T003",
+      "T004",
+      "T009",
+      "T006",
+      "T007",
+      "T008",
+      "T012",
+      "T010",
+      "T011",
+      "T018",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T019",
+      "T020",
+      "T021",
+      "T022",
+      "T023"
+    ],
+    "required_native_names": [
+      "FarmBoy Code Reviewer",
+      "FarmBoy Coder",
+      "FarmBoy Readiness Checker",
+      "FarmBoy Reviewer",
+      "FarmBoy Roadmap Agent",
+      "FarmBoy Tasker"
+    ],
+    "retained_status": "in-progress"
+  },
+  "facts": [
+    "Current requested scope contains all 23 unchecked tasks and matches the initial continue assessment.",
+    "Current helper, actual independent Checker and fresh readiness gate agree on active identity, evidence digests and empty pending-future IDs.",
+    "All six required exact native names have observed successful preflight spawns and FARMBOY_READY responses.",
+    "All transitive roadmap delivery prerequisites are verified.",
+    "Prior applied receipt still binds the exact current scope and roadmap digest; status remains in-progress."
+  ],
+  "gaps": [
+    "T022 live observations and T023 Excel observations remain future unchecked implementation tasks.",
+    "Future report execution requires the approved dependencies in skill-tools; this does not block the T001/T005 frontier."
+  ],
+  "inference": "Current evidence supports recognizing existing start and proceeding with bounded requested work in dependency order.",
+  "limits": "No roadmap mutation, coding, main-task gate, workflow dispatch, Git action or feature acceptance.",
+  "normalization": "Checker schema projection preserves the exact observed ready verdict; the complete actual Checker report is retained separately.",
+  "request": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-36afc5e5.json",
+    "sha256": "edf7705450ae6d998c8ba5e69b3c60271ff70cf965377f2c15d12bab933980a6"
+  },
+  "reviewer": "FarmBoy Reviewer",
+  "run_id": "36afc5e5-f594-4f6f-b103-d0de602fd897",
+  "schema_version": "1.0",
+  "state": "ready"
+}

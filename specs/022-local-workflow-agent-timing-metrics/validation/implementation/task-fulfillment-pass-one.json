@@ -1,0 +1,274 @@
+{
+  "T001": {
+    "task_id": "T001",
+    "task_description_sha256": "d98751dec964893d090b8a7395aaa435fb3e27328e25c0f06f82ce81ba8fef3d",
+    "completion_kind": "substantive-implementation",
+    "scope_sha256": "454cb96859fee1ed957a3bd2d70d17f3fe9b932089b187d880d941cb47d9815a",
+    "requirements": [
+      {
+        "requirement_id": "maintainer-skill-source",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+            "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/requirements.txt",
+            "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+          },
+          {
+            "path": "docs/installation.md",
+            "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+          },
+          {
+            "path": "tools/catalog.py",
+            "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+          },
+          {
+            "path": "controllers/farmboy/manifest.yml",
+            "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+            "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+          }
+        ]
+      },
+      {
+        "requirement_id": "approved-dependency-declaration",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+            "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/requirements.txt",
+            "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+          },
+          {
+            "path": "docs/installation.md",
+            "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+          },
+          {
+            "path": "tools/catalog.py",
+            "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+          },
+          {
+            "path": "controllers/farmboy/manifest.yml",
+            "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+            "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+          }
+        ]
+      },
+      {
+        "requirement_id": "local-discovery",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+            "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/requirements.txt",
+            "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+          },
+          {
+            "path": "docs/installation.md",
+            "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+          },
+          {
+            "path": "tools/catalog.py",
+            "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+          },
+          {
+            "path": "controllers/farmboy/manifest.yml",
+            "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+            "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+          }
+        ]
+      },
+      {
+        "requirement_id": "consumer-exclusion",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+            "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/requirements.txt",
+            "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+          },
+          {
+            "path": "docs/installation.md",
+            "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+          },
+          {
+            "path": "tools/catalog.py",
+            "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+          },
+          {
+            "path": "controllers/farmboy/manifest.yml",
+            "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+            "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+          }
+        ]
+      }
+    ],
+    "proof_evidence": [
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+        "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/requirements.txt",
+        "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+      },
+      {
+        "path": "docs/installation.md",
+        "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+      },
+      {
+        "path": "tools/catalog.py",
+        "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+      },
+      {
+        "path": "controllers/farmboy/manifest.yml",
+        "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+        "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+      }
+    ],
+    "review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+      "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+    },
+    "activation_sha256": "fab9d36539ac100223f27894bb4998c44890f220fe32bb39c359a2224ce29f39",
+    "source_delta_evidence": [
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/agents/openai.yaml",
+        "sha256": "07b476bdebd8a4d7aa5827f7b029885e5d95003affebfb3272fcffe2d410fa68"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/requirements.txt",
+        "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+      },
+      {
+        "path": "docs/installation.md",
+        "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+      },
+      {
+        "path": "tools/catalog.py",
+        "sha256": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+      },
+      {
+        "path": "controllers/farmboy/manifest.yml",
+        "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T001-pass-one.json",
+        "sha256": "c17aee1e6a3b6f778756df0014e12b571e55c00c8a1a0a16aa300b5e1558fe1c"
+      }
+    ],
+    "validation_evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+        "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+      }
+    ]
+  },
+  "T005": {
+    "task_id": "T005",
+    "task_description_sha256": "f5e43c6c25766af264d585166dc040ad7bed5d4cfea9b465e06a680ac5edcc83",
+    "completion_kind": "substantive-implementation",
+    "scope_sha256": "454cb96859fee1ed957a3bd2d70d17f3fe9b932089b187d880d941cb47d9815a",
+    "requirements": [
+      {
+        "requirement_id": "record-contract-tests",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "436c6f70e0b22ef4caaf85a0e87925fb50cdf473db5b278076cd4b7bd05ea994"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+            "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+          }
+        ]
+      }
+    ],
+    "proof_evidence": [
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "436c6f70e0b22ef4caaf85a0e87925fb50cdf473db5b278076cd4b7bd05ea994"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+        "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+      }
+    ],
+    "review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+      "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+    },
+    "activation_sha256": "8919be217c1030ea67639bbcf6f898c26a71f9a7aab1e8e941a1bb86211ba983",
+    "source_delta_evidence": [
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "436c6f70e0b22ef4caaf85a0e87925fb50cdf473db5b278076cd4b7bd05ea994"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T005-pass-one.json",
+        "sha256": "7a84d3a91c782e2780d7bf511423512bcacb96447e413a7b5f87afc4a4d70faf"
+      }
+    ],
+    "validation_evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+        "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+      }
+    ]
+  }
+}
