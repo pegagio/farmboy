@@ -552,12 +552,6 @@
             "type": "prompt"
           }
         ],
-        "default": [
-          {
-            "id": "stop-readiness-before-core-unrecognized",
-            "type": "prompt"
-          }
-        ],
         "ready": [
           {
             "condition": "{{ steps.route-scoped-execution.output.state == \"continue\" }}",
@@ -570,7 +564,6 @@
               },
               {
                 "cases": {
-                  "default": [],
                   "prepare-scoped-prerequisites": [
                     {
                       "id": "record-preparation-session-start",
@@ -592,11 +585,11 @@
                 },
                 "expression": "{{ steps.route-scoped-entry.output.next_step_id }}",
                 "id": "prepare-scoped-prerequisites",
-                "type": "switch"
+                "type": "switch",
+                "default": []
               },
               {
                 "cases": {
-                  "default": [],
                   "implement-tasks": [
                     {
                       "id": "record-source-session-and-attempt",
@@ -618,7 +611,8 @@
                 },
                 "expression": "{{ steps.route-scoped-entry.output.next_step_id }}",
                 "id": "implement-tasks",
-                "type": "switch"
+                "type": "switch",
+                "default": []
               },
               {
                 "farmboy": {
@@ -682,12 +676,6 @@
                                         "type": "prompt"
                                       }
                                     ],
-                                    "default": [
-                                      {
-                                        "id": "stop-task-revision-dispatch-unrecognized",
-                                        "type": "prompt"
-                                      }
-                                    ],
                                     "ready": [
                                       {
                                         "command": "speckit.tasks",
@@ -743,7 +731,13 @@
                                   },
                                   "expression": "{{ steps.revalidate-task-revision-snapshot.output.state }}",
                                   "id": "route-task-revision-snapshot",
-                                  "type": "switch"
+                                  "type": "switch",
+                                  "default": [
+                                    {
+                                      "id": "stop-task-revision-dispatch-unrecognized",
+                                      "type": "prompt"
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -837,7 +831,13 @@
       },
       "expression": "{{ steps.verify-lifecycle-and-readiness-before-coding.output.state }}",
       "id": "route-readiness-before-core",
-      "type": "switch"
+      "type": "switch",
+      "default": [
+        {
+          "id": "stop-readiness-before-core-unrecognized",
+          "type": "prompt"
+        }
+      ]
     },
     {
       "id": "report-implementation-outcome",

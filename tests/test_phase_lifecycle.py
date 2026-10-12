@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import copy
 import importlib.util
+import io
 import json
 import os
 import subprocess
@@ -752,6 +753,38 @@ class PhaseLifecycleTests(unittest.TestCase):
         result = self.module.revalidate(self.root, self.request())
         self.assertEqual("blocked", result["state"])
         self.assertEqual("revalidate-request-required", result["reason_code"])
+
+    def test_renderedRevalidationCallbacks_preserveStrictRequestAndProposal(self) -> None:
+        from test_workflow_paths import find_step, load_module as load_controller, load_workflow
+
+        controller = load_controller("callback_controller", ROOT / "controllers/farmboy/scripts/python/controller.py")
+        request = self.request()
+        proposal = self.proposal(request["snapshot"])
+        request_path = self.root / "request.json"
+        request_path.write_text(json.dumps(request), encoding="utf-8")
+        cases = (
+            ("implement", "revalidate-implementation-start-milestone", "assess-implementation-start-milestone", "prepare-implementation-start-milestone"),
+            ("specify", "revalidate-specification-lifecycle-transition", "prepare-specification-lifecycle-request", "prepare-specification-lifecycle-transition"),
+            ("closeout", "revalidate-closeout-lifecycle-transition", "prepare-closeout-lifecycle-request", "prepare-closeout-lifecycle-transition"),
+        )
+        for phase, step_id, request_step, proposal_step in cases:
+            with self.subTest(phase=phase):
+                step = find_step(load_workflow(f"farmboy-{phase}")["steps"], step_id)
+                rendered = controller.render_template(step["prompt"], {}, {
+                    request_step: {"request_path": str(request_path)},
+                    proposal_step: {"lifecycle_assessment": {"proposal": proposal}},
+                })
+                script = rendered.split("```python\n", 1)[1].split("```", 1)[0]
+                completed = subprocess.run([sys.executable, "-c", script], text=True, capture_output=True, check=True)
+                payload = json.loads(completed.stdout)
+                self.assertEqual({**request, "action": "revalidate", "proposal": proposal}, payload)
+                # Execute the strict local adapter contract; owner availability is a separate concern.
+                self.assertEqual(payload, self.module.validate_request(self.root, payload))
+                with patch.object(controller, "revalidate_phase_lifecycle", wraps=self.module.revalidate) as adapter:
+                    with patch.object(self.module, "_workflow_module", side_effect=self.module.LifecycleError("test-owner-unavailable")):
+                        with patch("sys.stdin", io.StringIO(completed.stdout)), patch("sys.stdout", io.StringIO()):
+                            controller.main(["phase-lifecycle", "--project", str(self.root)])
+                    adapter.assert_called_once_with(self.root, payload)
 
     def test_prepareOnlyCallsWorkflowEvaluateAndDoesNotApply(self) -> None:
         request = self.request()

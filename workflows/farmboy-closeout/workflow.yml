@@ -138,12 +138,18 @@ steps:
                   - id: revalidate-closeout-lifecycle-transition
                     type: prompt
                     integration: "{{ inputs.integration }}"
-                    prompt: >-
+                    prompt: |
                       Rebuild the same request as action `revalidate` with the exact prepared proposal and immediately run the FarmBoy adapter. Any source, scope, review, dependency or authority change blocks the effect.
 
-                      Rendered callback arguments:
-                      ```json
-                      {"action":"revalidate","request_path":"{{ steps.prepare-closeout-lifecycle-request.output.request_path }}","prepared_proposal": {{ steps.prepare-closeout-lifecycle-transition.output.lifecycle_assessment.proposal }}}
+                      Rendered callback construction (send its JSON stdout to the phase-lifecycle adapter):
+                      ```python
+                      import json
+                      from pathlib import Path
+
+                      request = json.loads(Path("{{ steps.prepare-closeout-lifecycle-request.output.request_path }}").read_text(encoding="utf-8"))
+                      request["action"] = "revalidate"
+                      request["proposal"] = json.loads(r'''{{ steps.prepare-closeout-lifecycle-transition.output.lifecycle_assessment.proposal }}''')
+                      print(json.dumps(request))
                       ```
                   - id: route-closeout-lifecycle-revalidation
                     type: switch
