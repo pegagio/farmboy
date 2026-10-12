@@ -500,6 +500,19 @@ def validate_outcome_envelope(
     human_gate_step_ids: set[str] | None = None,
 ) -> dict[str, Any]:
     """Validate a machine-readable assessment against current project evidence."""
+    return _validate_outcome_envelope(envelope, project_root, loop_body_step_ids, human_gate_step_ids,
+                                      current_evidence=True)
+
+
+def _validate_outcome_envelope(
+    envelope: dict[str, Any],
+    project_root: Path,
+    loop_body_step_ids: set[str],
+    human_gate_step_ids: set[str] | None,
+    *,
+    current_evidence: bool,
+) -> dict[str, Any]:
+    """Share envelope structure checks without rewriting retained historical evidence."""
     if not isinstance(envelope, dict):
         raise ValueError("assessment envelope must be a mapping")
     allowed = {"state", "reason_code", "evidence", "remaining_ids", "resolved_ids", "next_step_id", "gate_step_id", "resume_action"}
@@ -525,23 +538,27 @@ def validate_outcome_envelope(
             raise ValueError("assessment evidence path must stay inside the project")
         if not isinstance(digest, str) or SHA256.fullmatch(digest) is None:
             raise ValueError("assessment evidence SHA-256 is malformed")
-        try:
-            candidate = (project / relative).resolve(strict=True)
-        except OSError as error:
-            raise ValueError("assessment evidence file does not exist or cannot be resolved") from error
-        try:
-            normalized = candidate.relative_to(project).as_posix()
-        except ValueError as error:
-            raise ValueError("assessment evidence path resolves outside the project") from error
-        if not candidate.is_file():
-            raise ValueError("assessment evidence must name an existing file")
-        observed = hashlib.sha256(candidate.read_bytes()).hexdigest()
-        if observed != digest:
-            raise ValueError("assessment evidence digest does not match current bytes")
+        normalized = Path(relative).as_posix()
+        if current_evidence:
+            try:
+                candidate = (project / relative).resolve(strict=True)
+            except OSError as error:
+                raise ValueError("assessment evidence file does not exist or cannot be resolved") from error
+            try:
+                normalized = candidate.relative_to(project).as_posix()
+            except ValueError as error:
+                raise ValueError("assessment evidence path resolves outside the project") from error
+            if not candidate.is_file():
+                raise ValueError("assessment evidence must name an existing file")
+            observed = hashlib.sha256(candidate.read_bytes()).hexdigest()
+            if observed != digest:
+                raise ValueError("assessment evidence digest does not match current bytes")
+        elif relative != normalized or normalized == ".":
+            raise ValueError("historical assessment evidence path must be canonical")
         if normalized in seen_paths:
             raise ValueError("assessment evidence paths must be distinct")
         seen_paths.add(normalized)
-        normalized_evidence.append({"path": normalized, "sha256": observed})
+        normalized_evidence.append({"path": normalized, "sha256": digest})
 
     id_values: dict[str, list[str]] = {}
     for key in ("remaining_ids", "resolved_ids"):
@@ -574,6 +591,21 @@ def validate_outcome_envelope(
     normalized["resolved_ids"] = id_values["resolved_ids"]
     route_assessment(normalized, loop_body_step_ids=loop_body_step_ids, human_gate_step_ids=human_gate_step_ids)
     return normalized
+
+
+def _validate_retained_implementation_assessment(
+    envelope: dict[str, Any], project_root: Path, nodes: set[str],
+    scope_sha256: str, retained_sha256: Any,
+) -> dict[str, Any]:
+    """Check main-retained scope/envelope binding, preserving pre-correction hashes.
+
+    The main controller retains this digest after current-evidence validation and
+    before effects. A child-selected digest is not a trusted retention record.
+    """
+    if (not isinstance(retained_sha256, str) or SHA256.fullmatch(retained_sha256) is None
+            or _progress_digest({"scope_sha256": scope_sha256, "assessment": envelope}) != retained_sha256):
+        raise ValueError("historical-assessment-binding-invalid")
+    return _validate_outcome_envelope(envelope, project_root, nodes, set(), current_evidence=False)
 
 
 def assessment_made_progress(previous: dict[str, Any], current: dict[str, Any]) -> bool:
@@ -2385,7 +2417,8 @@ def route_scoped_implementation(project_root: Path, payload: dict[str, Any]) -> 
         module = implementation_scope_module
         required = {"scope", "trusted_request_reference", "retained_scope_sha256", "retained_history_sha256",
                     "assessment", "eligible_task_ids", "declared_node_ids"}
-        allowed = required | {"previous_assessment", "trusted_requested_task_ids", "task_tracking_successors",
+        allowed = required | {"previous_assessment", "retained_previous_assessment_sha256",
+                              "trusted_requested_task_ids", "task_tracking_successors",
                               "eligibility_request"}
         if module is None or not required.issubset(payload) or set(payload) - allowed:
             raise ValueError("implementation-route-request-invalid")
@@ -2398,7 +2431,14 @@ def route_scoped_implementation(project_root: Path, payload: dict[str, Any]) -> 
             raise ValueError("implementation-route-nodes-invalid")
         assessment = validate_outcome_envelope(payload["assessment"], Path(project_root), nodes, set())
         previous_raw = payload.get("previous_assessment")
-        previous = None if previous_raw is None else validate_outcome_envelope(previous_raw, Path(project_root), nodes, set())
+        if previous_raw is None:
+            if "retained_previous_assessment_sha256" in payload:
+                raise ValueError("historical-assessment-binding-invalid")
+            previous = None
+        else:
+            previous = _validate_retained_implementation_assessment(
+                previous_raw, Path(project_root), nodes, scope["scope_sha256"],
+                payload.get("retained_previous_assessment_sha256"))
         validated_eligibility = None
         if assessment["state"] == "complete":
             eligibility_request = payload.get("eligibility_request")
@@ -2429,7 +2469,8 @@ def validate_scoped_implementation_progress(project_root: Path, payload: dict[st
         required = {"controller_loop_mode", "scope", "trusted_request_reference", "retained_scope_sha256",
                     "retained_history_sha256", "assessment", "eligible_task_ids", "declared_node_ids",
                     "previous_assessment", "progress", "administrative_prerequisite_ids"}
-        optional = {"trusted_requested_task_ids", "task_tracking_successors", "eligibility_request"}
+        optional = {"trusted_requested_task_ids", "task_tracking_successors", "eligibility_request",
+                    "retained_previous_assessment_sha256"}
         if not required.issubset(payload) or set(payload) - required - optional:
             raise ValueError("implementation-progress-scope-request-invalid")
         scope_binding = _scope_binding_payload(payload)
@@ -2460,7 +2501,8 @@ def validate_scoped_implementation_progress(project_root: Path, payload: dict[st
             "scope", "trusted_request_reference", "retained_scope_sha256", "retained_history_sha256",
             "assessment", "eligible_task_ids", "declared_node_ids", "previous_assessment")}
         route_payload.update({key: payload[key] for key in (
-            "trusted_requested_task_ids", "task_tracking_successors", "eligibility_request") if key in payload})
+            "trusted_requested_task_ids", "task_tracking_successors", "eligibility_request",
+            "retained_previous_assessment_sha256") if key in payload})
         routed = route_scoped_implementation(Path(project_root), route_payload)
         if routed.get("state") == "blocked":
             return routed

@@ -220,6 +220,14 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         if baseline_capture.get("state") != "ready":
             raise AssertionError(f"installed pre-effect baseline did not validate: {baseline_capture}")
         source_preimage_sha256 = sha(source_path)
+        revision_previous_assessment = {"state": "continue", "next_step_id": "implement-tasks",
+            "reason_code": "pre-source-frozen-findings",
+            "evidence": [{"path": f"{feature}/tasks.md", "sha256": sha(tasks_path)},
+                         {"path": f"{feature}/implementation.py", "sha256": sha(source_path)}],
+            "remaining_ids": baseline_capture["remaining_ids"], "resolved_ids": []}
+        controller_module.validate_outcome_envelope(revision_previous_assessment, consumer, {"implement-tasks"})
+        retained_revision_assessment = digest({"scope_sha256": scope["scope_sha256"],
+                                               "assessment": revision_previous_assessment})
         source_scope_payload = {"scope": scope, "trusted_request_reference": scope["request_reference"],
             "retained_scope_sha256": scope["scope_sha256"]}
         history = controller_module._empty_implementation_history(scope)
@@ -397,16 +405,6 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         else:
             raise AssertionError("capture accepted stale route-entry history")
         post_pass_state["ordered_operations"] = post_pass_inputs["ordered_operations"]
-        previous_assessment_path = feature_dir / "validation/pre-source-assessment.json"
-        previous_assessment_path.parent.mkdir(parents=True, exist_ok=True)
-        previous_assessment_path.write_text(json.dumps({"baseline_sha256": baseline_capture["baseline_sha256"],
-            "remaining_ids": baseline_capture["remaining_ids"], "source_preimage_sha256": source_preimage_sha256},
-            sort_keys=True) + "\n", encoding="utf-8")
-        revision_previous_assessment = {"state": "continue", "next_step_id": "implement-tasks",
-            "reason_code": "pre-source-frozen-findings",
-            "evidence": [{"path": f"{feature}/validation/pre-source-assessment.json",
-                "sha256": sha(previous_assessment_path)}],
-            "remaining_ids": baseline_capture["remaining_ids"], "resolved_ids": []}
         revision_assessment = {"state": "continue", "next_step_id": "implement-tasks",
             "reason_code": "reviewed-task-revision-ready", "evidence": progress["evidence"],
             "remaining_ids": list(dict.fromkeys([*progress["remaining_ids"], "task:T002", "task:T003"])),
@@ -421,6 +419,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "eligible_task_ids": post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
             "previous_assessment": revision_previous_assessment,
+            "retained_previous_assessment_sha256": retained_revision_assessment,
             "progress": {"baseline": baseline_capture["baseline"],
                 "baseline_sha256": baseline_capture["baseline_sha256"], "review": reviewer_review},
             "administrative_prerequisite_ids": []})
@@ -506,15 +505,14 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
         current_assessment = {"state": "continue", "next_step_id": "implement-tasks",
             "reason_code": "recorded-defect-resolved", "evidence": progress["evidence"],
             "remaining_ids": progress["remaining_ids"], "resolved_ids": progress["resolved_ids"]}
-        previous_assessment = {"state": "continue", "next_step_id": "implement-tasks",
-            "reason_code": "pre-source-finding-open", "evidence": current_source_evidence,
-            "remaining_ids": baseline_capture["remaining_ids"], "resolved_ids": []}
+        previous_assessment = revision_previous_assessment
         scoped_progress = controller_module.validate_scoped_implementation_progress(consumer, {
             "controller_loop_mode": "implementation_scope", **history_payload,
             "retained_history_sha256": history["sha256"], "assessment": current_assessment,
             "eligible_task_ids": ["T002"],
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
-            "previous_assessment": previous_assessment, "progress": progress_payload,
+            "previous_assessment": previous_assessment,
+            "retained_previous_assessment_sha256": retained_revision_assessment, "progress": progress_payload,
             "administrative_prerequisite_ids": []})
         if scoped_progress.get("state") != "continue":
             raise AssertionError(f"installed scoped progress did not re-enter after legitimate Tasker successors: {scoped_progress}")
@@ -584,6 +582,7 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "eligible_task_ids": post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
             "previous_assessment": revision_previous_assessment,
+            "retained_previous_assessment_sha256": retained_revision_assessment,
             "progress": {"baseline": baseline_capture["baseline"],
                 "baseline_sha256": baseline_capture["baseline_sha256"], "review": reviewer_review},
             "administrative_prerequisite_ids": []})
@@ -699,7 +698,8 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
             "assessment": final_assessment_envelope,
             "eligible_task_ids": final_post_pass_state["eligibility"]["eligibility"]["eligible_task_ids"],
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
-            "previous_assessment": previous_assessment, "progress": completion_progress_payload,
+            "previous_assessment": previous_assessment,
+            "retained_previous_assessment_sha256": retained_revision_assessment, "progress": completion_progress_payload,
             "administrative_prerequisite_ids": [], "eligibility_request": final_eligibility_payload})
         if final_scoped_progress.get("state") != "complete":
             raise AssertionError(f"installed final scoped route did not complete with current whole-scope proof: {final_scoped_progress}")
@@ -738,6 +738,8 @@ def _exercise_installed_task_revision_successor(controller_module: Any, consumer
                 post_pass_state["producer_records"][0]["validator_step_id"]],
             "baseline": baseline_capture["baseline"],
             "baseline_sha256": baseline_capture["baseline_sha256"],
+            "previous_assessment": revision_previous_assessment,
+            "retained_previous_assessment_sha256": retained_revision_assessment,
             "review": reviewer_review,
             "progress": progress,
             "post_pass_ordered_operations": post_pass_state["ordered_operations"],
@@ -821,13 +823,17 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
         except (json.JSONDecodeError, TypeError, ValueError) as error:
             raise AssertionError("rendered scoped callback arguments are malformed") from error
         expected = {"scope", "previous_assessment", "current_assessment", "current_review", "readiness",
-                    "frozen_baseline", "post_pass_state"}
-        if set(bound) != expected or any(not isinstance(value, (dict, list)) for value in bound.values()):
+                    "frozen_baseline", "post_pass_state", "retained_previous_assessment_sha256"}
+        if (set(bound) != expected
+                or not isinstance(bound["retained_previous_assessment_sha256"], str)
+                or any(not isinstance(value, (dict, list)) for key, value in bound.items()
+                       if key != "retained_previous_assessment_sha256")):
             raise AssertionError(f"rendered scoped callback fields differ: {sorted(bound)}")
         return rendered, bound
 
     route_execution_prompt, _ = render_execution_bindings({"entry": {"scope": {}, "eligibility": {}, "history": {},
-        "task_tracking_successors": [], "previous_assessment": {}, "baseline": {}},
+        "task_tracking_successors": [], "previous_assessment": {},
+        "retained_previous_assessment_sha256": "a" * 64, "baseline": {}},
         "current_assessment": {"outcome_envelope": {"state": "continue", "next_step_id": "implement-tasks",
             "reason_code": "fixture", "evidence": [], "remaining_ids": ["task:T001"], "resolved_ids": []},
             "review": {}},
@@ -1573,7 +1579,9 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
             rendered_prompt, bound = render_execution_bindings({
                 "entry": {"scope": scope, "eligibility": eligibility, "history": entry_history,
                     "task_tracking_successors": task_tracking_successors,
-                    "previous_assessment": previous_assessment, "baseline": baseline_capture["baseline"]},
+                    "previous_assessment": previous_assessment,
+                    "retained_previous_assessment_sha256": digest({"scope_sha256": scope["scope_sha256"],
+                        "assessment": previous_assessment}), "baseline": baseline_capture["baseline"]},
                 "current_assessment": {**current_assessment, "review": review},
                 "readiness": readiness, "post_pass_state": post_pass_state})
             if ("route-scoped-entry.output.history" in execution_node["prompt"]
@@ -1596,6 +1604,7 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
                 "eligible_task_ids": bound["eligibility"]["eligibility"]["eligible_task_ids"],
                 "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
                 "previous_assessment": bound["previous_assessment"],
+                "retained_previous_assessment_sha256": bound["retained_previous_assessment_sha256"],
                 "progress": progress_payload,
                 "administrative_prerequisite_ids": [],
                 "task_tracking_successors": bound["task_tracking_successors"]}
@@ -1919,10 +1928,8 @@ def exercise_installed_scope_matrix(consumer: Path, controller_module: Any, scop
         "resolved_ids": task_revision_successor["progress"]["resolved_ids"]}
     rendered_post_pass_prompt, rendered_post_pass = render_execution_bindings({
         "entry": {"scope": post_pass_state["scope"],
-            "previous_assessment": {"state": "continue", "reason_code": "prior-assessment",
-                "evidence": task_revision_successor["progress"]["evidence"],
-                "remaining_ids": [f"finding:{item['id']}" for item in task_revision_successor["baseline"]["findings"]],
-                "resolved_ids": []},
+            "retained_previous_assessment_sha256": task_revision_successor["retained_previous_assessment_sha256"],
+            "previous_assessment": task_revision_successor["previous_assessment"],
             "baseline": task_revision_successor["baseline"]},
         "current_assessment": {"outcome_envelope": post_pass_assessment,
             "review": task_revision_successor["review"]},
