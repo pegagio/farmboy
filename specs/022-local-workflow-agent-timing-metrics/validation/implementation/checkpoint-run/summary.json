@@ -1,0 +1,207 @@
+{
+  "blocker": "unsupported-workflow",
+  "bundle_record": {
+    "device": 16777232,
+    "inode": 136937645,
+    "sha256": "3adeec5533e741f1b8aa6b1a30584a679b66bca19567bc54c5cf38a0871aee90"
+  },
+  "changed_files": [
+    ".gitignore",
+    ".specify/memory/roadmap.md",
+    "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+    "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+    "specs/022-local-workflow-agent-timing-metrics/plan.md",
+    "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+    "specs/022-local-workflow-agent-timing-metrics/research.md",
+    "specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/brief-20261011T183058Z.md",
+    "specs/022-local-workflow-agent-timing-metrics/spec.md",
+    "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/analysis/artifact-analysis.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/analysis/independent-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/analysis/readiness-check.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-routing.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-dispatch-evidence-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-authoring-review.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-ea083f52.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-roadmap-brief-review.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-specification-milestone-review.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-2d546693f15a2970d1049a9b0279613f.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-decision.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-lifecycle-request.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-ready.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/task-generation/independent-task-review.json",
+    "wiki/INDEX.md",
+    "wiki/pages/bundle-and-workflow-model.md",
+    "wiki/pages/codex-workflow-controllers.md",
+    "wiki/pages/local-agent-timing-metrics.md",
+    "wiki/sources.md"
+  ],
+  "effective_assignments": [
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-state"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-core"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Roadmap Agent",
+      "step_id": "apply-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state-after-revalidation"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-preparation"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-source-implementation"
+    },
+    {
+      "agent_name": "FarmBoy Code Reviewer",
+      "step_id": "assess-implementation-after-pass"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "revise-task-plan"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-task-outcomes"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-reentry"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-completion"
+    }
+  ],
+  "loop_passes": [],
+  "run_id": "ea083f52-6956-459f-b674-4cb892ceaaaa",
+  "schema_version": "1.0",
+  "skill_record": {
+    "device": 16777232,
+    "inode": 136937677,
+    "sha256": "ba65f235a8d2eb45d11499a28aa2e654098fb6d2e3e69182338c85ea41a1899c"
+  },
+  "started_at": "2026-10-12T16:08:07+00:00",
+  "status": "stopped",
+  "steps": {
+    "apply-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:16:38+00:00"
+    },
+    "assess-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:14:28+00:00"
+    },
+    "assess-implementation-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:10:55+00:00"
+    },
+    "assess-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:10:56+00:00"
+    },
+    "capture-implementation-baseline": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:10:56+00:00"
+    },
+    "check-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:11:53+00:00"
+    },
+    "establish-implementation-scope": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:08:34+00:00"
+    },
+    "gate-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:11:54+00:00"
+    },
+    "implement-tasks": {
+      "status": "incomplete",
+      "updated_at": "2026-10-12T16:19:05+00:00"
+    },
+    "prepare-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:15:32+00:00"
+    },
+    "prepare-scoped-prerequisites": {
+      "status": "incomplete",
+      "updated_at": "2026-10-12T16:19:05+00:00"
+    },
+    "record-source-session-and-attempt": {
+      "status": "incomplete",
+      "updated_at": "2026-10-12T16:19:05+00:00"
+    },
+    "report-implementation-outcome": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:19:06+00:00"
+    },
+    "revalidate-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:15:54+00:00"
+    },
+    "route-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:15:32+00:00"
+    },
+    "route-implementation-start-revalidation": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:15:54+00:00"
+    },
+    "route-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:17:34+00:00"
+    },
+    "route-scoped-entry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:18:15+00:00"
+    },
+    "verify-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:17:32+00:00"
+    },
+    "verify-lifecycle-and-readiness-before-coding": {
+      "status": "completed",
+      "updated_at": "2026-10-12T16:17:33+00:00"
+    }
+  },
+  "updated_at": "2026-10-12T16:19:06+00:00",
+  "workflow_id": "farmboy-implement",
+  "workflow_sha256": "0787ff6051f18b4cbc3e2c4f05a01bbd4dcb4a8223126b97613243bc5d338d10",
+  "workflow_version": "0.9.1"
+}

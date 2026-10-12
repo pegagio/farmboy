@@ -34,6 +34,8 @@ page files, not here.
 
 ## Decision
 
+- [Local agent timing metrics design](pages/local-agent-timing-metrics.md)
+
 - [Agent Python environment](pages/agent-python-environment.md)
 - [Feature 020 qualified verification](pages/feature020-verification-qualification.md)
 

@@ -22,7 +22,7 @@ Sources are immutable inputs — the wiki never edits them.
 | S015 | `specs/010-maintainer-intake/spec.md` | file | 2026-09-24 | 2026-09-24 | `consumer-feedback-boundary.md` |
 | S016 | `specs/011-bundle-catalog/spec.md` | file | 2026-09-24 | 2026-09-24 | `bundle-and-workflow-model.md`, `installation-and-release-lifecycle.md` |
 | S017 | `.specify/memory/constitution.md` | file | 2026-09-26 | 2026-09-28 | `project-authority-and-review-gates.md` |
-| S018 | `.specify/memory/roadmap.md` | file | 2026-09-26 | 2026-10-09 | `bundle-and-workflow-model.md`, `codex-workflow-controllers.md`, `workflow-agent-capacity-proposal.md`, `flowkit-agent-configuration-and-delivery.md`, `feature020-verification-qualification.md` |
+| S018 | `.specify/memory/roadmap.md` | file | 2026-09-26 | 2026-10-12 | `bundle-and-workflow-model.md`, `local-agent-timing-metrics.md` |
 | S019 | `specs/013-bundle-workflow-launchers/spec.md` | file | 2026-09-26 | 2026-09-28 | `codex-workflow-controllers.md`, `bundle-and-workflow-model.md` |
 | S020 | `specs/015-agent-roles-assignment-inheritance/spec.md` | file | 2026-09-29 | 2026-09-29 | `agent-roles-and-inheritance.md` |
 | S021 | `specs/014-flowkit-workflow-improvements/spec.md` | file | 2026-09-30 | 2026-10-02 | `closeout-and-verification-boundary.md`, `controller-assessment-contract.md` |
@@ -40,3 +40,4 @@ Sources are immutable inputs — the wiki never edits them.
 | S033 | `controllers/farmboy/controller-protocol.md` | file | 2026-10-11 | 2026-10-11 | `controller-assessment-history.md`, `controller-assessment-contract.md`, `codex-controller-history.md`, `codex-workflow-controllers.md`, `workflow-graph-responsibility-history.md`, `workflow-graph-responsibility-boundaries.md`, `workflow-loop-history.md`, `workflow-loop-baselines-and-limits.md` |
 | S034 | `docs` | directory | 2026-10-11 | 2026-10-11 | `installation-and-release-lifecycle.md`, `diagram-adapter-boundary.md`, `agent-python-environment.md`, `consumer-feedback-boundary.md` |
 | S035 | `.specify/memory` | directory | 2026-10-11 | 2026-10-11 | `project-authority-and-review-gates.md`, `project-authority-history.md`, `bundle-and-workflow-model.md` |
+| S036 | `specs/022-local-workflow-agent-timing-metrics/spec.md` | file | 2026-10-12 | 2026-10-12 | `local-agent-timing-metrics.md`, `codex-workflow-controllers.md` |

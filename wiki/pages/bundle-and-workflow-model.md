@@ -12,7 +12,7 @@ sources:
 - S027
 - S032
 - S035
-updated: '2026-10-11'
+updated: '2026-10-12'
 ---
 
 # Bundle and workflow model
@@ -48,6 +48,8 @@ Feature 020’s [qualified verification and manual waiver](./feature020-verifica
 The current README pins bundle `0.18.3`, controller package `0.9.1`, and `farmboy-agents` `0.2.0` for Codex, requiring Specify `>=1.0.10.dev0` and Python 3. Extension pins are `flow-roadmap` `0.4.0`, `flow-wiki` `2.0.1`, and `farmboy-feedback` `0.2.1`; no preset or maintainer intake is bundled. (S002)
 
 The ten-workflow table pins Select Feature `0.2.1`, Specify `0.4.1`, Clarify/Plan/Tasks `0.5.1`, Analyze `0.6.1`, Implement `0.9.1`, Converge `0.5.1`, Close Out `0.9.2`, and Wiki Lint Update `0.2.1`. Manual prompts remain available; selection and specification require separate invocations. This is an unreleased development snapshot, not publication or consumer adoption. (S002)
+
+Feature 022 adds [local timing and maintainer workbook reporting](./local-agent-timing-metrics.md) as prospective scope, preserving consumer boundaries. (S018)
 
 ## Related pages
 

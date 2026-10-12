@@ -1,0 +1,394 @@
+{
+  "report": "## Specification Analysis Report\n\nScope: Fresh read-only installed speckit-analyze assessment of Feature 022 spec.md, plan.md, tasks.md and their named supporting research, data model, quickstart and contracts against Constitution 8.0.0 and the current controller/catalog integration source. This final fresh confirmation independently inspected the current core and supporting artifacts after the exact independent verdict was recorded; no project artifact was edited.\n\nPrerequisites: The prescribed skill-tools check_prerequisites.py --json --require-spec --require-tasks --include-tasks succeeded once and selected specs/022-local-workflow-agent-timing-metrics/. Required artifacts are present. Parsed .specify/extensions.yml has neither before_analyze nor after_analyze hooks. No prerequisite errors.\n\n| ID | Category | Severity | Location(s) | Summary | Recommendation |\n| --- | --- | --- | --- | --- | --- |\n| \u2014 | \u2014 | \u2014 | \u2014 | No remaining material findings. | Return this report through the current Analyze/Remediate reassessment path. |\n\n### Exact Finding Reassessment\n\n| Stable ID | State | Observed evidence |\n| --- | --- | --- |\n| I022-001 | Resolved in task instructions | specs/022-local-workflow-agent-timing-metrics/tasks.md:26 (T004) now verifies automatic inclusion of metrics.py through controller_package_files, its installed path, delivery/exclusion tests and preservation of ten bindings. tools/catalog.py:553-568 recursively gathers controller scripts and maps them into .specify/farmboy; controllers/farmboy/manifest.yml declares the ten bindings rather than a scripts inventory. This agrees with plan.md:105 and research.md's Delivery and Validation decision. |\n| I022-002 | Resolved in task instructions | specs/022-local-workflow-agent-timing-metrics/tasks.md:46 (T008) explicitly narrows the blanket TOML prohibition for passive metrics-only exact-name settings reads before timing, retaining native configuration/dispatch authority, no spawn overrides, no inherited/global resolution and no runtime verification claims. tasks.md:89 (T021) explicitly inspects that exception and preservation of dispatch authority. These instructions reconcile FR-022 (spec.md:130) and plan.md:127 with the present blanket instructions at controllers/farmboy/controller-protocol.md:7,12,22. The source protocol itself is unchanged because implementation has not begun; its planned reconciliation is not a remaining tasking gap. |\n\n### Coverage Summary\n\nThe mappings are semantic task coverage, not implementation or validation evidence. The quickstart defines the detailed deterministic obligations executed by T021, with live boundary observations under T022 and populated/header-only Excel interoperability under T023.\n\n| Requirement Key | Has Task? | Task IDs | Notes |\n| --- | --- | --- | --- |\n| FR-001 | Yes | T003,T006,T008,T009,T022 | Shared controller covers probes and agent turns in all active workflows. |\n| FR-002 | Yes | T006,T008,T009,T022 | Adjacent boundaries, pending polls and excluded human wait. |\n| FR-003 | Yes | T002,T003,T008,T009 | Unique turn IDs; shared independent metrics correlation. |\n| FR-004 | Yes | T002,T005,T009,T022 | No result classification or fabricated ending. |\n| FR-005 | Yes | T002,T005,T009 | Signed millisecond arithmetic and canonical UTC timestamps. |\n| FR-006 | Yes | T002,T010 | Importable/CLI helper and storage adapter boundary. |\n| FR-007 | Yes | T010,T012,T019 | Flat independent JSON files and documented default. |\n| FR-008 | Yes | T010,T012,T021 | Exclusive staging and complete no-clobber publication. |\n| FR-009 | Yes | T009,T011,T012,T021 | Warnings retain agent result, route and human gates. |\n| FR-010 | Yes | T002,T005,T008,T009 | Exact invoking dimensions and preflight step. |\n| FR-011 | Yes | T002,T008,T019 | Allowlist, safe label fallback and excluded sensitive fields. |\n| FR-012 | Yes | T001,T004,T017,T020 | Maintainer reporter excluded from consumer delivery. |\n| FR-013 | Yes | T013,T018,T021 | Fixed top-level candidate list and ignored inputs. |\n| FR-014 | Yes | T002,T005,T013,T018 | Bounded reads and exact contract validation. |\n| FR-015 | Yes | T014,T018 | Collapse identical copies; exclude conflicting identities. |\n| FR-016 | Yes | T015,T018,T023 | Approved thirteen-column table, order, literal text and numeric duration. |\n| FR-017 | Yes | T016,T017,T018 | Unique outputs, no clobber and visible failures/location. |\n| FR-018 | Yes | T013,T014,T016,T018,T021 | Zero rows, summary partition and inaccessible-input failure. |\n| FR-019 | Yes | T016,T018,T021 | Preserve sources; fail above accepted-row capacity. |\n| FR-020 | Yes | T019,T021,T022 | Usage/limits/provenance and tested-evidence distinction. |\n| FR-021 | Yes | T006,T008,T019,T020,T021,T022 | Dispatch/manual/gate preservation and narrow TOML exception. |\n| FR-022 | Yes | T007,T008,T009,T013,T015,T018,T021 | Exact-name file settings, null fallback, no runtime claims or resolver. |\n| SC-001 | Yes | T005,T009,T021,T022 | Controlled boundary sequence and separately observed live behavior. |\n| SC-002 | Yes | T012,T018,T021 | Quickstart requires twenty simultaneous writers across two labels. |\n| SC-003 | Yes | T009,T011,T012,T021 | Failure categories preserve original workflow behavior. |\n| SC-004 | Yes | T013,T014,T018,T021 | Fixed mixed snapshot, late-arrival exclusion and count partition. |\n| SC-005 | Yes | T016,T018,T021 | Repeated distinct reports, zero rows and unchanged source/output bytes. |\n| SC-006 | Yes | T015,T018,T023 | Literal text, signed numeric durations and actual Excel inspection. |\n| SC-007 | Yes | T001,T004,T017,T020,T022 | Consumer collection versus explicit maintainer reporting. |\n| SC-008 | Yes | T007,T009,T013,T015,T018 | Explicit settings, unavailable keys and blank/null compatibility. |\n\n### Constitution Alignment\n\nNo current material conflict with Constitution 8.0.0 was identified. The artifacts retain merge-bounded flow-back, operator-directed phases/gates, exact native assignments and manual fallback, reviewed-source ownership, consumer/maintainer separation, standard-library collection, and the explicitly approved maintainer-only openpyxl 3.1.5/et-xmlfile design. Validation tasks require disposable-consumer evidence and provenance, distinguish fixture dispatch from live observations, and grant no publication, adoption or acceptance authority. The narrow passive settings read preserves native configuration authority.\n\n### Unmapped Tasks\n\nNone. All 23 unique unchecked task IDs T001\u2013T023 map to stories, requirements, shared contracts, delivery obligations or validation requirements. The explicit dependencies place contract tests before helper implementation, foundations before story work, and sequential shared-file report/protocol edits in order. No new task or scope expansion is required to resolve the two prior findings.\n\n### Metrics\n\n- Analyzed requirements: 30 (22 functional requirements and 8 buildable/testable success criteria).\n- Tasks: 23 unique unchecked tasks.\n- Requirements with task coverage: 30/30 (100%).\n- Remaining ambiguity count: 0.\n- Duplicate requirements: 0.\n- Remaining findings: 0 CRITICAL, 0 HIGH, 0 MEDIUM, 0 LOW.\n- Previously reported material findings resolved: 2 (I022-001, I022-002).\n\n### Facts, Gaps and Inference\n\nObserved facts: spec.md:123 (FR-016), data-model.md's Workbook and Summary, contracts/metrics-report.md's Workbook, plan.md:143 and tasks.md:79 (T015) agree on exactly thirteen Excel columns: invocation_id, run_id, project, skill, workflow, step, invocation_kind, agent, model, effort, started_at, finished_at, duration_ms. JSON retains schema_version for validation/equality; shortened Excel headers do not rename JSON keys. The artifacts agree on separate metrics correlation from recovery identity, millisecond signed wall time, per-turn IDs, optional file-declared model/effort, flat per-emission JSON publication, warn-and-continue collection, maintainer-only explicit reporting, source preservation and no outcome/token dimensions.\n\nCurrent review evidence: specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json now records state complete, reviewer FarmBoy Reviewer, with all four reviewed-input hashes matching the current specification, plan, tasks and requirements checklist. All eighteen evidence hashes in the preceding independent assessment also match the inspected current bytes. The old plan self-check/pending-review wording is historical author-phase provenance rather than the current independent verdict. The previously outstanding administrative finding readiness-review-recording-required is resolved by the declared recorder output. This command does not issue or record its own readiness gate.\n\nRemaining future implementation evidence: Runtime publication, live boundary ordering, missing maintainer dependencies and header-only Excel interoperability remain openly documented future implementation/validation obligations. This analysis does not silently turn those limitations into fulfilled evidence, and no implementation readiness or feature acceptance is asserted.\n\nInference: T004 now gives an implementer the existing packaging mechanism rather than an invented scripts registry. T008 and T021 now give explicit implementation and verification instructions to remove the future protocol contradiction without changing dispatch authority. These conclusions follow from the observed task/source wording; they do not claim either implementation already exists.\n\n### Next Actions\n\nReturn this reassessment through the existing Analyze/Remediate workflow path. No further artifact correction or operator product decision is required by this report. The main controller owns readiness assessment and subsequent gates. Do not automatically launch another workflow phase, install dependencies, implement source, integrate Git or infer roadmap verification/feature acceptance.\n\nNo remediation question is issued because there are no remaining findings, and correction/gate handling belongs to the already invoked parent workflow.\n\nValidation performed: One read-only prerequisite check; YAML hook parse; direct current-artifact/source inspection; thirty-key requirement/task mapping; bounded reassessment of T004, T008 and T021; exact verification of recorded independent evidence and twenty-three unique unchecked task IDs. No implementation tests, dependency installation, live metrics validation, workbook authoring, project editing, readiness recording or Git mutation. The already recorded review was read and its input hashes checked. Only the delegated temporary structured result is saved.\n",
+  "findings": [],
+  "resolved_findings": [
+    {
+      "id": "I022-001",
+      "status": "resolved",
+      "task_ids": [
+        "T004"
+      ],
+      "locations": [
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md:26",
+        "tools/catalog.py:553-568",
+        "controllers/farmboy/manifest.yml"
+      ],
+      "resolution": "Existing automatic packaging and installed path/delivery verification replace the ambiguous manifest script inventory."
+    },
+    {
+      "id": "I022-002",
+      "status": "resolved",
+      "task_ids": [
+        "T008",
+        "T021"
+      ],
+      "locations": [
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md:46",
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md:89",
+        "controllers/farmboy/controller-protocol.md:7,12,22"
+      ],
+      "resolution": "Explicit narrow passive TOML exception plus verification preserves native dispatch/configuration authority."
+    },
+    {
+      "id": "readiness-review-recording-required",
+      "status": "resolved",
+      "locations": [
+        "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json"
+      ],
+      "resolution": "Declared recorder persisted the exact current independent verdict; all required input hashes match. Overall readiness and gates remain parent-owned."
+    }
+  ],
+  "prerequisite_errors": [],
+  "coverage": [
+    {
+      "requirement": "FR-001",
+      "has_task": true,
+      "task_ids": [
+        "T003",
+        "T006",
+        "T008",
+        "T009",
+        "T022"
+      ],
+      "notes": "Shared controller covers probes and agent turns in all active workflows."
+    },
+    {
+      "requirement": "FR-002",
+      "has_task": true,
+      "task_ids": [
+        "T006",
+        "T008",
+        "T009",
+        "T022"
+      ],
+      "notes": "Adjacent boundaries, pending polls and excluded human wait."
+    },
+    {
+      "requirement": "FR-003",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T003",
+        "T008",
+        "T009"
+      ],
+      "notes": "Unique turn IDs; shared independent metrics correlation."
+    },
+    {
+      "requirement": "FR-004",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T005",
+        "T009",
+        "T022"
+      ],
+      "notes": "No result classification or fabricated ending."
+    },
+    {
+      "requirement": "FR-005",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T005",
+        "T009"
+      ],
+      "notes": "Signed millisecond arithmetic and canonical UTC timestamps."
+    },
+    {
+      "requirement": "FR-006",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T010"
+      ],
+      "notes": "Importable/CLI helper and storage adapter boundary."
+    },
+    {
+      "requirement": "FR-007",
+      "has_task": true,
+      "task_ids": [
+        "T010",
+        "T012",
+        "T019"
+      ],
+      "notes": "Flat independent JSON files and documented default."
+    },
+    {
+      "requirement": "FR-008",
+      "has_task": true,
+      "task_ids": [
+        "T010",
+        "T012",
+        "T021"
+      ],
+      "notes": "Exclusive staging and complete no-clobber publication."
+    },
+    {
+      "requirement": "FR-009",
+      "has_task": true,
+      "task_ids": [
+        "T009",
+        "T011",
+        "T012",
+        "T021"
+      ],
+      "notes": "Warnings retain agent result, route and human gates."
+    },
+    {
+      "requirement": "FR-010",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T005",
+        "T008",
+        "T009"
+      ],
+      "notes": "Exact invoking dimensions and preflight step."
+    },
+    {
+      "requirement": "FR-011",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T008",
+        "T019"
+      ],
+      "notes": "Allowlist, safe label fallback and excluded sensitive fields."
+    },
+    {
+      "requirement": "FR-012",
+      "has_task": true,
+      "task_ids": [
+        "T001",
+        "T004",
+        "T017",
+        "T020"
+      ],
+      "notes": "Maintainer reporter excluded from consumer delivery."
+    },
+    {
+      "requirement": "FR-013",
+      "has_task": true,
+      "task_ids": [
+        "T013",
+        "T018",
+        "T021"
+      ],
+      "notes": "Fixed top-level candidate list and ignored inputs."
+    },
+    {
+      "requirement": "FR-014",
+      "has_task": true,
+      "task_ids": [
+        "T002",
+        "T005",
+        "T013",
+        "T018"
+      ],
+      "notes": "Bounded reads and exact contract validation."
+    },
+    {
+      "requirement": "FR-015",
+      "has_task": true,
+      "task_ids": [
+        "T014",
+        "T018"
+      ],
+      "notes": "Collapse identical copies; exclude conflicting identities."
+    },
+    {
+      "requirement": "FR-016",
+      "has_task": true,
+      "task_ids": [
+        "T015",
+        "T018",
+        "T023"
+      ],
+      "notes": "Approved thirteen-column table, order, literal text and numeric duration."
+    },
+    {
+      "requirement": "FR-017",
+      "has_task": true,
+      "task_ids": [
+        "T016",
+        "T017",
+        "T018"
+      ],
+      "notes": "Unique outputs, no clobber and visible failures/location."
+    },
+    {
+      "requirement": "FR-018",
+      "has_task": true,
+      "task_ids": [
+        "T013",
+        "T014",
+        "T016",
+        "T018",
+        "T021"
+      ],
+      "notes": "Zero rows, summary partition and inaccessible-input failure."
+    },
+    {
+      "requirement": "FR-019",
+      "has_task": true,
+      "task_ids": [
+        "T016",
+        "T018",
+        "T021"
+      ],
+      "notes": "Preserve sources; fail above accepted-row capacity."
+    },
+    {
+      "requirement": "FR-020",
+      "has_task": true,
+      "task_ids": [
+        "T019",
+        "T021",
+        "T022"
+      ],
+      "notes": "Usage/limits/provenance and tested-evidence distinction."
+    },
+    {
+      "requirement": "FR-021",
+      "has_task": true,
+      "task_ids": [
+        "T006",
+        "T008",
+        "T019",
+        "T020",
+        "T021",
+        "T022"
+      ],
+      "notes": "Dispatch/manual/gate preservation and narrow TOML exception."
+    },
+    {
+      "requirement": "FR-022",
+      "has_task": true,
+      "task_ids": [
+        "T007",
+        "T008",
+        "T009",
+        "T013",
+        "T015",
+        "T018",
+        "T021"
+      ],
+      "notes": "Exact-name file settings, null fallback, no runtime claims or resolver."
+    },
+    {
+      "requirement": "SC-001",
+      "has_task": true,
+      "task_ids": [
+        "T005",
+        "T009",
+        "T021",
+        "T022"
+      ],
+      "notes": "Controlled boundary sequence and separately observed live behavior."
+    },
+    {
+      "requirement": "SC-002",
+      "has_task": true,
+      "task_ids": [
+        "T012",
+        "T018",
+        "T021"
+      ],
+      "notes": "Quickstart requires twenty simultaneous writers across two labels."
+    },
+    {
+      "requirement": "SC-003",
+      "has_task": true,
+      "task_ids": [
+        "T009",
+        "T011",
+        "T012",
+        "T021"
+      ],
+      "notes": "Failure categories preserve original workflow behavior."
+    },
+    {
+      "requirement": "SC-004",
+      "has_task": true,
+      "task_ids": [
+        "T013",
+        "T014",
+        "T018",
+        "T021"
+      ],
+      "notes": "Fixed mixed snapshot, late-arrival exclusion and count partition."
+    },
+    {
+      "requirement": "SC-005",
+      "has_task": true,
+      "task_ids": [
+        "T016",
+        "T018",
+        "T021"
+      ],
+      "notes": "Repeated distinct reports, zero rows and unchanged source/output bytes."
+    },
+    {
+      "requirement": "SC-006",
+      "has_task": true,
+      "task_ids": [
+        "T015",
+        "T018",
+        "T023"
+      ],
+      "notes": "Literal text, signed numeric durations and actual Excel inspection."
+    },
+    {
+      "requirement": "SC-007",
+      "has_task": true,
+      "task_ids": [
+        "T001",
+        "T004",
+        "T017",
+        "T020",
+        "T022"
+      ],
+      "notes": "Consumer collection versus explicit maintainer reporting."
+    },
+    {
+      "requirement": "SC-008",
+      "has_task": true,
+      "task_ids": [
+        "T007",
+        "T009",
+        "T013",
+        "T015",
+        "T018"
+      ],
+      "notes": "Explicit settings, unavailable keys and blank/null compatibility."
+    }
+  ],
+  "metrics": {
+    "requirements": 30,
+    "functional_requirements": 22,
+    "success_criteria": 8,
+    "tasks": 23,
+    "covered_requirements": 30,
+    "coverage_percent": 100,
+    "ambiguity_count": 0,
+    "duplication_count": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "resolved": 2
+  },
+  "facts": {
+    "project_artifact_edits": false,
+    "hooks_before_analyze": [],
+    "hooks_after_analyze": [],
+    "report_column_count": 13,
+    "json_schema_version_retained": true,
+    "recorded_current_independent_review_matches": true,
+    "all_preceding_assessment_evidence_hashes_match": true,
+    "recorded_readiness_state": "complete",
+    "implementation_evidence_claimed": false
+  },
+  "needs_operator_input": false
+}

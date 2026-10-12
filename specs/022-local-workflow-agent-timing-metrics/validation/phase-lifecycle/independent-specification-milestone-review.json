@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "kind": "independent-review",
+  "reviewer": "FarmBoy Reviewer",
+  "state": "ready",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "scope_sha256": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+  "artifact_digests": {
+    "specs/022-local-workflow-agent-timing-metrics/spec.md": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+    "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-ready.json": "e07e926f3c05c977a55f0055c1c698b0835a00b6ce75f7367447980a2c78667a",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-authoring-review.json": "7c765235e12d44638bef843a08088651024b98d4ea9c81dede05384bc5347b32",
+    "specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/brief-20261011T183058Z.md": "fcda2b6615a2ae388d150e2dbcfcce562dacdad1387f07baa02e10facce3144f",
+    ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+  },
+  "required_check_ids": [
+    "authoring-quality",
+    "clarification",
+    "consequential-decisions",
+    "dependencies",
+    "independent-review",
+    "linkage",
+    "roadmap-brief"
+  ],
+  "satisfied_check_ids": [
+    "authoring-quality",
+    "clarification",
+    "consequential-decisions",
+    "dependencies",
+    "independent-review",
+    "linkage",
+    "roadmap-brief"
+  ],
+  "unresolved_ids": []
+}

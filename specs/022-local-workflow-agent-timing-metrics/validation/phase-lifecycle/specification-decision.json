@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "phase": "specify",
+  "scope_sha256": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+  "kind": "routine-invocation",
+  "reference": "direct-operator-farmboy-specify-20261011-run-db5e223b-93a3-4466-ab56-3dbb1b417252"
+}

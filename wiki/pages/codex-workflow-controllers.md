@@ -1,8 +1,8 @@
 ---
 title: Codex workflow controller design
 type: concept
-sources: [S033]
-updated: 2026-10-11
+sources: [S033, S036]
+updated: 2026-10-12
 ---
 
 # Codex workflow controller design
@@ -20,6 +20,10 @@ Each modeled delegated step receives a fresh bounded child; accepted human answe
 Bootstrap uses `.specify/farmboy/scripts/bootstrap.sh`, the installed manifest/skill records and read-only composed graph. Main captures workflow digest and installation fingerprints and rechecks them at step boundaries. Refresh lets an active node finish, then stops further work. New recovery summaries live beneath `.specify/farmboy-controllers/`; existing installed packages or historic records gain no refreshed identity merely because source names changed. (S033)
 
 A successful command grants no Git integration, roadmap verification, publication or acceptance. Completion cannot launch another workflow phase. Failed or interrupted work preserves partial edits and records an exact blocker and safe resumption boundary; no automatic rollback or blind retry follows. (S033)
+
+## Prospective metrics metadata
+
+Feature 022 permits a passive project agent-file read for optional `model` and `effort`, while preserving native dispatch authority and forbidding overrides, inherited/global resolution or runtime-verification claims. Its [local timing design](./local-agent-timing-metrics.md) is prospective; it does not establish current controller instrumentation. (S036)
 
 ## Related pages
 

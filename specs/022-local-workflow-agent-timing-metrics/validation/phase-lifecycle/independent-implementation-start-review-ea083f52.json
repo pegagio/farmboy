@@ -1,0 +1,52 @@
+{
+  "artifact_digests": {
+    ".specify/farmboy-controllers/runs/ea083f52-6956-459f-b674-4cb892ceaaaa/requested-scope.json": "dea48d47ea7df3baa03bb697b1ec63f02d30454743e17c690301ab241b28b3bc",
+    ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+    ".specify/workflows/farmboy-implement/workflow.yml": "cc434285d56c291d296bbaa67b88f0e4feb1f15c439b2489ac080363512b8cb4",
+    "controllers/farmboy/controller-protocol.md": "d03c6f5c8aff42fdfae085b8de18d237de332fd8ac4b3d78635b66702a11a95b",
+    "controllers/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+    "controllers/farmboy/scripts/python/controller.py": "ad2218bdd39ab58fba986f1b097d0d65c6e35f027a61472f438f3e877deca983",
+    "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf",
+    "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721",
+    "specs/022-local-workflow-agent-timing-metrics/data-model.md": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f",
+    "specs/022-local-workflow-agent-timing-metrics/plan.md": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+    "specs/022-local-workflow-agent-timing-metrics/quickstart.md": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681",
+    "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "specs/022-local-workflow-agent-timing-metrics/tasks.md": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1",
+    "specs/022-local-workflow-agent-timing-metrics/validation/analysis/independent-assessment.json": "c5e8c35173d258eb8c4680ea51326b1fb9dcd1f935f4f68961d7874eeae51350",
+    "specs/022-local-workflow-agent-timing-metrics/validation/analysis/readiness-check.json": "29a561d6168835ee31038d3113c8a74d35a5ebdddf19b4943ae3debf26caad26",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-ea083f52.json": "67862d7801b19d2571a3cea0b2177aca42c78f208dbabb33f9d1dbac5df5c501",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-ea083f52.json": "681b0304fa2a3681873f9be335c00cd33eb226def6e5e594e06b9b22e9a194ad",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-ea083f52.json": "c5dc8598dfad754fa70d35143533232ce2bf139d61db57dfa83e6450d0920fd8",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-ea083f52.json": "e1e90944907385ffca925cdde131f9cf5c5008256eeb7c16d42dc95b7915e8ce",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-ea083f52.json": "02eca84c7d7b8f28793368a6fa1b3553891216c02711f3a43be8940a3423651c",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-ea083f52.json": "e656df2ddd4294522f8d87a10eaa3f4429e936393ba1a64af983fb7e98cd012d",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-dispatch-evidence-ea083f52.json": "d49358f36e5554758f379403d26362fd1c2990bcf142624e55d3b7bf7141501d",
+    "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+    "tools/catalog.py": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac"
+  },
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "kind": "independent-review",
+  "required_check_ids": [
+    "current-artifacts",
+    "dependencies",
+    "eligible-scope",
+    "native-assignments",
+    "readiness"
+  ],
+  "reviewer": "FarmBoy Reviewer",
+  "satisfied_check_ids": [
+    "current-artifacts",
+    "dependencies",
+    "eligible-scope",
+    "native-assignments",
+    "readiness"
+  ],
+  "schema_version": "1.0",
+  "scope_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+  "state": "ready",
+  "unresolved_ids": []
+}

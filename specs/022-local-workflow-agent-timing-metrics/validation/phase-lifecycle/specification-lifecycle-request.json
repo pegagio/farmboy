@@ -1,0 +1,162 @@
+{
+  "schema_version": "1.0",
+  "action": "prepare",
+  "phase": "specify",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "entry_id": "022",
+  "run_id": "db5e223b-93a3-4466-ab56-3dbb1b417252",
+  "workflow_id": "farmboy-specify",
+  "workflow_version": "0.4.1",
+  "mode": "normal",
+  "decision_reference": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-decision.json",
+  "milestone_evidence": [
+    {
+      "milestone": "specced",
+      "owning_phase": "specify",
+      "assessments": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-specification-milestone-review.json",
+          "sha256": "6ccb80bdb8fd7ea529a9022efd2320d0a3cf15f2494d5c8ff7f4280c219c9031",
+          "kind": "independent-review"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-roadmap-brief-review.json",
+          "sha256": "ab6c5c397f9251b1ab5c3c2dde275130a8248e0a0e780d4b8db2f45b4d340d56",
+          "kind": "roadmap-brief"
+        }
+      ],
+      "required_check_ids": [
+        "authoring-quality",
+        "clarification",
+        "consequential-decisions",
+        "dependencies",
+        "independent-review",
+        "linkage",
+        "roadmap-brief"
+      ],
+      "satisfied_check_ids": [
+        "authoring-quality",
+        "clarification",
+        "consequential-decisions",
+        "dependencies",
+        "independent-review",
+        "linkage",
+        "roadmap-brief"
+      ],
+      "unresolved_ids": [],
+      "artifact_digests": {
+        ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+        "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+        "specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/brief-20261011T183058Z.md": "fcda2b6615a2ae388d150e2dbcfcce562dacdad1387f07baa02e10facce3144f",
+        "specs/022-local-workflow-agent-timing-metrics/spec.md": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-authoring-review.json": "7c765235e12d44638bef843a08088651024b98d4ea9c81dede05384bc5347b32",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-ready.json": "e07e926f3c05c977a55f0055c1c698b0835a00b6ce75f7367447980a2c78667a"
+      },
+      "historical_activity": [],
+      "pending_future_ids": []
+    }
+  ],
+  "snapshot": {
+    "schema_version": "1.0",
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "entry_id": "022",
+    "phase": "specify",
+    "workflow_id": "farmboy-specify",
+    "workflow_version": "0.4.1",
+    "run_id": "db5e223b-93a3-4466-ab56-3dbb1b417252",
+    "current_status": "planned",
+    "source_map": {
+      ".specify/bundle-records.json": "3adeec5533e741f1b8aa6b1a30584a679b66bca19567bc54c5cf38a0871aee90",
+      ".specify/extensions/flow-roadmap/extension.yml": "ea5c3cd34e8191298e5829ecb1167f8a1e8ac141ca10dae397caeff8a5515fd5",
+      ".specify/extensions/flow-roadmap/roadmap-config.yml": "2097cad9362412e809ed64b31ede40ccbb7ecf78f95af36c9427df5cf60bb00d",
+      ".specify/extensions/flow-roadmap/scripts/python/load_config.py": "24d5e6267f5002b7f6bfc5ebe47a6ddfcb636ba910cdca6b58df227c7d68641d",
+      ".specify/extensions/flow-roadmap/scripts/python/review_contract.py": "103692fe668d7a13a0f8313ab0a286deac46daab2b9df985d12c7f293407b263",
+      ".specify/extensions/flow-roadmap/scripts/python/roadmap_write.py": "100d1380222a1b412958818c926c927b9533f1f767ed3d5d0dabe257488a7d84",
+      ".specify/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+      ".specify/farmboy/scripts/python/milestone_policy.py": "07ac0ac80b99d31137c78c27b9ce3a3714bcd4b456fd926277e9ff755ea4df75",
+      ".specify/farmboy/scripts/python/phase_lifecycle.py": "ba6d962cd3965691194a78cdd3457d88ae798368882eefd4197aa2036dc8a204",
+      ".specify/farmboy/skills-install.json": "ba65f235a8d2eb45d11499a28aa2e654098fb6d2e3e69182338c85ea41a1899c",
+      ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+      ".specify/memory/roadmap.md": "ea2dbff492ba3c9300fcbd35984d7668ed7c44f39454a60f3a052f8ab54c65dd",
+      ".specify/workflows/farmboy-specify/workflow.yml": "c4afa86e8d3b1a6f76cc9028c6f4baa13886626801c8ac22f2fe1160d54a7c01",
+      "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+      "specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/brief-20261011T183058Z.md": "fcda2b6615a2ae388d150e2dbcfcce562dacdad1387f07baa02e10facce3144f",
+      "specs/022-local-workflow-agent-timing-metrics/spec.md": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-authoring-review.json": "7c765235e12d44638bef843a08088651024b98d4ea9c81dede05384bc5347b32",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-roadmap-brief-review.json": "ab6c5c397f9251b1ab5c3c2dde275130a8248e0a0e780d4b8db2f45b4d340d56",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-specification-milestone-review.json": "6ccb80bdb8fd7ea529a9022efd2320d0a3cf15f2494d5c8ff7f4280c219c9031",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-decision.json": "6584ff0652450a9f6d4ab067846a131e0495bef12fe79ee32f361cb91cd97692",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/specification-ready.json": "e07e926f3c05c977a55f0055c1c698b0835a00b6ce75f7367447980a2c78667a"
+    },
+    "dependency_states": [
+      {
+        "entry_id": "001",
+        "status": "verified"
+      },
+      {
+        "entry_id": "002",
+        "status": "verified"
+      },
+      {
+        "entry_id": "003",
+        "status": "verified"
+      },
+      {
+        "entry_id": "004",
+        "status": "verified"
+      },
+      {
+        "entry_id": "005",
+        "status": "verified"
+      },
+      {
+        "entry_id": "006",
+        "status": "verified"
+      },
+      {
+        "entry_id": "007",
+        "status": "verified"
+      },
+      {
+        "entry_id": "008",
+        "status": "verified"
+      },
+      {
+        "entry_id": "009",
+        "status": "verified"
+      },
+      {
+        "entry_id": "010",
+        "status": "verified"
+      },
+      {
+        "entry_id": "011",
+        "status": "verified"
+      },
+      {
+        "entry_id": "013",
+        "status": "verified"
+      },
+      {
+        "entry_id": "014",
+        "status": "verified"
+      },
+      {
+        "entry_id": "015",
+        "status": "verified"
+      },
+      {
+        "entry_id": "017",
+        "status": "verified"
+      },
+      {
+        "entry_id": "021",
+        "status": "verified"
+      }
+    ],
+    "scope_sha256": "18751efb9d0daf92e64dd47d01d938799337ea44e1aff9cc43aa498b68e622ba",
+    "pending_future_ids": []
+  }
+}

@@ -14,3 +14,4 @@ dist/
 
 # Maintainer feedback reports and intake records are local evidence.
 feedback/
+.specify/memory/roadmap.md.lock
