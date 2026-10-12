@@ -949,6 +949,148 @@ class ScopedImplementationControllerTests(unittest.TestCase):
             self.root, {**payload, "task_tracking_successors": tracking})
         self.assertEqual("blocked", reverted["state"])
 
+    def historical_progress_fixture(self, sessions: int = 1, attempts: int = 1) -> dict:
+        """Retain a pre-effect assessment, then review and track one whole task."""
+        digest = self.controller._progress_digest
+        task_path = f"{self.feature}/tasks.md"
+        self.write(task_path, "- [ ] T001 Implement a scoped operation\n- [ ] T002 Implement another operation\n")
+        source_path = f"{self.feature}/operation.py"
+        self.write(source_path, "result = 'before'\n")
+        evidence = lambda path: [{"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()}]
+        binding = self.current_scope_payload()
+        binding["scope"]["run_id"] = f"historical-{sessions}-{attempts}"
+        # Full-feature scope includes both unfinished tasks.
+        record = {"task_id": "T002", "marker": "unchecked", "description": "Implement another operation",
+                  "description_sha256": hashlib.sha256(b"Implement another operation").hexdigest()}
+        binding["scope"]["requested_task_ids"].append("T002")
+        binding["scope"]["task_records"].append(record)
+        binding["scope"]["scope_sha256"] = digest({k: v for k, v in binding["scope"].items() if k != "scope_sha256"})
+        binding["retained_scope_sha256"] = binding["scope"]["scope_sha256"]
+        baseline = self.controller.capture_implementation_baseline(self.root, {
+            "feature_directory": self.feature, "selected_task_ids": ["T001", "T002"]})
+        previous = {"state": "continue", "reason_code": "before-source-work",
+                    "evidence": evidence(task_path) + evidence(source_path),
+                    "remaining_ids": baseline["remaining_ids"], "resolved_ids": [], "next_step_id": "implement-tasks"}
+        self.controller.validate_outcome_envelope(previous, self.root, {"implement-tasks"})
+        retained = digest({"scope_sha256": binding["scope"]["scope_sha256"], "assessment": previous})
+        history = self.controller._empty_implementation_history(binding["scope"])
+        for index in range(sessions):
+            prior_count = max(0, index - (sessions - attempts))
+            kind = "preparation" if index < sessions - attempts else (
+                "first-source-execution" if prior_count == 0 else "corrective-source-execution")
+            node = "prepare-scoped-prerequisites" if kind == "preparation" else "implement-tasks"
+            count = prior_count + (kind != "preparation")
+            events = [("coder-session-start", {"execution_kind": kind}, prior_count)]
+            if kind != "preparation":
+                events.append(("source-attempt-start", {"execution_kind": kind}, count))
+            events.append(("coder-session-outcome", {"outcome": "completed"}, count))
+            for kind, fields, source_count in events:
+                event = {"event_id": f"event-{len(history['events']) + 1}", "event_kind": kind,
+                    "predecessor_sha256": history["events"][-1]["sha256"] if history["events"] else "0" * 64,
+                    "scope_sha256": binding["scope"]["scope_sha256"], "declared_node_id": node,
+                    "occurred_at": f"2026-10-12T12:00:{len(history['events']):02d}Z", "evidence": evidence(source_path),
+                    "coder_session_id": f"session-{index}", "coder_sessions_started": index + 1,
+                    "source_attempts_started": source_count, **fields}
+                event["sha256"] = digest(event)
+                result = self.controller.append_implementation_execution_event(self.root, {
+                    **binding, "event": event, "retained_history_sha256": history["sha256"]})
+                self.assertEqual("ready", result["state"], result)
+                history = result["history"]
+        self.write(source_path, "result = 'corrected'\n")
+        review = {"reviewer": "FarmBoy Code Reviewer", "baseline_sha256": baseline["baseline_sha256"],
+                  "findings": [], "completed_task_ids": ["T001"], "task_completion_evidence": evidence(source_path)}
+        before = (self.root / task_path).read_text()
+        after = before.replace("- [ ] T001", "- [x] T001")
+        self.write(task_path, after)
+        tasker_path = f"{self.feature}/validation/tasker.json"
+        reviewer_path = f"{self.feature}/validation/reviewer.json"
+        self.write(tasker_path, {"completed_task_ids": ["T001"]})
+        self.write(reviewer_path, review)
+        event = {"predecessor_event_sha256": "0" * 64, "scope_sha256": binding["scope"]["scope_sha256"],
+                 "tasker_assignment": "FarmBoy Tasker", "tasks_before_text": before, "tasks_after_text": after,
+                 "tasker_result": {"state": "ready", "tasks_before_sha256": hashlib.sha256(before.encode()).hexdigest(),
+                     "tasks_after_sha256": hashlib.sha256(after.encode()).hexdigest(), "completed_task_ids": ["T001"],
+                     "evidence": evidence(tasker_path)},
+                 "reviewer_result": {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": ["T001"],
+                     "evidence": evidence(reviewer_path)}}
+        event["sha256"] = digest(event)
+        return {**binding, "controller_loop_mode": "implementation_scope", "task_tracking_successors": [event],
+                "retained_history_sha256": history["sha256"], "previous_assessment": previous,
+                "retained_previous_assessment_sha256": retained,
+                "assessment": {"state": "continue", "reason_code": "reviewed-partial-completion",
+                    "evidence": evidence(task_path) + evidence(source_path), "remaining_ids": ["task:T002"],
+                    "resolved_ids": ["task:T001"], "next_step_id": "implement-tasks"},
+                "eligible_task_ids": ["T002"], "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+                "progress": {"baseline": baseline["baseline"], "baseline_sha256": baseline["baseline_sha256"], "review": review},
+                "administrative_prerequisite_ids": []}
+
+    def testRetainedHistoricalEvidencePermitsReviewedMarkerAndSourceChanges(self) -> None:
+        request = self.historical_progress_fixture()
+        original = json.dumps(request["previous_assessment"], sort_keys=True)
+        result = self.controller.validate_scoped_implementation_progress(self.root, request)
+        self.assertEqual("continue", result["state"], result)
+        self.assertEqual(original, json.dumps(request["previous_assessment"], sort_keys=True))
+        with self.assertRaisesRegex(ValueError, "digest does not match current bytes"):
+            self.controller.validate_outcome_envelope(request["previous_assessment"], self.root, {"implement-tasks"})
+
+    def testHistoricalAssessmentMustMatchIndependentlyRetainedScopeBinding(self) -> None:
+        request = self.historical_progress_fixture()
+        unbound = {key: value for key, value in request.items() if key != "retained_previous_assessment_sha256"}
+        self.assertEqual("historical-assessment-binding-invalid",
+                         self.controller.validate_scoped_implementation_progress(self.root, unbound)["reason_code"])
+        foreign_scope = self.controller._progress_digest({"scope_sha256": "0" * 64,
+                                                          "assessment": request["previous_assessment"]})
+        for variant in (None, "0" * 64, foreign_scope, self.controller._progress_digest(request["previous_assessment"])):
+            with self.subTest(binding=variant):
+                changed = {**request, "retained_previous_assessment_sha256": variant}
+                self.assertEqual("blocked", self.controller.validate_scoped_implementation_progress(self.root, changed)["state"])
+        request["previous_assessment"]["remaining_ids"].append("finding:forged")
+        result = self.controller.validate_scoped_implementation_progress(self.root, request)
+        self.assertEqual("historical-assessment-binding-invalid", result["reason_code"])
+
+    def testHistoricalBindingDoesNotRelaxCurrentEvidenceOrTaskScope(self) -> None:
+        request = self.historical_progress_fixture()
+        request["assessment"]["evidence"][0]["sha256"] = "0" * 64
+        result = self.controller.validate_scoped_implementation_progress(self.root, request)
+        self.assertEqual("assessment evidence digest does not match current bytes", result["reason_code"])
+        self.write(f"{self.feature}/tasks.md", "- [x] T001 Unauthorized description change\n- [ ] T002 Implement another operation\n")
+        request["assessment"]["evidence"][0]["sha256"] = hashlib.sha256(
+            (self.root / f"{self.feature}/tasks.md").read_bytes()).hexdigest()
+        result = self.controller.validate_scoped_implementation_progress(self.root, request)
+        self.assertEqual("blocked", result["state"])
+        self.assertNotEqual("assessment evidence digest does not match current bytes", result["reason_code"])
+
+    def testBoundHistoricalEnvelopeStillRequiresValidStructure(self) -> None:
+        request = self.historical_progress_fixture()
+        variants = [
+            {**request["previous_assessment"], "evidence": [{"path": "../outside", "sha256": "a" * 64}]},
+            {**request["previous_assessment"], "evidence": [{"path": "relative", "sha256": "bad"}]},
+            {**request["previous_assessment"], "evidence": request["previous_assessment"]["evidence"] * 2},
+            {**request["previous_assessment"], "resolved_ids": ["task:T001"]},
+            {**request["previous_assessment"], "next_step_id": "undeclared-node"},
+        ]
+        for previous in variants:
+            with self.subTest(previous=previous):
+                bound = {**request, "previous_assessment": previous,
+                    "retained_previous_assessment_sha256": self.controller._progress_digest({
+                        "scope_sha256": request["scope"]["scope_sha256"], "assessment": previous})}
+                result = self.controller.validate_scoped_implementation_progress(self.root, bound)
+                self.assertEqual("blocked", result["state"], result)
+                self.assertNotEqual("historical-assessment-binding-invalid", result["reason_code"])
+
+    def testHistoricalComparisonPreservesNoProgressAndBothBudgets(self) -> None:
+        request = self.historical_progress_fixture()
+        request["previous_assessment"]["remaining_ids"] = ["task:T002"]
+        request["retained_previous_assessment_sha256"] = self.controller._progress_digest({
+            "scope_sha256": request["scope"]["scope_sha256"], "assessment": request["previous_assessment"]})
+        result = self.controller.validate_scoped_implementation_progress(self.root, request)
+        self.assertEqual("no-progress", result["blocker"], result)
+        for sessions, attempts in ((5, 1), (5, 5)):
+            with self.subTest(sessions=sessions, attempts=attempts):
+                request = self.historical_progress_fixture(sessions, attempts)
+                result = self.controller.validate_scoped_implementation_progress(self.root, request)
+                self.assertEqual("loop-cap-exhausted", result["blocker"], result)
+
     def testReviewedLoopCarrierIsRestrictedAndInspectable(self) -> None:
         body = [
             {"id": "route-scoped-entry", "type": "prompt", "prompt": "Route current scope."},

@@ -166,6 +166,7 @@ class ReadinessWorkflowRouteTests(unittest.TestCase):
                     "eligibility": {"eligibility": {"eligible_task_ids": ["T001"]}},
                     "history": {"coder_sessions_started": 0, "source_attempts_started": 0},
                     "task_tracking_successors": [],
+                    "retained_previous_assessment_sha256": "c" * 64,
                     "previous_assessment": {"state": "continue", "remaining_ids": ["task:T001"],
                                             "resolved_ids": []},
                     "baseline": {"tasks": {"T001": {"marker": " "}}},
