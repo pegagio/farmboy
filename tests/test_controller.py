@@ -11,6 +11,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+import uuid
 from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
@@ -1249,6 +1250,45 @@ class ScopedImplementationControllerTests(unittest.TestCase):
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]})
         self.assertEqual("continue", route["state"], route)
         self.assertEqual("prepare-scoped-prerequisites", route["next_step_id"])
+
+
+class MetricsRunIdentityTests(unittest.TestCase):
+    """Inspection allocates a separate correlation identity for each workflow invocation."""
+
+    def setUp(self) -> None:
+        self.controller = load_module("farmboy_controller_metrics_identity", CONTROLLER_DIR / "controller.py")
+
+    def test_inspectCreatesFreshMetricsRunIdWithoutChangingAgentAssignments(self) -> None:
+        definition = yaml.safe_load((ROOT / "workflows/farmboy-analyze-remediate/workflow.yml").read_text(encoding="utf-8"))
+
+        def inspect_once() -> dict:
+            output = io.StringIO()
+            with patch.object(self.controller, "verify_controller_install", return_value={}), \
+                    patch.object(self.controller, "load_installed_definition", return_value=definition), \
+                    patch.object(self.controller, "installation_fingerprints", return_value={}), \
+                    patch.object(self.controller.subprocess, "run", return_value=type(
+                        "Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"}
+                    )()), redirect_stdout(output):
+                status = self.controller.main([
+                    "inspect", "--project", str(ROOT), "--workflow-id", "farmboy-analyze-remediate",
+                    "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
+                    "--skill-id", "farmboy-analyze-remediate", "--input",
+                    "feature_context=specs/022-local-workflow-agent-timing-metrics",
+                ])
+            self.assertEqual(0, status)
+            return json.loads(output.getvalue())
+
+        first = inspect_once()
+        second = inspect_once()
+        first_id = uuid.UUID(first["metrics_run_id"])
+        second_id = uuid.UUID(second["metrics_run_id"])
+
+        self.assertNotEqual(first_id, second_id)
+        self.assertEqual(
+            [(item.step_id, item.agent_name) for item in self.controller.collect_agent_assignments(definition["steps"])],
+            [(item["step_id"], item["agent_name"]) for item in first["agent_assignments"]],
+        )
+        self.assertNotIn("recovery_run_id", first)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "phase": "implement",
+  "scope_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+  "kind": "routine-invocation",
+  "reference": "operator-approved-fresh-21-task-invocation-run-808613a0-cf6b-4c77-81e8-103a65b1c1c9"
+}

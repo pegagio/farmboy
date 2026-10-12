@@ -1,0 +1,440 @@
+{
+  "baseline": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "findings": [
+      {
+        "artifact_location": "controllers/farmboy/scripts/python/controller.py:inspect output (lines 2590-2602)",
+        "current_evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/controller.py",
+            "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/controller.py",
+            "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "exact_correction": "Add a transient metrics correlation UUID to the validated inspect result, independent of recovery; preserve existing recovery creation, summaries and directories.",
+        "id": "F022-IMPLEMENT-001",
+        "observed_deficiency": "Current inspect output builds assignments, loop modes, input-valid flag and installation fingerprints, but no metrics_run_id exists in the inspected source.",
+        "task_id": "T003",
+        "violated_requirement": "FR-004 / T003: retain one separate metrics correlation identity across probes and modeled turns, independent of recovery identity."
+      },
+      {
+        "artifact_location": "controllers/farmboy/controller-protocol.md:Named-Agent Dispatch Procedure and execution/continuation procedure",
+        "current_evidence": [
+          {
+            "path": "controllers/farmboy/controller-protocol.md",
+            "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "controllers/farmboy/controller-protocol.md",
+            "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "exact_correction": "Add the approved fresh-token begin immediately before native dispatch/continuation and finish immediately after an observed ending; retain token through pending acknowledgements/polls and end question turns before human waiting.",
+        "id": "F022-IMPLEMENT-002",
+        "observed_deficiency": "Current shared protocol directs probes, native spawn, same-child continuation and observation without begin/finish metric calls or retained timing tokens.",
+        "task_id": "T006",
+        "violated_requirement": "FR-001 and FR-002 / T006: measure native working-turn dispatch and continuation boundaries, exclude human wait and keep pending calls open."
+      },
+      {
+        "artifact_location": "controllers/farmboy/controller-protocol.md:7,12,22",
+        "current_evidence": [
+          {
+            "path": "controllers/farmboy/controller-protocol.md",
+            "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "evidence": [
+          {
+            "path": "controllers/farmboy/controller-protocol.md",
+            "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+          }
+        ],
+        "exact_correction": "Narrow the prohibition only for metrics metadata before timing: exact-name project TOML matching, model/model_reasoning_effort mapping, null unavailable values, no inherited/global resolution, no dispatch overrides and no runtime-verification claim.",
+        "id": "F022-IMPLEMENT-003",
+        "observed_deficiency": "Current source says FarmBoy does not parse agent TOML, explicitly prohibits parsing consumer TOML, and permits model/effort claims only when Codex exposes them. No metrics-only file-declared metadata exception exists.",
+        "task_id": "T008",
+        "violated_requirement": "FR-022 / T008: permit a narrow passive project-agent TOML read for optional file-declared model/effort while preserving native dispatch authority."
+      },
+      {
+        "artifact_location": "controllers/farmboy/scripts/python/metrics.py:191-198",
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/metrics.py",
+            "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+          },
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+          }
+        ],
+        "exact_correction": "Validate invocation_kind as a nonempty string before membership testing, preserve other exact field checks, and add API/CLI regression assertions for invalid list/object metadata with no traceback or host path.",
+        "id": "F022-IMPLEMENT-004",
+        "observed_deficiency": "invocation_kind=[] or {} reaches frozenset membership before string validation and raises TypeError. CLI catches only OSError/ValueError, emitting an uncaught traceback rather than a bounded invalid-metadata diagnostic.",
+        "task_id": "T002",
+        "violated_requirement": "T002 validated begin/finish JSON boundary; local-adapter metadata validation and bounded diagnostics"
+      },
+      {
+        "artifact_location": "tests/test_metrics.py:377-413",
+        "evidence": [
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+          }
+        ],
+        "exact_correction": "Add focused raising-clock/failure cases and exact-name unreadable/invalid/empty setting fixtures; retain the expected-red state for pending T007 rather than marking implementation complete.",
+        "id": "F022-IMPLEMENT-005",
+        "observed_deficiency": "Authored settings tests cover absent, malformed and duplicate-name files, but never unreadable files or invalid/empty explicit setting values. No test injects a unavailable/raising clock into begin/finish. Existing missing-end test only omits finish.",
+        "task_id": "T009",
+        "violated_requirement": "T009 failure behavior and unavailable/ambiguous exact-name agent settings test coverage"
+      },
+      {
+        "artifact_location": "tests/test_metrics_report.py:261-274",
+        "evidence": [
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+          }
+        ],
+        "exact_correction": "Complete the specified report tests with bounded injected capacity/snapshot/publication fixtures, actual pre-output dependency/layout failures, forced no-clobber collision and required-field/type/timestamp invalid inputs. Verify no output/environment mutation on failure and unchanged raw inputs.",
+        "id": "F022-IMPLEMENT-006",
+        "observed_deficiency": "Capacity/output-errors named test checks only empty input; dependency/source-layout test checks static strings only. Single-snapshot test creates no post-discovery candidate. No tests trigger accepted rows >1,000,000, output failure, forced name collision, missing dependency or bad source layout before output creation. Report boundary does not test all required fields/types/timestamp cases.",
+        "task_id": "T018",
+        "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+      }
+    ],
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    "schema_version": "1.0",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "tasks": {
+      "T002": {
+        "description": "Implement importable begin/finish helpers and the version-1 record contract with all twelve required fields at their exact types in `controllers/farmboy/scripts/python/metrics.py`, preserving these field constraints from `specs/022-local-workflow-agent-timing-metrics/data-model.md`: `schema_version` \u201cExactly `1`; booleans are not integers for validation.\u201d; `invocation_id` \u201cNonempty opaque turn identity; collector produces UUIDs, report does not reinterpret it as a child ID.\u201d; `run_id` \u201cNonempty opaque metrics correlation identity for one workflow invocation, retained across probes and modeled turns; independent of recovery identity.\u201d; `step_id` \u201cExact modeled ID; `preflight` for probes.\u201d; `invocation_kind` \u201c`execution`, `continuation`, `retry`, `probe`.\u201d; `agent_name` \u201cExact supplied native dispatch name.\u201d; `skill_id` \u201cExact invoking FarmBoy skill ID.\u201d; `workflow_id` \u201cExact invoking installed FarmBoy workflow ID.\u201d; `project_label` \u201cKnown nonpersonal logical identity or `unspecified`; grouping label, not repository identity.\u201d; `started_at` and `finished_at` \u201cValid UTC timestamp `YYYY-MM-DDTHH:MM:SS.mmmZ`.\u201d; `duration_ms` \u201cSigned difference of timestamp epoch milliseconds; reject booleans, fractions and mismatched arithmetic.\u201d; `model` \u201cExplicit `model` in the uniquely matching project agent TOML file; optional, absent normalizes to null.\u201d; and `effort` \u201cExplicit `model_reasoning_effort` in that file; optional, absent normalizes to null.\u201d Also implement millisecond wall-clock sampling, invocation UUID creation, UTC timestamp formatting, JSON stdin/stdout interface, serialization, and public validation helpers; require a UTF-8 JSON object no larger than 65,536 bytes with no duplicate keys or nonfinite numeric constants, and reject projected strings over 32,767 characters or containing illegal XML characters without trimming or truncation (depends on T005).",
+        "marker": " "
+      },
+      "T003": {
+        "description": "[P] Add a transient metrics correlation UUID to the validated inspect result in `controllers/farmboy/scripts/python/controller.py`; keep it separate from recovery identity and leave recovery creation, summaries, and directories unchanged (depends on T002).",
+        "marker": " "
+      },
+      "T004": {
+        "description": "[P] Verify `controllers/farmboy/scripts/python/metrics.py` is automatically included at its installed path through `controller_package_files`; cover consumer delivery and exclusion of `skills/farmboy-metrics-report/` in `tests/test_catalog.py` and `tests/test_bundle_lifecycle.py`, preserving the ten controller bindings (depends on T002).",
+        "marker": " "
+      },
+      "T006": {
+        "description": "[P] [US1] Add shared protocol instructions for creating a fresh turn token immediately before native dispatch or continuation, retaining it through pending acknowledgements and polls, and finishing it immediately after the observed turn boundary in `controllers/farmboy/controller-protocol.md` (depends on T009).",
+        "marker": " "
+      },
+      "T007": {
+        "description": "[P] [US1] Read optional `model` and `effort` from project `.codex/agents/*.toml` by exact `name` before timing starts, map `model` and `model_reasoning_effort`, and return null for unavailable or ambiguous settings in `controllers/farmboy/scripts/python/metrics.py` (depends on T002 and T009).",
+        "marker": " "
+      },
+      "T008": {
+        "description": "[US1] Specify probe `step_id=preflight`, exact `execution`/`continuation`/`retry` kinds, metrics run-ID retention across a workflow, known nonpersonal `project_label` fallback to `unspecified`, and the metadata allowlist in `controllers/farmboy/controller-protocol.md`; narrow its blanket TOML prohibition only to permit the passive metrics read of explicit `model` and `model_reasoning_effort` from the exact-name project agent file before timing, while preserving native dispatch/configuration authority, no spawn overrides, no inheritance or global resolution, and no claim of runtime verification; exclude prompts, transcripts, secrets, host paths, tokens, and human-answer waiting (depends on T006 and T009).",
+        "marker": " "
+      },
+      "T009": {
+        "description": "[US1] Write controller and metrics behavior tests in `tests/test_controller.py` and `tests/test_metrics.py` before implementation; cover probe/execution/continuation/retry boundaries, question/answer timing, pending polls, correlation, exact TOML name matching and unavailable/ambiguous settings, dispatch rejection, and failure or missing-end behavior (depends on T005).",
+        "marker": " "
+      },
+      "T010": {
+        "description": "[US2] Publish each record through an exclusive hidden temporary file followed by no-clobber hard-link publication as `metric-<invocation-uuid>.json`, then remove only the writer-owned temporary name in `controllers/farmboy/scripts/python/metrics.py` (depends on T002 and T012).",
+        "marker": " "
+      },
+      "T011": {
+        "description": "[US2] Add warn-and-continue handling for unavailable timing, metadata, destination, collision, and storage failures to the collection procedure in `controllers/farmboy/controller-protocol.md` (depends on T006, T010, and T012).",
+        "marker": " "
+      },
+      "T012": {
+        "description": "[US2] Write adapter and controller behavior tests in `tests/test_metrics.py` and `tests/test_controller.py` before implementation; cover concurrent publication, complete-file visibility, unique names, collision behavior, unsupported linking, bounded warnings, and preserved workflow results (depends on T009).",
+        "marker": " "
+      },
+      "T013": {
+        "description": "[P] [US3] Implement one-time top-level discovery, bounded single reads, schema validation, invalid-category counts, and normalization of absent `model` and `effort` to null in `skills/farmboy-metrics-report/scripts/metrics_report.py`, importing the canonical validator from reviewed `controllers/farmboy/scripts/python/metrics.py`; validate a UTF-8 JSON object no larger than 65,536 bytes with the twelve required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; require `schema_version` exactly `1`, `invocation_kind` one of `execution`, `continuation`, `retry`, `probe`, timestamps exactly `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed `duration_ms` equal to the timestamp difference, and nonempty required strings; accept `model` and `effort` as absent, null or nonempty strings (absent normalizes to null; other types are invalid); reject duplicate keys, nonfinite constants, booleans/fractions in integer fields, impossible timestamps, unsupported schema/kind, and strings over 32,767 characters or containing illegal XML text without trimming/truncation; ignore unknown extra fields, per `specs/022-local-workflow-agent-timing-metrics/data-model.md` and `contracts/metric-record.md` (depends on T001, T002, and T018).",
+        "marker": " "
+      },
+      "T014": {
+        "description": "[US3] Group records by `invocation_id`, collapse identical fourteen-field projections, exclude conflicting identities, and calculate the documented candidate, accepted, duplicate, conflict, skipped, and invalid counts in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T013).",
+        "marker": " "
+      },
+      "T015": {
+        "description": "[US3] Write worksheet `Metrics` and table `FarmBoyMetrics` with exactly `invocation_id`, `run_id`, `project`, `skill`, `workflow`, `step`, `invocation_kind`, `agent`, `model`, `effort`, `started_at`, `finished_at`, `duration_ms`; map shortened headers, retain JSON `schema_version` for validation and duplicate comparison but omit it from Excel, sort rows as specified, and preserve literal strings and numeric duration cells in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T014).",
+        "marker": " "
+      },
+      "T016": {
+        "description": "[US3] Publish uniquely named workbooks under `~/.farmboy/metrics/reports/` without overwriting prior outputs; create the same header-only table for zero accepted rows and fail visibly on output errors or above 1,000,000 accepted rows in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T015).",
+        "marker": " "
+      },
+      "T017": {
+        "description": "[US3] Complete `skills/farmboy-metrics-report/SKILL.md` so explicit invocation within FarmBoy verifies the reviewed source layout and `openpyxl==3.1.5`/`et-xmlfile` readiness before any output creation, runs the source report with the prescribed skill-tools interpreter, explains summary counts and locations, and never installs dependencies or launches another workflow (depends on T001 and T016).",
+        "marker": " "
+      },
+      "T018": {
+        "description": "[P] [US3] Write report contract tests in `tests/test_metrics_report.py` before implementation; cover single-snapshot behavior; UTF-8 JSON objects no larger than 65,536 bytes; required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; `schema_version` exactly `1`, `invocation_kind` exactly `execution`, `continuation`, `retry`, or `probe`, exact millisecond timestamp grammar `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed duration equality, rejection of booleans/fractions, duplicate keys, nonfinite values, impossible timestamps, missing/empty required strings and unsupported schema/kind; `model` and `effort` absent or null normalize to null, non-null values must be nonempty strings, and other present types are invalid; rejection of strings over 32,767 characters or with illegal XML text without trimming/truncation; deduplication/conflicts; exact 13-column Excel order and shortened field mapping with JSON `schema_version` retained only for validation; literal text, numeric durations, zero-row output, no-clobber naming, output failures, failure above 1,000,000 accepted rows, unchanged input bytes, and missing dependency/source-layout failures before output creation without mutating the skill-tools environment (depends on T001).",
+        "marker": " "
+      },
+      "T019": {
+        "description": "[US3] Document schema, invocation boundaries, wall-clock limits, storage locations, concurrency, warnings, consumer delivery boundary, and explicit report usage in `docs/metrics.md`, `docs/architecture.md`, and `docs/installation.md` (depends on T006, T011, and T017).",
+        "marker": " "
+      },
+      "T020": {
+        "description": "[US3] Verify disposable consumer installation and removal deliver the collection helper but exclude the maintainer report skill and its dependency, while preserving local metric files and unrelated consumer components in `tests/test_bundle_lifecycle.py` and `tests/test_catalog.py` (depends on T004 and T017).",
+        "marker": " "
+      },
+      "T021": {
+        "description": "Run the deterministic collection, report, controller, catalog, and bundle lifecycle checks listed in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`; inspect `controllers/farmboy/controller-protocol.md` to confirm the metrics-only TOML-read exception is narrow and preserves dispatch authority; correct failures in their owning source or test files.",
+        "marker": " "
+      },
+      "T022": {
+        "description": "Exercise the documented live observation path for an exact named agent in FarmBoy and a disposable consumer, then explicitly invoke the maintainer report and record bounded evidence in `specs/022-local-workflow-agent-timing-metrics/quickstart.md` without including transcripts, secrets, personal details, or absolute host paths.",
+        "marker": " "
+      },
+      "T023": {
+        "description": "Open one populated workbook and one header-only workbook in Excel, verify table interoperability, filtering, literal text, and numeric signed-duration calculations, and record the observations in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`.",
+        "marker": " "
+      }
+    }
+  },
+  "baseline_sha256": "7e172f06fff7699a855b9527388a208f231427cd9aa61b6c748b559221eb04d7",
+  "evidence": [],
+  "findings": [
+    {
+      "artifact_location": "controllers/farmboy/scripts/python/controller.py:inspect output (lines 2590-2602)",
+      "current_evidence": [
+        {
+          "path": "controllers/farmboy/scripts/python/controller.py",
+          "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "controllers/farmboy/scripts/python/controller.py",
+          "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "exact_correction": "Add a transient metrics correlation UUID to the validated inspect result, independent of recovery; preserve existing recovery creation, summaries and directories.",
+      "id": "F022-IMPLEMENT-001",
+      "observed_deficiency": "Current inspect output builds assignments, loop modes, input-valid flag and installation fingerprints, but no metrics_run_id exists in the inspected source.",
+      "task_id": "T003",
+      "violated_requirement": "FR-004 / T003: retain one separate metrics correlation identity across probes and modeled turns, independent of recovery identity."
+    },
+    {
+      "artifact_location": "controllers/farmboy/controller-protocol.md:Named-Agent Dispatch Procedure and execution/continuation procedure",
+      "current_evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "exact_correction": "Add the approved fresh-token begin immediately before native dispatch/continuation and finish immediately after an observed ending; retain token through pending acknowledgements/polls and end question turns before human waiting.",
+      "id": "F022-IMPLEMENT-002",
+      "observed_deficiency": "Current shared protocol directs probes, native spawn, same-child continuation and observation without begin/finish metric calls or retained timing tokens.",
+      "task_id": "T006",
+      "violated_requirement": "FR-001 and FR-002 / T006: measure native working-turn dispatch and continuation boundaries, exclude human wait and keep pending calls open."
+    },
+    {
+      "artifact_location": "controllers/farmboy/controller-protocol.md:7,12,22",
+      "current_evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        }
+      ],
+      "exact_correction": "Narrow the prohibition only for metrics metadata before timing: exact-name project TOML matching, model/model_reasoning_effort mapping, null unavailable values, no inherited/global resolution, no dispatch overrides and no runtime-verification claim.",
+      "id": "F022-IMPLEMENT-003",
+      "observed_deficiency": "Current source says FarmBoy does not parse agent TOML, explicitly prohibits parsing consumer TOML, and permits model/effort claims only when Codex exposes them. No metrics-only file-declared metadata exception exists.",
+      "task_id": "T008",
+      "violated_requirement": "FR-022 / T008: permit a narrow passive project-agent TOML read for optional file-declared model/effort while preserving native dispatch authority."
+    },
+    {
+      "artifact_location": "controllers/farmboy/scripts/python/metrics.py:191-198",
+      "evidence": [
+        {
+          "path": "controllers/farmboy/scripts/python/metrics.py",
+          "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+        },
+        {
+          "path": "tests/test_metrics.py",
+          "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+        }
+      ],
+      "exact_correction": "Validate invocation_kind as a nonempty string before membership testing, preserve other exact field checks, and add API/CLI regression assertions for invalid list/object metadata with no traceback or host path.",
+      "id": "F022-IMPLEMENT-004",
+      "observed_deficiency": "invocation_kind=[] or {} reaches frozenset membership before string validation and raises TypeError. CLI catches only OSError/ValueError, emitting an uncaught traceback rather than a bounded invalid-metadata diagnostic.",
+      "task_id": "T002",
+      "violated_requirement": "T002 validated begin/finish JSON boundary; local-adapter metadata validation and bounded diagnostics"
+    },
+    {
+      "artifact_location": "tests/test_metrics.py:377-413",
+      "evidence": [
+        {
+          "path": "tests/test_metrics.py",
+          "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+        }
+      ],
+      "exact_correction": "Add focused raising-clock/failure cases and exact-name unreadable/invalid/empty setting fixtures; retain the expected-red state for pending T007 rather than marking implementation complete.",
+      "id": "F022-IMPLEMENT-005",
+      "observed_deficiency": "Authored settings tests cover absent, malformed and duplicate-name files, but never unreadable files or invalid/empty explicit setting values. No test injects a unavailable/raising clock into begin/finish. Existing missing-end test only omits finish.",
+      "task_id": "T009",
+      "violated_requirement": "T009 failure behavior and unavailable/ambiguous exact-name agent settings test coverage"
+    },
+    {
+      "artifact_location": "tests/test_metrics_report.py:261-274",
+      "evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+        }
+      ],
+      "exact_correction": "Complete the specified report tests with bounded injected capacity/snapshot/publication fixtures, actual pre-output dependency/layout failures, forced no-clobber collision and required-field/type/timestamp invalid inputs. Verify no output/environment mutation on failure and unchanged raw inputs.",
+      "id": "F022-IMPLEMENT-006",
+      "observed_deficiency": "Capacity/output-errors named test checks only empty input; dependency/source-layout test checks static strings only. Single-snapshot test creates no post-discovery candidate. No tests trigger accepted rows >1,000,000, output failure, forced name collision, missing dependency or bad source layout before output creation. Report boundary does not test all required fields/types/timestamp cases.",
+      "task_id": "T018",
+      "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+    }
+  ],
+  "remaining_ids": [
+    "task:T002",
+    "task:T003",
+    "task:T004",
+    "task:T006",
+    "task:T007",
+    "task:T008",
+    "task:T009",
+    "task:T010",
+    "task:T011",
+    "task:T012",
+    "task:T013",
+    "task:T014",
+    "task:T015",
+    "task:T016",
+    "task:T017",
+    "task:T018",
+    "task:T019",
+    "task:T020",
+    "task:T021",
+    "task:T022",
+    "task:T023",
+    "finding:F022-IMPLEMENT-001",
+    "finding:F022-IMPLEMENT-002",
+    "finding:F022-IMPLEMENT-003",
+    "finding:F022-IMPLEMENT-004",
+    "finding:F022-IMPLEMENT-005",
+    "finding:F022-IMPLEMENT-006"
+  ],
+  "resolved_ids": [],
+  "state": "ready",
+  "substantive_progress": false
+}

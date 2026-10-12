@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import copy
 import json
+import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -13,7 +15,8 @@ ROOT = Path(__file__).parents[1]
 CONTROLLER_SCRIPTS = ROOT / "controllers/farmboy/scripts/python"
 sys.path.insert(0, str(CONTROLLER_SCRIPTS))
 
-from metrics import parse_record_json, validate_record  # noqa: E402
+import metrics  # noqa: E402
+from metrics import begin_invocation, finish_invocation, parse_record_json, validate_record  # noqa: E402
 
 
 class MetricRecordContractTests(unittest.TestCase):
@@ -233,6 +236,176 @@ class MetricRecordContractTests(unittest.TestCase):
             with self.subTest(raw=raw):
                 with self.assertRaises(ValueError):
                     parse_record_json(raw)
+
+    def test_beginFinish_coversProbeExecutionContinuationAndRetryWithFreshIds(self) -> None:
+        cases = (
+            ("probe", "preflight"),
+            ("execution", "analyze-artifacts"),
+            ("continuation", "analyze-artifacts"),
+            ("retry", "analyze-artifacts"),
+        )
+        records = []
+        for index, (kind, step_id) in enumerate(cases):
+            with self.subTest(kind=kind):
+                metadata = {
+                    "run_id": "one-workflow",
+                    "step_id": step_id,
+                    "invocation_kind": kind,
+                    "agent_name": "FarmBoy Reviewer",
+                    "skill_id": "farmboy-analyze-remediate",
+                    "workflow_id": "farmboy-analyze-remediate",
+                    "project_label": "farmboy",
+                    "model": "gpt-6.1-sol",
+                    "effort": "high",
+                }
+                token = begin_invocation(metadata, clock_ms=1_800_000_000_000 + index * 1000)
+                record = finish_invocation(token, clock_ms=1_800_000_000_250 + index * 1000)
+                records.append(record)
+        self.assertEqual({"one-workflow"}, {record["run_id"] for record in records})
+        self.assertEqual(4, len({record["invocation_id"] for record in records}))
+        self.assertEqual([kind for kind, _ in cases], [record["invocation_kind"] for record in records])
+        self.assertTrue(all(record["duration_ms"] == 250 for record in records))
+        self.assertTrue(all("outcome" not in record for record in records))
+
+    def test_questionClosesTurnAndContinuationExcludesHumanWait(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "create-spec",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Specifier",
+            "skill_id": "farmboy-specify",
+            "workflow_id": "farmboy-specify",
+            "project_label": "farmboy",
+        }
+        question_turn = begin_invocation(metadata, clock_ms=1000)
+        question_record = finish_invocation(question_turn, clock_ms=1600)
+
+        answer_turn = begin_invocation({**metadata, "invocation_kind": "continuation"}, clock_ms=3_600_000)
+        answer_record = finish_invocation(answer_turn, clock_ms=3_600_300)
+
+        self.assertEqual(600, question_record["duration_ms"])
+        self.assertEqual(300, answer_record["duration_ms"])
+        self.assertNotEqual(question_record["invocation_id"], answer_record["invocation_id"])
+        self.assertEqual(question_record["run_id"], answer_record["run_id"])
+
+    def test_pendingPollsKeepOneTurnOpenUntilObservedEnd(self) -> None:
+        reads = iter((10_000, 12_500))
+        observed_clock_reads = []
+
+        def clock() -> int:
+            value = next(reads)
+            observed_clock_reads.append(value)
+            return value
+
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "review",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Reviewer",
+            "skill_id": "farmboy-converge",
+            "workflow_id": "farmboy-converge",
+            "project_label": "farmboy",
+        }
+        token = begin_invocation(metadata, clock_ms=clock)
+        # Pending acknowledgements and polls do not sample or close the token.
+        poll_observations = ("pending", "running", "pending")
+        for _poll in poll_observations:
+            self.assertEqual([10_000], observed_clock_reads)
+            self.assertEqual(10_000, token["started_ms"])
+        record = finish_invocation(token, clock_ms=clock)
+        self.assertEqual([10_000, 12_500], observed_clock_reads)
+        self.assertEqual(2500, record["duration_ms"])
+
+    def test_observedDispatchRejectionStillProducesTimingWithoutResultClassification(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "preflight",
+            "invocation_kind": "probe",
+            "agent_name": "FarmBoy Reviewer",
+            "skill_id": "farmboy-analyze-remediate",
+            "workflow_id": "farmboy-analyze-remediate",
+            "project_label": "farmboy",
+        }
+        token = begin_invocation(metadata, clock_ms=50)
+        # Rejection is the observed end of the request; result prose is not recorded.
+        record = finish_invocation(token, clock_ms=75)
+        self.assertEqual(25, record["duration_ms"])
+        self.assertNotIn("outcome", record)
+        self.assertNotIn("status", record)
+
+    def testMissingObservedEndDoesNotInventCompletedRecord(self) -> None:
+        token = begin_invocation(
+            {
+                "run_id": "one-workflow",
+                "step_id": "review",
+                "invocation_kind": "execution",
+                "agent_name": "FarmBoy Reviewer",
+                "skill_id": "farmboy-converge",
+                "workflow_id": "farmboy-converge",
+                "project_label": "farmboy",
+            },
+            clock_ms=10,
+        )
+        self.assertNotIn("finished_at", token)
+        self.assertNotIn("duration_ms", token)
+
+    def testCliSerializesBeginTokenAndFinishedRecordAsJson(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "inspect",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Coder",
+            "skill_id": "farmboy-implement",
+            "workflow_id": "farmboy-implement",
+            "project_label": "farmboy",
+        }
+        begin = subprocess.run(
+            [sys.executable, str(CONTROLLER_SCRIPTS / "metrics.py"), "begin"],
+            input=json.dumps(metadata), text=True, capture_output=True, check=True,
+        )
+        token = json.loads(begin.stdout)
+        self.assertEqual("one-workflow", token["run_id"])
+        finish = subprocess.run(
+            [sys.executable, str(CONTROLLER_SCRIPTS / "metrics.py"), "finish"],
+            input=json.dumps(token), text=True, capture_output=True, check=True,
+        )
+        record = json.loads(finish.stdout)
+        self.assertEqual(14, len(record))
+        self.assertEqual(token["invocation_id"], record["invocation_id"])
+        self.assertEqual(1, record["schema_version"])
+        self.assertEqual(record, validate_record(record))
+
+    def testReadAgentSettingsMatchesTomlNameAndReturnsOnlyExplicitSettings(self) -> None:
+        read_settings = getattr(metrics, "read_agent_settings", None)
+        self.assertTrue(callable(read_settings), "T007 exact-name TOML reader is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            agents = Path(temporary) / ".codex/agents"
+            agents.mkdir(parents=True)
+            (agents / "not-the-display-name.toml").write_text(
+                'name = "FarmBoy Reviewer"\nmodel = "gpt-6.1-sol"\nmodel_reasoning_effort = "high"\n',
+                encoding="utf-8",
+            )
+            (agents / "unrelated.toml").write_text(
+                'name = "FarmBoy Coder"\nmodel = "wrong-agent-model"\n', encoding="utf-8"
+            )
+            self.assertEqual(
+                {"model": "gpt-6.1-sol", "effort": "high"},
+                read_settings(Path(temporary), "FarmBoy Reviewer"),
+            )
+
+    def testReadAgentSettingsReturnsNullForUnavailableMalformedOrAmbiguousFiles(self) -> None:
+        read_settings = getattr(metrics, "read_agent_settings", None)
+        self.assertTrue(callable(read_settings), "T007 exact-name TOML reader is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary)
+            self.assertEqual({"model": None, "effort": None}, read_settings(project, "Missing Agent"))
+            agents = project / ".codex/agents"
+            agents.mkdir(parents=True)
+            (agents / "malformed.toml").write_text('name = "Broken"\nmodel = [\n', encoding="utf-8")
+            self.assertEqual({"model": None, "effort": None}, read_settings(project, "Broken"))
+            (agents / "first.toml").write_text('name = "Ambiguous"\nmodel = "one"\n', encoding="utf-8")
+            (agents / "second.toml").write_text('name = "Ambiguous"\nmodel = "two"\n', encoding="utf-8")
+            self.assertEqual({"model": None, "effort": None}, read_settings(project, "Ambiguous"))
 
 
 if __name__ == "__main__":

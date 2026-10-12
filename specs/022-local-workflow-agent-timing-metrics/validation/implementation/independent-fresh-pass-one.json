@@ -1,0 +1,101 @@
+{
+  "T005_contextual_review": {
+    "observed": "Original 17 foundational assertions remain unchanged and pass on current tests/test_metrics.py. Appended T009 tests do not regress T005.",
+    "prior_review_preserved": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+    "verdict": "complete"
+  },
+  "attributable_delta": "Reviewed source-before-one retained preimages and HEAD baseline; only metrics helper and three selected test paths changed.",
+  "completed_task_ids": [],
+  "confirmed_findings": [
+    {
+      "artifact_location": "controllers/farmboy/scripts/python/metrics.py:191-198",
+      "evidence": [
+        {
+          "path": "controllers/farmboy/scripts/python/metrics.py",
+          "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+        },
+        {
+          "path": "tests/test_metrics.py",
+          "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+        }
+      ],
+      "exact_correction": "Validate invocation_kind as a nonempty string before membership testing, preserve other exact field checks, and add API/CLI regression assertions for invalid list/object metadata with no traceback or host path.",
+      "id": "F022-IMPLEMENT-004",
+      "observed_deficiency": "invocation_kind=[] or {} reaches frozenset membership before string validation and raises TypeError. CLI catches only OSError/ValueError, emitting an uncaught traceback rather than a bounded invalid-metadata diagnostic.",
+      "task_id": "T002",
+      "violated_requirement": "T002 validated begin/finish JSON boundary; local-adapter metadata validation and bounded diagnostics"
+    },
+    {
+      "artifact_location": "tests/test_metrics.py:377-413",
+      "evidence": [
+        {
+          "path": "tests/test_metrics.py",
+          "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+        }
+      ],
+      "exact_correction": "Add focused raising-clock/failure cases and exact-name unreadable/invalid/empty setting fixtures; retain the expected-red state for pending T007 rather than marking implementation complete.",
+      "id": "F022-IMPLEMENT-005",
+      "observed_deficiency": "Authored settings tests cover absent, malformed and duplicate-name files, but never unreadable files or invalid/empty explicit setting values. No test injects a unavailable/raising clock into begin/finish. Existing missing-end test only omits finish.",
+      "task_id": "T009",
+      "violated_requirement": "T009 failure behavior and unavailable/ambiguous exact-name agent settings test coverage"
+    },
+    {
+      "artifact_location": "tests/test_metrics_report.py:261-274",
+      "evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+        }
+      ],
+      "exact_correction": "Complete the specified report tests with bounded injected capacity/snapshot/publication fixtures, actual pre-output dependency/layout failures, forced no-clobber collision and required-field/type/timestamp invalid inputs. Verify no output/environment mutation on failure and unchanged raw inputs.",
+      "id": "F022-IMPLEMENT-006",
+      "observed_deficiency": "Capacity/output-errors named test checks only empty input; dependency/source-layout test checks static strings only. Single-snapshot test creates no post-discovery candidate. No tests trigger accepted rows >1,000,000, output failure, forced name collision, missing dependency or bad source layout before output creation. Report boundary does not test all required fields/types/timestamp cases.",
+      "task_id": "T018",
+      "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+    }
+  ],
+  "reproduction": {
+    "command": "python controllers/farmboy/scripts/python/metrics.py begin with allowed metadata and invocation_kind=[]",
+    "returncode": 1,
+    "stdout_empty": true,
+    "traceback_emitted": true,
+    "unhandled_type_error": true
+  },
+  "review_scope": [
+    "T002",
+    "T009",
+    "T018"
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "risks_or_questions": [
+    "No report assertions executed until T013 exists; this is expected-red evidence, not proof of workbook behavior."
+  ],
+  "safe_correction_owners": [
+    "T002",
+    "T009",
+    "T018"
+  ],
+  "validation": {
+    "T005_original_methods": {
+      "passed": 17,
+      "run": 17
+    },
+    "controller": {
+      "expected_red": 1,
+      "passed": 68,
+      "pending_owner": "T003",
+      "run": 69
+    },
+    "metrics": {
+      "expected_red": 2,
+      "passed": 23,
+      "pending_owner": "T007",
+      "run": 25
+    },
+    "python_environment": "Repository python:check passed with temporary mise cache/state; skill-tools used for report checks; no dependency installation.",
+    "report": {
+      "expected_red_setup": "T013 script absent",
+      "run": 0
+    }
+  }
+}
