@@ -485,6 +485,7 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
             with self.subTest(state=envelope["state"]):
                 rendered = controller.render_template(execution, {"feature_context": "specs/020-example", "integration": "codex"}, {
                     "route-scoped-entry": {"scope": {"scope_sha256": "a" * 64},
+                        "retained_previous_assessment_sha256": "c" * 64,
                         "previous_assessment": {"state": "continue"}, "baseline": {"baseline_sha256": "b" * 64}},
                     "assess-implementation-after-pass": {"outcome_envelope": envelope, "review": {"reviewer": "FarmBoy Code Reviewer"}},
                     "gate-readiness-before-core": {"readiness_gate": {"state": "ready"}},
@@ -492,6 +493,7 @@ class ImplementationProgressWorkflowTests(unittest.TestCase):
                 })
                 rendered_packet = json.loads(rendered["prompt"].split("```json ", 1)[1].split(" ```", 1)[0])
                 self.assertEqual(envelope, rendered_packet["current_assessment"])
+                self.assertEqual("c" * 64, rendered_packet["retained_previous_assessment_sha256"])
                 self.assertIn("Read the durable history file again", rendered["prompt"])
                 self.assertIn("capture-post-pass-state.output.post_pass_state", rendered["prompt"])
                 self.assertEqual({"producer_records": []}, rendered_packet["post_pass_state"])

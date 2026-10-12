@@ -171,6 +171,14 @@ class ImplementationProgressTests(unittest.TestCase):
         self.assertEqual("blocked", result["state"])
 
     def testScopedProgressRejectsAdministrativeTaskResolutionAsSourceCredit(self):
+        scope_payload = self.current_scope_payload()
+        previous = {"state": "continue", "reason_code": "prior-work-remains",
+                    "evidence": self.capture["baseline"]["findings"][0]["evidence"],
+                    "remaining_ids": self.capture["remaining_ids"], "resolved_ids": [],
+                    "next_step_id": "implement-tasks"}
+        controller.validate_outcome_envelope(previous, self.root, {"implement-tasks"})
+        retained_previous = controller._progress_digest({
+            "scope_sha256": scope_payload["scope"]["scope_sha256"], "assessment": previous})
         self.fix()
         review = self.review()
         review["findings"][1]["status"] = "resolved"
@@ -179,7 +187,6 @@ class ImplementationProgressTests(unittest.TestCase):
         baseline = self.capture["baseline"]
         progress_payload = {"baseline": baseline, "baseline_sha256": self.capture["baseline_sha256"], "review": review}
 
-        scope_payload = self.current_scope_payload()
         history = controller._empty_implementation_history(scope_payload["scope"])
 
         def append(event):
@@ -213,16 +220,12 @@ class ImplementationProgressTests(unittest.TestCase):
         current = {"state": "continue", "reason_code": "partial-finding-progress",
                    "evidence": self.evidence(), "remaining_ids": partial_progress["remaining_ids"],
                    "resolved_ids": partial_progress["resolved_ids"], "next_step_id": "implement-tasks"}
-        spec_path = f"{self.feature}/spec.md"
-        previous = {"state": "continue", "reason_code": "prior-work-remains",
-                    "evidence": [{"path": spec_path, "sha256": hashlib.sha256((self.root / spec_path).read_bytes()).hexdigest()}],
-                    "remaining_ids": self.capture["remaining_ids"], "resolved_ids": [],
-                    "next_step_id": "implement-tasks"}
         scoped_payload = {
             "controller_loop_mode": "implementation_scope", **scope_payload, "assessment": current,
             "eligible_task_ids": ["T016"],
             "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
             "retained_history_sha256": history["sha256"], "previous_assessment": previous,
+            "retained_previous_assessment_sha256": retained_previous,
             "progress": partial_payload, "administrative_prerequisite_ids": [],
         }
         generic_route = controller.route_loop_assessment
