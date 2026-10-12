@@ -80,12 +80,18 @@ steps:
         - id: revalidate-implementation-start-milestone
           type: prompt
           integration: "{{ inputs.integration }}"
-          prompt: >-
+          prompt: |
             Rebuild the same strict request with action `revalidate` and the unchanged proposal from {{ steps.prepare-implementation-start-milestone.output.lifecycle_assessment.proposal }}. Invoke the FarmBoy phase-lifecycle adapter immediately before the owner effect and return its complete assessment. Any changed target, source, policy, review or digest blocks before the write.
 
-            Rendered callback arguments:
-            ```json
-            {"action":"revalidate","request_path":"{{ steps.assess-implementation-start-milestone.output.request_path }}","prepared_proposal": {{ steps.prepare-implementation-start-milestone.output.lifecycle_assessment.proposal }}}
+            Rendered callback construction (send its JSON stdout to the phase-lifecycle adapter):
+            ```python
+            import json
+            from pathlib import Path
+
+            request = json.loads(Path("{{ steps.assess-implementation-start-milestone.output.request_path }}").read_text(encoding="utf-8"))
+            request["action"] = "revalidate"
+            request["proposal"] = json.loads(r'''{{ steps.prepare-implementation-start-milestone.output.lifecycle_assessment.proposal }}''')
+            print(json.dumps(request))
             ```
         - id: route-implementation-start-revalidation
           type: switch
@@ -175,7 +181,7 @@ steps:
                     integration: "{{ inputs.integration }}"
                     prompt: >-
                       Append and persist the exact `coder-session-outcome` for this same child via `implementation-history`, including completed, failed-dispatch or question-stopped. For an operator question, retain the same active child and session; append only `operator-input` after its answer and resume that child without a new session-start event. Preserve partial effects and never count administrative completion as source resolution.
-                default: []
+              default: []
             - id: implement-tasks
               type: switch
               expression: '{{ steps.route-scoped-entry.output.next_step_id }}'
@@ -200,7 +206,7 @@ steps:
                     integration: "{{ inputs.integration }}"
                     prompt: >-
                       Append the source Coder child's completed, failed-dispatch or question-stopped outcome through `implementation-history`, preserving partial effects. A question answer is relayed to that same child; append an operator-input event to the existing session and do not start or count another session.
-                default: []
+              default: []
             - id: assess-implementation-after-pass
               type: prompt
               integration: "{{ inputs.integration }}"
@@ -311,12 +317,12 @@ steps:
                                       integration: "{{ inputs.integration }}"
                                       prompt: >-
                                         Stop this Implement invocation. Report the exact pre-dispatch snapshot revalidation blocker and safe resumption action. Do not dispatch Tasker or claim the code finding is resolved.
-                                  default:
-                                    - id: stop-task-revision-dispatch-unrecognized
-                                      type: prompt
-                                      integration: "{{ inputs.integration }}"
-                                      prompt: >-
-                                        Stop this Implement invocation because the pre-dispatch snapshot revalidation returned no recognized state. Do not dispatch Tasker.
+                                default:
+                                  - id: stop-task-revision-dispatch-unrecognized
+                                    type: prompt
+                                    integration: "{{ inputs.integration }}"
+                                    prompt: >-
+                                      Stop this Implement invocation because the pre-dispatch snapshot revalidation returned no recognized state. Do not dispatch Tasker.
                             blocked:
                               - id: stop-task-revision-preflight-blocked
                                 type: prompt
@@ -422,12 +428,12 @@ steps:
           integration: "{{ inputs.integration }}"
           prompt: >-
             Stop this Implement invocation before FarmBoy Coder. Report the exact readiness blocker and safe Analyze resumption from gate-readiness-before-core.output.readiness_gate. Do not dispatch core implementation or bypass its unchanged checklist gate.
-      default:
-        - id: stop-readiness-before-core-unrecognized
-          type: prompt
-          integration: "{{ inputs.integration }}"
-          prompt: >-
-            Stop this Implement invocation before FarmBoy Coder because the readiness gate returned no recognized state. Report the output and resume only after readiness is established.
+    default:
+      - id: stop-readiness-before-core-unrecognized
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        prompt: >-
+          Stop this Implement invocation before FarmBoy Coder because the readiness gate returned no recognized state. Report the output and resume only after readiness is established.
   - id: report-implementation-outcome
     type: prompt
     integration: "{{ inputs.integration }}"

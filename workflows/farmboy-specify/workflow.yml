@@ -182,12 +182,18 @@ steps:
                     - id: revalidate-specification-lifecycle-transition
                       type: prompt
                       integration: "{{ inputs.integration }}"
-                      prompt: >-
+                      prompt: |
                         Rebuild the exact prior request with action `revalidate` and its unchanged proposal from {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}. Invoke `python3 .specify/farmboy/scripts/python/controller.py phase-lifecycle --project "$PWD"` with the revalidation JSON on stdin immediately before the effect. Return the full assessment; any changed source, target, evidence, proposal or policy blocks and must not reach the owner write.
 
-                        Rendered callback arguments:
-                        ```json
-                        {"action":"revalidate","request_path":"{{ steps.prepare-specification-lifecycle-request.output.request_path }}","prepared_proposal": {{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}}
+                        Rendered callback construction (send its JSON stdout to the phase-lifecycle adapter):
+                        ```python
+                        import json
+                        from pathlib import Path
+
+                        request = json.loads(Path("{{ steps.prepare-specification-lifecycle-request.output.request_path }}").read_text(encoding="utf-8"))
+                        request["action"] = "revalidate"
+                        request["proposal"] = json.loads(r'''{{ steps.prepare-specification-lifecycle-transition.output.lifecycle_assessment.proposal }}''')
+                        print(json.dumps(request))
                         ```
                     - id: route-specification-lifecycle-revalidation
                       type: switch
