@@ -47,8 +47,8 @@ The checked-in catalog is the local `0.18.3` development snapshot, including ten
 To install the checked-in release from a checkout matching that release, run `mise run catalog:install /path/to/my-project` after preparing the checkout. To validate source changes that have not reached the catalog, create and initialize a disposable consumer under the system temporary directory, then use development-snapshot mode:
 
 ```sh
-git clone https://github.com/pegagio/spec-kit-flow.git
-cd spec-kit-flow
+git clone https://github.com/pegagio/farmboy.git
+cd farmboy
 mise trust
 mise install
 SPECIFY_BIN="$(mise which specify)"

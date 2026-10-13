@@ -190,7 +190,7 @@ def package_agents(destination: Path, *, status: str = "snapshot") -> dict[str, 
             archive.writestr(info, data)
     return {"id": AGENT_PACKAGE_ID, "version": manifest["package"]["version"],
             "artifact": destination.name, "sha256": digest(destination),
-            "source_repository": "https://github.com/pegagio/spec-kit-flow",
+            "source_repository": "https://github.com/pegagio/farmboy",
             "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
             "source_sha256": source_hash.hexdigest(), "status": status}
 
@@ -891,7 +891,7 @@ def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
             package_extension(source, packages / artifact, extension_id)
             release["extensions"][extension_id] = {
                 "version": expected, "name": metadata["name"], "author": metadata["author"],
-                "source_repository": "https://github.com/pegagio/spec-kit-flow" if extension_id == "farmboy-feedback" else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
+                "source_repository": "https://github.com/pegagio/farmboy" if extension_id == "farmboy-feedback" else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}",
                 "source_commit": commit, "source_tag": tag,
                 "artifact": artifact, "sha256": digest(packages / artifact),
             }
@@ -1016,7 +1016,7 @@ def build_development_snapshot(destination: Path, *, source_overrides: dict[str,
             extensions[extension_id] = {
                 "version": version, "name": metadata["name"], "author": metadata["author"],
                 "source_repository": (
-                    "https://github.com/pegagio/spec-kit-flow"
+                    "https://github.com/pegagio/farmboy"
                     if extension_id == "farmboy-feedback"
                     else f"https://github.com/pegagio/spec-kit-flow-{EXTENSION_SOURCES[extension_id]}"
                 ),

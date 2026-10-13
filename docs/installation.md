@@ -19,7 +19,7 @@ Ordinary catalog install and refresh use the checked-in release packages only fr
 Run these commands from the FarmBoy checkout. You need `mise` and access to the Specify CLI pinned in `mise.toml`. The repository does not distribute that CLI.
 
 ```sh
-cd /path/to/spec-kit-flow
+cd /path/to/farmboy
 mise trust
 mise install
 mise run python:prepare
@@ -187,7 +187,7 @@ Use the exact reviewed work-type name declared by the workflow step. The canonic
 After updating this checkout to a newer reviewed release, return to its root and refresh the target project:
 
 ```sh
-cd /path/to/spec-kit-flow
+cd /path/to/farmboy
 mise run catalog:refresh /path/to/my-project
 ```
 

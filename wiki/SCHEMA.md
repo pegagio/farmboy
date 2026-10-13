@@ -4,7 +4,7 @@ This file defines how this wiki is structured and maintained. Edit it to
 change the rules; `/speckit.flow-wiki.*` commands read it before writing anything.
 
 ## Scope
-1. The wiki will cover the spec-kit-flow project, it's specs, its documentation, its design and architecture documents. It will not cover the implementation.
+1. The wiki will cover the farmboy project, it's specs, its documentation, its design and architecture documents. It will not cover the implementation.
 
 ## Page types
 | Type | Holds | Example title |

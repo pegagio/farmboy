@@ -371,7 +371,7 @@ class CatalogReleaseTests(unittest.TestCase):
             self.assertFalse(entry["source_dirty"])
             self.assertTrue((snapshot / "packages" / entry["artifact"]).is_file())
             feedback = release["extensions"]["farmboy-feedback"]
-            self.assertEqual("https://github.com/pegagio/spec-kit-flow", feedback["source_repository"])
+            self.assertEqual("https://github.com/pegagio/farmboy", feedback["source_repository"])
             self.assertEqual("farmboy-feedback-0.2.1.zip", feedback["artifact"])
             self.assertTrue(feedback["source_dirty"])
             self.assertTrue((snapshot / "packages" / feedback["artifact"]).is_file())

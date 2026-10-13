@@ -419,7 +419,7 @@ class SnapshotValidationTests(unittest.TestCase):
                     "controller_package_version": installed_controller_manifest["package"]["version"],
                     "workflow_version": yaml.safe_load(installed_implement_path.read_text(encoding="utf-8"))["workflow"]["version"],
                     "bundle_version": yaml.safe_load(BUNDLE_PATH.read_text(encoding="utf-8"))["bundle"]["version"],
-                    "farmboy_source": {"repository": "https://github.com/pegagio/spec-kit-flow",
+                    "farmboy_source": {"repository": "https://github.com/pegagio/farmboy",
                         "revision": source_revision, "dirty_state": "dirty"},
                     "roadmap_source": {"repository": "https://github.com/pegagio/spec-kit-flow-roadmap",
                         "revision": roadmap_revision, "dirty_state": "dirty",
