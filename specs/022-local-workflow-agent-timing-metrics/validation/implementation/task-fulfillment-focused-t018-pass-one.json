@@ -1,0 +1,67 @@
+{
+  "review_judgement": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+    "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+  },
+  "task_fulfillment_proofs": {
+    "T018": {
+      "activation_sha256": "355d47615fe8d9294120dc003bf349cec5c794cabeb96b8f3a0301173f294d21",
+      "completion_kind": "substantive-implementation",
+      "proof_evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+          "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+        }
+      ],
+      "requirements": [
+        {
+          "evidence": [
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+              "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+            }
+          ],
+          "requirement_id": "report-contract-tests",
+          "satisfied": true
+        }
+      ],
+      "review_evidence": {
+        "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6",
+        "verdict": "complete"
+      },
+      "scope_sha256": "f1d97ec116088883d150620ee005db7d3abe776e200dec8ad481510434ceda9e",
+      "source_delta_evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+        },
+        {
+          "path": ".specify/farmboy-controllers/runs/5b3da737-47db-4c1d-8f33-968783e12c50/source-before-one/test_metrics_report.py",
+          "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-retained-F006.json",
+          "sha256": "de5f50a0ae0ba7db842b6b133288fd23092f67b0e4d0bc21c6dd9706e00596bc"
+        }
+      ],
+      "task_description_sha256": "6c5341b0c912772792d99882d2baa82dcba11d711ca91b186d4c244705cc119e",
+      "task_id": "T018",
+      "validation_evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+          "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+        }
+      ]
+    }
+  }
+}

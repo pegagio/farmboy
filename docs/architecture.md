@@ -4,6 +4,10 @@ FarmBoy is the generic source authority for reusable workflows, accepted presets
 
 The Diagram may consume a pinned FarmBoy release through a separately versioned adapter. That adapter is not part of this repository's generic bundle, and adapter-specific feedback needs its own future authority decision.
 
+## Local Agent Timing Metrics
+
+The shared controller package supplies the standard-library collection helper. Around a declared native agent turn, the workflow controller samples local wall-clock time and publishes one JSON record per completed turn under `~/.farmboy/metrics/`. Separate files and no-clobber publication support concurrent workflows without a shared append file or lock. Metric failures produce a warning and leave the original dispatch result and human gates intact. The helper records only explicit model and effort values read from the exact matching project agent TOML; it does not resolve or override native configuration. The maintainer-only `farmboy-metrics-report` source skill consolidates a fixed snapshot into an XLSX workbook and is excluded from consumer packages. See [Local Agent Timing Metrics](metrics.md) for the record and timing contract.
+
 Workflow source packages remain manually reviewable and independently adoptable. The generic feedback protocol provides evidence and a proposed next action only; an accepted refinement re-enters the ordinary FarmBoy specification, planning, task, and implementation flow.
 
 

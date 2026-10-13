@@ -1,0 +1,157 @@
+{
+  "task_id": "T017",
+  "tasks_path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+  "tasks_before_sha256": "50e68519c7e720436b29826dacfaf2a91677b5ff92a6ec0c34f17b37a59be574",
+  "tasks_after_sha256": "e44b5f0e2a70b4f831fe3e8dd2c64ba226b03819569c9eeca3e9528a76a99e72",
+  "completed_task_ids": [
+    "T017"
+  ],
+  "review_judgement": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+    "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+  },
+  "task_fulfillment_proof": {
+    "task_id": "T017",
+    "task_description_sha256": "c3f10797cd398504536cd67a40d93f05baf875df1d3f7036813e291452d45923",
+    "completion_kind": "substantive-implementation",
+    "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+    "requirements": [
+      {
+        "requirement_id": "explicit-maintainer-only-report-invocation",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      },
+      {
+        "requirement_id": "reviewed-source-layout-preflight",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      },
+      {
+        "requirement_id": "approved-dependency-readiness",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      },
+      {
+        "requirement_id": "prescribed-skill-interpreter",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      },
+      {
+        "requirement_id": "summary-counts-and-locations",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      },
+      {
+        "requirement_id": "no-install-or-workflow-dispatch",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/SKILL.md",
+            "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+            "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+          }
+        ]
+      }
+    ],
+    "proof_evidence": [
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+        "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T017-final-pass-two.json",
+        "sha256": "bb3fbfae5ab9bbc3bf4b7059679318e93e0d731e6092658ad645f7882933a8c1"
+      }
+    ],
+    "review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+      "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+    },
+    "activation_sha256": "bb3fbfae5ab9bbc3bf4b7059679318e93e0d731e6092658ad645f7882933a8c1",
+    "source_delta_evidence": [
+      {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-2/skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T017-final-pass-two.json",
+        "sha256": "bb3fbfae5ab9bbc3bf4b7059679318e93e0d731e6092658ad645f7882933a8c1"
+      }
+    ],
+    "validation_evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-two-1e6ae445.json",
+        "sha256": "96dfe9aca2c78afb47debf475d88698057ce53128fe457b409925111583b5bef"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-progress-pass-two-1e6ae445.json",
+        "sha256": "c705b41bd133a11bfb6704c7fde8fa0f6d4c5a7e83f88ae93f1b31c87e5c40ff"
+      }
+    ]
+  },
+  "preflight": {
+    "state": "ready",
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "tasks_before_sha256": "50e68519c7e720436b29826dacfaf2a91677b5ff92a6ec0c34f17b37a59be574",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+  }
+}

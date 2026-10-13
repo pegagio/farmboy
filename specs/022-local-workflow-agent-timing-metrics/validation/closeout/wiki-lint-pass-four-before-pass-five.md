@@ -1,0 +1,6 @@
+# Wiki Lint Report — 2026-10-12
+
+| # | Check | Severity | Page | Finding | Suggested fix |
+|---|-------|----------|------|---------|---------------|
+| 1 | stale | semantic | `wiki/pages/diagram-adapter-boundary.md` | `stale-s003-diagram-adapter-boundary`: S003 last ingested 2026-10-12 after page updated 2026-10-11; registered source `docs/architecture.md`. | Through the declared Close Out prepare-wiki-refresh correction path, revalidate all cited claims against current authorized sources; update freshness to the actual validation date only if all claims remain supported and conflict-free, retaining claim/source and page before/after proof. Date-only changes earn no substantive progress. Suggested only; no automatic fix applied. |
+| 2 | stale | semantic | `wiki/pages/project-authority-history.md` | `stale-s003-project-authority-history`: S003 last ingested 2026-10-12 after page updated 2026-10-11; registered source `docs/architecture.md`. | Through the declared Close Out prepare-wiki-refresh correction path, revalidate all cited claims against current authorized sources; update freshness to the actual validation date only if all claims remain supported and conflict-free, retaining claim/source and page before/after proof. Date-only changes earn no substantive progress. Suggested only; no automatic fix applied. |

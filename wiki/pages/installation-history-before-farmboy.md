@@ -7,15 +7,16 @@ sources:
 - S005
 - S016
 - S025
+- S038
 - S032
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Installation history before FarmBoy
 
 Catalog tasks install/refresh the bundle, ten active workflows and ten direct Codex skills through a temporary localhost catalog, verifying both. Native bundle installation excludes direct skills; catalog install can initialize empty projects. (S005)
 
-Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005)
+Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005, S025, S038)
 
 Explicit development snapshots support the initialized source root or initialized temporary consumers; nested targets and other persistent consumers are rejected. They record unreleased provenance without changing release metadata, preserve project-owned artifacts/history, and do not invoke workflows or integrate Git. (S005)
 

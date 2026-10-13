@@ -1,0 +1,523 @@
+{
+  "blocker": null,
+  "bundle_record": {
+    "device": 16777232,
+    "inode": 137065873,
+    "sha256": "76596ad5577671a5f215256c74e357a2caea7eb3048d9f36a8dfe92b9ba0ad48"
+  },
+  "changed_files": [
+    "controllers/farmboy/controller-protocol.md",
+    "controllers/farmboy/scripts/python/controller.py",
+    "controllers/farmboy/scripts/python/metrics.py",
+    "skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T002-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T009-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T011-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T014-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-retained-F011-focused-cr.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-retained-F006.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/assessment-focused-t018-initial.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T010-T013-next-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T011-T014-next-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T015-pass-five.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T015-retained-F011-focused-cr.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T018-retained-F006.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/controller-summary.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/execution-history.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/final-eligibility-request.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/final-route.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/initial-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/outcome.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/post-pass-state.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/requested-scope.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/retained-assessment-before-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/retained-initial-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/controllers/farmboy/scripts/python/metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-two/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-two/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/execution-history.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/final-eligibility-request.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/final-route.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/initial-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/outcome.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/post-pass-state.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/requested-scope.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/retained-f011-source-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/retained-initial-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/source-before-one/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/source-before-one/skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/source-before-one/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-checkpoint/tracking-validation.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-judgement-a3fd481a.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-progress-a3fd481a.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-proof-a3fd481a.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-tracking-a3fd481a.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/controller-summary.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/execution-history.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/final-eligibility-request.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/final-route.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/initial-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/outcome.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/post-pass-state.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/requested-scope.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/retained-f006-source-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/retained-initial-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/source-before-one/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/source-before-one/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-t018-checkpoint/task-tracking-validation.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/frozen-baseline-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t003-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t004-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t006-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t007-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t008-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t010-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t012-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t012-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t013-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t013-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-activation-t013-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/controller-summary.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/entry-pass-1.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/entry-pass-2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/entry-pass-3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/entry-pass-4.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/entry-pass-5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/execution-history.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/initial-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/outcome.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/post-pass-1.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/post-pass-2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/post-pass-3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/post-pass-4.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/post-pass-5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/requested-scope.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-assessment-before-pass-2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-assessment-before-pass-3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-assessment-before-pass-4.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-assessment-before-pass-5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-initial-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-next-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/route-pass-1.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/route-pass-2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/route-pass-3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/route-pass-4.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/route-pass-5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/controllers/farmboy/controller-protocol.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/tests/test_controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/tests/test_metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-2/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/controllers/farmboy/scripts/python/metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/tests/test_controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/tests/test_metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-3/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-4/controllers/farmboy/controller-protocol.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-4/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-4/skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-4/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-5/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-5/skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-5/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/controller-protocol.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/scripts/python/controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/scripts/python/metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_bundle_lifecycle.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_catalog.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-initial-assessment-20a91da0.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-task-tracking-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-tracking-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-focused-t018-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-five.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/report-dependency-readiness-next.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/review-result-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/review-result-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-focused-t018-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-five.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-three.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-tracking-correction-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-tracking-focused-t018-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-tracking-next-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/tasker-tracking-pass-four.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-helper-result-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-helper-result-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-preparation-readback-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-preparation-readback-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-preparation-readback-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-preparation-readback-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-existing-start-verification-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-20a91da0-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-20a91da0-v3.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-5b3da737-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-a3fd481a-v2.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-20a91da0.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-5b3da737.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-a3fd481a.json",
+    "tests/test_bundle_lifecycle.py",
+    "tests/test_catalog.py",
+    "tests/test_controller.py",
+    "tests/test_metrics.py",
+    "tests/test_metrics_report.py"
+  ],
+  "effective_assignments": [
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-state"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-core"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Roadmap Agent",
+      "step_id": "apply-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state-after-revalidation"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-preparation"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-source-implementation"
+    },
+    {
+      "agent_name": "FarmBoy Code Reviewer",
+      "step_id": "assess-implementation-after-pass"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "revise-task-plan"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-task-outcomes"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-reentry"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-completion"
+    }
+  ],
+  "loop_passes": [
+    {
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "a0f156e9cbc12b6023aadb7f00b7d0906bfec850294ca046fa5e413f60009ce0"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "89e953c5ea646f8b324871733b4cf2bd5c8fb6dba518666c84e7807006a2d412"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-proof-a3fd481a.json",
+          "sha256": "045a99cf128a519484907a00973f0a4e17e21ae116d4576c942ab662876d1332"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-judgement-a3fd481a.json",
+          "sha256": "0144b8668004694739d7da8d0a36e2c4a834cdb412a7c0ddc56251f068409074"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-progress-a3fd481a.json",
+          "sha256": "60b71a58f761d672594b78dd092f2a147adedda10cb7244a82afb6edf9c9535b"
+        }
+      ],
+      "iteration": 1,
+      "loop_id": "implementation-loop",
+      "outcome": {
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "a0f156e9cbc12b6023aadb7f00b7d0906bfec850294ca046fa5e413f60009ce0"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "89e953c5ea646f8b324871733b4cf2bd5c8fb6dba518666c84e7807006a2d412"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-proof-a3fd481a.json",
+            "sha256": "045a99cf128a519484907a00973f0a4e17e21ae116d4576c942ab662876d1332"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-judgement-a3fd481a.json",
+            "sha256": "0144b8668004694739d7da8d0a36e2c4a834cdb412a7c0ddc56251f068409074"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-progress-a3fd481a.json",
+            "sha256": "60b71a58f761d672594b78dd092f2a147adedda10cb7244a82afb6edf9c9535b"
+          }
+        ],
+        "reason_code": "selected-writer-correction-complete",
+        "remaining_ids": [],
+        "resolved_ids": [
+          "finding:F022-IMPLEMENT-011",
+          "task:T015"
+        ],
+        "state": "complete"
+      },
+      "steps": [
+        {
+          "status": "completed",
+          "step_id": "route-scoped-entry"
+        },
+        {
+          "status": "completed",
+          "step_id": "prepare-scoped-prerequisites"
+        },
+        {
+          "status": "completed",
+          "step_id": "implement-tasks"
+        },
+        {
+          "status": "completed",
+          "step_id": "assess-implementation-after-pass"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-post-assessment"
+        },
+        {
+          "status": "completed",
+          "step_id": "capture-post-pass-state"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-scoped-execution"
+        }
+      ],
+      "updated_at": "2026-10-12T21:01:58+00:00"
+    }
+  ],
+  "run_id": "a3fd481a-b061-4c71-881e-461d503c9732",
+  "schema_version": "1.0",
+  "skill_record": {
+    "device": 16777232,
+    "inode": 137065905,
+    "sha256": "165166ebe32f0f29a217d16de23910a97c82116698b382bdb8c852d63d76ae0c"
+  },
+  "started_at": "2026-10-12T20:47:45+00:00",
+  "status": "completed",
+  "steps": {
+    "assess-implementation-after-pass": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:59:47+00:00"
+    },
+    "assess-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:51:36+00:00"
+    },
+    "assess-implementation-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:49:51+00:00"
+    },
+    "assess-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:50:00+00:00"
+    },
+    "capture-implementation-baseline": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:49:59+00:00"
+    },
+    "capture-post-pass-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T21:01:58+00:00"
+    },
+    "check-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:50:44+00:00"
+    },
+    "establish-implementation-scope": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:47:50+00:00"
+    },
+    "gate-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:50:45+00:00"
+    },
+    "implement-tasks": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:30+00:00"
+    },
+    "prepare-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:51:37+00:00"
+    },
+    "prepare-scoped-prerequisites": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:30+00:00"
+    },
+    "record-source-session-and-attempt": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:37+00:00"
+    },
+    "record-source-session-outcome": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:57:40+00:00"
+    },
+    "report-implementation-outcome": {
+      "status": "completed",
+      "updated_at": "2026-10-12T21:02:35+00:00"
+    },
+    "route-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:51:38+00:00"
+    },
+    "route-post-assessment": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:59:47+00:00"
+    },
+    "route-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:24+00:00"
+    },
+    "route-scoped-entry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:29+00:00"
+    },
+    "route-scoped-execution": {
+      "status": "completed",
+      "updated_at": "2026-10-12T21:02:34+00:00"
+    },
+    "run-scoped-source-implementation": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:57:36+00:00"
+    },
+    "track-reviewed-completion": {
+      "status": "completed",
+      "updated_at": "2026-10-12T21:01:29+00:00"
+    },
+    "validate-reviewed-completion-tracking": {
+      "status": "completed",
+      "updated_at": "2026-10-12T21:01:52+00:00"
+    },
+    "verify-existing-implementation-start-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:22+00:00"
+    },
+    "verify-lifecycle-and-readiness-before-coding": {
+      "status": "completed",
+      "updated_at": "2026-10-12T20:53:23+00:00"
+    }
+  },
+  "updated_at": "2026-10-12T21:02:35+00:00",
+  "workflow_id": "farmboy-implement",
+  "workflow_sha256": "419a55e85f8b6b1c7df2b59c07d2ce3a79e6bf3c73282053a4af131d9f460ca1",
+  "workflow_version": "0.9.1"
+}

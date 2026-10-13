@@ -1,0 +1,14 @@
+[
+  {
+    "path": "tests/test_metrics_report.py",
+    "state": "present",
+    "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba",
+    "before_path": ".specify/farmboy-controllers/runs/a3fd481a-b061-4c71-881e-461d503c9732/source-before-one/tests/test_metrics_report.py"
+  },
+  {
+    "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "state": "present",
+    "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250",
+    "before_path": ".specify/farmboy-controllers/runs/a3fd481a-b061-4c71-881e-461d503c9732/source-before-one/skills/farmboy-metrics-report/scripts/metrics_report.py"
+  }
+]

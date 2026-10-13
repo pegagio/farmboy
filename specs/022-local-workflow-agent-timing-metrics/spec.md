@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-11
 
-**Status**: Draft
+**Status**: Complete
 
 **Input**: Direct operator decisions request basic machine-local wall-clock timing around FarmBoy agent invocations, concurrent collection as separate files under `~/.farmboy/metrics`, warnings with continued workflow execution on collection failure, and the maintainer-only FarmBoy Metrics Report skill (`farmboy-metrics-report`) consolidating records into one simple XLSX table while preserving the source records.
 

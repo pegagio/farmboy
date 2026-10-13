@@ -1,6 +1,6 @@
 # Validation Guide: Local Workflow Agent Timing Metrics
 
-This guide describes runnable validation after Feature 022 is implemented. The planned helper, report skill and new test modules do not exist during planning; commands below are acceptance targets, not claims of successful feature execution. Collection defaults to `~/.farmboy/metrics`; use injected temporary directories in tests so validation never touches real observations.
+This guide describes validation for Feature 022. The deterministic commands below are acceptance targets; the live observations recorded later document the tested FarmBoy and disposable-consumer paths. Collection defaults to `~/.farmboy/metrics`; use injected temporary directories in tests so validation never touches real observations.
 
 ## Table of Contents
 
@@ -10,11 +10,12 @@ The sequence separates environment checks, deterministic evidence, delivery veri
 - [Deterministic Contracts](#deterministic-contracts)
 - [Consumer Delivery](#consumer-delivery)
 - [Live Round Trip](#live-round-trip)
+  - [Observed live round trip (2026-10-12)](#observed-live-round-trip-2026-10-12)
 - [Evidence and Limits](#evidence-and-limits)
 
 ## Prerequisites
 
-Use the repository's pinned Python/Specify environment. The operator approved openpyxl 3.1.5 and required et-xmlfile for the maintainer report design on 2026-10-11; both are currently absent from skill-tools. Dependency setup remains separately authorized and is never performed by planning or the report skill itself.
+Use the repository's pinned Python/Specify environment. The maintainer report uses the operator-approved openpyxl 3.1.5 and required et-xmlfile dependency in the prescribed skill-tools environment. Consumer installations do not receive these report dependencies.
 
 ```bash
 mise run python:prepare
@@ -22,7 +23,7 @@ mise run python:check
 mise exec -- specify --version
 ```
 
-For scripts belonging to or validating skills, use the prescribed `~/.codex/venvs/skill-tools/bin/python`. Confirm approved openpyxl 3.1.5 and its required et-xmlfile import there before report testing. If missing, report the dependency issue; do not alter that environment automatically. Ordinary repository tests use prepared `mise exec -- python`. No workbook dependency is installed in disposable consumers.
+For scripts belonging to or validating skills, use the prescribed `~/.codex/venvs/skill-tools/bin/python` and verify the required imports before report testing. If a dependency is missing, report the issue; do not alter that environment automatically. Ordinary repository tests use prepared `mise exec -- python`. No workbook dependency is installed in disposable consumers.
 
 Implementation must document a source-skill discovery symlink for `skills/farmboy-metrics-report/` inside FarmBoy only, following the existing renderer pattern. Do not add the report skill to consumer installation or invoke a workflow to generate a workbook.
 
@@ -73,7 +74,11 @@ After fixture checks, explicitly select a supported workflow/target under its no
 
 Within FarmBoy, explicitly invoke `$farmboy-metrics-report`. The skill returns the unique workbook location and visible candidate/accepted/invalid/duplicate/conflict counts; it preserves all metric files. If timing collection failed earlier, the report does not claim complete historical accounting.
 
-Open one nonempty workbook and one empty workbook in Excel. Confirm no repair prompt, exactly one simple table, correct headers/rows, sorting/filtering, literal text and calculations from numeric signed durations. The empty table has zero observations. Charting remains the operator's activity. If the header-only table fails interoperability, retain that blocker and reconcile the implementation/design; never fake a row or claim success.
+### Observed live round trip (2026-10-12)
+
+The FarmBoy and disposable-consumer observations used Specify CLI `1.0.10.dev0+pegagio.2`. FarmBoy exact-name probes and Reviewer/Checker turns emitted source-run records. The consumer's `farmboy-implement` run completed six exact-name agent probes and one real `FarmBoy Reviewer` execution at `assess-implementation-state`. All seven consumer records were independently read and validated from the production-default metrics directory; one metrics run identity covered the turns, and the human question-and-answer wait was excluded from invocation durations. The `model` and `effort` values came from passive exact-name project TOML reads; effective runtime settings were not independently verified.
+
+The consumer's read-only Reviewer assessment was blocked because the copied fixture lacked current owning prerequisites. This confirms a live agent turn and metrics emission, not consumer implementation completion. The FarmBoy-side report included 16 source-run rows and these seven consumer rows. The maintainer report skill was explicitly invoked and produced `~/.farmboy/metrics/reports/farmboy-metrics-976182be-4456-4b56-a2f1-7f2e1da37014.xlsx`: 23 candidates and 23 accepted records, zero invalid, duplicate, conflicting, or skipped records, and unchanged input files. Its `Metrics` sheet contains the `FarmBoyMetrics` table with the thirteen specified columns, numeric duration cells, and all seven consumer invocations. These report-generation and readback checks do not establish Excel interoperability. The operator then opened both prepared workbooks in Excel; both opened without repair. The thirteen-column table and filtering worked, formula-looking text remained literal, and numeric durations `1,500` and `-200` summed to `1,300`. The header-only workbook showed zero observations. These are direct operator observations relayed through the same child; this agent did not repeat the UI inspection. Charting remains the operator's activity.
 
 ## Evidence and Limits
 

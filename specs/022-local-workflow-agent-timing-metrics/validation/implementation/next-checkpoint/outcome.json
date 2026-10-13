@@ -1,0 +1,89 @@
+{
+  "state": "blocked",
+  "reason_code": "no-substantive-progress",
+  "resume_action": "correct-t015-carriage-return-with-retained-finding-baseline",
+  "run_id": "20a91da0-6fa3-4217-a2d4-0c64335a206b",
+  "completed_requested_task_ids": [
+    "T003",
+    "T004",
+    "T006",
+    "T007",
+    "T008",
+    "T012",
+    "T010",
+    "T013",
+    "T011",
+    "T014"
+  ],
+  "remaining_requested_task_ids": [
+    "T015",
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023"
+  ],
+  "remaining_finding": [
+    {
+      "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+          "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+          "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+        }
+      ],
+      "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+      "id": "F022-IMPLEMENT-011",
+      "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+      "task_id": "T015",
+      "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+    }
+  ],
+  "retained_next_baseline_sha256": "3d2b5c7d1551f665249a068785fa6b25607ab6afabb583c0da1d8f27cfb03d80",
+  "coder_sessions_started": 5,
+  "source_attempts_started": 5,
+  "no_sixth_source_dispatch": true,
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five.json",
+      "sha256": "5c933711e68e0232508182a18953b83dd49b5944398e92343f73728910241e09"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-five.json",
+      "sha256": "5226cc1c85bea5be035b61ec7a1ddc31a68f4265b7700ba460c6ab09677e42d5"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-five.json",
+      "sha256": "e75cb5a85210f1cf0f097feeb7e0a287810445a4076321027cb77577fe4321d8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+      "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+    }
+  ],
+  "report_dependency_versions": {
+    "openpyxl": "3.1.5",
+    "et-xmlfile": "2.0.0"
+  },
+  "limitations": [
+    "T015 remains open because accepted carriage-return text changes to line feeds in XLSX.",
+    "T016/T017 publication, capacity handling and final report skill remain unimplemented.",
+    "T019-T023 documentation, integration/live/Excel verification remain unfinished.",
+    "Installed workflows were not refreshed; no feature verification, acceptance or Git integration is claimed."
+  ],
+  "git_effects": "none; all source and task changes remain uncommitted"
+}

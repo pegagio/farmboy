@@ -1,6 +1,48 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.31.1 → 1.32.0
+Bump rationale: MINOR — add the directly authorized planned Close Out continuation defect correction.
+Changes: add 026 Close Out Automatic Maintenance Continuation, with the defect handoff, completed recovery evidence, expected autonomous routine continuation and regression scenarios. Preserve all existing entries, lifecycle states, mappings, reports and verification evidence.
+Specs affected: 026 (new planned entry only).
+Open questions added/resolved: Existing workflow invocation authorizes ordinary in-scope closeout repair and reassessment without repeated restart approval. Specification must settle finite work accounting, first-correction handling and genuine stalled-work detection; no implementation policy, new dependency or constitutional amendment is adopted here.
+Authorization: Direct active-user request to turn the Close Out defect handoff into a roadmap item and include its context for the next specification/fix session. Entry numbering, wording and evidence linkage derive from that instruction under Constitution II.
+Evidence paths: docs/findings/2026-10-12-closeout-continuation-defect.md; specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/outcome-after-correction.json.
+Notes: No feature activation, specification creation, workflow implementation, Git action, publication or acceptance. Changes remain entirely within FarmBoy.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.31.0 → 1.31.1
+Bump rationale: PATCH — authorized status amendment for entry 022.
+Status: implemented → verified
+Authorization: farmboy-closeout:approve-roadmap-transition:approve-patch
+Evidence paths: ["specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/debrief-20261013T015140Z.md", "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-implemented-assessment-46aadf4e.json", "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-closeout-effect-readback-46aadf4e.json", "specs/022-local-workflow-agent-timing-metrics/validation/closeout/specification-before-status-complete.md", "specs/022-local-workflow-agent-timing-metrics/validation/convergence/outcome.json", "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json", "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.30.5 → 1.31.0
+Bump rationale: MINOR — add three directly authorized planned FarmBoy workflow-reliability features.
+Changes: add 023 branch/controller integration validation, 024 Implement continuation/correction accounting, and 025 reusable disposable-consumer fixture; link the operator-requested findings handoff. Preserve all earlier entries, statuses, mappings, reports and verification evidence.
+Specs affected: 023, 024, 025 (new planned entries only).
+Open questions added/resolved: Feature-local validation-layer, bounded-accounting/recovery, and fixture/scenario decisions remain for specification; FarmBoy-only ownership and exclusion of external project/dependency changes are settled by the direct operator instruction.
+Authorization: Direct operator request on 2026-10-12, America/Los_Angeles, to record the three prioritized suggestions as features with a findings handoff. Routine IDs, wording and evidence links derive from that request under Constitution II.
+Evidence paths: docs/findings/2026-10-12-workflow-reliability-handoff.md and its contained repository evidence.
+Notes: This amendment does not activate features, create specifications, implement improvements, approve a new dependency or grant Git integration. The pending Feature 022 verification proposal is preserved but requires a fresh debrief/proposal because the ledger digest changes. Amendment metadata retains the ledger's existing UTC date 2026-10-13.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.30.4 → 1.30.5
+Bump rationale: PATCH — authorized status amendment for entry 022.
+Status: in-progress → implemented
+Authorization: specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-decision-46aadf4e.json
+Evidence paths: ["specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-implemented-assessment-46aadf4e.json"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.30.3 → 1.30.4
 Bump rationale: PATCH — authorized status amendment for entry 022.
 Status: specced → in-progress
@@ -559,7 +601,7 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Notes**: Direct operator decisions establish FarmBoy, “Spec et Labora”, `farmboy` project/bundle identity, `farmboy-<purpose>` skills/workflows and `FarmBoy <role>` agents. On 2026-10-10 the operator explicitly removed the migration feature: this is a pure rename, with existing installations handled separately. This supersedes prior consumer-migration guidance scope and derived migration design. The operator also explicitly includes the feedback code and `flow_kit` parser/key in this project; both are owned here. Independent roadmap/wiki and core command identities remain unchanged; nested delegation and feedback data semantics are preserved without old-name adapters. The former planning-only exception is superseded by the operator-approved Constitution 8.0.0 identity amendment and separately invoked implementation. Current correction evidence is recorded in [Closeout correction evidence](../../specs/021-farmboy-project-workflow-naming/validation/closeout-corrections.md). Present-state ledger amendments do not reconstruct historical phase-owner effects or grant verification, acceptance, publication or Git authority.
 - **Spec dir**: `specs/021-farmboy-project-workflow-naming`
 
-### 022 — Local Workflow Agent Timing Metrics  [status: in-progress]
+### 022 — Local Workflow Agent Timing Metrics  [status: verified]
 
 - **Description**: Measure each agent invocation made by a FarmBoy skill/workflow using the computer's local wall clock. Start timing immediately before invoking the agent and emit a duration record when that invocation finishes, including the agent name and invoking skill/workflow identity. Provide a separately invoked maintainer-only skill, used from within FarmBoy itself, that gathers the collected records into one Excel workbook. Its settled display name is FarmBoy Metrics Report and its skill ID is `farmboy-metrics-report`.
 - **Outcome**: Agent invocations in FarmBoy and its consuming projects emit structured records; a maintainer-only skill used within FarmBoy consolidates those machine-local records into a single XLSX file containing a simple table with one row per metric record. The operator can create graphs and further analysis in Excel. Clock drift and skew are accepted limitations of the requested measurement.
@@ -570,6 +612,44 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Notes**: Direct operator instructions on 2026-10-11 request basic local timing, explicitly accept drift and clock skew, select `~/.farmboy/metrics` and require warn-and-continue behavior for collection failures. The initial CSV-only collection idea was superseded by permission to use JSONL or another simple intermediate format. The latest operator instruction expands this same feature to include the report skill and an XLSX table, superseding the earlier future-only export exclusion, and calls for one file per emission to avoid shared-file collisions and locking. A self-contained JSON object in each uniquely named file is now the simplicity recommendation; JSONL remains acceptable and the precise format is a specification decision. The operator subsequently restricts the workbook-generation skill to maintainer use within FarmBoy; consumer projects receive timing/emission support, not this skill. The operator settles the display name as FarmBoy Metrics Report and the skill ID as `farmboy-metrics-report`, retaining room for future reporting expansion. The prior provisional name and metrics-workbook recommendation are superseded by this direct decision under the governed `farmboy-<purpose>` convention. Time is the only cost measure. Machine-local collection is shared across projects using FarmBoy; repository-owned source provides the behavior without project-specific hardcoded host paths. API shape, record schema, filename uniqueness, safe publication of completed files and report output location remain specification/planning decisions; a callable local helper is a simplicity proposal rather than a requirement for a network service. Preserve workflow assignments, human gates and failure outcomes independently of metrics. Feature 016's centralized probing remains separate.
 - **Suggested dimensions (proposal)**: `run_id`, `step_id`, `invocation_id`, `started_at`, `finished_at`, `outcome` and a short portable `project_label` would support correlation, timing inspection, outcome filtering and separation of consuming projects. Workflow/component version and an attempt number may help later comparisons. These are suggestions for specification, not settled mandatory fields; omit prompts, transcripts, secrets and absolute host paths.
 - **Spec dir**: `specs/022-local-workflow-agent-timing-metrics`
+
+### 023 — Workflow Branch Validation and Controller Integration Coverage  [status: planned]
+
+- **Description**: Detect malformed FarmBoy workflow branches before installation or effects, and validate complete controller progress/re-entry sequences through the actual routing APIs and disposable installed consumers.
+- **Outcome**: Invalid defaults and unsupported routes fail early with precise diagnostics; supported preparation/source skip paths and reviewed correction/tracking/re-entry paths have executable regression coverage. Tests also prove that stale current evidence, forged historical bindings, unauthorized task edits and exhausted limits still block.
+- **Scope (in)**: FarmBoy-owned source/catalog workflow validation, switches and empty/default branches, template/producer availability, selected-branch isolation, assessment → source execution → independent review → marker tracking → post-pass capture → re-entry integration cases, historical/current evidence distinction, and source/installed-consumer parity. Reuse the current controller, graph tests and consumer fixtures before introducing another harness.
+- **Scope (out)**: Changes to Spec Kit, Codex, independently owned extensions or other projects; new execution engines/frameworks; weakening authority, evidence or correction guards; claiming live-agent validation from simulated dispatch.
+- **Depends on**: 013, 014, 020, 021.
+- **Notes**: Direct operator request on 2026-10-12 authorizes this planned feature following the FarmBoy-only session audit. The fixed nested-default and historical-hash defects from Feature 022 are permanent regression cases, not claims of current broken behavior. Specify the validation layers and the smallest production-API harness extension using [the findings handoff](../../docs/findings/2026-10-12-workflow-reliability-handoff.md#feature-023-branch-and-integration-validation), including WR-01/WR-02 and their repository evidence. Recommended first priority; no dependency on Feature 024 or 025.
+
+### 024 — Implement Continuation and Correction Accounting  [status: planned]
+
+- **Description**: Make authorized Implement continuation and controller-upgrade recovery predictable, with distinct accounting for normal task batches, defect corrections and acceptance observations.
+- **Outcome**: Demonstrably progressing dependency-ordered work and a defined first correction of newly discovered eligible defects can continue without unnecessary operator restarts under a reviewed finite policy. Repeated unresolved defects, unsafe recovery and actual consequential decisions still stop with precise evidence, consumed limits and the next safe action.
+- **Scope (in)**: FarmBoy Implement workflow/protocol, progress/session/source-attempt history and retention, first-attempt defect discovery, independent substantive-resolution checks, stable finding identities, same-child answer continuation, acceptance-pending reporting, and explicit recovery-compatibility assessment when controller contracts change. Preserve original evidence, completed work, settled same-target intent and metrics turn boundaries; accurately record actual and failed attempts.
+- **Scope (out)**: Unbounded loops; implicit budget resets or progress from markers/administrative edits; recreating missing pre-effect proof; automatic invocation of another workflow; bypassing roadmap, product, constitutional, Git or acceptance decisions; changes to Spec Kit, Codex or other projects.
+- **Depends on**: 013, 014, 020, 021.
+- **Notes**: Direct operator request on 2026-10-12 authorizes this planned feature following repeated Feature 022 no-progress, cap and recovery stops. [The findings handoff](../../docs/findings/2026-10-12-workflow-reliability-handoff.md#feature-024-continuation-and-correction-accounting) records WR-02 through WR-06, current evidence, acceptance scenarios and unresolved policy decisions. Specification must settle finite limits and accounting units, the first-correction baseline rule and upgrade/resumption classifications; no replacement cap or unlimited execution is approved by this roadmap entry. Recommended after 023, whose test coverage can be reused, but not hard-dependent on its delivery.
+
+### 025 — Reusable Disposable Consumer Validation Fixture  [status: planned]
+
+- **Description**: Provide FarmBoy maintainers a reproducible way to prepare a minimal valid isolated consumer and hand off clearly bounded deterministic or operator-selected live validation scenarios.
+- **Outcome**: The prepared consumer locates the existing pinned runtime, has sufficient owning governance and feature evidence for its intended assessment, and exposes component provenance and exact launch/stop instructions before dispatch. Validation distinguishes simulated dispatch, real native-agent observations and effective-setting claims accurately.
+- **Scope (in)**: Reuse FarmBoy catalog development-snapshot installation and current runtime pins; minimal purpose-built specification/plan/tasks/checklists/governance; native-agent configuration; compatibility/runtime preflight; isolated destination and safe repeat/reuse behavior; consumer/source/machine-local data preservation; maintainer report/dependency exclusion; concise manual Codex project-registration and bounded task-launch instructions where required. Metrics scenarios may reuse Feature 022 without making it a prerequisite for every fixture.
+- **Scope (out)**: Changes to Spec Kit, Codex registration APIs, Excel, spreadsheet dependencies or another consuming project; prohibited Codex UI automation; ad hoc runtime installation, HOME overrides, destructive replacement/cleanup or recursive feature implementation; claiming copied configuration/no-op dispatch as live behavior.
+- **Depends on**: 013, 015, 017, 019, 021.
+- **Notes**: Direct operator request on 2026-10-12 authorizes this planned feature following missing CLI lookup and incomplete owning prerequisites in the Feature 022 disposable consumer. [The findings handoff](../../docs/findings/2026-10-12-workflow-reliability-handoff.md#feature-025-disposable-consumer-fixture) records WR-07/WR-08, the valid live-observation limits and candidate checks. Specify the minimum fixture, safe reuse/cleanup contract and deterministic/live scenario distinction. Plan the smallest existing-command/script/maintainer-skill entry point after inspecting current utilities; no new dependency or Codex capability is assumed. Recommended third priority; 023/024 are complementary improvements rather than a mandatory dependency chain.
+
+### 026 — Close Out Automatic Maintenance Continuation  [status: planned]
+
+- **Description**: Correct FarmBoy Close Out's premature no-progress and pass-limit stops so authorized, source-supported maintenance and reassessment proceed to completion without asking the operator to launch another invocation for routine repairs.
+- **Outcome**: One Close Out invocation completes its declared activities, including substantive wiki corrections, administrative freshness revalidation, newly discovered eligible citation repairs, fresh full lint and independent readiness assessment. It preserves partial verified state and stops only for a genuine consequential decision, unavailable or unsafe source/assignment, repeated ineffective correction, or another clearly evidenced inability to progress; ordinary progressing maintenance does not require renewed authorization.
+- **Scope (in)**: FarmBoy-owned Close Out workflow, shared protocol and applicable controller routing; finding assessment before correction; distinct substantive and administrative work accounting; first authorized correction of newly discovered in-scope findings; finite, inspectable continuation that completes a progressing maintenance queue; same-invocation recovery at recorded boundaries without reconstructing evidence or silently resetting counters; normalized file/directory source identity and stable citation attribution; exact named-agent assignments, timing boundaries, retained histories, manual fallback, and source/installed-consumer regression coverage.
+- **Scope (out)**: Changes to Spec Kit, independently owned roadmap/wiki extensions, Codex, Excel, Python dependencies or other projects; redesigning Implement continuation covered by Feature 024; unbounded retry or manufactured progress; bypassing product, constitutional, authority, material-scope, Git, publication or acceptance decisions; rewriting verified feature history or automatically invoking another FarmBoy workflow.
+- **Depends on**: 008, 013, 014, 020, 021.
+- **Governed by**: C-01, C-02, C-03, C-04, C-05.
+- **Notes**: Direct operator request authorizes this planned defect correction after Feature 022 Close Out required repeated restarts. Start specification from [the defect handoff](../../docs/findings/2026-10-12-closeout-continuation-defect.md), including its source leads and retained stop/recovery evidence. [The completed recovery](../../specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/outcome-after-correction.json) proves that the citation repair and clean closure were possible under the original scope; it explicitly does not establish a controller implementation fix. Features 023 and 024 are complementary test/accounting work, not prerequisites; Feature 022 supplies reproduction context rather than a generic metrics dependency. Specification must settle continuation/accounting units and genuine stalled-work detection without selecting an arbitrary replacement cap or weakening consequential gates.
+- **Required regression scenarios**: Existing verified/Complete feature with a date-only warning, verified metadata-only correction, newly discovered supported citation gap, automatic ingestion repair, fresh lint, independent complete source coverage and final readiness; substantive corrections followed by administrative cleanup beyond the previously mixed five-pass allowance; a genuinely ineffective correction retaining the same finding; changed source hashes or unavailable assignments; exact file identity distinct from its registered directory; and genuine human decisions remaining gated. Shared routing changes must preserve unrelated workflow protections.
 
 ## Open Questions
 
@@ -646,4 +726,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.30.4 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-12
+**Version**: 1.32.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-13

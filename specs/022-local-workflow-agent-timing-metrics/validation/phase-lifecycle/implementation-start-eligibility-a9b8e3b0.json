@@ -1,0 +1,287 @@
+{
+  "eligibility": {
+    "eligibility": {
+      "assessment_id": "24c40605-7af3-4b5e-a847-57719b9c372b",
+      "eligible_task_ids": [
+        "T022",
+        "T023"
+      ],
+      "evidence": [
+        {
+          "path": ".specify/feature.json",
+          "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "4cedb323ca6135b99a8532a1aec89118f96e963aa640221e43f9e49fef266b6c"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+          "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+          "sha256": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+          "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+        },
+        {
+          "path": ".specify/farmboy/controller-protocol.md",
+          "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+        },
+        {
+          "path": ".specify/farmboy/scripts/python/metrics.py",
+          "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+        },
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+        },
+        {
+          "path": "controllers/farmboy/scripts/python/metrics.py",
+          "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+        },
+        {
+          "path": "skills/farmboy-metrics-report/SKILL.md",
+          "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+        },
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-review.json",
+          "sha256": "445627945defc878897a1ea8f8268377b48a1a5888f0089f373be389707e0ef1"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-eligibility-request.json",
+          "sha256": "0f2545c21d19293ec51dfea8f64f29d89625a190ec3fff023af295494a0f4bf8"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/outcome.json",
+          "sha256": "d963d7eae6d92c96146ffb3714b4e68af4d43bd9c1b105e264ce2f808d3a8612"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/populated.xlsx",
+          "sha256": "6e88e83ceea7a603c0d3a2a0c311c73e527216529135c9bde96f4347c0e5bfaf"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/header-only.xlsx",
+          "sha256": "8f36798a357bfa248a438ecb682bbca7f11b44277ba7ccf44c6191fb5e131338"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-initial-a9b8e3b0.json",
+          "sha256": "b05e5040647e4201a7dd6a11bf8cd79473632a0253318d3c071631bca54fc486"
+        }
+      ],
+      "global_blockers": [],
+      "input_digests": {
+        ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md": "4cedb323ca6135b99a8532a1aec89118f96e963aa640221e43f9e49fef266b6c"
+      },
+      "iteration": 1,
+      "pending_task_ids": [],
+      "predecessor_sha256": "b25c3fe0b8c3f11c66689fde8dc1cba537758a50e4f4d35cae23592a5028aa67",
+      "scope_sha256": "4f39cd342d9919687831444c5cdb42fc747d716bc706eb422943d1ec2956dc8b",
+      "task_states": [
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T021"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "4cedb323ca6135b99a8532a1aec89118f96e963aa640221e43f9e49fef266b6c"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+              "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+              "sha256": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": ".specify/farmboy/controller-protocol.md",
+              "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+            },
+            {
+              "path": ".specify/farmboy/scripts/python/metrics.py",
+              "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+            },
+            {
+              "path": "controllers/farmboy/controller-protocol.md",
+              "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+            },
+            {
+              "path": "controllers/farmboy/scripts/python/metrics.py",
+              "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/SKILL.md",
+              "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+              "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-review.json",
+              "sha256": "445627945defc878897a1ea8f8268377b48a1a5888f0089f373be389707e0ef1"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-eligibility-request.json",
+              "sha256": "0f2545c21d19293ec51dfea8f64f29d89625a190ec3fff023af295494a0f4bf8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/outcome.json",
+              "sha256": "d963d7eae6d92c96146ffb3714b4e68af4d43bd9c1b105e264ce2f808d3a8612"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/populated.xlsx",
+              "sha256": "6e88e83ceea7a603c0d3a2a0c311c73e527216529135c9bde96f4347c0e5bfaf"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/header-only.xlsx",
+              "sha256": "8f36798a357bfa248a438ecb682bbca7f11b44277ba7ccf44c6191fb5e131338"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-initial-a9b8e3b0.json",
+              "sha256": "b05e5040647e4201a7dd6a11bf8cd79473632a0253318d3c071631bca54fc486"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T022"
+        },
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T021"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "4cedb323ca6135b99a8532a1aec89118f96e963aa640221e43f9e49fef266b6c"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+              "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+              "sha256": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": ".specify/farmboy/controller-protocol.md",
+              "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+            },
+            {
+              "path": ".specify/farmboy/scripts/python/metrics.py",
+              "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+            },
+            {
+              "path": "controllers/farmboy/controller-protocol.md",
+              "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+            },
+            {
+              "path": "controllers/farmboy/scripts/python/metrics.py",
+              "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/SKILL.md",
+              "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+              "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-review.json",
+              "sha256": "445627945defc878897a1ea8f8268377b48a1a5888f0089f373be389707e0ef1"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/final-eligibility-request.json",
+              "sha256": "0f2545c21d19293ec51dfea8f64f29d89625a190ec3fff023af295494a0f4bf8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/outcome.json",
+              "sha256": "d963d7eae6d92c96146ffb3714b4e68af4d43bd9c1b105e264ce2f808d3a8612"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/populated.xlsx",
+              "sha256": "6e88e83ceea7a603c0d3a2a0c311c73e527216529135c9bde96f4347c0e5bfaf"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/header-only.xlsx",
+              "sha256": "8f36798a357bfa248a438ecb682bbca7f11b44277ba7ccf44c6191fb5e131338"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-initial-a9b8e3b0.json",
+              "sha256": "b05e5040647e4201a7dd6a11bf8cd79473632a0253318d3c071631bca54fc486"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T023"
+        }
+      ]
+    },
+    "eligibility_sha256": "55ce1fffa8944d14f729af4aa58c95b6148ef1a32c930994e1f7a5ef69700e64",
+    "scope_sha256": "4f39cd342d9919687831444c5cdb42fc747d716bc706eb422943d1ec2956dc8b",
+    "state": "ready"
+  },
+  "native_assignments_verified": [
+    "FarmBoy Code Reviewer",
+    "FarmBoy Coder",
+    "FarmBoy Readiness Checker",
+    "FarmBoy Reviewer",
+    "FarmBoy Roadmap Agent",
+    "FarmBoy Tasker"
+  ],
+  "next_step_id": "implement-tasks",
+  "prior_start_receipt": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json",
+  "retained_initial_assessment_path": ".specify/farmboy-controllers/runs/a9b8e3b0-0843-4485-a40b-debd241b51e4/retained-initial-assessment.json",
+  "retained_initial_assessment_sha256": "f03fc49acaa406d62fc0a5ebc9e84fef926ce42026f91330ed3b2da52e97f8eb",
+  "scope_limit": "Explicit subset T022/T023 only; 21 completed outside prerequisites remain contextual; no feature acceptance claim",
+  "scope_sha256": "4f39cd342d9919687831444c5cdb42fc747d716bc706eb422943d1ec2956dc8b",
+  "selected_task_ids": [
+    "T022",
+    "T023"
+  ],
+  "state": "continue"
+}

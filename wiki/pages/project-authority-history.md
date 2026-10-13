@@ -2,7 +2,7 @@
 title: Project authority history
 type: decision
 sources: [S001, S002, S003, S017, S019, S020, S021, S029, S030]
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Project authority history

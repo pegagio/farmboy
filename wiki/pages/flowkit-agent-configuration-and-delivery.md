@@ -2,7 +2,7 @@
 title: FlowKit agent configuration and consumer delivery
 type: decision
 sources: [S025, S026, S018, S027, S005]
-updated: '2026-10-09'
+updated: 2026-10-12
 ---
 
 # FlowKit agent configuration and consumer delivery

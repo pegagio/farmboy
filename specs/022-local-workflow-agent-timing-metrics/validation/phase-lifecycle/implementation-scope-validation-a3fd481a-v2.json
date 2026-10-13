@@ -1,0 +1,40 @@
+{
+  "requested_task_ids": [
+    "T015"
+  ],
+  "retained_scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+  "scope": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "input_digests": {
+      ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "specs/022-local-workflow-agent-timing-metrics/tasks.md": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+    },
+    "request_kind": "explicit-subset",
+    "request_reference": "operator-explicit-T015-retained-F011-correction-20261012",
+    "requested_task_ids": [
+      "T015"
+    ],
+    "run_id": "a3fd481a-b061-4c71-881e-461d503c9732",
+    "schema_version": "1.0",
+    "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+    "task_records": [
+      {
+        "description": "[US3] Write worksheet `Metrics` and table `FarmBoyMetrics` with exactly `invocation_id`, `run_id`, `project`, `skill`, `workflow`, `step`, `invocation_kind`, `agent`, `model`, `effort`, `started_at`, `finished_at`, `duration_ms`; map shortened headers, retain JSON `schema_version` for validation and duplicate comparison but omit it from Excel, sort rows as specified, and preserve literal strings and numeric duration cells in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T014).",
+        "description_sha256": "051ef9df413591c1ede28116fe606cfa972663282f8cc19ab5273378a7202bab",
+        "marker": "unchecked",
+        "task_id": "T015"
+      }
+    ]
+  },
+  "scope_path": ".specify/farmboy-controllers/runs/a3fd481a-b061-4c71-881e-461d503c9732/requested-scope.json",
+  "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+  "state": "ready",
+  "task_tracking_successors": [],
+  "tasker_derived_task_ids": [],
+  "tasker_tracked_task_ids": [],
+  "trusted_request_reference": "operator-explicit-T015-retained-F011-correction-20261012",
+  "trusted_requested_task_ids": [
+    "T015"
+  ]
+}

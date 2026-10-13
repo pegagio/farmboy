@@ -1,0 +1,32 @@
+{
+  "scope": {
+    "schema_version": "1.0",
+    "run_id": "5b3da737-47db-4c1d-8f33-968783e12c50",
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "request_reference": "operator-explicit-T018-retained-F006-correction-20261012",
+    "request_kind": "explicit-subset",
+    "requested_task_ids": [
+      "T018"
+    ],
+    "task_records": [
+      {
+        "task_id": "T018",
+        "marker": "unchecked",
+        "description": "[P] [US3] Write report contract tests in `tests/test_metrics_report.py` before implementation; cover single-snapshot behavior; UTF-8 JSON objects no larger than 65,536 bytes; required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; `schema_version` exactly `1`, `invocation_kind` exactly `execution`, `continuation`, `retry`, or `probe`, exact millisecond timestamp grammar `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed duration equality, rejection of booleans/fractions, duplicate keys, nonfinite values, impossible timestamps, missing/empty required strings and unsupported schema/kind; `model` and `effort` absent or null normalize to null, non-null values must be nonempty strings, and other present types are invalid; rejection of strings over 32,767 characters or with illegal XML text without trimming/truncation; deduplication/conflicts; exact 13-column Excel order and shortened field mapping with JSON `schema_version` retained only for validation; literal text, numeric durations, zero-row output, no-clobber naming, output failures, failure above 1,000,000 accepted rows, unchanged input bytes, and missing dependency/source-layout failures before output creation without mutating the skill-tools environment (depends on T001).",
+        "description_sha256": "6c5341b0c912772792d99882d2baa82dcba11d711ca91b186d4c244705cc119e"
+      }
+    ],
+    "input_digests": {
+      ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "specs/022-local-workflow-agent-timing-metrics/tasks.md": "c3039b736d0d5594a8e797e9e350e76503f589dcb2b2bed297c46be845b6d438"
+    },
+    "scope_sha256": "f1d97ec116088883d150620ee005db7d3abe776e200dec8ad481510434ceda9e"
+  },
+  "trusted_request_reference": "operator-explicit-T018-retained-F006-correction-20261012",
+  "retained_scope_sha256": "f1d97ec116088883d150620ee005db7d3abe776e200dec8ad481510434ceda9e",
+  "task_tracking_successors": [],
+  "trusted_requested_task_ids": [
+    "T018"
+  ]
+}

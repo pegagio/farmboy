@@ -120,6 +120,10 @@ ln -s ../../skills/farmboy-metrics-report .agents/skills/farmboy-metrics-report
 
 The symlink points to the reviewed source at `skills/farmboy-metrics-report/`; it is local checkout state and is not included in consumer installations.
 
+Agent timing records are stored as separate JSON files in `~/.farmboy/metrics/`, shared by FarmBoy workflows and other projects that use the collection helper. Collection is best-effort and warns without changing the workflow result when timing or storage fails. It measures local wall-clock milliseconds around observed turns, excluding the wait for a human answer. See the [record schema and boundaries](metrics.md).
+
+To consolidate the local records, explicitly invoke `$farmboy-metrics-report` from a FarmBoy maintainer checkout. The skill checks its source and approved spreadsheet dependencies before creating output, then writes a uniquely named workbook under `~/.farmboy/metrics/reports/`. It reports the snapshot counts and workbook location and preserves the source JSON files. Consumer installations include the collector but exclude the maintainer report skill and its `openpyxl` dependency.
+
 ### Roadmap lifecycle during feature work
 
 Specify owns the `planned→specced` transition after current specification-quality and clarification checks, independent review, a current roadmap brief, unique linkage, valid dependencies, and resolution of consequential decisions. It does not require a Complete specification, plan, tasks, implementation, or future acceptance. Implement owns `specced→in-progress` before its first Coder dispatch; current reviewed artifacts, dependency closure, fresh Readiness Checker evidence, eligible authorized scope, and exact required assignments must all be present. Close Out owns `in-progress→implemented` before its first roadmap debrief; it needs attributable completion of the selected scope, current convergence, required validation, independent Code Reviewer evidence, and no buildable unresolved defect. A Complete header or checked tasks alone is insufficient.

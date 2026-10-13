@@ -2,7 +2,7 @@
 title: Controller assessment contract
 type: concept
 sources: [S033]
-updated: 2026-10-11
+updated: 2026-10-12
 ---
 
 # Controller assessment contract

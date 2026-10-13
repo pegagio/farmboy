@@ -2,7 +2,7 @@
 title: Feature 020 qualified verification
 type: decision
 sources: [S018]
-updated: '2026-10-09'
+updated: 2026-10-12
 ---
 
 # Feature 020 qualified verification

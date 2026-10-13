@@ -1,0 +1,63 @@
+[
+  {
+    "page": "wiki/pages/diagram-adapter-boundary.md",
+    "finding_id": "stale-s003-diagram-adapter-boundary",
+    "before_sha256": "f491fc4e7e30f20ab43bc5fa342194eaed7179f403ebbdeda1532d9f38de7463",
+    "after_sha256": "c12d70c33aee03869cd65f40e53da134c98915d460da473c9e1267917ed56183",
+    "source_evidence": {
+      "path": "docs/architecture.md",
+      "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+    },
+    "claim_to_source_proof": [
+      {
+        "claim": "The Diagram is a consumer of Spec Kit Flow, not a runtime prerequisite for the generic bundle. Diagram registration, canonical work, projections, adapter feedback, and future orchestration belong to a separately versioned adapter and its own authority decisions. (S001, S003)",
+        "source_id": "S003",
+        "source_sections": [
+          "Boundary and Adapter Model",
+          "Reviewed Agent Defaults"
+        ],
+        "comparison": "Current architecture retains FarmBoy generic source authority for workflows, approved presets and portable feedback, separate maintainer intake, generic-source exclusions, separate Diagram adapter authority and no Diagram runtime prerequisite. Earlier Spec Kit Flow naming remains explicitly historical under accepted supersession; no new current identity or adoption claim is made."
+      },
+      {
+        "claim": "Generic Spec Kit Flow source excludes Diagram executables, databases, registration commands, canonical-state mutation, and runtime service dependencies. Adapter-specific feedback requires a future authority decision. (S001, S003)",
+        "source_id": "S003",
+        "source_sections": [
+          "Boundary and Adapter Model",
+          "Reviewed Agent Defaults"
+        ],
+        "comparison": "Current architecture retains FarmBoy generic source authority for workflows, approved presets and portable feedback, separate maintainer intake, generic-source exclusions, separate Diagram adapter authority and no Diagram runtime prerequisite. Earlier Spec Kit Flow naming remains explicitly historical under accepted supersession; no new current identity or adoption claim is made."
+      }
+    ],
+    "metadata_only": true,
+    "claims_and_citations_unchanged": true,
+    "revalidated_date": "2026-10-12",
+    "substantive_progress_credit": false,
+    "other_citations": "Unchanged source bodies/citations are not implicated by this source-specific date-order finding."
+  },
+  {
+    "page": "wiki/pages/project-authority-history.md",
+    "finding_id": "stale-s003-project-authority-history",
+    "before_sha256": "2eaf12d84cb040615a022aa953dae73c914f1efb479227406e4f5306872248dd",
+    "after_sha256": "846d8e6ce54ae611f730adaf5503b6e2b714f0643254224897566a7d45ab8407",
+    "source_evidence": {
+      "path": "docs/architecture.md",
+      "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+    },
+    "claim_to_source_proof": [
+      {
+        "claim": "Spec Kit Flow owns generic workflow definitions, approved reusable presets, portable consumer feedback capture and reporting, and maintainer-only feedback intake. Reviewed source packages are the authority for changes; installed copies in a consumer project are not. (S001, S003)",
+        "source_id": "S003",
+        "source_sections": [
+          "Boundary and Adapter Model",
+          "Reviewed Agent Defaults"
+        ],
+        "comparison": "Current architecture retains FarmBoy generic source authority for workflows, approved presets and portable feedback, separate maintainer intake, generic-source exclusions, separate Diagram adapter authority and no Diagram runtime prerequisite. Earlier Spec Kit Flow naming remains explicitly historical under accepted supersession; no new current identity or adoption claim is made."
+      }
+    ],
+    "metadata_only": true,
+    "claims_and_citations_unchanged": true,
+    "revalidated_date": "2026-10-12",
+    "substantive_progress_credit": false,
+    "other_citations": "Unchanged source bodies/citations are not implicated by this source-specific date-order finding."
+  }
+]

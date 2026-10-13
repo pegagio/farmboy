@@ -4,11 +4,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 import time
+import tomllib
 import uuid
 from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Any, Callable
 
 
@@ -97,7 +100,7 @@ def validate_record(record: Any) -> dict[str, Any]:
         raise ValueError("schema-version-unsupported")
     for field in REQUIRED_FIELDS - {"schema_version", "duration_ms"}:
         _validate_projected_string(record[field], field)
-    kind = record["invocation_kind"]
+    kind = _validate_projected_string(record["invocation_kind"], "invocation_kind")
     if kind not in INVOCATION_KINDS:
         raise ValueError("invocation-kind-unsupported")
     if kind == "probe" and record["step_id"] != "preflight":
@@ -188,7 +191,7 @@ def _validate_metadata(metadata: Any) -> dict[str, Any]:
         raise ValueError("invocation-metadata-invalid")
     if set(metadata) - METADATA_FIELDS - OPTIONAL_FIELDS:
         raise ValueError("invocation-metadata-field-unsupported")
-    kind = metadata["invocation_kind"]
+    kind = _validate_projected_string(metadata["invocation_kind"], "invocation_kind")
     if kind not in INVOCATION_KINDS:
         raise ValueError("invocation-kind-unsupported")
     if kind == "probe" and metadata["step_id"] != "preflight":
@@ -202,6 +205,48 @@ def _validate_metadata(metadata: Any) -> dict[str, Any]:
     return projected
 
 
+def read_agent_settings(project_root: Path, agent_name: str) -> dict[str, str | None]:
+    """Read only explicit model settings from the unique project agent TOML name match."""
+    unavailable = {"model": None, "effort": None}
+    if not isinstance(agent_name, str) or not agent_name:
+        return unavailable
+    agents_directory = project_root / ".codex" / "agents"
+    try:
+        if not agents_directory.is_dir():
+            return unavailable
+        files = sorted(agents_directory.glob("*.toml"))
+        matches: list[dict[str, Any]] = []
+        for path in files:
+            if path.is_symlink() or not path.is_file():
+                return unavailable
+            try:
+                with path.open("rb") as stream:
+                    settings = tomllib.load(stream)
+            except (OSError, UnicodeError, tomllib.TOMLDecodeError):
+                # A malformed or unreadable file could contain a competing exact-name entry.
+                return unavailable
+            if isinstance(settings, dict) and settings.get("name") == agent_name:
+                matches.append(settings)
+    except OSError:
+        return unavailable
+    if len(matches) != 1:
+        return unavailable
+
+    settings = matches[0]
+    model = settings.get("model")
+    effort = settings.get("model_reasoning_effort")
+    result: dict[str, str | None] = {}
+    for output_name, value in (("model", model), ("effort", effort)):
+        if isinstance(value, str) and value:
+            try:
+                result[output_name] = _validate_projected_string(value, output_name)
+            except ValueError:
+                result[output_name] = None
+        else:
+            result[output_name] = None
+    return result
+
+
 def begin_invocation(
     metadata: dict[str, Any], *, clock_ms: Callable[[], int] | int | None = None,
 ) -> dict[str, Any]:
@@ -211,8 +256,81 @@ def begin_invocation(
     return {**prepared, "invocation_id": str(uuid.uuid4()), "started_ms": started_ms}
 
 
+def emit_record(record: Any, *, directory: Path | None = None) -> dict[str, Any]:
+    """Publish one complete record without replacing another invocation's file."""
+    try:
+        prepared = validate_record(record)
+        invocation_id = prepared["invocation_id"]
+        try:
+            canonical_id = str(uuid.UUID(invocation_id))
+        except (AttributeError, TypeError, ValueError) as error:
+            raise ValueError("invocation-id-must-be-uuid-for-publication") from error
+        if canonical_id != invocation_id:
+            raise ValueError("invocation-id-must-be-canonical-uuid-for-publication")
+        serialized = json.dumps(prepared, ensure_ascii=False, separators=(",", ":")).encode("utf-8") + b"\n"
+        if len(serialized) > MAX_INPUT_BYTES:
+            raise ValueError("record-exceeds-publication-limit")
+    except (TypeError, ValueError, UnicodeError):
+        return {"emitted": False, "warning_code": "metadata-invalid"}
+
+    try:
+        metrics_directory = Path.home() / ".farmboy" / "metrics" if directory is None else Path(directory)
+        metrics_directory.mkdir(parents=True, exist_ok=True)
+        if metrics_directory.is_symlink() or not metrics_directory.is_dir():
+            return {"emitted": False, "warning_code": "destination-unavailable"}
+        final_path = metrics_directory / f"metric-{canonical_id}.json"
+    except (OSError, RuntimeError, TypeError, ValueError):
+        return {"emitted": False, "warning_code": "destination-unavailable"}
+
+    try:
+        temporary_path = metrics_directory / f".metric-{canonical_id}-{uuid.uuid4()}.tmp"
+    except (OSError, RuntimeError, TypeError, ValueError):
+        return {"emitted": False, "warning_code": "storage-failed"}
+    descriptor: int | None = None
+    temporary_created = False
+    published = False
+    cleanup_failed = False
+    try:
+        descriptor = os.open(temporary_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        temporary_created = True
+        with os.fdopen(descriptor, "wb") as stream:
+            descriptor = None
+            stream.write(serialized)
+            stream.flush()
+        try:
+            os.link(temporary_path, final_path)
+            published = True
+        except FileExistsError:
+            return {"emitted": False, "warning_code": "publication-collision"}
+        except OSError:
+            return {"emitted": False, "warning_code": "storage-failed"}
+    except (OSError, TypeError, ValueError):
+        return {"emitted": False, "warning_code": "storage-failed"}
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except OSError:
+                pass
+        if temporary_created:
+            try:
+                temporary_path.unlink()
+            except FileNotFoundError:
+                pass
+            except OSError:
+                cleanup_failed = True
+
+    if published:
+        result = {"emitted": True}
+        if cleanup_failed:
+            result["warning_code"] = "storage-failed"
+        return result
+    return {"emitted": False, "warning_code": "storage-failed"}
+
+
 def finish_invocation(
     token: dict[str, Any], *, clock_ms: Callable[[], int] | int | None = None,
+    adapter: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Close one observed working turn and return its validated metric record."""
     finished_ms = _read_clock_ms(clock_ms)
@@ -232,7 +350,9 @@ def finish_invocation(
         "finished_at": _format_timestamp(finished_ms),
         "duration_ms": finished_ms - started_ms,
     }
-    return validate_record(record)
+    prepared = validate_record(record)
+    (emit_record if adapter is None else adapter)(prepared)
+    return prepared
 
 
 def _read_json_object(stream: Any) -> dict[str, Any]:
@@ -261,12 +381,24 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     try:
         payload = _read_json_object(sys.stdin)
-        result = begin_invocation(payload) if args.command == "begin" else finish_invocation(payload)
-        sys.stdout.write(json.dumps(result, ensure_ascii=True, separators=(",", ":")) + "\n")
+        if args.command == "begin":
+            result = begin_invocation(payload)
+            sys.stdout.write(json.dumps(result, ensure_ascii=True, separators=(",", ":")) + "\n")
+        else:
+            adapter_result: dict[str, Any] = {"emitted": False, "warning_code": "helper-unavailable"}
+            def publish(record: dict[str, Any]) -> dict[str, Any]:
+                nonlocal adapter_result
+                adapter_result = emit_record(record)
+                return adapter_result
+            finish_invocation(payload, adapter=publish)
+            sys.stdout.write(json.dumps(adapter_result, ensure_ascii=True, separators=(",", ":")) + "\n")
         return 0
-    except (OSError, ValueError) as error:
-        sys.stderr.write(f"metrics: {error}\n")
-        return 2
+    except OSError:
+        sys.stdout.write('{"emitted":false,"warning_code":"clock-unavailable"}\n')
+        return 0
+    except (TypeError, ValueError):
+        sys.stdout.write('{"emitted":false,"warning_code":"metadata-invalid"}\n')
+        return 0
 
 
 if __name__ == "__main__":

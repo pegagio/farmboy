@@ -9,7 +9,7 @@ sources:
 - S025
 - S032
 - S034
-updated: '2026-10-11'
+updated: '2026-10-12'
 ---
 
 # Installation and release lifecycle
@@ -20,7 +20,7 @@ New source and fresh supported installations use FarmBoy names. Managed skills u
 
 Existing install/refresh/remove/agent-management operations preserve their behavior and ownership protections. This cutover supplies no migration, old-name alias, legacy conversion reader, customization transfer or automatic existing-consumer refresh. Actual replacement requires separate operator instructions. [Earlier installation history](./installation-history-before-farmboy.md) preserves preceding guidance. (S032)
 
-The documented unreleased snapshot is bundle 0.18.3, controllers 0.9.1 and Close Out 0.9.2. All 113 existing active prompt nodes bind `inputs.integration`: 111 bindings were newly added across the Clarify fix and mechanical batch, with two Specify bindings predating them. Steps, roles, gates, routes, caps and controller policy remain unchanged. (S032)
+The unreleased snapshot: bundle 0.18.3, controllers 0.9.1 and Close Out 0.9.2. All 113 active prompt nodes bind `inputs.integration`: 111 additions across the Clarify fix and mechanical batch; two Specify bindings predated them. Steps, roles, gates, routes, caps and controller policy remain unchanged. (S032)
 
 Native Specify lifecycle evidence uses a no-op Codex fixture; it proves fixture dispatch, not live FarmBoy agent execution. Linux, publication, stock compatibility, consumer adoption and acceptance remain unproved. (S032)
 
@@ -43,6 +43,8 @@ The direct Codex path validates and probes every delegated branch's exact names 
 Earlier Feature 017 specification described prospective acquisition; the current guide documents delivery operations under [its contract](./flowkit-agent-configuration-and-delivery.md). Install-missing adds absent defaults and preserves existing, old unprefixed and unrelated files. Refresh changes only available defaults; acquiring new copies requires install-missing. Explicit reset selects one exact current name or all manifest entries, replacing or creating those targets. Unknown names, unsafe paths and competing exact identities block delivery. Renamed/retired files remain for manual migration after dependent assignments are inspected. (S025, S005, S034)
 
 Human/JSON reports expose provenance, inputs, outcomes and recovery. Collisions identify portable paths; unsafe identities are redacted. Partial mutation requires inspecting outcomes, resolving the cause and retrying the explicit operation; no bundle rollback is implied. Removal deletes defaults, preserving consumer copies. (S005, S034)
+
+Consumer collector and [maintainer report discovery](./maintainer-metrics-report-discovery.md). (S005)
 
 ## Related pages
 

@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "phase": "implement",
+  "scope_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+  "kind": "routine-invocation",
+  "reference": "direct-operator-T002-T009-T018-correction-run-258906c5-1fdf-483c-9857-838e2334d60a"
+}

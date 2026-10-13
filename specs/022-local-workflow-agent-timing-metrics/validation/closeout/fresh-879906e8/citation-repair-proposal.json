@@ -1,0 +1,19 @@
+{
+  "kind": "unapplied-bounded-citation-repair",
+  "finding_id": "historical-pyyaml-source-attribution",
+  "page": "wiki/pages/installation-history-before-farmboy.md",
+  "before_sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5",
+  "proposed_after_sha256": "2c4327be9b3ed783127ddbe5a34e728382c7595be12dbdf95acc4b04ed1e04f5",
+  "ingestion_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+  "source_id": "S026",
+  "source_sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311",
+  "change": "Add S026 to frontmatter and S025/S026 to the existing Python/history paragraph citation. Preserve every claim and historical qualification.",
+  "diff": "--- wiki/pages/installation-history-before-farmboy.md\n+++ wiki/pages/installation-history-before-farmboy.md\n@@ -7,6 +7,7 @@\n - S005\n - S016\n - S025\n+- S026\n - S032\n updated: 2026-10-12\n ---\n@@ -15,7 +16,7 @@\n \n Catalog tasks install/refresh the bundle, ten active workflows and ten direct Codex skills through a temporary localhost catalog, verifying both. Native bundle installation excludes direct skills; catalog install can initialize empty projects. (S005)\n \n-Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005)\n+Preparation now provides `python:prepare`/`python:check`, an ignored local `.venv` with pinned PyYAML, `mise exec -- python` for ordinary work, and the skill-tools exception. Bundle installation does not prepare packages; a copyable agent-environment guide supports other projects. Earlier `mise install` alone failed on missing PyYAML; an alternate prepared interpreter succeeded. That historical failure remains, separate from current preparation and full catalog/native validation. Release matching and CLI availability remain prerequisites. (S005, S025, S026)\n \n Explicit development snapshots support the initialized source root or initialized temporary consumers; nested targets and other persistent consumers are rejected. They record unreleased provenance without changing release metadata, preserve project-owned artifacts/history, and do not invoke workflows or integrate Git. (S005)\n \n",
+  "applied": false,
+  "required_validation": [
+    "Fresh full wiki lint",
+    "Independent claim/citation/source-coverage assessment",
+    "Final Close Out readiness"
+  ],
+  "not_a_budget_reset": true
+}

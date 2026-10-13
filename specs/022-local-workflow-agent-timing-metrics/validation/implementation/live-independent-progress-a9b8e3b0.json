@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "findings": [],
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    "schema_version": "1.0",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "tasks": {}
+  },
+  "baseline_sha256": "09fe2a95dd79168d29deab3473689a0cb1802e371839eb440b4f1df9a021fefb",
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+      "sha256": "b36555fdbc2c7bf3f80c863e706ba3de29b6d34313c283d0c36347fbf8fa7cf3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-judgement-a9b8e3b0.json",
+      "sha256": "d2cfcc00a026ab3fc4e514b42f42e1533e72b5d0fa4d0ee863bb687bc4c40dc9"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/a9b8e3b0-0843-4485-a40b-debd241b51e4/operator-excel-observations.json",
+      "sha256": "505bf9d8a14c215b74eb397ca7cc90cd034193ecfee2310b94c5f92f2ee603c3"
+    }
+  ],
+  "findings": [],
+  "remaining_ids": [],
+  "resolved_ids": [
+    "task:T022",
+    "task:T023"
+  ],
+  "state": "ready",
+  "substantive_progress": true
+}

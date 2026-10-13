@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import copy
 import hashlib
 import json
 import os
@@ -1257,6 +1258,73 @@ class MetricsRunIdentityTests(unittest.TestCase):
 
     def setUp(self) -> None:
         self.controller = load_module("farmboy_controller_metrics_identity", CONTROLLER_DIR / "controller.py")
+        self.metrics = load_module("farmboy_metrics_failure_isolation", CONTROLLER_DIR / "metrics.py")
+
+    def testEmissionFailurePreservesObservedAgentOutcomeAssignmentAndHumanGate(self) -> None:
+        outcome_evidence = [{
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": hashlib.sha256((ROOT / "specs/022-local-workflow-agent-timing-metrics/tasks.md").read_bytes()).hexdigest(),
+        }]
+        observed_output = {
+            "agent_name": "FarmBoy Reviewer",
+            "outcome": {
+                "state": "needs-human",
+                "reason_code": "operator-review-required",
+                "evidence": outcome_evidence,
+                "remaining_ids": ["operator-review"],
+                "resolved_ids": [],
+                "gate_step_id": "review-gate",
+            },
+            "gate_options": ["approve", "defer"],
+        }
+        original_output = copy.deepcopy(observed_output)
+        emit_record = getattr(self.metrics, "emit_record", None)
+        self.assertTrue(callable(emit_record), "T010 record publication is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            blocked_parent = Path(temporary) / "not-a-directory"
+            blocked_parent.write_text("occupied", encoding="utf-8")
+            warning = emit_record({
+                "schema_version": 1,
+                "invocation_id": str(uuid.uuid4()),
+                "run_id": str(uuid.uuid4()),
+                "step_id": "review-artifacts",
+                "invocation_kind": "execution",
+                "agent_name": "FarmBoy Reviewer",
+                "skill_id": "farmboy-analyze-remediate",
+                "workflow_id": "farmboy-analyze-remediate",
+                "project_label": "farmboy",
+                "started_at": "2026-10-12T18:00:00.000Z",
+                "finished_at": "2026-10-12T18:00:01.000Z",
+                "duration_ms": 1000,
+                "model": None,
+                "effort": None,
+            }, directory=blocked_parent / "metrics")
+
+            self.assertFalse(warning.get("emitted"), warning)
+            self.assertIn(warning.get("warning_code"), {"destination-unavailable", "storage-failed"})
+            self.assertEqual(original_output, observed_output)
+
+        validated_outcome = self.controller.validate_outcome_envelope(
+            observed_output["outcome"], ROOT,
+            loop_body_step_ids={"review-agent", "correct"},
+            human_gate_step_ids={"review-gate"},
+        )
+        self.assertEqual({"action": "needs-human", "gate_step_id": "review-gate"},
+                         self.controller.route_assessment(
+                             validated_outcome,
+                             loop_body_step_ids={"review-agent", "correct"},
+                             human_gate_step_ids={"review-gate"},
+                         ))
+        gate = self.controller.render_template({
+            "id": "review-gate", "type": "gate", "options": ["{{ steps.review-agent.output.gate_options }}"],
+        }, {}, {"review-agent": observed_output})
+        self.assertEqual("approve", self.controller.validate_gate_choice(gate, "1"))
+        branch = self.controller.select_switch_branch({
+            "id": "route-review", "type": "switch",
+            "cases": {"approve": [{"id": "record-approval", "type": "prompt"}],
+                      "defer": [{"id": "preserve-review", "type": "prompt"}]},
+        }, "approve")
+        self.assertEqual(["record-approval"], [step["id"] for step in branch])
 
     def test_inspectCreatesFreshMetricsRunIdWithoutChangingAgentAssignments(self) -> None:
         definition = yaml.safe_load((ROOT / "workflows/farmboy-analyze-remediate/workflow.yml").read_text(encoding="utf-8"))
@@ -1289,6 +1357,32 @@ class MetricsRunIdentityTests(unittest.TestCase):
             [(item["step_id"], item["agent_name"]) for item in first["agent_assignments"]],
         )
         self.assertNotIn("recovery_run_id", first)
+
+    def test_inspectPreservesResolvedInputsAndWorkflowGraphAlongsideMetricsIdentity(self) -> None:
+        definition = yaml.safe_load((ROOT / "workflows/farmboy-analyze-remediate/workflow.yml").read_text(encoding="utf-8"))
+        output = io.StringIO()
+        with patch.object(self.controller, "verify_controller_install", return_value={}), \
+                patch.object(self.controller, "load_installed_definition", return_value=definition), \
+                patch.object(self.controller, "installation_fingerprints", return_value={}), \
+                patch.object(self.controller.subprocess, "run", return_value=type(
+                    "Process", (), {"stdout": "specify 1.0.10.dev0+pegagio.2"}
+                )()), redirect_stdout(output):
+            status = self.controller.main([
+                "inspect", "--project", str(ROOT), "--workflow-id", "farmboy-analyze-remediate",
+                "--specify", "/bin/true", "--expected-version", "1.0.10.dev0+pegagio.2",
+                "--skill-id", "farmboy-analyze-remediate", "--input",
+                "feature_context=specs/022-local-workflow-agent-timing-metrics",
+            ])
+
+        inspected = json.loads(output.getvalue())
+        self.assertEqual(0, status)
+        self.assertEqual(definition["steps"], inspected["steps"])
+        self.assertEqual(
+            {"feature_context": "specs/022-local-workflow-agent-timing-metrics", "integration": "codex"},
+            inspected["resolved_inputs"],
+        )
+        self.assertTrue(inspected["preflight_inputs_valid"])
+        self.assertTrue(uuid.UUID(inspected["metrics_run_id"]))
 
 
 if __name__ == "__main__":

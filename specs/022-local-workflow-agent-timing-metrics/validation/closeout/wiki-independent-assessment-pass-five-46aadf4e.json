@@ -1,0 +1,537 @@
+{
+  "assessment_step_id": "assess-wiki-maintenance",
+  "pass": 5,
+  "outcome_envelope": {
+    "state": "blocked",
+    "reason_code": "wiki-freshness-revalidation-pending-at-pass-limit",
+    "evidence": [
+      {
+        "path": ".specify/memory/constitution.md",
+        "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+      },
+      {
+        "path": ".specify/memory/roadmap.md",
+        "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+      },
+      {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      },
+      {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      },
+      {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      },
+      {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+        "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+        "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+        "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+        "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/wiki-baseline-46aadf4e.json",
+        "sha256": "4c10f46a74558cf0a5e188d60c13fb3a2898b887e76a2499f57ce46a62d5fda3"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/wiki-freshness-pass-5/revalidation.json",
+        "sha256": "d1f8af60a7a8edc67da657c7746404d09f134b0a6850ff39331989f4048623b9"
+      },
+      {
+        "path": "wiki/INDEX.md",
+        "sha256": "543a181019c7e08750caa4bbb9819f65a543db2317c4f1bf05e60a766b769e99"
+      },
+      {
+        "path": "wiki/SOURCES.md",
+        "sha256": "cf9ba6ce95ab06324f4b63d956d3548572e34cc68baa145dc8dd64a8216f62c5"
+      },
+      {
+        "path": "wiki/lint-report.md",
+        "sha256": "46cb677ddb4170dd9bd63b56caa4554cf0da0bd3932bdccfbf8406b19052083f"
+      },
+      {
+        "path": "wiki/pages/bundle-and-workflow-model.md",
+        "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+      },
+      {
+        "path": "wiki/pages/codex-workflow-controllers.md",
+        "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+      },
+      {
+        "path": "wiki/pages/installation-and-release-lifecycle.md",
+        "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+      },
+      {
+        "path": "wiki/pages/installation-history-before-farmboy.md",
+        "sha256": "ca171fd29d57d65b40ea71eba2b10ac37b7a1cd3dd65bb3156f26a2ab983ef4a"
+      },
+      {
+        "path": "wiki/pages/local-agent-timing-metrics.md",
+        "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+      },
+      {
+        "path": "wiki/pages/local-metrics-component-boundary.md",
+        "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+      },
+      {
+        "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+        "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+      },
+      {
+        "path": "wiki/pages/project-authority-and-review-gates.md",
+        "sha256": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f"
+      }
+    ],
+    "remaining_ids": [
+      "stale-s005-installation-history-before-farmboy"
+    ],
+    "resolved_ids": [
+      "installation-collector-report-separation"
+    ],
+    "resume_action": "start-fresh-closeout-for-installation-history-revalidation"
+  },
+  "administrative_cleared_ids": [
+    "stale-s003-diagram-adapter-boundary",
+    "stale-s003-project-authority-history"
+  ],
+  "claim_review": [
+    {
+      "id": "metrics-contract-current-language",
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "section": "Feature scope and approved contract",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "Introduction and related-pages paragraph frame the approved metrics contract only as prospective roadmap intent.",
+      "correction": "Describe the approved collection/report contract with S036 citations, while retaining that specification and roadmap do not alone establish release, adoption or runtime proof.",
+      "resolved": true,
+      "observation": "Approved contract framing and S018/S036 citations remain current; prior correction preserved without claiming runtime, release or adoption.",
+      "page_evidence": {
+        "path": "wiki/pages/local-agent-timing-metrics.md",
+        "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+      },
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      }
+    },
+    {
+      "id": "metrics-correlation-recovery-separation",
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "section": "Workflow identity",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "The grouping key is described without explicitly distinguishing metrics correlation from recovery identity.",
+      "correction": "State that metrics run_id is a separate correlation identity retained across probes/turns/continuations, with no recovery-creation coupling.",
+      "resolved": true,
+      "observation": "Timing and identity now directly cites S033 for correlation existing before durable state and remaining separate from recovery identity. Frontmatter includes S033. Compared current protocol Metrics Turn Boundaries first paragraph, plan Capture and Correlation and adapter Run Context; all require distinct retained metrics UUID, never passed to recovery creation. S036 remains for observed turn semantics. Prior pass-two proof records the missing direct citation; ingestion before digest matches that proof and current bytes contain the specific citation correction.",
+      "page_evidence": {
+        "path": "wiki/pages/local-agent-timing-metrics.md",
+        "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+      },
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      },
+      "prior_review_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/wiki-independent-assessment-pass-two-46aadf4e.json",
+        "sha256": "6be59e682f08e8a0cb51beb8a5f508488079228c08393cb4ac9875f048a1e142"
+      },
+      "prepared_before_sha256": "628f44eec2a3ad9f4e56f0acb3f5116322e86812bb57766689383d593d405a18",
+      "authoritative_correction_source": {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      }
+    },
+    {
+      "id": "metrics-maintainer-use-and-storage",
+      "source": "docs/metrics.md",
+      "section": "Record and boundaries; Storage and reporting",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "No current guide-backed use/storage paragraph identifies independent warning behavior, no-clobber completed publication and missing records as incomplete accounting.",
+      "correction": "Represent current guide-backed collection/report use, completed separate-file publication, warning isolation, source preservation and incomplete historical accounting; split to a cited howto page only if the 600-word cap requires it.",
+      "resolved": true,
+      "observation": "The S037-backed Maintainer use and storage paragraph remains supported by current docs/metrics.md Storage and reporting: no-clobber independent publication, warning isolation, input preservation, visible handling counts and missing-record/incomplete-accounting qualifications.",
+      "page_evidence": {
+        "path": "wiki/pages/local-agent-timing-metrics.md",
+        "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+      },
+      "source_evidence": {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      }
+    },
+    {
+      "id": "controller-metrics-turn-contract",
+      "source": "controllers/farmboy/controller-protocol.md",
+      "section": "Metrics Turn Boundaries",
+      "page": "wiki/pages/codex-workflow-controllers.md",
+      "deficiency": "Prospective metrics metadata section omits the current shared protocol timing boundaries.",
+      "correction": "Replace prospective framing with the current normative protocol: exact metadata/assignment context prepared before begin, finish observed turns, no invented end, question wait excluded, passive settings not dispatch control, failure warnings do not change gates.",
+      "resolved": true,
+      "observation": "Observed staged preimage matches prepared before digest and contains Prospective metrics metadata. Current Metrics turn contract replaces it with three directly S033-cited paragraphs. Compared protocol lines 29-37: retained separate correlation; exact safe assignment/project and passive TOML metadata prepared before timing; begin adjacent native request; token retained through pending polls; observed question/rejection/failure/interruption endings; human wait excluded and new continuation token; no invented unobserved ending; token privacy; warnings preserve dispatch/result/routing/gates; clock finish precedes storage and failed publication is not retried. Page explicitly calls these normative requirements rather than live proof.",
+      "page_evidence": {
+        "path": "wiki/pages/codex-workflow-controllers.md",
+        "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+      },
+      "source_evidence": {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      },
+      "prior_review_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/wiki-independent-assessment-pass-two-46aadf4e.json",
+        "sha256": "6be59e682f08e8a0cb51beb8a5f508488079228c08393cb4ac9875f048a1e142"
+      },
+      "prepared_before_sha256": "939c92ddcc4aa772693e360e121a5e5c04a7ad4b14772faafef9f283f6dc3bc4",
+      "authoritative_correction_source": {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      }
+    },
+    {
+      "id": "installation-collector-report-separation",
+      "source": "docs/installation.md",
+      "section": "Local metrics/report installation guidance",
+      "page": "wiki/pages/installation-and-release-lifecycle.md",
+      "deficiency": "No concise delivery distinction for consumer collection helper versus source-only maintainer reporter and spreadsheet dependency.",
+      "correction": "Add the documented consumer/maintainer separation and explicit source-report preflight/usage boundary, preserving existing ownership and unreleased provenance qualifications.",
+      "resolved": true,
+      "observation": "The lifecycle page adds a direct S005 link to the new reciprocal-linked S005 howto. Its four claim blocks explicitly cover collection-only consumer delivery and reporter/openpyxl exclusion; local source symlink discovery without asserting its existence; shared local JSON and observed wall-clock/human-wait/warning boundaries; explicit maintainer invocation with source/dependency checks, input preservation, unique report and counts. Compared each claim against docs/installation.md Discover the maintainer metrics report skill. Existing source ID/First ingested preserved and index links the new howto. This resolves the prepared substantive gap; registration/date changes alone receive no credit.",
+      "page_evidence": {
+        "path": "wiki/pages/installation-and-release-lifecycle.md",
+        "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+      },
+      "source_evidence": {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      },
+      "safe_correction_source": "docs/installation.md",
+      "discovery_page_evidence": {
+        "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+        "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+      },
+      "prepared_before_sha256": "292b61023c9e73ea29dda8192b59a6bd27d9b1430f1a9cec0cec2d31150d98ad"
+    },
+    {
+      "id": "architecture-metrics-component-boundary",
+      "source": "docs/architecture.md",
+      "section": "Local Agent Timing Metrics",
+      "page": "wiki/pages/bundle-and-workflow-model.md",
+      "deficiency": "Bundle/component summary lacks the guide-backed standard-library collection versus maintainer-only report separation.",
+      "correction": "Add the architecture-backed adapter/collector versus reporter boundary and metrics failure isolation without changing Diagram, package, publication or acceptance authority.",
+      "resolved": true,
+      "observation": "Current bundle now directly links a new S003-cited component page with reciprocal link. Its three claim blocks independently match docs/architecture.md Local Agent Timing Metrics and generic/Diagram boundary; registered S003 identity and First ingested are preserved. All prepared missing collection/report/failure-isolation claims are represented, while prior bundle historical contracts are retained. This is substantive prior-claim resolution, not registration/date credit.",
+      "page_evidence": {
+        "path": "wiki/pages/bundle-and-workflow-model.md",
+        "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+      },
+      "source_evidence": {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      },
+      "safe_correction_source": "docs/architecture.md",
+      "component_page_evidence": {
+        "path": "wiki/pages/local-metrics-component-boundary.md",
+        "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+      },
+      "prepared_before_sha256": "69445706f6f5818ae9613c6ce97fe8c227f74f81a44a21e7e937e21b288fd2de"
+    }
+  ],
+  "source_coverage": [
+    {
+      "source": ".specify/memory/roadmap.md",
+      "disposition": "represented",
+      "reason": "Current bytes and directly cited synthesis independently reread; Current entry 022 and direct S018 timing-page citations cover local shared collection, per-emission files, maintainer-only explicit XLSX, accepted clock skew and preserved workflow authority. Represented scope does not imply implementation/release/adoption. Earlier S018 date revalidation remains historical retained proof; no fresh administrative progress credited here.",
+      "source_evidence": {
+        "path": ".specify/memory/roadmap.md",
+        "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        }
+      ]
+    },
+    {
+      "source": ".specify/memory/constitution.md",
+      "disposition": "represented",
+      "reason": "Current bytes and directly cited synthesis independently reread; Current Constitution 8.0.0 principles II/III/IV/V match the S035 project-authority page: bounded exact named dispatch, main-task consequential gates, generic component ownership, reviewed source, approved dependencies and bounded evidence. Metrics introduce no authority exception or new constitutional knowledge.",
+      "source_evidence": {
+        "path": ".specify/memory/constitution.md",
+        "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/project-authority-and-review-gates.md",
+          "sha256": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "disposition": "represented",
+      "reason": "Current bytes and directly cited synthesis independently reread; Current S036 synthesis covers approved FR-001 through FR-022 turn kinds and boundaries, signed ms, privacy/settings, fixed bounded snapshot, duplicates/conflicts, 13 headers, literal/numeric types and preservation. S033 independently supplies the separate recovery identity rather than claiming that S036 alone defines recovery behavior; contract is not release/adoption proof.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "disposition": "represented",
+      "reason": "Direct Summary, Technical Context, Capture and Correlation, Adapter and Publication, and Consolidation and Workbook comparison confirms separate correlation/recovery, adjacent clocks, passive settings, signed milliseconds, no-clobber and bounded export remain covered by S033/S036/S037. The new direct S003 component page now supplies the previously pending standard-library consumer collector versus maintainer reporter boundary. Low-level writer seams do not require an additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+        "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        },
+        {
+          "path": "wiki/pages/local-metrics-component-boundary.md",
+          "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Current bytes and directly cited synthesis independently reread; Directly compared Completed Payload, Validation and Identity and Compatibility. S036 timing/workbook synthesis covers schema, signed milliseconds, optional passive settings, four turn kinds, literal/numeric export and unique invocation identity. Current direct S033 citation now covers separate recovery identity. Validation examples and private projection mechanics introduce no additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+        "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Current bytes and directly cited synthesis independently reread; Directly compared Begin and Finish, Agent Settings Metadata, Publication, Failure Isolation and Run Context. Current S033 controller synthesis represents adjacent timing, pending/unobserved ends, new turn tokens, metadata before timing, passive settings, separate correlation and unchanged gates. S037 represents no-clobber separate publication, warning isolation and incomplete accounting. Private function signatures/injected fixture seams need no additional durable topic; no API/recovery authority is inferred.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+        "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/codex-workflow-controllers.md",
+          "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Compared Invocation and Environment, Snapshot and Validation, Workbook and Summary Counts: S036/S037 represent bounded fixed snapshot, validation/duplicate/conflict handling, thirteen-column order and types, header-only zero rows, capacity, preservation and visible counts. S005 now represents the previously missing source discovery/preflight and consumer exclusion. Low-level writer seams and count examples add no separate durable topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "disposition": "represented",
+      "reason": "Directly compared Prerequisites, Consumer Delivery, Live Round Trip and Evidence and Limits: timing/privacy/collector delivery are represented by S036/S037 and source-skill discovery/preflight by S005. The dated seven-consumer/23-report-row and operator Excel receipts remain feature-local observations; they establish no general release/adoption or additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+        "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        }
+      ]
+    },
+    {
+      "source": "controllers/farmboy/controller-protocol.md",
+      "disposition": "represented",
+      "reason": "Compared Metrics Turn Boundaries and bounded recovery/wiki procedures with S033-linked controller/timing pages: exact metadata before timing, independent retained correlation, native begin/observed finish, pending timing, excluded human wait, no invented end, passive settings/token privacy, warning isolation and no publication retry remain represented. Administrative source-specific date revalidations earn zero substantive progress.",
+      "source_evidence": {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/codex-workflow-controllers.md",
+          "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+        },
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "docs/metrics.md",
+      "disposition": "represented",
+      "reason": "Current bytes and directly cited synthesis independently reread; Current guide Record and boundaries and Storage and reporting independently match S036 metadata/turn contracts and the new S037 maintainer storage paragraph. The exact prepared gap is fully resolved with direct citations; no guide-only missing durable storage/use claim remains.",
+      "source_evidence": {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "docs/architecture.md",
+      "disposition": "represented",
+      "reason": "Direct current source comparison confirms the new S003 component synthesis represents standard-library controller collection, one completed JSON per turn, no-clobber/no-lock storage, passive settings, warning isolation and maintainer-only fixed-snapshot XLSX. Bundle and component reciprocal links preserve generic and Diagram boundaries; normative architecture is not live/publication/adoption proof.",
+      "source_evidence": {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        },
+        {
+          "path": "wiki/pages/local-metrics-component-boundary.md",
+          "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+        }
+      ]
+    },
+    {
+      "source": "docs/installation.md",
+      "disposition": "represented",
+      "reason": "Directly compared Discover the maintainer metrics report skill with the S005-cited new howto and reciprocal lifecycle link: consumer collection helper, excluded report/openpyxl, checkout-local source discovery symlink, explicit invocation, approved dependency/source preflight, shared record and unique report locations, input preservation and visible counts are represented. Historical ownership, naming cutover and unreleased/live-proof qualifications remain. The separate installation-history date-order warning remains unresolved; substantive content coverage does not imply lint readiness.",
+      "source_evidence": {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-and-release-lifecycle.md",
+          "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+        },
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        }
+      ]
+    },
+    {
+      "source": "skills/farmboy-metrics-report/SKILL.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Directly compared Before exporting and Create the workbook: reviewed source layout/local symlink, explicit maintainer invocation, approved dependency/source check and source-preserving unique snapshot export are represented by the guide-backed S005 howto and S036/S037 contract pages. Exact interpreter, version assertion and command syntax are source-skill procedures, not additional durable wiki knowledge; no separate ingestion or dependency adoption is needed.",
+      "source_evidence": {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        },
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    }
+  ],
+  "facts": {
+    "source_count": 37,
+    "page_count": 36,
+    "bounded_lint_pair_count": 278,
+    "lint_counts": {
+      "index-drift": 0,
+      "links": 0,
+      "orphans": 0,
+      "contradictions": 0,
+      "stale": 1,
+      "citations": 0
+    },
+    "ingestion_source": "docs/installation.md",
+    "source_id": "S005",
+    "first_ingested_preserved": "2026-09-24",
+    "new_substantive_resolved_ids": [
+      "installation-collector-report-separation"
+    ],
+    "metadata_revalidation_substantive_progress_credit": false
+  },
+  "remaining_findings": [
+    {
+      "id": "stale-s005-installation-history-before-farmboy",
+      "page": "wiki/pages/installation-history-before-farmboy.md",
+      "source": "docs/installation.md",
+      "source_id": "S005",
+      "source_last_ingested": "2026-10-12",
+      "page_updated": "2026-10-11",
+      "fact": "Source registry re-ingestion date follows the cited historical page update date. No claim-and-citation revalidation proof for this page is retained in pass five.",
+      "inference": "Date ordering alone does not establish an incorrect historical claim. Full completion nevertheless requires explicit supported revalidation and fresh lint; the current five-pass bound does not authorize that additional correction.",
+      "required_action": "At a newly operator-authorized Close Out boundary, revalidate each cited historical installation claim against current registered sources, preserve before/after and claim/citation proof, adjust freshness only when supported, and run fresh full lint. Preserve completed roadmap/wiki work; no implicit Git or acceptance action."
+    }
+  ],
+  "limitations": [
+    "Content coverage is represented or individually justified for all thirteen curated sources; remaining freshness prevents complete and commit readiness.",
+    "No wiki/source/spec/roadmap or Git index writes occurred in this assessment; only new assessment evidence is authored.",
+    "No sixth correction pass, workflow bootstrap, agent delegation, later phase, implicit authority choice, feature acceptance or Git integration occurred.",
+    "Current roadmap verification does not waive the unfinished wiki gate."
+  ]
+}

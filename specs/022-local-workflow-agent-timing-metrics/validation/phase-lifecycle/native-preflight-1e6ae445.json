@@ -1,0 +1,35 @@
+{
+  "workflow_sha256": "419a55e85f8b6b1c7df2b59c07d2ce3a79e6bf3c73282053a4af131d9f460ca1",
+  "native_probes": [
+    {
+      "agent_type": "FarmBoy Reviewer",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    },
+    {
+      "agent_type": "FarmBoy Readiness Checker",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    },
+    {
+      "agent_type": "FarmBoy Roadmap Agent",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    },
+    {
+      "agent_type": "FarmBoy Coder",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    },
+    {
+      "agent_type": "FarmBoy Code Reviewer",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    },
+    {
+      "agent_type": "FarmBoy Tasker",
+      "native_spawn_succeeded": true,
+      "observed_readiness_result": "FARMBOY_READY"
+    }
+  ]
+}

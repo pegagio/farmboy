@@ -72,12 +72,22 @@ class CatalogReleaseTests(unittest.TestCase):
                 self.assertIn(".specify/farmboy/manifest.yml", names)
                 self.assertIn(".specify/farmboy/controller-protocol.md", names)
                 self.assertIn(".specify/farmboy/scripts/python/controller.py", names)
+                self.assertFalse(any("farmboy-metrics-report" in name or "openpyxl" in name.lower() or "et_xmlfile" in name.lower() for name in names))
                 self.assertEqual(10, sum(name.endswith("/SKILL.md") and name.startswith(".agents/skills/farmboy-") for name in names))
                 self.assertEqual(10, sum(name.endswith("/agents/openai.yaml") and name.startswith(".agents/skills/farmboy-") for name in names))
                 for skill_id, display_name, _ in catalog.CONTROLLER_BINDINGS:
                     metadata = members[f".agents/skills/{skill_id}/agents/openai.yaml"]
                     self.assertIn(f'display_name: "{display_name}"', metadata)
                     self.assertRegex(metadata, r"(?m)^  short_description: \"[^\"]+\"$")
+
+    def test_controllerPackage_deliversMetricsHelperAndExcludesMaintainerReport(self) -> None:
+        files = catalog.controller_package_files()
+        metrics_path = ".specify/farmboy/scripts/python/metrics.py"
+        self.assertIn(metrics_path, files)
+        self.assertEqual(catalog.CONTROLLER_SOURCE / "scripts/python/metrics.py", files[metrics_path])
+        self.assertFalse(any("farmboy-metrics-report" in path for path in files))
+        self.assertFalse(any("openpyxl" in path.lower() or "et_xmlfile" in path.lower() for path in files))
+        self.assertEqual(10, len(catalog.controller_manifest()["controllers"]))
 
     def test_namedAgentAssignments_matchReviewedWorkflowPackage(self) -> None:
         expectations = {

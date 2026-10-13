@@ -7,9 +7,9 @@ Sources are immutable inputs — the wiki never edits them.
 |----|--------|------|----------------|---------------|---------------|
 | S001 | `AGENTS.md` | file | 2026-09-24 | 2026-09-30 | `consumer-feedback-boundary.md`, `diagram-adapter-boundary.md` |
 | S002 | `README.md` | file | 2026-09-24 | 2026-10-11 | `bundle-and-workflow-model.md`, `bundle-model-before-farmboy.md`, `codex-controller-history.md`, `consumer-feedback-boundary.md`, `installation-and-release-lifecycle.md`, `installation-history-before-farmboy.md`, `project-authority-history.md`, `workflow-lifecycle.md` |
-| S003 | `docs/architecture.md` | file | 2026-09-24 | 2026-09-24 | `diagram-adapter-boundary.md`, `project-authority-and-review-gates.md` |
+| S003 | `docs/architecture.md` | file | 2026-09-24 | 2026-10-12 | `bundle-and-workflow-model.md`, `local-metrics-component-boundary.md` |
 | S004 | `docs/feedback.md` | file | 2026-09-24 | 2026-09-24 | `consumer-feedback-boundary.md` |
-| S005 | `docs/installation.md` | file | 2026-09-24 | 2026-10-09 | `installation-and-release-lifecycle.md`, `agent-roles-and-inheritance.md`, `flowkit-agent-configuration-and-delivery.md` |
+| S005 | `docs/installation.md` | file | 2026-09-24 | 2026-10-12 | |
 | S006 | `specs/001-start-eligible-feature/spec.md` | file | 2026-09-24 | 2026-09-24 | `feature-start-contract.md`, `workflow-lifecycle.md` |
 | S007 | `specs/002-clarify-specification/spec.md` | file | 2026-09-24 | 2026-09-24 | `preimplementation-review-gates.md`, `workflow-lifecycle.md` |
 | S008 | `specs/003-plan-implementation/spec.md` | file | 2026-09-24 | 2026-09-24 | `preimplementation-review-gates.md` |
@@ -37,7 +37,9 @@ Sources are immutable inputs — the wiki never edits them.
 | S030 | `controllers/flow-kit/controller-protocol.md` | file | 2026-10-09 | 2026-10-09 | `controller-assessment-contract.md`, `workflow-loop-baselines-and-limits.md`, `workflow-graph-responsibility-boundaries.md`, `feature-start-contract.md`, `feature020-artifact-flow-back-and-convergence.md`, `project-authority-and-review-gates.md` |
 | S031 | `specs/020-flowkit-workflow-iteration-improvements/contracts` | directory | 2026-10-09 | 2026-10-09 | `feature020-workflow-lifecycle.md`, `feature020-artifact-flow-back-and-convergence.md` |
 | S032 | `specs/021-farmboy-project-workflow-naming` | directory | 2026-10-11 | 2026-10-11 | `bundle-model-before-farmboy.md`, `bundle-and-workflow-model.md`, `agent-delivery-before-farmboy.md`, `agent-roles-and-inheritance.md`, `consumer-feedback-boundary.md`, `installation-history-before-farmboy.md`, `installation-and-release-lifecycle.md` |
-| S033 | `controllers/farmboy/controller-protocol.md` | file | 2026-10-11 | 2026-10-11 | `controller-assessment-history.md`, `controller-assessment-contract.md`, `codex-controller-history.md`, `codex-workflow-controllers.md`, `workflow-graph-responsibility-history.md`, `workflow-graph-responsibility-boundaries.md`, `workflow-loop-history.md`, `workflow-loop-baselines-and-limits.md` |
+| S033 | `controllers/farmboy/controller-protocol.md` | file | 2026-10-11 | 2026-10-12 | `local-agent-timing-metrics.md`, `codex-workflow-controllers.md` |
 | S034 | `docs` | directory | 2026-10-11 | 2026-10-11 | `installation-and-release-lifecycle.md`, `diagram-adapter-boundary.md`, `agent-python-environment.md`, `consumer-feedback-boundary.md` |
 | S035 | `.specify/memory` | directory | 2026-10-11 | 2026-10-11 | `project-authority-and-review-gates.md`, `project-authority-history.md`, `bundle-and-workflow-model.md` |
-| S036 | `specs/022-local-workflow-agent-timing-metrics/spec.md` | file | 2026-10-12 | 2026-10-12 | `local-agent-timing-metrics.md`, `codex-workflow-controllers.md` |
+| S036 | `specs/022-local-workflow-agent-timing-metrics/spec.md` | file | 2026-10-12 | 2026-10-12 | `local-agent-timing-metrics.md` |
+| S037 | `docs/metrics.md` | file | 2026-10-12 | 2026-10-12 | `local-agent-timing-metrics.md` |
+| S038 | `specs/017-flowkit-agent-configuration/follow-up.md` | file | 2026-10-12 | 2026-10-12 | `installation-history-before-farmboy.md` |

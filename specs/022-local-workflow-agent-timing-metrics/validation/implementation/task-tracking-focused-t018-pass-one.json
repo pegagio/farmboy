@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "kind": "task-marker-tracking",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "task_id": "T018",
+  "reviewer": "FarmBoy Code Reviewer",
+  "review_evidence": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+    "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+  },
+  "retained_finding_id": "F022-IMPLEMENT-006",
+  "finding_status": "resolved",
+  "tasks_path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+  "tasks_before_sha256": "c3039b736d0d5594a8e797e9e350e76503f589dcb2b2bed297c46be845b6d438",
+  "tasks_after_sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54",
+  "changed_task_ids": [
+    "T018"
+  ],
+  "marker_only": true
+}

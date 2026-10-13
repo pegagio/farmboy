@@ -1,0 +1,62 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T020",
+  "state": "implemented-awaiting-independent-review",
+  "activation": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T020-final-pass-three.json",
+    "sha256": "0ff728937f2b71022486700de76a9612518b3337e606104fe4ce62da62313ea0",
+    "state": "ready"
+  },
+  "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+  "task_tracking_successors": [
+    {
+      "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+      "tasker_assignment": "FarmBoy Tasker",
+      "predecessor_event_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "sha256": "706bb363d041829876660352a75e04dc7c39825b3fad496319f777546e47d6af"
+    },
+    {
+      "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+      "tasker_assignment": "FarmBoy Tasker",
+      "predecessor_event_sha256": "706bb363d041829876660352a75e04dc7c39825b3fad496319f777546e47d6af",
+      "sha256": "ccdc0502cab3c6fd895e963682e5833f0390754895cd130ad701613ec05b4a2a"
+    }
+  ],
+  "claim": "Extended safe direct package and consumer lifecycle coverage to assert the metrics collector is delivered, the maintainer report skill and spreadsheet dependency are excluded, and machine-local metrics plus an unrelated consumer extension survive installation, refresh, and removal.",
+  "changed_paths": [
+    "tests/test_bundle_lifecycle.py",
+    "tests/test_catalog.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T020-final-pass-three.json"
+  ],
+  "current_hashes": {
+    "tests/test_bundle_lifecycle.py": "550fa06037ad5574cf1418b86dadb09a02c840833bd33e516ed627524477d6b6",
+    "tests/test_catalog.py": "cf1391a18dd9d3ecc211f812f92bfe528ed72a51aec75300918bcbfb7e45c4bb"
+  },
+  "checks": [
+    {
+      "command": "mise run python:prepare",
+      "result": "passed",
+      "evidence": "Existing project .venv was ready and unchanged; temporary MISE_CACHE_DIR used after default cache denied access."
+    },
+    {
+      "command": "mise run python:check",
+      "result": "passed",
+      "evidence": "Python 3.11.16 and PyYAML 6.0.3 project environment verified."
+    },
+    {
+      "command": "mise exec -- python focused unittest suite: 2 CatalogReleaseTests + direct controller lifecycle test",
+      "result": "passed",
+      "evidence": "4 tests passed: packaged source archive contents, helper/report exclusion, catalog install/removal preservation, controller install/refresh/removal preservation."
+    },
+    {
+      "command": "skill-tools Python documentation-link and personal-data scan",
+      "result": "passed",
+      "evidence": "All relative Markdown links in three edited docs resolve; no personal name or username/path references found."
+    }
+  ],
+  "questions": [],
+  "blockers": [],
+  "remaining_limits": [
+    "Validation used the direct FarmBoy controller/catalog lifecycle harness; no refresh of this checkout installation was performed."
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "reviewer": "FarmBoy Code Reviewer",
+  "task_id": "T017",
+  "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+  "baseline_sha256": "cebb3e9f5af49554d7ff6bc6c06b512e887bca94fde58a490abfec5d349f23bd",
+  "verdict": "whole-task-substantiated",
+  "confirmed_findings": [],
+  "attributable_delta": [
+    {
+      "path": "skills/farmboy-metrics-report/SKILL.md",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-2/skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+      },
+      "after": {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "skill-creator quick_validate.py skills/farmboy-metrics-report",
+      "result": "Skill is valid!"
+    },
+    {
+      "check": "prescribed skill-tools imports approved dependencies",
+      "openpyxl": "3.1.5",
+      "et_xmlfile_import": "passed"
+    },
+    {
+      "check": "maintainer discovery symlink resolves to reviewed source; script, controller helper and approved requirements present",
+      "result": "passed"
+    },
+    {
+      "check": "source report layout and dependency preflight called independently without export",
+      "result": "passed"
+    }
+  ],
+  "observed_behavior": [
+    "Explicit maintainer checkout invocation only; consumer exclusion stated.",
+    "Layout and approved dependency checks precede output-producing command.",
+    "Both commands use the prescribed skill-tools interpreter.",
+    "Summary instructions match main() portable filename and six aggregate counts plus invalid category counts.",
+    "Missing inputs yield header-only output; inaccessible inputs and capacity/output errors remain visible failures.",
+    "Dependency/layout failure stops; no environment installation or later workflow dispatch authorized."
+  ],
+  "limitations": [
+    "Instruction-only task: no report export or real-home metrics changes performed.",
+    "T016 source exporter and existing proof retained without new retrospective finding or acceptance claim.",
+    "Live native round trip and Excel observations remain T022/T023."
+  ]
+}

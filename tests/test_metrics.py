@@ -3,12 +3,18 @@
 from __future__ import annotations
 
 import copy
+from concurrent.futures import ThreadPoolExecutor
+import errno
+import io
 import json
 import subprocess
 import sys
 import tempfile
+import threading
 import unittest
+import uuid
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).parents[1]
@@ -39,6 +45,10 @@ class MetricRecordContractTests(unittest.TestCase):
             "model": "gpt-6.1-sol",
             "effort": "high",
         }
+
+    @staticmethod
+    def _discard_record(_record: dict[str, object]) -> dict[str, bool]:
+        return {"emitted": True}
 
     def test_validateRecord_returnsFourteenFieldProjectionWithoutTrimming(self) -> None:
         record = copy.deepcopy(self.record)
@@ -259,7 +269,8 @@ class MetricRecordContractTests(unittest.TestCase):
                     "effort": "high",
                 }
                 token = begin_invocation(metadata, clock_ms=1_800_000_000_000 + index * 1000)
-                record = finish_invocation(token, clock_ms=1_800_000_000_250 + index * 1000)
+                record = finish_invocation(token, clock_ms=1_800_000_000_250 + index * 1000,
+                                           adapter=self._discard_record)
                 records.append(record)
         self.assertEqual({"one-workflow"}, {record["run_id"] for record in records})
         self.assertEqual(4, len({record["invocation_id"] for record in records}))
@@ -278,10 +289,10 @@ class MetricRecordContractTests(unittest.TestCase):
             "project_label": "farmboy",
         }
         question_turn = begin_invocation(metadata, clock_ms=1000)
-        question_record = finish_invocation(question_turn, clock_ms=1600)
+        question_record = finish_invocation(question_turn, clock_ms=1600, adapter=self._discard_record)
 
         answer_turn = begin_invocation({**metadata, "invocation_kind": "continuation"}, clock_ms=3_600_000)
-        answer_record = finish_invocation(answer_turn, clock_ms=3_600_300)
+        answer_record = finish_invocation(answer_turn, clock_ms=3_600_300, adapter=self._discard_record)
 
         self.assertEqual(600, question_record["duration_ms"])
         self.assertEqual(300, answer_record["duration_ms"])
@@ -312,7 +323,7 @@ class MetricRecordContractTests(unittest.TestCase):
         for _poll in poll_observations:
             self.assertEqual([10_000], observed_clock_reads)
             self.assertEqual(10_000, token["started_ms"])
-        record = finish_invocation(token, clock_ms=clock)
+        record = finish_invocation(token, clock_ms=clock, adapter=self._discard_record)
         self.assertEqual([10_000, 12_500], observed_clock_reads)
         self.assertEqual(2500, record["duration_ms"])
 
@@ -328,7 +339,7 @@ class MetricRecordContractTests(unittest.TestCase):
         }
         token = begin_invocation(metadata, clock_ms=50)
         # Rejection is the observed end of the request; result prose is not recorded.
-        record = finish_invocation(token, clock_ms=75)
+        record = finish_invocation(token, clock_ms=75, adapter=self._discard_record)
         self.assertEqual(25, record["duration_ms"])
         self.assertNotIn("outcome", record)
         self.assertNotIn("status", record)
@@ -349,6 +360,77 @@ class MetricRecordContractTests(unittest.TestCase):
         self.assertNotIn("finished_at", token)
         self.assertNotIn("duration_ms", token)
 
+    def testBeginRejectsUnhashableInvocationKindsAsBoundedValueErrors(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "review",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Reviewer",
+            "skill_id": "farmboy-converge",
+            "workflow_id": "farmboy-converge",
+            "project_label": "farmboy",
+        }
+        for invalid_kind in ([], {}):
+            with self.subTest(kind=invalid_kind):
+                with self.assertRaisesRegex(ValueError, "invocation_kind"):
+                    begin_invocation({**metadata, "invocation_kind": invalid_kind}, clock_ms=10)
+
+    def testCliRejectsUnhashableInvocationKindsWithoutTracebackOrHostPath(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "review",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Reviewer",
+            "skill_id": "farmboy-converge",
+            "workflow_id": "farmboy-converge",
+            "project_label": "farmboy",
+        }
+        invalid_tokens = (
+            ("begin", {**metadata, "invocation_kind": []}),
+            ("begin", {**metadata, "invocation_kind": {}}),
+            ("finish", {
+                **metadata,
+                "invocation_kind": [],
+                "model": None,
+                "effort": None,
+                "invocation_id": "turn-opaque-id",
+                "started_ms": 1_800_000_000_000,
+            }),
+        )
+        for command, payload in invalid_tokens:
+            with self.subTest(command=command, kind=payload["invocation_kind"]):
+                result = subprocess.run(
+                    [sys.executable, str(CONTROLLER_SCRIPTS / "metrics.py"), command],
+                    input=json.dumps(payload), text=True, capture_output=True,
+                )
+                self.assertEqual(0, result.returncode)
+                self.assertIn('"warning_code":"metadata-invalid"', result.stdout)
+                self.assertNotIn("Traceback", result.stderr)
+                self.assertNotIn(str(ROOT), result.stderr + result.stdout)
+
+    def testBeginAndFinishPropagateUnavailableClockWithoutInventingRecords(self) -> None:
+        metadata = {
+            "run_id": "one-workflow",
+            "step_id": "review",
+            "invocation_kind": "execution",
+            "agent_name": "FarmBoy Reviewer",
+            "skill_id": "farmboy-converge",
+            "workflow_id": "farmboy-converge",
+            "project_label": "farmboy",
+        }
+
+        def unavailable_clock() -> int:
+            raise OSError("clock unavailable")
+
+        with self.assertRaisesRegex(OSError, "clock unavailable"):
+            begin_invocation(metadata, clock_ms=unavailable_clock)
+
+        token = begin_invocation(metadata, clock_ms=10)
+        with self.assertRaisesRegex(OSError, "clock unavailable"):
+            finish_invocation(token, clock_ms=unavailable_clock, adapter=self._discard_record)
+        self.assertNotIn("finished_at", token)
+        self.assertNotIn("duration_ms", token)
+
     def testCliSerializesBeginTokenAndFinishedRecordAsJson(self) -> None:
         metadata = {
             "run_id": "one-workflow",
@@ -365,15 +447,21 @@ class MetricRecordContractTests(unittest.TestCase):
         )
         token = json.loads(begin.stdout)
         self.assertEqual("one-workflow", token["run_id"])
-        finish = subprocess.run(
-            [sys.executable, str(CONTROLLER_SCRIPTS / "metrics.py"), "finish"],
-            input=json.dumps(token), text=True, capture_output=True, check=True,
-        )
-        record = json.loads(finish.stdout)
-        self.assertEqual(14, len(record))
-        self.assertEqual(token["invocation_id"], record["invocation_id"])
-        self.assertEqual(1, record["schema_version"])
-        self.assertEqual(record, validate_record(record))
+        with tempfile.TemporaryDirectory() as temporary:
+            stdout = io.StringIO()
+            stdin = io.TextIOWrapper(io.BytesIO(json.dumps(token).encode("utf-8")))
+            with patch.object(sys, "stdin", stdin), patch.object(sys, "stdout", stdout), \
+                    patch.object(Path, "home", return_value=Path(temporary)):
+                exit_code = metrics.main(["finish"])
+            self.assertEqual(0, exit_code)
+            result = json.loads(stdout.getvalue())
+            self.assertEqual({"emitted": True}, result)
+            metric_path = Path(temporary) / ".farmboy/metrics" / f"metric-{token['invocation_id']}.json"
+            record = parse_record_json(metric_path.read_bytes())
+            self.assertEqual(14, len(record))
+            self.assertEqual(token["invocation_id"], record["invocation_id"])
+            self.assertEqual(1, record["schema_version"])
+            self.assertEqual(record, validate_record(record))
 
     def testReadAgentSettingsMatchesTomlNameAndReturnsOnlyExplicitSettings(self) -> None:
         read_settings = getattr(metrics, "read_agent_settings", None)
@@ -406,6 +494,142 @@ class MetricRecordContractTests(unittest.TestCase):
             (agents / "first.toml").write_text('name = "Ambiguous"\nmodel = "one"\n', encoding="utf-8")
             (agents / "second.toml").write_text('name = "Ambiguous"\nmodel = "two"\n', encoding="utf-8")
             self.assertEqual({"model": None, "effort": None}, read_settings(project, "Ambiguous"))
+
+    def testReadAgentSettingsReturnsNullForUnreadableExactNameFile(self) -> None:
+        read_settings = getattr(metrics, "read_agent_settings", None)
+        self.assertTrue(callable(read_settings), "T007 exact-name TOML reader is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary)
+            agents = project / ".codex/agents"
+            agents.mkdir(parents=True)
+            target = agents / "reviewer.toml"
+            target.write_text('name = "FarmBoy Reviewer"\nmodel = "gpt-6.1-sol"\n', encoding="utf-8")
+            original_open = Path.open
+
+            def open_or_deny(path: Path, *args, **kwargs):
+                if path == target:
+                    raise PermissionError("fixture denies settings access")
+                return original_open(path, *args, **kwargs)
+
+            with patch.object(Path, "open", open_or_deny):
+                self.assertEqual(
+                    {"model": None, "effort": None},
+                    read_settings(project, "FarmBoy Reviewer"),
+                )
+
+    def testReadAgentSettingsNormalizesInvalidOrEmptyExplicitSettingsIndividually(self) -> None:
+        read_settings = getattr(metrics, "read_agent_settings", None)
+        self.assertTrue(callable(read_settings), "T007 exact-name TOML reader is not implemented yet")
+        fixtures = (
+            ('name = "FarmBoy Reviewer"\nmodel = ""\nmodel_reasoning_effort = "high"\n',
+             {"model": None, "effort": "high"}),
+            ('name = "FarmBoy Reviewer"\nmodel = 17\nmodel_reasoning_effort = "high"\n',
+             {"model": None, "effort": "high"}),
+            ('name = "FarmBoy Reviewer"\nmodel = "gpt-6.1-sol"\nmodel_reasoning_effort = []\n',
+             {"model": "gpt-6.1-sol", "effort": None}),
+            ('name = "FarmBoy Reviewer"\nmodel = "gpt-6.1-sol"\nmodel_reasoning_effort = ""\n',
+             {"model": "gpt-6.1-sol", "effort": None}),
+            ('name = "FarmBoy Reviewer"\nmodel = "gpt-6.1-sol"\n',
+             {"model": "gpt-6.1-sol", "effort": None}),
+        )
+        for contents, expected in fixtures:
+            with self.subTest(contents=contents):
+                with tempfile.TemporaryDirectory() as temporary:
+                    project = Path(temporary)
+                    agents = project / ".codex/agents"
+                    agents.mkdir(parents=True)
+                    (agents / "agent.toml").write_text(contents, encoding="utf-8")
+                    self.assertEqual(expected, read_settings(project, "FarmBoy Reviewer"))
+
+    def testEmitRecordPublishesCompleteUniqueFilesDuringConcurrentWrites(self) -> None:
+        emit_record = getattr(metrics, "emit_record", None)
+        self.assertTrue(callable(emit_record), "T010 record publication is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary) / "shared-metrics"
+            records = [
+                ({**self.record, "invocation_id": str(uuid.uuid4()), "agent_name": f"Agent {index}",
+                  "project_label": f"project-{index % 2}"})
+                for index in range(20)
+            ]
+            seen_invalid: list[str] = []
+            finished = threading.Event()
+
+            def observe_completed_files() -> None:
+                while not finished.is_set():
+                    for path in directory.glob("metric-*.json") if directory.exists() else ():
+                        try:
+                            metrics.parse_record_json(path.read_bytes())
+                        except (OSError, ValueError):
+                            seen_invalid.append(path.name)
+
+            observer = threading.Thread(target=observe_completed_files)
+            observer.start()
+            try:
+                with ThreadPoolExecutor(max_workers=12) as pool:
+                    results = list(pool.map(lambda record: emit_record(record, directory=directory), records))
+            finally:
+                finished.set()
+                observer.join(timeout=5)
+
+            self.assertTrue(all(result.get("emitted") is True for result in results), results)
+            files = sorted(directory.glob("metric-*.json"))
+            self.assertEqual(len(records), len(files))
+            self.assertEqual([], seen_invalid)
+            published = [metrics.parse_record_json(path.read_bytes()) for path in files]
+            self.assertEqual({record["invocation_id"] for record in records},
+                             {record["invocation_id"] for record in published})
+            self.assertEqual({"project-0", "project-1"}, {record["project_label"] for record in published})
+
+    def testEmitRecordCollisionAndUnsupportedLinkWarnWithoutReplacingOrLeakingDetails(self) -> None:
+        emit_record = getattr(metrics, "emit_record", None)
+        self.assertTrue(callable(emit_record), "T010 record publication is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary) / "metrics"
+            first = {**self.record, "invocation_id": str(uuid.uuid4())}
+            published = emit_record(first, directory=directory)
+            self.assertTrue(published.get("emitted"), published)
+            destination = directory / f"metric-{first['invocation_id']}.json"
+            original = destination.read_bytes()
+
+            changed = {**first, "agent_name": "Replacement"}
+            collision = emit_record(changed, directory=directory)
+
+            self.assertFalse(collision.get("emitted"), collision)
+            self.assertEqual("publication-collision", collision.get("warning_code"))
+            self.assertEqual(original, destination.read_bytes())
+            self.assertNotIn(temporary, json.dumps(collision))
+
+            unsupported = Path(temporary) / "unsupported"
+            with patch.object(metrics.os, "link", side_effect=OSError(errno.EOPNOTSUPP, "link unavailable")):
+                result = emit_record({**self.record, "invocation_id": str(uuid.uuid4())}, directory=unsupported)
+
+            self.assertFalse(result.get("emitted"), result)
+            self.assertEqual("storage-failed", result.get("warning_code"))
+            self.assertNotIn(temporary, json.dumps(result))
+            self.assertFalse(list(unsupported.glob("metric-*.json")))
+            self.assertFalse(list(unsupported.glob(".metric-*.tmp")))
+
+    def testEmitRecordDestinationFailureReturnsBoundedWarningAndContinues(self) -> None:
+        emit_record = getattr(metrics, "emit_record", None)
+        self.assertTrue(callable(emit_record), "T010 record publication is not implemented yet")
+        with tempfile.TemporaryDirectory() as temporary:
+            blocked_parent = Path(temporary) / "not-a-directory"
+            blocked_parent.write_text("occupied", encoding="utf-8")
+            result = emit_record({**self.record, "invocation_id": str(uuid.uuid4())},
+                                 directory=blocked_parent / "metrics")
+
+            self.assertFalse(result.get("emitted"), result)
+            self.assertIn(result.get("warning_code"), {
+                "destination-unavailable", "storage-failed",
+            })
+            self.assertNotIn(temporary, json.dumps(result))
+
+    def testEmitRecordUnavailableDefaultHomeReturnsBoundedWarning(self) -> None:
+        emit_record = getattr(metrics, "emit_record", None)
+        self.assertTrue(callable(emit_record), "T010 record publication is not implemented yet")
+        with patch.object(Path, "home", side_effect=RuntimeError("home unavailable")):
+            result = emit_record({**self.record, "invocation_id": str(uuid.uuid4())})
+        self.assertEqual({"emitted": False, "warning_code": "destination-unavailable"}, result)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,65 @@
+{
+  "activation_evidence": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T016-final-pass-one.json",
+    "sha256": "2550207bd0c7c5949b1235f41afed90bd9d2051bc0bc18b7a6e5f5f214ff735b"
+  },
+  "checks": [
+    {
+      "command": "~/.codex/venvs/skill-tools/bin/python -m unittest tests.test_metrics_report -v",
+      "coverage": [
+        "default/injected destination behavior",
+        "fixed snapshot and validation consolidation",
+        "13-column workbook and literal cell preservation including CR/LF/CRLF",
+        "header-only export for empty, invalid-only and conflicting-only inputs",
+        "accepted-row capacity failure before output directory creation",
+        "unique names and collision no-clobber behavior",
+        "output and input directory failures without publication",
+        "input preservation and previous report preservation",
+        "dependency and source-layout failure before output creation"
+      ],
+      "failed": 0,
+      "passed": 38,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "reviewed exact report contract and retained F006 baseline inputs",
+      "evidence": [
+        "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "retained eligibility and baseline from controller run"
+      ],
+      "result": "passed"
+    }
+  ],
+  "limits": [
+    "No T017 SKILL.md implementation or maintainer instructions changed.",
+    "No production HOME override or synthetic home files were used.",
+    "No task markers, specifications, plans, roadmap, installation state, dependencies, or Git index were changed.",
+    "Existing CR-preservation writer logic remains present."
+  ],
+  "schema_version": "1.0",
+  "source_postimages": [
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "553a95acf211f23b2e22f67d890b60a31cd4babb0e301c286f6efe337dda40e7"
+    }
+  ],
+  "source_preimages": [
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "a0f156e9cbc12b6023aadb7f00b7d0906bfec850294ca046fa5e413f60009ce0",
+      "state": "present"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "89e953c5ea646f8b324871733b4cf2bd5c8fb6dba518666c84e7807006a2d412",
+      "state": "present"
+    }
+  ],
+  "state": "implemented-awaiting-independent-review",
+  "task_id": "T016"
+}

@@ -1,0 +1,29 @@
+{
+  "accepted_input": {
+    "agent_name": "FarmBoy Reviewer",
+    "duration_ms": 1500,
+    "effort": "high",
+    "finished_at": "2026-10-12T18:00:01.625Z",
+    "invocation_id": "review-carriage-return",
+    "invocation_kind": "execution",
+    "model": "line\rbreak\n\u7d42\ud83d\ude00",
+    "project_label": "farmboy",
+    "run_id": "workflow-metrics-id",
+    "schema_version": 1,
+    "skill_id": "farmboy-analyze-remediate",
+    "started_at": "2026-10-12T18:00:00.125Z",
+    "step_id": "analyze-artifacts",
+    "workflow_id": "farmboy-analyze-remediate"
+  },
+  "cell_type": "s",
+  "dependency_version": "3.1.5",
+  "fact": "The supported input contains legal XML carriage-return text. Writer serializes raw carriage return; XML readback normalizes it to LF, altering the metric string.",
+  "observed_model": "line\nbreak\n\u7d42\ud83d\ude00",
+  "original_model": "line\rbreak\n\u7d42\ud83d\ude00",
+  "sheet_xml": "<worksheet xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\"><sheetPr><outlinePr summaryBelow=\"1\" summaryRight=\"1\" /><pageSetUpPr /></sheetPr><sheetViews><sheetView workbookViewId=\"0\"><selection activeCell=\"A1\" sqref=\"A1\" /></sheetView></sheetViews><sheetFormatPr baseColWidth=\"8\" defaultRowHeight=\"15\" /><sheetData><row r=\"1\"><c r=\"A1\" t=\"inlineStr\"><is><t>invocation_id</t></is></c><c r=\"B1\" t=\"inlineStr\"><is><t>run_id</t></is></c><c r=\"C1\" t=\"inlineStr\"><is><t>project</t></is></c><c r=\"D1\" t=\"inlineStr\"><is><t>skill</t></is></c><c r=\"E1\" t=\"inlineStr\"><is><t>workflow</t></is></c><c r=\"F1\" t=\"inlineStr\"><is><t>step</t></is></c><c r=\"G1\" t=\"inlineStr\"><is><t>invocation_kind</t></is></c><c r=\"H1\" t=\"inlineStr\"><is><t>agent</t></is></c><c r=\"I1\" t=\"inlineStr\"><is><t>model</t></is></c><c r=\"J1\" t=\"inlineStr\"><is><t>effort</t></is></c><c r=\"K1\" t=\"inlineStr\"><is><t>started_at</t></is></c><c r=\"L1\" t=\"inlineStr\"><is><t>finished_at</t></is></c><c r=\"M1\" t=\"inlineStr\"><is><t>duration_ms</t></is></c></row><row r=\"2\"><c r=\"A2\" t=\"inlineStr\"><is><t>review-carriage-return</t></is></c><c r=\"B2\" t=\"inlineStr\"><is><t>workflow-metrics-id</t></is></c><c r=\"C2\" t=\"inlineStr\"><is><t>farmboy</t></is></c><c r=\"D2\" t=\"inlineStr\"><is><t>farmboy-analyze-remediate</t></is></c><c r=\"E2\" t=\"inlineStr\"><is><t>farmboy-analyze-remediate</t></is></c><c r=\"F2\" t=\"inlineStr\"><is><t>analyze-artifacts</t></is></c><c r=\"G2\" t=\"inlineStr\"><is><t>execution</t></is></c><c r=\"H2\" t=\"inlineStr\"><is><t>FarmBoy Reviewer</t></is></c><c r=\"I2\" t=\"inlineStr\"><is><t>line\rbreak\n\u7d42\ud83d\ude00</t></is></c><c r=\"J2\" t=\"inlineStr\"><is><t>high</t></is></c><c r=\"K2\" t=\"inlineStr\"><is><t>2026-10-12T18:00:00.125Z</t></is></c><c r=\"L2\" t=\"inlineStr\"><is><t>2026-10-12T18:00:01.625Z</t></is></c><c r=\"M2\" t=\"n\"><v>1500</v></c></row></sheetData><pageMargins left=\"0.75\" right=\"0.75\" top=\"1\" bottom=\"1\" header=\"0.5\" footer=\"0.5\" /><tableParts count=\"1\"><tablePart xmlns:r=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships\" r:id=\"rId1\" /></tableParts></worksheet>",
+  "source_unchanged": true,
+  "workbook_evidence": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+    "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+  }
+}

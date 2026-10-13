@@ -1,0 +1,77 @@
+{
+  "state": "complete",
+  "source": {
+    "identity": "docs/installation.md",
+    "id": "S005",
+    "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367",
+    "type": "file",
+    "first_ingested": "2026-09-24",
+    "last_ingested": "2026-10-12",
+    "operation": "re-ingested"
+  },
+  "configuration": {
+    "directory": "wiki",
+    "max_pages_per_ingest": 12,
+    "page_max_words": 600,
+    "require_citations": true,
+    "environment_overrides": [],
+    "initialization_required": false
+  },
+  "pages_created": [],
+  "pages_updated": [],
+  "selected_page_digests": {
+    "wiki/pages/installation-and-release-lifecycle.md": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3",
+    "wiki/pages/maintainer-metrics-report-discovery.md": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce",
+    "wiki/pages/installation-history-before-farmboy.md": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5",
+    "wiki/INDEX.md": "543a181019c7e08750caa4bbb9819f65a543db2317c4f1bf05e60a766b769e99",
+    "wiki/SCHEMA.md": "2eb4e0e8d107e91fb7ee459bc706920801541a4a6bed1bf4de0ae685d651356f"
+  },
+  "no_page_change_justification": [
+    {
+      "pages": [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      "source_sections": [
+        "Dogfood this repository / Discover the maintainer metrics report skill",
+        "Refresh or remove the bundle",
+        "Agent configuration and consumer copies"
+      ],
+      "finding": "Collector delivery, maintainer-only report discovery, dependency separation, local JSON records, explicit report invocation, unique workbook outputs and source preservation are already represented with S005 citations. No additional durable claim or replacement is warranted."
+    },
+    {
+      "pages": [
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      "source_sections": [
+        "Prepare the checkout",
+        "Install in another project",
+        "Dogfood this repository"
+      ],
+      "finding": "Catalog and Python preparation claims and development-snapshot constraints agree with current S005. Historical observations and chronology remain qualified; parent already revalidated claim groups and changed freshness metadata. This ingestion adds no historical claim and preserves body and citations."
+    }
+  ],
+  "prior_parent_metadata_revalidation": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+  "changed_paths": [
+    "wiki/sources.md"
+  ],
+  "registry_update": {
+    "first_ingested_preserved": true,
+    "stable_id_preserved": true,
+    "last_ingested_already_current": true,
+    "previous_pages_touched": [
+      "installation-and-release-lifecycle.md",
+      "maintainer-metrics-report-discovery.md"
+    ],
+    "pages_touched_this_ingestion": [],
+    "before_sha256": "cf9ba6ce95ab06324f4b63d956d3548572e34cc68baa145dc8dd64a8216f62c5",
+    "after_sha256": "70613b5d8a7f70c064ab9c4c2f748326192d9b3671b9265f13570c955f15d422"
+  },
+  "conflicts": [],
+  "deferred_items": [],
+  "excluded_entries": [],
+  "gaps": [],
+  "inference": "No durable new knowledge remains in this bounded source refresh. This is source coverage, not substantive progress or project acceptance.",
+  "next_step_recommendation": "speckit.flow-wiki.query installation and maintainer metrics report boundaries",
+  "next_step_invoked": false
+}

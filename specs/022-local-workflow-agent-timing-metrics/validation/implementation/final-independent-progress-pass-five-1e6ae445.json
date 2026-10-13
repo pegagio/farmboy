@@ -1,0 +1,29 @@
+{
+  "baseline": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "findings": [],
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    "schema_version": "1.0",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "tasks": {
+      "T022": {
+        "description": "Exercise the documented live observation path for an exact named agent in FarmBoy and a disposable consumer, then explicitly invoke the maintainer report and record bounded evidence in `specs/022-local-workflow-agent-timing-metrics/quickstart.md` without including transcripts, secrets, personal details, or absolute host paths.",
+        "marker": " "
+      },
+      "T023": {
+        "description": "Open one populated workbook and one header-only workbook in Excel, verify table interoperability, filtering, literal text, and numeric signed-duration calculations, and record the observations in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`.",
+        "marker": " "
+      }
+    }
+  },
+  "baseline_sha256": "b25c3fe0b8c3f11c66689fde8dc1cba537758a50e4f4d35cae23592a5028aa67",
+  "evidence": [],
+  "findings": [],
+  "remaining_ids": [
+    "task:T022",
+    "task:T023"
+  ],
+  "resolved_ids": [],
+  "state": "ready",
+  "substantive_progress": false
+}

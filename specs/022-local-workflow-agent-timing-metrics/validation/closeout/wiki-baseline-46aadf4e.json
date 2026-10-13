@@ -1,0 +1,186 @@
+{
+  "curated_sources": [
+    {
+      "path": ".specify/memory/roadmap.md",
+      "identity": "S018",
+      "type": "file",
+      "relevance": "Unique verified Feature 022 identity, dependencies and bounded verification; other entries incidental only.",
+      "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "identity": "S017",
+      "type": "file",
+      "relevance": "Authority, privacy, local dependency and acceptance constraints.",
+      "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "identity": "S036",
+      "type": "file",
+      "relevance": "Complete approved requirements and collection/report delivery boundary.",
+      "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "type": "file",
+      "relevance": "Approved design and standard-library collector versus maintainer dependency separation.",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "type": "file",
+      "relevance": "Canonical schema, timing and field semantics.",
+      "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "type": "file",
+      "relevance": "Collector API, safe publication and failure behavior.",
+      "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "type": "file",
+      "relevance": "Workbook shape, snapshot/deduplication and literal text contract.",
+      "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "type": "file",
+      "relevance": "Current usage and demonstrated live/manual acceptance qualifications.",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "identity": "S033",
+      "type": "file",
+      "relevance": "Durable agent-facing invocation/continuation timing integration; current controller page source.",
+      "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+    },
+    {
+      "path": "docs/metrics.md",
+      "identity": "docs/metrics.md",
+      "type": "file",
+      "relevance": "Current user-facing collection/report guide.",
+      "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+    },
+    {
+      "path": "docs/architecture.md",
+      "identity": "S003",
+      "type": "file",
+      "relevance": "Registered supporting architecture and adapter/delivery boundaries.",
+      "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+    },
+    {
+      "path": "docs/installation.md",
+      "identity": "S005",
+      "type": "file",
+      "relevance": "Registered supporting installation guide and maintainer-only report discovery.",
+      "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/SKILL.md",
+      "identity": "skills/farmboy-metrics-report/SKILL.md",
+      "type": "file",
+      "relevance": "Durable maintainer leaf skill usage, dependency checks and report authority.",
+      "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+    }
+  ],
+  "gaps": [
+    {
+      "id": "metrics-contract-current-language",
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "section": "Feature scope and approved contract",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "Introduction and related-pages paragraph frame the approved metrics contract only as prospective roadmap intent.",
+      "correction": "Describe the approved collection/report contract with S036 citations, while retaining that specification and roadmap do not alone establish release, adoption or runtime proof."
+    },
+    {
+      "id": "metrics-correlation-recovery-separation",
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "section": "Workflow identity",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "The grouping key is described without explicitly distinguishing metrics correlation from recovery identity.",
+      "correction": "State that metrics run_id is a separate correlation identity retained across probes/turns/continuations, with no recovery-creation coupling."
+    },
+    {
+      "id": "metrics-maintainer-use-and-storage",
+      "source": "docs/metrics.md",
+      "section": "Record and boundaries; Storage and reporting",
+      "page": "wiki/pages/local-agent-timing-metrics.md",
+      "deficiency": "No current guide-backed use/storage paragraph identifies independent warning behavior, no-clobber completed publication and missing records as incomplete accounting.",
+      "correction": "Represent current guide-backed collection/report use, completed separate-file publication, warning isolation, source preservation and incomplete historical accounting; split to a cited howto page only if the 600-word cap requires it."
+    },
+    {
+      "id": "controller-metrics-turn-contract",
+      "source": "controllers/farmboy/controller-protocol.md",
+      "section": "Metrics Turn Boundaries",
+      "page": "wiki/pages/codex-workflow-controllers.md",
+      "deficiency": "Prospective metrics metadata section omits the current shared protocol timing boundaries.",
+      "correction": "Replace prospective framing with the current normative protocol: exact metadata/assignment context prepared before begin, finish observed turns, no invented end, question wait excluded, passive settings not dispatch control, failure warnings do not change gates."
+    },
+    {
+      "id": "installation-collector-report-separation",
+      "source": "docs/installation.md",
+      "section": "Local metrics/report installation guidance",
+      "page": "wiki/pages/installation-and-release-lifecycle.md",
+      "deficiency": "No concise delivery distinction for consumer collection helper versus source-only maintainer reporter and spreadsheet dependency.",
+      "correction": "Add the documented consumer/maintainer separation and explicit source-report preflight/usage boundary, preserving existing ownership and unreleased provenance qualifications."
+    },
+    {
+      "id": "architecture-metrics-component-boundary",
+      "source": "docs/architecture.md",
+      "section": "Local Agent Timing Metrics",
+      "page": "wiki/pages/bundle-and-workflow-model.md",
+      "deficiency": "Bundle/component summary lacks the guide-backed standard-library collection versus maintainer-only report separation.",
+      "correction": "Add the architecture-backed adapter/collector versus reporter boundary and metrics failure isolation without changing Diagram, package, publication or acceptance authority."
+    }
+  ],
+  "wiki_before": {
+    "wiki/lint-report.md": "d9a3f23f1afdbef5632025f03a872a186e8ad05dcf3c45290bf90c9e4802963f",
+    "wiki/sources.md": "fd76c78ae16cc8ae131f17836772e45d6b0a58c76d5ca7bb20bcb5b386785852",
+    "wiki/SCHEMA.md": "2eb4e0e8d107e91fb7ee459bc706920801541a4a6bed1bf4de0ae685d651356f",
+    "wiki/INDEX.md": "18ec049e990b03f49ebf90f1c58a8468dde9f43f433fbf321836528543a76f4b",
+    "wiki/pages/project-authority-and-review-gates.md": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f",
+    "wiki/pages/codex-controller-history.md": "7a4f4114b8acbe64e0db72373838c3e87a018f447816f222c0d64e4ee782ad38",
+    "wiki/pages/agent-delivery-before-farmboy.md": "429743aa6dbe7cdfb956c6fa4b23c881233045d9d61bd97ba08c1b9c3b0d8438",
+    "wiki/pages/agent-python-environment.md": "86eb8b2b0cad90bfd3c4052e7a337ee2cb1699a4f4a7a1d285ab2728730675bd",
+    "wiki/pages/artifact-flow-back-and-convergence.md": "d4a4fa1d30db51059fce3e37df91fcc152bfdbab9950e0445fa3754b686ec4d3",
+    "wiki/pages/local-agent-timing-metrics.md": "24f1c0753ae4545238faed9a8d31403344c92a7dc14dd483212ad334b4d29b25",
+    "wiki/pages/installation-and-release-lifecycle.md": "292b61023c9e73ea29dda8192b59a6bd27d9b1430f1a9cec0cec2d31150d98ad",
+    "wiki/pages/project-authority-history.md": "2eaf12d84cb040615a022aa953dae73c914f1efb479227406e4f5306872248dd",
+    "wiki/pages/consumer-feedback-boundary.md": "07f4e1c42cafe33991cf8bfa1e886bc195f96c885e067c5ea544b85cd842c582",
+    "wiki/pages/bundle-model-before-farmboy.md": "2d51492d2c5772b7f72b75d47fe85bf6fdae3b3c0473415b259dba64cd3cb4d4",
+    "wiki/pages/feature020-artifact-flow-back-and-convergence.md": "5e1d7d7297836b1a22fd43cc621121c32c3d9af8209f90e34ac5a984c481a72a",
+    "wiki/pages/preimplementation-review-gates.md": "08c9952897a9225d21ae64573fdbd3d25c53c5518c9a52b932a838ebb41f50bb",
+    "wiki/pages/workflow-loop-baselines-and-limits.md": "973568bc9914154e79907a48ccae7d41fa5486e8e9b1608abb2d687518ffe539",
+    "wiki/pages/controller-assessment-contract.md": "688ff316c1964e881c8a9324a19dec3c16809360f20116bc23d51e551ceb7336",
+    "wiki/pages/feature020-agent-roles-and-inheritance.md": "74c57779c92592eda9b837022be3e14ec83e68515591be9597c0fe00b02a3650",
+    "wiki/pages/flowkit-agent-configuration-and-delivery.md": "c5578450b9f2ee93a022dbcb4256b0aa45e84695140c86c118c3ca9643a09a20",
+    "wiki/pages/diagram-adapter-boundary.md": "f491fc4e7e30f20ab43bc5fa342194eaed7179f403ebbdeda1532d9f38de7463",
+    "wiki/pages/feature020-verification-qualification.md": "658e7e61ece1576aa6f7e7de0ae03950d76a3f6996367d333c4856550cbfdc50",
+    "wiki/pages/feature020-closeout-and-verification-boundary.md": "ff4f9a35cc288563c38d06be65d3eb8234c96b3abd250c0721e4e17a8dbde234",
+    "wiki/pages/workflow-loop-history.md": "f24f4ca30ce6aeffc93eb38e96d6664c426d8f9b5f3d9010b12d7e87dcda67bf",
+    "wiki/pages/workflow-diagram-conventions.md": "c8a1b81b3b740ea8f5dfe37f9daacda8a0d95a8ec43ff2078b55986645933b5e",
+    "wiki/pages/workflow-graph-responsibility-boundaries.md": "b8faba4a2e718e4ee80d3570fda044b785e508629a3cff4bef61b34be1271a0a",
+    "wiki/pages/agent-roles-and-inheritance.md": "cd6dfd17b408424ac509f37d6f78a10f27b97bfce1a24d2d91e736572ead7172",
+    "wiki/pages/workflow-lifecycle.md": "59d72f46d443e563938b2f0ec0961e17e95b46b8b75b36cd1e2e32ae8a839231",
+    "wiki/pages/workflow-agent-capacity-proposal.md": "c6aebfda054dc91634f688d2d364cb3841105e82a57e14c2ee522604b1fb8508",
+    "wiki/pages/workflow-graph-responsibility-history.md": "a103d1e3445e10524cc13865852771bc1f6851a99bcc2a20a2ad979d04893a40",
+    "wiki/pages/controller-assessment-history.md": "6f69ae224bda9802bc08a3ad1939e347f99ea86e9e10f0b58cb31f7237b2065c",
+    "wiki/pages/codex-workflow-controllers.md": "939c92ddcc4aa772693e360e121a5e5c04a7ad4b14772faafef9f283f6dc3bc4",
+    "wiki/pages/feature-start-contract.md": "57721291fbe07fb471d6f872d9c1b649af0e93a6b5fb57f931cf555e7a90f3fa",
+    "wiki/pages/bundle-and-workflow-model.md": "69445706f6f5818ae9613c6ce97fe8c227f74f81a44a21e7e937e21b288fd2de",
+    "wiki/pages/closeout-and-verification-boundary.md": "702debea8df1f8c82b34aecb91bdbb6a0e56efe55094cbb9e37863819e9b61c6",
+    "wiki/pages/wiki-source-maintenance.md": "b55c7a229d0ae9c05235bef11168a75115a8b291dcc3d2fe72da7d33f0e1044e",
+    "wiki/pages/feature020-workflow-lifecycle.md": "bd6c970a67eeb3b0fcfe04ef4e762fc57f7ec24a95cdb1620de27dfe325bccb6",
+    "wiki/pages/installation-history-before-farmboy.md": "ca171fd29d57d65b40ea71eba2b10ac37b7a1cd3dd65bb3156f26a2ab983ef4a"
+  },
+  "implementation_and_roadmap_mutation_authorized": false
+}

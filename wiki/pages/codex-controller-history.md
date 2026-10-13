@@ -9,7 +9,7 @@ sources:
 - S020
 - S021
 - S024
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Codex workflow controller design history

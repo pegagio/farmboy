@@ -2,7 +2,7 @@
 title: Workflow loop baselines and limits history
 type: reference
 sources: [S022, S030, S033]
-updated: 2026-10-11
+updated: 2026-10-12
 ---
 
 # Workflow loop baselines and limits history

@@ -1,0 +1,107 @@
+{
+  "reviewer": "FarmBoy Code Reviewer",
+  "task_ids": [
+    "T019",
+    "T020"
+  ],
+  "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+  "baseline_sha256": "c0b46c09a48c46ea3fef2e1be01c6c89b43684045e1ef008c3249b0bceeb40ec",
+  "verdict": "whole-tasks-substantiated",
+  "confirmed_findings": [],
+  "attributable_delta": [
+    {
+      "path": "docs/metrics.md",
+      "before": {
+        "state": "absent"
+      },
+      "after": {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      }
+    },
+    {
+      "path": "docs/architecture.md",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/docs/architecture.md",
+        "sha256": "70be98912cbd1edb389b150957a37d96d4f9e208863283a5e1a0ab8e463e3e78"
+      },
+      "after": {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      }
+    },
+    {
+      "path": "docs/installation.md",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/docs/installation.md",
+        "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd"
+      },
+      "after": {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      }
+    },
+    {
+      "path": "tests/test_bundle_lifecycle.py",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/tests/test_bundle_lifecycle.py",
+        "sha256": "502fa2590cafcdc9e0fb6c2ba35d570b7431455cf880dbf818bcb26d95749ac7"
+      },
+      "after": {
+        "path": "tests/test_bundle_lifecycle.py",
+        "sha256": "550fa06037ad5574cf1418b86dadb09a02c840833bd33e516ed627524477d6b6"
+      }
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/tests/test_catalog.py",
+        "sha256": "c2dae818b51699b0ef626a592ea8f575ff3b6a2d97ca4d6f0bc8ec08dffe75ac"
+      },
+      "after": {
+        "path": "tests/test_catalog.py",
+        "sha256": "cf1391a18dd9d3ecc211f812f92bfe528ed72a51aec75300918bcbfb7e45c4bb"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "mise run python:prepare",
+      "result": "existing environment ready; unchanged"
+    },
+    {
+      "command": "mise run python:check",
+      "result": "Python 3.11.16; PyYAML 6.0.3; passed"
+    },
+    {
+      "command": "mise exec -- python -m unittest four focused CatalogReleaseTests and FarmBoyControllerLifecycleTests",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "tests": [
+        "test_controllerPackage_containsSharedRuntimeAndNineCodexSkills",
+        "test_controllerPackage_deliversMetricsHelperAndExcludesMaintainerReport",
+        "test_controllerInstallAndRemoval_preservesConsumerOwnedContentAndRecovery",
+        "test_installRefreshRemovePreservesConsumerSkillsAndRecovery"
+      ]
+    },
+    {
+      "check": "three edited docs relative links and personal-data scan",
+      "result": "passed"
+    }
+  ],
+  "observed_behavior": [
+    "Documentation matches required and nullable fields, timestamp grammar, signed clock arithmetic, per-turn identity, probes/continuations/retries, pending polls and human wait, passive exact-name model/effort, excluded data, warning behavior, concurrent per-file publication and report usage.",
+    "Actual source archive and direct consumer package install/refresh/remove exercise collection helper delivery and report/dependency exclusion.",
+    "Fixture metric file outside the consumer, unrelated extension, consumer skills, recovery files and native agent configuration retain bytes; collector owned files removed.",
+    "Ten reviewed controller bindings remain in the packaged manifest."
+  ],
+  "limitations": [
+    "Direct catalog/controller lifecycle fixtures, not a stock Specify bundle runner or live native dispatch.",
+    "Fixture local metric preservation is observed for a temporary sibling operator-home directory; no real home modified or HOME override used.",
+    "Report summary counts are CLI/skill output; workbook is the simple Metrics table.",
+    "Existing controller boundary wording is retained; no dispatch authority or metrics behavior changes reviewed in this documentation/test pass.",
+    "Live FarmBoy/disposable-consumer turn and human-wait observations remain T022. Real Excel observations remain T023.",
+    "mise preparation emitted unavailable network version-list warnings but used the existing ready environment successfully."
+  ]
+}
