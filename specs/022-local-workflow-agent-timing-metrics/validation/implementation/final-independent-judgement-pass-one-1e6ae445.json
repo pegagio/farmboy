@@ -1,0 +1,68 @@
+{
+  "reviewer": "FarmBoy Code Reviewer",
+  "task_id": "T016",
+  "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+  "baseline_sha256": "964b51892ab1e30c4e5a80e78a2bcbdd157dcbd78560d8b5be566573a1e22070",
+  "verdict": "whole-task-substantiated",
+  "confirmed_findings": [],
+  "attributable_delta": [
+    {
+      "path": "tests/test_metrics_report.py",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-1/tests/test_metrics_report.py",
+        "sha256": "89e953c5ea646f8b324871733b4cf2bd5c8fb6dba518666c84e7807006a2d412"
+      },
+      "after": {
+        "path": "tests/test_metrics_report.py",
+        "sha256": "553a95acf211f23b2e22f67d890b60a31cd4babb0e301c286f6efe337dda40e7"
+      }
+    },
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "before": {
+        "path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-1/skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "sha256": "a0f156e9cbc12b6023aadb7f00b7d0906bfec850294ca046fa5e413f60009ce0"
+      },
+      "after": {
+        "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "skill-tools Python -m unittest tests.test_metrics_report -v",
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "independent_checks": [
+        "default-directory-via-Path-home-injection-header-only",
+        "partial-stage-write-failure-owned-cleanup-input-preservation",
+        "postprocessing-failure-owned-cleanup",
+        "eight-concurrent-unique-closed-valid-CR-preserving-workbooks-no-temporary-files",
+        "concurrent-forced-name-collision-exactly-one-publication",
+        "production-cap-is-one-million"
+      ],
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "observed_behavior": [
+    "default and injected output paths",
+    "empty/all-invalid/all-conflicting header-only A1:M1 table",
+    "exclusive hidden staging and atomic no-clobber hard link",
+    "visible collisions, output-directory and writer failures without successful publication",
+    "stage cleanup and input/prior-output preservation",
+    "fixed snapshot/consolidation counts, capacity guard before output creation",
+    "literal CR/LF/CRLF text and numeric signed durations unchanged"
+  ],
+  "limitations": [
+    "Actual Excel interoperability remains T023; openpyxl readback proves package/cell content only.",
+    "Actual native FarmBoy/consumer agent metrics and human-wait observation remain T022.",
+    "Existing test helper runReportFixture overrides subprocess HOME; unchanged in retained T016 preimage. The inherited 38-test suite was executed before this was noticed. All six independent probes use Path.home injection or explicit temporary directory and do not override HOME.",
+    "Capacity threshold exercised through lower-cap injection and verified production constant, not a million-record XLSX stress export."
+  ]
+}

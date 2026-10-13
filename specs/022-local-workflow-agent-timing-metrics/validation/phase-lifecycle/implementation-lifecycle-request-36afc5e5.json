@@ -1,0 +1,202 @@
+{
+  "action": "prepare",
+  "decision_reference": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-36afc5e5.json",
+  "entry_id": "022",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "milestone_evidence": [
+    {
+      "artifact_digests": {
+        ".specify/farmboy-controllers/runs/36afc5e5-f594-4f6f-b103-d0de602fd897/requested-scope.json": "91fa19bfd330f3096e5c2e58dabe69f1ae78eddc606f4070604738478cd8771b",
+        ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+        ".specify/memory/roadmap.md": "a91cd37b8043e1ba040427acd2bad3a1eff4d5769311f6794521a888610f3f1e",
+        ".specify/workflows/farmboy-implement/workflow.yml": "c5e37ab1d2c959181a3f4adb9d8ad69dd9651fe95879a85877e76adff9f67671",
+        "controllers/farmboy/controller-protocol.md": "d03c6f5c8aff42fdfae085b8de18d237de332fd8ac4b3d78635b66702a11a95b",
+        "controllers/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+        "controllers/farmboy/scripts/python/controller.py": "ad2218bdd39ab58fba986f1b097d0d65c6e35f027a61472f438f3e877deca983",
+        "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+        "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0",
+        "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf",
+        "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721",
+        "specs/022-local-workflow-agent-timing-metrics/data-model.md": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f",
+        "specs/022-local-workflow-agent-timing-metrics/plan.md": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+        "specs/022-local-workflow-agent-timing-metrics/quickstart.md": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681",
+        "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1",
+        "specs/022-local-workflow-agent-timing-metrics/validation/analysis/independent-assessment.json": "c5e8c35173d258eb8c4680ea51326b1fb9dcd1f935f4f68961d7874eeae51350",
+        "specs/022-local-workflow-agent-timing-metrics/validation/analysis/readiness-check.json": "29a561d6168835ee31038d3113c8a74d35a5ebdddf19b4943ae3debf26caad26",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-36afc5e5.json": "203ac7df915f0c9727af4df64f0bc312c0406dda26c10157097bb7768afc2218",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-36afc5e5.json": "4222204deab166e564a95cfc7863606d0ee6ac99d3cfdd97920675e32c83f3c6",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-36afc5e5.json": "0667eece2cc620fef4db9165397b8eb68f60874c7572ea9b036e01085a0bdc29",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-36afc5e5.json": "1259563add91aab5de0241cc6b0bd51d836eb7e42ede694018e8709ca4906321",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-36afc5e5.json": "1259563add91aab5de0241cc6b0bd51d836eb7e42ede694018e8709ca4906321",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-36afc5e5.json": "9858754b609569504cb6a6d62f4b4171b1e4c6da0ab4af159b6c003fc59a779b",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json": "b6b24b7102fcb9e6e438b2338ba91181c3a13b3c94fccf74552f08cbafc2494b",
+        "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-36afc5e5.json": "1f0d587a121baf91b373d7d09fdd0ac286fb710a53fff912e150e00ff4f3f7da",
+        "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+        "tools/catalog.py": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac",
+        "workflows/farmboy-implement/workflow.yml": "c5e37ab1d2c959181a3f4adb9d8ad69dd9651fe95879a85877e76adff9f67671"
+      },
+      "assessments": [
+        {
+          "kind": "independent-review",
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-36afc5e5.json",
+          "sha256": "e2597256e80f3ac6bbdae7fb4aabc2b14c9cd3fd26fc547ce3ac5136be98188b"
+        },
+        {
+          "kind": "readiness",
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-36afc5e5.json",
+          "sha256": "fd83bdea744b732997752a43596935d38d960fd434a8582519cc24879bd5240a"
+        }
+      ],
+      "historical_activity": [],
+      "milestone": "in-progress",
+      "owning_phase": "implement",
+      "pending_future_ids": [],
+      "required_check_ids": [
+        "current-artifacts",
+        "dependencies",
+        "eligible-scope",
+        "native-assignments",
+        "readiness"
+      ],
+      "satisfied_check_ids": [
+        "current-artifacts",
+        "dependencies",
+        "eligible-scope",
+        "native-assignments",
+        "readiness"
+      ],
+      "unresolved_ids": []
+    }
+  ],
+  "mode": "normal",
+  "phase": "implement",
+  "run_id": "36afc5e5-f594-4f6f-b103-d0de602fd897",
+  "schema_version": "1.0",
+  "snapshot": {
+    "current_status": "in-progress",
+    "dependency_states": [
+      {
+        "entry_id": "001",
+        "status": "verified"
+      },
+      {
+        "entry_id": "002",
+        "status": "verified"
+      },
+      {
+        "entry_id": "003",
+        "status": "verified"
+      },
+      {
+        "entry_id": "004",
+        "status": "verified"
+      },
+      {
+        "entry_id": "005",
+        "status": "verified"
+      },
+      {
+        "entry_id": "006",
+        "status": "verified"
+      },
+      {
+        "entry_id": "007",
+        "status": "verified"
+      },
+      {
+        "entry_id": "008",
+        "status": "verified"
+      },
+      {
+        "entry_id": "009",
+        "status": "verified"
+      },
+      {
+        "entry_id": "010",
+        "status": "verified"
+      },
+      {
+        "entry_id": "011",
+        "status": "verified"
+      },
+      {
+        "entry_id": "013",
+        "status": "verified"
+      },
+      {
+        "entry_id": "014",
+        "status": "verified"
+      },
+      {
+        "entry_id": "015",
+        "status": "verified"
+      },
+      {
+        "entry_id": "017",
+        "status": "verified"
+      },
+      {
+        "entry_id": "021",
+        "status": "verified"
+      }
+    ],
+    "entry_id": "022",
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "pending_future_ids": [],
+    "phase": "implement",
+    "run_id": "36afc5e5-f594-4f6f-b103-d0de602fd897",
+    "schema_version": "1.0",
+    "scope_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "source_map": {
+      ".specify/bundle-records.json": "6f3d83d7da262428561dae6209b8062b989290bb9be72f7618f27b67246b4ea5",
+      ".specify/extensions/flow-roadmap/extension.yml": "ea5c3cd34e8191298e5829ecb1167f8a1e8ac141ca10dae397caeff8a5515fd5",
+      ".specify/extensions/flow-roadmap/roadmap-config.yml": "2097cad9362412e809ed64b31ede40ccbb7ecf78f95af36c9427df5cf60bb00d",
+      ".specify/extensions/flow-roadmap/scripts/python/load_config.py": "24d5e6267f5002b7f6bfc5ebe47a6ddfcb636ba910cdca6b58df227c7d68641d",
+      ".specify/extensions/flow-roadmap/scripts/python/review_contract.py": "103692fe668d7a13a0f8313ab0a286deac46daab2b9df985d12c7f293407b263",
+      ".specify/extensions/flow-roadmap/scripts/python/roadmap_write.py": "100d1380222a1b412958818c926c927b9533f1f767ed3d5d0dabe257488a7d84",
+      ".specify/farmboy-controllers/runs/36afc5e5-f594-4f6f-b103-d0de602fd897/requested-scope.json": "91fa19bfd330f3096e5c2e58dabe69f1ae78eddc606f4070604738478cd8771b",
+      ".specify/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+      ".specify/farmboy/scripts/python/milestone_policy.py": "07ac0ac80b99d31137c78c27b9ce3a3714bcd4b456fd926277e9ff755ea4df75",
+      ".specify/farmboy/scripts/python/phase_lifecycle.py": "ba6d962cd3965691194a78cdd3457d88ae798368882eefd4197aa2036dc8a204",
+      ".specify/farmboy/skills-install.json": "ba65f235a8d2eb45d11499a28aa2e654098fb6d2e3e69182338c85ea41a1899c",
+      ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+      ".specify/memory/roadmap.md": "a91cd37b8043e1ba040427acd2bad3a1eff4d5769311f6794521a888610f3f1e",
+      ".specify/workflows/farmboy-implement/workflow.yml": "c5e37ab1d2c959181a3f4adb9d8ad69dd9651fe95879a85877e76adff9f67671",
+      "controllers/farmboy/controller-protocol.md": "d03c6f5c8aff42fdfae085b8de18d237de332fd8ac4b3d78635b66702a11a95b",
+      "controllers/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+      "controllers/farmboy/scripts/python/controller.py": "ad2218bdd39ab58fba986f1b097d0d65c6e35f027a61472f438f3e877deca983",
+      "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+      "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0",
+      "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf",
+      "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721",
+      "specs/022-local-workflow-agent-timing-metrics/data-model.md": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f",
+      "specs/022-local-workflow-agent-timing-metrics/plan.md": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+      "specs/022-local-workflow-agent-timing-metrics/quickstart.md": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681",
+      "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "specs/022-local-workflow-agent-timing-metrics/tasks.md": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1",
+      "specs/022-local-workflow-agent-timing-metrics/validation/analysis/independent-assessment.json": "c5e8c35173d258eb8c4680ea51326b1fb9dcd1f935f4f68961d7874eeae51350",
+      "specs/022-local-workflow-agent-timing-metrics/validation/analysis/readiness-check.json": "29a561d6168835ee31038d3113c8a74d35a5ebdddf19b4943ae3debf26caad26",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-36afc5e5.json": "203ac7df915f0c9727af4df64f0bc312c0406dda26c10157097bb7768afc2218",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-36afc5e5.json": "3966191ea728d2634c5384f8dfdcec5e28eb648d46ba2760524c7f04bf968719",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-36afc5e5.json": "4222204deab166e564a95cfc7863606d0ee6ac99d3cfdd97920675e32c83f3c6",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-36afc5e5.json": "fd83bdea744b732997752a43596935d38d960fd434a8582519cc24879bd5240a",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-36afc5e5.json": "0667eece2cc620fef4db9165397b8eb68f60874c7572ea9b036e01085a0bdc29",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-36afc5e5.json": "1259563add91aab5de0241cc6b0bd51d836eb7e42ede694018e8709ca4906321",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-36afc5e5.json": "1259563add91aab5de0241cc6b0bd51d836eb7e42ede694018e8709ca4906321",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-36afc5e5.json": "9858754b609569504cb6a6d62f4b4171b1e4c6da0ab4af159b6c003fc59a779b",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-36afc5e5.json": "e2597256e80f3ac6bbdae7fb4aabc2b14c9cd3fd26fc547ce3ac5136be98188b",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json": "b6b24b7102fcb9e6e438b2338ba91181c3a13b3c94fccf74552f08cbafc2494b",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-36afc5e5.json": "1f0d587a121baf91b373d7d09fdd0ac286fb710a53fff912e150e00ff4f3f7da",
+      "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+      "tools/catalog.py": "4c17227c9cd61cbe2b1f1d262c86160a02dc13d5851e6e9c7f602ff6727c47ac",
+      "workflows/farmboy-implement/workflow.yml": "c5e37ab1d2c959181a3f4adb9d8ad69dd9651fe95879a85877e76adff9f67671"
+    },
+    "workflow_id": "farmboy-implement",
+    "workflow_version": "0.9.1"
+  },
+  "workflow_id": "farmboy-implement",
+  "workflow_version": "0.9.1"
+}

@@ -1,0 +1,51 @@
+{
+  "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+  "assessment": {
+    "evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+        "sha256": "900dc599597b2abfa1c034c4ad1d73dfbce22e36d7c17d1666dec5f530e08cc5"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+        "sha256": "d985b0fd2aa8dcfc8a58f7d8122d2225ed2cf000d0d5176db323ec6ad57536b1"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+        "sha256": "5165e8edd2c127ebdcad908a7d16d2f0c1676603a353151549e73d2e2c0b1d69"
+      }
+    ],
+    "next_step_id": "implement-tasks",
+    "reason_code": "prior-defects-resolved-with-open-corrections",
+    "remaining_ids": [
+      "task:T008",
+      "task:T012",
+      "task:T010",
+      "task:T011",
+      "task:T013",
+      "task:T014",
+      "task:T015",
+      "task:T016",
+      "task:T017",
+      "task:T019",
+      "task:T020",
+      "task:T021",
+      "task:T022",
+      "task:T023",
+      "finding:F022-IMPLEMENT-003",
+      "finding:F022-IMPLEMENT-007",
+      "finding:F022-IMPLEMENT-008",
+      "finding:F022-IMPLEMENT-009"
+    ],
+    "resolved_ids": [
+      "finding:F022-IMPLEMENT-001",
+      "finding:F022-IMPLEMENT-002",
+      "task:T003",
+      "task:T004",
+      "task:T006",
+      "task:T007"
+    ],
+    "state": "continue"
+  },
+  "retained_previous_assessment_sha256": "344a0778266586eb25d1f69bf995eaa9a129b2dcef633824ea11568e0af632d1"
+}

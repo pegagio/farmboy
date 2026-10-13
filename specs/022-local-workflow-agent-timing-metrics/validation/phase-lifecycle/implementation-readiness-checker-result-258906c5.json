@@ -1,0 +1,464 @@
+{
+  "readiness_review": {
+    "active_feature_pointer": {
+      "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+      "path": ".specify/feature.json",
+      "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+    },
+    "blockers": [],
+    "completed_prerequisite_projections": {
+      "T001": {
+        "no_new_progress_credit": true,
+        "original_independent_review": {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+          "reviewer": "FarmBoy Code Reviewer",
+          "sha256_actual": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11",
+          "sha256_expected": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11",
+          "verdict": "complete",
+          "verdict_preserved": true
+        },
+        "projection_digest_valid": true,
+        "projection_kind": "current-contextual-projection-of-prior-independent-proof",
+        "retained_projection_sha256_actual": "aab155238bca84c6a1e40758c8a901acf1096b99760ec2741301614cf0fd3549",
+        "retained_projection_sha256_expected": "aab155238bca84c6a1e40758c8a901acf1096b99760ec2741301614cf0fd3549"
+      },
+      "T005": {
+        "no_new_progress_credit": true,
+        "original_independent_review": {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-fresh-pass-one.json",
+          "reviewer": "FarmBoy Code Reviewer",
+          "sha256_actual": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2",
+          "sha256_expected": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2",
+          "verdict": "complete",
+          "verdict_preserved": true
+        },
+        "projection_digest_valid": true,
+        "projection_kind": "current-contextual-projection-of-prior-independent-proof",
+        "retained_projection_sha256_actual": "ca6977c1f6a7327a54821e1f9e135c27dc2ade18ca0449c6398d91267e34b9eb",
+        "retained_projection_sha256_expected": "ca6977c1f6a7327a54821e1f9e135c27dc2ade18ca0449c6398d91267e34b9eb"
+      }
+    },
+    "criteria": {
+      "items": [
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-47e9d4dfc013c79d",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-e585d7956e975580",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-b71de5324f46f5b6",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-c2f5d038fa89ff9b",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-eb2e0f2283d30fdf",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-c8a08d8dc681c25a",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-2ab8aa8630393f80",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-01f0d35c8e1f03d0",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-f42465ac15ac472f",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-d2fce53f94d9133f",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-72cf04003563dc5b",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-bc0e8d86d0157c65",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-78dfc22e7af6692b",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-17610984e309c928",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-c030d9738cf9aa15",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        },
+        {
+          "category": "preparation-quality",
+          "due_phase": "preparation",
+          "evidence": [
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+              "sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e"
+            }
+          ],
+          "id": "criterion-811a092875536a02",
+          "marker": "checked",
+          "owner": "quality-owner",
+          "source_path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md",
+          "source_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "status": "satisfied"
+        }
+      ],
+      "owners": [
+        "quality-owner"
+      ],
+      "total": 16,
+      "unique_ids": 16,
+      "valid": 16
+    },
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "independent_review": {
+      "fresh_inputs": [
+        {
+          "actual_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "current": true,
+          "expected_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+          "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md"
+        },
+        {
+          "actual_sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+          "current": true,
+          "expected_sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+          "path": "specs/022-local-workflow-agent-timing-metrics/plan.md"
+        },
+        {
+          "actual_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+          "current": true,
+          "expected_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md"
+        },
+        {
+          "actual_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+          "current": true,
+          "expected_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md"
+        }
+      ],
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json",
+      "reviewed_tasks_sha256": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1",
+      "reviewer": "FarmBoy Reviewer",
+      "sha256_actual": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+      "sha256_expected": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+      "state": "complete",
+      "task_status_delta": {
+        "changed_task_ids": [
+          "T001",
+          "T005"
+        ],
+        "current_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+        "equivalence": "task-status-markers-only",
+        "original_sha256": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1"
+      },
+      "valid": true
+    },
+    "initial_assessment": {
+      "finding_evidence": [
+        {
+          "evidence": [
+            {
+              "actual_sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231",
+              "current": true,
+              "expected_sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231",
+              "path": "controllers/farmboy/scripts/python/metrics.py"
+            },
+            {
+              "actual_sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba",
+              "current": true,
+              "expected_sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba",
+              "path": "tests/test_metrics.py"
+            }
+          ],
+          "finding_id": "F022-IMPLEMENT-004",
+          "task_id": "T002"
+        },
+        {
+          "evidence": [
+            {
+              "actual_sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba",
+              "current": true,
+              "expected_sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba",
+              "path": "tests/test_metrics.py"
+            }
+          ],
+          "finding_id": "F022-IMPLEMENT-005",
+          "task_id": "T009"
+        },
+        {
+          "evidence": [
+            {
+              "actual_sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e",
+              "current": true,
+              "expected_sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e",
+              "path": "tests/test_metrics_report.py"
+            }
+          ],
+          "finding_id": "F022-IMPLEMENT-006",
+          "task_id": "T018"
+        }
+      ],
+      "next_step_id": "implement-tasks",
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-258906c5.json",
+      "retained_before_effects": true,
+      "selected_task_ids": [
+        "T002",
+        "T009",
+        "T018"
+      ],
+      "sha256": "a9dd56926add2ef846c707b37ba1e305d316b42d19d44bab79de0cd70749b7e6",
+      "state": "continue"
+    },
+    "pending_future_ids": [],
+    "pending_future_obligations": [],
+    "resume_action": "No Analyze remediation is indicated by current readiness evidence. After the Implement readiness gate, continue only the explicitly authorized T002/T009/T018 correction scope and preserve the existing in-progress milestone.",
+    "scope": {
+      "request_kind": "explicit-subset",
+      "request_reference": "operator-explicit-T002-T009-T018-correction-20261012",
+      "requested_task_ids": [
+        "T002",
+        "T009",
+        "T018"
+      ],
+      "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+      "selected_task_owners": "No task-level owner fields are present in the task definitions; the scoped Implement workflow assignment governs dispatch.",
+      "task_scope_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+      "task_status": {
+        "T001": "checked",
+        "T002": "unchecked",
+        "T005": "checked",
+        "T009": "unchecked",
+        "T018": "unchecked"
+      }
+    },
+    "source_evidence": [
+      {
+        "actual_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+        "current": true,
+        "expected_sha256": "75f5aca988f4b3537b43759c298745ccbd7d8996cf3c774d13b63490d6a0eb3e",
+        "path": "specs/022-local-workflow-agent-timing-metrics/checklists/requirements.md"
+      },
+      {
+        "actual_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "current": true,
+        "expected_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md"
+      },
+      {
+        "actual_sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+        "current": true,
+        "expected_sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8",
+        "path": "specs/022-local-workflow-agent-timing-metrics/plan.md"
+      },
+      {
+        "actual_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+        "current": true,
+        "expected_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+        "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md"
+      },
+      {
+        "actual_sha256": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+        "current": true,
+        "expected_sha256": "d528ff5af914cb06e4ad832c59c15fcdfe6c61047282932ec76bf7d48ebe3390",
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/readiness-review.json"
+      }
+    ],
+    "state": "ready"
+  }
+}

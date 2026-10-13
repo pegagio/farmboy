@@ -1,0 +1,112 @@
+{
+  "state": "complete",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "workflow_id": "farmboy-converge",
+  "workflow_version": "0.5.1",
+  "workflow_sha256": "b6543f8a0372c20910e1a0e1e49af75ca14664bebef12b4f45ab39a4e8a3cd30",
+  "run_id": "fabb553c-ea17-4caf-ae0e-06970987156b",
+  "metrics_run_id": "d1028da9-dfa8-44c4-84af-5a992ca7e10a",
+  "assessment_iterations": 1,
+  "correction_passes": 0,
+  "findings": [],
+  "remaining_ids": [],
+  "appended_task_ids": [],
+  "tasks_unchanged": true,
+  "source_spec_plan_unchanged": true,
+  "frozen_fingerprints_verified": 81,
+  "validation": {
+    "independent_native_code_review": "complete",
+    "retained_passing_tests": 176,
+    "live_acceptance_evidence": "verified",
+    "excel_observations": "direct-operator-confirmation"
+  },
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/convergence/independent-code-review-pass-one.json",
+      "sha256": "d48646025b5d313d403270e759d338942f7c99d4fca4f6bcece3489a21faf31e"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/metrics.py",
+      "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "ac539b34946b80f3391ff64b2b08d80407722da70ab66f5637b9372db4755303"
+    },
+    {
+      "path": "controllers/farmboy/manifest.yml",
+      "sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "3d3af33c3f08130068b16a73810f0d8f3f78287b5ecec2bdaba6c3753df56a1a"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/SKILL.md",
+      "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+    },
+    {
+      "path": "tests/test_metrics.py",
+      "sha256": "2cd47797d948f29775c3da88e2026c6ab39e04b0fb7e6207ac7c9c4f56f7affd"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "c888f602b5c31990b18aceaa63fa3f3e872cdd4516262684382883c173c8d870"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "99bcefe4488d0af682bc75537911f7278642ede653239435a70441b7e838f295"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "cf1391a18dd9d3ecc211f812f92bfe528ed72a51aec75300918bcbfb7e45c4bb"
+    },
+    {
+      "path": "tests/test_bundle_lifecycle.py",
+      "sha256": "76d967e7f8a0ade6f4f7ce89d0b29a405b2064d5cf349449efd62d56aa902e21"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-T021-final-pass-four.json",
+      "sha256": "1b0ca54d7a4b4be2d8c7f3af0f0069f0a7b5951ee462172234d9ddd7bb8be474"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+      "sha256": "b36555fdbc2c7bf3f80c863e706ba3de29b6d34313c283d0c36347fbf8fa7cf3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-review-a9b8e3b0.json",
+      "sha256": "f0f59820dfb4c419f244088407f12463a8a4ad79adad4b9258df182cfc56c46c"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json",
+      "sha256": "5f730a96c841443a12c47d4e469e9da3f7d66623e0cce0b70a847b428a0f4469"
+    }
+  ],
+  "git": {
+    "index_preserved": true,
+    "HEAD_preserved": true,
+    "commit_created": false
+  },
+  "lifecycle_changed": false,
+  "acceptance_claimed": false
+}

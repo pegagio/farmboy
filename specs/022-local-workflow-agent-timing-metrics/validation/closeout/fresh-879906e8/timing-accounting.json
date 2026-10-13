@@ -1,0 +1,26 @@
+{
+  "metrics_correlation_id": "d50fe73f-7739-46b1-a6e6-c91ac6a5b92d",
+  "recovery_id": "879906e8-7f79-4867-8bda-2504e6a20f98",
+  "finished_emitted_turn_count": 15,
+  "probe_turn_count": 9,
+  "delegated_work_turn_count": 6,
+  "unobserved_or_open_turns": 0,
+  "publication_warnings": [],
+  "invocation_ids": [
+    "0b2d4a83-ef65-4f1f-876a-684ae0788d34",
+    "fe4771b8-676f-4ff8-99b7-1727c5a92c20",
+    "4e4f8c36-4369-4407-8c11-d097b361fbfd",
+    "c82c3069-576e-45e9-9f9d-c6d27659d3e1",
+    "95924786-b3a7-451f-a94e-09cf33037e87",
+    "85f9fe6c-201f-4e0e-b5b4-a42aa0c4fbed",
+    "6e9e6b04-1731-464d-9d96-598b8341fbaf",
+    "1f3a14ce-5c5a-4a8c-a609-9a8a8d39ec52",
+    "432a8277-a39f-49c0-a7a7-bd2e6d9a994d",
+    "86968a84-1dca-4d57-a1d2-21d0b6a6f57f",
+    "e6f294b2-389f-44f6-9341-914def674f80",
+    "d7df0b1c-9191-4878-b9c0-01b4971a9024",
+    "92253812-9243-4150-b13e-5df6780b523a",
+    "11880657-a3a7-4484-ba16-bf84d02a6fb9",
+    "4f8c3943-0c27-4ea1-b47d-1580cb80280b"
+  ]
+}

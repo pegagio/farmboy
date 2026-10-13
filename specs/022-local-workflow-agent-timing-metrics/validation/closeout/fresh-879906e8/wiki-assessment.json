@@ -1,0 +1,571 @@
+{
+  "assessment_step_id": "assess-wiki-maintenance",
+  "invocation_short_id": "879906e8",
+  "pass": 1,
+  "outcome_envelope": {
+    "state": "continue",
+    "reason_code": "historical-source-attribution-gap",
+    "evidence": [
+      {
+        "path": ".specify/memory/constitution.md",
+        "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+      },
+      {
+        "path": ".specify/memory/roadmap.md",
+        "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+      },
+      {
+        "path": "AGENTS.md",
+        "sha256": "74e9ae987b650c59dd58b92e07954aacd4bffa09662affd565af389eed157488"
+      },
+      {
+        "path": "README.md",
+        "sha256": "5dc706773a05a4d03e61d821b27c870869b710a277dd745e3349facfef4df1f1"
+      },
+      {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      },
+      {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      },
+      {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      },
+      {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      {
+        "path": "specs/011-bundle-catalog/spec.md",
+        "sha256": "93a64f42d38b86d3cda0d418b42018c7a47fc577a30898303b4d15a7475eab0b"
+      },
+      {
+        "path": "specs/017-flowkit-agent-configuration/follow-up.md",
+        "sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311"
+      },
+      {
+        "path": "specs/017-flowkit-agent-configuration/spec.md",
+        "sha256": "6aed6631194bb0fc04c11f4b41746c81b9314407c417d2e9d089458c42a83be2"
+      },
+      {
+        "path": "specs/021-farmboy-project-workflow-naming/spec.md",
+        "sha256": "8aed640e39d76f20745f9d60bd9061d50d77ad536b3d442af824161491d50732"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+        "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+        "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+        "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+        "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+        "sha256": "ad920e0e06e77f992ca168e2f57e355738c3a3b7bd7c7bd558449fca0100e31f"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/historical-qualification-check.json",
+        "sha256": "cbabd75f38e07295fc7d2ba532266f4d5238d2b61a461a2b52d698f46227beec"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/ingestion.json",
+        "sha256": "fe775c683cbb0f498996c684d8e3822fcf3387321a289efe248f0910af5db70e"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/installation-history-before.md",
+        "sha256": "ca171fd29d57d65b40ea71eba2b10ac37b7a1cd3dd65bb3156f26a2ab983ef4a"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/lint.json",
+        "sha256": "e2ac9be9932d9e7e2bb74112c02b5b07782010083eebfbf39e763b15c2862512"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-baseline.json",
+        "sha256": "65d1cec0a30ab5ad615db307c1d1751479079e2987225b2c34f557bb21a70746"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-scope.json",
+        "sha256": "6483680897c4ced03c30d418e09c06eae1b838625f43b7eb4093d6d5976e6bed"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/wiki-independent-assessment-pass-five-46aadf4e.json",
+        "sha256": "2a6993ea42f09486cd0b0b8493ca6d4e906547c8538ee19a2d6af312af3d1081"
+      },
+      {
+        "path": "wiki/INDEX.md",
+        "sha256": "543a181019c7e08750caa4bbb9819f65a543db2317c4f1bf05e60a766b769e99"
+      },
+      {
+        "path": "wiki/SCHEMA.md",
+        "sha256": "2eb4e0e8d107e91fb7ee459bc706920801541a4a6bed1bf4de0ae685d651356f"
+      },
+      {
+        "path": "wiki/lint-report.md",
+        "sha256": "977cb2f2db9ad1cd5cd1ac7d3c0641efc7b954716ca7ebf76ccedf50485cf161"
+      },
+      {
+        "path": "wiki/pages/bundle-and-workflow-model.md",
+        "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+      },
+      {
+        "path": "wiki/pages/codex-workflow-controllers.md",
+        "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+      },
+      {
+        "path": "wiki/pages/installation-and-release-lifecycle.md",
+        "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+      },
+      {
+        "path": "wiki/pages/installation-history-before-farmboy.md",
+        "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+      },
+      {
+        "path": "wiki/pages/local-agent-timing-metrics.md",
+        "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+      },
+      {
+        "path": "wiki/pages/local-metrics-component-boundary.md",
+        "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+      },
+      {
+        "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+        "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+      },
+      {
+        "path": "wiki/pages/project-authority-and-review-gates.md",
+        "sha256": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f"
+      },
+      {
+        "path": "wiki/sources.md",
+        "sha256": "70613b5d8a7f70c064ab9c4c2f748326192d9b3671b9265f13570c955f15d422"
+      }
+    ],
+    "remaining_ids": [
+      "historical-pyyaml-source-attribution"
+    ],
+    "resolved_ids": [],
+    "next_step_id": "prepare-wiki-refresh"
+  },
+  "administrative_cleared_ids": [
+    "stale-s005-installation-history-before-farmboy"
+  ],
+  "resolved_substantive_count": 0,
+  "source_coverage": [
+    {
+      "source": ".specify/memory/roadmap.md",
+      "disposition": "represented",
+      "reason": "Current entry 022 and direct S018 timing-page citations cover local shared collection, per-emission files, maintainer-only explicit XLSX, accepted clock skew and preserved workflow authority. Represented scope does not imply implementation/release/adoption. Earlier S018 date revalidation remains historical retained proof; no fresh administrative progress credited here.",
+      "source_evidence": {
+        "path": ".specify/memory/roadmap.md",
+        "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        }
+      ]
+    },
+    {
+      "source": ".specify/memory/constitution.md",
+      "disposition": "represented",
+      "reason": "Current Constitution 8.0.0 principles II/III/IV/V match the S035 project-authority page: bounded exact named dispatch, main-task consequential gates, generic component ownership, reviewed source, approved dependencies and bounded evidence. Metrics introduce no authority exception or new constitutional knowledge.",
+      "source_evidence": {
+        "path": ".specify/memory/constitution.md",
+        "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/project-authority-and-review-gates.md",
+          "sha256": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "disposition": "represented",
+      "reason": "Current S036 synthesis covers approved FR-001 through FR-022 turn kinds and boundaries, signed ms, privacy/settings, fixed bounded snapshot, duplicates/conflicts, 13 headers, literal/numeric types and preservation. S033 independently supplies the separate recovery identity rather than claiming that S036 alone defines recovery behavior; contract is not release/adoption proof.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "disposition": "represented",
+      "reason": "Direct Summary, Technical Context, Capture and Correlation, Adapter and Publication, and Consolidation and Workbook comparison confirms separate correlation/recovery, adjacent clocks, passive settings, signed milliseconds, no-clobber and bounded export remain covered by S033/S036/S037. The new direct S003 component page now supplies the previously pending standard-library consumer collector versus maintainer reporter boundary. Low-level writer seams do not require an additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+        "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        },
+        {
+          "path": "wiki/pages/local-metrics-component-boundary.md",
+          "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Directly compared Completed Payload, Validation and Identity and Compatibility. S036 timing/workbook synthesis covers schema, signed milliseconds, optional passive settings, four turn kinds, literal/numeric export and unique invocation identity. Current direct S033 citation now covers separate recovery identity. Validation examples and private projection mechanics introduce no additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+        "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Directly compared Begin and Finish, Agent Settings Metadata, Publication, Failure Isolation and Run Context. Current S033 controller synthesis represents adjacent timing, pending/unobserved ends, new turn tokens, metadata before timing, passive settings, separate correlation and unchanged gates. S037 represents no-clobber separate publication, warning isolation and incomplete accounting. Private function signatures/injected fixture seams need no additional durable topic; no API/recovery authority is inferred.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+        "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/codex-workflow-controllers.md",
+          "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Compared Invocation and Environment, Snapshot and Validation, Workbook and Summary Counts: S036/S037 represent bounded fixed snapshot, validation/duplicate/conflict handling, thirteen-column order and types, header-only zero rows, capacity, preservation and visible counts. S005 now represents the previously missing source discovery/preflight and consumer exclusion. Low-level writer seams and count examples add no separate durable topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "disposition": "represented",
+      "reason": "Directly compared Prerequisites, Consumer Delivery, Live Round Trip and Evidence and Limits: timing/privacy/collector delivery are represented by S036/S037 and source-skill discovery/preflight by S005. The dated seven-consumer/23-report-row and operator Excel receipts remain feature-local observations; they establish no general release/adoption or additional durable wiki topic.",
+      "source_evidence": {
+        "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+        "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        },
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        }
+      ]
+    },
+    {
+      "source": "controllers/farmboy/controller-protocol.md",
+      "disposition": "represented",
+      "reason": "Compared Metrics Turn Boundaries and bounded recovery/wiki procedures with S033-linked controller/timing pages: exact metadata before timing, independent retained correlation, native begin/observed finish, pending timing, excluded human wait, no invented end, passive settings/token privacy, warning isolation and no publication retry remain represented. Administrative source-specific date revalidations earn zero substantive progress.",
+      "source_evidence": {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/codex-workflow-controllers.md",
+          "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+        },
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "docs/metrics.md",
+      "disposition": "represented",
+      "reason": "Current guide Record and boundaries and Storage and reporting independently match S036 metadata/turn contracts and the new S037 maintainer storage paragraph. The exact prepared gap is fully resolved with direct citations; no guide-only missing durable storage/use claim remains.",
+      "source_evidence": {
+        "path": "docs/metrics.md",
+        "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "docs/architecture.md",
+      "disposition": "represented",
+      "reason": "Direct current source comparison confirms the new S003 component synthesis represents standard-library controller collection, one completed JSON per turn, no-clobber/no-lock storage, passive settings, warning isolation and maintainer-only fixed-snapshot XLSX. Bundle and component reciprocal links preserve generic and Diagram boundaries; normative architecture is not live/publication/adoption proof.",
+      "source_evidence": {
+        "path": "docs/architecture.md",
+        "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        },
+        {
+          "path": "wiki/pages/local-metrics-component-boundary.md",
+          "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+        }
+      ]
+    },
+    {
+      "source": "docs/installation.md",
+      "disposition": "represented-with-attribution-gap",
+      "reason": "Current S005 directly supports catalog/direct-skill delivery, prepared local Python, snapshot bounds and maintainer discovery/report exclusion represented in the cited lifecycle/discovery pages. The current historical-page paragraph adds a failure/retry observation attributed solely to S005 that is absent from current S005. Factual support is available in frozen S025/S026, but inline attribution remains incorrect; source registration and an external assessment do not repair the page citation.",
+      "source_evidence": {
+        "path": "docs/installation.md",
+        "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-and-release-lifecycle.md",
+          "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+        },
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        },
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        }
+      ],
+      "remaining_ids": [
+        "historical-pyyaml-source-attribution"
+      ]
+    },
+    {
+      "source": "skills/farmboy-metrics-report/SKILL.md",
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Directly compared Before exporting and Create the workbook: reviewed source layout/local symlink, explicit maintainer invocation, approved dependency/source check and source-preserving unique snapshot export are represented by the guide-backed S005 howto and S036/S037 contract pages. Exact interpreter, version assertion and command syntax are source-skill procedures, not additional durable wiki knowledge; no separate ingestion or dependency adoption is needed.",
+      "source_evidence": {
+        "path": "skills/farmboy-metrics-report/SKILL.md",
+        "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+      },
+      "page_evidence": [
+        {
+          "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+          "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+        },
+        {
+          "path": "wiki/pages/local-agent-timing-metrics.md",
+          "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+        }
+      ]
+    },
+    {
+      "source": "AGENTS.md",
+      "source_evidence": {
+        "path": "AGENTS.md",
+        "sha256": "74e9ae987b650c59dd58b92e07954aacd4bffa09662affd565af389eed157488"
+      },
+      "disposition": "represented",
+      "reason": "Installation guide/release metadata are the installation authority. Current historical-page S001 citation preserves that assignment without adding authority.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        }
+      ]
+    },
+    {
+      "source": "README.md",
+      "source_evidence": {
+        "path": "README.md",
+        "sha256": "5dc706773a05a4d03e61d821b27c870869b710a277dd745e3349facfef4df1f1"
+      },
+      "disposition": "represented",
+      "reason": "Explicit initialized-root/temporary-consumer permission appears in Installation and is represented with S002. The older narrow temporary-only sentence remains chronologically qualified; no new authority or silent source normalization is needed.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        }
+      ]
+    },
+    {
+      "source": "specs/011-bundle-catalog/spec.md",
+      "source_evidence": {
+        "path": "specs/011-bundle-catalog/spec.md",
+        "sha256": "93a64f42d38b86d3cda0d418b42018c7a47fc577a30898303b4d15a7475eab0b"
+      },
+      "disposition": "justified-no-durable-new-knowledge",
+      "reason": "Historical pinned catalog, checksums, preservation and bounded validation remain in S016-cited lifecycle/bundle pages. The historical-page frontmatter alone is not coverage; its selected old contract introduces no new claim needed for the metadata revalidation.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-and-release-lifecycle.md",
+          "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+        },
+        {
+          "path": "wiki/pages/bundle-and-workflow-model.md",
+          "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+        }
+      ]
+    },
+    {
+      "source": "specs/017-flowkit-agent-configuration/spec.md",
+      "source_evidence": {
+        "path": "specs/017-flowkit-agent-configuration/spec.md",
+        "sha256": "6aed6631194bb0fc04c11f4b41746c81b9314407c417d2e9d089458c42a83be2"
+      },
+      "disposition": "represented-with-attribution-gap",
+      "reason": "S025 current historical lines170\u2013174 explicitly retain the advertised mise-path missing-PyYAML failure and qualified alternate-environment success; ordinary delivery is represented in lifecycle. The selected historical-page failure clause lacks the direct S025/S026 citation, although S025 is already frontmatter. No unsupported current failure is inferred.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        },
+        {
+          "path": "wiki/pages/installation-and-release-lifecycle.md",
+          "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+        }
+      ]
+    },
+    {
+      "source": "specs/021-farmboy-project-workflow-naming/spec.md",
+      "source_evidence": {
+        "path": "specs/021-farmboy-project-workflow-naming/spec.md",
+        "sha256": "8aed640e39d76f20745f9d60bd9061d50d77ad536b3d442af824161491d50732"
+      },
+      "disposition": "represented",
+      "reason": "Pure naming cutover and preserved historical provenance are directly represented with S032 and current lifecycle links. FR-014 preserves historical identity meaning; no migration/release/adoption claim is added.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        },
+        {
+          "path": "wiki/pages/installation-and-release-lifecycle.md",
+          "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+        }
+      ]
+    },
+    {
+      "source": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "source_evidence": {
+        "path": "specs/017-flowkit-agent-configuration/follow-up.md",
+        "sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311"
+      },
+      "disposition": "missing-claim-attribution",
+      "reason": "Frozen S026 follow-up DEP017-01 Observed gap lines9\u201311 directly supports the historical missing-yaml/alternate-prepared-interpreter clauses. Additive historical-qualification-check.json establishes factual support but page line18 cites only S005 and its frontmatter lacks S026. Re-ingest this already-authorized source to correct citation only while preserving the historical claim and all qualifications.",
+      "page_evidence": [
+        {
+          "path": "wiki/pages/installation-history-before-farmboy.md",
+          "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+        }
+      ]
+    }
+  ],
+  "claim_review": [
+    {
+      "id": "historical-pyyaml-source-attribution",
+      "severity": "material",
+      "page": "wiki/pages/installation-history-before-farmboy.md",
+      "line": 18,
+      "claim": "Earlier mise install alone failed on missing PyYAML; an alternate prepared interpreter succeeded.",
+      "fact": "The current paragraph attributes all clauses only to S005. Current docs/installation.md supplies current preparation guidance but contains no historical failed command or alternate-environment observation. The recorded failure is directly supported by S025 spec.md lines170\u2013174 and S026 follow-up.md lines9\u201311. S026 is registered and frozen but absent from page inline citations/frontmatter.",
+      "requirement": {
+        "path": "wiki/SCHEMA.md",
+        "rule": "Every synthesized claim cites a source ID from sources.md."
+      },
+      "correction_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "correction": "Within the existing ingestion path, cite S025/S026 for the historical clauses (split or add citations without changing their historical meaning); include S026 in page frontmatter if cited. Preserve S005 attribution for current preparation, exact prior failure/success qualification, current setup distinctions and chronology. Refresh full lint and independently reassess current source/page coverage.",
+      "inference": "The historical observation is supported; this finding concerns wiki claim-to-source attribution, not a contradictory fact or a new feature requirement."
+    }
+  ],
+  "facts": {
+    "frozen_sources": 19,
+    "frozen_source_digests_current": true,
+    "current_lint_evidence_refs_checked": 73,
+    "evidence_digest_mismatches": [],
+    "ingestion_complete": true,
+    "latest_full_lint_findings": 0,
+    "latest_lint_sha256": "977cb2f2db9ad1cd5cd1ac7d3c0641efc7b954716ca7ebf76ccedf50485cf161",
+    "metadata_only_before_after_proven": true,
+    "six_prepared_claim_groups_revalidated": "Current catalog, prepared Python, snapshot, README chronology, refreshed README and naming claims match selected sources. Current S005 does not itself substantiate the retained failure/retry clause; supplemental S025/S026 supports that history but leaves page attribution unresolved.",
+    "prior_six_substantive_metrics_gaps": "Retained as previously resolved; current source/page bytes match retained reviewed scope. No new resolution credit claimed.",
+    "freshness_warning_status": "Cleared administratively after source comparison and metadata-only update; not substantive progress."
+  },
+  "remaining_findings": [
+    {
+      "id": "historical-pyyaml-source-attribution",
+      "severity": "material",
+      "page": "wiki/pages/installation-history-before-farmboy.md",
+      "line": 18,
+      "claim": "Earlier mise install alone failed on missing PyYAML; an alternate prepared interpreter succeeded.",
+      "fact": "The current paragraph attributes all clauses only to S005. Current docs/installation.md supplies current preparation guidance but contains no historical failed command or alternate-environment observation. The recorded failure is directly supported by S025 spec.md lines170\u2013174 and S026 follow-up.md lines9\u201311. S026 is registered and frozen but absent from page inline citations/frontmatter.",
+      "requirement": {
+        "path": "wiki/SCHEMA.md",
+        "rule": "Every synthesized claim cites a source ID from sources.md."
+      },
+      "correction_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "correction": "Within the existing ingestion path, cite S025/S026 for the historical clauses (split or add citations without changing their historical meaning); include S026 in page frontmatter if cited. Preserve S005 attribution for current preparation, exact prior failure/success qualification, current setup distinctions and chronology. Refresh full lint and independently reassess current source/page coverage.",
+      "inference": "The historical observation is supported; this finding concerns wiki claim-to-source attribution, not a contradictory fact or a new feature requirement."
+    }
+  ],
+  "limits": [
+    "No page/source/spec/roadmap edits or Git actions by this reviewer.",
+    "Fresh lint zero is observed but does not waive independent source-attribution requirements.",
+    "Main controller owns first-pass progress enforcement and any safe correction dispatch; this child does not authorize an extra pass, roadmap verification or commit readiness.",
+    "No feature acceptance, publication, runtime-setting proof or complete historical metrics-accounting claim."
+  ]
+}

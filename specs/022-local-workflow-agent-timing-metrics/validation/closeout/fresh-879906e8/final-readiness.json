@@ -1,0 +1,150 @@
+{
+  "state": "blocked",
+  "step_id": "verify-closeout-readiness",
+  "reviewer": "FarmBoy Reviewer",
+  "invocation_short_id": "879906e8",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "reason_code": "wiki-source-attribution-no-progress",
+  "remaining_ids": [
+    "historical-pyyaml-source-attribution"
+  ],
+  "report": "Feature 022 remains verified and its specification Complete. Current ingestion completed and full lint returned zero findings, but the latest independent wiki assessment is continue with one material historical claim-to-source attribution gap and no resolved substantive IDs. The actual controller loop route is blocked/no-progress. These latest results cannot authorize ready-for-explicit-commit. Preserve completed roadmap, wiki freshness and all prior work; obtain a fresh operator-authorized Close Out boundary using the retained citation finding as the initial substantive baseline.",
+  "facts": {
+    "latest_wiki_assessment": "continue",
+    "actual_loop_route": {
+      "action": "blocked",
+      "blocker": "no-progress"
+    },
+    "wiki_pass": 1,
+    "resolved_ids": [],
+    "administrative_cleared_ids": [
+      "stale-s005-installation-history-before-farmboy"
+    ],
+    "substantive_progress_count": 0,
+    "initial_substantive_claim_gaps": [],
+    "source_coverage_count": 19,
+    "missing_coverage_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+    "ingestion_state": "complete",
+    "lint_state": "complete",
+    "lint_findings": 0,
+    "page_count": 36,
+    "registered_source_count": 37,
+    "bounded_lint_pairs": 278,
+    "current_reference_digest_checks": 39,
+    "current_reference_digest_mismatches": [],
+    "implementation_digest_checks": 103,
+    "implementation_digest_mismatches": [],
+    "retained_test_count": 176,
+    "fresh_tests_rerun": false,
+    "retained_validation_basis": "Retained passing-test evidence and 103 immutable source/completion-artifact digests remain current; no fresh test execution claimed.",
+    "roadmap_entry_status": "verified",
+    "roadmap_version": "1.31.1",
+    "specification_status": "Complete",
+    "preserved_planned_entries": [
+      "023",
+      "024",
+      "025"
+    ]
+  },
+  "findings": [
+    {
+      "id": "historical-pyyaml-source-attribution",
+      "severity": "material",
+      "page": "wiki/pages/installation-history-before-farmboy.md",
+      "line": 18,
+      "claim": "Earlier mise install alone failed on missing PyYAML; an alternate prepared interpreter succeeded.",
+      "fact": "The current paragraph attributes all clauses only to S005. Current docs/installation.md supplies current preparation guidance but contains no historical failed command or alternate-environment observation. The recorded failure is directly supported by S025 spec.md lines170\u2013174 and S026 follow-up.md lines9\u201311. S026 is registered and frozen but absent from page inline citations/frontmatter.",
+      "requirement": {
+        "path": "wiki/SCHEMA.md",
+        "rule": "Every synthesized claim cites a source ID from sources.md."
+      },
+      "correction_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "correction": "Within the existing ingestion path, cite S025/S026 for the historical clauses (split or add citations without changing their historical meaning); include S026 in page frontmatter if cited. Preserve S005 attribution for current preparation, exact prior failure/success qualification, current setup distinctions and chronology. Refresh full lint and independently reassess current source/page coverage.",
+      "inference": "The historical observation is supported; this finding concerns wiki claim-to-source attribution, not a contradictory fact or a new feature requirement."
+    }
+  ],
+  "inference": "The historical failure/retry observation has authoritative support in S025/S026. The material gap concerns its inline attribution solely to current S005, not an unsupported historical fact or a new feature requirement. Mechanical full lint success does not replace independent source-coverage assessment. Metadata-only date correction earned no substantive progress, so a second repair pass is unavailable in the current stopped loop.",
+  "resume_action": "start-fresh-closeout-with-retained-historical-pyyaml-citation-baseline",
+  "smallest_safe_resumption": "At a newly operator-authorized Close Out boundary retain historical-pyyaml-source-attribution as a substantive initial finding; freeze/revalidate the current page and S005/S025/S026 sources; use the declared ingestion correction path to split or add S025/S026 citations for the historical clauses and include S026 in frontmatter when cited, preserving current S005 setup attribution, historical qualifications and chronology. Perform fresh full lint and independent coverage assessment against that same retained finding. Preserve approved verified roadmap and Complete specification; no new roadmap transition, source implementation, Git integration or feature-acceptance action is implied.",
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-assessment.json",
+      "sha256": "66f4d73490c46906ed50269790bb0d11e482728cd0f2d74fcdf491d0a719386d"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-baseline.json",
+      "sha256": "65d1cec0a30ab5ad615db307c1d1751479079e2987225b2c34f557bb21a70746"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-scope.json",
+      "sha256": "6483680897c4ced03c30d418e09c06eae1b838625f43b7eb4093d6d5976e6bed"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+      "sha256": "ad920e0e06e77f992ca168e2f57e355738c3a3b7bd7c7bd558449fca0100e31f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/historical-qualification-check.json",
+      "sha256": "cbabd75f38e07295fc7d2ba532266f4d5238d2b61a461a2b52d698f46227beec"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/ingestion.json",
+      "sha256": "fe775c683cbb0f498996c684d8e3822fcf3387321a289efe248f0910af5db70e"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/lint.json",
+      "sha256": "e2ac9be9932d9e7e2bb74112c02b5b07782010083eebfbf39e763b15c2862512"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-implemented-assessment-46aadf4e.json",
+      "sha256": "9d39e2f62dbe167661c932684f8dcc14844725aca9ed4877e418ff3b0f4fcf29"
+    },
+    {
+      "path": "wiki/pages/installation-history-before-farmboy.md",
+      "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+    },
+    {
+      "path": "wiki/SCHEMA.md",
+      "sha256": "2eb4e0e8d107e91fb7ee459bc706920801541a4a6bed1bf4de0ae685d651356f"
+    },
+    {
+      "path": "wiki/sources.md",
+      "sha256": "70613b5d8a7f70c064ab9c4c2f748326192d9b3671b9265f13570c955f15d422"
+    },
+    {
+      "path": "docs/installation.md",
+      "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+    },
+    {
+      "path": "specs/017-flowkit-agent-configuration/spec.md",
+      "sha256": "6aed6631194bb0fc04c11f4b41746c81b9314407c417d2e9d089458c42a83be2"
+    },
+    {
+      "path": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311"
+    },
+    {
+      "path": ".specify/memory/roadmap.md",
+      "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+    }
+  ],
+  "git_effects": {
+    "head": "f747c4ec1bc644993699c318aa43ee52afc522d6",
+    "head_unchanged": true,
+    "index_boundary_method": "sha256 of git diff --cached --binary",
+    "index_sha256": "2bd152c216b501fb2a1fa3dc1a584cdbe8fa2a15eaa391330f0eb8f175a33cc8",
+    "index_unchanged": true,
+    "commit_created": false,
+    "git_integration_performed": false,
+    "scope": "Preexisting staged and unstaged work preserved; no source/wiki/roadmap/spec changes by this reviewer."
+  },
+  "review_limits": [
+    "Only the delegated final-readiness evidence was reviewed and a new assessment report authored.",
+    "No wiki/source/spec/roadmap repair, second correction pass, bootstrap, delegation, commit or Git integration.",
+    "Main controller owns operator authorization and routing; this report does not claim feature acceptance."
+  ]
+}

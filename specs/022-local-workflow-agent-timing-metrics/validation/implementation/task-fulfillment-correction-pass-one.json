@@ -1,0 +1,198 @@
+{
+  "T002": {
+    "task_id": "T002",
+    "task_description_sha256": "be4152d0980f30559290e3922eacd993be9ea47cbb26d43ec2f7ca69fcb66dcd",
+    "completion_kind": "substantive-implementation",
+    "requirements": [
+      {
+        "requirement_id": "record-schema",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/metrics.py",
+            "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+          },
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          }
+        ]
+      },
+      {
+        "requirement_id": "begin-finish-helper",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/metrics.py",
+            "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+          },
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          }
+        ]
+      },
+      {
+        "requirement_id": "cli-and-validation",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/metrics.py",
+            "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+          },
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          }
+        ]
+      },
+      {
+        "requirement_id": "wall-clock-milliseconds",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "controllers/farmboy/scripts/python/metrics.py",
+            "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+          },
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          }
+        ]
+      }
+    ],
+    "proof_evidence": [
+      {
+        "path": "controllers/farmboy/scripts/python/metrics.py",
+        "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+      },
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+        "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+      }
+    ],
+    "review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+      "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+    },
+    "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+    "activation_sha256": "bb949ae5c2d379bf9e4a9902487d29413380b367f1e179974e37119fb00ad6d4",
+    "source_delta_evidence": [
+      {
+        "path": "controllers/farmboy/scripts/python/metrics.py",
+        "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+      },
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T002-correction-pass-one.json",
+        "sha256": "457ed6ec36d0a2a68bcb7689529933d0c17c7a0ba421e1f5972b4c8ef8bb22f3"
+      },
+      {
+        "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/source-before-one/preimages.json",
+        "sha256": "ef17b11441146dd4403a7bc091fb089ff53661b239e7ee448e9034a60f171996"
+      }
+    ],
+    "validation_evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+        "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+      }
+    ]
+  },
+  "T009": {
+    "task_id": "T009",
+    "task_description_sha256": "e5e2c3727a9ff0d734db0c9c9836269bd793ac38f0075244ef286a86a455ebd4",
+    "completion_kind": "substantive-implementation",
+    "requirements": [
+      {
+        "requirement_id": "controller-and-metrics-behavior-tests",
+        "satisfied": true,
+        "evidence": [
+          {
+            "path": "tests/test_metrics.py",
+            "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+          },
+          {
+            "path": "tests/test_controller.py",
+            "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          }
+        ]
+      }
+    ],
+    "proof_evidence": [
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+      },
+      {
+        "path": "tests/test_controller.py",
+        "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+        "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+      }
+    ],
+    "review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+      "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+    },
+    "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+    "activation_sha256": "16851f2a280affa19f44d7780b48f95c3d623e667102d186f0ce0f01fec4c443",
+    "source_delta_evidence": [
+      {
+        "path": "tests/test_metrics.py",
+        "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+      },
+      {
+        "path": "tests/test_controller.py",
+        "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T009-correction-pass-one.json",
+        "sha256": "ba81fc72db4e9d5cf98b0584e28d2f9cd8cfc8c29ae3a4b5760110d2ecdc044d"
+      },
+      {
+        "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/source-before-one/preimages.json",
+        "sha256": "ef17b11441146dd4403a7bc091fb089ff53661b239e7ee448e9034a60f171996"
+      }
+    ],
+    "validation_evidence": [
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+        "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+      }
+    ]
+  }
+}

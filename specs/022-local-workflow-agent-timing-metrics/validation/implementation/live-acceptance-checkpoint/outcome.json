@@ -1,0 +1,83 @@
+{
+  "state": "complete",
+  "run_id": "a9b8e3b0-0843-4485-a40b-debd241b51e4",
+  "completed_this_invocation": [
+    "T022",
+    "T023"
+  ],
+  "completed_task_ids": [
+    "T001",
+    "T005",
+    "T002",
+    "T003",
+    "T004",
+    "T009",
+    "T006",
+    "T007",
+    "T008",
+    "T012",
+    "T010",
+    "T011",
+    "T018",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023"
+  ],
+  "remaining_task_ids": [],
+  "known_unresolved_code_findings": [],
+  "coder_sessions_started": 1,
+  "source_attempts_started": 1,
+  "validation": {
+    "independent_review": "complete",
+    "implementation_progress": "ready",
+    "scope_tracking": "complete",
+    "final_scoped_route": "complete",
+    "live_consumer_metric_records": 7,
+    "report_snapshot_rows": 23,
+    "report_input_files_unchanged": true,
+    "excel_interoperability": "direct-operator-all-listed-checks-passed",
+    "scoped_diff_check": "passed",
+    "deterministic_tests": "Prior 176-test passing evidence retained; no source behavior changed in this invocation."
+  },
+  "limits": [
+    "Consumer initial assessment blocked on copied-fixture owning prerequisites; live metrics observation is substantiated, not consumer feature completion.",
+    "Model and effort are passive project TOML declarations, not verified effective runtime settings.",
+    "Excel acceptance observations were supplied directly by the operator."
+  ],
+  "git": {
+    "commit_created": false,
+    "index_preserved": true,
+    "head_preserved": true,
+    "index_sha256": "2bd152c216b501fb2a1fa3dc1a584cdbe8fa2a15eaa391330f0eb8f175a33cc8",
+    "head": "f747c4ec1bc644993699c318aa43ee52afc522d6"
+  },
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+      "sha256": "b36555fdbc2c7bf3f80c863e706ba3de29b6d34313c283d0c36347fbf8fa7cf3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-judgement-a9b8e3b0.json",
+      "sha256": "d2cfcc00a026ab3fc4e514b42f42e1533e72b5d0fa4d0ee863bb687bc4c40dc9"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/a9b8e3b0-0843-4485-a40b-debd241b51e4/operator-excel-observations.json",
+      "sha256": "505bf9d8a14c215b74eb397ca7cc90cd034193ecfee2310b94c5f92f2ee603c3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-progress-a9b8e3b0.json",
+      "sha256": "e5e54c6ab6b66218b877f884d50a22300bf863951db6b9f4f82f6b83a51dd3e8"
+    }
+  ]
+}

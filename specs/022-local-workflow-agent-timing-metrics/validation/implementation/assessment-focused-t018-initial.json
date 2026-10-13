@@ -1,0 +1,72 @@
+{
+  "reviewer": "FarmBoy Reviewer",
+  "step_id": "assess-implementation-state",
+  "scope_sha256": "f1d97ec116088883d150620ee005db7d3abe776e200dec8ad481510434ceda9e",
+  "selected_task_ids": [
+    "T018"
+  ],
+  "facts": [
+    "T018 is unchecked and depends on completed T001.",
+    "T002/T009 remain completed and outside selected scope.",
+    "Current aggregate assertion omits unsupported-schema and contradicts supported-schema-first report contract.",
+    "Historical F006 baseline identity and six identity fields are unchanged.",
+    "T013 report implementation remains absent; no runtime exporter validation performed."
+  ],
+  "diagnostic": {
+    "method": "isolated existing test assertion with contract-conforming summary; diagnostic only",
+    "summary": {
+      "candidate_count": 4,
+      "accepted_count": 0,
+      "duplicate_count": 0,
+      "conflicting_invocation_count": 0,
+      "conflicting_file_count": 0,
+      "invalid_counts": {
+        "unsupported-schema": 1,
+        "invalid-contract": 1,
+        "malformed-json": 2
+      },
+      "skipped_count": 4
+    },
+    "result": "4 != 3",
+    "source_location": "tests/test_metrics_report.py:328-346"
+  },
+  "gap": {
+    "artifact_location": "tests/test_metrics_report.py:328-346",
+    "evidence": [
+      {
+        "path": "tests/test_metrics_report.py",
+        "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      }
+    ],
+    "exact_correction": "Correct the aggregate boolean-schema fixture at lines 328-346 to assert unsupported-schema separately and exact category totals consistent with lines 399-411. Keep T018 open; do not implement T013.",
+    "id": "F022-IMPLEMENT-006",
+    "observed_deficiency": "The boolean schema fixture still asserts all four candidates count only as invalid-contract or malformed-json, while the supported-schema-first contract and new lines 399-411 require schema_version=True to count as unsupported-schema. A conforming category summary reproduces AssertionError: 4 != 3 at line 345.",
+    "task_id": "T018",
+    "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+  },
+  "inference": [
+    "Correcting aggregate category expectations is eligible within T018; independent whole-task review remains required before completion."
+  ],
+  "retained_baseline": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/frozen-baseline-correction-pass-two.json",
+    "file_sha256": "80cb61ffcf1d50109cb8bb6ddc12e4833e5ad9f0f31d1b66e25f1215f345223b",
+    "baseline_sha256": "7090bf1eaab87a992d4a70b68281d4f88792129ae0ab7700f6b1406990be1271"
+  },
+  "prerequisite_projection": {
+    "task_id": "T001",
+    "old_scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+    "new_scope_sha256": "f1d97ec116088883d150620ee005db7d3abe776e200dec8ad481510434ceda9e",
+    "original_activation_sha256": "fab9d36539ac100223f27894bb4998c44890f220fe32bb39c359a2224ce29f39",
+    "original_review_evidence": {
+      "reviewer": "FarmBoy Code Reviewer",
+      "verdict": "complete",
+      "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+      "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+    },
+    "meaning": "Existing completion context rebound to fresh requested scope; no source effect, new activation or progress claimed."
+  }
+}

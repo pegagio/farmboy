@@ -1,0 +1,22 @@
+[
+  {
+    "path": "controllers/farmboy/scripts/python/metrics.py",
+    "state": "present",
+    "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+  },
+  {
+    "path": "tests/test_metrics.py",
+    "state": "present",
+    "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+  },
+  {
+    "path": "tests/test_controller.py",
+    "state": "present",
+    "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+  },
+  {
+    "path": "tests/test_metrics_report.py",
+    "state": "present",
+    "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+  }
+]

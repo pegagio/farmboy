@@ -1,8 +1,8 @@
 ---
 title: Codex workflow controller design
 type: concept
-sources: [S033]
-updated: 2026-10-11
+sources: [S033, S036]
+updated: 2026-10-12
 ---
 
 # Codex workflow controller design
@@ -20,6 +20,14 @@ Each modeled delegated step receives a fresh bounded child; accepted human answe
 Bootstrap uses `.specify/farmboy/scripts/bootstrap.sh`, the installed manifest/skill records and read-only composed graph. Main captures workflow digest and installation fingerprints and rechecks them at step boundaries. Refresh lets an active node finish, then stops further work. New recovery summaries live beneath `.specify/farmboy-controllers/`; existing installed packages or historic records gain no refreshed identity merely because source names changed. (S033)
 
 A successful command grants no Git integration, roadmap verification, publication or acceptance. Completion cannot launch another workflow phase. Failed or interrupted work preserves partial edits and records an exact blocker and safe resumption boundary; no automatic rollback or blind retry follows. (S033)
+
+## Metrics turn contract
+
+The shared protocol retains one metrics correlation UUID across probes, working turns, continuations and retries, separately from recovery identity. Exact assignment context, safe logical project identity and passive exact-name project TOML settings are prepared before timing; unavailable settings are null and never control dispatch or establish runtime settings. (S033)
+
+Begin immediately before native spawn or same-child continuation. Keep the token in main context through pending acknowledgements and polls; finish only after an observed end, including question, rejection, failure or interruption. Finish a question turn before human waiting; a resumed turn gets a new token. Unobserved endings produce no completed record. Tokens never enter child prompts or results. (S033)
+
+Clock, metadata, helper and storage failures warn while preserving original dispatch, results, routing and human gates. Failed begin creates no invented record; finish reads the clock before persistence. Failed publication is not retried or replaced. These are normative protocol requirements, not live instrumentation proof; the [local timing design](./local-agent-timing-metrics.md) defines the record and workbook contract. (S033, S036)
 
 ## Related pages
 

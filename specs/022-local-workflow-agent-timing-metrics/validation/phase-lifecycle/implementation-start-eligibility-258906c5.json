@@ -1,0 +1,405 @@
+{
+  "eligibility": {
+    "eligibility": {
+      "assessment_id": "1a74f100-5d13-4f02-85e7-9844aabe84d2",
+      "eligible_task_ids": [
+        "T002",
+        "T009",
+        "T018"
+      ],
+      "evidence": [
+        {
+          "path": ".specify/feature.json",
+          "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+          "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+          "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+          "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+          "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+          "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-fresh-pass-one.json",
+          "sha256": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/fresh-checkpoint/code-review-one.json",
+          "sha256": "1f804f9c7f0ddf4f7dca3a638ed390cda6bd5641e98ceb60cb5225d71b60c2bd"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+          "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-pass-one.json",
+          "sha256": "6b2a94f9c7a1086364c46afb8c5fe16177419fb44037d502e68781ad305ab85f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-fresh-pass-one.json",
+          "sha256": "d3c9283b3f79c37d5d537917fcfe25c48104382e5782644efc8527fe3cdf699a"
+        },
+        {
+          "path": "controllers/farmboy/scripts/python/metrics.py",
+          "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+        },
+        {
+          "path": "tests/test_metrics.py",
+          "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+        },
+        {
+          "path": "tests/test_controller.py",
+          "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+        },
+        {
+          "path": "skills/farmboy-metrics-report/SKILL.md",
+          "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+        },
+        {
+          "path": "skills/farmboy-metrics-report/requirements.txt",
+          "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+        },
+        {
+          "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/requested-scope.json",
+          "sha256": "f2aec7a3a7c7eb07aa33706de1f1eef42828afba9dca401214bfac020e64f969"
+        }
+      ],
+      "global_blockers": [],
+      "input_digests": {
+        ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+      },
+      "iteration": 1,
+      "pending_task_ids": [],
+      "predecessor_sha256": "e1faa39ab16a1d2408dd4ad64160c8f85dae257794ebe0fa799d68e62db54b05",
+      "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+      "task_states": [
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T005"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+              "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+              "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+              "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+              "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-fresh-pass-one.json",
+              "sha256": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/fresh-checkpoint/code-review-one.json",
+              "sha256": "1f804f9c7f0ddf4f7dca3a638ed390cda6bd5641e98ceb60cb5225d71b60c2bd"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+              "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-pass-one.json",
+              "sha256": "6b2a94f9c7a1086364c46afb8c5fe16177419fb44037d502e68781ad305ab85f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-fresh-pass-one.json",
+              "sha256": "d3c9283b3f79c37d5d537917fcfe25c48104382e5782644efc8527fe3cdf699a"
+            },
+            {
+              "path": "controllers/farmboy/scripts/python/metrics.py",
+              "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+            },
+            {
+              "path": "tests/test_metrics.py",
+              "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+            },
+            {
+              "path": "tests/test_controller.py",
+              "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+            },
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/SKILL.md",
+              "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/requirements.txt",
+              "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+            },
+            {
+              "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/requested-scope.json",
+              "sha256": "f2aec7a3a7c7eb07aa33706de1f1eef42828afba9dca401214bfac020e64f969"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T002"
+        },
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T005"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+              "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+              "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+              "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+              "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-fresh-pass-one.json",
+              "sha256": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/fresh-checkpoint/code-review-one.json",
+              "sha256": "1f804f9c7f0ddf4f7dca3a638ed390cda6bd5641e98ceb60cb5225d71b60c2bd"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+              "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-pass-one.json",
+              "sha256": "6b2a94f9c7a1086364c46afb8c5fe16177419fb44037d502e68781ad305ab85f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-fresh-pass-one.json",
+              "sha256": "d3c9283b3f79c37d5d537917fcfe25c48104382e5782644efc8527fe3cdf699a"
+            },
+            {
+              "path": "controllers/farmboy/scripts/python/metrics.py",
+              "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+            },
+            {
+              "path": "tests/test_metrics.py",
+              "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+            },
+            {
+              "path": "tests/test_controller.py",
+              "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+            },
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/SKILL.md",
+              "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/requirements.txt",
+              "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+            },
+            {
+              "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/requested-scope.json",
+              "sha256": "f2aec7a3a7c7eb07aa33706de1f1eef42828afba9dca401214bfac020e64f969"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T009"
+        },
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T001"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+              "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+              "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+              "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+              "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-fresh-pass-one.json",
+              "sha256": "3f0d58b72e92604e037319d741207eecad5b01dc074b9e8ce4a210d868d6dca2"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/fresh-checkpoint/code-review-one.json",
+              "sha256": "1f804f9c7f0ddf4f7dca3a638ed390cda6bd5641e98ceb60cb5225d71b60c2bd"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json",
+              "sha256": "8085d4c0acb72f6f116ebada0ef1f7cf923bcf275cac270d51d053bd54953a11"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-pass-one.json",
+              "sha256": "6b2a94f9c7a1086364c46afb8c5fe16177419fb44037d502e68781ad305ab85f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-fresh-pass-one.json",
+              "sha256": "d3c9283b3f79c37d5d537917fcfe25c48104382e5782644efc8527fe3cdf699a"
+            },
+            {
+              "path": "controllers/farmboy/scripts/python/metrics.py",
+              "sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231"
+            },
+            {
+              "path": "tests/test_metrics.py",
+              "sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba"
+            },
+            {
+              "path": "tests/test_controller.py",
+              "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+            },
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/SKILL.md",
+              "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/requirements.txt",
+              "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+            },
+            {
+              "path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/requested-scope.json",
+              "sha256": "f2aec7a3a7c7eb07aa33706de1f1eef42828afba9dca401214bfac020e64f969"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T018"
+        }
+      ]
+    },
+    "eligibility_sha256": "f5ecf63754186ffb849150c30539b0425993824cfbb1abba9904139470b346fb",
+    "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+    "state": "ready"
+  },
+  "native_assignments_verified": [
+    "FarmBoy Code Reviewer",
+    "FarmBoy Coder",
+    "FarmBoy Readiness Checker",
+    "FarmBoy Reviewer",
+    "FarmBoy Roadmap Agent",
+    "FarmBoy Tasker"
+  ],
+  "next_step_id": "implement-tasks",
+  "prior_start_receipt": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json",
+  "retained_initial_assessment_path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/retained-initial-assessment.json",
+  "retained_initial_assessment_sha256": "bc42a32bc4d920ca4cf67a707cb06c6815712fcf013db311743575eba52f6133",
+  "scope_limit": "T002/T009/T018 corrections only; no full-feature completion claim",
+  "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+  "selected_task_ids": [
+    "T002",
+    "T009",
+    "T018"
+  ],
+  "state": "continue"
+}

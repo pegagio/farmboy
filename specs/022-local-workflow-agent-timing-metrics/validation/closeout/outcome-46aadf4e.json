@@ -1,0 +1,54 @@
+{
+  "state": "blocked",
+  "reason_code": "wiki-freshness-revalidation-pending-at-pass-limit",
+  "resume_action": "start-fresh-closeout-for-installation-history-revalidation",
+  "run_id": "46aadf4e-9aef-435a-99b1-eb1552449594",
+  "workflow_id": "farmboy-closeout",
+  "workflow_version": "0.9.2",
+  "specification_status": "Complete",
+  "roadmap_status": "verified",
+  "roadmap_version": "1.31.1",
+  "approved_choice": "approve-patch",
+  "original_stale_approval_applied": false,
+  "fresh_approval_applied": true,
+  "substantive_wiki_gaps_resolved": 6,
+  "curated_sources_covered": 13,
+  "wiki_passes_used": 5,
+  "wiki_pass_limit": 5,
+  "remaining_ids": [
+    "stale-s005-installation-history-before-farmboy"
+  ],
+  "lint": {
+    "pages": 36,
+    "sources": 37,
+    "bounded_pairs": 278,
+    "remaining_findings": 1,
+    "current_report": "wiki/lint-report.md"
+  },
+  "code_and_test_changes_during_closeout": false,
+  "future_planned_entries_preserved": [
+    "023",
+    "024",
+    "025"
+  ],
+  "commit_readiness": false,
+  "git": {
+    "commit_created": false,
+    "index_preserved": true,
+    "HEAD_preserved": true
+  },
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/final-readiness-46aadf4e.json",
+      "sha256": "38b42b0ecab4f2a1e6e0dfe4abe591fa4323d077d60e44d2593bec92420f6d18"
+    },
+    {
+      "path": "wiki/lint-report.md",
+      "sha256": "46cb677ddb4170dd9bd63b56caa4554cf0da0bd3932bdccfbf8406b19052083f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/installation-history-recovery-proposal.json",
+      "sha256": "8f482b0b7f47bd15b8444351d44f976920050103eb52b52730c5ca35aced2340"
+    }
+  ]
+}

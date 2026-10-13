@@ -1,0 +1,166 @@
+{
+  "step_id": "assess-closeout-debrief",
+  "reviewer": "FarmBoy Code Reviewer",
+  "state": "complete",
+  "reason_code": "patch-ready",
+  "confirmed_defects": [],
+  "validation_gaps": [],
+  "findings": [],
+  "attributable_delta": {
+    "baseline_oid": "36b2c9f58d3b820a565b33ab1caa409bc615ad6d",
+    "head_oid": "f747c4ec1bc644993699c318aa43ee52afc522d6",
+    "target": "WORKTREE",
+    "manifest_count": 471,
+    "all_manifest_digests_current": true,
+    "implemented_assessment_bindings_checked": 103,
+    "convergence_files_checked": 81,
+    "changed_since_convergence": [
+      "specs/022-local-workflow-agent-timing-metrics/spec.md"
+    ],
+    "status_only_specification_bridge": true,
+    "retained_source_preimages": [
+      {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/controller-protocol.md",
+        "preimage_sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb",
+        "current_sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a",
+        "delta_lines": 36
+      },
+      {
+        "path": "controllers/farmboy/scripts/python/controller.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/scripts/python/controller.py",
+        "preimage_sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b",
+        "current_sha256": "ac539b34946b80f3391ff64b2b08d80407722da70ab66f5637b9372db4755303",
+        "delta_lines": 18
+      },
+      {
+        "path": "controllers/farmboy/scripts/python/metrics.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/controllers/farmboy/scripts/python/metrics.py",
+        "preimage_sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484",
+        "current_sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82",
+        "delta_lines": 189
+      },
+      {
+        "path": "tests/test_bundle_lifecycle.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_bundle_lifecycle.py",
+        "preimage_sha256": "fabe0b5b9d083d57000625e5315e65406e1cc609c73c7221684138e43d2db74c",
+        "current_sha256": "76d967e7f8a0ade6f4f7ce89d0b29a405b2064d5cf349449efd62d56aa902e21",
+        "delta_lines": 115
+      },
+      {
+        "path": "tests/test_catalog.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_catalog.py",
+        "preimage_sha256": "3fd5b375a50fa40864e1852c7c5c9032cd814dd50066f9553560fcec210b4187",
+        "current_sha256": "cf1391a18dd9d3ecc211f812f92bfe528ed72a51aec75300918bcbfb7e45c4bb",
+        "delta_lines": 25
+      },
+      {
+        "path": "tests/test_controller.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_controller.py",
+        "preimage_sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7",
+        "current_sha256": "99bcefe4488d0af682bc75537911f7278642ede653239435a70441b7e838f295",
+        "delta_lines": 117
+      },
+      {
+        "path": "tests/test_metrics.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/source-before-one/tests/test_metrics.py",
+        "preimage_sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44",
+        "current_sha256": "2cd47797d948f29775c3da88e2026c6ab39e04b0fb7e6207ac7c9c4f56f7affd",
+        "delta_lines": 222
+      },
+      {
+        "path": "controllers/farmboy/scripts/python/metrics.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/controllers/farmboy/scripts/python/metrics.py",
+        "preimage_sha256": "b64163a27bd566ce4535ce19d84067ec941374a42fc2e38d29e9f1653b365231",
+        "current_sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82",
+        "delta_lines": 207
+      },
+      {
+        "path": "tests/test_metrics.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics.py",
+        "preimage_sha256": "6be11f76518433d6d4845730e42a240c995747843d7ede1725fc7091d128faba",
+        "current_sha256": "2cd47797d948f29775c3da88e2026c6ab39e04b0fb7e6207ac7c9c4f56f7affd",
+        "delta_lines": 325
+      },
+      {
+        "path": "tests/test_controller.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_controller.py",
+        "preimage_sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7",
+        "current_sha256": "99bcefe4488d0af682bc75537911f7278642ede653239435a70441b7e838f295",
+        "delta_lines": 117
+      },
+      {
+        "path": "tests/test_metrics_report.py",
+        "preimage": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics_report.py",
+        "preimage_sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e",
+        "current_sha256": "c888f602b5c31990b18aceaa63fa3f3e872cdd4516262684382883c173c8d870",
+        "delta_lines": 781
+      }
+    ],
+    "merged_controller_repair_paths_unchanged_from_head": [
+      "workflows/farmboy-closeout/workflow.yml",
+      "workflows/farmboy-implement/workflow.yml",
+      "workflows/farmboy-specify/workflow.yml",
+      "tests/consumer-fixtures/semantic-review-topology.json",
+      "tests/implementation_scope_snapshot.py",
+      "tests/test_implement_switch_routing.py",
+      "tests/test_implementation_progress.py",
+      "tests/test_phase_lifecycle.py",
+      "tests/test_readiness_workflow_routes.py",
+      "tests/test_workflow_improvements.py"
+    ]
+  },
+  "proposal": {
+    "roadmap_path": ".specify/memory/roadmap.md",
+    "entry_id": "022",
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "expected_roadmap_sha256": "5515491559a3316421a736ad136ab89a1d67e8c368d782031ff7e2d6f34f9793",
+    "from_status": "implemented",
+    "to_status": "verified",
+    "authorization_reference": "farmboy-closeout:approve-roadmap-transition:approve-patch",
+    "evidence_paths": [
+      "specs/022-local-workflow-agent-timing-metrics/roadmap-reviews/debrief-20261013T001838Z.md",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-implemented-assessment-46aadf4e.json",
+      "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-closeout-effect-readback-46aadf4e.json",
+      "specs/022-local-workflow-agent-timing-metrics/validation/closeout/specification-before-status-complete.md",
+      "specs/022-local-workflow-agent-timing-metrics/validation/convergence/outcome.json",
+      "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+      "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json"
+    ]
+  },
+  "proposal_scope": "Only entry 022 implemented to verified, with the generic Write provenance/version/date bookkeeping. Authorization reference is prospective and supplies no approval.",
+  "validation": {
+    "retained_tests": 176,
+    "failed": 0,
+    "skipped": 0,
+    "fresh_test_rerun": false,
+    "reuse_basis": "Focused source/test bytes match the immutable clean Converge capture and current implemented assessment. No new behavior since that retained passing evidence.",
+    "consumer_records": 7,
+    "report_rows": 23,
+    "report_inputs_preserved": true,
+    "excel": "Direct operator confirms all listed checks passed; this reviewer did not repeat native Excel checks."
+  },
+  "reviewed_code": [
+    "controllers/farmboy/scripts/python/metrics.py",
+    "skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "controllers/farmboy/scripts/python/controller.py",
+    "controllers/farmboy/controller-protocol.md",
+    "tests/test_metrics.py",
+    "tests/test_metrics_report.py",
+    "tests/test_catalog.py"
+  ],
+  "observed_semantics": [
+    "Signed integer millisecond wall time and fresh invocation IDs; human wait excluded by common turn protocol.",
+    "Exact-name passive TOML declarations produce nullable model/effort without dispatch overrides.",
+    "Complete private stage and no-clobber publication, bounded warnings and owned cleanup.",
+    "One bounded no-follow snapshot, normalized identical duplicates and whole-group conflicts.",
+    "Thirteen workbook columns, invocation first, no schema column, literal text and numeric signed durations; header-only table has no fabricated row.",
+    "Maintainer report excluded from consumer package; transient correlation does not change recovery creation."
+  ],
+  "limits": [
+    "Consumer initial assessment stopped on owning prerequisites; live emission rather than consumer feature completion is evidenced.",
+    "File-declared model and effort do not prove effective runtime settings.",
+    "Wall-clock drift, crash gaps and tool scheduling overhead remain accepted limits.",
+    "Roadmap approval, Git integration, release and feature acceptance remain main-controller/operator decisions."
+  ]
+}

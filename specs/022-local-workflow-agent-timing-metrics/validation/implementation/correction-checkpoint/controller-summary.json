@@ -1,0 +1,407 @@
+{
+  "blocker": "no-progress",
+  "bundle_record": {
+    "device": 16777232,
+    "inode": 137065873,
+    "sha256": "76596ad5577671a5f215256c74e357a2caea7eb3048d9f36a8dfe92b9ba0ad48"
+  },
+  "changed_files": [
+    "controllers/farmboy/scripts/python/metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/T005-contextual-proof-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T002-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T009-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/coder-validation-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/execution-history.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/final-eligibility-request.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/final-route.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/initial-baseline.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/outcome.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/post-pass-state.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/requested-scope.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/retained-assessment-before-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/retained-initial-assessment.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/controllers/farmboy/scripts/python/metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_controller.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-one/tests/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-two/preimages.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/correction-checkpoint/source-before-two/test_metrics_report.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/frozen-baseline-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/review-result-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/review-result-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-two.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-tracking-correction-one.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-baseline-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-decision-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-initial-assessment-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-lifecycle-request-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-assessment-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-checker-result-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-gate-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-readiness-report-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-scope-validation-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-eligibility-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/implementation-start-preparation-readback-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-implementation-start-review-258906c5.json",
+    "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/native-preflight-258906c5.json",
+    "tests/test_metrics.py",
+    "tests/test_metrics_report.py"
+  ],
+  "effective_assignments": [
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-state"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-core"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "assess-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Roadmap Agent",
+      "step_id": "apply-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-implementation-start-milestone"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state-after-revalidation"
+    },
+    {
+      "agent_name": "FarmBoy Reviewer",
+      "step_id": "verify-existing-implementation-start-state"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-preparation"
+    },
+    {
+      "agent_name": "FarmBoy Coder",
+      "step_id": "run-scoped-source-implementation"
+    },
+    {
+      "agent_name": "FarmBoy Code Reviewer",
+      "step_id": "assess-implementation-after-pass"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "revise-task-plan"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-task-outcomes"
+    },
+    {
+      "agent_name": "FarmBoy Readiness Checker",
+      "step_id": "check-readiness-before-reentry"
+    },
+    {
+      "agent_name": "FarmBoy Tasker",
+      "step_id": "track-reviewed-completion"
+    }
+  ],
+  "loop_passes": [
+    {
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+          "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-one.json",
+          "sha256": "74d2faeb0d03c6c343e419307d387ccb6dda0c46f7d60c6986207121faa499b6"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "0686e5fd6a1edd359f3f5e03986dfe456b0fb99242f8fdc7df734cb68db975f0"
+        }
+      ],
+      "iteration": 1,
+      "loop_id": "implementation-loop",
+      "outcome": {
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+            "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-correction-pass-one.json",
+            "sha256": "74d2faeb0d03c6c343e419307d387ccb6dda0c46f7d60c6986207121faa499b6"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "0686e5fd6a1edd359f3f5e03986dfe456b0fb99242f8fdc7df734cb68db975f0"
+          }
+        ],
+        "next_step_id": "implement-tasks",
+        "reason_code": "report-contract-test-correction-remains",
+        "remaining_ids": [
+          "task:T018",
+          "finding:F022-IMPLEMENT-006"
+        ],
+        "resolved_ids": [
+          "finding:F022-IMPLEMENT-004",
+          "finding:F022-IMPLEMENT-005",
+          "task:T002",
+          "task:T009"
+        ],
+        "state": "continue"
+      },
+      "steps": [
+        {
+          "status": "completed",
+          "step_id": "route-scoped-entry"
+        },
+        {
+          "status": "completed",
+          "step_id": "prepare-scoped-prerequisites"
+        },
+        {
+          "status": "completed",
+          "step_id": "implement-tasks"
+        },
+        {
+          "status": "completed",
+          "step_id": "assess-implementation-after-pass"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-post-assessment"
+        },
+        {
+          "status": "completed",
+          "step_id": "capture-post-pass-state"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-scoped-execution"
+        }
+      ],
+      "updated_at": "2026-10-12T18:35:38+00:00"
+    },
+    {
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-two.json",
+          "sha256": "075726cd4d5c173f48174709f0ef4a822feb9b615c580ca3f343b2b00ba32a75"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-correction-pass-two.json",
+          "sha256": "459e73b250be0ba404983dd243fedb7e9269169f759158ef31fc661e59cbf636"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+        }
+      ],
+      "iteration": 2,
+      "loop_id": "implementation-loop",
+      "outcome": {
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-two.json",
+            "sha256": "075726cd4d5c173f48174709f0ef4a822feb9b615c580ca3f343b2b00ba32a75"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-correction-pass-two.json",
+            "sha256": "459e73b250be0ba404983dd243fedb7e9269169f759158ef31fc661e59cbf636"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+          }
+        ],
+        "reason_code": "no-measurable-implementation-progress",
+        "remaining_ids": [
+          "task:T018",
+          "finding:F022-IMPLEMENT-006"
+        ],
+        "resolved_ids": [],
+        "resume_action": "start-focused-t018-correction-with-retained-f006-baseline",
+        "state": "blocked"
+      },
+      "steps": [
+        {
+          "status": "completed",
+          "step_id": "route-scoped-entry"
+        },
+        {
+          "status": "completed",
+          "step_id": "prepare-scoped-prerequisites"
+        },
+        {
+          "status": "completed",
+          "step_id": "implement-tasks"
+        },
+        {
+          "status": "completed",
+          "step_id": "assess-implementation-after-pass"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-post-assessment"
+        },
+        {
+          "status": "completed",
+          "step_id": "capture-post-pass-state"
+        },
+        {
+          "status": "completed",
+          "step_id": "route-scoped-execution"
+        }
+      ],
+      "updated_at": "2026-10-12T18:42:06+00:00"
+    }
+  ],
+  "run_id": "258906c5-1fdf-483c-9857-838e2334d60a",
+  "schema_version": "1.0",
+  "skill_record": {
+    "device": 16777232,
+    "inode": 137065905,
+    "sha256": "165166ebe32f0f29a217d16de23910a97c82116698b382bdb8c852d63d76ae0c"
+  },
+  "started_at": "2026-10-12T18:15:03+00:00",
+  "status": "stopped",
+  "steps": {
+    "assess-implementation-after-pass": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:41:48+00:00"
+    },
+    "assess-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:22:52+00:00"
+    },
+    "assess-implementation-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:17:22+00:00"
+    },
+    "assess-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:17:24+00:00"
+    },
+    "capture-implementation-baseline": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:17:23+00:00"
+    },
+    "capture-post-pass-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:42:06+00:00"
+    },
+    "check-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:19:31+00:00"
+    },
+    "check-readiness-before-reentry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:20+00:00"
+    },
+    "establish-implementation-scope": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:15:04+00:00"
+    },
+    "gate-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:19:32+00:00"
+    },
+    "gate-readiness-before-reentry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:36+00:00"
+    },
+    "implement-tasks": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:47+00:00"
+    },
+    "preflight-reviewed-task-tracking": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:33:03+00:00"
+    },
+    "prepare-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:22:57+00:00"
+    },
+    "prepare-scoped-prerequisites": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:47+00:00"
+    },
+    "reassess-readiness-before-reentry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:34:09+00:00"
+    },
+    "record-source-session-and-attempt": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:58+00:00"
+    },
+    "record-source-session-outcome": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:39:54+00:00"
+    },
+    "report-implementation-outcome": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:42:39+00:00"
+    },
+    "route-implementation-start-milestone": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:22:58+00:00"
+    },
+    "route-post-assessment": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:41:49+00:00"
+    },
+    "route-readiness-before-core": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:24:35+00:00"
+    },
+    "route-readiness-before-reentry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:36+00:00"
+    },
+    "route-scoped-entry": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:35:46+00:00"
+    },
+    "route-scoped-execution": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:42:11+00:00"
+    },
+    "route-task-revision": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:32:57+00:00"
+    },
+    "run-scoped-source-implementation": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:39:44+00:00"
+    },
+    "track-reviewed-task-outcomes": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:34:03+00:00"
+    },
+    "validate-reviewed-task-tracking": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:34:04+00:00"
+    },
+    "verify-existing-implementation-start-state": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:24:33+00:00"
+    },
+    "verify-lifecycle-and-readiness-before-coding": {
+      "status": "completed",
+      "updated_at": "2026-10-12T18:24:34+00:00"
+    }
+  },
+  "updated_at": "2026-10-12T18:42:39+00:00",
+  "workflow_id": "farmboy-implement",
+  "workflow_sha256": "419a55e85f8b6b1c7df2b59c07d2ce3a79e6bf3c73282053a4af131d9f460ca1",
+  "workflow_version": "0.9.1"
+}

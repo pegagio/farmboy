@@ -1,0 +1,46 @@
+{
+  "checks": [
+    {
+      "command": "mise run python:prepare; mise run python:check (task-specific temporary cache/state)",
+      "observed": "Existing Python 3.11.16 and PyYAML 6.0.3 environment retained.",
+      "result": "passed"
+    },
+    {
+      "command": "mise exec -- python -m py_compile tests/test_metrics_report.py",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- tests/test_metrics_report.py",
+      "result": "passed"
+    },
+    {
+      "command": "isolated contract-conforming category fixture for test_invalidContractsRejectBooleansFractionsDuplicateKeysAndNonfiniteNumbers",
+      "detail": "The assertion accepted unsupported-schema=1, invalid-contract=1, malformed-json=2, total=4. Synthetic diagnostic only; not a reporter runtime test.",
+      "result": "passed"
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_metrics_report.py",
+      "detail": "T013 reporter implementation is absent; class setup stopped at its explicit guard.",
+      "result": "expected-red",
+      "tests_executed": 0
+    }
+  ],
+  "evidence": [
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-retained-F006.json",
+      "sha256": "de5f50a0ae0ba7db842b6b133288fd23092f67b0e4d0bc21c6dd9706e00596bc"
+    }
+  ],
+  "finding_id": "F022-IMPLEMENT-006",
+  "limitations": [
+    "No production report behavior was exercised because T013 remains pending."
+  ],
+  "schema_version": "1.0",
+  "state": "complete",
+  "summary": "The retained invalid-category assertion now distinguishes unsupported schema, invalid contract, and malformed JSON classifications; all schema-version fixtures use unsupported-schema expectations.",
+  "task_id": "T018"
+}

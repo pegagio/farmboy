@@ -1,0 +1,257 @@
+{
+  "state": "ready",
+  "selected_entry_id": "022",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "approved_choice": "approve-patch",
+  "approval_reason": "Retained direct approval and independently confirmed current unique verified mapping; no new transition or gate.",
+  "verification": {
+    "unique_mapping": true,
+    "spec_status": "Complete",
+    "roadmap_status": "verified",
+    "roadmap_version": "1.31.1",
+    "current_sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01",
+    "dependencies": [
+      {
+        "entry_id": "013",
+        "status": "verified"
+      },
+      {
+        "entry_id": "014",
+        "status": "verified"
+      },
+      {
+        "entry_id": "021",
+        "status": "verified"
+      }
+    ]
+  },
+  "curated_sources": [
+    {
+      "path": ".specify/memory/roadmap.md",
+      "identity": "S018",
+      "type": "file",
+      "relevance": "Unique verified Feature 022 identity, dependencies and bounded verification; other entries incidental only.",
+      "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "identity": "S017",
+      "type": "file",
+      "relevance": "Authority, privacy, local dependency and acceptance constraints.",
+      "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "identity": "S036",
+      "type": "file",
+      "relevance": "Complete approved requirements and collection/report delivery boundary.",
+      "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "type": "file",
+      "relevance": "Approved design and standard-library collector versus maintainer dependency separation.",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "type": "file",
+      "relevance": "Canonical schema, timing and field semantics.",
+      "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "type": "file",
+      "relevance": "Collector API, safe publication and failure behavior.",
+      "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "type": "file",
+      "relevance": "Workbook shape, snapshot/deduplication and literal text contract.",
+      "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "identity": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "type": "file",
+      "relevance": "Current usage and demonstrated live/manual acceptance qualifications.",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "identity": "S033",
+      "type": "file",
+      "relevance": "Durable agent-facing invocation/continuation timing integration; current controller page source.",
+      "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+    },
+    {
+      "path": "docs/metrics.md",
+      "identity": "S037",
+      "type": "file",
+      "relevance": "Current user-facing collection/report guide.",
+      "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+    },
+    {
+      "path": "docs/architecture.md",
+      "identity": "S003",
+      "type": "file",
+      "relevance": "Registered supporting architecture and adapter/delivery boundaries.",
+      "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+    },
+    {
+      "path": "docs/installation.md",
+      "identity": "S005",
+      "type": "file",
+      "relevance": "Registered supporting installation guide and maintainer-only report discovery.",
+      "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/SKILL.md",
+      "identity": "skills/farmboy-metrics-report/SKILL.md",
+      "type": "file",
+      "relevance": "Durable maintainer leaf skill usage, dependency checks and report authority.",
+      "sha256": "a23d061a722d5f65039d51a891d6e1552c4087cb1e9404564cbb7f6b63a18944"
+    },
+    {
+      "path": "AGENTS.md",
+      "identity": "S001",
+      "type": "file",
+      "relevance": "Registered guidance establishing installation guide/release authority; historical page citation validation only.",
+      "sha256": "74e9ae987b650c59dd58b92e07954aacd4bffa09662affd565af389eed157488",
+      "supporting_only": true
+    },
+    {
+      "path": "README.md",
+      "identity": "S002",
+      "type": "file",
+      "relevance": "Registered README installation snapshot chronology and qualifications; supporting historical page revalidation only.",
+      "sha256": "5dc706773a05a4d03e61d821b27c870869b710a277dd745e3349facfef4df1f1",
+      "supporting_only": true
+    },
+    {
+      "path": "specs/011-bundle-catalog/spec.md",
+      "identity": "S016",
+      "type": "file",
+      "relevance": "Registered historical catalog contract; retain historical names and intent without importing unrelated requirements.",
+      "sha256": "93a64f42d38b86d3cda0d418b42018c7a47fc577a30898303b4d15a7475eab0b",
+      "supporting_only": true
+    },
+    {
+      "path": "specs/017-flowkit-agent-configuration/spec.md",
+      "identity": "S025",
+      "type": "file",
+      "relevance": "Registered historical agent-delivery contract and explicit PyYAML prerequisite failure qualification.",
+      "sha256": "6aed6631194bb0fc04c11f4b41746c81b9314407c417d2e9d089458c42a83be2",
+      "supporting_only": true
+    },
+    {
+      "path": "specs/021-farmboy-project-workflow-naming/spec.md",
+      "identity": "S032",
+      "type": "file",
+      "relevance": "Readable file within registered directory; pure naming cutover and preservation of historical references.",
+      "sha256": "8aed640e39d76f20745f9d60bd9061d50d77ad536b3d442af824161491d50732",
+      "supporting_only": true
+    },
+    {
+      "path": "specs/017-flowkit-agent-configuration/follow-up.md",
+      "identity": "S026",
+      "type": "file",
+      "relevance": "Registered directory supporting exact historical DEP017-01 failure and bounded qualification; no new follow-up feature work.",
+      "sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311",
+      "supporting_only": true
+    }
+  ],
+  "inspected_registry": "wiki/sources.md",
+  "affected_pages": [
+    "wiki/pages/local-agent-timing-metrics.md",
+    "wiki/pages/codex-workflow-controllers.md",
+    "wiki/pages/installation-and-release-lifecycle.md",
+    "wiki/pages/bundle-and-workflow-model.md",
+    "wiki/pages/project-authority-and-review-gates.md",
+    "wiki/pages/installation-history-before-farmboy.md",
+    "wiki/pages/local-metrics-component-boundary.md",
+    "wiki/pages/maintainer-metrics-report-discovery.md"
+  ],
+  "coverage_notes": [
+    "All selected sources are readable repository-local files with current frozen digests.",
+    "Supporting S001/S002/S016/S025/S026/S032 selection is restricted to independently revalidating the historical installation page, preserving historical and prospective qualifications.",
+    "Remaining observed warning is stale-s005-installation-history-before-farmboy; no content defect inferred from date alone.",
+    "Current README contains both initialized-source-root permission and narrower temporary-only wording: retain chronological qualification and prefer the explicit current installation guide per AGENTS; do not silently normalize source prose.",
+    "No Feature 023\u2013025 expansion, ordinary implementation code, remote source, new consequential approval or project mutation.",
+    "Original verification approval remains approved and applied; prior wiki pass cap remains preserved. New invocation owns subsequent wiki assessment."
+  ],
+  "evidence": [
+    {
+      "path": ".specify/memory/roadmap.md",
+      "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/convergence/outcome.json",
+      "sha256": "e64fc87eee590edd2d2c69ca0e5045409cf81e4c8633aeb216f7da89c5a2223e"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/specification-before-status-complete.md",
+      "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/closeout-implemented-assessment-46aadf4e.json",
+      "sha256": "9d39e2f62dbe167661c932684f8dcc14844725aca9ed4877e418ff3b0f4fcf29"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/independent-closeout-effect-readback-46aadf4e.json",
+      "sha256": "3ff64310154b89237fa6ea5a67508ed68e8864bae67ed1b409786a548686b3ac"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/outcome-46aadf4e.json",
+      "sha256": "772a5520960fd503ebe2efbc4dd82f4fcd738cf7b5cdb6a32a3a7c6b8029d7a7"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/final-readiness-46aadf4e.json",
+      "sha256": "38b42b0ecab4f2a1e6e0dfe4abe591fa4323d077d60e44d2593bec92420f6d18"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/debrief-independent-assessment-pass-two.json",
+      "sha256": "6802102431f0eeea45a0ba22a0312f1bcecf737b971afc6fe87e5d8ef1dbf476"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/roadmap-verification-proposal-pass-two.json",
+      "sha256": "8b98229e710d91f9297d5e49b1850058e634a528d57357714d649ef579d3dbcd"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json",
+      "sha256": "5f730a96c841443a12c47d4e469e9da3f7d66623e0cce0b70a847b428a0f4469"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/46aadf4e-9aef-435a-99b1-eb1552449594/roadmap-approval-pass-two.json",
+      "sha256": "e12b9719811b2fbd8e3d184c32fbbe0943faafe5a030e84a4cae0518b13baef3"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/46aadf4e-9aef-435a-99b1-eb1552449594/roadmap-approval-gate-pass-two.json",
+      "sha256": "5b5ffafc9259d9d2afebb689e668e5e841e337256442e179ab6fbbca6c1a977a"
+    },
+    {
+      "path": "wiki/sources.md",
+      "sha256": "cf9ba6ce95ab06324f4b63d956d3548572e34cc68baa145dc8dd64a8216f62c5"
+    },
+    {
+      "path": "wiki/pages/installation-history-before-farmboy.md",
+      "sha256": "ca171fd29d57d65b40ea71eba2b10ac37b7a1cd3dd65bb3156f26a2ab983ef4a"
+    }
+  ],
+  "step_id": "prepare-wiki-maintenance",
+  "original_approval_choice": "approve-patch",
+  "current_invocation_approval_choice": "existing-verification-no-new-gate"
+}

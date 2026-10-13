@@ -1,0 +1,26 @@
+{
+  "kind": "unapplied-corrected-source-identity-citation-repair",
+  "finding_id": "historical-pyyaml-source-attribution",
+  "page": "wiki/pages/installation-history-before-farmboy.md",
+  "before_sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5",
+  "proposed_after_sha256": "d474e51b90ce68f2a3409398eb53197f88993c8020ebe3134fa01e96fd4068d9",
+  "ingestion_source": "specs/017-flowkit-agent-configuration/follow-up.md",
+  "source_id": "S038",
+  "source_sha256": "c5818fc7663e7fed921cd0e051b804610ad20b7cb2297d5734efd110cf464311",
+  "change": "Retain every word, add new file source S038 to frontmatter and append S025/S038 to the existing Python/history paragraph citation; the containing directory remains S026.",
+  "applied": false,
+  "required_validation": [
+    "Fresh full wiki lint",
+    "Independent claim/citation/source-coverage assessment",
+    "Final Close Out readiness"
+  ],
+  "not_a_budget_reset": true,
+  "supersedes_candidate_only": "citation-repair-proposal.json",
+  "mapping_correction": {
+    "registered_directory": "specs/017-flowkit-agent-configuration",
+    "directory_id": "S026",
+    "file_identity": "specs/017-flowkit-agent-configuration/follow-up.md",
+    "expected_new_id": "S038",
+    "scope_unchanged": true
+  }
+}

@@ -1,0 +1,448 @@
+{
+  "outcome_envelope": {
+    "state": "continue",
+    "reason_code": "eligible-retained-writer-correction",
+    "evidence": [
+      {
+        "path": ".specify/feature.json",
+        "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+        "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+        "sha256": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+        "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+        "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+      },
+      {
+        "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+      },
+      {
+        "path": "tests/test_metrics_report.py",
+        "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+        "sha256": "b6cf685d44f291a788c29fcbd537d9de41985bd8990a1930005c28b884ac5e57"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-next-baseline.json",
+        "sha256": "c5ba967815f31b19f6e5bfbec535ee02324ec596457bdfc0afa502d1ceea163a"
+      }
+    ],
+    "remaining_ids": [
+      "task:T015",
+      "finding:F022-IMPLEMENT-011"
+    ],
+    "resolved_ids": [],
+    "next_step_id": "implement-tasks"
+  },
+  "selected_task_ids": [
+    "T015"
+  ],
+  "findings": [
+    {
+      "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+          "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+          "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+        }
+      ],
+      "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+      "id": "F022-IMPLEMENT-011",
+      "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+      "task_id": "T015",
+      "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+    }
+  ],
+  "retained_finding_source_baselines": [
+    {
+      "baseline": {
+        "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+        "findings": [
+          {
+            "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+            "evidence": [
+              {
+                "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+                "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+              },
+              {
+                "path": "tests/test_metrics_report.py",
+                "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+                "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+                "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+              }
+            ],
+            "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+            "id": "F022-IMPLEMENT-011",
+            "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+            "task_id": "T015",
+            "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+          }
+        ],
+        "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        "schema_version": "1.0",
+        "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "tasks": {
+          "T015": {
+            "description": "[US3] Write worksheet `Metrics` and table `FarmBoyMetrics` with exactly `invocation_id`, `run_id`, `project`, `skill`, `workflow`, `step`, `invocation_kind`, `agent`, `model`, `effort`, `started_at`, `finished_at`, `duration_ms`; map shortened headers, retain JSON `schema_version` for validation and duplicate comparison but omit it from Excel, sort rows as specified, and preserve literal strings and numeric duration cells in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T014).",
+            "marker": " "
+          },
+          "T016": {
+            "description": "[US3] Publish uniquely named workbooks under `~/.farmboy/metrics/reports/` without overwriting prior outputs; create the same header-only table for zero accepted rows and fail visibly on output errors or above 1,000,000 accepted rows in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T015).",
+            "marker": " "
+          },
+          "T017": {
+            "description": "[US3] Complete `skills/farmboy-metrics-report/SKILL.md` so explicit invocation within FarmBoy verifies the reviewed source layout and `openpyxl==3.1.5`/`et-xmlfile` readiness before any output creation, runs the source report with the prescribed skill-tools interpreter, explains summary counts and locations, and never installs dependencies or launches another workflow (depends on T001 and T016).",
+            "marker": " "
+          },
+          "T019": {
+            "description": "[US3] Document schema, invocation boundaries, wall-clock limits, storage locations, concurrency, warnings, consumer delivery boundary, and explicit report usage in `docs/metrics.md`, `docs/architecture.md`, and `docs/installation.md` (depends on T006, T011, and T017).",
+            "marker": " "
+          },
+          "T020": {
+            "description": "[US3] Verify disposable consumer installation and removal deliver the collection helper but exclude the maintainer report skill and its dependency, while preserving local metric files and unrelated consumer components in `tests/test_bundle_lifecycle.py` and `tests/test_catalog.py` (depends on T004 and T017).",
+            "marker": " "
+          },
+          "T021": {
+            "description": "Run the deterministic collection, report, controller, catalog, and bundle lifecycle checks listed in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`; inspect `controllers/farmboy/controller-protocol.md` to confirm the metrics-only TOML-read exception is narrow and preserves dispatch authority; correct failures in their owning source or test files.",
+            "marker": " "
+          },
+          "T022": {
+            "description": "Exercise the documented live observation path for an exact named agent in FarmBoy and a disposable consumer, then explicitly invoke the maintainer report and record bounded evidence in `specs/022-local-workflow-agent-timing-metrics/quickstart.md` without including transcripts, secrets, personal details, or absolute host paths.",
+            "marker": " "
+          },
+          "T023": {
+            "description": "Open one populated workbook and one header-only workbook in Excel, verify table interoperability, filtering, literal text, and numeric signed-duration calculations, and record the observations in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`.",
+            "marker": " "
+          }
+        }
+      },
+      "baseline_sha256": "3d2b5c7d1551f665249a068785fa6b25607ab6afabb583c0da1d8f27cfb03d80"
+    }
+  ],
+  "proof_requirements": {
+    "T015": [
+      "exact-thirteen-column-table",
+      "shortened-header-mapping",
+      "schema-omission-from-workbook",
+      "deterministic-sorting",
+      "literal-text-and-numeric-duration-cells"
+    ]
+  },
+  "source_requirement_ids": {
+    "T015": [
+      "exact-thirteen-column-table",
+      "shortened-header-mapping",
+      "schema-omission-from-workbook",
+      "deterministic-sorting",
+      "literal-text-and-numeric-duration-cells"
+    ]
+  },
+  "required_paths": {
+    "T015": [
+      "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "tests/test_metrics_report.py"
+    ]
+  },
+  "completed_prerequisites": {
+    "T014": {
+      "task_id": "T014",
+      "description": "[US3] Group records by `invocation_id`, collapse identical fourteen-field projections, exclude conflicting identities, and calculate the documented candidate, accepted, duplicate, conflict, skipped, and invalid counts in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T013).",
+      "requirement_ids": [
+        "fourteen-field-projection-equality",
+        "identical-duplicate-collapse",
+        "whole-conflict-exclusion",
+        "summary-count-partition"
+      ],
+      "source_requirement_ids": [
+        "fourteen-field-projection-equality",
+        "identical-duplicate-collapse",
+        "whole-conflict-exclusion",
+        "summary-count-partition"
+      ],
+      "classification": {
+        "task_id": "T014",
+        "task_description_sha256": "a599e46106893715645392c3844ef8919c68004633ccdcc8fd06cfba8d170484",
+        "completion_kind": "substantive-implementation",
+        "requirement_ids": [
+          "fourteen-field-projection-equality",
+          "identical-duplicate-collapse",
+          "whole-conflict-exclusion",
+          "summary-count-partition"
+        ],
+        "source_requirement_ids": [
+          "fourteen-field-projection-equality",
+          "identical-duplicate-collapse",
+          "whole-conflict-exclusion",
+          "summary-count-partition"
+        ],
+        "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+        "classification_evidence": [
+          {
+            "path": ".specify/feature.json",
+            "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+            "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+            "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+            "sha256": "b6cf685d44f291a788c29fcbd537d9de41985bd8990a1930005c28b884ac5e57"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-next-baseline.json",
+            "sha256": "c5ba967815f31b19f6e5bfbec535ee02324ec596457bdfc0afa502d1ceea163a"
+          }
+        ]
+      },
+      "proof": {
+        "activation_sha256": "60cc5f4b10b4520fa67eb0584aed83af3cf392545a9ee6f2ff9503bfbb1e1b9a",
+        "completion_kind": "substantive-implementation",
+        "proof_evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+            "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+          }
+        ],
+        "requirements": [
+          {
+            "evidence": [
+              {
+                "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+                "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+              },
+              {
+                "path": "tests/test_metrics_report.py",
+                "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+                "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+              }
+            ],
+            "requirement_id": "fourteen-field-projection-equality",
+            "satisfied": true
+          },
+          {
+            "evidence": [
+              {
+                "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+                "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+              },
+              {
+                "path": "tests/test_metrics_report.py",
+                "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+                "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+              }
+            ],
+            "requirement_id": "identical-duplicate-collapse",
+            "satisfied": true
+          },
+          {
+            "evidence": [
+              {
+                "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+                "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+              },
+              {
+                "path": "tests/test_metrics_report.py",
+                "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+                "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+              }
+            ],
+            "requirement_id": "whole-conflict-exclusion",
+            "satisfied": true
+          },
+          {
+            "evidence": [
+              {
+                "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+                "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+              },
+              {
+                "path": "tests/test_metrics_report.py",
+                "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+              },
+              {
+                "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+                "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+              }
+            ],
+            "requirement_id": "summary-count-partition",
+            "satisfied": true
+          }
+        ],
+        "review_evidence": {
+          "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+          "reviewer": "FarmBoy Code Reviewer",
+          "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532",
+          "verdict": "complete"
+        },
+        "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+        "source_delta_evidence": [
+          {
+            "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-4/skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "ae4039c5d635767f5c13a07188b6f061b187f14b6596ae0d6c96be36713b605e"
+          },
+          {
+            "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-4/tests/test_metrics_report.py",
+            "sha256": "28fe3c1eb6ec8b150f2a9f0026e8f6d949340ad8bee80aacbea599b5ec1d3fb0"
+          },
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T014-pass-four.json",
+            "sha256": "60cc5f4b10b4520fa67eb0584aed83af3cf392545a9ee6f2ff9503bfbb1e1b9a"
+          }
+        ],
+        "task_description_sha256": "a599e46106893715645392c3844ef8919c68004633ccdcc8fd06cfba8d170484",
+        "task_id": "T014",
+        "validation_evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+            "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+          }
+        ]
+      }
+    }
+  },
+  "retained_prerequisite_sha256": {
+    "T014": "c3de5abdd9a4d01776721512392e9ed17aeb444208dfaed27a417c5184259544"
+  },
+  "prerequisite_projection_notes": {
+    "T014": {
+      "kind": "current-contextual-projection-of-prior-independent-proof",
+      "original_scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "fresh_scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+      "changed_proof_fields": [
+        "scope_sha256"
+      ],
+      "changed_classification_fields": [
+        "scope_sha256",
+        "classification_evidence"
+      ],
+      "original_activation_sha256": "60cc5f4b10b4520fa67eb0584aed83af3cf392545a9ee6f2ff9503bfbb1e1b9a",
+      "original_independent_review": {
+        "reference": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532",
+        "verdict": "complete"
+      },
+      "no_new_progress_credit": true,
+      "evidence_sha256_current": true
+    }
+  },
+  "report": {
+    "facts": [
+      "Current source/test and original defect artifact digests match retained F011 evidence.",
+      "T015 is unchecked; T014 is checked with original independent completion and activation provenance.",
+      "Existing writer table/header/type/sort test passes but does not cover CR or CRLF."
+    ],
+    "gaps": [
+      {
+        "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+            "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+            "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+          }
+        ],
+        "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+        "id": "F022-IMPLEMENT-011",
+        "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+        "task_id": "T015",
+        "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+      }
+    ],
+    "inference": "Fresh focused T015 correction can proceed after main-controller prerequisite/baseline/envelope validation; no T014 completion credit is claimed.",
+    "evidence": {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+      "sha256": "b6cf685d44f291a788c29fcbd537d9de41985bd8990a1930005c28b884ac5e57"
+    },
+    "authority": "Delegated initial assessment only; no source or task changes."
+  }
+}

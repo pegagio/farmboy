@@ -1,0 +1,32 @@
+[
+  {
+    "path": "controllers/farmboy/scripts/python/metrics.py",
+    "state": "present",
+    "sha256": "312a81c75848d92162cff429461dfa9429c1fe1ab9c65ab505934f1a1f542dd7",
+    "before_path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-3/controllers/farmboy/scripts/python/metrics.py"
+  },
+  {
+    "path": "tests/test_metrics.py",
+    "state": "present",
+    "sha256": "49ea0940d037deff2bca29abdc6aa7f0492692191a29ca6f12f5b14000dc8caf",
+    "before_path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-3/tests/test_metrics.py"
+  },
+  {
+    "path": "tests/test_controller.py",
+    "state": "present",
+    "sha256": "99bcefe4488d0af682bc75537911f7278642ede653239435a70441b7e838f295",
+    "before_path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-3/tests/test_controller.py"
+  },
+  {
+    "path": "tests/test_metrics_report.py",
+    "state": "present",
+    "sha256": "b2ad9bf67cf6c90d0fdf4773a88b8cc332293cd0bcdb6b9e2ba26f4ed6554192",
+    "before_path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-3/tests/test_metrics_report.py"
+  },
+  {
+    "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "state": "present",
+    "sha256": "d3667c63f521a353caed8f8e5b45571b493099392925b55affdbea5f168ec9a4",
+    "before_path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-3/skills/farmboy-metrics-report/scripts/metrics_report.py"
+  }
+]

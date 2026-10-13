@@ -1,0 +1,149 @@
+{
+  "request": {
+    "baseline": {
+      "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+      "findings": [
+        {
+          "artifact_location": "tests/test_metrics_report.py:261-274",
+          "evidence": [
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/assessment-focused-t018-initial.json",
+              "sha256": "2bd60591cecf221cbfc34220af7751ee2c752c2d3952c9b3c099a8c59af8526f"
+            }
+          ],
+          "exact_correction": "Complete the specified report tests with bounded injected capacity/snapshot/publication fixtures, actual pre-output dependency/layout failures, forced no-clobber collision and required-field/type/timestamp invalid inputs. Verify no output/environment mutation on failure and unchanged raw inputs.",
+          "id": "F022-IMPLEMENT-006",
+          "observed_deficiency": "Capacity/output-errors named test checks only empty input; dependency/source-layout test checks static strings only. Single-snapshot test creates no post-discovery candidate. No tests trigger accepted rows >1,000,000, output failure, forced name collision, missing dependency or bad source layout before output creation. Report boundary does not test all required fields/types/timestamp cases.",
+          "task_id": "T018",
+          "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+        }
+      ],
+      "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      "schema_version": "1.0",
+      "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "tasks": {
+        "T018": {
+          "description": "[P] [US3] Write report contract tests in `tests/test_metrics_report.py` before implementation; cover single-snapshot behavior; UTF-8 JSON objects no larger than 65,536 bytes; required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; `schema_version` exactly `1`, `invocation_kind` exactly `execution`, `continuation`, `retry`, or `probe`, exact millisecond timestamp grammar `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed duration equality, rejection of booleans/fractions, duplicate keys, nonfinite values, impossible timestamps, missing/empty required strings and unsupported schema/kind; `model` and `effort` absent or null normalize to null, non-null values must be nonempty strings, and other present types are invalid; rejection of strings over 32,767 characters or with illegal XML text without trimming/truncation; deduplication/conflicts; exact 13-column Excel order and shortened field mapping with JSON `schema_version` retained only for validation; literal text, numeric durations, zero-row output, no-clobber naming, output failures, failure above 1,000,000 accepted rows, unchanged input bytes, and missing dependency/source-layout failures before output creation without mutating the skill-tools environment (depends on T001).",
+          "marker": " "
+        }
+      }
+    },
+    "baseline_sha256": "27549f52ae8c26b28a17c9a655acc1a6899ae588587c313dd40b416102f4b87e",
+    "finding_source_baselines": [
+      {
+        "baseline": {
+          "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+          "findings": [
+            {
+              "artifact_location": "tests/test_metrics_report.py:261-274",
+              "current_evidence": [
+                {
+                  "path": "tests/test_metrics_report.py",
+                  "sha256": "0686e5fd6a1edd359f3f5e03986dfe456b0fb99242f8fdc7df734cb68db975f0"
+                },
+                {
+                  "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-correction-pass-one.json",
+                  "sha256": "ff89ff3d4af68f6bcea4bc4aee47d0ff4746f36b620515b6c447427f59ac99b8"
+                }
+              ],
+              "evidence": [
+                {
+                  "path": "tests/test_metrics_report.py",
+                  "sha256": "6b833329669418dad2756cc38ee49181d9796e486cd4c642575f36d893e83b5e"
+                }
+              ],
+              "exact_correction": "Complete the specified report tests with bounded injected capacity/snapshot/publication fixtures, actual pre-output dependency/layout failures, forced no-clobber collision and required-field/type/timestamp invalid inputs. Verify no output/environment mutation on failure and unchanged raw inputs.",
+              "id": "F022-IMPLEMENT-006",
+              "observed_deficiency": "Capacity/output-errors named test checks only empty input; dependency/source-layout test checks static strings only. Single-snapshot test creates no post-discovery candidate. No tests trigger accepted rows >1,000,000, output failure, forced name collision, missing dependency or bad source layout before output creation. Report boundary does not test all required fields/types/timestamp cases.",
+              "task_id": "T018",
+              "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+            }
+          ],
+          "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+          "schema_version": "1.0",
+          "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+          "tasks": {
+            "T018": {
+              "description": "[P] [US3] Write report contract tests in `tests/test_metrics_report.py` before implementation; cover single-snapshot behavior; UTF-8 JSON objects no larger than 65,536 bytes; required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; `schema_version` exactly `1`, `invocation_kind` exactly `execution`, `continuation`, `retry`, or `probe`, exact millisecond timestamp grammar `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed duration equality, rejection of booleans/fractions, duplicate keys, nonfinite values, impossible timestamps, missing/empty required strings and unsupported schema/kind; `model` and `effort` absent or null normalize to null, non-null values must be nonempty strings, and other present types are invalid; rejection of strings over 32,767 characters or with illegal XML text without trimming/truncation; deduplication/conflicts; exact 13-column Excel order and shortened field mapping with JSON `schema_version` retained only for validation; literal text, numeric durations, zero-row output, no-clobber naming, output failures, failure above 1,000,000 accepted rows, unchanged input bytes, and missing dependency/source-layout failures before output creation without mutating the skill-tools environment (depends on T001).",
+              "marker": " "
+            }
+          }
+        },
+        "baseline_sha256": "7090bf1eaab87a992d4a70b68281d4f88792129ae0ab7700f6b1406990be1271"
+      }
+    ],
+    "review": {
+      "baseline_sha256": "27549f52ae8c26b28a17c9a655acc1a6899ae588587c313dd40b416102f4b87e",
+      "completed_task_ids": [
+        "T018"
+      ],
+      "findings": [
+        {
+          "evidence": [
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+              "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+            }
+          ],
+          "id": "F022-IMPLEMENT-006",
+          "resolution_summary": "Retained original authoring deficiencies are replaced by late-snapshot, injected capacity, hard-link failure, UUID collision, executable dependency/layout failure and complete invalid input matrix fixtures. The last residual count contradiction now distinguishes unsupported schema from contract and malformed JSON. Independent fixture diagnostics reproduce exact 4-category and 45-invalid expectations; report runtime remains pending T013.",
+          "status": "resolved",
+          "task_id": "T018"
+        }
+      ],
+      "new_findings": [],
+      "reviewer": "FarmBoy Code Reviewer",
+      "task_completion_evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+          "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+        }
+      ]
+    }
+  },
+  "result": {
+    "baseline": {
+      "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+      "findings": [],
+      "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      "schema_version": "1.0",
+      "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "tasks": {}
+    },
+    "baseline_sha256": "09fe2a95dd79168d29deab3473689a0cb1802e371839eb440b4f1df9a021fefb",
+    "evidence": [
+      {
+        "path": "tests/test_metrics_report.py",
+        "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-focused-t018-pass-one.json",
+        "sha256": "dcefd3c7bee4b3c1a3948c868fa427db018ea1d4cbb22a071b265b2b14a8bcb6"
+      }
+    ],
+    "findings": [],
+    "remaining_ids": [],
+    "resolved_ids": [
+      "finding:F022-IMPLEMENT-006",
+      "task:T018"
+    ],
+    "state": "ready",
+    "substantive_progress": true
+  }
+}

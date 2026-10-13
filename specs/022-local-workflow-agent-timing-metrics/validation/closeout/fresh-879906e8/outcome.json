@@ -1,0 +1,100 @@
+{
+  "state": "blocked",
+  "reason_code": "no-progress",
+  "workflow_id": "farmboy-closeout",
+  "recovery_id": "879906e8-7f79-4867-8bda-2504e6a20f98",
+  "workflow_version": "0.9.2",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "specification_status": "Complete",
+  "roadmap_entry_id": "022",
+  "roadmap_status": "verified",
+  "roadmap_version": "1.31.1",
+  "verification_route": "already-verified",
+  "original_roadmap_approval_choice": "approve-patch",
+  "new_roadmap_write": false,
+  "debrief_and_correction": "Current initial Reviewer revalidated retained debrief/approval and all 103 immutable implemented hashes; no new implementation correction. One historical page freshness metadata update preserved body/citations; source refresh justified no new durable knowledge.",
+  "wiki_passes_used": 1,
+  "wiki_pass_limit": 5,
+  "ingestion_state": "complete",
+  "fresh_lint_findings": 0,
+  "administrative_cleared_ids": [
+    "stale-s005-installation-history-before-farmboy"
+  ],
+  "substantive_resolved_ids": [],
+  "remaining_ids": [
+    "historical-pyyaml-source-attribution"
+  ],
+  "blocker": "Independent assessment found the historical Python failure/retry observations cite only S005, whose current installation guide lacks those observations. Frozen S025/S026 provide support; citations must be corrected. No substantive prior gap resolved, so installed generic route stops for no progress.",
+  "safe_resumption": "Fresh operator-authorized FarmBoy Close Out retaining the current finding as its substantive baseline; ingest the existing registered Feature017 follow-up for citation correction, fresh full lint, independent coverage assessment and final readiness.",
+  "commit_readiness": false,
+  "changed_wiki_paths": [
+    "wiki/pages/installation-history-before-farmboy.md",
+    "wiki/sources.md",
+    "wiki/lint-report.md"
+  ],
+  "git": {
+    "head": "f747c4ec1bc644993699c318aa43ee52afc522d6",
+    "head_unchanged": true,
+    "index_sha256": "2bd152c216b501fb2a1fa3dc1a584cdbe8fa2a15eaa391330f0eb8f175a33cc8",
+    "index_unchanged": true,
+    "commit_created": false,
+    "integration_performed": false
+  },
+  "validation": {
+    "retained_passing_tests": 176,
+    "tests_rerun": false,
+    "immutable_implemented_hashes_match": 103
+  },
+  "planned_roadmap_entries_preserved": [
+    "023",
+    "024",
+    "025"
+  ],
+  "report": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/outcome.json",
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/citation-repair-proposal.json",
+      "sha256": "458035907e5a4c49a206985d4b4142454c8c602bfe65fe7b651bdd6d138aa278"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/final-readiness.json",
+      "sha256": "5615df9100044d4b7f769968a5cd14099116099e91179cdab9f95088e0047315"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+      "sha256": "ad920e0e06e77f992ca168e2f57e355738c3a3b7bd7c7bd558449fca0100e31f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/historical-qualification-check.json",
+      "sha256": "cbabd75f38e07295fc7d2ba532266f4d5238d2b61a461a2b52d698f46227beec"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/ingestion.json",
+      "sha256": "fe775c683cbb0f498996c684d8e3822fcf3387321a289efe248f0910af5db70e"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/lint.json",
+      "sha256": "e2ac9be9932d9e7e2bb74112c02b5b07782010083eebfbf39e763b15c2862512"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/native-preflight.json",
+      "sha256": "e802bde51210901fd84f07e4260f5264e70131efda52e6df4ff55fe50ed1bec4"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/timing-accounting.json",
+      "sha256": "16da352aa1ecee41bc7b5db22e619d4f0168b238d0cda8b65596199c8e2e2dd3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-assessment.json",
+      "sha256": "66f4d73490c46906ed50269790bb0d11e482728cd0f2d74fcdf491d0a719386d"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-baseline.json",
+      "sha256": "65d1cec0a30ab5ad615db307c1d1751479079e2987225b2c34f557bb21a70746"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/wiki-scope.json",
+      "sha256": "6483680897c4ced03c30d418e09c06eae1b838625f43b7eb4093d6d5976e6bed"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 title: Diagram adapter boundary
 type: decision
 sources: [S001, S003, S034]
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Diagram adapter boundary

@@ -2,7 +2,7 @@
 title: Workflow lifecycle
 type: concept
 sources: [S002, S006, S007, S010, S013, S017, S018, S019, S021, S029]
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Workflow lifecycle

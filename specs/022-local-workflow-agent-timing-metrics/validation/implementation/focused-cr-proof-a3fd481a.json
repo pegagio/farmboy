@@ -1,0 +1,62 @@
+{
+  "reviewer": "FarmBoy Code Reviewer",
+  "selected_task_ids": [
+    "T015"
+  ],
+  "versions": {
+    "openpyxl": "3.1.5",
+    "et-xmlfile": "2.0.0"
+  },
+  "tests": [
+    "test_consolidateRecordsCollapsesNormalizedProjectionAndIgnoresUnknownFields",
+    "test_consolidateRecordsExcludesWholeConflictsAndConservesMixedInputCounts",
+    "test_consolidateRecordsReturnsZeroCountsForAnEmptySnapshot",
+    "test_consolidateRecordsUsesOnlyTheCapturedDiscoverySnapshot",
+    "test_exportPreservesXmlLineBreaksInLiteralTextCells",
+    "test_readMetricRecordsAcceptsExactByteLimitAndDoesNotFollowCandidateLinks",
+    "test_readMetricRecordsBoundsReadsAndClassifiesEachInvalidCandidateOnce",
+    "test_readMetricRecordsClassifiesUnsupportedSchemaBeforeMissingFields",
+    "test_readMetricRecordsContainsDeepUnknownFieldFailureAndKeepsValidPeer",
+    "test_readMetricRecordsIgnoresHugeIntegerInUnknownFieldAndKeepsValidPeers",
+    "test_readMetricRecordsRetainsOneSnapshotAndNormalizesAbsentSettings",
+    "test_readMetricRecordsRetainsStrictJsonAndObjectValidation",
+    "test_writeWorkbookMapsColumnsSortsAndPreservesTypedLiteralCells"
+  ],
+  "tests_run": 13,
+  "failures": 0,
+  "errors": 0,
+  "observations": [
+    {
+      "case": "all-literal-fields-signed-duration",
+      "duration_ms": 0,
+      "preserved": true,
+      "zip_members_preserved": 11
+    },
+    {
+      "case": "all-literal-fields-signed-duration",
+      "duration_ms": -1,
+      "preserved": true,
+      "zip_members_preserved": 11
+    },
+    {
+      "case": "replacement-failure",
+      "error_propagates": true,
+      "temporary_rewrite_cleaned": true,
+      "caller_owned_output_remains": true
+    },
+    {
+      "case": "multi-chunk-round-trip",
+      "rows": 160,
+      "preserved": true
+    }
+  ],
+  "facts": [
+    "Current diff adds only module-local XLSX ZIP rewrite and CR round-trip regression.",
+    "All nonworksheet ZIP member bytes and selected metadata preserved.",
+    "Rewrite errors propagate and temporary rewrite is removed. Caller owns output publication and rollback (T016)."
+  ],
+  "gaps": [],
+  "limitations": [
+    "No T016 publication, T017 preflight, or manual Excel acceptance executed."
+  ]
+}

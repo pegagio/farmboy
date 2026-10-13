@@ -1,0 +1,29 @@
+{
+  "active_pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+  "changed_task_ids": [
+    "T016"
+  ],
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "result": {
+    "completed_task_ids": [
+      "T016"
+    ],
+    "source_resolution_credit": 0,
+    "state": "ready"
+  },
+  "review_evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-one-1e6ae445.json",
+      "sha256": "ea6a29de7e902163a6925944ad309fb24848187003d430355bc337334633afc6"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-progress-pass-one-1e6ae445.json",
+      "sha256": "4fc5889a04ba70d5b05107c402fdb4095e1fa1256a0047d4113a46b52bcef1b9"
+    }
+  ],
+  "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+  "tasker_assignment": "FarmBoy Tasker",
+  "tasks_after_sha256": "50e68519c7e720436b29826dacfaf2a91677b5ff92a6ec0c34f17b37a59be574",
+  "tasks_before_sha256": "a96094d35b9175c269fc2733029a213c998831ebed640fa8abb4b56e3c19165d",
+  "tasks_path": "specs/022-local-workflow-agent-timing-metrics/tasks.md"
+}

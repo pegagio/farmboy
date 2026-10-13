@@ -207,22 +207,45 @@ class BundleLifecycleTests(unittest.TestCase):
             self.fail(f"specify {' '.join(args)} failed:\n{completed.stdout}")
         return completed.stdout
 
+    def isolated_environment(self, fixture: Path) -> dict[str, str]:
+        """Keep native CLI home-directory effects inside this test fixture."""
+        home = fixture / "home"
+        home.mkdir()
+        bootstrap = fixture / "python-bootstrap"
+        bootstrap.mkdir()
+        (bootstrap / "sitecustomize.py").write_text(
+            "import os\n"
+            "from pathlib import Path\n"
+            "home = Path(os.environ['FARMBOY_TEST_HOME'])\n"
+            "Path.home = classmethod(lambda cls: home)\n"
+            "original_expanduser = os.path.expanduser\n"
+            "def expanduser(path):\n"
+            "    if path == '~':\n"
+            "        return str(home)\n"
+            "    if path.startswith('~/'):\n"
+            "        return str(home / path[2:])\n"
+            "    return original_expanduser(path)\n"
+            "os.path.expanduser = expanduser\n",
+            encoding="utf-8",
+        )
+        environment = os.environ.copy()
+        environment["FARMBOY_TEST_HOME"] = str(home)
+        environment["PYTHONPATH"] = str(bootstrap)
+        return environment
+
     def test_installRejectsIncompatibleWiki_expectedNoBundleRecord_whenVersionDoesNotMatch(self):
         with tempfile.TemporaryDirectory(prefix="farmboy-version-mismatch-") as directory:
             fixture = Path(directory)
             consumer = fixture / "consumer"
             consumer.mkdir()
-            home = fixture / "home"
-            home.mkdir()
             extensions = {
                 ROADMAP_ID: Path(ROADMAP_SOURCE),
                 WIKI_ID: Path(WIKI_SOURCE),
                 FEEDBACK_ID: released_feedback_source(fixture / "released-feedback"),
             }
             with LocalCatalog(fixture / "catalog", extensions, {WIKI_ID: "0.0.0"}) as catalog:
-                environment = os.environ.copy()
+                environment = self.isolated_environment(fixture)
                 environment.update({
-                    "HOME": str(home),
                     "SPECKIT_CATALOG_URL": catalog.extension_url,
                     "SPECKIT_WORKFLOW_CATALOG_URL": catalog.workflow_url,
                 })
@@ -248,18 +271,15 @@ class BundleLifecycleTests(unittest.TestCase):
             fixture = Path(directory)
             consumer = fixture / "consumer"
             consumer.mkdir()
-            home = fixture / "home"
-            home.mkdir()
             extensions = {
                 ROADMAP_ID: Path(ROADMAP_SOURCE),
                 WIKI_ID: Path(WIKI_SOURCE),
                 FEEDBACK_ID: released_feedback_source(fixture / "released-feedback"),
             }
             with LocalCatalog(fixture / "catalog", extensions) as catalog:
-                environment = os.environ.copy()
+                environment = self.isolated_environment(fixture)
                 environment.update(
                     {
-                        "HOME": str(home),
                         "SPECKIT_CATALOG_URL": catalog.extension_url,
                         "SPECKIT_WORKFLOW_CATALOG_URL": catalog.workflow_url,
                     }
@@ -298,7 +318,6 @@ class BundleLifecycleTests(unittest.TestCase):
                     str(ROOT / "bundles/farmboy/bundle.yml"),
                 )
                 self.assertEqual(consumer_owned_hashes, {path: sha256(path) for path in consumer_owned})
-
                 record = json.loads((consumer / ".specify/bundle-records.json").read_text(encoding="utf-8"))
                 self.assertEqual("farmboy", record["bundles"][0]["bundle_id"])
                 contributions = record["bundles"][0]["contributed_components"]
@@ -502,7 +521,14 @@ class FarmBoyControllerLifecycleTests(unittest.TestCase):
 
     def test_installRefreshRemovePreservesConsumerSkillsAndRecovery(self) -> None:
         with tempfile.TemporaryDirectory(prefix="farmboy-controller-consumer-") as temporary:
-            consumer = Path(temporary)
+            fixture_root = Path(temporary)
+            consumer = fixture_root / "consumer"
+            local_metrics = fixture_root / "operator-home/.farmboy/metrics/metric-local.json"
+            local_metrics.parent.mkdir(parents=True)
+            local_metrics.write_text('{"invocation_id":"local"}\n', encoding="utf-8")
+            unrelated_component = consumer / ".specify/extensions/consumer-owned/component.json"
+            unrelated_component.parent.mkdir(parents=True)
+            unrelated_component.write_text('{"owned":true}\n', encoding="utf-8")
             recovery = consumer / ".specify/flow-controllers/runs/retained/summary.json"
             recovery.parent.mkdir(parents=True)
             recovery.write_text('{"status":"stopped"}\n', encoding="utf-8")
@@ -523,9 +549,18 @@ class FarmBoyControllerLifecycleTests(unittest.TestCase):
             archive = consumer / "controller-package.zip"
             catalog.package_controller(archive)
             catalog.install_controller_package(consumer, archive, refresh=False, source_digest=catalog.digest(archive), catalog_status="snapshot")
+            self.assertTrue((consumer / ".specify/farmboy/scripts/python/metrics.py").is_file())
+            self.assertFalse((consumer / ".agents/skills/farmboy-metrics-report").exists())
+            self.assertFalse(any("farmboy-metrics-report" in name for name in catalog.controller_package_files()))
+            self.assertEqual(10, len(catalog.controller_manifest()["controllers"]))
             catalog.install_controller_package(consumer, archive, refresh=True, source_digest=catalog.digest(archive), catalog_status="snapshot")
             self.assertEqual(agent_hashes, {path: hashlib.sha256(path.read_bytes()).hexdigest() for path in custom_agents})
+            self.assertEqual('{"invocation_id":"local"}\n', local_metrics.read_text(encoding="utf-8"))
             catalog.remove_controller_package(consumer)
+            self.assertFalse((consumer / ".specify/farmboy/scripts/python/metrics.py").exists())
+            self.assertFalse((consumer / ".agents/skills/farmboy-metrics-report").exists())
+            self.assertEqual('{"invocation_id":"local"}\n', local_metrics.read_text(encoding="utf-8"))
+            self.assertEqual('{"owned":true}\n', unrelated_component.read_text(encoding="utf-8"))
             self.assertTrue(recovery.is_file())
             self.assertTrue(current_recovery.is_file())
             self.assertEqual("consumer-owned", local_skill.read_text(encoding="utf-8"))

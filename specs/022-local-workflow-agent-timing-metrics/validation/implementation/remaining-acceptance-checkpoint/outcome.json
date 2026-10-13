@@ -1,0 +1,122 @@
+{
+  "state": "blocked",
+  "run_id": "1e6ae445-95f6-474e-805a-0d957df14569",
+  "reason_code": "required-live-and-excel-observations-unavailable",
+  "resume_action": "refresh-between-runs-and-obtain-live-and-excel-observations",
+  "completed_this_invocation": [
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "completed_task_ids": [
+    "T001",
+    "T005",
+    "T002",
+    "T003",
+    "T004",
+    "T009",
+    "T006",
+    "T007",
+    "T008",
+    "T012",
+    "T010",
+    "T011",
+    "T018",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "remaining_task_ids": [
+    "T022",
+    "T023"
+  ],
+  "substantive_progress_final_pass": false,
+  "source_attempts_started": 5,
+  "coder_sessions_started": 5,
+  "execution_limit": 5,
+  "known_unresolved_code_findings": [],
+  "validation": {
+    "deterministic_test_count": 176,
+    "skipped_count": 0,
+    "suites": {
+      "metrics": 34,
+      "report": 38,
+      "controller": 71,
+      "catalog": 29,
+      "bundle_lifecycle": 4
+    },
+    "specify_cli": "1.0.10.dev0+pegagio.2",
+    "live_agent_round_trip": "not-observed",
+    "excel_interoperability": "not-observed",
+    "excel_binding_interrupted_seconds": 391.9
+  },
+  "workbook_fixtures": [
+    {
+      "label": "populated",
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/populated.xlsx",
+      "sha256": "6e88e83ceea7a603c0d3a2a0c311c73e527216529135c9bde96f4347c0e5bfaf",
+      "candidate_count": 2,
+      "accepted_count": 2,
+      "excel_verified": false
+    },
+    {
+      "label": "header-only",
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/header-only.xlsx",
+      "sha256": "8f36798a357bfa248a438ecb682bbca7f11b44277ba7ccf44c6191fb5e131338",
+      "candidate_count": 0,
+      "accepted_count": 0,
+      "excel_verified": false
+    }
+  ],
+  "git": {
+    "commit_created": false,
+    "index_preserved": true,
+    "head_preserved": true,
+    "index_sha256": "2bd152c216b501fb2a1fa3dc1a584cdbe8fa2a15eaa391330f0eb8f175a33cc8",
+    "head": "f747c4ec1bc644993699c318aa43ee52afc522d6"
+  },
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/last-coder-output.json",
+      "sha256": "a81e5964c151f0c929aaebec8de4c627c307980e01271f556f942acbca254852"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/T023-activation.json",
+      "sha256": "fe83211a1602dad0f56fa4f29b6d386a4acf3960efc71c7deeb3a646374b6cef"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/populated.xlsx",
+      "sha256": "6e88e83ceea7a603c0d3a2a0c311c73e527216529135c9bde96f4347c0e5bfaf"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/remaining-acceptance-checkpoint/workbooks/header-only.xlsx",
+      "sha256": "8f36798a357bfa248a438ecb682bbca7f11b44277ba7ccf44c6191fb5e131338"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-judgement-pass-five-1e6ae445.json",
+      "sha256": "2e96d1b37e051fcac638d1bd0420d9f362e36196bdb999aaba8f5172e799dac0"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/final-independent-progress-pass-five-1e6ae445.json",
+      "sha256": "a9a9034c153e41da215eb0a0efb5d157287f03928b7381d8fac98750185b96ed"
+    }
+  ],
+  "safe_resume": [
+    "Refresh the supported FarmBoy installation between workflow invocations.",
+    "Explicitly select the live workflow and target for FarmBoy and a disposable consumer; retain real same-child question and answer timing boundaries.",
+    "Explicitly invoke FarmBoy Metrics Report in the maintainer checkout after genuine observations.",
+    "Open the two retained fixture workbooks in Excel and record actual interoperability, filtering, literal-text, and signed-duration calculation observations.",
+    "Start a fresh operator-issued Implement invocation to finish remaining tasks; the current invocation has used all five source attempts."
+  ]
+}

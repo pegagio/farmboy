@@ -1,0 +1,72 @@
+{
+  "baseline_sha256": "5aa6093c72472318362583fee4d9dc8ed8f191f836b8d109b2cfe6e73be69d20",
+  "checks": [
+    {
+      "command": "skill-tools Python bounded report ingestion/consolidation/writer unittest suite",
+      "observed": "12 tests passed, including fixed snapshot, invalid counts, normalized equality/conflicts and existing real-XLSX writer fixture."
+    },
+    {
+      "command": "independent actual public write_workbook artifact round-trip with validated legal XML carriage return",
+      "observed": "FAILED exact string equality: I2 original line\\rbreak\\n\u7d42\ud83d\ude00 became line\\nbreak\\n\u7d42\ud83d\ude00. Actual sheet XML contains raw CR. Input dictionary remained unchanged; dependency version 3.1.5."
+    },
+    {
+      "command": "git diff --check",
+      "observed": "passed"
+    }
+  ],
+  "completed_task_ids": [],
+  "confirmed_new_findings": [
+    {
+      "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+          "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+          "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+        }
+      ],
+      "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+      "id": "F022-IMPLEMENT-011",
+      "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+      "task_id": "T015",
+      "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+    }
+  ],
+  "delta_evidence": [
+    {
+      "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-5/skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "e5183930e845dd049a68d44660b8f9100d45f4d66ed67636fc27f68f0e01edf0"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/source-before-5/tests/test_metrics_report.py",
+      "sha256": "68b9a168135a03bf38fec108cabbc667a47ba7a6aae7f3eadde0d166dbc15dcd"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+    }
+  ],
+  "limitations": [
+    "Publication, no-clobber naming, capacity policy and CLI are later T016/T017 tasks; none are acceptance claims.",
+    "T022 live dispatch and T023 Excel observations remain pending.",
+    "The main controller owns source-session caps and safe resumption decisions; this review cannot authorize another session.",
+    "Other writer structural/type checks pass in the committed focused fixture, but whole T015 cannot be marked complete because of the confirmed literal-text defect."
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813"
+}

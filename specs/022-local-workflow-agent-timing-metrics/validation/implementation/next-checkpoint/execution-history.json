@@ -1,0 +1,382 @@
+{
+  "coder_sessions_started": 5,
+  "events": [
+    {
+      "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+      "coder_sessions_started": 1,
+      "declared_node_id": "implement-tasks",
+      "event_id": "e3ce3e47-82c2-4682-a815-9fe14637220f",
+      "event_kind": "coder-session-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-initial-assessment-20a91da0.json",
+          "sha256": "8e949aeb0d05feb5e8805b22dc5aa675cd0da885f71709c7f09871739cf44147"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+          "sha256": "dbdb8ef2514ee37c9b92ad77eec8ab61db30365fdc3c5020f0370a7557bd70ab"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        }
+      ],
+      "execution_kind": "first-source-execution",
+      "occurred_at": "2026-10-12T19:50:16.343193+00:00",
+      "predecessor_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "cde4f77d423ce072ae96b393caa4534012bb327fd78dfa8899f4290aa4ca52b6",
+      "source_attempts_started": 0
+    },
+    {
+      "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+      "coder_sessions_started": 1,
+      "declared_node_id": "implement-tasks",
+      "event_id": "be801a4f-07b5-4bd4-aec3-c034721c76a6",
+      "event_kind": "source-attempt-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-initial-assessment-20a91da0.json",
+          "sha256": "8e949aeb0d05feb5e8805b22dc5aa675cd0da885f71709c7f09871739cf44147"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+          "sha256": "dbdb8ef2514ee37c9b92ad77eec8ab61db30365fdc3c5020f0370a7557bd70ab"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        }
+      ],
+      "execution_kind": "first-source-execution",
+      "occurred_at": "2026-10-12T19:50:16.345135+00:00",
+      "predecessor_sha256": "cde4f77d423ce072ae96b393caa4534012bb327fd78dfa8899f4290aa4ca52b6",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "7b7ae845dcf30db7e0a3c2d5046810e3a9cea2f1d5c40e5fdd5026f9ba792c6b",
+      "source_attempts_started": 1
+    },
+    {
+      "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+      "coder_sessions_started": 1,
+      "declared_node_id": "implement-tasks",
+      "event_id": "a7e69e6f-b85f-4c71-9889-dbc69e1407ac",
+      "event_kind": "coder-session-outcome",
+      "evidence": [
+        {
+          "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+          "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+        }
+      ],
+      "occurred_at": "2026-10-12T19:57:16.197275+00:00",
+      "outcome": "completed",
+      "predecessor_sha256": "7b7ae845dcf30db7e0a3c2d5046810e3a9cea2f1d5c40e5fdd5026f9ba792c6b",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "3a88b0258b6aba74cc9b2811296120c23cd27bb7b51565564a075d4b6ef244ee",
+      "source_attempts_started": 1
+    },
+    {
+      "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+      "coder_sessions_started": 2,
+      "declared_node_id": "implement-tasks",
+      "event_id": "0b7777ac-6ccd-4489-864a-fa7dc565a619",
+      "event_kind": "coder-session-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+          "sha256": "900dc599597b2abfa1c034c4ad1d73dfbce22e36d7c17d1666dec5f530e08cc5"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+          "sha256": "d985b0fd2aa8dcfc8a58f7d8122d2225ed2cf000d0d5176db323ec6ad57536b1"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+          "sha256": "5165e8edd2c127ebdcad908a7d16d2f0c1676603a353151549e73d2e2c0b1d69"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:04:16.009518+00:00",
+      "predecessor_sha256": "3a88b0258b6aba74cc9b2811296120c23cd27bb7b51565564a075d4b6ef244ee",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "9638b530b73fbbfa6246947ba82627f5967ef72cd5c6efd473ead0884317ff4e",
+      "source_attempts_started": 1
+    },
+    {
+      "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+      "coder_sessions_started": 2,
+      "declared_node_id": "implement-tasks",
+      "event_id": "6120ef6d-c817-4575-95a7-001a4095f055",
+      "event_kind": "source-attempt-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+          "sha256": "900dc599597b2abfa1c034c4ad1d73dfbce22e36d7c17d1666dec5f530e08cc5"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+          "sha256": "d985b0fd2aa8dcfc8a58f7d8122d2225ed2cf000d0d5176db323ec6ad57536b1"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+          "sha256": "5165e8edd2c127ebdcad908a7d16d2f0c1676603a353151549e73d2e2c0b1d69"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:04:16.012912+00:00",
+      "predecessor_sha256": "9638b530b73fbbfa6246947ba82627f5967ef72cd5c6efd473ead0884317ff4e",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "d72621888a44f2a1e765cf0f342e46c51073ca8064b8bc832e6f43ed42986dc8",
+      "source_attempts_started": 2
+    },
+    {
+      "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+      "coder_sessions_started": 2,
+      "declared_node_id": "implement-tasks",
+      "event_id": "cf26370d-21c4-4940-9d79-f4b8ca81f9f7",
+      "event_kind": "coder-session-outcome",
+      "evidence": [
+        {
+          "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+          "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+        }
+      ],
+      "occurred_at": "2026-10-12T20:08:41.217319+00:00",
+      "outcome": "completed",
+      "predecessor_sha256": "d72621888a44f2a1e765cf0f342e46c51073ca8064b8bc832e6f43ed42986dc8",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "465b1a9147a7fa83e61d66b8ffa3fdce8acc711271a9d09e78d431a4a2fd51fc",
+      "source_attempts_started": 2
+    },
+    {
+      "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+      "coder_sessions_started": 3,
+      "declared_node_id": "implement-tasks",
+      "event_id": "1c5341b0-da7b-43ac-85d8-2031a4cdac48",
+      "event_kind": "coder-session-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-two.json",
+          "sha256": "2757304ba066c3264092bd7c5aa6949221423b8e451ea4fc54b37ada03ea8624"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-two.json",
+          "sha256": "ded130bdc62c0a661ba2cdcbad8b799f84a2ef7063e1f2413d30a44117dd289f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-two.json",
+          "sha256": "2402992879b47c31d631ee9cd11ba844ef9f345eea9ee73e91b194826e468c77"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:14:23.223403+00:00",
+      "predecessor_sha256": "465b1a9147a7fa83e61d66b8ffa3fdce8acc711271a9d09e78d431a4a2fd51fc",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "7952bb4e29d367914bd73375818d54ec429a6a5118af808fdb60662b5b5bcaf9",
+      "source_attempts_started": 2
+    },
+    {
+      "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+      "coder_sessions_started": 3,
+      "declared_node_id": "implement-tasks",
+      "event_id": "c83b088f-6d69-4a4f-bc13-4ed840f3628e",
+      "event_kind": "source-attempt-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-two.json",
+          "sha256": "2757304ba066c3264092bd7c5aa6949221423b8e451ea4fc54b37ada03ea8624"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-two.json",
+          "sha256": "ded130bdc62c0a661ba2cdcbad8b799f84a2ef7063e1f2413d30a44117dd289f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-two.json",
+          "sha256": "2402992879b47c31d631ee9cd11ba844ef9f345eea9ee73e91b194826e468c77"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:14:23.227196+00:00",
+      "predecessor_sha256": "7952bb4e29d367914bd73375818d54ec429a6a5118af808fdb60662b5b5bcaf9",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "53ef86cba3fa6e34cc34a18a52d10f0e61c41926ae8689525bcba0188d91d457",
+      "source_attempts_started": 3
+    },
+    {
+      "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+      "coder_sessions_started": 3,
+      "declared_node_id": "implement-tasks",
+      "event_id": "22102b06-a9cb-45c6-af4a-2a1fe51fd2e2",
+      "event_kind": "coder-session-outcome",
+      "evidence": [
+        {
+          "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+          "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+        }
+      ],
+      "occurred_at": "2026-10-12T20:20:09.483518+00:00",
+      "outcome": "completed",
+      "predecessor_sha256": "53ef86cba3fa6e34cc34a18a52d10f0e61c41926ae8689525bcba0188d91d457",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "1b82282b91e0da96462693baa835fa626d9d933ae965b400281619b3b1d5b1b2",
+      "source_attempts_started": 3
+    },
+    {
+      "coder_session_id": "source-session-b21c1e19-fe59-4f07-b3f9-5182cc3efa77",
+      "coder_sessions_started": 4,
+      "declared_node_id": "implement-tasks",
+      "event_id": "1e68013c-f5aa-40e9-85e3-66e21edf3345",
+      "event_kind": "coder-session-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-three.json",
+          "sha256": "0c35f8fb0cf73d32ca46e502720e96cc7ea7abae0c0ff6ffd0b0a461df6c5588"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-three.json",
+          "sha256": "69d8e98ac1d64442e1c426239fca6d8449b82b7d37871cf8f447d7d23304576a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-three.json",
+          "sha256": "3272eeae9724ac84a8c8f8c612f6aa63e70a9980b8fd4bb5746c9198dae568fe"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:26:24.787116+00:00",
+      "predecessor_sha256": "1b82282b91e0da96462693baa835fa626d9d933ae965b400281619b3b1d5b1b2",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "a5730d5e4efac5933393fa8c9fc4ad46aa647c6343fb6032f57798ad761932a3",
+      "source_attempts_started": 3
+    },
+    {
+      "coder_session_id": "source-session-b21c1e19-fe59-4f07-b3f9-5182cc3efa77",
+      "coder_sessions_started": 4,
+      "declared_node_id": "implement-tasks",
+      "event_id": "015c839c-d8c0-4e01-9d2e-c2cd01243ae9",
+      "event_kind": "source-attempt-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-three.json",
+          "sha256": "0c35f8fb0cf73d32ca46e502720e96cc7ea7abae0c0ff6ffd0b0a461df6c5588"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-three.json",
+          "sha256": "69d8e98ac1d64442e1c426239fca6d8449b82b7d37871cf8f447d7d23304576a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-three.json",
+          "sha256": "3272eeae9724ac84a8c8f8c612f6aa63e70a9980b8fd4bb5746c9198dae568fe"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:26:24.792011+00:00",
+      "predecessor_sha256": "a5730d5e4efac5933393fa8c9fc4ad46aa647c6343fb6032f57798ad761932a3",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "fc288e722f354f5e5f40e789822743a69a7841e4831a13273fface5dd5413410",
+      "source_attempts_started": 4
+    },
+    {
+      "coder_session_id": "source-session-b21c1e19-fe59-4f07-b3f9-5182cc3efa77",
+      "coder_sessions_started": 4,
+      "declared_node_id": "implement-tasks",
+      "event_id": "7df1b349-2c17-4682-afbe-27821843321c",
+      "event_kind": "coder-session-outcome",
+      "evidence": [
+        {
+          "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+          "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+        }
+      ],
+      "occurred_at": "2026-10-12T20:31:37.837000+00:00",
+      "outcome": "completed",
+      "predecessor_sha256": "fc288e722f354f5e5f40e789822743a69a7841e4831a13273fface5dd5413410",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "53b700cbc4b6652dc632861adafb31a9c28b9c0994fc36e126b9a69f48db4a30",
+      "source_attempts_started": 4
+    },
+    {
+      "coder_session_id": "source-session-c9ae5aac-8081-48e0-8b20-c8af5d950f00",
+      "coder_sessions_started": 5,
+      "declared_node_id": "implement-tasks",
+      "event_id": "ec20e536-fd42-4525-bcf5-021a4dc74b8d",
+      "event_kind": "coder-session-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+          "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-four.json",
+          "sha256": "84bc371a336491aa6dfe218a0096880581390e0e18013d988b209aaa1cb5154a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-four.json",
+          "sha256": "77dc321fea9729f14ddf10e950358740cabb6ca09a6250f42ce96e8a87d07da6"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:36:50.007403+00:00",
+      "predecessor_sha256": "53b700cbc4b6652dc632861adafb31a9c28b9c0994fc36e126b9a69f48db4a30",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "eb580c1114138d5d44fa00d0cd1052f3bf32fad730499a1e8c3cf75ecccc7937",
+      "source_attempts_started": 4
+    },
+    {
+      "coder_session_id": "source-session-c9ae5aac-8081-48e0-8b20-c8af5d950f00",
+      "coder_sessions_started": 5,
+      "declared_node_id": "implement-tasks",
+      "event_id": "e37b74f0-352b-4d75-b201-d35b828183c4",
+      "event_kind": "source-attempt-start",
+      "evidence": [
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-four.json",
+          "sha256": "3015ee77317e2c17a8483346ce6b43c318597ea37f3166ef3ed9b7e7543eb532"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-four.json",
+          "sha256": "84bc371a336491aa6dfe218a0096880581390e0e18013d988b209aaa1cb5154a"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-four.json",
+          "sha256": "77dc321fea9729f14ddf10e950358740cabb6ca09a6250f42ce96e8a87d07da6"
+        }
+      ],
+      "execution_kind": "corrective-source-execution",
+      "occurred_at": "2026-10-12T20:36:50.013008+00:00",
+      "predecessor_sha256": "eb580c1114138d5d44fa00d0cd1052f3bf32fad730499a1e8c3cf75ecccc7937",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "8c3ff49c4be09818033dc90bf43a0feab4d244b861e2c90b56acd0d805e04d86",
+      "source_attempts_started": 5
+    },
+    {
+      "coder_session_id": "source-session-c9ae5aac-8081-48e0-8b20-c8af5d950f00",
+      "coder_sessions_started": 5,
+      "declared_node_id": "implement-tasks",
+      "event_id": "8a721029-d920-4058-aa58-9a7277d9cc0b",
+      "event_kind": "coder-session-outcome",
+      "evidence": [
+        {
+          "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+          "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+        }
+      ],
+      "occurred_at": "2026-10-12T20:40:17.136737+00:00",
+      "outcome": "completed",
+      "predecessor_sha256": "8c3ff49c4be09818033dc90bf43a0feab4d244b861e2c90b56acd0d805e04d86",
+      "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+      "sha256": "89c5da8514ce3445893d589b81c0204ddf97b5a9e15a1a0bf1fde6324edcd2ee",
+      "source_attempts_started": 5
+    }
+  ],
+  "schema_version": "1.0",
+  "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+  "sha256": "f5bf34014671e8fff55c7e803c249c1d080c407d13720f4b979bfa132f601715",
+  "source_attempts_started": 5
+}

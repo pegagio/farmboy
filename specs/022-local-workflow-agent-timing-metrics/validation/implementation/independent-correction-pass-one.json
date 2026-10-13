@@ -1,0 +1,84 @@
+{
+  "reviewer": "FarmBoy Code Reviewer",
+  "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+  "delta_base_commit": "f747c4ec1bc644993699c318aa43ee52afc522d6",
+  "completed_task_ids": [
+    "T002",
+    "T009"
+  ],
+  "remaining_task_ids": [
+    "T018"
+  ],
+  "findings": [
+    {
+      "artifact_location": "tests/test_metrics_report.py:250-300",
+      "evidence": [
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "0686e5fd6a1edd359f3f5e03986dfe456b0fb99242f8fdc7df734cb68db975f0"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+          "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+        }
+      ],
+      "exact_correction": "In T018 tests, separate unsupported-schema from invalid-contract expectations (including schema-invalid fixtures), add accepted identical-projection duplication and valid zero/backward duration cases, non-UTF-8/non-object and exact byte-limit fixtures, and assert the five shortened headers map to the original field values. Preserve prospective tests and do not implement T013.",
+      "id": "F022-IMPLEMENT-006",
+      "observed_deficiency": "New aggregate invalid-input assertion treats schema_version=True and 1.5 as invalid-contract, contradicting the schema-before-field classification in contracts/metrics-report.md. Full T018 authoring also lacks standalone accepted duplicate collapse, valid zero/backward signed duration workbook assertions, non-UTF-8 and non-object report candidates, exact 65,536-byte acceptance, and actual row assertions for all five shortened header mappings.",
+      "task_id": "T018",
+      "violated_requirement": "T018 required single-snapshot, capacity, output failure and dependency/source-layout validation tests"
+    }
+  ],
+  "checks": [
+    {
+      "command": "mise run python:prepare; mise run python:check (task-specific temporary cache/state)",
+      "result": "passed",
+      "environment": "Python 3.11.16 / PyYAML 6.0.3; existing venv unchanged"
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_metrics.py",
+      "result": "26 pass / 4 expected-red missing T007 read_agent_settings",
+      "tests": 30
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_controller.py",
+      "result": "68 pass / 1 expected-red missing T003 metrics_run_id",
+      "tests": 69
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_metrics_report.py",
+      "result": "0 executed; setUpClass expected-red missing T013 reporter"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "facts": [
+    "T002 validates invocation_kind string before membership; malformed begin/finish CLI cases now exit 2 without traceback.",
+    "T009 adds real raising-clock and denied/invalid/empty exact-name setting fixtures, with pending T007 kept expected red.",
+    "T018 now has substantive snapshot/capacity/publication/preflight fixtures, but the schema-category assertion contradicts the contract and coverage remains incomplete.",
+    "T005 foundational contract tests still retain their requirements and independently pass within the 26 passing metrics tests."
+  ],
+  "risks": [
+    "T018 reporter seams are prospective: MAX_ACCEPTED_ROWS, Path.open, os.link and uuid.uuid4 must be honored or adapted when T013 is implemented. No reporter runtime claim is made."
+  ],
+  "source_evidence": [
+    {
+      "path": "controllers/farmboy/scripts/python/metrics.py",
+      "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+    },
+    {
+      "path": "tests/test_metrics.py",
+      "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "0686e5fd6a1edd359f3f5e03986dfe456b0fb99242f8fdc7df734cb68db975f0"
+    }
+  ]
+}

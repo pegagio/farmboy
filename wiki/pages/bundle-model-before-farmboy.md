@@ -11,7 +11,7 @@ sources:
 - S021
 - S027
 - S032
-updated: '2026-10-11'
+updated: 2026-10-12
 ---
 
 # Bundle model before FarmBoy

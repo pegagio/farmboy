@@ -1,0 +1,129 @@
+{
+  "eligibility": {
+    "eligibility": {
+      "assessment_id": "989a27b8-318d-436f-b11d-b43cbbee737d",
+      "eligible_task_ids": [
+        "T015"
+      ],
+      "evidence": [
+        {
+          "path": ".specify/feature.json",
+          "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+          "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+          "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+        },
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+          "sha256": "b6cf685d44f291a788c29fcbd537d9de41985bd8990a1930005c28b884ac5e57"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-next-baseline.json",
+          "sha256": "c5ba967815f31b19f6e5bfbec535ee02324ec596457bdfc0afa502d1ceea163a"
+        }
+      ],
+      "global_blockers": [],
+      "input_digests": {
+        ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+        "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+        "specs/022-local-workflow-agent-timing-metrics/tasks.md": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+      },
+      "iteration": 1,
+      "pending_task_ids": [],
+      "predecessor_sha256": "8c4d700984b6319486f253fced56b660d05400a090a3d07db8efa58da2902a68",
+      "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+      "task_states": [
+        {
+          "blocker": null,
+          "dependency_ids": [
+            "T014"
+          ],
+          "evidence": [
+            {
+              "path": ".specify/feature.json",
+              "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+              "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+              "sha256": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+              "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+              "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+            },
+            {
+              "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+              "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+            },
+            {
+              "path": "tests/test_metrics_report.py",
+              "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/focused-cr-initial-review-a3fd481a.json",
+              "sha256": "b6cf685d44f291a788c29fcbd537d9de41985bd8990a1930005c28b884ac5e57"
+            },
+            {
+              "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-checkpoint/retained-next-baseline.json",
+              "sha256": "c5ba967815f31b19f6e5bfbec535ee02324ec596457bdfc0afa502d1ceea163a"
+            }
+          ],
+          "proof_sha256": null,
+          "resume_action": null,
+          "state": "eligible",
+          "task_id": "T015"
+        }
+      ]
+    },
+    "eligibility_sha256": "041c96703546872a9697bce6affc7c923d108772a4366cae31905bf0d3b7f2c0",
+    "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+    "state": "ready"
+  },
+  "native_assignments_verified": [
+    "FarmBoy Code Reviewer",
+    "FarmBoy Coder",
+    "FarmBoy Readiness Checker",
+    "FarmBoy Reviewer",
+    "FarmBoy Roadmap Agent",
+    "FarmBoy Tasker"
+  ],
+  "next_step_id": "implement-tasks",
+  "prior_start_receipt": "specs/022-local-workflow-agent-timing-metrics/validation/phase-lifecycle/lifecycle-f19a6e2281ef9e792a84bc9e1c06aa18.json",
+  "retained_initial_assessment_path": ".specify/farmboy-controllers/runs/a3fd481a-b061-4c71-881e-461d503c9732/retained-initial-assessment.json",
+  "retained_initial_assessment_sha256": "906af1a57edafa2ffe1dc2ea0744f9ff6531113468e14c9a05d526f69dd8f84c",
+  "scope_limit": "T015 correction only; no full-feature completion claim",
+  "scope_sha256": "8757e7651e98595ab772197d5662f34a28821f506949f4a6ae262c6602f731ed",
+  "selected_task_ids": [
+    "T015"
+  ],
+  "state": "continue"
+}

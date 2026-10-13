@@ -1,0 +1,206 @@
+{
+  "completed_prior_task_ids": [
+    "T001",
+    "T002",
+    "T005",
+    "T009",
+    "T018"
+  ],
+  "eligible_task_ids": [
+    "T003",
+    "T004",
+    "T006",
+    "T007",
+    "T012",
+    "T013"
+  ],
+  "evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+      "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metric-record.md",
+      "sha256": "48c659c220e7e0967d3ceb622a4b6c5264c4cb3ee6bf2b25dc93e33d8b46daaf"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/local-adapter.md",
+      "sha256": "fe9f288a92d59c0399df4493fbd3a5a618af940955dd2741ef210c74938fdcb0"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "07233107b78e6c364b8238440bff56bb6328df22c216ce36146e213278183681"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/metrics.py",
+      "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+    },
+    {
+      "path": "tests/test_metrics.py",
+      "sha256": "fd8ee33b0602b4d412d242a08b6239ffd379ed18ec6e6fb2351721b8239ebb44"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "5956c2f36d7e91e983dd8a95728954461046abfa005dc8d39edfbdc123f4b2e7"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/SKILL.md",
+      "sha256": "65a3e8968c6bc6af338a7b7d3279120750ba704fa4d8f3d3e9ac679e360e8494"
+    },
+    {
+      "path": "skills/farmboy-metrics-report/requirements.txt",
+      "sha256": "facefdc7650d565c913685367bb203d11996d47cc545e3a58008e880b35c5739"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+      "sha256": "dbdb8ef2514ee37c9b92ad77eec8ab61db30365fdc3c5020f0370a7557bd70ab"
+    }
+  ],
+  "facts": [
+    "All 18 requested tasks are currently unchecked. Five outside-scope prerequisites have current independent completion proofs.",
+    "T013 reporter source is absent. The maintainer skill is a scaffold.",
+    "The skill-tools interpreter currently has neither openpyxl nor et_xmlfile available. No environment was modified.",
+    "F022-IMPLEMENT-001/002/003 remain present at their original locations; F004/F005/F006 are resolved and are not reintroduced."
+  ],
+  "inference": [
+    "Phase 6 deterministic validation follows collection/report implementation. Live and Excel observation tasks remain pending behind that prerequisite; they require distinct live/Excel evidence later."
+  ],
+  "known_findings": [
+    {
+      "artifact_location": "controllers/farmboy/scripts/python/controller.py:inspect output (lines 2590-2602)",
+      "evidence": [
+        {
+          "path": "controllers/farmboy/scripts/python/controller.py",
+          "sha256": "70299acf6b4be5c62019df18a899e0b5e2179b383c9fb62ea7754dfa9fd0f19b"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+        }
+      ],
+      "exact_correction": "Add a transient metrics correlation UUID to the validated inspect result, independent of recovery; preserve existing recovery creation, summaries and directories.",
+      "id": "F022-IMPLEMENT-001",
+      "observed_deficiency": "Current inspect output builds assignments, loop modes, input-valid flag and installation fingerprints, but no metrics_run_id exists in the inspected source.",
+      "task_id": "T003",
+      "violated_requirement": "FR-004 / T003: retain one separate metrics correlation identity across probes and modeled turns, independent of recovery identity."
+    },
+    {
+      "artifact_location": "controllers/farmboy/controller-protocol.md:Named-Agent Dispatch Procedure and execution/continuation procedure",
+      "evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+        }
+      ],
+      "exact_correction": "Add the approved fresh-token begin immediately before native dispatch/continuation and finish immediately after an observed ending; retain token through pending acknowledgements/polls and end question turns before human waiting.",
+      "id": "F022-IMPLEMENT-002",
+      "observed_deficiency": "Current shared protocol directs probes, native spawn, same-child continuation and observation without begin/finish metric calls or retained timing tokens.",
+      "task_id": "T006",
+      "violated_requirement": "FR-001 and FR-002 / T006: measure native working-turn dispatch and continuation boundaries, exclude human wait and keep pending calls open."
+    },
+    {
+      "artifact_location": "controllers/farmboy/controller-protocol.md:7,12,22",
+      "evidence": [
+        {
+          "path": "controllers/farmboy/controller-protocol.md",
+          "sha256": "d3cfed3406135e7c09aba1930be4aa1f23328bed48a2f9ce2b739f5fc4017feb"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+          "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+          "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+        }
+      ],
+      "exact_correction": "Narrow the prohibition only for metrics metadata before timing: exact-name project TOML matching, model/model_reasoning_effort mapping, null unavailable values, no inherited/global resolution, no dispatch overrides and no runtime-verification claim.",
+      "id": "F022-IMPLEMENT-003",
+      "observed_deficiency": "Current source says FarmBoy does not parse agent TOML, explicitly prohibits parsing consumer TOML, and permits model/effort claims only when Codex exposes them. No metrics-only file-declared metadata exception exists.",
+      "task_id": "T008",
+      "violated_requirement": "FR-022 / T008: permit a narrow passive project-agent TOML read for optional file-declared model/effort while preserving native dispatch authority."
+    }
+  ],
+  "limitations": [
+    "Continuation authorizes eligible source tasks, not dependency installation, report skill invocation, another workflow, Excel acceptance, Git integration, roadmap verification, or feature acceptance.",
+    "T001/T005/T009/T018 completion includes test/scaffold authoring; it does not mean the prospective missing implementation tests pass.",
+    "T021 may correct validation failures only in their owning selected-source/test scope; the listed quickstart evidence path is not a restriction or grant to edit arbitrary unrelated source."
+  ],
+  "pending_task_ids": [
+    "T008",
+    "T010",
+    "T011",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023"
+  ],
+  "reviewer": "FarmBoy Reviewer",
+  "run_id": "20a91da0-6fa3-4217-a2d4-0c64335a206b",
+  "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+  "selected_task_ids": [
+    "T003",
+    "T004",
+    "T006",
+    "T007",
+    "T008",
+    "T012",
+    "T010",
+    "T011",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T019",
+    "T020",
+    "T021",
+    "T022",
+    "T023"
+  ]
+}

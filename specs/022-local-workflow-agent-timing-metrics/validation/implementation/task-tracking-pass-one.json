@@ -1,0 +1,11 @@
+{
+  "kind": "marker-only-task-tracking",
+  "tasks_path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+  "tasks_before_sha256": "1b4b2326f8fb3624fdd30348429c314317dc2a678ea963dfe67b8790032305d1",
+  "tasks_after_sha256": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0",
+  "completed_task_ids": [
+    "T001",
+    "T005"
+  ],
+  "review_source": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-pass-one.json"
+}

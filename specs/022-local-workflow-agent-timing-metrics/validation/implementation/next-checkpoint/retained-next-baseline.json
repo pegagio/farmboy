@@ -1,0 +1,71 @@
+{
+  "baseline": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "findings": [
+      {
+        "artifact_location": "skills/farmboy-metrics-report/scripts/metrics_report.py:273",
+        "evidence": [
+          {
+            "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+            "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+          },
+          {
+            "path": "tests/test_metrics_report.py",
+            "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.json",
+            "sha256": "6541bc6ea36c84ef64e94104240fed7146c91523f8fd5d525ccdc94daa97190f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-five-carriage-return.xlsx",
+            "sha256": "e92f19db2a55d1e88c8879b2f12d3686302ae42ea900ec7d8ca32a83040fd4ff"
+          }
+        ],
+        "exact_correction": "Preserve accepted carriage-return text during workbook serialization, without altering record input or adding an unapproved dependency, and add a real XLSX round-trip regression for CR, LF and CRLF in literal fields. Keep T015 unchecked until all original writer requirements and this defect are independently substantiated.",
+        "id": "F022-IMPLEMENT-011",
+        "observed_deficiency": "A validator-accepted model string line\\rbreak\\n\u7d42\ud83d\ude00 is emitted with a raw carriage return in worksheet XML and reads back as line\\nbreak\\n\u7d42\ud83d\ude00 under the approved openpyxl 3.1.5 skill-tools environment. Explicit string type prevents formulas but does not preserve XML-normalized carriage-return characters. The writer test lacks this valid text case.",
+        "task_id": "T015",
+        "violated_requirement": "T015 literal-string preservation and data-model.md legal XML text without alteration."
+      }
+    ],
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    "schema_version": "1.0",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "tasks": {
+      "T015": {
+        "description": "[US3] Write worksheet `Metrics` and table `FarmBoyMetrics` with exactly `invocation_id`, `run_id`, `project`, `skill`, `workflow`, `step`, `invocation_kind`, `agent`, `model`, `effort`, `started_at`, `finished_at`, `duration_ms`; map shortened headers, retain JSON `schema_version` for validation and duplicate comparison but omit it from Excel, sort rows as specified, and preserve literal strings and numeric duration cells in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T014).",
+        "marker": " "
+      },
+      "T016": {
+        "description": "[US3] Publish uniquely named workbooks under `~/.farmboy/metrics/reports/` without overwriting prior outputs; create the same header-only table for zero accepted rows and fail visibly on output errors or above 1,000,000 accepted rows in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T015).",
+        "marker": " "
+      },
+      "T017": {
+        "description": "[US3] Complete `skills/farmboy-metrics-report/SKILL.md` so explicit invocation within FarmBoy verifies the reviewed source layout and `openpyxl==3.1.5`/`et-xmlfile` readiness before any output creation, runs the source report with the prescribed skill-tools interpreter, explains summary counts and locations, and never installs dependencies or launches another workflow (depends on T001 and T016).",
+        "marker": " "
+      },
+      "T019": {
+        "description": "[US3] Document schema, invocation boundaries, wall-clock limits, storage locations, concurrency, warnings, consumer delivery boundary, and explicit report usage in `docs/metrics.md`, `docs/architecture.md`, and `docs/installation.md` (depends on T006, T011, and T017).",
+        "marker": " "
+      },
+      "T020": {
+        "description": "[US3] Verify disposable consumer installation and removal deliver the collection helper but exclude the maintainer report skill and its dependency, while preserving local metric files and unrelated consumer components in `tests/test_bundle_lifecycle.py` and `tests/test_catalog.py` (depends on T004 and T017).",
+        "marker": " "
+      },
+      "T021": {
+        "description": "Run the deterministic collection, report, controller, catalog, and bundle lifecycle checks listed in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`; inspect `controllers/farmboy/controller-protocol.md` to confirm the metrics-only TOML-read exception is narrow and preserves dispatch authority; correct failures in their owning source or test files.",
+        "marker": " "
+      },
+      "T022": {
+        "description": "Exercise the documented live observation path for an exact named agent in FarmBoy and a disposable consumer, then explicitly invoke the maintainer report and record bounded evidence in `specs/022-local-workflow-agent-timing-metrics/quickstart.md` without including transcripts, secrets, personal details, or absolute host paths.",
+        "marker": " "
+      },
+      "T023": {
+        "description": "Open one populated workbook and one header-only workbook in Excel, verify table interoperability, filtering, literal text, and numeric signed-duration calculations, and record the observations in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`.",
+        "marker": " "
+      }
+    }
+  },
+  "baseline_sha256": "3d2b5c7d1551f665249a068785fa6b25607ab6afabb583c0da1d8f27cfb03d80"
+}

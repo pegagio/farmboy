@@ -13,6 +13,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import uuid
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Iterable
@@ -2597,6 +2598,7 @@ def main(argv: list[str] | None = None) -> int:
         definition["agent_assignments"] = [item.to_dict() for item in collect_agent_assignments(definition["steps"])]
         definition["controller_loop_modes"] = _controller_loop_modes(definition["steps"])
         definition["preflight_inputs_valid"] = True
+        definition["metrics_run_id"] = str(uuid.uuid4())
         definition["installation_fingerprints"] = installation_fingerprints(args.project)
         print(json.dumps(definition, sort_keys=True))
         return 0

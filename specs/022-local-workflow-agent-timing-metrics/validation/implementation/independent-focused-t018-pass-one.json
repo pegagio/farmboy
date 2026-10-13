@@ -1,0 +1,119 @@
+{
+  "attributable_delta": {
+    "after": {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+    },
+    "before": {
+      "path": ".specify/farmboy-controllers/runs/5b3da737-47db-4c1d-8f33-968783e12c50/source-before-one/test_metrics_report.py",
+      "sha256": "aa008e933432834ca3f54cb9a1fd3c80e1be6fdcbd589c2666c14967cbbb882b"
+    },
+    "description": "Replace incomplete two-category count with exact unsupported-schema=1, invalid-contract=1, malformed-json=2 and total=4 assertions."
+  },
+  "checks": [
+    {
+      "check": "mise python:prepare/python:check",
+      "result": "passed-existing-environment-retained"
+    },
+    {
+      "check": "py_compile tests/test_metrics_report.py",
+      "result": "passed"
+    },
+    {
+      "check": "git diff --check tests/test_metrics_report.py",
+      "result": "passed"
+    },
+    {
+      "candidate_count": 4,
+      "check": "independent synthetic category diagnostic",
+      "invalid_counts": {
+        "invalid-contract": 1,
+        "malformed-json": 2,
+        "unsupported-schema": 1
+      },
+      "result": "passed"
+    },
+    {
+      "accepted_count": 0,
+      "candidate_count": 45,
+      "check": "independent invalid-field matrix diagnostic using current validate_record",
+      "invalid_counts": {
+        "invalid-contract": 45
+      },
+      "result": "passed"
+    },
+    {
+      "check": "unittest report discovery",
+      "result": "expected-red-pending-T013",
+      "tests_executed": 0
+    }
+  ],
+  "completed_task_ids": [
+    "T018"
+  ],
+  "completion_scope": "T018 test authoring only",
+  "coverage": {
+    "authored_test_methods": [
+      "test_exportUsesOneSnapshotAndKeepsSourceBytesUnchanged",
+      "test_exportMapsTheExactThirteenColumnOrderAndLiteralCells",
+      "test_exportZeroRowsCreatesHeaderOnlyTableWithoutFakeRecord",
+      "test_exportCollapsesIdenticalProjectionAndExcludesEveryConflictingCopy",
+      "test_exportAcceptsIdenticalProjectedCopiesAndCountsTheExtraAsDuplicate",
+      "test_exportPreservesZeroAndBackwardSignedDurationsAsNumericCells",
+      "test_exportAcceptsLegacyOptionalFieldsAndNormalizesThemToBlankCells",
+      "test_exportCountsMalformedUnsupportedAndInvalidCandidatesOnceEach",
+      "test_exportClassifiesNonUtf8AndNonObjectJsonCandidatesAsInvalidContractInputs",
+      "test_exportAcceptsCandidateExactlyAtJsonByteLimit",
+      "test_exportIgnoresSymlinksDirectoriesTemporaryAndUnrelatedNames",
+      "test_repeatedReportsUseDistinctOutputsAndPreserveEarlierWorkbook",
+      "test_invalidContractsRejectBooleansFractionsDuplicateKeysAndNonfiniteNumbers",
+      "test_invalidContractsRejectMissingWrongTypedAndInvalidTimestampFields",
+      "test_exportClassifiesBooleanAndFractionalSchemaVersionsAsUnsupported",
+      "test_exportExcludesCompletedFileCreatedAfterCandidateSnapshot",
+      "test_exportFailsAtInjectedAcceptedRowCapacityBeforePublication",
+      "test_outputWriteFailurePreservesInputsAndEarlierReports",
+      "test_outputNameCollisionFailsWithoutReplacingExistingWorkbook",
+      "test_projectedTextOverExcelLimitOrIllegalXmlIsRejectedWithoutRepair",
+      "test_missingInputIsEmptyWhileCapacityAndOutputErrorsDoNotClaimSuccess",
+      "testReportSourceLayoutFailurePrecedesOutputCreation",
+      "testMissingReportDependencyFailsBeforeOutputWithoutInstallingAnything"
+    ],
+    "capacity": "lowered MAX_ACCEPTED_ROWS seam exercises two accepted records exceeding cap1 before reports creation",
+    "dependency_and_layout": "copied source fixture deletes metrics helper or uses python -S, asserts nonzero bounded errors and no reports creation; requirements unchanged",
+    "output_failures": "injected os.link PermissionError and fixed uuid collision preserve inputs/prior outputs; no temporary artifacts remain",
+    "single_snapshot": "late completed file injected during opening first retained source; asserts excluded",
+    "validation": "45 required/missing/empty/wrong-type/timestamp/duration/optional-setting fixtures plus schema boolean/fraction, duplicate/nonfinite, byte size, XML/text limits; shared validator confirms wrong-step probe invalid",
+    "workbook": "13 column mapping, typed formula-like text/numeric zero and negative durations, optional null/absence, zero-row table, dedup/conflict partition, repeated distinct outputs"
+  },
+  "evidence": [
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "03c678995a58edb5dabb6f85d55249f983d32cb6ec0751899dc4f5b64911759a"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/contracts/metrics-report.md",
+      "sha256": "3be46d3b71af2afda1aa823a0df2b07e3f23055e488d69e6558546953fcb6721"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/metrics.py",
+      "sha256": "0fb923b32a4870560a70d43780ad00a76f8f51ba0d7f0132a4c3d45937683484"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T018-retained-F006.json",
+      "sha256": "de5f50a0ae0ba7db842b6b133288fd23092f67b0e4d0bc21c6dd9706e00596bc"
+    }
+  ],
+  "findings": [],
+  "limitations": [
+    "Reporter source T013 is absent; no workbook/report production behavior was executed or accepted.",
+    "Synthetic diagnostics verify authored fixture expectations only and do not replace T013 runtime validation.",
+    "Injected writer/snapshot seams must be realized and verified with the future T013 implementation."
+  ],
+  "retained_finding": "F022-IMPLEMENT-006",
+  "retained_source_baselines_sha256": [
+    "7090bf1eaab87a992d4a70b68281d4f88792129ae0ab7700f6b1406990be1271"
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "schema_version": "1.0",
+  "verdict": "complete"
+}

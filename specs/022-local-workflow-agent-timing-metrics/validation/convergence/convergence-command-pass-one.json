@@ -1,0 +1,269 @@
+{
+  "schema_version": "1.0",
+  "command": "speckit.converge",
+  "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+  "outcome": "converged",
+  "report": "✅ Converged — the implementation satisfies the spec, plan, and tasks. Checked 22 functional requirements, 8 buildable success criteria, 14 acceptance scenarios across three P1 user stories, the stated edge cases, the named plan decisions, and all five governing constitution principles. The current implementation and retained live acceptance evidence substantiate the completed task plan. No remaining gaps were found, so tasks.md is unchanged. Findings: missing 0, partial 0, contradicts 0, unrequested 0; severity counts: CRITICAL 0, HIGH 0, MEDIUM 0, LOW 0. No before_converge or after_converge hooks are registered.",
+  "counts": {
+    "functional_requirements_checked": 22,
+    "buildable_success_criteria_checked": 8,
+    "user_stories_checked": 3,
+    "acceptance_scenarios_checked": 14,
+    "edge_case_groups_checked": 9,
+    "plan_decision_groups_checked": 9,
+    "constitution_principles_checked": 5,
+    "existing_tasks_checked": 23,
+    "existing_tasks_complete_with_evidence": 23,
+    "findings": 0,
+    "findings_by_gap_type": {
+      "missing": 0,
+      "partial": 0,
+      "contradicts": 0,
+      "unrequested": 0
+    },
+    "findings_by_severity": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0
+    },
+    "tasks_appended": 0,
+    "tasks_before": 23,
+    "tasks_after": 23
+  },
+  "findings": [],
+  "task_mapping": [
+    {
+      "task_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "tests/test_metrics.py",
+        "tests/test_controller.py",
+        "tests/test_catalog.py",
+        "tests/test_bundle_lifecycle.py",
+        "controllers/farmboy/scripts/python/metrics.py",
+        "controllers/farmboy/scripts/python/controller.py"
+      ]
+    },
+    {
+      "task_ids": [
+        "T006",
+        "T007",
+        "T008",
+        "T009"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "controllers/farmboy/controller-protocol.md",
+        "controllers/farmboy/scripts/python/metrics.py",
+        "tests/test_metrics.py",
+        "tests/test_controller.py",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json"
+      ]
+    },
+    {
+      "task_ids": [
+        "T010",
+        "T011",
+        "T012"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "controllers/farmboy/scripts/python/metrics.py",
+        "controllers/farmboy/controller-protocol.md",
+        "tests/test_metrics.py",
+        "tests/test_controller.py"
+      ]
+    },
+    {
+      "task_ids": [
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "skills/farmboy-metrics-report/SKILL.md",
+        "tests/test_metrics_report.py",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json"
+      ]
+    },
+    {
+      "task_ids": [
+        "T019",
+        "T020",
+        "T021"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "docs/metrics.md",
+        "docs/architecture.md",
+        "docs/installation.md",
+        "tests/test_catalog.py",
+        "tests/test_bundle_lifecycle.py",
+        "specs/022-local-workflow-agent-timing-metrics/quickstart.md"
+      ]
+    },
+    {
+      "task_ids": [
+        "T022",
+        "T023"
+      ],
+      "result": "no remaining gap",
+      "evidence": [
+        "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-review-a9b8e3b0.json",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-judgement-a9b8e3b0.json"
+      ]
+    }
+  ],
+  "coverage_assessment": [
+    {
+      "source_ref": "FR-001–FR-005; SC-001; US1/AC1–AC5",
+      "result": "satisfied",
+      "evidence": [
+        "controllers/farmboy/controller-protocol.md",
+        "controllers/farmboy/scripts/python/metrics.py",
+        "tests/test_metrics.py",
+        "tests/test_controller.py",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json"
+      ]
+    },
+    {
+      "source_ref": "FR-006–FR-011; SC-002–SC-003; US2/AC1–AC3",
+      "result": "satisfied",
+      "evidence": [
+        "controllers/farmboy/scripts/python/metrics.py",
+        "controllers/farmboy/controller-protocol.md",
+        "tests/test_metrics.py",
+        "tests/test_controller.py"
+      ]
+    },
+    {
+      "source_ref": "FR-012–FR-020; SC-004–SC-006; US3/AC1–AC6",
+      "result": "satisfied",
+      "evidence": [
+        "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "skills/farmboy-metrics-report/SKILL.md",
+        "tests/test_metrics_report.py",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+        ".specify/farmboy-controllers/runs/a9b8e3b0-0843-4485-a40b-debd241b51e4/operator-excel-observations.json"
+      ]
+    },
+    {
+      "source_ref": "FR-021; SC-007; plan: consumer boundary, manual fallback, and workflow authority",
+      "result": "satisfied",
+      "evidence": [
+        "controllers/farmboy/manifest.yml",
+        "controllers/farmboy/controller-protocol.md",
+        "tests/test_catalog.py",
+        "tests/test_bundle_lifecycle.py",
+        "specs/022-local-workflow-agent-timing-metrics/quickstart.md"
+      ]
+    },
+    {
+      "source_ref": "FR-022; SC-008; plan: passive exact-name project TOML metadata",
+      "result": "satisfied",
+      "evidence": [
+        "controllers/farmboy/scripts/python/metrics.py",
+        "tests/test_metrics.py",
+        "tests/test_metrics_report.py",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json"
+      ]
+    },
+    {
+      "source_ref": "plan: source/package integration, transient run correlation, wall-clock and file publication, workbook snapshot/schema, dependency/environment boundary, validation and documented limits",
+      "result": "satisfied",
+      "evidence": [
+        "controllers/farmboy/scripts/python/controller.py",
+        "controllers/farmboy/scripts/python/metrics.py",
+        "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "skills/farmboy-metrics-report/requirements.txt",
+        "tests/test_metrics.py",
+        "tests/test_metrics_report.py",
+        "tests/test_catalog.py",
+        "tests/test_bundle_lifecycle.py",
+        "specs/022-local-workflow-agent-timing-metrics/quickstart.md"
+      ]
+    },
+    {
+      "source_ref": "Constitution I–V",
+      "result": "satisfied",
+      "evidence": [
+        ".specify/memory/constitution.md",
+        "specs/022-local-workflow-agent-timing-metrics/plan.md",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json"
+      ]
+    }
+  ],
+  "artifact_evidence": [
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-acceptance-checkpoint/outcome.json",
+      "sha256": "5f730a96c841443a12c47d4e469e9da3f7d66623e0cce0b70a847b428a0f4469"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-roundtrip-a9b8e3b0.json",
+      "sha256": "b36555fdbc2c7bf3f80c863e706ba3de29b6d34313c283d0c36347fbf8fa7cf3"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-review-a9b8e3b0.json",
+      "sha256": "f0f59820dfb4c419f244088407f12463a8a4ad79adad4b9258df182cfc56c46c"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-judgement-a9b8e3b0.json",
+      "sha256": "d2cfcc00a026ab3fc4e514b42f42e1533e72b5d0fa4d0ee863bb687bc4c40dc9"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/live-independent-progress-a9b8e3b0.json",
+      "sha256": "e5e54c6ab6b66218b877f884d50a22300bf863951db6b9f4f82f6b83a51dd3e8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    }
+  ],
+  "append": {
+    "task_ids": [],
+    "phase": null,
+    "tasks_path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+    "bytes_changed": false,
+    "sha256_before": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830",
+    "sha256_after": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830"
+  },
+  "prerequisite_errors": [],
+  "hook_check": {
+    "before_converge": "no hooks registered",
+    "after_converge": "no hooks registered"
+  },
+  "verification": {
+    "prerequisite_command": "python3 .specify/scripts/python/check_prerequisites.py --json --require-spec --require-tasks --include-tasks",
+    "prerequisite_result": "passed; FEATURE_DIR resolved; spec, plan, and tasks present",
+    "source_fingerprint_files_checked": 81,
+    "source_fingerprint_changes": 0,
+    "deterministic_tests": "Retained implementation checkpoint reports 176 relevant tests passed; source fingerprints were unchanged in this convergence pass, so no repeat was warranted.",
+    "task_file_matches_prepass_copy": true
+  }
+}

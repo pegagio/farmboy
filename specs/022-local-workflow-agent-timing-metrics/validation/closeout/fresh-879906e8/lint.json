@@ -1,0 +1,1642 @@
+{
+  "state": "complete",
+  "lint_scope": "full",
+  "date": "2026-10-12",
+  "report": "Fresh full lint found no unresolved findings in 36 pages, 37 registered sources and 278 shared-source/direct-link comparison pairs. No mechanical fixes were necessary.",
+  "checks_run": [
+    "index-drift",
+    "links",
+    "orphans",
+    "contradictions",
+    "stale",
+    "citations"
+  ],
+  "counts_per_check": {
+    "index-drift": 0,
+    "links": 0,
+    "orphans": 0,
+    "contradictions": 0,
+    "stale": 0,
+    "citations": 0
+  },
+  "findings": [],
+  "page_count": 36,
+  "source_count": 37,
+  "bounded_pair_count": 278,
+  "effective_config": {
+    "state": {
+      "directory": "wiki"
+    },
+    "ingest": {
+      "max_pages_per_ingest": 12,
+      "page_max_words": 600,
+      "require_citations": true
+    },
+    "query": {
+      "pages_slice": 8,
+      "context_tokens": 4000
+    },
+    "lint": {
+      "stale_after_days": 90,
+      "auto_fix": "index-and-links"
+    },
+    "schema": {
+      "page_types": [
+        "concept",
+        "decision",
+        "component",
+        "reference",
+        "howto"
+      ]
+    }
+  },
+  "command_provenance": {
+    "registry_path": ".specify/extensions/.registry",
+    "registry_sha256": "e376d2d133fe0c09161ea80a126dd346d95874e0adb0508ed063f71d72e92715",
+    "manifest_sha256": "96c71268dce1573443b625c58b6b7005f834ed43d118b66adf65603030a161b4",
+    "command_sha256": "b9ff9213299baf125a46f9c50236f8127e1ae426f0344bb58b51b8e40a30652e",
+    "skill_sha256": "99ac94bd27864f0813a7cbc209fbfaa97a3e01868d1df89de0f9879db48e3284",
+    "version": "2.0.1",
+    "enabled": true,
+    "generated_body_exact": true
+  },
+  "lint_report": {
+    "path": "wiki/lint-report.md",
+    "sha256": "977cb2f2db9ad1cd5cd1ac7d3c0641efc7b954716ca7ebf76ccedf50485cf161"
+  },
+  "previous_report_sha256": "46cb677ddb4170dd9bd63b56caa4554cf0da0bd3932bdccfbf8406b19052083f",
+  "previous_report_retained": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/lint-before.md",
+    "sha256": "46cb677ddb4170dd9bd63b56caa4554cf0da0bd3932bdccfbf8406b19052083f"
+  },
+  "facts": {
+    "page_metadata_and_all_source_reingestion_dates_valid": true,
+    "page_age_threshold_days": 90,
+    "index_entries_and_relative_link_targets_exist": true,
+    "no_unknown_source_ids": true,
+    "no_orphan_pages": true,
+    "synthesized_claim_blocks_have_registered_ids": true,
+    "citation_candidates_are_title_headings": 36
+  },
+  "semantic_observations": {
+    "all_36_current_pages_read": true,
+    "comparison_rule": "shared-source-id-or-direct-page-link",
+    "bounded_comparison_pairs": [
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/agent-python-environment.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/bundle-and-workflow-model.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/bundle-model-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature020-agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/agent-delivery-before-farmboy.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/bundle-and-workflow-model.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/bundle-model-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/diagram-adapter-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/agent-python-environment.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/bundle-and-workflow-model.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/bundle-model-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/codex-workflow-controllers.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/agent-roles-and-inheritance.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/bundle-and-workflow-model.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/bundle-model-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/bundle-model-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/codex-workflow-controllers.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/diagram-adapter-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/local-metrics-component-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/bundle-and-workflow-model.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/diagram-adapter-boundary.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/bundle-model-before-farmboy.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/codex-controller-history.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/controller-assessment-contract.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/feature020-agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/closeout-and-verification-boundary.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/codex-workflow-controllers.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/consumer-feedback-boundary.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/controller-assessment-contract.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/feature020-verification-qualification.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/codex-controller-history.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/controller-assessment-contract.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/codex-workflow-controllers.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/diagram-adapter-boundary.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/consumer-feedback-boundary.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/controller-assessment-history.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-contract.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/feature-start-contract.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/controller-assessment-history.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/diagram-adapter-boundary.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/diagram-adapter-boundary.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/diagram-adapter-boundary.md",
+        "wiki/pages/local-metrics-component-boundary.md"
+      ],
+      [
+        "wiki/pages/diagram-adapter-boundary.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/diagram-adapter-boundary.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/feature020-agent-roles-and-inheritance.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature-start-contract.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-closeout-and-verification-boundary.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/feature020-closeout-and-verification-boundary.md",
+        "wiki/pages/feature020-workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-closeout-and-verification-boundary.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/feature020-closeout-and-verification-boundary.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature020-closeout-and-verification-boundary.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-verification-qualification.md",
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md"
+      ],
+      [
+        "wiki/pages/feature020-verification-qualification.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/feature020-verification-qualification.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/feature020-verification-qualification.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/feature020-workflow-lifecycle.md",
+        "wiki/pages/preimplementation-review-gates.md"
+      ],
+      [
+        "wiki/pages/feature020-workflow-lifecycle.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/feature020-workflow-lifecycle.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/installation-and-release-lifecycle.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/local-agent-timing-metrics.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/installation-history-before-farmboy.md"
+      ],
+      [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/installation-and-release-lifecycle.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/installation-history-before-farmboy.md",
+        "wiki/pages/maintainer-metrics-report-discovery.md"
+      ],
+      [
+        "wiki/pages/installation-history-before-farmboy.md",
+        "wiki/pages/project-authority-and-review-gates.md"
+      ],
+      [
+        "wiki/pages/installation-history-before-farmboy.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/installation-history-before-farmboy.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-agent-capacity-proposal.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/local-agent-timing-metrics.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/local-metrics-component-boundary.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/preimplementation-review-gates.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/preimplementation-review-gates.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/preimplementation-review-gates.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/preimplementation-review-gates.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/project-authority-and-review-gates.md",
+        "wiki/pages/project-authority-history.md"
+      ],
+      [
+        "wiki/pages/project-authority-and-review-gates.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/project-authority-history.md",
+        "wiki/pages/wiki-source-maintenance.md"
+      ],
+      [
+        "wiki/pages/project-authority-history.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/project-authority-history.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/project-authority-history.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/project-authority-history.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/wiki-source-maintenance.md",
+        "wiki/pages/workflow-diagram-conventions.md"
+      ],
+      [
+        "wiki/pages/wiki-source-maintenance.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/workflow-agent-capacity-proposal.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/workflow-diagram-conventions.md",
+        "wiki/pages/workflow-lifecycle.md"
+      ],
+      [
+        "wiki/pages/workflow-graph-responsibility-boundaries.md",
+        "wiki/pages/workflow-graph-responsibility-history.md"
+      ],
+      [
+        "wiki/pages/workflow-graph-responsibility-boundaries.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/workflow-graph-responsibility-boundaries.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/workflow-graph-responsibility-history.md",
+        "wiki/pages/workflow-loop-baselines-and-limits.md"
+      ],
+      [
+        "wiki/pages/workflow-graph-responsibility-history.md",
+        "wiki/pages/workflow-loop-history.md"
+      ],
+      [
+        "wiki/pages/workflow-loop-baselines-and-limits.md",
+        "wiki/pages/workflow-loop-history.md"
+      ]
+    ],
+    "unresolved_claim_pairs": [],
+    "accepted_chronological_markers": [
+      {
+        "page": "wiki/pages/agent-python-environment.md",
+        "line": 34,
+        "text": "> ⚠ conflict: S018/S027 preserve the earlier “mechanism undecided/revised planning required” stage; S028 records subsequent reviewed local-environment choices, delivery and validation. This is explicit chronological supersession, not an unresolved design choice. Earlier catalog/shared-Specify briefs remain superseded history; the debrief proposes verification but is not ledger authority. (S018, S027, S028)"
+      },
+      {
+        "page": "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "line": 40,
+        "text": "> ⚠ conflict: S026 originally targets catalog repair; later S018 explicitly supersedes that broader scope with verified 019’s agent environment, excluding interpreter unification/component launchers. 019 proves no catalog repair or retrospective Feature 017 coverage. (S026, S018)"
+      }
+    ],
+    "reason": "Both marked conflicts explicitly record settled chronological supersession: Feature019 replaces the earlier undecided environment stage and narrows deferred catalog repair. Earlier eight-workflow, concrete-model, naming, task-repair and phase-ownership accounts are expressly historical and superseded. Current timing/schema/workbook, consumer versus maintainer delivery and human-wait boundaries agree across directly linked or shared-source pages. No incompatible simultaneous mandatory claims were found.",
+    "inference_boundary": "This is semantic comparison of current wiki claims, not independent proof of all historical source events, runtime instrumentation, native effective settings or adoption."
+  },
+  "freshness_observations": {
+    "resolved_stable_id": "stale-s005-installation-history-before-farmboy",
+    "current_page_updated": "2026-10-12",
+    "registered_s005_last_ingested": "2026-10-12",
+    "claim_source_revalidation": {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+      "sha256": "ad920e0e06e77f992ca168e2f57e355738c3a3b7bd7c7bd558449fca0100e31f"
+    },
+    "before_after_and_current_source_digests_checked": true,
+    "metadata_only_change_proven": true,
+    "substantive_progress_credit": false,
+    "page_dates_changed_by_lint": false
+  },
+  "supplemental_schema_observations": {
+    "word_count_rule": "Whitespace-separated body tokens containing a word character; excludes frontmatter and standalone Markdown punctuation. Counting convention is explicit, not a cap waiver.",
+    "page_word_counts": [
+      {
+        "page": "wiki/pages/agent-delivery-before-farmboy.md",
+        "meaningful_body_words": 162,
+        "whitespace_body_tokens": 165
+      },
+      {
+        "page": "wiki/pages/agent-python-environment.md",
+        "meaningful_body_words": 555,
+        "whitespace_body_tokens": 566
+      },
+      {
+        "page": "wiki/pages/agent-roles-and-inheritance.md",
+        "meaningful_body_words": 536,
+        "whitespace_body_tokens": 545
+      },
+      {
+        "page": "wiki/pages/artifact-flow-back-and-convergence.md",
+        "meaningful_body_words": 483,
+        "whitespace_body_tokens": 488
+      },
+      {
+        "page": "wiki/pages/bundle-and-workflow-model.md",
+        "meaningful_body_words": 551,
+        "whitespace_body_tokens": 565
+      },
+      {
+        "page": "wiki/pages/bundle-model-before-farmboy.md",
+        "meaningful_body_words": 376,
+        "whitespace_body_tokens": 380
+      },
+      {
+        "page": "wiki/pages/closeout-and-verification-boundary.md",
+        "meaningful_body_words": 471,
+        "whitespace_body_tokens": 477
+      },
+      {
+        "page": "wiki/pages/codex-controller-history.md",
+        "meaningful_body_words": 554,
+        "whitespace_body_tokens": 567
+      },
+      {
+        "page": "wiki/pages/codex-workflow-controllers.md",
+        "meaningful_body_words": 465,
+        "whitespace_body_tokens": 473
+      },
+      {
+        "page": "wiki/pages/consumer-feedback-boundary.md",
+        "meaningful_body_words": 497,
+        "whitespace_body_tokens": 504
+      },
+      {
+        "page": "wiki/pages/controller-assessment-contract.md",
+        "meaningful_body_words": 224,
+        "whitespace_body_tokens": 230
+      },
+      {
+        "page": "wiki/pages/controller-assessment-history.md",
+        "meaningful_body_words": 546,
+        "whitespace_body_tokens": 552
+      },
+      {
+        "page": "wiki/pages/diagram-adapter-boundary.md",
+        "meaningful_body_words": 256,
+        "whitespace_body_tokens": 262
+      },
+      {
+        "page": "wiki/pages/feature-start-contract.md",
+        "meaningful_body_words": 514,
+        "whitespace_body_tokens": 520
+      },
+      {
+        "page": "wiki/pages/feature020-agent-roles-and-inheritance.md",
+        "meaningful_body_words": 158,
+        "whitespace_body_tokens": 161
+      },
+      {
+        "page": "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+        "meaningful_body_words": 460,
+        "whitespace_body_tokens": 464
+      },
+      {
+        "page": "wiki/pages/feature020-closeout-and-verification-boundary.md",
+        "meaningful_body_words": 144,
+        "whitespace_body_tokens": 147
+      },
+      {
+        "page": "wiki/pages/feature020-verification-qualification.md",
+        "meaningful_body_words": 127,
+        "whitespace_body_tokens": 129
+      },
+      {
+        "page": "wiki/pages/feature020-workflow-lifecycle.md",
+        "meaningful_body_words": 329,
+        "whitespace_body_tokens": 336
+      },
+      {
+        "page": "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+        "meaningful_body_words": 577,
+        "whitespace_body_tokens": 617
+      },
+      {
+        "page": "wiki/pages/installation-and-release-lifecycle.md",
+        "meaningful_body_words": 566,
+        "whitespace_body_tokens": 574
+      },
+      {
+        "page": "wiki/pages/installation-history-before-farmboy.md",
+        "meaningful_body_words": 247,
+        "whitespace_body_tokens": 251
+      },
+      {
+        "page": "wiki/pages/local-agent-timing-metrics.md",
+        "meaningful_body_words": 568,
+        "whitespace_body_tokens": 574
+      },
+      {
+        "page": "wiki/pages/local-metrics-component-boundary.md",
+        "meaningful_body_words": 143,
+        "whitespace_body_tokens": 144
+      },
+      {
+        "page": "wiki/pages/maintainer-metrics-report-discovery.md",
+        "meaningful_body_words": 157,
+        "whitespace_body_tokens": 158
+      },
+      {
+        "page": "wiki/pages/preimplementation-review-gates.md",
+        "meaningful_body_words": 573,
+        "whitespace_body_tokens": 579
+      },
+      {
+        "page": "wiki/pages/project-authority-and-review-gates.md",
+        "meaningful_body_words": 337,
+        "whitespace_body_tokens": 347
+      },
+      {
+        "page": "wiki/pages/project-authority-history.md",
+        "meaningful_body_words": 566,
+        "whitespace_body_tokens": 578
+      },
+      {
+        "page": "wiki/pages/wiki-source-maintenance.md",
+        "meaningful_body_words": 161,
+        "whitespace_body_tokens": 164
+      },
+      {
+        "page": "wiki/pages/workflow-agent-capacity-proposal.md",
+        "meaningful_body_words": 217,
+        "whitespace_body_tokens": 225
+      },
+      {
+        "page": "wiki/pages/workflow-diagram-conventions.md",
+        "meaningful_body_words": 155,
+        "whitespace_body_tokens": 158
+      },
+      {
+        "page": "wiki/pages/workflow-graph-responsibility-boundaries.md",
+        "meaningful_body_words": 268,
+        "whitespace_body_tokens": 275
+      },
+      {
+        "page": "wiki/pages/workflow-graph-responsibility-history.md",
+        "meaningful_body_words": 423,
+        "whitespace_body_tokens": 430
+      },
+      {
+        "page": "wiki/pages/workflow-lifecycle.md",
+        "meaningful_body_words": 561,
+        "whitespace_body_tokens": 577
+      },
+      {
+        "page": "wiki/pages/workflow-loop-baselines-and-limits.md",
+        "meaningful_body_words": 322,
+        "whitespace_body_tokens": 328
+      },
+      {
+        "page": "wiki/pages/workflow-loop-history.md",
+        "meaningful_body_words": 551,
+        "whitespace_body_tokens": 583
+      }
+    ],
+    "max_meaningful_body_words": 577,
+    "over_cap_pages": []
+  },
+  "current_evidence": [
+    {
+      "path": "wiki/pages/maintainer-metrics-report-discovery.md",
+      "sha256": "ef3e8faf0902e71460c1897b866bec5f50ea4d50339fc3c4dcf49db9af78c9ce"
+    },
+    {
+      "path": "wiki/pages/project-authority-and-review-gates.md",
+      "sha256": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f"
+    },
+    {
+      "path": "wiki/pages/codex-controller-history.md",
+      "sha256": "12b3b9f95182f2e1ba63cf155f48aa5fc0dbbc856d15aeae5bbf0b5da67c2e57"
+    },
+    {
+      "path": "wiki/pages/agent-delivery-before-farmboy.md",
+      "sha256": "29e3f0326a40f795c99131626283424f6eddfe8ee34f565a8c25658d06a10089"
+    },
+    {
+      "path": "wiki/pages/agent-python-environment.md",
+      "sha256": "7a9c476265dc44c18eee649fb1a6935ce7607bde514d28797441920c53fdcbe4"
+    },
+    {
+      "path": "wiki/pages/artifact-flow-back-and-convergence.md",
+      "sha256": "d4a4fa1d30db51059fce3e37df91fcc152bfdbab9950e0445fa3754b686ec4d3"
+    },
+    {
+      "path": "wiki/pages/local-agent-timing-metrics.md",
+      "sha256": "61b1e5a88e8f5eebc9e833d7e3b6f6a8300fca4dde37c247c73a997104010315"
+    },
+    {
+      "path": "wiki/pages/installation-and-release-lifecycle.md",
+      "sha256": "4e3291c50a66f71c6faa01254d8b0b9b6e54ebf06fcfae653be1e26697e6e4f3"
+    },
+    {
+      "path": "wiki/pages/project-authority-history.md",
+      "sha256": "846d8e6ce54ae611f730adaf5503b6e2b714f0643254224897566a7d45ab8407"
+    },
+    {
+      "path": "wiki/pages/consumer-feedback-boundary.md",
+      "sha256": "07f4e1c42cafe33991cf8bfa1e886bc195f96c885e067c5ea544b85cd842c582"
+    },
+    {
+      "path": "wiki/pages/bundle-model-before-farmboy.md",
+      "sha256": "96e28455a52e32ff40d8720777b8d6b879bbd78f9f9b89105f0531a48e1ae646"
+    },
+    {
+      "path": "wiki/pages/feature020-artifact-flow-back-and-convergence.md",
+      "sha256": "5e1d7d7297836b1a22fd43cc621121c32c3d9af8209f90e34ac5a984c481a72a"
+    },
+    {
+      "path": "wiki/pages/preimplementation-review-gates.md",
+      "sha256": "08c9952897a9225d21ae64573fdbd3d25c53c5518c9a52b932a838ebb41f50bb"
+    },
+    {
+      "path": "wiki/pages/workflow-loop-baselines-and-limits.md",
+      "sha256": "13a44467f0977996ac0a8a5f1ae928239ce470100edee46719c620338024ed44"
+    },
+    {
+      "path": "wiki/pages/controller-assessment-contract.md",
+      "sha256": "99ae207303be4e4caa0a369c83e26ebaa8112c8ac9f9db7e73a084b2ffae6640"
+    },
+    {
+      "path": "wiki/pages/feature020-agent-roles-and-inheritance.md",
+      "sha256": "74c57779c92592eda9b837022be3e14ec83e68515591be9597c0fe00b02a3650"
+    },
+    {
+      "path": "wiki/pages/flowkit-agent-configuration-and-delivery.md",
+      "sha256": "a1746585d269acdecbb0a1687421160efb9b7533d631230eb8fbcf1fa7c1c361"
+    },
+    {
+      "path": "wiki/pages/diagram-adapter-boundary.md",
+      "sha256": "c12d70c33aee03869cd65f40e53da134c98915d460da473c9e1267917ed56183"
+    },
+    {
+      "path": "wiki/pages/feature020-verification-qualification.md",
+      "sha256": "651f97e8867a43878d88dc5229b05531d8597a75a4f1201f31293b75b3442c1c"
+    },
+    {
+      "path": "wiki/pages/feature020-closeout-and-verification-boundary.md",
+      "sha256": "ff4f9a35cc288563c38d06be65d3eb8234c96b3abd250c0721e4e17a8dbde234"
+    },
+    {
+      "path": "wiki/pages/workflow-loop-history.md",
+      "sha256": "6768913c55111c39c9118d2c97949833a3b429771c8761c29dd738d9a3c41a97"
+    },
+    {
+      "path": "wiki/pages/workflow-diagram-conventions.md",
+      "sha256": "c8a1b81b3b740ea8f5dfe37f9daacda8a0d95a8ec43ff2078b55986645933b5e"
+    },
+    {
+      "path": "wiki/pages/workflow-graph-responsibility-boundaries.md",
+      "sha256": "e1317ef3246e8e87dda01213b6d53c773134dacccc023009f868441a13bf5e24"
+    },
+    {
+      "path": "wiki/pages/agent-roles-and-inheritance.md",
+      "sha256": "68815745b35b1606d32c6bea5c6a35334dff95eec499365c1a4ff79d6f8ef152"
+    },
+    {
+      "path": "wiki/pages/workflow-lifecycle.md",
+      "sha256": "2590f28b9bedbb38e71927c0d1fe1ad59d4ee8830133f5e3c519e1ea69d432f0"
+    },
+    {
+      "path": "wiki/pages/workflow-agent-capacity-proposal.md",
+      "sha256": "12980231624a1857df68be057496af6a289370d52f0af826c791879857e9c98e"
+    },
+    {
+      "path": "wiki/pages/workflow-graph-responsibility-history.md",
+      "sha256": "7b6f7fb71b0e8c17662128a2b3e546919560b352d1b21b6985bffba206d61405"
+    },
+    {
+      "path": "wiki/pages/controller-assessment-history.md",
+      "sha256": "e27038459ef0f83296d49bd29150bd7d15744b04d72727b412a1c5de6e952c7f"
+    },
+    {
+      "path": "wiki/pages/codex-workflow-controllers.md",
+      "sha256": "4c91715901177e5d0b91319ba586d2063b4d8adc7631146ccce29d81fcbeff5a"
+    },
+    {
+      "path": "wiki/pages/feature-start-contract.md",
+      "sha256": "57721291fbe07fb471d6f872d9c1b649af0e93a6b5fb57f931cf555e7a90f3fa"
+    },
+    {
+      "path": "wiki/pages/bundle-and-workflow-model.md",
+      "sha256": "c53bdd39a57c0d678ff52794f586d0a9e19806a8de42ffea5931ac315b24045f"
+    },
+    {
+      "path": "wiki/pages/closeout-and-verification-boundary.md",
+      "sha256": "702debea8df1f8c82b34aecb91bdbb6a0e56efe55094cbb9e37863819e9b61c6"
+    },
+    {
+      "path": "wiki/pages/wiki-source-maintenance.md",
+      "sha256": "b55c7a229d0ae9c05235bef11168a75115a8b291dcc3d2fe72da7d33f0e1044e"
+    },
+    {
+      "path": "wiki/pages/feature020-workflow-lifecycle.md",
+      "sha256": "bd6c970a67eeb3b0fcfe04ef4e762fc57f7ec24a95cdb1620de27dfe325bccb6"
+    },
+    {
+      "path": "wiki/pages/installation-history-before-farmboy.md",
+      "sha256": "e4495cf9ffdfab26664f748638729969dd3cbf52f5d5832cc2b7555b5ff2fbe5"
+    },
+    {
+      "path": "wiki/pages/local-metrics-component-boundary.md",
+      "sha256": "cd642795c881a985cca9ccfc5bb2a27b3bac5aeaa591054fe06133e1c5c2953a"
+    },
+    {
+      "path": "wiki/SCHEMA.md",
+      "sha256": "2eb4e0e8d107e91fb7ee459bc706920801541a4a6bed1bf4de0ae685d651356f"
+    },
+    {
+      "path": "wiki/INDEX.md",
+      "sha256": "543a181019c7e08750caa4bbb9819f65a543db2317c4f1bf05e60a766b769e99"
+    },
+    {
+      "path": "wiki/sources.md",
+      "sha256": "70613b5d8a7f70c064ab9c4c2f748326192d9b3671b9265f13570c955f15d422"
+    },
+    {
+      "path": ".specify/memory/roadmap.md",
+      "sha256": "1a8b759a46cb6be7faaf9b1451c55bf447c80b0c0efcff566168bcee63ef6d01"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/quickstart.md",
+      "sha256": "b4479cef0de15063bd3e5c036b1aa7158956c6eda488ef77ffe3abccc8005fd8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "87c355f9ae15f5d0040a71070a68098c8a3ec70d709dedea9b0125c764cf8830"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/research.md",
+      "sha256": "3e591477358d4111acd0627f4bfbb4dcca58521eb9fa7a5013f34cdd8ec076cc"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/data-model.md",
+      "sha256": "43f12446bf31f48279b978b513b6a7f9e7d03eb8f30bedcc91ebbd6c5420074f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "3688826fc9dfba627ee2be668fb0b951259a08767c6719db71d49e8886532cd1"
+    },
+    {
+      "path": "docs/installation.md",
+      "sha256": "d201cf8a8fe118a68babafc25b8092b979f29b0178e1e4957384034d86e76367"
+    },
+    {
+      "path": "docs/architecture.md",
+      "sha256": "d8510dec3adc292e917a7d583996dafa206a4bee4387f9bfee4aa080112dc350"
+    },
+    {
+      "path": "docs/metrics.md",
+      "sha256": "196543bfca97a1534cb8851fc92b200881232d584cd596e4160e03458c74595c"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a"
+    },
+    {
+      "path": "wiki/lint-report.md",
+      "sha256": "977cb2f2db9ad1cd5cd1ac7d3c0641efc7b954716ca7ebf76ccedf50485cf161"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/freshness-revalidation.json",
+      "sha256": "ad920e0e06e77f992ca168e2f57e355738c3a3b7bd7c7bd558449fca0100e31f"
+    }
+  ],
+  "fixes_applied": [],
+  "fixes_suggested": 0,
+  "changed_paths": [
+    "wiki/lint-report.md",
+    "specs/022-local-workflow-agent-timing-metrics/validation/closeout/fresh-879906e8/lint.json"
+  ],
+  "preservation_observations": {
+    "wiki_pages_schema_index_registry_unchanged_by_lint": true,
+    "source_spec_roadmap_unchanged": true,
+    "git_index_unchanged": true
+  },
+  "skips": [],
+  "errors": [],
+  "next_action": "No action is needed for lint findings.",
+  "limitations": [
+    "Full curated-source coverage remains the separate independent wiki-maintenance assessment.",
+    "Lint grants no roadmap write, feature acceptance, Git integration, publication or live-agent proof."
+  ]
+}

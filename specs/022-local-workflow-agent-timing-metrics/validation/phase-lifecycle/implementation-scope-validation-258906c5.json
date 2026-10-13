@@ -1,0 +1,58 @@
+{
+  "requested_task_ids": [
+    "T002",
+    "T009",
+    "T018"
+  ],
+  "retained_scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+  "scope": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "input_digests": {
+      ".specify/feature.json": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+      "specs/022-local-workflow-agent-timing-metrics/spec.md": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+      "specs/022-local-workflow-agent-timing-metrics/tasks.md": "2cf1dd715849a27bf67084e0af93e1524d4d04f434616d2ebe128ef408552bd0"
+    },
+    "request_kind": "explicit-subset",
+    "request_reference": "operator-explicit-T002-T009-T018-correction-20261012",
+    "requested_task_ids": [
+      "T002",
+      "T009",
+      "T018"
+    ],
+    "run_id": "258906c5-1fdf-483c-9857-838e2334d60a",
+    "schema_version": "1.0",
+    "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+    "task_records": [
+      {
+        "description": "Implement importable begin/finish helpers and the version-1 record contract with all twelve required fields at their exact types in `controllers/farmboy/scripts/python/metrics.py`, preserving these field constraints from `specs/022-local-workflow-agent-timing-metrics/data-model.md`: `schema_version` \u201cExactly `1`; booleans are not integers for validation.\u201d; `invocation_id` \u201cNonempty opaque turn identity; collector produces UUIDs, report does not reinterpret it as a child ID.\u201d; `run_id` \u201cNonempty opaque metrics correlation identity for one workflow invocation, retained across probes and modeled turns; independent of recovery identity.\u201d; `step_id` \u201cExact modeled ID; `preflight` for probes.\u201d; `invocation_kind` \u201c`execution`, `continuation`, `retry`, `probe`.\u201d; `agent_name` \u201cExact supplied native dispatch name.\u201d; `skill_id` \u201cExact invoking FarmBoy skill ID.\u201d; `workflow_id` \u201cExact invoking installed FarmBoy workflow ID.\u201d; `project_label` \u201cKnown nonpersonal logical identity or `unspecified`; grouping label, not repository identity.\u201d; `started_at` and `finished_at` \u201cValid UTC timestamp `YYYY-MM-DDTHH:MM:SS.mmmZ`.\u201d; `duration_ms` \u201cSigned difference of timestamp epoch milliseconds; reject booleans, fractions and mismatched arithmetic.\u201d; `model` \u201cExplicit `model` in the uniquely matching project agent TOML file; optional, absent normalizes to null.\u201d; and `effort` \u201cExplicit `model_reasoning_effort` in that file; optional, absent normalizes to null.\u201d Also implement millisecond wall-clock sampling, invocation UUID creation, UTC timestamp formatting, JSON stdin/stdout interface, serialization, and public validation helpers; require a UTF-8 JSON object no larger than 65,536 bytes with no duplicate keys or nonfinite numeric constants, and reject projected strings over 32,767 characters or containing illegal XML characters without trimming or truncation (depends on T005).",
+        "description_sha256": "be4152d0980f30559290e3922eacd993be9ea47cbb26d43ec2f7ca69fcb66dcd",
+        "marker": "unchecked",
+        "task_id": "T002"
+      },
+      {
+        "description": "[US1] Write controller and metrics behavior tests in `tests/test_controller.py` and `tests/test_metrics.py` before implementation; cover probe/execution/continuation/retry boundaries, question/answer timing, pending polls, correlation, exact TOML name matching and unavailable/ambiguous settings, dispatch rejection, and failure or missing-end behavior (depends on T005).",
+        "description_sha256": "e5e2c3727a9ff0d734db0c9c9836269bd793ac38f0075244ef286a86a455ebd4",
+        "marker": "unchecked",
+        "task_id": "T009"
+      },
+      {
+        "description": "[P] [US3] Write report contract tests in `tests/test_metrics_report.py` before implementation; cover single-snapshot behavior; UTF-8 JSON objects no larger than 65,536 bytes; required fields `schema_version`, `invocation_id`, `run_id`, `step_id`, `invocation_kind`, `agent_name`, `skill_id`, `workflow_id`, `project_label`, `started_at`, `finished_at`, and `duration_ms` at exact types; `schema_version` exactly `1`, `invocation_kind` exactly `execution`, `continuation`, `retry`, or `probe`, exact millisecond timestamp grammar `YYYY-MM-DDTHH:MM:SS.mmmZ`, signed duration equality, rejection of booleans/fractions, duplicate keys, nonfinite values, impossible timestamps, missing/empty required strings and unsupported schema/kind; `model` and `effort` absent or null normalize to null, non-null values must be nonempty strings, and other present types are invalid; rejection of strings over 32,767 characters or with illegal XML text without trimming/truncation; deduplication/conflicts; exact 13-column Excel order and shortened field mapping with JSON `schema_version` retained only for validation; literal text, numeric durations, zero-row output, no-clobber naming, output failures, failure above 1,000,000 accepted rows, unchanged input bytes, and missing dependency/source-layout failures before output creation without mutating the skill-tools environment (depends on T001).",
+        "description_sha256": "6c5341b0c912772792d99882d2baa82dcba11d711ca91b186d4c244705cc119e",
+        "marker": "unchecked",
+        "task_id": "T018"
+      }
+    ]
+  },
+  "scope_path": ".specify/farmboy-controllers/runs/258906c5-1fdf-483c-9857-838e2334d60a/requested-scope.json",
+  "scope_sha256": "9022b32d240edfd57c5ea9239451cb0b521f9837ca74876d61c3d8829e93d334",
+  "state": "ready",
+  "task_tracking_successors": [],
+  "tasker_derived_task_ids": [],
+  "tasker_tracked_task_ids": [],
+  "trusted_request_reference": "operator-explicit-T002-T009-T018-correction-20261012",
+  "trusted_requested_task_ids": [
+    "T002",
+    "T009",
+    "T018"
+  ]
+}

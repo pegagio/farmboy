@@ -32,7 +32,13 @@ page files, not here.
 
 - [Wiki source maintenance](pages/wiki-source-maintenance.md)
 
+## Component
+
+- [Local metrics component boundary](pages/local-metrics-component-boundary.md)
+
 ## Decision
+
+- [Local agent timing metrics design](pages/local-agent-timing-metrics.md)
 
 - [Agent Python environment](pages/agent-python-environment.md)
 - [Feature 020 qualified verification](pages/feature020-verification-qualification.md)
@@ -53,6 +59,7 @@ page files, not here.
 - [Installation history before FarmBoy](pages/installation-history-before-farmboy.md)
 
 - [Installation and release lifecycle](pages/installation-and-release-lifecycle.md)
+- [Maintainer metrics report discovery](pages/maintainer-metrics-report-discovery.md)
 - [Workflow diagram conventions](pages/workflow-diagram-conventions.md)
 
 ## Reference

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "docs/metrics.md",
+    "state": "absent",
+    "sha256": null,
+    "before_path": null
+  },
+  {
+    "path": "docs/architecture.md",
+    "state": "present",
+    "sha256": "70be98912cbd1edb389b150957a37d96d4f9e208863283a5e1a0ab8e463e3e78",
+    "before_path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/docs/architecture.md"
+  },
+  {
+    "path": "docs/installation.md",
+    "state": "present",
+    "sha256": "dc12c7635a66be3dfec6f9bb63c771dcec43d2787081e463cacf512d1bb5d8fd",
+    "before_path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/docs/installation.md"
+  },
+  {
+    "path": "tests/test_bundle_lifecycle.py",
+    "state": "present",
+    "sha256": "502fa2590cafcdc9e0fb6c2ba35d570b7431455cf880dbf818bcb26d95749ac7",
+    "before_path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/tests/test_bundle_lifecycle.py"
+  },
+  {
+    "path": "tests/test_catalog.py",
+    "state": "present",
+    "sha256": "c2dae818b51699b0ef626a592ea8f575ff3b6a2d97ca4d6f0bc8ec08dffe75ac",
+    "before_path": ".specify/farmboy-controllers/runs/1e6ae445-95f6-474e-805a-0d957df14569/source-before-3/tests/test_catalog.py"
+  }
+]

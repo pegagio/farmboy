@@ -1,0 +1,335 @@
+{
+  "state": "continue",
+  "remaining_ids": [
+    "task:T011",
+    "task:T014",
+    "task:T015",
+    "task:T016",
+    "task:T017",
+    "task:T019",
+    "task:T020",
+    "task:T021",
+    "task:T022",
+    "task:T023"
+  ],
+  "resolved_ids": [
+    "finding:F022-IMPLEMENT-010",
+    "task:T010",
+    "task:T013"
+  ],
+  "findings": [],
+  "evidence": [
+    {
+      "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+      "sha256": "ae4039c5d635767f5c13a07188b6f061b187f14b6596ae0d6c96be36713b605e"
+    },
+    {
+      "path": "tests/test_metrics_report.py",
+      "sha256": "28fe3c1eb6ec8b150f2a9f0026e8f6d949340ad8bee80aacbea599b5ec1d3fb0"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-three.json",
+      "sha256": "0c35f8fb0cf73d32ca46e502720e96cc7ea7abae0c0ff6ffd0b0a461df6c5588"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/metrics.py",
+      "sha256": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82"
+    },
+    {
+      "path": "tests/test_metrics.py",
+      "sha256": "2cd47797d948f29775c3da88e2026c6ab39e04b0fb7e6207ac7c9c4f56f7affd"
+    }
+  ],
+  "substantive_progress": true,
+  "baseline": {
+    "feature_directory": "specs/022-local-workflow-agent-timing-metrics",
+    "findings": [],
+    "pointer_sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4",
+    "schema_version": "1.0",
+    "specification_sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f",
+    "tasks": {
+      "T011": {
+        "marker": " ",
+        "description": "[US2] Add warn-and-continue handling for unavailable timing, metadata, destination, collision, and storage failures to the collection procedure in `controllers/farmboy/controller-protocol.md` (depends on T006, T010, and T012)."
+      },
+      "T014": {
+        "marker": " ",
+        "description": "[US3] Group records by `invocation_id`, collapse identical fourteen-field projections, exclude conflicting identities, and calculate the documented candidate, accepted, duplicate, conflict, skipped, and invalid counts in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T013)."
+      },
+      "T015": {
+        "marker": " ",
+        "description": "[US3] Write worksheet `Metrics` and table `FarmBoyMetrics` with exactly `invocation_id`, `run_id`, `project`, `skill`, `workflow`, `step`, `invocation_kind`, `agent`, `model`, `effort`, `started_at`, `finished_at`, `duration_ms`; map shortened headers, retain JSON `schema_version` for validation and duplicate comparison but omit it from Excel, sort rows as specified, and preserve literal strings and numeric duration cells in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T014)."
+      },
+      "T016": {
+        "marker": " ",
+        "description": "[US3] Publish uniquely named workbooks under `~/.farmboy/metrics/reports/` without overwriting prior outputs; create the same header-only table for zero accepted rows and fail visibly on output errors or above 1,000,000 accepted rows in `skills/farmboy-metrics-report/scripts/metrics_report.py` (depends on T015)."
+      },
+      "T017": {
+        "marker": " ",
+        "description": "[US3] Complete `skills/farmboy-metrics-report/SKILL.md` so explicit invocation within FarmBoy verifies the reviewed source layout and `openpyxl==3.1.5`/`et-xmlfile` readiness before any output creation, runs the source report with the prescribed skill-tools interpreter, explains summary counts and locations, and never installs dependencies or launches another workflow (depends on T001 and T016)."
+      },
+      "T019": {
+        "marker": " ",
+        "description": "[US3] Document schema, invocation boundaries, wall-clock limits, storage locations, concurrency, warnings, consumer delivery boundary, and explicit report usage in `docs/metrics.md`, `docs/architecture.md`, and `docs/installation.md` (depends on T006, T011, and T017)."
+      },
+      "T020": {
+        "marker": " ",
+        "description": "[US3] Verify disposable consumer installation and removal deliver the collection helper but exclude the maintainer report skill and its dependency, while preserving local metric files and unrelated consumer components in `tests/test_bundle_lifecycle.py` and `tests/test_catalog.py` (depends on T004 and T017)."
+      },
+      "T021": {
+        "marker": " ",
+        "description": "Run the deterministic collection, report, controller, catalog, and bundle lifecycle checks listed in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`; inspect `controllers/farmboy/controller-protocol.md` to confirm the metrics-only TOML-read exception is narrow and preserves dispatch authority; correct failures in their owning source or test files."
+      },
+      "T022": {
+        "marker": " ",
+        "description": "Exercise the documented live observation path for an exact named agent in FarmBoy and a disposable consumer, then explicitly invoke the maintainer report and record bounded evidence in `specs/022-local-workflow-agent-timing-metrics/quickstart.md` without including transcripts, secrets, personal details, or absolute host paths."
+      },
+      "T023": {
+        "marker": " ",
+        "description": "Open one populated workbook and one header-only workbook in Excel, verify table interoperability, filtering, literal text, and numeric signed-duration calculations, and record the observations in `specs/022-local-workflow-agent-timing-metrics/quickstart.md`."
+      }
+    }
+  },
+  "baseline_sha256": "4b0fa00c67c9f59391eb79eee89b51f8e0c2687a7b322ba33c3834eaea304d20",
+  "history": {
+    "coder_sessions_started": 3,
+    "events": [
+      {
+        "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+        "coder_sessions_started": 1,
+        "declared_node_id": "implement-tasks",
+        "event_id": "e3ce3e47-82c2-4682-a815-9fe14637220f",
+        "event_kind": "coder-session-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-initial-assessment-20a91da0.json",
+            "sha256": "8e949aeb0d05feb5e8805b22dc5aa675cd0da885f71709c7f09871739cf44147"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+            "sha256": "dbdb8ef2514ee37c9b92ad77eec8ab61db30365fdc3c5020f0370a7557bd70ab"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          }
+        ],
+        "execution_kind": "first-source-execution",
+        "occurred_at": "2026-10-12T19:50:16.343193+00:00",
+        "predecessor_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "cde4f77d423ce072ae96b393caa4534012bb327fd78dfa8899f4290aa4ca52b6",
+        "source_attempts_started": 0
+      },
+      {
+        "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+        "coder_sessions_started": 1,
+        "declared_node_id": "implement-tasks",
+        "event_id": "be801a4f-07b5-4bd4-aec3-c034721c76a6",
+        "event_kind": "source-attempt-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-initial-assessment-20a91da0.json",
+            "sha256": "8e949aeb0d05feb5e8805b22dc5aa675cd0da885f71709c7f09871739cf44147"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/next-contextual-prerequisites-20a91da0.json",
+            "sha256": "dbdb8ef2514ee37c9b92ad77eec8ab61db30365fdc3c5020f0370a7557bd70ab"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+            "sha256": "f1da7e4a5c37fc344ad6b648b3d80b06355ec7313117a4d082c78360a820df54"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+            "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+          }
+        ],
+        "execution_kind": "first-source-execution",
+        "occurred_at": "2026-10-12T19:50:16.345135+00:00",
+        "predecessor_sha256": "cde4f77d423ce072ae96b393caa4534012bb327fd78dfa8899f4290aa4ca52b6",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "7b7ae845dcf30db7e0a3c2d5046810e3a9cea2f1d5c40e5fdd5026f9ba792c6b",
+        "source_attempts_started": 1
+      },
+      {
+        "coder_session_id": "source-session-2d2dfe2c-4cdc-4e5a-ace0-9b4be6709c1c",
+        "coder_sessions_started": 1,
+        "declared_node_id": "implement-tasks",
+        "event_id": "a7e69e6f-b85f-4c71-9889-dbc69e1407ac",
+        "event_kind": "coder-session-outcome",
+        "evidence": [
+          {
+            "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+            "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+          }
+        ],
+        "occurred_at": "2026-10-12T19:57:16.197275+00:00",
+        "outcome": "completed",
+        "predecessor_sha256": "7b7ae845dcf30db7e0a3c2d5046810e3a9cea2f1d5c40e5fdd5026f9ba792c6b",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "3a88b0258b6aba74cc9b2811296120c23cd27bb7b51565564a075d4b6ef244ee",
+        "source_attempts_started": 1
+      },
+      {
+        "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+        "coder_sessions_started": 2,
+        "declared_node_id": "implement-tasks",
+        "event_id": "0b7777ac-6ccd-4489-864a-fa7dc565a619",
+        "event_kind": "coder-session-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+            "sha256": "900dc599597b2abfa1c034c4ad1d73dfbce22e36d7c17d1666dec5f530e08cc5"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+            "sha256": "d985b0fd2aa8dcfc8a58f7d8122d2225ed2cf000d0d5176db323ec6ad57536b1"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+            "sha256": "5165e8edd2c127ebdcad908a7d16d2f0c1676603a353151549e73d2e2c0b1d69"
+          }
+        ],
+        "execution_kind": "corrective-source-execution",
+        "occurred_at": "2026-10-12T20:04:16.009518+00:00",
+        "predecessor_sha256": "3a88b0258b6aba74cc9b2811296120c23cd27bb7b51565564a075d4b6ef244ee",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "9638b530b73fbbfa6246947ba82627f5967ef72cd5c6efd473ead0884317ff4e",
+        "source_attempts_started": 1
+      },
+      {
+        "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+        "coder_sessions_started": 2,
+        "declared_node_id": "implement-tasks",
+        "event_id": "6120ef6d-c817-4575-95a7-001a4095f055",
+        "event_kind": "source-attempt-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-one.json",
+            "sha256": "900dc599597b2abfa1c034c4ad1d73dfbce22e36d7c17d1666dec5f530e08cc5"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-progress-pass-one.json",
+            "sha256": "d985b0fd2aa8dcfc8a58f7d8122d2225ed2cf000d0d5176db323ec6ad57536b1"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-fulfillment-pass-one.json",
+            "sha256": "5165e8edd2c127ebdcad908a7d16d2f0c1676603a353151549e73d2e2c0b1d69"
+          }
+        ],
+        "execution_kind": "corrective-source-execution",
+        "occurred_at": "2026-10-12T20:04:16.012912+00:00",
+        "predecessor_sha256": "9638b530b73fbbfa6246947ba82627f5967ef72cd5c6efd473ead0884317ff4e",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "d72621888a44f2a1e765cf0f342e46c51073ca8064b8bc832e6f43ed42986dc8",
+        "source_attempts_started": 2
+      },
+      {
+        "coder_session_id": "source-session-91ba42f2-0dc3-4417-b4f4-5fa03d7ef4ca",
+        "coder_sessions_started": 2,
+        "declared_node_id": "implement-tasks",
+        "event_id": "cf26370d-21c4-4940-9d79-f4b8ca81f9f7",
+        "event_kind": "coder-session-outcome",
+        "evidence": [
+          {
+            "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+            "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+          }
+        ],
+        "occurred_at": "2026-10-12T20:08:41.217319+00:00",
+        "outcome": "completed",
+        "predecessor_sha256": "d72621888a44f2a1e765cf0f342e46c51073ca8064b8bc832e6f43ed42986dc8",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "465b1a9147a7fa83e61d66b8ffa3fdce8acc711271a9d09e78d431a4a2fd51fc",
+        "source_attempts_started": 2
+      },
+      {
+        "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+        "coder_sessions_started": 3,
+        "declared_node_id": "implement-tasks",
+        "event_id": "1c5341b0-da7b-43ac-85d8-2031a4cdac48",
+        "event_kind": "coder-session-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-two.json",
+            "sha256": "2757304ba066c3264092bd7c5aa6949221423b8e451ea4fc54b37ada03ea8624"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-two.json",
+            "sha256": "ded130bdc62c0a661ba2cdcbad8b799f84a2ef7063e1f2413d30a44117dd289f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-two.json",
+            "sha256": "2402992879b47c31d631ee9cd11ba844ef9f345eea9ee73e91b194826e468c77"
+          }
+        ],
+        "execution_kind": "corrective-source-execution",
+        "occurred_at": "2026-10-12T20:14:23.223403+00:00",
+        "predecessor_sha256": "465b1a9147a7fa83e61d66b8ffa3fdce8acc711271a9d09e78d431a4a2fd51fc",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "7952bb4e29d367914bd73375818d54ec429a6a5118af808fdb60662b5b5bcaf9",
+        "source_attempts_started": 2
+      },
+      {
+        "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+        "coder_sessions_started": 3,
+        "declared_node_id": "implement-tasks",
+        "event_id": "c83b088f-6d69-4a4f-bc13-4ed840f3628e",
+        "event_kind": "source-attempt-start",
+        "evidence": [
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/independent-next-pass-two.json",
+            "sha256": "2757304ba066c3264092bd7c5aa6949221423b8e451ea4fc54b37ada03ea8624"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/task-fulfillment-next-pass-two.json",
+            "sha256": "ded130bdc62c0a661ba2cdcbad8b799f84a2ef7063e1f2413d30a44117dd289f"
+          },
+          {
+            "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/progress-next-pass-two.json",
+            "sha256": "2402992879b47c31d631ee9cd11ba844ef9f345eea9ee73e91b194826e468c77"
+          }
+        ],
+        "execution_kind": "corrective-source-execution",
+        "occurred_at": "2026-10-12T20:14:23.227196+00:00",
+        "predecessor_sha256": "7952bb4e29d367914bd73375818d54ec429a6a5118af808fdb60662b5b5bcaf9",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "53ef86cba3fa6e34cc34a18a52d10f0e61c41926ae8689525bcba0188d91d457",
+        "source_attempts_started": 3
+      },
+      {
+        "coder_session_id": "source-session-b8189d43-0009-41e7-9f74-3e45a8b64f13",
+        "coder_sessions_started": 3,
+        "declared_node_id": "implement-tasks",
+        "event_id": "22102b06-a9cb-45c6-af4a-2a1fe51fd2e2",
+        "event_kind": "coder-session-outcome",
+        "evidence": [
+          {
+            "path": ".specify/farmboy-controllers/runs/20a91da0-6fa3-4217-a2d4-0c64335a206b/retained-initial-assessment.json",
+            "sha256": "7bd5008d490a0c90ef9fdf8456f70628f19608f558060ad348f3fc37ed93d86c"
+          }
+        ],
+        "occurred_at": "2026-10-12T20:20:09.483518+00:00",
+        "outcome": "completed",
+        "predecessor_sha256": "53ef86cba3fa6e34cc34a18a52d10f0e61c41926ae8689525bcba0188d91d457",
+        "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+        "sha256": "1b82282b91e0da96462693baa835fa626d9d933ae965b400281619b3b1d5b1b2",
+        "source_attempts_started": 3
+      }
+    ],
+    "schema_version": "1.0",
+    "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+    "sha256": "d69be2fa646df3ee9bd9c142d3b494ec79f1a175fe54e0c57091fb35e688dca2",
+    "source_attempts_started": 3
+  },
+  "scoped_route": {
+    "action": "continue",
+    "next_step_id": "implement-tasks"
+  },
+  "controller_loop_mode": "implementation_scope"
+}

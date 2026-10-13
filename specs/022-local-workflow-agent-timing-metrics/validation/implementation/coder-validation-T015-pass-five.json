@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "state": "complete",
+  "task_id": "T015",
+  "scope_sha256": "75f5a8fbc62bd972320640470a45f648495d408d4bb5a9644877517605d69813",
+  "eligibility_sha256": "e2c1473f37b0123c868890a0c2a5b54231f03e62625208a34e1d0aca965765b3",
+  "predecessor_baseline_sha256": "5aa6093c72472318362583fee4d9dc8ed8f191f836b8d109b2cfe6e73be69d20",
+  "task_description_sha256": "051ef9df413591c1ede28116fe606cfa972663282f8cc19ab5273378a7202bab",
+  "activation": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+    "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+  },
+  "requirements": [
+    {
+      "requirement_id": "exact-thirteen-column-table",
+      "satisfied": true,
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+          "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+        }
+      ]
+    },
+    {
+      "requirement_id": "shortened-header-mapping",
+      "satisfied": true,
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+          "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+        }
+      ]
+    },
+    {
+      "requirement_id": "schema-omission-from-workbook",
+      "satisfied": true,
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+          "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+        }
+      ]
+    },
+    {
+      "requirement_id": "deterministic-sorting",
+      "satisfied": true,
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+          "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+        }
+      ]
+    },
+    {
+      "requirement_id": "literal-text-and-numeric-duration-cells",
+      "satisfied": true,
+      "evidence": [
+        {
+          "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+          "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+        },
+        {
+          "path": "tests/test_metrics_report.py",
+          "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+        },
+        {
+          "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+          "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "check": "focused-writer-unit-test",
+      "result": "passed",
+      "command": "skill-tools python -m unittest tests.test_metrics_report.MetricsReportContractTests.test_writeWorkbookMapsColumnsSortsAndPreservesTypedLiteralCells -v"
+    },
+    {
+      "check": "python-compilation",
+      "result": "passed",
+      "command": "skill-tools python -m py_compile skills/farmboy-metrics-report/scripts/metrics_report.py tests/test_metrics_report.py"
+    },
+    {
+      "check": "diff-whitespace",
+      "result": "passed",
+      "command": "git diff --check -- skills/farmboy-metrics-report/scripts/metrics_report.py tests/test_metrics_report.py"
+    }
+  ],
+  "implementation": {
+    "summary": "Added a write-only XLSX writer for one Metrics worksheet and FarmBoyMetrics table. It maps the fixed 13 columns, sorts by canonical started_at then invocation_id, forces non-null text cells to literal string types, preserves integer duration cells, and leaves null model/effort cells blank. JSON schema_version remains in validation and duplicate projection but is excluded from workbook fields.",
+    "source_delta_evidence": [
+      {
+        "path": "skills/farmboy-metrics-report/scripts/metrics_report.py",
+        "sha256": "1b13c7e6d52126a07baaf7982afebbb533ff7299122afecbc28e582ca38d0250"
+      },
+      {
+        "path": "tests/test_metrics_report.py",
+        "sha256": "8d0c5ab3c5021c804f6fce47213f54b7610b936b5f525456ad1e2bcbca7f81ba"
+      },
+      {
+        "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T015-pass-five.json",
+        "sha256": "21b315fd8d6f4404951cd0160bf35270fef0fec85636d2d81c31fcc7a2702ff3"
+      }
+    ]
+  },
+  "limitations": [
+    "This pass implements workbook construction only. Unique report naming, publication, capacity policy, and command-line report orchestration remain in their later scoped tasks.",
+    "Full report-suite execution is deferred until the later export/publication integration exists; this pass ran the focused writer test and syntax/whitespace checks.",
+    "The write-only worksheet API emits an informational openpyxl warning while adding a table; table columns are explicitly supplied and workbook XML validation passed."
+  ],
+  "required_paths": [
+    "skills/farmboy-metrics-report/scripts/metrics_report.py",
+    "tests/test_metrics_report.py"
+  ],
+  "route_evidence": [
+    {
+      "path": ".specify/feature.json",
+      "sha256": "16431405983045502dbec80bd51573f7f724ff4a7bfb28fd9db147f3b6f3d7f4"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/spec.md",
+      "sha256": "7d8a45ad7795bc95eea5d98f704dad718d1006af992490106f1adcba3a6ec54f"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/tasks.md",
+      "sha256": "2aabf234fb189abe9a29034ba2934f2988139681368fdbaa33634806f3f516be"
+    },
+    {
+      "path": "specs/022-local-workflow-agent-timing-metrics/plan.md",
+      "sha256": "f770b1946e7a1a1cc8036fd4e7014cf8c4fbc07233cc78af24ca62e94a53f4a8"
+    }
+  ],
+  "state_detail": "T015-only source pass; this child did not change task markers or other task source."
+}

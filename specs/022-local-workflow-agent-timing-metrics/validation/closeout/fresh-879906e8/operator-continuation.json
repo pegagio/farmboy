@@ -1,0 +1,14 @@
+{
+  "trusted_origin": "direct-operator-instruction",
+  "reason": "Operator identifies repeated reauthorization for routine closeout repairs as a FarmBoy defect and directs completion under existing closeout intent.",
+  "selected_feature": "022",
+  "scope": "Continue the same installed Close Out routine wiki repair/verification sequence at the fully recorded pass-one boundary. Preserve stop evidence, actual pass count and five-pass limit. No roadmap/source-controller/Git/authority change.",
+  "remaining_finding": "historical-pyyaml-source-attribution",
+  "prior_controller_route": {
+    "action": "blocked",
+    "blocker": "no-progress"
+  },
+  "overridden_rule": "Do not end routine authorized closeout because a metadata-only first pass discovered a repairable cited-source gap.",
+  "no_counter_reset": true,
+  "new_invocation_created": false
+}

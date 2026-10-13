@@ -1,0 +1,100 @@
+{
+  "activation": {
+    "path": "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T021-final-pass-four.json",
+    "sha256": "7da65c3d420cdb4b8eb72b26dee45b3ca44c7c3cb91eb3c82fc18958f67e1345",
+    "state": "ready"
+  },
+  "blockers": [],
+  "changed_paths": [
+    "tests/test_metrics_report.py",
+    "tests/test_bundle_lifecycle.py",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/activation-T021-final-pass-four.json"
+  ],
+  "checks": [
+    {
+      "command": "mise run python:prepare && mise run python:check",
+      "evidence": "Existing project environment was already ready and unchanged; Python 3.11.16 and PyYAML 6.0.3 verified. A task-specific MISE_CACHE_DIR was used because the default cache path was not writable.",
+      "result": "passed"
+    },
+    {
+      "command": "mise exec -- specify --version",
+      "evidence": "Specify CLI 1.0.10.dev0+pegagio.2.",
+      "result": "passed"
+    },
+    {
+      "command": "skill-tools Python unittest discover -s tests -p test_metrics.py",
+      "failed": 0,
+      "passed": 34,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "skill-tools Python unittest discover -s tests -p test_metrics_report.py",
+      "evidence": "openpyxl emitted a write-only table-column warning; assertions passed.",
+      "failed": 0,
+      "passed": 38,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_controller.py",
+      "failed": 0,
+      "passed": 71,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_catalog.py",
+      "failed": 0,
+      "passed": 29,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_bundle_lifecycle.py",
+      "evidence": "Native disposable-consumer lifecycle exercised with a local-only ephemeral HTTP catalog; test-local Python home bootstrap kept CLI home effects in the fixture.",
+      "failed": 0,
+      "passed": 4,
+      "result": "passed",
+      "skipped": 0
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "inspect controllers/farmboy/controller-protocol.md named dispatch and Metrics Turn Boundaries",
+      "evidence": "TOML access is explicitly limited to passive metrics metadata from exact-name project agent files; it cannot control dispatch, verify effective runtime settings, resolve inherited/global settings, copy config, or set spawn overrides. Native exact agent_type selection, required probes, and no-substitution rules remain intact.",
+      "result": "passed"
+    }
+  ],
+  "claim": "Executed the documented deterministic Feature 022 collection, report, controller, catalog, and bundle lifecycle checks. Replaced test HOME overrides with temporary Python Path.home isolation. Confirmed protocol metrics metadata parsing does not change dispatch authority.",
+  "remaining_limits": [
+    "No live exact-agent observation or report invocation was performed in this deterministic pass; T022 owns that work.",
+    "No workbook was opened in Excel; T023 owns that work."
+  ],
+  "schema_version": "1.0",
+  "scope_sha256": "d1af32d9fb468c2792d0d860e500a488cac96ff1dfb5a070dc4dd049530a6368",
+  "source_coordinates": {
+    "farmboy-feedback": {
+      "release_package_sha256": "6eb29db32dfb072470fc0b558b0f064381161dc2f94c400d994885a94ca2a058",
+      "version": "0.2.1"
+    },
+    "farmboy-workflows": {
+      "source_map_sha256": "6266405074b8f3f57fcc8cd64e881f423d7d0b48e592148638945c724a625dbf",
+      "source_yaml_count": 11
+    },
+    "flow-roadmap": {
+      "fixture_package_sha256": "5c33a26866a4f9991ba44d6de358308bb44cdf8e6b38faef5d817bab632b0e96",
+      "revision": "34483aa212e5cb3302615c0fad043d1eb908edc9",
+      "version": "0.4.0"
+    },
+    "flow-wiki": {
+      "fixture_package_sha256": "3d5174bbc66e26cd4720486ee7f59c65c3ccc3fc94d19050759294eba127ca95",
+      "revision": "0292ff66758e36849cee4e0f6bcbdac51629e1d0",
+      "version": "2.0.1"
+    }
+  },
+  "state": "implemented-awaiting-independent-review",
+  "task_id": "T021"
+}
