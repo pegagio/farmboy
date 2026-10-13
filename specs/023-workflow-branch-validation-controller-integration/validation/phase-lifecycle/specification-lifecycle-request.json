@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "action": "prepare",
+  "phase": "specify",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "entry_id": "023",
+  "run_id": "e83e8e65-194c-45ca-a9c9-d1d24bbf3ef8",
+  "workflow_id": "farmboy-specify",
+  "workflow_version": "0.4.1",
+  "mode": "normal",
+  "decision_reference": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-decision.json",
+  "milestone_evidence": [
+    {
+      "milestone": "specced",
+      "owning_phase": "specify",
+      "assessments": [
+        {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-authoring-review.json",
+          "sha256": "e1d0291a34da49af7a72863cf8fe54657c5ad36d36192e67bb94e69ace670a5c",
+          "kind": "independent-authoring-review"
+        },
+        {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-specification-milestone-review.json",
+          "sha256": "9067ccf27298044117263362dbe0dc74f6c618c59cd2d5d77868dbc89058add5",
+          "kind": "independent-review"
+        },
+        {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-roadmap-brief-review.json",
+          "sha256": "0d28619933fd13322ae7524c0c0345f216f3609d14327ac8a6eee3dca0cd6e03",
+          "kind": "roadmap-brief"
+        }
+      ],
+      "required_check_ids": [
+        "authoring-quality",
+        "clarification",
+        "consequential-decisions",
+        "dependencies",
+        "independent-review",
+        "linkage",
+        "roadmap-brief"
+      ],
+      "satisfied_check_ids": [
+        "authoring-quality",
+        "clarification",
+        "consequential-decisions",
+        "dependencies",
+        "independent-review",
+        "linkage",
+        "roadmap-brief"
+      ],
+      "unresolved_ids": [],
+      "artifact_digests": {
+        ".specify/feature.json": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43",
+        ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+        ".specify/memory/roadmap.md": "4d7a8d8a6d4b7a028be27c065412ef94fbe10e89336471a0ed7d5b313b90550b",
+        "docs/findings/2026-10-12-workflow-reliability-handoff.md": "babe2d902565e0fbc216f20893149523f3c7d8453309df82138f0917b997e773",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-reentry-after-tracking.json": "80da2ff77852a21251cc04a5c631308b5c897b8d8a1453eb600526f8d6ff4ab2",
+        "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-routing.json": "56d54c6112c4c6b25dbca0a5256407c3a1dab38d3866ccbc8a6fd67e2ebc94cc",
+        "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580",
+        "specs/023-workflow-branch-validation-controller-integration/roadmap-reviews/brief-20261013T143720Z.md": "6788ec07bbee54d6b732b9cfb907e0538855b8ffad544571c1b74ca260e5ff94",
+        "specs/023-workflow-branch-validation-controller-integration/spec.md": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+        "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-authoring-review.json": "e1d0291a34da49af7a72863cf8fe54657c5ad36d36192e67bb94e69ace670a5c",
+        "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-decision.json": "2426d9d0600c00ec20dd769c0c3de182ad4b4770ba6143f052078c8cbf8c2678",
+        "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-ready.json": "9d9774e59209740e3fd0e72ad637ee47f7eae2580838fc80865e9ba5c604086a",
+        "wiki/pages/controller-assessment-contract.md": "99ae207303be4e4caa0a369c83e26ebaa8112c8ac9f9db7e73a084b2ffae6640",
+        "wiki/pages/project-authority-and-review-gates.md": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f",
+        "wiki/pages/workflow-graph-responsibility-boundaries.md": "e1317ef3246e8e87dda01213b6d53c773134dacccc023009f868441a13bf5e24",
+        "wiki/pages/workflow-loop-baselines-and-limits.md": "13a44467f0977996ac0a8a5f1ae928239ce470100edee46719c620338024ed44"
+      },
+      "historical_activity": [],
+      "pending_future_ids": []
+    }
+  ],
+  "snapshot": {
+    "schema_version": "1.0",
+    "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+    "entry_id": "023",
+    "phase": "specify",
+    "workflow_id": "farmboy-specify",
+    "workflow_version": "0.4.1",
+    "run_id": "e83e8e65-194c-45ca-a9c9-d1d24bbf3ef8",
+    "current_status": "planned",
+    "source_map": {
+      ".specify/bundle-records.json": "3336b23e65c77325cf90638510171cda4101556758dada0f9089c46fbd66453e",
+      ".specify/extensions/flow-roadmap/extension.yml": "ea5c3cd34e8191298e5829ecb1167f8a1e8ac141ca10dae397caeff8a5515fd5",
+      ".specify/extensions/flow-roadmap/roadmap-config.yml": "2097cad9362412e809ed64b31ede40ccbb7ecf78f95af36c9427df5cf60bb00d",
+      ".specify/extensions/flow-roadmap/scripts/python/load_config.py": "24d5e6267f5002b7f6bfc5ebe47a6ddfcb636ba910cdca6b58df227c7d68641d",
+      ".specify/extensions/flow-roadmap/scripts/python/review_contract.py": "103692fe668d7a13a0f8313ab0a286deac46daab2b9df985d12c7f293407b263",
+      ".specify/extensions/flow-roadmap/scripts/python/roadmap_write.py": "100d1380222a1b412958818c926c927b9533f1f767ed3d5d0dabe257488a7d84",
+      ".specify/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+      ".specify/farmboy/scripts/python/milestone_policy.py": "07ac0ac80b99d31137c78c27b9ce3a3714bcd4b456fd926277e9ff755ea4df75",
+      ".specify/farmboy/scripts/python/phase_lifecycle.py": "ba6d962cd3965691194a78cdd3457d88ae798368882eefd4197aa2036dc8a204",
+      ".specify/farmboy/skills-install.json": "8f50f847db3b1f3bcf413fca783e2e14c16e213722d87ef95360998ae54cc00f",
+      ".specify/feature.json": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43",
+      ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+      ".specify/memory/roadmap.md": "4d7a8d8a6d4b7a028be27c065412ef94fbe10e89336471a0ed7d5b313b90550b",
+      ".specify/workflows/farmboy-specify/workflow.yml": "5a9d9e800489b3ed8cfbd9e4e52f35d3dfa0e91207fa8c133a83986709753583",
+      "docs/findings/2026-10-12-workflow-reliability-handoff.md": "babe2d902565e0fbc216f20893149523f3c7d8453309df82138f0917b997e773",
+      "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-reentry-after-tracking.json": "80da2ff77852a21251cc04a5c631308b5c897b8d8a1453eb600526f8d6ff4ab2",
+      "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-routing.json": "56d54c6112c4c6b25dbca0a5256407c3a1dab38d3866ccbc8a6fd67e2ebc94cc",
+      "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580",
+      "specs/023-workflow-branch-validation-controller-integration/roadmap-reviews/brief-20261013T143720Z.md": "6788ec07bbee54d6b732b9cfb907e0538855b8ffad544571c1b74ca260e5ff94",
+      "specs/023-workflow-branch-validation-controller-integration/spec.md": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+      "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-authoring-review.json": "e1d0291a34da49af7a72863cf8fe54657c5ad36d36192e67bb94e69ace670a5c",
+      "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-roadmap-brief-review.json": "0d28619933fd13322ae7524c0c0345f216f3609d14327ac8a6eee3dca0cd6e03",
+      "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-specification-milestone-review.json": "9067ccf27298044117263362dbe0dc74f6c618c59cd2d5d77868dbc89058add5",
+      "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-decision.json": "2426d9d0600c00ec20dd769c0c3de182ad4b4770ba6143f052078c8cbf8c2678",
+      "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-ready.json": "9d9774e59209740e3fd0e72ad637ee47f7eae2580838fc80865e9ba5c604086a",
+      "wiki/pages/controller-assessment-contract.md": "99ae207303be4e4caa0a369c83e26ebaa8112c8ac9f9db7e73a084b2ffae6640",
+      "wiki/pages/project-authority-and-review-gates.md": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f",
+      "wiki/pages/workflow-graph-responsibility-boundaries.md": "e1317ef3246e8e87dda01213b6d53c773134dacccc023009f868441a13bf5e24",
+      "wiki/pages/workflow-loop-baselines-and-limits.md": "13a44467f0977996ac0a8a5f1ae928239ce470100edee46719c620338024ed44"
+    },
+    "dependency_states": [
+      {
+        "entry_id": "001",
+        "status": "verified"
+      },
+      {
+        "entry_id": "002",
+        "status": "verified"
+      },
+      {
+        "entry_id": "003",
+        "status": "verified"
+      },
+      {
+        "entry_id": "004",
+        "status": "verified"
+      },
+      {
+        "entry_id": "005",
+        "status": "verified"
+      },
+      {
+        "entry_id": "006",
+        "status": "verified"
+      },
+      {
+        "entry_id": "007",
+        "status": "verified"
+      },
+      {
+        "entry_id": "008",
+        "status": "verified"
+      },
+      {
+        "entry_id": "009",
+        "status": "verified"
+      },
+      {
+        "entry_id": "010",
+        "status": "verified"
+      },
+      {
+        "entry_id": "011",
+        "status": "verified"
+      },
+      {
+        "entry_id": "013",
+        "status": "verified"
+      },
+      {
+        "entry_id": "014",
+        "status": "verified"
+      },
+      {
+        "entry_id": "015",
+        "status": "verified"
+      },
+      {
+        "entry_id": "017",
+        "status": "verified"
+      },
+      {
+        "entry_id": "020",
+        "status": "verified"
+      },
+      {
+        "entry_id": "021",
+        "status": "verified"
+      }
+    ],
+    "scope_sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+    "pending_future_ids": []
+  }
+}

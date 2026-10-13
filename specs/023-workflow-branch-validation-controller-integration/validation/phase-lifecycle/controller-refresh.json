@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0",
+  "package_id": "farmboy-controllers",
+  "version": "0.9.1",
+  "package_sha256": "d835835c552594bffe977b9953b5aeea28ca59559a2343786cf8275d4514e4ff",
+  "catalog_status": "development-snapshot",
+  "source_helper_sha256": "05f3805a11a3a026c58a0531af85dacd765230223752f75dc23787261e31c14f",
+  "installed_helper_sha256": "05f3805a11a3a026c58a0531af85dacd765230223752f75dc23787261e31c14f",
+  "original_roadmap_and_receipt_unchanged": true
+}

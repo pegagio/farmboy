@@ -1,6 +1,24 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.32.1 → 1.32.2
+Bump rationale: PATCH — authorized status amendment for entry 023.
+Status: planned → specced
+Authorization: specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/specification-decision.json
+Evidence paths: ["specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-authoring-review.json", "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-roadmap-brief-review.json", "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/independent-specification-milestone-review.json"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.32.0 → 1.32.1
+Bump rationale: PATCH — record the routine physical mapping for directly authorized Feature 023 activation.
+Changes: add only Feature 023 Spec dir; preserve planned lifecycle, scope, dependencies and all other entries.
+Authorization: Direct operator instruction to use farmboy-select-feature to activate 023; Constitution II permits routine derived linkage.
+Notes: Activation writes the pointer separately after fresh snapshot validation; no feature directory or specification is created.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.31.1 → 1.32.0
 Bump rationale: MINOR — add the directly authorized planned Close Out continuation defect correction.
 Changes: add 026 Close Out Automatic Maintenance Continuation, with the defect handoff, completed recovery evidence, expected autonomous routine continuation and regression scenarios. Preserve all existing entries, lifecycle states, mappings, reports and verification evidence.
@@ -613,7 +631,7 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Suggested dimensions (proposal)**: `run_id`, `step_id`, `invocation_id`, `started_at`, `finished_at`, `outcome` and a short portable `project_label` would support correlation, timing inspection, outcome filtering and separation of consuming projects. Workflow/component version and an attempt number may help later comparisons. These are suggestions for specification, not settled mandatory fields; omit prompts, transcripts, secrets and absolute host paths.
 - **Spec dir**: `specs/022-local-workflow-agent-timing-metrics`
 
-### 023 — Workflow Branch Validation and Controller Integration Coverage  [status: planned]
+### 023 — Workflow Branch Validation and Controller Integration Coverage  [status: specced]
 
 - **Description**: Detect malformed FarmBoy workflow branches before installation or effects, and validate complete controller progress/re-entry sequences through the actual routing APIs and disposable installed consumers.
 - **Outcome**: Invalid defaults and unsupported routes fail early with precise diagnostics; supported preparation/source skip paths and reviewed correction/tracking/re-entry paths have executable regression coverage. Tests also prove that stale current evidence, forged historical bindings, unauthorized task edits and exhausted limits still block.
@@ -621,6 +639,8 @@ Entries 001–011 record verified history. Features 012, 013, 014, and 015 are v
 - **Scope (out)**: Changes to Spec Kit, Codex, independently owned extensions or other projects; new execution engines/frameworks; weakening authority, evidence or correction guards; claiming live-agent validation from simulated dispatch.
 - **Depends on**: 013, 014, 020, 021.
 - **Notes**: Direct operator request on 2026-10-12 authorizes this planned feature following the FarmBoy-only session audit. The fixed nested-default and historical-hash defects from Feature 022 are permanent regression cases, not claims of current broken behavior. Specify the validation layers and the smallest production-API harness extension using [the findings handoff](../../docs/findings/2026-10-12-workflow-reliability-handoff.md#feature-023-branch-and-integration-validation), including WR-01/WR-02 and their repository evidence. Recommended first priority; no dependency on Feature 024 or 025.
+
+- **Spec dir**: `specs/023-workflow-branch-validation-controller-integration`
 
 ### 024 — Implement Continuation and Correction Accounting  [status: planned]
 
@@ -726,4 +746,4 @@ The separately invoked workflow route is select-feature, specify, optional clari
 
 The operator designated all eleven entries verified on 2026-09-26. Their `spec.md` headers still say `Draft`; this roadmap records the operator's lifecycle decision without rewriting historical feature artifacts. No configured ADR or PRD evidence was available for this creation.
 
-**Version**: 1.32.0 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-13
+**Version**: 1.32.2 | **Ratified**: 2026-09-26 | **Last Amended**: 2026-10-13
