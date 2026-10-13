@@ -15,6 +15,12 @@ from tools import catalog
 
 
 class CatalogReleaseTests(unittest.TestCase):
+    def test_main_acceptsDevFlag_forInstallAndRefresh(self) -> None:
+        for operation in ("install", "refresh"):
+            with self.subTest(operation=operation), patch("sys.argv", ["catalog.py", operation, "/consumer", "--dev"]), patch.object(catalog, "install") as install:
+                self.assertEqual(0, catalog.main())
+                install.assert_called_once_with(Path("/consumer"), operation == "refresh", True, source_overrides={})
+
     def compatible_roadmap_source(self, directory: Path) -> Path:
         source = directory / "flow-roadmap-source"
         source.mkdir()
@@ -334,9 +340,12 @@ class CatalogReleaseTests(unittest.TestCase):
             self.assertFalse(any((project / ".agents/skills").glob("farmboy-*/**/*")))
 
     def test_install_allowsSourceCheckout_butRejectsNestedTarget(self) -> None:
-        with patch.object(catalog, "verified_release", side_effect=ValueError("release checked")):
-            with self.assertRaisesRegex(ValueError, "release checked"):
-                catalog.install(catalog.ROOT, False)
+        with tempfile.TemporaryDirectory() as temporary:
+            release_path = Path(temporary) / "release.json"
+            release_path.write_text(json.dumps({"status": "released"}), encoding="utf-8")
+            with patch.object(catalog, "RELEASE", release_path), patch.object(catalog, "CATALOG", release_path.parent), patch.object(catalog, "verified_release", side_effect=ValueError("release checked")):
+                with self.assertRaisesRegex(ValueError, "release checked"):
+                    catalog.install(catalog.ROOT, False)
             with self.assertRaisesRegex(ValueError, "must not be nested"):
                 catalog.install(catalog.ROOT / "workflows", False)
 
@@ -402,15 +411,19 @@ class CatalogReleaseTests(unittest.TestCase):
     def test_install_rejectsSnapshot_beforeStartingCatalog(self) -> None:
         with tempfile.TemporaryDirectory(prefix="farmboy-consumer-") as project:
             Path(project, ".specify").mkdir()
-            snapshot = {"status": "snapshot"}
-            with patch.object(catalog, "verified_release", return_value=snapshot):
-                with self.assertRaisesRegex(ValueError, "development snapshot"):
-                    catalog.install(Path(project), False)
+            release_path = Path(project) / "release.json"
+            release_path.write_text(json.dumps({"status": "snapshot"}), encoding="utf-8")
+            with patch.object(catalog, "CATALOG", Path(project)), patch.object(catalog, "verified_release") as verify, patch.object(catalog, "selected_specify") as select:
+                for refresh in (False, True):
+                    with self.subTest(refresh=refresh), self.assertRaisesRegex(ValueError, "use --dev with an initialized Specify consumer"):
+                        catalog.install(Path(project), refresh)
+                verify.assert_not_called()
+                select.assert_not_called()
             with patch.object(catalog, "build_development_snapshot", side_effect=ValueError("snapshot built")):
                 with self.assertRaisesRegex(ValueError, "snapshot built"):
                     catalog.install(Path(project), True, True)
 
-    def test_snapshotDogfood_allowsOnlyInitializedRootOrTemporaryConsumers(self) -> None:
+    def test_snapshotInstall_allowsInitializedPersistentConsumers_butRejectsNestedTargets(self) -> None:
         with tempfile.TemporaryDirectory(prefix="farmboy-dogfood-") as temporary:
             root = Path(temporary).resolve() / "source"
             root.mkdir()
@@ -432,9 +445,9 @@ class CatalogReleaseTests(unittest.TestCase):
                     catalog.install(nested, True, True)
                 build.assert_not_called()
                 (other / ".specify").mkdir()
-                with self.assertRaisesRegex(ValueError, "source checkout root or a disposable"):
-                    catalog.install(other, True, True)
-                build.assert_not_called()
+                for refresh in (False, True):
+                    with self.subTest(refresh=refresh), self.assertRaisesRegex(ValueError, "snapshot build reached"):
+                        catalog.install(other, refresh, True)
                 disposable = root / "temp" / "consumer"
                 disposable.mkdir(parents=True, exist_ok=True)
                 (disposable / ".specify").mkdir()

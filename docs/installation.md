@@ -2,7 +2,7 @@
 
 Use the catalog tasks in this repository to install or refresh the bundle. They serve the checked-in release packages on localhost for the duration of each command, so you do not need separate roadmap or wiki source checkouts to install it. The [bundle manifest](../bundles/farmboy/bundle.yml) and [release metadata](../catalog/release.json) are the sources for current component versions.
 
-Ordinary catalog install and refresh use the checked-in release packages only from a checkout whose source matches that release; the installer rejects a catalog/source mismatch. To dogfood uncommitted source changes, use explicit development-snapshot mode in this repository’s initialized root or a disposable initialized consumer under the system temporary directory. Snapshot installation records unreleased provenance and does not change the checked-in catalog. Local packaging and installation do not imply publication.
+Ordinary catalog install and refresh use the checked-in release packages only from a checkout whose source matches that release; the installer rejects a catalog/source mismatch. To install current unreleased source, use explicit development-snapshot mode in an initialized Specify consumer, including a persistent project or this repository’s root. Snapshot installation records unreleased provenance and does not change the checked-in catalog. Local packaging and installation do not imply publication.
 
 ## Contents
 
@@ -27,12 +27,14 @@ mise run python:check
 mise exec -- specify --version
 ```
 
-If `mise install` cannot obtain the pinned Specify fork, make that CLI available before continuing. The catalog tasks check its exact version and reject development snapshots or mismatched package hashes.
+If `mise install` cannot obtain the pinned Specify fork, make that CLI available before continuing. The catalog tasks check its exact version and reject mismatched package hashes. Development snapshots require the explicit `--dev` option.
 
 The Python preparation commands create and check this checkout's ignored `.venv` with the pinned PyYAML requirement. Ordinary repository Python work should use `mise exec -- python <args>`. Scripts belonging to or validating Codex skills continue to use the separately prescribed skill-tools interpreter. Bundle installation does not prepare Python packages. For a reusable setup in another project, see [Agent Python Environment](agent-python-environment.md).
 
 
 ## Install in another project
+
+The currently checked-in catalog is a development snapshot. Use the explicit snapshot installation below for this checkout. The normal command requires a reviewed release catalog built using [Build release packages](#build-release-packages); updating workflow hashes or rebuilding with `--snapshot` does not make it a release.
 
 Choose an existing project directory outside this checkout, or create an empty one. The install task initializes it with Specify if needed.
 
@@ -62,6 +64,16 @@ The supported catalog install also installs ten direct FarmBoy skills, shared co
 
 After installation, adoption of project governance is a separate operator decision. Follow the [consumer adoption review](consumer-adoption.md) to inspect active agent guidance and governance, review exact changes, and record the evidence. Installation does not edit those project-owned files or confirm adoption.
 
+### Install current unreleased source
+
+Persistent projects can explicitly opt into a development snapshot. The target must already be initialized with Specify. If it has no `.specify/` directory, initialize it from the project directory using the Codex skills integration command above, then run from this FarmBoy checkout:
+
+```sh
+mise run catalog:install /path/to/my-project --dev
+```
+
+If FarmBoy is already installed, use `mise run catalog:refresh /path/to/my-project --dev`. Each invocation rebuilds from current source, including uncommitted changes, and records snapshot status in the consumer ownership record. Installation and refresh retain the same collision and ownership checks as the release route. Review the source checkout before installing it into a persistent project. Targets nested inside this FarmBoy checkout are rejected.
+
 To test unreleased controller/workflow changes, initialize an already-created disposable consumer under the system temporary directory, then use the explicit snapshot route:
 
 ```sh
@@ -71,10 +83,10 @@ specify_bin="$(mise which specify)"
   cd "$consumer_dir"
   "$specify_bin" init --here --force --non-interactive --integration codex --integration-options="--skills"
 )
-PATH="$(dirname "$specify_bin"):$PATH" python3 tools/catalog.py install "$consumer_dir" --development-snapshot
+PATH="$(dirname "$specify_bin"):$PATH" python3 tools/catalog.py install "$consumer_dir" --dev
 ```
 
-Snapshot mode builds a temporary catalog from current source and checked-in extension packages. When a bundle pin advances beyond a checked-in dependency artifact, supply the reviewed source checkout explicitly with `--roadmap-source`; the package manifest and version must match the pin or snapshot construction stops. For example, to validate a compatible roadmap source in a disposable initialized consumer, use `python3 tools/catalog.py install "$consumer_dir" --development-snapshot --roadmap-source /path/to/spec-kit-flow-roadmap`. Refresh uses the same options with `tools/catalog.py refresh`. The temporary catalog records repository, source revision, source cleanliness and payload digest without editing checked-in catalog metadata, package archives, or tags. Snapshot mode is restricted to this repository’s initialized root or initialized temporary consumers and reports itself as unreleased in the ownership record. Nested source-checkout targets and other persistent consumers are rejected. The normal install and refresh routes continue to reject snapshots.
+Snapshot mode builds a temporary catalog from current source and checked-in extension packages. When a bundle pin advances beyond a checked-in dependency artifact, supply the reviewed source checkout explicitly with `--roadmap-source`; the package manifest and version must match the pin or snapshot construction stops. For example, to validate a compatible roadmap source in a disposable initialized consumer, use `python3 tools/catalog.py install "$consumer_dir" --dev --roadmap-source /path/to/spec-kit-flow-roadmap`. Refresh uses the same options with `tools/catalog.py refresh`. The temporary catalog records repository, source revision, source cleanliness and payload digest without editing checked-in catalog metadata, package archives, or tags. Snapshot mode reports itself as unreleased in the ownership record. The normal install and refresh routes continue to reject snapshots.
 
 ## Dogfood this repository
 
@@ -93,10 +105,10 @@ mise run catalog:refresh .
 When this checkout has uncommitted workflow or controller changes, use the explicit snapshot route to rebuild current source in a temporary catalog and refresh this initialized checkout:
 
 ```sh
-mise run catalog:refresh . --development-snapshot
+mise run catalog:refresh . --dev
 ```
 
-For an initialized checkout with no bundle installed, use `mise run catalog:install . --development-snapshot`. These commands preserve project-owned agents, governance, feature artifacts, wiki content, and controller run history under the same installation ownership checks. They do not commit, publish, or invoke a workflow. Normal release installation continues to require matching release metadata.
+For an initialized checkout with no bundle installed, use `mise run catalog:install . --dev`. These commands preserve project-owned agents, governance, feature artifacts, wiki content, and controller run history under the same installation ownership checks. They do not commit, publish, or invoke a workflow. Normal release installation continues to require matching release metadata.
 
 Both catalog commands install or refresh the ten active Specify workflows **and** the ten direct FarmBoy Codex skills in `.agents/skills/farmboy-*/`. They also write the separate skill ownership record under `.specify/farmboy/`. Verify both parts from this checkout:
 
@@ -248,10 +260,10 @@ Specifier, Planner and Reviewer retain depth for product, architecture and cross
 
 ### Install and Customize
 
-Initialize a Specify consumer with the supported CLI version, then install the bundle from a matching catalog checkout. Installation adds absent defaults only after components are installed. Existing destinations, old unprefixed files and unrelated agents are preserved. Current unreleased source validation uses an initialized disposable consumer and `--development-snapshot`:
+Initialize a Specify consumer with the supported CLI version, then install the bundle from a matching catalog checkout. Installation adds absent defaults only after components are installed. Existing destinations, old unprefixed files and unrelated agents are preserved. Current unreleased source validation uses an initialized disposable consumer and `--dev`:
 
 ```bash
-mise run catalog:install -- "$consumer_project" --development-snapshot
+mise run catalog:install -- "$consumer_project" --dev
 mise run catalog:agents -- install-missing "$consumer_project" --json
 ```
 
@@ -266,7 +278,7 @@ To test a native agent launch, first prepare the chosen project as above, then o
 Refresh updates the available-default cache only; it preserves all agent copies. To acquire newly added definitions after upgrading the selected bundle, refresh then run install-missing:
 
 ```bash
-mise run catalog:refresh -- "$consumer_project" --development-snapshot
+mise run catalog:refresh -- "$consumer_project" --dev
 mise run catalog:agents -- install-missing "$consumer_project" --json
 ```
 

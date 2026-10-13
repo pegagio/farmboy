@@ -166,7 +166,7 @@ class SnapshotValidationTests(unittest.TestCase):
                 def run_catalog(operation: str) -> str:
                     command = [sys.executable, str(ROOT / "tools/catalog.py"), operation, str(consumer)]
                     if operation in {"install", "refresh"}:
-                        command.extend(["--development-snapshot", "--roadmap-source", str(roadmap_source)])
+                        command.extend(["--dev", "--roadmap-source", str(roadmap_source)])
                     completed = subprocess.run(command, cwd=ROOT, env=environment, text=True,
                         stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=False)
                     self.assertEqual(0, completed.returncode, completed.stdout)

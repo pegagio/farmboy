@@ -54,7 +54,7 @@ mise install
 SPECIFY_BIN="$(mise which specify)"
 CONSUMER_DIR="$(mktemp -d)"
 (cd "$CONSUMER_DIR" && "$SPECIFY_BIN" init --here --force --non-interactive --integration codex --integration-options="--skills")
-PATH="$(dirname "$SPECIFY_BIN"):$PATH" python3 tools/catalog.py install "$CONSUMER_DIR" --development-snapshot
+PATH="$(dirname "$SPECIFY_BIN"):$PATH" python3 tools/catalog.py install "$CONSUMER_DIR" --dev
 ```
 
 Snapshot mode builds a temporary catalog from current source and verified extension packages, accepts only an already initialized consumer under the system temp directory, records the package as unreleased, and leaves checked-in release metadata unchanged. The tested CLI is `1.0.10.dev0+pegagio.2`; compatibility with stock Spec Kit remains unverified. Inspect installed component IDs and provenance before use.
@@ -69,7 +69,7 @@ After pulling a newer reviewed release of this repository, refresh the bundle an
 mise run catalog:refresh /path/to/my-project
 ```
 
-The same task serves the temporary catalogs during refresh and verifies controller ownership before changing installed skills. Ordinary install and refresh reject snapshots. For development, `tools/catalog.py install` and `refresh` accept `--development-snapshot` only for an already initialized disposable consumer under the system temporary directory. Maintainers build release packages from clean checkouts at matching annotated tags with `mise run catalog:build <roadmap-checkout> <wiki-checkout>`. Review `catalog/release.json` and the packages before preparing a release. See [installation and lifecycle details](docs/installation.md) for provenance, removal, and release requirements.
+The same task serves the temporary catalogs during refresh and verifies controller ownership before changing installed skills. Ordinary install and refresh reject snapshots. For development, `tools/catalog.py install` and `refresh` accept `--dev` for an already initialized Specify consumer, including persistent projects. Maintainers build release packages from clean checkouts at matching annotated tags with `mise run catalog:build <roadmap-checkout> <wiki-checkout>`. Review `catalog/release.json` and the packages before preparing a release. See [installation and lifecycle details](docs/installation.md) for provenance, removal, and release requirements.
 
 ## Using the workflows
 

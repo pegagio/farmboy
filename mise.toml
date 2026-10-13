@@ -11,78 +11,11 @@ _.python.venv = ".venv"
 
 [tasks."python:prepare"]
 description = "Prepare the project-local Python environment without replacing existing state"
-run = '''
-set -eu
-if [ -e .venv ] || [ -L .venv ]; then
-  if [ -L .venv ]; then
-    echo "python:prepare: .venv is a symlink; inspect it before choosing recovery." >&2
-    exit 1
-  fi
-  if [ -d .venv ] && mise run python:check; then
-    echo "python:prepare: existing .venv is ready; it was not changed."
-    exit 0
-  fi
-  echo "python:prepare: existing .venv is incomplete or incompatible and was not changed." >&2
-  echo "Inspect it; after approving repair, use: mise exec -- uv pip install --python .venv/bin/python -r requirements-agent.txt" >&2
-  exit 1
-fi
-
-python_path="$(mise which python)"
-if ! uv venv --python "$python_path" --no-python-downloads .venv; then
-  echo "python:prepare: could not create .venv with the installed mise Python; inspect the failure before retrying." >&2
-  exit 1
-fi
-if ! uv pip install --python .venv/bin/python -r requirements-agent.txt; then
-  echo "python:prepare: package installation failed; .venv may be incomplete and does not pass readiness checks." >&2
-  exit 1
-fi
-mise run python:check
-'''
+run = "bash tools/python/prepare.sh"
 
 [tasks."python:check"]
 description = "Check the project-local Python and PyYAML environment without changing it"
-run = '''
-set -eu
-if [ -L .venv ]; then
-  echo "python:check: .venv is a symlink; inspect the path before use." >&2
-  exit 1
-fi
-if [ ! -x .venv/bin/python ]; then
-  echo "python:check: .venv/bin/python is missing; run mise run python:prepare." >&2
-  exit 1
-fi
-mise exec -- python - <<'PY'
-from pathlib import Path
-import sys
-
-expected_python = "3.11.16"
-expected_pyyaml = "6.0.3"
-expected_prefix = (Path.cwd() / ".venv").resolve()
-actual_python = ".".join(str(part) for part in sys.version_info[:3])
-actual_prefix = Path(sys.prefix).resolve()
-print(f"python:check: interpreter={sys.executable}; prefix={sys.prefix}; Python={actual_python}")
-try:
-    import yaml
-    sample = {"items": ["one", 2], "enabled": True}
-    assert yaml.safe_load(yaml.safe_dump(sample)) == sample
-except Exception as exc:
-    print(f"python:check: PyYAML import or safe YAML round-trip failed: {exc}", file=sys.stderr)
-    print("Inspect .venv; after approving repair, install requirements into that environment.", file=sys.stderr)
-    raise SystemExit(1)
-
-if actual_python != expected_python:
-    print(f"python:check: expected Python {expected_python}, found {actual_python}.", file=sys.stderr)
-    raise SystemExit(1)
-if actual_prefix != expected_prefix:
-    print(f"python:check: expected project prefix {expected_prefix}, found {actual_prefix}.", file=sys.stderr)
-    raise SystemExit(1)
-if yaml.__version__ != expected_pyyaml:
-    print(f"python:check: expected PyYAML {expected_pyyaml}, found {yaml.__version__}.", file=sys.stderr)
-    raise SystemExit(1)
-
-print(f"python:check: ready; executable={sys.executable}; prefix={sys.prefix}; Python={actual_python}; PyYAML={yaml.__version__}")
-PY
-'''
+run = "bash tools/python/check.sh"
 
 [tasks."catalog:build"]
 description = "Build reviewed catalog packages from roadmap and wiki source checkouts"

@@ -1078,9 +1078,6 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
     catalog_dir = CATALOG
     release_path = RELEASE
     if development_snapshot:
-        temporary_root = Path(tempfile.gettempdir()).resolve()
-        if project != ROOT.resolve() and temporary_root not in project.parents:
-            fail("development snapshots require the source checkout root or a disposable consumer under the system temporary directory")
         if not (project / ".specify").is_dir():
             fail("development snapshot target must already be initialized as a Specify consumer")
         snapshot_directory = tempfile.TemporaryDirectory(prefix="farmboy-snapshot-catalog-")
@@ -1092,9 +1089,13 @@ def install(project: Path, refresh: bool, development_snapshot: bool = False,
             raise
         release_path = catalog_dir / "release.json"
     else:
+        # Report installation eligibility before checking potentially stale source hashes.
+        metadata = json.loads(release_path.read_text(encoding="utf-8"))
+        if metadata.get("status") == "snapshot":
+            fail("catalog is a development snapshot; use --dev with an initialized Specify consumer to install current unreleased source, or build a reviewed release catalog with catalog:build")
         release = verified_release(catalog_dir, release_path)
         if release["status"] != "released":
-            fail("catalog is a development snapshot; use --development-snapshot with the initialized source checkout root or a disposable consumer")
+            fail("catalog is a development snapshot; use --dev with an initialized Specify consumer")
     expected_specify = tomllib.loads((ROOT / "mise.toml").read_text(encoding="utf-8"))["tools"]["pipx:specify-cli"]
     specify = selected_specify(project)
     if specify is None:
@@ -1182,8 +1183,8 @@ def main() -> int:
     for name in ("install", "refresh"):
         consumer = commands.add_parser(name, help=f"{name} the bundle in a consumer project")
         consumer.add_argument("project", type=Path)
-        consumer.add_argument("--development-snapshot", action="store_true", help="build and use an unreleased snapshot in the initialized source checkout root or a disposable consumer")
-        consumer.add_argument("--roadmap-source", type=Path, help="use this reviewed flow-roadmap checkout in the disposable development snapshot")
+        consumer.add_argument("--dev", dest="development_snapshot", action="store_true", help="build and use current unreleased source in an initialized Specify consumer, including persistent projects")
+        consumer.add_argument("--roadmap-source", type=Path, help="use this reviewed flow-roadmap checkout in the temporary development catalog")
     remover = commands.add_parser("remove", help="remove the bundle and unchanged FarmBoy owned controllers")
     remover.add_argument("project", type=Path)
     agents = commands.add_parser("agents", help="Manage consumer-owned agent copies")
@@ -1237,7 +1238,7 @@ def main() -> int:
                 "flow-roadmap": arguments.roadmap_source,
             }.items() if value is not None}
             if source_overrides and not arguments.development_snapshot:
-                fail("extension source overrides require --development-snapshot")
+                fail("extension source overrides require --dev")
             install(arguments.project, arguments.command == "refresh", arguments.development_snapshot,
                     source_overrides=source_overrides)
     except (ValueError, OSError, subprocess.CalledProcessError, KeyError, zipfile.BadZipFile) as error:

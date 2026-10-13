@@ -2,13 +2,37 @@
 
 This guide provides a small, opt-in project-local Python setup for agents that need PyYAML during ordinary repository work. It uses existing mise and uv, installs no Python packages globally, and keeps each project's `.venv` local. It is separate from FarmBoy bundle installation. The unchanged recipe and its check support Python `3.11.16`; leave different existing Python pins untouched pending an operator decision. This recipe does not validate alternate Python versions.
 
+## Contents
+
+Use the following sections to adopt, verify, and maintain the setup:
+- [Copyable project inputs](#copyable-project-inputs)
+- [Agent instructions](#agent-instructions)
+- [Prepare and verify](#prepare-and-verify)
+- [Codex local environment](#codex-local-environment)
+- [Existing projects and recovery](#existing-projects-and-recovery)
+
 ## Copyable project inputs
 
-Add a `requirements-agent.txt` file:
+Add a `requirements-agent.txt` file in the project root, alongside `mise.toml` (use the singular `agent` in the filename):
 
 ```text
 PyYAML==6.0.3
 ```
+
+Copy these three scripts from the FarmBoy checkout into the same relative paths in the adopting project:
+
+- **Preparation**: [tools/python/prepare.sh](../tools/python/prepare.sh) creates the environment only when absent and preserves existing state.
+- **Check launcher**: [tools/python/check.sh](../tools/python/check.sh) rejects missing or symlinked environments before invoking Python.
+- **Python check**: [tools/python/check.py](../tools/python/check.py) verifies the interpreter version, project environment prefix, PyYAML version, and safe YAML round-trip.
+
+For example, from the adopting project's root:
+
+```sh
+mkdir -p tools/python
+cp /path/to/farmboy/tools/python/{prepare.sh,check.sh,check.py} tools/python/
+```
+
+These are project-owned copies, separate from installed FarmBoy bundle files. Keep the scripts together; the task commands run from the project root and do not require executable permissions on the scripts.
 
 Merge the following entries into the existing `mise.toml` tables. Do not duplicate table headers or overwrite unrelated project settings. The Python and uv values below are the versions validated for this recipe. If an existing project has different pins, leave them untouched until an operator decides how to reconcile the conflict.
 
@@ -22,78 +46,11 @@ _.python.venv = ".venv"
 
 [tasks."python:prepare"]
 description = "Prepare the project-local Python environment without replacing existing state"
-run = '''
-set -eu
-if [ -e .venv ] || [ -L .venv ]; then
-  if [ -L .venv ]; then
-    echo "python:prepare: .venv is a symlink; inspect it before choosing recovery." >&2
-    exit 1
-  fi
-  if [ -d .venv ] && mise run python:check; then
-    echo "python:prepare: existing .venv is ready; it was not changed."
-    exit 0
-  fi
-  echo "python:prepare: existing .venv is incomplete or incompatible and was not changed." >&2
-  echo "Inspect it; after approving repair, use: mise exec -- uv pip install --python .venv/bin/python -r requirements-agent.txt" >&2
-  exit 1
-fi
-
-python_path="$(mise which python)"
-if ! uv venv --python "$python_path" --no-python-downloads .venv; then
-  echo "python:prepare: could not create .venv with the installed mise Python; inspect the failure before retrying." >&2
-  exit 1
-fi
-if ! uv pip install --python .venv/bin/python -r requirements-agent.txt; then
-  echo "python:prepare: package installation failed; .venv may be incomplete and does not pass readiness checks." >&2
-  exit 1
-fi
-mise run python:check
-'''
+run = "bash tools/python/prepare.sh"
 
 [tasks."python:check"]
 description = "Check the project-local Python and PyYAML environment without changing it"
-run = '''
-set -eu
-if [ -L .venv ]; then
-  echo "python:check: .venv is a symlink; inspect the path before use." >&2
-  exit 1
-fi
-if [ ! -x .venv/bin/python ]; then
-  echo "python:check: .venv/bin/python is missing; run mise run python:prepare." >&2
-  exit 1
-fi
-mise exec -- python - <<'PY'
-from pathlib import Path
-import sys
-
-expected_python = "3.11.16"
-expected_pyyaml = "6.0.3"
-expected_prefix = (Path.cwd() / ".venv").resolve()
-actual_python = ".".join(str(part) for part in sys.version_info[:3])
-actual_prefix = Path(sys.prefix).resolve()
-print(f"python:check: interpreter={sys.executable}; prefix={sys.prefix}; Python={actual_python}")
-try:
-    import yaml
-    sample = {"items": ["one", 2], "enabled": True}
-    assert yaml.safe_load(yaml.safe_dump(sample)) == sample
-except Exception as exc:
-    print(f"python:check: PyYAML import or safe YAML round-trip failed: {exc}", file=sys.stderr)
-    print("Inspect .venv; after approving repair, install requirements into that environment.", file=sys.stderr)
-    raise SystemExit(1)
-
-if actual_python != expected_python:
-    print(f"python:check: expected Python {expected_python}, found {actual_python}.", file=sys.stderr)
-    raise SystemExit(1)
-if actual_prefix != expected_prefix:
-    print(f"python:check: expected project prefix {expected_prefix}, found {actual_prefix}.", file=sys.stderr)
-    raise SystemExit(1)
-if yaml.__version__ != expected_pyyaml:
-    print(f"python:check: expected PyYAML {expected_pyyaml}, found {yaml.__version__}.", file=sys.stderr)
-    raise SystemExit(1)
-
-print(f"python:check: ready; executable={sys.executable}; prefix={sys.prefix}; Python={actual_python}; PyYAML={yaml.__version__}")
-PY
-'''
+run = "bash tools/python/check.sh"
 ```
 
 Add `.venv/` to the project's `.gitignore`. Do not copy or propagate the environment between checkouts or worktrees.
@@ -115,6 +72,26 @@ mise exec -- python -c 'import sys, yaml; print(sys.executable); print(sys.prefi
 ```
 
 The check reports the interpreter, prefix and package versions. It confirms the Python pin, project `.venv` prefix, exact PyYAML version and safe serialization/parsing. A successful import in another shell or environment does not establish that this project's invocation is ready.
+
+## Codex local environment
+
+Configure a local environment so Codex prepares Python dependencies when it creates a worktree. Local environments are configured through the desktop app settings and stored under the project's `.codex/` directory; setup scripts run when a new worktree is created. See the [official local environment documentation](https://learn.chatgpt.com/docs/environments/local-environment).
+
+In Codex, open the adopting project, then use the desktop app's local environment settings to create or update its environment. Give it a recognizable name, such as `Agent Python`, and set its setup script to:
+
+```sh
+set -eu
+mise trust
+mise install python uv
+mise run python:prepare
+mise run python:check
+```
+
+Save through the app. FarmBoy's [`.codex/environments/environment.toml`](../.codex/environments/environment.toml) is an example of the generated configuration. Let the app manage this file rather than manually editing a file marked autogenerated. Keep the generated environment configuration, `mise.toml`, `requirements-agent.txt`, and `tools/python/` scripts under version control so worktrees can use them. Keep `.venv/` ignored and exclude it from `.worktreeinclude`; each checkout creates its own environment.
+
+When starting a new Codex chat in Worktree mode, select this local environment. The setup uses that checkout's mise pins, creates a missing `.venv`, and checks its dependencies. An existing ready environment is preserved; an incomplete or incompatible one stops setup for the recovery described below. Tool and package acquisition requires access to their configured sources or cached artifacts.
+
+The setup script does not configure an already-open local checkout or a plain `git worktree add` checkout automatically. Run the [prepare and verify commands](#prepare-and-verify) there. This environment prepares Python only; FarmBoy bundle installation remains a separate operation.
 
 ## Existing projects and recovery
 

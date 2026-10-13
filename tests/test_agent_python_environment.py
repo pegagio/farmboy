@@ -24,6 +24,7 @@ class AgentPythonEnvironmentTests(unittest.TestCase):
         self.project.mkdir()
         shutil.copy2(ROOT / "mise.toml", self.project / "mise.toml")
         shutil.copy2(ROOT / "requirements-agent.txt", self.project / "requirements-agent.txt")
+        shutil.copytree(ROOT / "tools/python", self.project / "tools/python")
         self.env = os.environ.copy()
         self.env["MISE_CONFIG_DIR"] = str(self.base / "mise-config")
         self.env["MISE_STATE_DIR"] = str(self.base / "mise-state")
@@ -71,6 +72,15 @@ class AgentPythonEnvironmentTests(unittest.TestCase):
         self.assertIn("existing .venv is incomplete or incompatible", result.stderr)
         self.assertEqual("preserve this environment\n", sentinel.read_text(encoding="utf-8"))
         self.assertEqual([sentinel], list(environment.iterdir()))
+
+    def test_missing_requirements_stops_before_creating_environment(self) -> None:
+        (self.project / "requirements-agent.txt").unlink()
+
+        result = self.run_mise("run", "python:prepare")
+
+        self.assertNotEqual(0, result.returncode)
+        self.assertIn("requirements-agent.txt is missing from the project root", result.stderr)
+        self.assertFalse((self.project / ".venv").exists())
 
 
 if __name__ == "__main__":
