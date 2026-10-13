@@ -1,6 +1,3 @@
-# Agents
-.agents/
-
 # Python
 __pycache__/
 *.pyc
@@ -8,11 +5,8 @@ __pycache__/
 venv/
 dist/
 *.egg-info/
-.DS_Store
 *.tmp
 *.swp
-
-.specify/memory/roadmap.md.lock
 
 # Maintainer feedback reports and intake records are local evidence.
 feedback/

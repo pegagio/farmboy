@@ -1,0 +1,124 @@
+schema_version: "1.0"
+
+workflow:
+  id: "farmboy-analyze-remediate"
+  name: "Analyze and Remediate"
+  version: "0.6.1"
+  author: "pegagio"
+  description: "Analyze current artifacts and repeat a shared specification, plan, task, and preparation-readiness correction waterfall until clean or safely stopped."
+
+requires:
+  speckit_version: ">=1.0.10.dev0+pegagio.2"
+  integrations:
+    any: ["codex"]
+
+inputs:
+  feature_context:
+    type: string
+    required: true
+    prompt: "Identify the feature and its current specification, plan, and tasks"
+  integration:
+    type: string
+    default: "codex"
+    enum: ["codex"]
+
+steps:
+  - id: analysis-remediation-loop
+    type: do-while
+    assessment_only_first_pass: true
+    condition: "{{ steps.assess-analysis.output.state == 'continue' }}"
+    max_iterations: 6
+    steps:
+      - id: prepare-analysis-flowback
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        prompt: >-
+          Prepare the next pass for {{ inputs.feature_context }}. On the first pass, set spec_action, plan_action, task_action, and readiness_record_action to skip. On later passes, use the latest validated assess-analysis findings and next_step_id. For remediate-specification, set all artifact actions to run; for remediate-plan, set plan_action and task_action to run; for remediate-tasks, set only task_action to run. For record-readiness-evidence, set every artifact action to skip and readiness_record_action to run with the exact readiness_reviewer_verdict_json from assess-analysis. All other routes set readiness_record_action to skip. Return these actions and exact args. Unsupported routes, stale evidence, unsafe effects, unavailable owners, or consequential decisions stop before mutation. Preserve the selected feature, task IDs/history, completed work, accepted decisions, and pending future-obligation identity. Route to the smallest authorized owner: Specifier, Planner, Tasker, the actual independent Reviewer, or the main-task recorder. Do not invoke another workflow or implementation.
+      - id: route-specification-remediation
+        type: switch
+        expression: "{{ steps.prepare-analysis-flowback.output.spec_action }}"
+        cases:
+          run:
+            - id: remediate-specification
+              command: "speckit.specify"
+              integration: "{{ inputs.integration }}"
+              farmboy:
+                delegated: true
+                agent: FarmBoy Specifier
+              input:
+                args: "{{ steps.prepare-analysis-flowback.output.specification_args }}"
+          skip: []
+      - id: route-plan-remediation
+        type: switch
+        expression: "{{ steps.prepare-analysis-flowback.output.plan_action }}"
+        cases:
+          run:
+            - id: remediate-plan
+              command: "speckit.plan"
+              integration: "{{ inputs.integration }}"
+              farmboy:
+                delegated: true
+                agent: FarmBoy Planner
+              input:
+                args: "{{ steps.prepare-analysis-flowback.output.plan_args }}"
+          skip: []
+      - id: route-task-remediation
+        type: switch
+        expression: "{{ steps.prepare-analysis-flowback.output.task_action }}"
+        cases:
+          run:
+            - id: remediate-tasks
+              command: "speckit.tasks"
+              integration: "{{ inputs.integration }}"
+              farmboy:
+                delegated: true
+                agent: FarmBoy Tasker
+              input:
+                args: "{{ steps.prepare-analysis-flowback.output.task_args }}"
+          skip: []
+      - id: route-readiness-recording
+        type: switch
+        expression: "{{ steps.prepare-analysis-flowback.output.readiness_record_action }}"
+        cases:
+          run:
+            - id: record-readiness-evidence
+              type: prompt
+              integration: "{{ inputs.integration }}"
+              prompt: >-
+                Act as the declared main-task recorder. Invoke the installed helper from the project root: `python3 .specify/farmboy/scripts/python/controller.py readiness --project "$PWD"` with JSON stdin containing `action: record-review`, `feature_directory` from the validated selected target, and the exact `reviewer_report` object in {{ steps.prepare-analysis-flowback.output.readiness_record_args }}. The helper records only a current FarmBoy Reviewer verdict, checks custom quality markers only when that exact verdict identifies their stable IDs as satisfied, and relocates only its exact future classifications to a pending feature-local ledger. It revalidates active identity, every reviewed input digest, owner, source item text/marker and destination before effect. Require `state: recorded`; preserve original Reviewer input hashes and inspectable, reversible marker-only/relocation digests. On any mismatch, stop and report the exact blocker. Never mark built-in author checklist items from Reviewer evidence, invent a verdict/owner, or discard future obligations.
+          skip: []
+      - id: analyze-artifacts
+        command: "speckit.analyze"
+        integration: "{{ inputs.integration }}"
+        farmboy:
+          delegated: true
+          agent: FarmBoy Reviewer
+        input:
+          args: >-
+            Run fresh read-only speckit.analyze for {{ inputs.feature_context }}. Return the full findings, severity, locations, recommendations, and prerequisite errors in a report output field. Do not modify artifacts.
+      - id: assess-readiness-evidence
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        prompt: >-
+          From the project root run `python3 .specify/farmboy/scripts/python/controller.py readiness --project "$PWD"` with JSON stdin containing the validated selected `feature_directory`. Return its complete JSON report as readiness_report_json. Preserve exact blockers, source/evidence digests, pending future IDs and resume action. Helper errors, stale/unsafe paths, incomplete coverage, missing independent review, and unchecked preparation items remain blocked; do not mutate or override core's existing checklist gate.
+      - id: check-readiness
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        farmboy:
+          delegated: true
+          agent: FarmBoy Readiness Checker
+        prompt: >-
+          Read only the deterministic report {{ steps.assess-readiness-evidence.output.readiness_report_json }}, fresh Analyze report {{ steps.analyze-artifacts.output.report }}, and selected feature artifacts for {{ inputs.feature_context }}. Check complete coverage, stable locators, current digests, counts, ownership/classification, independent Reviewer evidence, and pending future-obligation preservation. Return readiness_review with ready/blocked state, exact stable findings, owner and smallest correction kind, substantive resolved_ids, pending future IDs, and repository-relative evidence. Do not edit, record markers, supply independent judgment, invent evidence, or mark future outcomes complete. Unknown owner/purpose, stale evidence, unsafe paths or consequential decisions block with safe resumption.
+      - id: assess-analysis
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        farmboy:
+          delegated: true
+          agent: FarmBoy Reviewer
+        prompt: >-
+          Independently assess the fresh Analyze report {{ steps.analyze-artifacts.output.report }} and readiness report/Checker findings {{ steps.assess-readiness-evidence.output.readiness_report_json }} / {{ steps.check-readiness.output.readiness_review }} for {{ inputs.feature_context }}. Keep artifact findings and readiness findings distinct and combine only for routing. Return the original strict outcome envelope and separate readiness_reviewer_verdict_json, an exact JSON object with reviewer FarmBoy Reviewer, state complete only when no substantive artifact defect remains, findings [], current reviewed_inputs SHA-256 values for spec.md, plan.md, tasks.md and every checklist, satisfied_criteria containing only exact custom-review quality criterion IDs you independently determine satisfied, and future_classifications only for clearly post-implementation or acceptance items with exact ID/source path/text/category/owner/due phase/expected evidence. Never classify the built-in requirements checklist as Reviewer-owned. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces). For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Route safe specification, plan, and task repairs to remediate-specification, remediate-plan, or remediate-tasks at the highest affected owner. Route only an exact current recorder action to record-readiness-evidence. After any correction, the next bounded pass must rerun fresh Analyze and Checker assessment. A newly supplied substantive independent verdict may resolve the stable missing-review finding; checkbox-only flips, relocation alone, report writes, timestamp changes, or successful commands are zero progress. Complete only when artifact analysis and readiness are clean, the unchanged core checklist gate will pass, future obligations remain pending outside checklists, and no owner issue remains. Block on consequential choices, unsafe/stale evidence, unavailable owners, repeated findings, no progress, or six-assessment/five-correction exhaustion. Preserve stable finding IDs, substantive resolved_ids, exact evidence and state-dependent routing; do not infer authorization or invoke another phase.
+  - id: report-analysis-outcome
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    prompt: >-
+      Report the latest verified artifact and readiness outcomes for {{ inputs.feature_context }}, resolved and remaining finding IDs, and changed artifact paths. If clean, report Tasks Analyzed without implying feature acceptance or implementation. Otherwise present the exact blocker, required operator decision, and safe resumption action while preserving completed corrections and pending future obligations. The six-assessment/five-correction cap and no-progress stop are bounded stops, not clean results. Stop here. Implementation and consequential changes require separate operator action.

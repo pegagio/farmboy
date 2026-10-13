@@ -1,0 +1,93 @@
+{
+  "catalog_status": "snapshot",
+  "controllers": [
+    {
+      "display_name": "FarmBoy Select Feature",
+      "skill_id": "farmboy-select-feature",
+      "workflow_id": "farmboy-select-feature"
+    },
+    {
+      "display_name": "FarmBoy Specify",
+      "skill_id": "farmboy-specify",
+      "workflow_id": "farmboy-specify"
+    },
+    {
+      "display_name": "FarmBoy Clarify",
+      "skill_id": "farmboy-clarify",
+      "workflow_id": "farmboy-clarify"
+    },
+    {
+      "display_name": "FarmBoy Plan",
+      "skill_id": "farmboy-plan",
+      "workflow_id": "farmboy-plan"
+    },
+    {
+      "display_name": "FarmBoy Tasks",
+      "skill_id": "farmboy-tasks",
+      "workflow_id": "farmboy-tasks"
+    },
+    {
+      "display_name": "FarmBoy Analyze",
+      "skill_id": "farmboy-analyze-remediate",
+      "workflow_id": "farmboy-analyze-remediate"
+    },
+    {
+      "display_name": "FarmBoy Implement",
+      "skill_id": "farmboy-implement",
+      "workflow_id": "farmboy-implement"
+    },
+    {
+      "display_name": "FarmBoy Converge",
+      "skill_id": "farmboy-converge",
+      "workflow_id": "farmboy-converge"
+    },
+    {
+      "display_name": "FarmBoy Close Out",
+      "skill_id": "farmboy-closeout",
+      "workflow_id": "farmboy-closeout"
+    },
+    {
+      "display_name": "FarmBoy Wiki Lint Update",
+      "skill_id": "farmboy-wiki-lint-update",
+      "workflow_id": "farmboy-wiki-lint-update"
+    }
+  ],
+  "files": {
+    ".agents/skills/farmboy-analyze-remediate/SKILL.md": "8e2e913dd2eea9c9fd60eb0aac8b403f108c48e139120e138702644db76d394c",
+    ".agents/skills/farmboy-analyze-remediate/agents/openai.yaml": "d4cd4a861b3f59f4aba8b124efe6940cb563bef81ed7df3b4e29ef967ef0ac4a",
+    ".agents/skills/farmboy-clarify/SKILL.md": "b872a23c1dd30971fbef833bd92beb88beaa8925fae79d419f45a81076e79998",
+    ".agents/skills/farmboy-clarify/agents/openai.yaml": "d99a522ec051b4d356a91ca6427c26df998491118756d9b30326147ce8950fec",
+    ".agents/skills/farmboy-closeout/SKILL.md": "68ae3d3fadb115cd129ae676fd94a753999d85f35fe56689428918696aa08697",
+    ".agents/skills/farmboy-closeout/agents/openai.yaml": "8e0acb9e066377993c7193f09306313ca5161b8f2d3bfa6e0805b56a712aa6cc",
+    ".agents/skills/farmboy-converge/SKILL.md": "3f00531652fca6372d1bd4a27fa8eddea409419ab72f0f6c58f9bf3be6f7128e",
+    ".agents/skills/farmboy-converge/agents/openai.yaml": "db1e41480b28e9dc960a9e1f5cfe85a63310a80c63bef0ae5cb548ec9f6bec53",
+    ".agents/skills/farmboy-implement/SKILL.md": "cfe9a1a83956e07565a72c71cd9b2a028dfc37ed29a7b2319f6b88e126481198",
+    ".agents/skills/farmboy-implement/agents/openai.yaml": "d29993e3353995c4ca605494621a6f340213b7d2508731540b6ce6f2bcf50782",
+    ".agents/skills/farmboy-plan/SKILL.md": "4c355fb156cc701bb6a4c510cccba0eda4225797dd25d8c2b45f9e984bb46adc",
+    ".agents/skills/farmboy-plan/agents/openai.yaml": "823a5c437f615de4a105af7c15a52df37e4a925418823c9923f6ef449467e23e",
+    ".agents/skills/farmboy-select-feature/SKILL.md": "a5c83f02bfbe777cf84c0f9e3294d6715ca96fadb83973fb52f7739c927056b6",
+    ".agents/skills/farmboy-select-feature/agents/openai.yaml": "f79a260a60d27aa9a80a0f538922d3e0ea86f66b798102934e5339d2490fbcbc",
+    ".agents/skills/farmboy-specify/SKILL.md": "ce46b61fcfe16711a50f662db53843f314d22ca227ca44b0cf92ec1fd4f9eec8",
+    ".agents/skills/farmboy-specify/agents/openai.yaml": "d217e0791fafe0d1dde8e271936d3a3592c5f3db4abda5789bc699a84d69d795",
+    ".agents/skills/farmboy-tasks/SKILL.md": "982a6eec42e5769d1b92b2fb4ba03300245cc3478bab804042a7873e3ea20b70",
+    ".agents/skills/farmboy-tasks/agents/openai.yaml": "7344554a9d2c37ad38b1e8dd08d33c5b450194221206ef7c649758996235527a",
+    ".agents/skills/farmboy-wiki-lint-update/SKILL.md": "2ada3ec5838a2bff40463a768a2b83cb71fac5ed17097d9cc8d4dbf67b1f023f",
+    ".agents/skills/farmboy-wiki-lint-update/agents/openai.yaml": "c2623f6b112932cb9376e92258e43eaa32f66036b48b69cab226458088fccf42",
+    ".specify/farmboy/controller-protocol.md": "d1d008eed6f471437d81f82bd378af1d1185b77dff2f136f95459b8524e7761a",
+    ".specify/farmboy/manifest.yml": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+    ".specify/farmboy/scripts/bootstrap.sh": "c6b1c797b5fa294326e072bd515eb419806106ddf325cd7852d6bea3dba256bf",
+    ".specify/farmboy/scripts/python/controller.py": "ac539b34946b80f3391ff64b2b08d80407722da70ab66f5637b9372db4755303",
+    ".specify/farmboy/scripts/python/implementation_scope.py": "51a473670f3a0d61fd452cd73225c41b1bacc64f055dc29752f95eb78b6b5d08",
+    ".specify/farmboy/scripts/python/metrics.py": "8c981c3071d6dc75712c939903f9f3517af9fdde2ac285f118c6265421dc6a82",
+    ".specify/farmboy/scripts/python/milestone_policy.py": "07ac0ac80b99d31137c78c27b9ce3a3714bcd4b456fd926277e9ff755ea4df75",
+    ".specify/farmboy/scripts/python/phase_lifecycle.py": "ba6d962cd3965691194a78cdd3457d88ae798368882eefd4197aa2036dc8a204",
+    ".specify/farmboy/scripts/python/readiness.py": "6e9820f2db2b3a22bfc36e6e413c4caa994d80036ff3fc014e775786d610bc02",
+    ".specify/farmboy/scripts/python/recovery.py": "d64ae81a1d6cb1b13e3572f06be24cc38cd633d31250275b467705d983bb0084",
+    ".specify/farmboy/scripts/python/selection.py": "2c61619724ce107b2bcf26b3c312560930835d58ffdfe8d61412db9a9c0e38eb"
+  },
+  "package": "farmboy-controllers",
+  "schema_version": "1.0",
+  "source_sha256": "c58d85ae189f127ed3892d1abdeab56958cfc6db9ecc30273efeaeae07dd459e",
+  "status": "installed",
+  "version": "0.9.1"
+}

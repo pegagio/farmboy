@@ -1,0 +1,3 @@
+interface:
+  display_name: "FarmBoy Analyze"
+  short_description: "Analyze and remediate feature artifacts."

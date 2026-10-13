@@ -1,15 +1,16 @@
-# Copy ignored local development tooling and installed bundle state into Codex-managed worktrees.
-.agents/
+# Copy selected ignored local state into Codex-managed worktrees.
 .idea/
-.specify/extensions.yml
-.specify/extensions/.registry
+
+.specify/extensions/*/local-config.yml
+.specify/extensions/.cache/
+.specify/workflows/.cache/
 .specify/workflows/workflow-registry.json
-.specify/bundle-records.json
-.specify/extensions/farmboy-feedback/
-.specify/extensions/flow-roadmap/
-.specify/extensions/flow-wiki/
-.specify/farmboy/
-.specify/workflows/farmboy-*/
+
+# Retain prior runs for inspection in the new checkout.
+.specify/workflows/runs/
+.specify/flow-controllers/runs/
+.specify/farmboy-controllers/runs/
+.specify/farmboy-controllers/implementation-history/
 
 feedback/
 notes.md

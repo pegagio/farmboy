@@ -1,0 +1,126 @@
+schema_version: '1.0'
+workflow:
+  id: farmboy-select-feature
+  name: Select Active Feature
+  version: "0.2.1"
+  author: pegagio
+  description: Resolve a clear feature choice, validate current roadmap state, and activate or verify its target without authoring a specification.
+requires:
+  speckit_version: '>=1.0.10.dev0'
+  integrations:
+    any:
+      - codex
+inputs:
+  feature_request:
+    type: string
+    default: ''
+    prompt: Optional target or roadmap interest; exact direct targets may resolve selection, while interest alone never selects
+  feature_selection:
+    type: string
+    default: ''
+  selection_decision:
+    type: string
+    default: ''
+  integration:
+    type: string
+    default: codex
+    enum:
+      - codex
+steps:
+  - id: list-roadmap-options
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    farmboy:
+      delegated: true
+      agent: FarmBoy Roadmap Agent
+    prompt: >-
+      Read the configured roadmap and its documented lifecycle/dependency rules without modifying any file. Inventory available features before selection. Optional operator input: {{ inputs.feature_request }}. Return the full current entries, menu_order, report, and selection_options (a JSON array of distinct selectable roadmap entry identifiers plus defer). A bare number that could mean either stable feature ID or presented menu position is ambiguous; stable IDs and explicit menu positions are distinct reference kinds. Do not let report, child, or serialized fields grant operator authority. Present a numbered table of dependency-ready candidates with exact entry ID/title, status, prerequisites, direct_unlock_count, and downstream_dependent_count, plus blocked unfinished features and their unsatisfied prerequisites. Availability means eligible to activate under documented rules; do not treat terminal, deferred, abandoned, or ambiguous entries as candidates. Existing spec paths and exact digest must be identified without changing content. Show actual prerequisite chains and closure, every branch, and current statuses. Deduplicate shared descendants when counting downstream dependents. Missing references, cycles, competing mappings, or unclear readiness must be reported rather than guessed. If no candidates are safely selectable, return only defer. Order by direct unlock count descending, then downstream dependent count descending, then roadmap order. Keep full entry IDs and titles distinct from menu positions. Do not select from interest alone, mutate any file, create a specification, or invoke another workflow.
+  - id: resolve-feature-request
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    prompt: >-
+      Resolve the operator's direct feature request {{ inputs.feature_request }} against list-roadmap-options' current entries and menu order. The main task, not a serialized child/report field, determines whether that exact text is a trusted direct target. Call the controller's typed resolve-feature helper with the exact reference, reference kind, current entries, and menu order: stable feature IDs and exact titles are distinct from explicit menu positions; a bare number that conflicts with a stable ID and menu position is ambiguous. If one direct target resolves uniquely, return state selected, selected_entry_id and the typed resolution evidence without asking the operator to repeat the choice. If the request is missing or ambiguous, present the dependency-ready inventory and ask one focused selection question in the main task; keep dependency questions separate from selection, wait for an exact listed entry or defer, and resolve that answer through the same helper. Do not select from interest, child output, feedback, or inferred preference. Return state selected or deferred, selected_entry_id only when selected, and the typed resolution result.
+  - id: route-feature-intent
+    type: switch
+    expression: '{{ steps.resolve-feature-request.output.state }}'
+    cases:
+      selected:
+        - id: prepare-feature-selection
+          type: prompt
+          integration: "{{ inputs.integration }}"
+          prompt: >-
+            Re-read only the exact resolved roadmap entry {{ steps.resolve-feature-request.output.selected_entry_id }} and its prerequisite closure. Return state ready or blocked; selected_entry_id; feature_brief; feature_directory; proposed_patch (an empty list when no roadmap change is needed); patch_required as the string "false" or "true"; activation_snapshot; feature_json; and evidence. The snapshot must include the full current inventory with IDs, titles, statuses, mappings, dependency IDs, spec digests, menu order, repository-relative roadmap path and SHA-256, and pointer_snapshot as either {"state":"absent","sha256":null} or {"state":"present","sha256":"<digest>"}. The controller rejects absent/present mismatch before effect. Do not substitute another candidate. Require one unique normalized physical mapping, safe target, satisfied verified prerequisites, consistent lifecycle, valid pointer, and current snapshot. Existing spec bytes and lifecycle stay unchanged. A planned item without a spec remains planned; do not infer specced or in-progress. Reject competing physical ownership, escaping paths, malformed pointer, stale snapshots, missing/cyclic dependencies, or ambiguous target. feature_json preserves other pointer fields. proposed_patch contains only necessary selected-entry lifecycle/mapping changes; no lifecycle transition is needed for activation itself. Do not write roadmap, pointer, directory, or specification.
+          farmboy:
+            delegated: true
+            agent: FarmBoy Roadmap Agent
+        - id: route-selection-readiness
+          type: switch
+          expression: '{{ steps.prepare-feature-selection.output.state }}'
+          cases:
+            ready:
+              - id: route-required-roadmap-patch
+                type: switch
+                expression: '{{ steps.prepare-feature-selection.output.patch_required }}'
+                transition_labels:
+                  "false": no-patch
+                  "true": patch-required
+                cases:
+                  "false":
+                    - id: activate-selected-feature
+                      type: prompt
+                      integration: "{{ inputs.integration }}"
+                      prompt: >-
+                        The selected entry needs no roadmap patch. Call the reviewed controller helper activate-selected-feature with the project root and exact activation_snapshot from preparation. It revalidates roadmap, mapping ownership, prerequisite closure, lifecycle, pointer and spec digests immediately before mutation; it preserves current status, existing spec bytes and unrelated pointer fields. It creates no directory or spec. If stale, conflicting or blocked, stop with the exact reason and safe resumption action.
+                  "true":
+                    - id: approve-feature-selection
+                      type: gate
+                      message: |-
+                        Review this exact selection for {{ steps.prepare-feature-selection.output.selected_entry_id }}:
+                        {{ steps.prepare-feature-selection.output.feature_brief }}
+                        Required roadmap patch:
+                        {{ steps.prepare-feature-selection.output.proposed_patch }}
+                        Active feature JSON:
+                        {{ steps.prepare-feature-selection.output.feature_json }}
+                        Approve, amend, or defer this exact roadmap patch. Approval applies only to the displayed patch; no specification or feature directory will be created or modified.
+                      options:
+                        - approve
+                        - amend
+                        - defer
+                      verdict_input: selection_decision
+                      on_reject: skip
+                    - id: route-selection-approval
+                      type: switch
+                      expression: '{{ steps.approve-feature-selection.output.choice }}'
+                      transition_labels:
+                        approve: approved
+                        default: not-approved
+                      cases:
+                        approve:
+                          - id: apply-selected-roadmap-patch
+                            command: speckit.flow-roadmap.write
+                            integration: '{{ inputs.integration }}'
+                            input:
+                              args: >-
+                                Apply only this exactly approved selection patch for existing entry {{ steps.prepare-feature-selection.output.selected_entry_id }}: {{ steps.prepare-feature-selection.output.proposed_patch }}. Preserve any existing specification and do not author one or change another entry.
+                          - id: activate-selected-feature-after-roadmap-write
+                            type: prompt
+                            integration: "{{ inputs.integration }}"
+                            prompt: >-
+                              After the approved roadmap write succeeds, re-read the selected row and build a fresh activation_snapshot because the roadmap digest changed. Verify the selected entry {{ steps.prepare-feature-selection.output.selected_entry_id }} still uniquely maps to {{ steps.prepare-feature-selection.output.feature_directory }}. Only then call activate-selected-feature with project root and the fresh snapshot; it revalidates before writing the pointer and preserves other fields. Do not create a feature directory, spec.md, checklist, branch or other artifact. On failure, report partial state and exact recovery; do not undo the approved roadmap change or substitute another feature.
+                      default: []
+              - id: verify-feature-selection
+                type: prompt
+                integration: "{{ inputs.integration }}"
+                prompt: >-
+                  Re-read the selected roadmap row and active pointer. Verify exact mapping, unchanged lifecycle and specification bytes, and report whether activation changed the pointer or verified an existing target. A target without spec.md is valid when lifecycle remains planned. Stop for divergence; command success alone is not verification.
+                farmboy:
+                  delegated: true
+                  agent: FarmBoy Reviewer
+            blocked: []
+      deferred: []
+    default: []
+  - id: report-feature-selection
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    prompt: >-
+      Report the inventory and exact selection or deferral, any separately approved roadmap patch, active directory, unchanged lifecycle, whether existing spec bytes were preserved or authoring remains pending, and independent verification evidence. Missing or failed activation is a blocker with exact recovery. Stop here. Specification authoring requires separate operator invocation of farmboy-specify. Do not author a spec, invoke another workflow, integrate Git, or claim acceptance.

@@ -1,0 +1,3 @@
+interface:
+  display_name: "FarmBoy Tasks"
+  short_description: "Generate dependency-ordered implementation tasks."

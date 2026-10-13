@@ -1,0 +1,80 @@
+schema_version: '1.0'
+extension:
+  id: flow-roadmap
+  name: FlowKit Roadmap
+  version: 0.4.0
+  description: >-
+    Capture a durable spec roadmap after the constitution, then review specs
+    against it before and after implementation so spec-specific decisions,
+    outcomes, and constraints are never lost.
+  author: pegagio
+  repository: https://github.com/pegagio/spec-kit-flow-roadmap
+  license: Apache-2.0
+  homepage: https://github.com/pegagio/spec-kit-flow-roadmap
+requires:
+  speckit_version: '>=1.0.10.dev0'
+provides:
+  commands:
+    - name: speckit.flow-roadmap.write
+      file: commands/speckit.flow-roadmap.write.md
+      description: Create or apply an approved roadmap amendment after constitution work; not for implementation review
+    - name: speckit.flow-roadmap.brief
+      file: commands/speckit.flow-roadmap.brief.md
+      description: Review one identifiable spec immediately before implementation; not for post-implementation or project-wide review
+    - name: speckit.flow-roadmap.debrief
+      file: commands/speckit.flow-roadmap.debrief.md
+      description: Review an implemented spec against an attributable delta; not for planning-only review
+    - name: speckit.flow-roadmap.sync
+      file: commands/speckit.flow-roadmap.sync.md
+      description: Reconcile the complete roadmap and specs; not for a single-feature review or corrective writes
+  scripts:
+    - name: load-config-python
+      file: scripts/python/load_config.py
+      description: Load and validate roadmap extension configuration; emit a JSON contract
+      executable: true
+    - name: review-contract-python
+      file: scripts/python/review_contract.py
+      description: Resolve deterministic review targets, deltas, findings, lifecycle gates, and report paths
+      executable: true
+    - name: roadmap-write-python
+      file: scripts/python/roadmap_write.py
+      description: Apply exact authorized generic status amendments with preimage and readback guards
+      executable: true
+  config:
+    - name: roadmap-config.yml
+      template: config-template.yml
+      description: >-
+        Roadmap extension configuration (roadmap path, ADR directory, PRD
+        detection globs)
+      required: false
+hooks:
+  after_constitution:
+    command: speckit.flow-roadmap.write
+    optional: true
+    prompt: >-
+      Draft or update the spec roadmap now? (captures spec-specific decisions
+      and future-spec intent from the constitution discussion)
+    description: >-
+      Capture a durable roadmap so constitution-phase decisions and
+      not-yet-written-spec intent are not lost
+  before_implement:
+    command: speckit.flow-roadmap.brief
+    optional: true
+    prompt: Review the roadmap for this spec before implementing?
+    description: >-
+      Surface the roadmap's expectations (outcome, scope, governing decisions,
+      dependencies) for the spec about to be built
+  after_implement:
+    command: speckit.flow-roadmap.debrief
+    optional: true
+    prompt: Check the implementation against the roadmap?
+    description: Verify the implemented spec matches its roadmap entry's outcome and scope
+tags:
+  - roadmap
+  - planning
+  - governance
+  - review
+  - spec-alignment
+defaults:
+  report:
+    max_findings: 50

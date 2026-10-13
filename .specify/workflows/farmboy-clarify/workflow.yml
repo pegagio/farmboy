@@ -1,0 +1,51 @@
+schema_version: "1.0"
+
+workflow:
+  id: "farmboy-clarify"
+  name: "Clarify Specification"
+  version: "0.5.1"
+  author: "pegagio"
+  description: "Run bounded, operator-answered clarification sessions until no significant ambiguity remains or the workflow stops safely."
+
+requires:
+  speckit_version: ">=1.0.10.dev0+pegagio.2"
+  integrations:
+    any: ["codex"]
+
+inputs:
+  feature_context:
+    type: string
+    required: true
+    prompt: "Identify the active feature specification to clarify"
+  integration:
+    type: string
+    default: "codex"
+    enum: ["codex"]
+
+steps:
+  - id: clarification-session-loop
+    type: do-while
+    condition: "{{ steps.assess-clarification-after-session.output.state == 'continue' }}"
+    max_iterations: 5
+    steps:
+      - id: clarify-session
+        farmboy:
+          delegated: true
+          agent: FarmBoy Specifier
+        command: "speckit.clarify"
+        integration: "{{ inputs.integration }}"
+        input:
+          args: "Run exactly one bounded Clarify command session for {{ inputs.feature_context }}. Preserve the command's five-question cap per session. Ask every substantive question in the main task, require each answer to come from the operator, and relay that answer only to this same active child. Incorporate accepted answers incrementally. Do not decide product questions, declare readiness, or invoke Plan."
+      - id: assess-clarification-after-session
+        type: prompt
+        integration: "{{ inputs.integration }}"
+        farmboy:
+          delegated: true
+          agent: FarmBoy Reviewer
+        prompt: >-
+          After the Clarify command session, assess the current spec and operator answers for {{ inputs.feature_context }}. Return a structured outcome envelope with state complete, continue, or blocked; a stable reason_code; repository-relative evidence paths and current SHA-256 digests; remaining_ids tied to specific unresolved questions or passages; resolved_ids; and exactly one of next_step_id or resume_action as required. Use complete only when no significant unresolved ambiguity remains; this does not authorize Plan or declare planning readiness. Use continue only when specific significant questions remain answerable through another standard bounded Clarify session, and set next_step_id to clarify-session. For the first session, name at least one ambiguity resolved by that session; for later sessions, identify exactly which prior remaining_ids were resolved. Do not count a newly discovered question as progress. The five-question cap applies to each command session, not the whole invocation. Use blocked for a specific consequential decision outside clarification scope or a concrete prerequisite. Preserve the exact operator question or blocker and provide a stable resume_action without choosing an answer or taking the consequential action. Never infer an answer or Plan readiness. Routing fields are state-dependent. For `complete`, omit `next_step_id`, `gate_step_id`, and `resume_action`; for `continue`, include only `next_step_id` targeting a declared loop-body step; for `blocked`, include only a stable `resume_action`. Never include a routing field for `complete`. Both `reason_code` and `resume_action` must match `^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$` (lowercase letters and digits joined by single hyphens; never use underscores or spaces).
+  - id: clarification-outcome-stop
+    type: prompt
+    integration: "{{ inputs.integration }}"
+    prompt: >-
+      End this Clarify invocation and report the latest assessment, resolved and remaining ambiguity IDs, changed specification paths, and the reason for stopping. For complete, report Spec Clarified without claiming Plan readiness. For blocked or a bounded continue stop, report the concrete blocker or specific decision requiring operator direction and its smallest safe resumption action without answering it. If assessment validation failed or the state is unrecognized, report that error and preserve current evidence. Do not invoke Plan.

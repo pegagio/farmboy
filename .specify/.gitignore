@@ -8,19 +8,19 @@ feature.json
 # Per-machine extension config overrides.
 extensions/*/local-config.yml
 
-# Local installation registries, catalog caches, and installed release snapshots.
-extensions.yml
-extensions/.registry
-workflows/workflow-registry.json
-.workflow-install.lock
-bundle-records.json
+# Caches
 extensions/.cache/
 workflows/.cache/
+
+# Local installation metadata contains temporary localhost catalog URLs.
+workflows/workflow-registry.json
+
+# Runtime state
 workflows/runs/
-extensions/farmboy-feedback/
-extensions/flow-roadmap/*
-extensions/flow-wiki/*
-farmboy/
-farmboy-controllers/
 flow-controllers/runs/
-workflows/farmboy-*/
+farmboy-controllers/runs/
+farmboy-controllers/implementation-history/
+
+# Locks
+.workflow-install.lock
+memory/roadmap.md.lock
