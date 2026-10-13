@@ -64,6 +64,20 @@ The supported catalog install also installs ten direct FarmBoy skills, shared co
 
 After installation, adoption of project governance is a separate operator decision. Follow the [consumer adoption review](consumer-adoption.md) to inspect active agent guidance and governance, review exact changes, and record the evidence. Installation does not edit those project-owned files or confirm adoption.
 
+### Allow Codex to write local metrics
+
+Before running FarmBoy workflows, grant Codex write access to `~/.farmboy/metrics/` in the active chat's filesystem permissions. FarmBoy writes local agent timing records to this shared directory outside the project workspace. Bundle installation and the project Python setup do not grant this access.
+
+Create the directory from your terminal if it does not exist:
+
+```sh
+mkdir -p "$HOME/.farmboy/metrics"
+```
+
+Allow this directory in the filesystem permissions or additional writable roots used by your Codex chat. If you use a named permission profile, add a write rule for `~/.farmboy/metrics` to that profile's filesystem table and ensure the chat uses that profile. Follow the [official Codex permissions guidance](https://learn.chatgpt.com/docs/permissions) for the configuration supported by your installation; retain your existing project permissions. Creating the directory alone does not grant sandbox access.
+
+If collection reports a permission-denied warning, check that the active chat can write to this directory, then repeat the affected operation only when appropriate for the workflow. Collection is best-effort: a denied write produces a warning and leaves a gap in metrics without changing the workflow result or human gates. Records from the missed turn are not reconstructed. See [metrics storage and reporting](metrics.md#storage-and-reporting) for the record format and boundaries.
+
 ### Install current unreleased source
 
 Persistent projects can explicitly opt into a development snapshot. The target must already be initialized with Specify. If it has no `.specify/` directory, initialize it from the project directory using the Codex skills integration command above, then run from this FarmBoy checkout:
