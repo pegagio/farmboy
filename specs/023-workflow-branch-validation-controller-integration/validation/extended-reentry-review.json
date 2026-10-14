@@ -1,0 +1,114 @@
+{
+  "completion_claim": false,
+  "current_source_evidence": [
+    {
+      "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+      "sha256": "1ba407a977ea9ccf78102845b122b1264726066974901c0a5e500d70d09b05b3"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "84dabce62b140acb0c73b5e432b13b0cd45f1945ea2644b94a17f132d18e410b"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "297ff6cc564275c2e169477800efb7d3192f7baec1410a16d7f1e1e7667298e8"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "131ad065c197a197de0d43c9316be30e06b44d7bd75ab6a05ae958809b391df3"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "402d6a1627f1d7fb4a90146d1f2485b99308596e270fdbe747bbf61d35107496"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "0edd543be623876dd0801e05e38770cc43415cba34643b8f410751cb080a885a"
+    }
+  ],
+  "facts": [
+    "Original scope, task descriptions, three historical marker transitions, and original finding baseline retained; no retrospective digest reconstruction.",
+    "T001 retains 33 unique Feature023 scenarios and 15 legacy SI cases, requirement mappings, valid-control/mutation separation, and corrected same-child pending-answer control versus permitted fresh corrective-session control. Fixture is unchanged from independently accepted T001 source.",
+    "T002 independently inspected all seven malformed container cases, supported empty routes, five producer feasibility cases, stable reason codes, exact root/node location, null root step IDs and leakage exclusions. Current controller suite passes all 78 tests. Later T008 added separate runtime assertions; it did not remove T002 test obligations.",
+    "T003 current graph suite passes16 tests, validates all11 owned definitions, earlier producers without output, and deprecated stop-only inventory. Current path suite passes30 tests after main restored explicit default-five budget wording; owned inventory/prior-producer/stop-only obligations remain intact.",
+    "T007 current7 switch tests prove both source/preparation skips, empty cases/defaults, unsupported choice rejection and no untaken-child dispatch.",
+    "Catalog33 tests have7 assertion failures across three test methods. Valid development install/refresh controls succeed. Malformed verification accepts source; development snapshot/build reach package writes; malformed install/refresh reach package_extension. These failures identify pending T006 production validation.",
+    "Production nested-payload reproduction: ordinary -> producer-unknown; condition/default/steps/cases -> accepted. Production render_template consumes supplied previous-pass value; retained T008 stale-excluded tests never supply stale output to a freshness guard.",
+    "Prior exact FarmBoy Code Reviewer whole-task verdicts and activation/source records are preserved. Current independent reassessment separately substantiates each checked task obligation and refreshes current source witnesses without changing historical findings."
+  ],
+  "gaps": [
+    {
+      "correction": "Exclude structural branch/body fields only when walking the workflow node itself, and exempt condition only for the actual do-while loop condition; recursively inspect all nested ordinary payload values. Add paired producer-unknown and forward/cross-route controls for nested keys while preserving loop-condition/carrier rules.",
+      "id": "F023-T005-R001",
+      "location": "controllers/farmboy/scripts/python/controller.py:263",
+      "status": "unresolved",
+      "task_id": "T005"
+    },
+    {
+      "correction": "Exercise a production current-output/freshness boundary with an otherwise-valid retained prior-pass output and its bound stale evidence, mutate only currentness, and assert the real blocker plus zero affected effects; retain independent current-output success and missing/invalid negatives. Keep selected-route implementation assigned to T009.",
+      "id": "F023-T008-R001",
+      "location": "tests/test_controller.py:682",
+      "status": "unresolved",
+      "task_id": "T008"
+    },
+    {
+      "correction": "Main restored explicit default-five wording with the bound authorized-ceiling extension described separately; all30 path tests now pass.",
+      "id": "F023-MAINT-REENTRY-R001",
+      "location": "tests/test_workflow_paths.py:215",
+      "status": "resolved-by-main-prompt-correction"
+    }
+  ],
+  "history_counters": {
+    "coder_sessions_started": 5,
+    "source_attempts_started": 5
+  },
+  "inference": [
+    "T004 describes adding regression tests before corresponding T006 production work. Its complete test-authoring proof may be substantiated while production is red, consistently with retained T002 semantics; this does not prove global FR001/FR002 delivered.",
+    "Prior Code Reviewer explicitly withheld T004 whole-task credit. Main should obtain the required native Code Reviewer verdict on test-authoring obligations through declared assessment path, then marker tracking; this FarmBoy Reviewer does not impersonate that role or change prior verdict.",
+    "No dependency deadlock is inherent in approved tasks: T004 regression-authoring precedes T006 behavior. Remaining eligibility includes T004/T005/T008; task proof completion can unlock T006 after T005 correction."
+  ],
+  "no_source_task_marker_roadmap_or_git_edits": true,
+  "original_finding_baseline_sha256": "e2b2636ba5a96f313d7e40062888a62e39a34ba61a3b75a5885518982447a967",
+  "reviewer": "FarmBoy Reviewer",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "schema_version": "1.0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "step_id": "assess-implementation-state",
+  "task_requirement_obligations": {
+    "T001": "FR007/009/013/014/015 scenario INPUT authoring only; connected execution and installed parity remain later tasks.",
+    "T002": "FR001/002/003 definition regression assertions and diagnostic expectations authoring; global production completion is separate.",
+    "T003": "FR001/003 owned inventory and earlier-producer graph regression authoring.",
+    "T007": "FR005/006 production-route regression authoring for skip/default/unsupported routes."
+  },
+  "validation": [
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_controller.py",
+      "failures": 0,
+      "tests": 78
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_workflow_graph.py",
+      "failures": 0,
+      "tests": 16
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_workflow_paths.py",
+      "failures": 0,
+      "tests": 30
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_implement_switch_routing.py",
+      "failures": 0,
+      "tests": 7
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_catalog.py",
+      "failures": 7,
+      "tests": 33
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "authorization": "Direct operator: Fix the controller defect and resume farmboy-specify for Feature 023 without repeating the roadmap write.",
+  "original_run_id": "e83e8e65-194c-45ca-a9c9-d1d24bbf3ef8",
+  "recovery_step": "verify-specification-lifecycle-transition",
+  "verifier_source": "controllers/farmboy/scripts/python/phase_lifecycle.py",
+  "verifier_sha256": "05f3805a11a3a026c58a0531af85dacd765230223752f75dc23787261e31c14f",
+  "retained_receipt_path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/lifecycle-6b2cdc243ed81ae7b21c885aaa8142d2.json",
+  "retained_receipt_sha256": "e7dcdf92a5237c4687ff0ad74a409418930b942419ce7aa2ed9a094e29c0022f",
+  "retained_roadmap_sha256": "560e87dcc9942d3d639e5bcd826f508fc34b1efd434df940cf37b1b6d2ef962f",
+  "occurred_at": "2026-10-13T14:45:14.880610Z",
+  "validation": {
+    "workflow_roadmap_boundary": {
+      "passed": 26,
+      "skipped": 1
+    },
+    "phase_lifecycle": {
+      "passed": 31,
+      "skipped": 0
+    }
+  }
+}

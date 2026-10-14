@@ -4,8 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import re
+import sys
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -16,6 +19,23 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_ROOT = ROOT / "workflows"
 STOP_WORDS = re.compile(r"\b(stop|blocked|blocker|defer|cap|resume|escalat)\w*\b", re.IGNORECASE)
 SUCCESS_WORDS = re.compile(r"\b(clean|success|complete|converged|executed|ready|resolved)\b", re.IGNORECASE)
+
+
+@lru_cache(maxsize=1)
+def _definition_validator():
+    """Load the production controller validator from this source checkout."""
+    controller_path = ROOT / "controllers/farmboy/scripts/python/controller.py"
+    controller_directory = str(controller_path.parent)
+    if controller_directory not in sys.path:
+        sys.path.insert(0, controller_directory)
+    module_name = "_farmboy_source_workflow_definition_validator"
+    specification = importlib.util.spec_from_file_location(module_name, controller_path)
+    if specification is None or specification.loader is None:
+        raise RuntimeError("FarmBoy controller definition validator is unavailable")
+    module = importlib.util.module_from_spec(specification)
+    sys.modules[module_name] = module
+    specification.loader.exec_module(module)
+    return module.validate_workflow_definition
 
 
 def node_kind(node: dict[str, Any]) -> str:
@@ -158,19 +178,24 @@ def project_workflow(definition: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def load_workflows() -> list[dict[str, Any]]:
-    """Read active and deprecated source workflow definitions in stable order."""
-    paths = sorted(WORKFLOW_ROOT.glob("farmboy-*/workflow.yml"))
+def validate_source_workflows(source_root: Path = ROOT) -> list[dict[str, Any]]:
+    """Validate every active and deprecated workflow under a source root."""
+    workflow_root = Path(source_root) / "workflows"
+    paths = sorted(workflow_root.glob("farmboy-*/workflow.yml"))
     definitions = []
     for path in paths:
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
-        if not isinstance(data, dict) or not isinstance(data.get("workflow"), dict) or not isinstance(data.get("steps"), list):
-            raise ValueError(f"malformed workflow definition: {path.relative_to(ROOT)}")
+        _definition_validator()(data)
         definitions.append(data)
-    identities = [item["workflow"]["id"] for item in definitions]
+    identities = [item["workflow"].get("id") for item in definitions]
     if not definitions or len(set(identities)) != len(identities):
         raise ValueError("source workflow inventory is empty or has duplicate identities")
     return definitions
+
+
+def load_workflows() -> list[dict[str, Any]]:
+    """Read and validate active and deprecated source definitions in stable order."""
+    return validate_source_workflows(ROOT)
 
 
 def main() -> int:
@@ -178,7 +203,14 @@ def main() -> int:
     parser.add_argument("--json", action="store_true", help="emit the full projection as JSON")
     parser.add_argument("--fail-on-unexplained", action="store_true", help="return failure when a branch lacks an explicit outcome")
     args = parser.parse_args()
-    projections = [project_workflow(definition) for definition in load_workflows()]
+    try:
+        projections = [project_workflow(definition) for definition in load_workflows()]
+    except Exception as error:
+        diagnostic = getattr(error, "diagnostic", None)
+        if args.json and isinstance(diagnostic, dict):
+            print(json.dumps({"workflows": [], "diagnostics": [diagnostic]}, indent=2, sort_keys=True))
+            return 1
+        raise
     if args.json:
         print(json.dumps({"workflows": projections}, indent=2, sort_keys=True))
     else:

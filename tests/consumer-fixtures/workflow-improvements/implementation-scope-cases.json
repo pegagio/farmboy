@@ -1643,5 +1643,313 @@
       },
       "safe_resume": "restore-exact-assignment-or-answer-same-child-question"
     }
+  ],
+  "feature_023": {
+    "contract": "workflow-validation-and-connected-observation",
+    "scenarios": [
+      {
+        "id": "F023-DEF-CONTROL",
+        "requirements": ["FR-001", "FR-003", "FR-013"],
+        "valid_control_id": "F023-DEF-CONTROL",
+        "input": {
+          "workflow_id": "fixture-branch-validation",
+          "steps": [
+            {"id": "produce", "kind": "command"},
+            {"id": "route", "kind": "switch", "cases": {"skip": [], "consume": [{"id": "consume", "template": "{{ steps.produce.output.value }}"}]}, "default": []},
+            {"id": "later", "kind": "command"}
+          ]
+        },
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "definition", "result": "accept", "reason_code": null, "effects": []}
+      },
+      {
+        "id": "F023-DEF-NESTED-DEFAULT",
+        "requirements": ["FR-001", "FR-002", "FR-013", "SC-001"],
+        "valid_control_id": "F023-DEF-CONTROL",
+        "input": {"workflow_id": "fixture-branch-validation"},
+        "mutation": {"path": "steps[1].cases.default", "operation": "add", "value": []},
+        "expected_production_outcome": {"boundary": "definition", "result": "reject", "diagnostic_location": "steps[1].cases.default", "correction": "Place default alongside cases on this switch.", "effects": []}
+      },
+      {
+        "id": "F023-DEF-MALFORMED-CASES",
+        "requirements": ["FR-001", "FR-002"],
+        "valid_control_id": "F023-DEF-CONTROL",
+        "input": {"workflow_id": "fixture-branch-validation"},
+        "mutation": {"path": "steps[1].cases", "operation": "replace", "value": []},
+        "expected_production_outcome": {"boundary": "definition", "result": "reject", "diagnostic_location": "steps[1].cases", "effects": []}
+      },
+      {
+        "id": "F023-DEF-FORWARD-PRODUCER",
+        "requirements": ["FR-001", "FR-003", "FR-013"],
+        "valid_control_id": "F023-DEF-CONTROL",
+        "input": {"workflow_id": "fixture-branch-validation"},
+        "mutation": {"path": "steps[1].cases.consume[0].template", "operation": "replace", "value": "{{ steps.later.output.value }}"},
+        "expected_production_outcome": {"boundary": "definition", "result": "reject", "diagnostic_step_id": "consume", "effects": []}
+      },
+      {
+        "id": "F023-ROUTE-PREPARATION-SKIP-CONTROL",
+        "requirements": ["FR-004", "FR-005", "SC-002"],
+        "valid_control_id": "F023-ROUTE-PREPARATION-SKIP-CONTROL",
+        "input": {"route_choice": "source", "preparation_branch": "skip", "source_branch": "run"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "selected-route", "result": "continue", "selected": ["source"], "prevented": ["prepare"], "effects": ["source-dispatch"]}
+      },
+      {
+        "id": "F023-ROUTE-SOURCE-SKIP-CONTROL",
+        "requirements": ["FR-004", "FR-005", "SC-002"],
+        "valid_control_id": "F023-ROUTE-SOURCE-SKIP-CONTROL",
+        "input": {"route_choice": "prepare", "preparation_branch": "run", "source_branch": "skip"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "selected-route", "result": "continue", "selected": ["prepare"], "prevented": ["source"], "effects": ["preparation-dispatch"]}
+      },
+      {
+        "id": "F023-ROUTE-EMPTY-DEFAULT-CONTROL",
+        "requirements": ["FR-003", "FR-005", "SC-002"],
+        "valid_control_id": "F023-ROUTE-EMPTY-DEFAULT-CONTROL",
+        "input": {"route_choice": "unmatched", "cases": {"run": ["child"]}, "default": []},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "selected-route", "result": "continue", "selected": [], "prevented": ["child"], "effects": []}
+      },
+      {
+        "id": "F023-ROUTE-UNKNOWN-WITHOUT-FALLBACK",
+        "requirements": ["FR-005", "FR-006", "SC-002"],
+        "valid_control_id": "F023-ROUTE-EMPTY-DEFAULT-CONTROL",
+        "input": {"route_choice": "unmatched", "cases": {"run": ["child"]}},
+        "mutation": {"path": "default", "operation": "remove"},
+        "expected_production_outcome": {"boundary": "selected-route", "result": "block", "effects": [], "safe_action": "correct-supported-route-or-restore-required-inputs"}
+      },
+      {
+        "id": "F023-INPUT-PRODUCER-TIMING-CONTROL",
+        "requirements": ["FR-003", "FR-004", "SC-003"],
+        "valid_control_id": "F023-INPUT-PRODUCER-TIMING-CONTROL",
+        "input": {"producer": "produce", "consumer": "consume", "reference": "{{ steps.produce.output.value }}", "producer_state": "completed-valid"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "consumption", "result": "continue", "definition_result": "accept", "effects": ["consumer-dispatch"]}
+      },
+      {
+        "id": "F023-INPUT-MISSING-OUTPUT",
+        "requirements": ["FR-004", "FR-006", "SC-003"],
+        "valid_control_id": "F023-INPUT-PRODUCER-TIMING-CONTROL",
+        "input": {"producer": "produce", "consumer": "consume", "reference": "{{ steps.produce.output.value }}", "producer_state": "completed-valid"},
+        "mutation": {"path": "steps.produce.output.value", "operation": "remove"},
+        "expected_production_outcome": {"boundary": "consumption", "result": "block", "effects": [], "safe_action": "restore-and-validate-current-required-output"}
+      },
+      {
+        "id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "requirements": ["FR-007", "FR-008", "FR-010", "SC-004"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": ["assessment", "eligible-source-dispatch", "independent-review", "marker-only-task-tracking", "post-pass-capture", "guarded-reentry"], "historical_scope_digest": "retained-original", "historical_assessment_digest": "retained-original", "current_task_digest": "reviewed-marker-update"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "continue", "historical_evidence": "unchanged", "current_evidence": "revalidated", "effects": ["next-eligible-source-dispatch"]}
+      },
+      {
+        "id": "F023-REENTRY-SOURCE-CORRECTION-CONTROL",
+        "requirements": ["FR-007", "FR-008", "SC-004"],
+        "valid_control_id": "F023-REENTRY-SOURCE-CORRECTION-CONTROL",
+        "input": {"trace": ["assessment", "eligible-source-dispatch", "independent-review", "reviewed-source-correction", "post-pass-capture", "guarded-reentry"], "historical_preimage": "retained-original", "current_source": "reviewed-correction"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "continue", "historical_evidence": "unchanged", "current_evidence": "revalidated", "effects": ["next-eligible-source-dispatch"]}
+      },
+      {
+        "id": "F023-REENTRY-FORGED-HISTORY",
+        "requirements": ["FR-008", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "historical_assessment_binding", "operation": "replace", "value": "forged"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "restore-trusted-retained-pre-effect-evidence"}
+      },
+      {
+        "id": "F023-REENTRY-STALE-REVIEW",
+        "requirements": ["FR-008", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "current_review.source_digest", "operation": "replace", "value": "stale"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "refresh-independent-review-of-current-evidence"}
+      },
+      {
+        "id": "F023-REENTRY-UNAUTHORIZED-TASK-EDIT",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "task_tracking.change_kind", "operation": "replace", "value": "description-edit"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "restore-reviewed-task-tracking-scope"}
+      },
+      {
+        "id": "F023-REENTRY-NO-SUBSTANTIVE-PROGRESS",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "independent_review.resolved_substantive_ids", "operation": "replace", "value": []},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "resolve-a-prior-recorded-substantive-finding"}
+      },
+      {
+        "id": "F023-REENTRY-EXHAUSTED-LIMIT",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "budget.remaining_source_attempts", "operation": "replace", "value": 0},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "start-new-explicit-implement-invocation-if-authorized"}
+      },
+      {
+        "id": "F023-REENTRY-ALTERED-HISTORY",
+        "requirements": ["FR-008", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "historical_assessment_digest", "operation": "replace", "value": "altered"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "restore-trusted-retained-pre-effect-evidence"}
+      },
+      {
+        "id": "F023-REENTRY-MISSING-HISTORY",
+        "requirements": ["FR-008", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "historical_assessment_digest", "operation": "remove"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "restore-trusted-retained-pre-effect-evidence"}
+      },
+      {
+        "id": "F023-REENTRY-UNBOUND-HISTORY",
+        "requirements": ["FR-008", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "historical_scope_binding", "operation": "replace", "value": "different-scope"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "reestablish-trusted-request-and-current-snapshot"}
+      },
+      {
+        "id": "F023-REENTRY-WRONG-BRANCH-OUTPUT",
+        "requirements": ["FR-006", "FR-009", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "required_output.branch", "operation": "replace", "value": "untaken"},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "restore-required-output-from-selected-branch"}
+      },
+      {
+        "id": "F023-REENTRY-EXHAUSTED-CODER-SESSIONS",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "budget.remaining_coder_sessions", "operation": "replace", "value": 0},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "start-new-explicit-implement-invocation-if-authorized"}
+      },
+      {
+        "id": "F023-REENTRY-ADMIN-ONLY-NONCREDIT",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "independent_review.resolved_substantive_ids", "operation": "replace", "value": [], "administrative_update": true},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "resolve-a-prior-recorded-substantive-finding"}
+      },
+      {
+        "id": "F023-REENTRY-ANSWER-ONLY-NONCREDIT",
+        "requirements": ["FR-009", "FR-010", "FR-011", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "independent_review.resolved_substantive_ids", "operation": "replace", "value": [], "answer_only": true},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "resolve-a-prior-recorded-substantive-finding"}
+      },
+      {
+        "id": "F023-REENTRY-MARKER-ONLY-NONCREDIT",
+        "requirements": ["FR-009", "FR-010", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "independent_review.resolved_substantive_ids", "operation": "replace", "value": [], "marker_only": true},
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "block", "effects": [], "safe_action": "resolve-a-prior-recorded-substantive-finding"}
+      },
+      {
+        "id": "F023-REENTRY-PENDING-ANSWER-RELAY-CONTROL",
+        "requirements": ["FR-011", "SC-005"],
+        "valid_control_id": "F023-REENTRY-PENDING-ANSWER-RELAY-CONTROL",
+        "input": {"trace": ["coder-session-start", "source-attempt-start", "question-stopped", "same-child-operator-input"], "child_session": "retained-child", "pending_question": true},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "execution-history", "result": "accept", "action": "continue-same-child-answer-relay", "counters": {"coder_sessions_started": 1, "source_attempts_started": 1}, "effects": []}
+      },
+      {
+        "id": "F023-REENTRY-FRESH-CORRECTIVE-SESSION-CONTROL",
+        "requirements": ["FR-009", "FR-010", "FR-011", "SC-005"],
+        "valid_control_id": "F023-REENTRY-FRESH-CORRECTIVE-SESSION-CONTROL",
+        "input": {"trace": ["completed-first-source-session", "independently-reviewed-substantive-progress", "fresh-corrective-source-session"], "historical_scope": "retained-original", "historical_assessment": "retained-original", "child_session": "fresh-corrective-child"},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "guarded-reentry", "result": "continue", "history": "accept", "current_evidence": "revalidated", "counters": {"coder_sessions_started": 2, "source_attempts_started": 2}, "effects": ["next-eligible-source-dispatch"]}
+      },
+      {
+        "id": "F023-REENTRY-FRESH-CHILD-NONCREDIT",
+        "requirements": ["FR-009", "FR-010", "FR-011", "SC-005"],
+        "valid_control_id": "F023-REENTRY-PENDING-ANSWER-RELAY-CONTROL",
+        "input": {"trace": "F023-REENTRY-PENDING-ANSWER-RELAY-CONTROL"},
+        "mutation": {"path": "history.operator_input.coder_session_id", "operation": "replace", "value": "fresh-child"},
+        "expected_production_outcome": {"boundary": "execution-history", "result": "block", "reason_code": "execution-history-session-order-invalid", "counters": {"coder_sessions_started": 1, "source_attempts_started": 1}, "effects": [], "safe_action": "resume-same-child-after-operator-answer"}
+      },
+      {
+        "id": "F023-REENTRY-ASSIGNMENT-UNAVAILABLE",
+        "requirements": ["FR-011", "FR-012", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "assignment.available", "operation": "replace", "value": false},
+        "expected_production_outcome": {"boundary": "source-dispatch", "result": "block", "effects": [], "safe_action": "restore-exact-assignment"}
+      },
+      {
+        "id": "F023-REENTRY-CONSEQUENTIAL-GATE-UNRESOLVED",
+        "requirements": ["FR-011", "FR-012", "SC-005"],
+        "valid_control_id": "F023-REENTRY-TASK-TRACKING-CONTROL",
+        "input": {"trace": "F023-REENTRY-TASK-TRACKING-CONTROL"},
+        "mutation": {"path": "human_gate.resolved", "operation": "replace", "value": false},
+        "expected_production_outcome": {"boundary": "source-dispatch", "result": "block", "effects": [], "safe_action": "resolve-consequential-human-decision"}
+      },
+      {
+        "id": "F023-PARITY-SIMULATED-CONTROL",
+        "requirements": ["FR-014", "FR-015", "FR-016", "SC-006", "SC-007"],
+        "valid_control_id": "F023-PARITY-SIMULATED-CONTROL",
+        "input": {"scenario_id": "F023-ROUTE-EMPTY-DEFAULT-CONTROL", "execution_mode": "deterministic-simulation", "environments": ["source", "disposable-installed-consumer"]},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "parity-observation", "result": "matching-outcomes", "expected": "continue-with-zero-branch-effects", "effects": [], "claims": ["deterministic-observation"]}
+      },
+      {
+        "id": "F023-PARITY-MISMATCH",
+        "requirements": ["FR-014", "FR-015", "FR-016", "SC-006", "SC-007"],
+        "valid_control_id": "F023-PARITY-SIMULATED-CONTROL",
+        "input": {"scenario_id": "F023-PARITY-SIMULATED-CONTROL", "execution_mode": "deterministic-simulation", "environments": ["source", "disposable-installed-consumer"]},
+        "mutation": {"path": "installed.observed_outcome", "operation": "replace", "value": "different"},
+        "expected_production_outcome": {"boundary": "parity-observation", "result": "validation-failure", "effects": [], "claims": ["deterministic-observation"]}
+      },
+      {
+        "id": "F023-DOCUMENTATION-CONTROL",
+        "requirements": ["FR-017"],
+        "valid_control_id": "F023-DOCUMENTATION-CONTROL",
+        "input": {"artifacts": ["docs/installation.md", "tests/consumer-fixtures/README.md", "workflows/README.md"], "topics": ["definition-runtime-boundary", "diagnostic-interpretation", "safe-next-action", "deterministic-evidence-limits"]},
+        "mutation": null,
+        "expected_production_outcome": {"boundary": "documentation", "result": "available", "effects": []}
+      }
+    ]
+  },
+  "connected_positive_traces": [
+    {
+      "id": "F023-POSITIVE-TASK-RESOLUTION-MARKER-ONLY",
+      "requirements": ["FR-007", "FR-008", "SC-004"],
+      "valid_control_id": "F023-POSITIVE-TASK-RESOLUTION-MARKER-ONLY",
+      "adapter_result_path": "connected_positive_traces.F023-POSITIVE-TASK-RESOLUTION-MARKER-ONLY",
+      "sequence": ["eligible-source-dispatch", "independent-review", "task-resolution", "marker-only-tracking", "post-pass-capture", "guarded-reentry"],
+      "expected": {
+        "scope_sha256_preserved": true,
+        "assessment_sha256_preserved": true,
+        "source_preimage_sha256_preserved": true,
+        "current_review_evidence_rechecked": true,
+        "result": "continue"
+      },
+      "execution_mode": "deterministic-installed-consumer"
+    },
+    {
+      "id": "F023-POSITIVE-REVIEWED-SOURCE-CORRECTION",
+      "requirements": ["FR-007", "FR-008", "SC-004"],
+      "valid_control_id": "F023-POSITIVE-REVIEWED-SOURCE-CORRECTION",
+      "adapter_result_path": "connected_positive_traces.F023-POSITIVE-REVIEWED-SOURCE-CORRECTION",
+      "sequence": ["retained-source-preimage", "eligible-source-dispatch", "independent-review", "reviewed-source-correction", "post-pass-capture", "guarded-reentry"],
+      "expected": {
+        "scope_sha256_preserved": true,
+        "assessment_sha256_preserved": true,
+        "source_preimage_sha256_preserved": true,
+        "current_review_evidence_rechecked": true,
+        "result": "continue"
+      },
+      "execution_mode": "deterministic-installed-consumer"
+    }
   ]
 }

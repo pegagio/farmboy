@@ -68,6 +68,28 @@ SHA256 = re.compile(r"^[0-9a-f]{64}$")
 OUTCOME_STATES = {"complete", "continue", "needs-human", "blocked"}
 
 
+class WorkflowDefinitionError(ValueError):
+    """A workflow definition error with a portable, contextual diagnostic."""
+
+    def __init__(self, message: str, diagnostic: dict[str, Any]):
+        super().__init__(message)
+        self.diagnostic = diagnostic
+
+
+def _definition_error(reason_code: str, workflow_id: str | None, step_id: str | None,
+                      location: str, correction: str,
+                      offending_reference: str | None = None) -> WorkflowDefinitionError:
+    """Build a portable definition-boundary error without raw source values."""
+    diagnostic = {
+        "reason_code": reason_code, "workflow_id": workflow_id, "step_id": step_id,
+        "location": location, "correction": correction, "boundary": "definition",
+        "resume_action": "correct-source-definition-and-revalidate",
+    }
+    if offending_reference is not None:
+        diagnostic["offending_reference"] = offending_reference
+    return WorkflowDefinitionError(correction, diagnostic)
+
+
 @dataclass(frozen=True)
 class StepAssignmentIntent:
     """Identify the native Codex agent assigned to one delegated workflow step."""
@@ -137,14 +159,27 @@ def load_installed_definition(project_root: Path, workflow_id: str) -> dict[str,
 
 def validate_workflow_definition(definition: dict[str, Any]) -> None:
     """Validate named-agent metadata placement before returning a workflow graph."""
-    workflow = definition.get("workflow", {})
+    if not isinstance(definition, dict):
+        raise _definition_error("root-workflow-container-invalid", None, None, "workflow",
+                                "Define workflow metadata as a mapping.")
+    workflow = definition.get("workflow")
+    if not isinstance(workflow, dict):
+        raise _definition_error("root-workflow-container-invalid", None, None, "workflow",
+                                "Define workflow metadata as a mapping.")
+    workflow_id = workflow.get("id") if isinstance(workflow.get("id"), str) else None
+    steps = definition.get("steps")
+    if not isinstance(steps, list):
+        raise _definition_error("root-steps-container-invalid", workflow_id, None, "steps",
+                                "Define workflow steps as a list.")
     if any(key in workflow for key in ("agent", "model", "reasoning_effort", "default_agent", "default_model", "default_reasoning_effort")):
         raise ValueError("workflow-level agent and model defaults are unsupported")
     if any(key in definition for key in ("agent", "model", "reasoning_effort", "default_agent", "default_model", "default_reasoning_effort")):
         raise ValueError("top-level agent and model defaults are unsupported")
     if not isinstance(workflow.get("id"), str) or not isinstance(workflow.get("version"), str):
         raise ValueError("workflow ID and version must be strings")
-    validate_workflow_graph(definition["steps"])
+    _validate_definition_containers(steps, workflow_id)
+    validate_workflow_graph(steps, workflow_id=workflow_id)
+    _validate_definition_producers(steps, workflow_id)
     def scoped_carriers(nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
         found = []
         for node in nodes:
@@ -155,38 +190,197 @@ def validate_workflow_definition(definition: dict[str, Any]) -> None:
             found.extend(scoped_carriers(node.get("default", [])))
             found.extend(scoped_carriers(node.get("steps", [])))
         return found
-    carriers = scoped_carriers(definition["steps"])
+    carriers = scoped_carriers(steps)
     if carriers and workflow["id"] != "farmboy-implement":
         raise ValueError("implementation_scope carrier is only supported by farmboy-implement")
-    collect_agent_assignments(definition["steps"])
-    validate_template_forms(definition["steps"], set(definition.get("inputs", {})))
+    collect_agent_assignments(steps)
+    validate_template_forms(steps, set(definition.get("inputs", {})), workflow_id=workflow_id)
 
 
-def validate_template_forms(steps: list[dict[str, Any]], input_names: set[str]) -> None:
-    """Reject unsupported expressions anywhere in the installed step graph."""
-    def visit(value: Any) -> None:
+def _validate_definition_containers(steps: list[Any], workflow_id: str | None) -> None:
+    """Validate branch containers first so malformed YAML gets exact locations."""
+    def visit(nodes: list[Any], prefix: str) -> None:
+        for index, node in enumerate(nodes):
+            location = f"{prefix}[{index}]"
+            if not isinstance(node, dict):
+                raise _definition_error("node-container-invalid", workflow_id, None, location,
+                                        "Define each workflow step as a mapping.")
+            step_id = node.get("id") if isinstance(node.get("id"), str) else None
+            if node.get("type") == "switch":
+                cases = node.get("cases", {})
+                if not isinstance(cases, dict):
+                    raise _definition_error("switch-cases-container-invalid", workflow_id, step_id,
+                                            location + ".cases", "Define switch cases as a mapping.")
+                if "default" in cases:
+                    raise _definition_error("misplaced-switch-default", workflow_id, step_id,
+                                            location + ".cases.default",
+                                            "Place default alongside cases on this switch.", "cases.default")
+                for key, branch in cases.items():
+                    if not isinstance(branch, list):
+                        raise _definition_error("switch-case-body-invalid", workflow_id, step_id,
+                                                location + ".cases." + str(key),
+                                                "Define each switch case body as a step list.")
+                    visit(branch, location + ".cases." + str(key))
+                if "default" in node and not isinstance(node["default"], list):
+                    raise _definition_error("switch-default-body-invalid", workflow_id, step_id,
+                                            location + ".default", "Define the switch default as a step list.")
+                visit(node.get("default", []), location + ".default")
+            if node.get("type") == "do-while" and isinstance(node.get("steps"), list):
+                visit(node["steps"], location + ".steps")
+    visit(steps, "steps")
+
+
+def _validate_definition_producers(steps: list[dict[str, Any]], workflow_id: str | None) -> None:
+    """Check producer identity, order, and route feasibility with bounded joins."""
+    all_ids: set[str] = set()
+    order: dict[str, int] = {}
+    ancestry: dict[str, dict[str, str]] = {}
+    counter = 0
+
+    def index(nodes: list[dict[str, Any]], routes: dict[str, str]) -> None:
+        nonlocal counter
+        for node in nodes:
+            counter += 1
+            step_id = node.get("id")
+            if isinstance(step_id, str):
+                all_ids.add(step_id)
+                order[step_id] = counter
+                ancestry[step_id] = dict(routes)
+            if node.get("type") == "switch":
+                for key, branch in node.get("cases", {}).items():
+                    index(branch, {**routes, str(node.get("id")): str(key)})
+                index(node.get("default", []), {**routes, str(node.get("id")): "default"})
+            elif node.get("type") == "do-while":
+                index(node.get("steps", []), routes)
+    index(steps, {})
+
+    def references(value: Any, *, node_boundary: bool = False, loop_condition: bool = False) -> list[str]:
+        found: list[str] = []
         if isinstance(value, dict):
             for key, child in value.items():
-                if key == "condition" and value.get("type") == "do-while":
+                if node_boundary and key in {"cases", "default", "steps"}:
                     continue
-                visit(child)
+                if node_boundary and loop_condition and key == "condition":
+                    continue
+                found.extend(references(child))
         elif isinstance(value, list):
             for child in value:
-                visit(child)
+                found.extend(references(child))
+        elif isinstance(value, str):
+            found.extend(match.group(1) for match in STEP_REFERENCE.finditer(value))
+        return found
+
+    def check_node(node: dict[str, Any], available: set[str], location: str) -> None:
+        consumer = node.get("id")
+        for producer in references(node, node_boundary=True, loop_condition=node.get("type") == "do-while"):
+            if producer not in all_ids:
+                reason = "producer-unknown"
+            elif producer == consumer:
+                reason = "producer-self-reference"
+            elif producer in available:
+                continue
+            else:
+                producer_routes = ancestry.get(producer, {})
+                consumer_routes = ancestry.get(str(consumer), {})
+                conflicts = any(key in consumer_routes and consumer_routes[key] != choice
+                                for key, choice in producer_routes.items())
+                if conflicts:
+                    reason = "producer-cross-branch-reference"
+                elif order.get(producer, 0) > order.get(str(consumer), 0):
+                    reason = "producer-forward-reference"
+                else:
+                    reason = "producer-post-join-infeasible"
+            raise _definition_error(reason, workflow_id, consumer if isinstance(consumer, str) else None,
+                                    location, "Use an earlier producer available on every route to this consumer.",
+                                    "steps." + producer + ".output")
+
+    def sequence(nodes: list[dict[str, Any]], incoming: set[str], prefix: str) -> set[str]:
+        available = set(incoming)
+        for index, node in enumerate(nodes):
+            location = f"{prefix}[{index}]"
+            check_node(node, available, location)
+            kind = node.get("type")
+            if kind == "switch":
+                branch_results = [sequence(branch, available, location + ".cases." + str(key))
+                                  for key, branch in node.get("cases", {}).items()]
+                if "default" in node:
+                    branch_results.append(sequence(node["default"], available, location + ".default"))
+                if branch_results:
+                    available = set.intersection(*branch_results)
+            elif kind == "do-while":
+                # Body outputs do not become prior-pass payload inputs after a loop.
+                sequence(node.get("steps", []), available, location + ".steps")
+                condition = node.get("condition")
+                match = LOOP_CONDITION.fullmatch(condition.strip()) if isinstance(condition, str) else None
+                if match is not None:
+                    # The condition reads the final assessment from this execution.
+                    available.add(match.group(1))
+                    if match.group(3) is not None:
+                        available.add(match.group(3))
+            elif isinstance(node.get("id"), str):
+                available.add(node["id"])
+        return available
+    sequence(steps, set(), "steps")
+
+
+def validate_template_forms(steps: list[dict[str, Any]], input_names: set[str],
+                            workflow_id: str | None = None) -> None:
+    """Reject unsupported expressions with their exact consuming field location."""
+    def visit_value(value: Any, step_id: str | None, location: str) -> None:
+        if isinstance(value, dict):
+            for key, child in value.items():
+                visit_value(child, step_id, f"{location}.{key}")
+        elif isinstance(value, list):
+            for index, child in enumerate(value):
+                visit_value(child, step_id, f"{location}[{index}]")
         elif isinstance(value, str) and ("{{" in value or "}}" in value):
             expressions = re.findall(r"\{\{.*?\}\}", value, flags=re.DOTALL)
             for expression in expressions:
                 input_match = INPUT_REFERENCE.fullmatch(expression)
                 if input_match:
                     if input_match.group(1) not in input_names:
-                        raise ValueError(f"unsupported template input: {input_match.group(1)}")
+                        input_name = input_match.group(1)
+                        raise _definition_error(
+                            "template-input-unknown", workflow_id, step_id, location,
+                            f"Declare input '{input_name}' in workflow inputs or correct this reference.",
+                            f"inputs.{input_name}",
+                        )
                 elif not STEP_REFERENCE.fullmatch(expression):
-                    raise ValueError("unsupported template expression in workflow graph")
+                    raise _definition_error(
+                        "template-expression-unsupported", workflow_id, step_id, location,
+                        "Replace the unsupported template expression with {{ inputs.name }} or {{ steps.name.output.value }}.",
+                        "template-expression",
+                    )
             remainder = re.sub(r"\{\{.*?\}\}", "", value, flags=re.DOTALL)
             if "{{" in remainder or "}}" in remainder:
-                raise ValueError("unsupported template expression in workflow graph")
+                reference = "template-delimiters"
+                if "{{" in remainder and "}}" not in remainder:
+                    reference = "template-opening-delimiter"
+                elif "}}" in remainder and "{{" not in remainder:
+                    reference = "template-closing-delimiter"
+                raise _definition_error(
+                    "template-delimiters-unbalanced", workflow_id, step_id, location,
+                    "Balance each {{ and }} pair, then use a supported workflow template reference.",
+                    reference,
+                )
 
-    visit(steps)
+    def visit_nodes(nodes: list[dict[str, Any]], prefix: str) -> None:
+        for index, node in enumerate(nodes):
+            node_location = f"{prefix}[{index}]"
+            step_id = node.get("id") if isinstance(node.get("id"), str) else None
+            for key, value in node.items():
+                field_location = f"{node_location}.{key}"
+                if key == "condition" and node.get("type") == "do-while":
+                    continue
+                if key == "cases" and isinstance(value, dict):
+                    for branch, children in value.items():
+                        visit_nodes(children, f"{field_location}.{branch}")
+                elif key in {"default", "steps"} and isinstance(value, list):
+                    visit_nodes(value, field_location)
+                else:
+                    visit_value(value, step_id, field_location)
+
+    visit_nodes(steps, "steps")
 
 
 def file_fingerprint(path: Path) -> dict[str, int | str] | None:
@@ -266,12 +460,13 @@ def _node_kind(step: dict[str, Any]) -> str:
     return "unknown"
 
 
-def validate_workflow_graph(steps: list[dict[str, Any]]) -> None:
+def validate_workflow_graph(steps: list[dict[str, Any]], workflow_id: str | None = None) -> None:
     """Reject unsupported nodes, malformed loops, duplicate IDs, and model placement."""
     seen: set[str] = set()
 
-    def visit(nodes: list[dict[str, Any]], *, inside_loop: bool = False) -> None:
-        for node in nodes:
+    def visit(nodes: list[dict[str, Any]], *, inside_loop: bool = False, prefix: str = "steps") -> None:
+        for index, node in enumerate(nodes):
+            node_location = f"{prefix}[{index}]"
             if not isinstance(node, dict):
                 raise ValueError("workflow step must be a mapping")
             step_id = node.get("id")
@@ -317,15 +512,20 @@ def validate_workflow_graph(steps: list[dict[str, Any]]) -> None:
                     if (not isinstance(labels, dict) or not labels
                             or any(key not in branch_keys or not isinstance(label, str) or not label.strip()
                                    for key, label in labels.items())):
-                        raise ValueError(f"transition labels must name existing branches with nonempty text: {step_id}")
-                for branch in cases.values():
+                        raise _definition_error(
+                            "switch-transition-labels-invalid", workflow_id, step_id,
+                            f"{node_location}.transition_labels",
+                            "Use nonempty labels whose keys match declared switch branches.",
+                            "transition_labels",
+                        )
+                for branch_key, branch in cases.items():
                     if not isinstance(branch, list):
                         raise ValueError(f"switch case must contain a step list: {step_id}")
-                    visit(branch, inside_loop=inside_loop)
+                    visit(branch, inside_loop=inside_loop, prefix=f"{node_location}.cases.{branch_key}")
                 default = node.get("default", [])
                 if not isinstance(default, list):
                     raise ValueError(f"switch default must contain a step list: {step_id}")
-                visit(default, inside_loop=inside_loop)
+                visit(default, inside_loop=inside_loop, prefix=f"{node_location}.default")
             if "assessment_only_first_pass" in node:
                 if kind != "do-while" or not isinstance(node["assessment_only_first_pass"], bool):
                     raise ValueError("assessment_only_first_pass requires a boolean on a do-while node")
@@ -353,7 +553,10 @@ def validate_workflow_graph(steps: list[dict[str, Any]]) -> None:
                 if isinstance(maximum, bool) or not isinstance(maximum, int) or maximum < 1:
                     raise ValueError(f"do-while max_iterations must be a positive integer: {step_id}")
                 if not isinstance(body, list) or not body:
-                    raise ValueError(f"do-while steps must be a nonempty list: {step_id}")
+                    raise _definition_error(
+                        "loop-body-invalid", workflow_id, step_id, f"{node_location}.steps",
+                        "Define the do-while steps field as a nonempty list.", "steps",
+                    )
                 if loop_mode is not None:
                     expected_body = ["route-scoped-entry", "prepare-scoped-prerequisites", "implement-tasks",
                                      "assess-implementation-after-pass", "route-post-assessment",
@@ -430,7 +633,7 @@ def validate_workflow_graph(steps: list[dict[str, Any]]) -> None:
                                 )
                     elif assessor is not body[-1] or _node_kind(assessor) not in {"prompt", "command"}:
                         raise ValueError(f"do-while condition must reference the final fresh assessment step: {step_id}")
-                visit(body, inside_loop=True)
+                visit(body, inside_loop=True, prefix=f"{node_location}.steps")
 
     if not isinstance(steps, list):
         raise ValueError("workflow steps must be a list")
@@ -1135,6 +1338,28 @@ def select_switch_branch(switch: dict[str, Any], choice: str) -> list[dict[str, 
     if not isinstance(branch, list):
         raise ValueError("switch has no branch for the selected choice")
     return branch
+
+
+def render_selected_switch(switch: dict[str, Any], inputs: dict[str, Any],
+                           outputs: dict[str, dict[str, Any]]) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Render a switch at its route boundary and return only its selected raw children.
+
+    Branch bodies stay unrendered until each child is consumed, after any preceding
+    child has had a chance to produce and validate its output.
+    """
+    if not isinstance(switch, dict) or switch.get("type") != "switch":
+        raise ValueError("branch selection requires a switch step")
+    if not isinstance(inputs, dict) or not isinstance(outputs, dict):
+        raise ValueError("switch inputs and outputs must be mappings")
+    shell = {key: value for key, value in switch.items() if key not in {"cases", "default"}}
+    rendered_switch = render_template(shell, inputs, outputs)
+    choice = rendered_switch.get("expression")
+    if not isinstance(choice, str):
+        raise ValueError("rendered switch expression must resolve to a string")
+    cases = switch.get("cases", {})
+    if choice in {"True", "False"} and choice.lower() in cases:
+        choice = choice.lower()
+    return rendered_switch, select_switch_branch(switch, choice)
 
 
 def activate_feature(project_root: Path, feature_directory: str) -> dict[str, Any]:
@@ -2054,13 +2279,78 @@ def advance_implementation_baseline(project_root: Path, payload: dict[str, Any])
                 "resume_action": "reassess-frozen-scope-and-current-tasker-revision"}
 
 
+IMPLEMENTATION_RECOVERY_FIELDS = {
+    "retained_task_tracking_sha256", "retained_task_tracking_count",
+    "budget_extension", "retained_budget_extension_sha256",
+}
+
+
+def _implementation_budget_limit(project_root: Path, scope: dict[str, Any], payload: dict[str, Any]) -> int:
+    """Validate a main-retained, operator-authorized extension for this run only.
+
+    The main controller establishes actual human authority before retaining the
+    digest. A self-authored record or role label does not establish that authority.
+    The receipt binds an existing history prefix; it never resets its counters.
+    """
+    module = implementation_scope_module
+    if "budget_extension" not in payload and "retained_budget_extension_sha256" not in payload:
+        return module.MAX_CODER_SESSIONS
+    record = payload.get("budget_extension")
+    retained = payload.get("retained_budget_extension_sha256")
+    fields = {"schema_version", "run_id", "scope_sha256", "history_sha256",
+              "coder_sessions_started", "source_attempts_started", "previous_limit",
+              "new_limit", "authority_evidence"}
+    if (not isinstance(record, dict) or set(record) != fields
+            or not isinstance(retained, str) or SHA256.fullmatch(retained) is None
+            or module._digest(record) != retained or record["schema_version"] != "1.0"
+            or record["run_id"] != scope["run_id"] or record["scope_sha256"] != scope["scope_sha256"]
+            or type(record["previous_limit"]) is not int or record["previous_limit"] != module.MAX_CODER_SESSIONS
+            or type(record["new_limit"]) is not int or record["new_limit"] <= record["previous_limit"]
+            or type(record["coder_sessions_started"]) is not int
+            or type(record["source_attempts_started"]) is not int):
+        raise ValueError("implementation-budget-binding-invalid")
+    _progress_evidence(Path(project_root).resolve(), record["authority_evidence"])
+    history_path, history_relative = _implementation_history_path(Path(project_root), scope)
+    history_file = _contained_regular_file(Path(project_root).resolve(), history_relative, "budget history")
+    history = json.loads(history_file.read_text(encoding="utf-8"))
+    module.validate_execution_history(history, scope_sha256=scope["scope_sha256"],
+        retained_history_sha256=history["sha256"], max_coder_sessions=record["new_limit"])
+    prefix = _empty_implementation_history(scope)
+    prefixes = [prefix]
+    for event in history["events"]:
+        prefix = module.append_execution_event(prefix, event, scope_sha256=scope["scope_sha256"],
+            retained_history_sha256=prefix["sha256"], max_coder_sessions=record["new_limit"])
+        prefixes.append(prefix)
+    anchor = next((item for item in prefixes if item["sha256"] == record["history_sha256"]), None)
+    if (anchor is None or anchor["coder_sessions_started"] != record["coder_sessions_started"]
+            or anchor["source_attempts_started"] != record["source_attempts_started"]):
+        raise ValueError("implementation-budget-history-binding-invalid")
+    module.validate_execution_history(anchor, scope_sha256=scope["scope_sha256"],
+        retained_history_sha256=anchor["sha256"], max_coder_sessions=record["previous_limit"])
+    return record["new_limit"]
+
+
+def _retained_tracking_count(scope: dict[str, Any], tracking: list[dict[str, Any]], payload: dict[str, Any]) -> int:
+    """Validate the unchanged main-retained historical prefix, not current proof."""
+    if not ({"retained_task_tracking_sha256", "retained_task_tracking_count"} & set(payload)):
+        return 0
+    count = payload.get("retained_task_tracking_count")
+    retained = payload.get("retained_task_tracking_sha256")
+    if (type(count) is not int or not 0 <= count <= len(tracking)
+            or not isinstance(retained, str) or SHA256.fullmatch(retained) is None
+            or retained != implementation_scope_module._digest({"scope_sha256": scope["scope_sha256"],
+                                            "task_tracking_successors": tracking[:count]})):
+        raise ValueError("historical-task-tracking-binding-invalid")
+    return count
+
+
 def _implementation_scope_binding(project_root: Path, payload: dict[str, Any]) -> tuple[Any, dict[str, Any], set[str], dict[str, tuple[str, str]]]:
     """Revalidate a trusted scope snapshot against the active task file and inputs."""
     project = Path(project_root).resolve()
     if implementation_scope_module is None:
         raise ValueError("implementation-scope-helper-unavailable")
     required = {"scope", "trusted_request_reference", "retained_scope_sha256"}
-    allowed = required | {"trusted_requested_task_ids", "task_tracking_successors"}
+    allowed = required | {"trusted_requested_task_ids", "task_tracking_successors"} | IMPLEMENTATION_RECOVERY_FIELDS
     if not isinstance(payload, dict) or not required.issubset(payload) or set(payload) - allowed:
         raise ValueError("implementation-scope-request-invalid")
     scope = payload["scope"]
@@ -2117,7 +2407,9 @@ def _implementation_scope_binding(project_root: Path, payload: dict[str, Any]) -
         trusted_requested_task_ids=payload.get("trusted_requested_task_ids"),
         tasker_tracked_task_ids=tracked_ids,
         tasker_revised_task_records=revised_task_records)
-    for event in tracking:
+    retained_count = _retained_tracking_count(scope, tracking, payload)
+    _implementation_budget_limit(project, scope, payload)
+    for event in tracking[retained_count:]:
         if event.get("successor_kind") == "task-plan-revision":
             continue
         for result_key in ("tasker_result", "reviewer_result"):
@@ -2131,7 +2423,7 @@ def _implementation_scope_binding(project_root: Path, payload: dict[str, Any]) -
 def _scope_binding_payload(payload: dict[str, Any]) -> dict[str, Any]:
     """Preserve immutable scope identity plus separately retained Tasker successors."""
     keys = ("scope", "trusted_request_reference", "retained_scope_sha256",
-            "trusted_requested_task_ids", "task_tracking_successors")
+            "trusted_requested_task_ids", "task_tracking_successors", *sorted(IMPLEMENTATION_RECOVERY_FIELDS))
     return {key: payload[key] for key in keys if key in payload}
 
 
@@ -2142,7 +2434,10 @@ def validate_implementation_scope(project_root: Path, payload: dict[str, Any]) -
         return {"state": "ready", "scope": scope, "scope_sha256": scope["scope_sha256"],
                 "requested_task_ids": scope["requested_task_ids"],
                 "tasker_tracked_task_ids": sorted(tracked_ids),
-                "tasker_derived_task_ids": sorted(derived)}
+                "tasker_derived_task_ids": sorted(derived),
+                "retained_task_tracking_count": len(payload.get("task_tracking_successors", [])),
+                "retained_task_tracking_sha256": implementation_scope_module._digest({"scope_sha256": scope["scope_sha256"],
+                    "task_tracking_successors": payload.get("task_tracking_successors", [])})}
     except (KeyError, TypeError, ValueError, OSError, RuntimeError) as error:
         reason = str(error) if str(error) else "implementation-scope-invalid"
         return {"state": "blocked", "reason_code": reason,
@@ -2158,7 +2453,7 @@ def validate_implementation_eligibility(project_root: Path, payload: dict[str, A
                     "proof_requirements", "completion_classifications", "source_requirement_ids",
                     "retained_predecessor_sha256"}
         allowed = required | {"trusted_requested_task_ids", "task_tracking_successors",
-                              "completed_prerequisites", "retained_prerequisite_sha256"}
+                              "completed_prerequisites", "retained_prerequisite_sha256"} | IMPLEMENTATION_RECOVERY_FIELDS
         if set(payload) - allowed or not required.issubset(payload):
             raise ValueError("implementation-eligibility-request-invalid")
         assessment = payload["assessment"]
@@ -2168,6 +2463,29 @@ def validate_implementation_eligibility(project_root: Path, payload: dict[str, A
             observed = hashlib.sha256(_contained_regular_file(Path(project_root).resolve(), source_path, "eligibility input").read_bytes()).hexdigest()
             if observed != expected:
                 raise ValueError("implementation-eligibility-input-stale")
+        # These are current claims, distinct from the retained historical
+        # tracking prefix. Never let a historical receipt stand in for current
+        # source fulfillment or a current Reviewer assessment.
+        _progress_evidence(Path(project_root).resolve(), assessment.get("evidence"))
+        for task_state in assessment.get("task_states", []):
+            _progress_evidence(Path(project_root).resolve(), task_state.get("evidence"))
+        for blocker in assessment.get("global_blockers", []):
+            _progress_evidence(Path(project_root).resolve(), blocker.get("evidence"))
+        prerequisites = payload.get("completed_prerequisites", {})
+        classifications = [*payload["completion_classifications"].values(),
+                           *(item["classification"] for item in prerequisites.values())]
+        for classification in classifications:
+            _progress_evidence(Path(project_root).resolve(), classification.get("classification_evidence"))
+        proofs = [*payload["proofs"].values(), *(item["proof"] for item in prerequisites.values())]
+        for proof in proofs:
+            for requirement in proof.get("requirements", []):
+                _progress_evidence(Path(project_root).resolve(), requirement.get("evidence"))
+            review = proof.get("review_evidence", {})
+            _progress_evidence(Path(project_root).resolve(), [
+                {"path": review.get("reference"), "sha256": review.get("sha256")}])
+            for field in ("proof_evidence", "source_delta_evidence", "validation_evidence"):
+                if proof.get(field):
+                    _progress_evidence(Path(project_root).resolve(), proof[field])
         checked = module.validate_task_eligibility(
             scope, assessment, payload["proofs"], proof_requirements=payload["proof_requirements"],
             completion_classifications=payload["completion_classifications"],
@@ -2190,7 +2508,7 @@ def capture_post_pass_state(project_root: Path, payload: dict[str, Any]) -> dict
     try:
         required = {"scope", "trusted_request_reference", "retained_scope_sha256", "entry_history_sha256",
                     "task_tracking_successors", "producer_pairs", "eligibility_request", "completion_branch"}
-        optional = {"trusted_requested_task_ids"}
+        optional = {"trusted_requested_task_ids"} | IMPLEMENTATION_RECOVERY_FIELDS
         if not required.issubset(payload) or set(payload) - required - optional:
             raise ValueError("post-pass-capture-request-invalid")
         module = implementation_scope_module
@@ -2248,12 +2566,14 @@ def capture_post_pass_state(project_root: Path, payload: dict[str, Any]) -> dict
         current_digest = current_history.get("sha256") if isinstance(current_history, dict) else None
         if not isinstance(current_digest, str):
             raise ValueError("post-pass-current-history-invalid")
-        current_history, _ = _read_implementation_history(Path(project_root), scope, current_digest)
+        budget_limit = _implementation_budget_limit(project_root, scope, payload)
+        current_history, _ = _read_implementation_history(Path(project_root), scope, current_digest,
+                                                          max_coder_sessions=budget_limit)
         prefix = _empty_implementation_history(scope)
         entry_seen = prefix["sha256"] == entry_digest
         for event in current_history["events"]:
             prefix = module.append_execution_event(prefix, event, scope_sha256=scope["scope_sha256"],
-                                                   retained_history_sha256=prefix["sha256"])
+                                                   retained_history_sha256=prefix["sha256"], max_coder_sessions=budget_limit)
             entry_seen = entry_seen or prefix["sha256"] == entry_digest
         if not entry_seen:
             raise ValueError("post-pass-entry-history-not-ancestor")
@@ -2275,7 +2595,10 @@ def capture_post_pass_state(project_root: Path, payload: dict[str, Any]) -> dict
         state = {"scope": scope, "history": current_history,
                  "history_path": history_relative, "task_tracking_successors": successor_chain,
                  "eligibility": eligibility, "producer_records": normalized_pairs,
-                 "completion_validator_state": "complete" if completion else "ready"}
+                 "completion_validator_state": "complete" if completion else "ready",
+                 "retained_task_tracking_count": scope_result["retained_task_tracking_count"],
+                 "retained_task_tracking_sha256": scope_result["retained_task_tracking_sha256"],
+                 **{key: payload[key] for key in ("budget_extension", "retained_budget_extension_sha256") if key in payload}}
         return {"state": "ready", "post_pass_state": state}
     except (AttributeError, KeyError, TypeError, ValueError, OSError, RuntimeError, json.JSONDecodeError) as error:
         reason = str(error) if str(error) else "post-pass-capture-invalid"
@@ -2290,7 +2613,7 @@ def validate_implementation_activation(project_root: Path, payload: dict[str, An
         module, scope, _, _ = _implementation_scope_binding(project_root, binding_payload)
         required = {"scope", "trusted_request_reference", "retained_scope_sha256", "activation", "eligibility_sha256",
                     "predecessor_baseline_sha256", "task_id", "required_paths"}
-        allowed = required | {"trusted_requested_task_ids", "task_tracking_successors"}
+        allowed = required | {"trusted_requested_task_ids", "task_tracking_successors"} | IMPLEMENTATION_RECOVERY_FIELDS
         if set(payload) - allowed or not required.issubset(payload):
             raise ValueError("implementation-activation-request-invalid")
         activation = payload["activation"]
@@ -2349,7 +2672,8 @@ def _empty_implementation_history(scope: dict[str, Any]) -> dict[str, Any]:
     return history
 
 
-def _read_implementation_history(project_root: Path, scope: dict[str, Any], retained_sha256: str) -> tuple[dict[str, Any], str]:
+def _read_implementation_history(project_root: Path, scope: dict[str, Any], retained_sha256: str, *,
+                                 max_coder_sessions: int = 5) -> tuple[dict[str, Any], str]:
     """Read durable history and require the independently retained current predecessor."""
     path, relative = _implementation_history_path(project_root, scope)
     try:
@@ -2359,7 +2683,8 @@ def _read_implementation_history(project_root: Path, scope: dict[str, Any], reta
     if history.get("sha256") != retained_sha256:
         raise ValueError("implementation-history-retained-state-stale")
     implementation_scope_module.validate_execution_history(
-        history, scope_sha256=scope["scope_sha256"], retained_history_sha256=retained_sha256)
+        history, scope_sha256=scope["scope_sha256"], retained_history_sha256=retained_sha256,
+        max_coder_sessions=max_coder_sessions)
     return history, relative
 
 
@@ -2371,14 +2696,16 @@ def append_implementation_execution_event(project_root: Path, payload: dict[str,
         project_root = Path(project_root).resolve()
         required_fields = {"scope", "trusted_request_reference", "retained_scope_sha256",
                            "event", "retained_history_sha256"}
-        if not required_fields.issubset(payload) or set(payload) - required_fields - {"trusted_requested_task_ids", "task_tracking_successors"}:
+        if not required_fields.issubset(payload) or set(payload) - required_fields - {"trusted_requested_task_ids", "task_tracking_successors"} - IMPLEMENTATION_RECOVERY_FIELDS:
             raise ValueError("implementation-history-request-invalid")
         binding_payload = _scope_binding_payload(payload)
         module, scope, _, _ = _implementation_scope_binding(project_root, binding_payload)
         history_path, history_relative = _implementation_history_path(project_root, scope)
         history_path.parent.mkdir(parents=True, exist_ok=True)
         expected_history_sha256 = payload["retained_history_sha256"]
-        history, _ = _read_implementation_history(project_root, scope, expected_history_sha256)
+        budget_limit = _implementation_budget_limit(project_root, scope, payload)
+        history, _ = _read_implementation_history(project_root, scope, expected_history_sha256,
+                                                 max_coder_sessions=budget_limit)
         for item in payload["event"].get("evidence", []):
             candidate = _contained_regular_file(project_root, item["path"], "implementation history evidence")
             observed = hashlib.sha256(candidate.read_bytes()).hexdigest()
@@ -2386,7 +2713,7 @@ def append_implementation_execution_event(project_root: Path, payload: dict[str,
                 raise ValueError("implementation-history-evidence-stale")
         history = implementation_scope_module.append_execution_event(
             history, payload["event"], scope_sha256=scope["scope_sha256"],
-            retained_history_sha256=expected_history_sha256)
+            retained_history_sha256=expected_history_sha256, max_coder_sessions=budget_limit)
         descriptor, temporary_name = tempfile.mkstemp(prefix=".implementation-history-", suffix=".tmp",
                                                        dir=history_path.parent)
         try:
@@ -2420,13 +2747,14 @@ def route_scoped_implementation(project_root: Path, payload: dict[str, Any]) -> 
                     "assessment", "eligible_task_ids", "declared_node_ids"}
         allowed = required | {"previous_assessment", "retained_previous_assessment_sha256",
                               "trusted_requested_task_ids", "task_tracking_successors",
-                              "eligibility_request"}
+                              "eligibility_request"} | IMPLEMENTATION_RECOVERY_FIELDS
         if module is None or not required.issubset(payload) or set(payload) - allowed:
             raise ValueError("implementation-route-request-invalid")
         scope_binding = _scope_binding_payload(payload)
         _, scope, _, _ = _implementation_scope_binding(project_root, scope_binding)
+        budget_limit = _implementation_budget_limit(project_root, scope, payload)
         history, history_path = _read_implementation_history(
-            project_root, scope, payload["retained_history_sha256"])
+            project_root, scope, payload["retained_history_sha256"], max_coder_sessions=budget_limit)
         nodes = set(payload["declared_node_ids"])
         if nodes != {"prepare-scoped-prerequisites", "implement-tasks"}:
             raise ValueError("implementation-route-nodes-invalid")
@@ -2453,7 +2781,8 @@ def route_scoped_implementation(project_root: Path, payload: dict[str, Any]) -> 
             declared_node_ids=nodes, previous_assessment=previous,
             generic_route=route_loop_assessment, retained_history_sha256=payload["retained_history_sha256"],
             eligibility=(validated_eligibility.get("eligibility") if validated_eligibility else None),
-            eligibility_sha256=(validated_eligibility.get("eligibility_sha256") if validated_eligibility else None))
+            eligibility_sha256=(validated_eligibility.get("eligibility_sha256") if validated_eligibility else None),
+            max_coder_sessions=budget_limit)
         return {**route, "state": route["action"], "route": route,
                 "history": history, "history_path": history_path}
     except (KeyError, TypeError, ValueError, OSError, RuntimeError) as error:
@@ -2471,12 +2800,13 @@ def validate_scoped_implementation_progress(project_root: Path, payload: dict[st
                     "retained_history_sha256", "assessment", "eligible_task_ids", "declared_node_ids",
                     "previous_assessment", "progress", "administrative_prerequisite_ids"}
         optional = {"trusted_requested_task_ids", "task_tracking_successors", "eligibility_request",
-                    "retained_previous_assessment_sha256"}
+                    "retained_previous_assessment_sha256"} | IMPLEMENTATION_RECOVERY_FIELDS
         if not required.issubset(payload) or set(payload) - required - optional:
             raise ValueError("implementation-progress-scope-request-invalid")
         scope_binding = _scope_binding_payload(payload)
         _, scope, _, _ = _implementation_scope_binding(project_root, scope_binding)
-        history, _ = _read_implementation_history(project_root, scope, payload["retained_history_sha256"])
+        history, _ = _read_implementation_history(project_root, scope, payload["retained_history_sha256"],
+            max_coder_sessions=_implementation_budget_limit(project_root, scope, payload))
         if history.get("source_attempts_started", 0) < 1:
             raise ValueError("implementation-progress-before-source-attempt")
         progress = validate_implementation_progress(Path(project_root), payload["progress"])
@@ -2503,7 +2833,7 @@ def validate_scoped_implementation_progress(project_root: Path, payload: dict[st
             "assessment", "eligible_task_ids", "declared_node_ids", "previous_assessment")}
         route_payload.update({key: payload[key] for key in (
             "trusted_requested_task_ids", "task_tracking_successors", "eligibility_request",
-            "retained_previous_assessment_sha256") if key in payload})
+            "retained_previous_assessment_sha256", *sorted(IMPLEMENTATION_RECOVERY_FIELDS)) if key in payload})
         routed = route_scoped_implementation(Path(project_root), route_payload)
         if routed.get("state") == "blocked":
             return routed
@@ -2768,7 +3098,13 @@ def main(argv: list[str] | None = None) -> int:
     elif args.command == "gate":
         result = {"choice": validate_gate_choice(payload["gate"], payload["answer"])}
     elif args.command == "branch":
-        result = {"steps": select_switch_branch(payload["switch"], payload["choice"])}
+        if set(payload) == {"switch", "inputs", "outputs"}:
+            rendered_switch, selected_steps = render_selected_switch(
+                payload["switch"], payload["inputs"], payload["outputs"]
+            )
+            result = {"switch": rendered_switch, "steps": selected_steps}
+        else:
+            result = {"steps": select_switch_branch(payload["switch"], payload["choice"])}
     elif args.command == "assessment":
         body_ids = set(args.loop_body_step)
         gate_ids = set(args.human_gate_step)

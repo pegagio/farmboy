@@ -11,7 +11,7 @@ sources:
 - S026
 - S029
 - S032
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Agent delivery before FarmBoy

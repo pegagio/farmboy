@@ -3,7 +3,7 @@ title: Maintainer metrics report discovery
 type: howto
 sources:
 - S005
-updated: '2026-10-12'
+updated: 2026-10-14
 ---
 
 # Maintainer metrics report discovery

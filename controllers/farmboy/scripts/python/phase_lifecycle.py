@@ -526,7 +526,7 @@ def _validate_start_attestation(project: Path, reference: dict[str, Any], snapsh
     return record
 
 
-def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dict[str, Any], milestone: str) -> dict[str, Any]:
+def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dict[str, Any], milestone: str, *, artifact_preimages: dict[str, bytes] | None = None) -> dict[str, Any]:
     raw = _read_current(project, reference["path"])
     record = strict_json(raw.decode("utf-8"))
     record = _exact(record, ASSESSMENT_FIELDS, "independent-assessment")
@@ -546,7 +546,9 @@ def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dic
     for path, expected in artifacts.items():
         relative = _relative(path)
         digest = _hash(expected)
-        if _digest_bytes(_read_current(project, relative)) != digest:
+        raw_artifact = (artifact_preimages[relative] if artifact_preimages and relative in artifact_preimages
+                        else _read_current(project, relative))
+        if _digest_bytes(raw_artifact) != digest:
             raise LifecycleError("stale-assessment-artifact")
         if relative not in snapshot["source_map"] or snapshot["source_map"][relative] != digest:
             raise LifecycleError("assessment-snapshot-mismatch")
@@ -571,7 +573,7 @@ def _validate_assessment(project: Path, reference: dict[str, Any], snapshot: dic
     return record
 
 
-def _validate_group(project: Path, group: Any, snapshot: dict[str, Any], *, require_start_attestation: bool = False) -> dict[str, Any]:
+def _validate_group(project: Path, group: Any, snapshot: dict[str, Any], *, require_start_attestation: bool = False, artifact_preimages: dict[str, bytes] | None = None) -> dict[str, Any]:
     group = _exact(group, EVIDENCE_FIELDS, "milestone-evidence")
     milestone = group["milestone"]
     if milestone not in CHECKS or group["owning_phase"] != OWNERS[milestone]:
@@ -586,7 +588,9 @@ def _validate_group(project: Path, group: Any, snapshot: dict[str, Any], *, requ
     for path, expected in group["artifact_digests"].items():
         relative = _relative(path)
         digest = _hash(expected)
-        actual = _digest_bytes(_read_current(project, relative))
+        raw_artifact = (artifact_preimages[relative] if artifact_preimages and relative in artifact_preimages
+                        else _read_current(project, relative))
+        actual = _digest_bytes(raw_artifact)
         if actual != digest:
             raise LifecycleError("stale-artifact-evidence")
         if relative not in snapshot["source_map"] or snapshot["source_map"][relative] != digest:
@@ -597,7 +601,8 @@ def _validate_group(project: Path, group: Any, snapshot: dict[str, Any], *, requ
     reviewed_checks: set[str] = set()
     for ref in group["assessments"]:
         _validate_reference(project, ref, snapshot)
-        assessment = _validate_assessment(project, ref, snapshot, milestone)
+        assessment = _validate_assessment(project, ref, snapshot, milestone,
+                                          artifact_preimages=artifact_preimages)
         seen_roles.add(assessment["reviewer"])
         reviewed_checks.update(assessment["satisfied_check_ids"])
     if not ROLES[milestone].issubset(seen_roles) or not CHECKS[milestone].issubset(reviewed_checks):
@@ -1001,8 +1006,13 @@ def workflow_check(project: Path, payload: Any) -> dict[str, Any]:
         except LifecycleError:
             source_stable = False
     try:
+        # Exact ledger readback above establishes the authorized effect. Its
+        # pre-effect reviews still describe the retained ledger preimage; every
+        # other artifact must continue matching current contained bytes.
+        artifact_preimages = {roadmap: original} if receipt["effect_state"] == "applied" else None
         for group in proposal["milestone_evidence"]:
             _validate_group(project, group, snapshot,
+                            artifact_preimages=artifact_preimages,
                             require_start_attestation=proposal["recovery"]["mode"] == "recovery"
                             and group["milestone"] == "in-progress" and snapshot["phase"] != "implement")
     except (LifecycleError, KeyError, TypeError, ValueError):

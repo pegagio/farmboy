@@ -1,0 +1,87 @@
+{
+  "state": "blocked",
+  "reason_code": "no-progress",
+  "resume_action": "resolve-no-progress-stop-before-existing-t019-source-reentry",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018"
+  ],
+  "remaining_task_ids": [
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "open_finding_ids": [
+    "F023-T019-R002",
+    "F023-T019-R003"
+  ],
+  "source_sessions_started": 30,
+  "source_attempts_started": 30,
+  "authorized_budget_limit": 40,
+  "budget_remaining": 10,
+  "source_budget_exhausted": false,
+  "latest_outcome_event_appended": true,
+  "history_sha256": "56207bb2e1da9404237454766434271cf32fd272652820b11b7b011c0e083557",
+  "historical_records_rewritten": false,
+  "roadmap_write_repeated": false,
+  "roadmap_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+  "lifecycle_receipt_sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+  "staged_file_count_preserved": 66,
+  "staged_diff_sha256_preserved": "9ef601cfe8dade1d0bf5395296941a813876c97cd9ba1c5352ae49ae9f77c6fa",
+  "source_review_evidence": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass30.json",
+  "retained_recovery_checkpoint": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass30.json",
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "recovery_summary_limits": {
+    "compact_loop_pass_iterations": [
+      1
+    ],
+    "append_only_execution_history_complete": true,
+    "original_summary_records_preserved": true
+  },
+  "baseline_sha256": "8c5bbf6c9e7d4ae5f50ed967d1deedd79518c9638272adb7203eacfb717958ff",
+  "requested_finding_status": {
+    "F023-T019-R002": "independently-unresolved-in-pass30",
+    "F023-T019-R003": "independently-unresolved-in-pass30"
+  },
+  "closed_finding_ids": [
+    "F023-T019-R001"
+  ],
+  "validation_summary": {
+    "focused_tests": 263,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "coherent_false_projection_controls_accepted": 8,
+    "original_producer_results_and_digests_unchanged_in_controls": true,
+    "broader_dependency_gap": "Retained prior discovery:485 tests,22 metrics errors from missing et_xmlfile,3 skips; not rerun"
+  },
+  "continuation_defect_report": "docs/findings/2026-10-13-implement-first-defect-correction-stop.md",
+  "continuation_defect_roadmap_feature": "024",
+  "continuation_defect_handoff_id": "WR-04",
+  "exact_remaining_correction": "Derive canonical observation fields independently from retained original producer_result and compare them to all normalized/report fields; retaining producer_result and its digest without consuming them is insufficient."
+}

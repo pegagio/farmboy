@@ -807,8 +807,11 @@ def validate_owner_source_assessment(assessment: dict[str, Any]) -> dict[str, An
     return assessment
 
 
-def validate_execution_history(history: dict[str, Any], *, scope_sha256: str, retained_history_sha256: str) -> dict[str, Any]:
+def validate_execution_history(history: dict[str, Any], *, scope_sha256: str, retained_history_sha256: str,
+                               max_coder_sessions: int = MAX_CODER_SESSIONS) -> dict[str, Any]:
     """Validate append-only pre-dispatch session/attempt history and global cap."""
+    if type(max_coder_sessions) is not int or max_coder_sessions < MAX_CODER_SESSIONS:
+        raise ImplementationScopeError("execution-budget-invalid")
     _exact_fields(history, {"schema_version", "scope_sha256", "events", "coder_sessions_started", "source_attempts_started", "sha256"}, "execution-history")
     if (not _is_sha256(scope_sha256) or not _is_sha256(retained_history_sha256)
             or history["schema_version"] != SCHEMA_VERSION or history["scope_sha256"] != scope_sha256):
@@ -870,7 +873,7 @@ def validate_execution_history(history: dict[str, Any], *, scope_sha256: str, re
             if event["execution_kind"] == "corrective-source-execution" and attempts == 0:
                 raise ImplementationScopeError("execution-history-corrective-source-before-first")
             sessions += 1
-            if sessions > MAX_CODER_SESSIONS or event["coder_sessions_started"] != sessions or event["source_attempts_started"] != attempts:
+            if sessions > max_coder_sessions or event["coder_sessions_started"] != sessions or event["source_attempts_started"] != attempts:
                 raise ImplementationScopeError("execution-history-counter-invalid")
             active_session = (session_id, event["execution_kind"])
             attempt_started = False
@@ -915,9 +918,10 @@ def validate_execution_history(history: dict[str, Any], *, scope_sha256: str, re
 
 
 def append_execution_event(history: dict[str, Any], event: dict[str, Any], *, scope_sha256: str,
-                           retained_history_sha256: str) -> dict[str, Any]:
+                           retained_history_sha256: str, max_coder_sessions: int = MAX_CODER_SESSIONS) -> dict[str, Any]:
     """Return a validated history successor; callers persist it before dispatch."""
-    validate_execution_history(history, scope_sha256=scope_sha256, retained_history_sha256=retained_history_sha256)
+    validate_execution_history(history, scope_sha256=scope_sha256, retained_history_sha256=retained_history_sha256,
+                               max_coder_sessions=max_coder_sessions)
     previous = history["events"][-1]["sha256"] if history["events"] else "0" * 64
     if event.get("predecessor_sha256") != previous:
         raise ImplementationScopeError("execution-history-predecessor-mismatch")
@@ -926,7 +930,8 @@ def append_execution_event(history: dict[str, Any], event: dict[str, Any], *, sc
     successor["coder_sessions_started"] = event.get("coder_sessions_started", history["coder_sessions_started"])
     successor["source_attempts_started"] = event.get("source_attempts_started", history["source_attempts_started"])
     successor["sha256"] = _digest(successor)
-    validate_execution_history(successor, scope_sha256=scope_sha256, retained_history_sha256=successor["sha256"])
+    validate_execution_history(successor, scope_sha256=scope_sha256, retained_history_sha256=successor["sha256"],
+                               max_coder_sessions=max_coder_sessions)
     return successor
 
 
@@ -935,10 +940,11 @@ def route_scoped_implementation_assessment(
     declared_node_ids: set[str], previous_assessment: dict[str, Any] | None = None,
     generic_route: Callable[..., dict[str, Any]] | None = None, retained_history_sha256: str,
     eligibility: dict[str, Any] | None = None, eligibility_sha256: str | None = None,
+    max_coder_sessions: int = MAX_CODER_SESSIONS,
 ) -> dict[str, Any]:
     """Route before first source attempt, then require the unchanged generic guard."""
     validate_execution_history(history, scope_sha256=history.get("scope_sha256"),
-                               retained_history_sha256=retained_history_sha256)
+                               retained_history_sha256=retained_history_sha256, max_coder_sessions=max_coder_sessions)
     _validate_outcome(assessment, declared_node_ids)
     active = False
     for event in history["events"]:
@@ -970,7 +976,7 @@ def route_scoped_implementation_assessment(
     attempts = history.get("source_attempts_started")
     sessions = history.get("coder_sessions_started")
     if (isinstance(attempts, bool) or not isinstance(attempts, int) or attempts < 0
-            or isinstance(sessions, bool) or not isinstance(sessions, int) or sessions < 0 or sessions > MAX_CODER_SESSIONS):
+            or isinstance(sessions, bool) or not isinstance(sessions, int) or sessions < 0 or sessions > max_coder_sessions):
         raise ImplementationScopeError("execution-history-counter-invalid")
     if attempts == 0:
         if assessment["state"] == "blocked":
@@ -984,7 +990,7 @@ def route_scoped_implementation_assessment(
             if (node != "prepare-scoped-prerequisites" or assessment.get("reason_code") != "operator-decision-required"
                     or not any(item.startswith("task:") for item in assessment["remaining_ids"])):
                 return {"action": "blocked", "blocker": "scoped-work-pending"}
-        if sessions >= MAX_CODER_SESSIONS:
+        if sessions >= max_coder_sessions:
             return {"action": "blocked", "blocker": "loop-cap-exhausted"}
         return {"action": "continue", "next_step_id": node}
     if generic_route is None or not callable(generic_route):
@@ -994,12 +1000,12 @@ def route_scoped_implementation_assessment(
     generic_result = generic_route(
         assessment,
         iteration=attempts,
-        max_iterations=MAX_CODER_SESSIONS,
+        max_iterations=max_coder_sessions,
         loop_body_step_ids=declared_node_ids,
         previous_assessment=previous_assessment,
     )
     if generic_result.get("action") == "continue":
-        if sessions >= MAX_CODER_SESSIONS:
+        if sessions >= max_coder_sessions:
             return {"action": "blocked", "blocker": "loop-cap-exhausted"}
         if not eligible_task_ids:
             return {

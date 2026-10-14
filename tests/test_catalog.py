@@ -3,15 +3,23 @@
 from __future__ import annotations
 
 import json
+import importlib.util
 import shutil
 import subprocess
+import sys
 import tempfile
+import tomllib
 import unittest
 import zipfile
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
+import yaml
+
 from tools import catalog
+from tools import validate_workflows as inventory
 
 
 class CatalogReleaseTests(unittest.TestCase):
@@ -33,6 +41,350 @@ class CatalogReleaseTests(unittest.TestCase):
         subprocess.run(["git", "add", "extension.yml"], cwd=source, check=True, capture_output=True)
         subprocess.run(["git", "-c", "user.name=fixture", "-c", "user.email=fixture@example.invalid", "commit", "-qm", "source"], cwd=source, check=True, capture_output=True)
         return source
+
+    def testInventoryJsonProjectsContextualDefinitionDiagnostics(self) -> None:
+        controller_path = catalog.ROOT / "controllers/farmboy/scripts/python/controller.py"
+        specification = importlib.util.spec_from_file_location("catalog_projection_controller", controller_path)
+        self.assertIsNotNone(specification)
+        self.assertIsNotNone(specification.loader)
+        controller = importlib.util.module_from_spec(specification)
+        sys.modules[specification.name] = controller
+        specification.loader.exec_module(controller)
+        cases = (
+            ({"workflow": {"id": "inventory-loop", "version": "1"}, "steps": [
+                {"id": "loop-step", "type": "do-while", "condition": True,
+                 "max_iterations": 1, "steps": [{"id": "action", "type": "prompt"}]}]},
+             lambda item: item["steps"][0].update(steps=[]), "loop-body-invalid", "loop-step",
+             "steps[0].steps", "steps"),
+            ({"workflow": {"id": "inventory-route", "version": "1"}, "steps": [
+                {"id": "route-step", "type": "switch", "cases": {"done": []},
+                 "transition_labels": {"done": "Done"}}]},
+             lambda item: item["steps"][0].update(transition_labels={"unknown": "Unknown"}),
+             "switch-transition-labels-invalid", "route-step", "steps[0].transition_labels",
+             "transition_labels"),
+            ({"workflow": {"id": "inventory-template", "version": "1"},
+              "inputs": {"known": {"required": True}}, "steps": [
+                {"id": "consumer-step", "type": "prompt", "prompt": "{{ inputs.known }}"}]},
+             lambda item: item["steps"][0].update(prompt="{{ inputs.absent }}"),
+             "template-input-unknown", "consumer-step", "steps[0].prompt", "inputs.absent"),
+            ({"workflow": {"id": "inventory-unsupported-template", "version": "1"}, "steps": [
+                {"id": "prior", "type": "prompt", "prompt": "prior"},
+                {"id": "consumer-step", "type": "prompt", "prompt": "{{ steps.prior.output.value }}"}]},
+             lambda item: item["steps"][1].update(prompt="{{ unsupported.value }}"),
+             "template-expression-unsupported", "consumer-step", "steps[1].prompt", "template-expression"),
+            ({"workflow": {"id": "inventory-malformed-template", "version": "1"}, "inputs": {
+                "known": {"required": True}}, "steps": [
+                    {"id": "consumer-step", "type": "prompt", "prompt": "{{ inputs.known }}"}]},
+             lambda item: item["steps"][0].update(prompt="{{ inputs.known"),
+             "template-delimiters-unbalanced", "consumer-step", "steps[0].prompt",
+             "template-opening-delimiter"),
+            ({"workflow": {"id": "inventory-loop-route", "version": "1"}, "steps": [
+                {"id": "loop-step", "type": "do-while", "condition": True, "max_iterations": 1,
+                 "steps": [{"id": "route-step", "type": "switch", "cases": {"done": []},
+                            "transition_labels": {"done": "Done"}}]}]},
+             lambda item: item["steps"][0]["steps"][0].update(transition_labels={"missing": "Missing"}),
+             "switch-transition-labels-invalid", "route-step", "steps[0].steps[0].transition_labels",
+             "transition_labels"),
+        )
+        with tempfile.TemporaryDirectory(prefix="farmboy-inventory-diagnostics-") as temporary:
+            root = Path(temporary)
+            for valid, mutate, reason, step_id, location, reference in cases:
+                with self.subTest(reason=reason):
+                    controller.validate_workflow_definition(json.loads(json.dumps(valid)))
+                    definition = json.loads(json.dumps(valid))
+                    mutate(definition)
+                    case_root = root / reason
+                    workflow_path = case_root / "workflows" / f"farmboy-{reason}" / "workflow.yml"
+                    workflow_path.parent.mkdir(parents=True, exist_ok=True)
+                    workflow_path.write_text(yaml.safe_dump(definition, sort_keys=False), encoding="utf-8")
+                    output = StringIO()
+                    with patch.object(inventory, "ROOT", case_root), \
+                            patch.object(inventory, "_definition_validator", return_value=controller.validate_workflow_definition), \
+                            patch.object(sys, "argv", ["validate_workflows.py", "--json"]), \
+                            redirect_stdout(output):
+                        result = inventory.main()
+                    self.assertEqual(1, result)
+                    payload = json.loads(output.getvalue())
+                    self.assertEqual([], payload["workflows"])
+                    self.assertEqual(1, len(payload["diagnostics"]))
+                    diagnostic = payload["diagnostics"][0]
+                    self.assertEqual({
+                        "reason_code": reason,
+                        "workflow_id": valid["workflow"]["id"],
+                        "step_id": step_id,
+                        "location": location,
+                        "offending_reference": reference,
+                        "boundary": "definition",
+                        "resume_action": "correct-source-definition-and-revalidate",
+                    }, {key: diagnostic[key] for key in (
+                        "reason_code", "workflow_id", "step_id", "location", "offending_reference",
+                        "boundary", "resume_action")})
+                    self.assertTrue(diagnostic["correction"])
+                    self.assertNotIn(str(root), output.getvalue())
+
+    def invalid_workflow_checkout(self, directory: Path) -> Path:
+        root = directory / "source"
+        shutil.copytree(catalog.ROOT / "workflows", root / "workflows")
+        shutil.copytree(catalog.ROOT / "extensions/farmboy-feedback", root / "extensions/farmboy-feedback")
+        self.misplace_workflow_default(root)
+        return root
+
+    def misplace_workflow_default(self, root: Path) -> Path:
+        workflow_path = root / "workflows/farmboy-select-feature/workflow.yml"
+        definition = yaml.safe_load(workflow_path.read_text(encoding="utf-8"))
+
+        def misplace_default(nodes: list[dict]) -> bool:
+            for node in nodes:
+                if node.get("type") == "switch":
+                    node.setdefault("cases", {})["default"] = []
+                    return True
+                for branch in node.get("cases", {}).values() if isinstance(node.get("cases"), dict) else []:
+                    if misplace_default(branch):
+                        return True
+            return False
+
+        self.assertTrue(misplace_default(definition["steps"]))
+        workflow_path.write_text(yaml.safe_dump(definition, sort_keys=False), encoding="utf-8")
+        return workflow_path
+
+    def test_releaseBuildRejectsMalformedSourceBeforeCreatingCatalogAssets(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="farmboy-invalid-source-build-") as temporary:
+            temporary_root = Path(temporary)
+            source_root = self.invalid_workflow_checkout(temporary_root)
+            catalog_dir = temporary_root / "catalog"
+            release_path = catalog_dir / "release.json"
+            source_arguments = {
+                "flow-roadmap": temporary_root / "roadmap",
+                "flow-wiki": temporary_root / "wiki",
+                "farmboy-feedback": source_root / "extensions/farmboy-feedback",
+            }
+            versions = catalog.bundle_components()[1]["extensions"]
+            extension_ids = iter(("flow-roadmap", "flow-wiki", "farmboy-feedback"))
+
+            def fake_extension_metadata(source: Path) -> dict[str, str]:
+                extension_id = next(extension_ids)
+                return {"id": extension_id, "name": extension_id, "version": versions[extension_id], "author": "pegagio"}
+
+            def fake_package(_source: Path, destination: Path, *_args: object) -> None:
+                destination.write_bytes(b"temporary test package")
+
+            def fake_controller_package(destination: Path) -> dict[str, object]:
+                destination.write_bytes(b"temporary controller package")
+                manifest = catalog.controller_manifest()
+                return {"package_id": manifest["package_id"], "version": manifest["version"],
+                        "artifact": destination.name, "sha256": catalog.digest(destination),
+                        "files": [], "controllers": manifest["controllers"]}
+
+            def fake_agent_package(destination: Path, **_kwargs: object) -> dict[str, str]:
+                destination.write_bytes(b"temporary agent package")
+                return {"id": catalog.AGENT_PACKAGE_ID, "version": "1.0.0", "artifact": destination.name,
+                        "sha256": catalog.digest(destination), "source_repository": "https://github.com/pegagio/farmboy",
+                        "source_commit": "a" * 40, "source_sha256": "b" * 64, "status": "snapshot"}
+
+            with patch.object(catalog, "ROOT", source_root), patch.object(catalog, "CATALOG", catalog_dir), \
+                    patch.object(catalog, "RELEASE", release_path), patch.object(catalog, "extension_metadata", side_effect=fake_extension_metadata), \
+                    patch.object(catalog, "package_extension", side_effect=fake_package) as package_extension, \
+                    patch.object(catalog, "package_controller", side_effect=fake_controller_package) as package_controller, \
+                    patch.object(catalog, "package_agents", side_effect=fake_agent_package), \
+                    patch.object(catalog, "source_commit", return_value="a" * 40), \
+                    patch.object(catalog.subprocess, "run", side_effect=lambda *args, **kwargs: subprocess.CompletedProcess(args[0], 0, "" if "status" in args[0] else "a" * 40, "")):
+                with self.assertRaises(ValueError):
+                    catalog.build(source_arguments["flow-roadmap"], source_arguments["flow-wiki"], snapshot=True)
+            package_extension.assert_not_called()
+            package_controller.assert_not_called()
+            self.assertFalse(catalog_dir.exists())
+
+    def testDevelopmentSnapshotRejectsMalformedSourceBeforeWritingPackages(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="farmboy-invalid-snapshot-") as temporary:
+            temporary_root = Path(temporary)
+            source_root = self.invalid_workflow_checkout(temporary_root)
+            snapshot = temporary_root / "snapshot"
+            roadmap_source = self.compatible_roadmap_source(temporary_root)
+            with patch.object(catalog, "ROOT", source_root), patch.object(
+                    catalog.subprocess, "run",
+                    side_effect=lambda *args, **kwargs: subprocess.CompletedProcess(args[0], 0, "" if "status" in args[0] else "a" * 40, "")):
+                with self.assertRaises(ValueError):
+                    catalog.build_development_snapshot(snapshot, source_overrides={"flow-roadmap": roadmap_source})
+            self.assertFalse(snapshot.exists())
+
+    def testVerificationAndInstallRefreshRejectChangedInvalidWorkflowWithoutConsumerWrites(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="farmboy-invalid-verify-") as source_temporary, \
+                tempfile.TemporaryDirectory(prefix="farmboy-invalid-consumer-") as consumer_temporary:
+            repository_root = catalog.ROOT
+            temporary_root = Path(source_temporary)
+            source_root = self.invalid_workflow_checkout(Path(source_temporary))
+            project = Path(consumer_temporary)
+            (project / ".specify").mkdir()
+            (project / ".specify/bundle-records.json").write_text('{"owned":true}\n', encoding="utf-8")
+            (project / "consumer.txt").write_text("preserve\n", encoding="utf-8")
+
+            valid_source_root = temporary_root / "valid-source"
+            shutil.copytree(repository_root / "workflows", valid_source_root / "workflows")
+            shutil.copytree(repository_root / "extensions/farmboy-feedback", valid_source_root / "extensions/farmboy-feedback")
+            shutil.copy2(repository_root / "mise.toml", valid_source_root / "mise.toml")
+
+            def specify_run(arguments: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+                words = [str(argument) for argument in arguments]
+                if words[1:2] == ["--version"]:
+                    stdout = "specify " + tomllib.loads((repository_root / "mise.toml").read_text())[
+                        "tools"]["pipx:specify-cli"]
+                elif words[:3] == ["/fixture/specify", "bundle", "install"]:
+                    stdout = ""
+                elif words[:2] == ["git", "status"]:
+                    stdout = ""
+                elif words[:3] == ["git", "rev-parse", "HEAD"]:
+                    stdout = "a" * 40
+                else:
+                    raise AssertionError(f"unexpected subprocess command: {arguments[:3]}")
+                return subprocess.CompletedProcess(arguments, 0, stdout, "")
+
+            with patch.object(catalog, "ROOT", valid_source_root), \
+                    patch.object(catalog, "selected_specify", return_value=Path("/fixture/specify")), \
+                    patch.object(catalog.subprocess, "run", side_effect=specify_run), \
+                    patch.object(catalog.subprocess, "check_output", return_value="a" * 40):
+                catalog.install(project, False, development_snapshot=True)
+                catalog.install(project, True, development_snapshot=True)
+
+            def inventory() -> dict[str, bytes]:
+                return {path.relative_to(project).as_posix(): path.read_bytes()
+                        for path in project.rglob("*") if path.is_file()}
+
+            before = inventory()
+            with patch.object(catalog, "ROOT", source_root):
+                with self.assertRaisesRegex(ValueError, "workflow source differs"):
+                    catalog.verified_release()
+                for refresh in (False, True):
+                    with self.subTest(refresh=refresh), self.assertRaisesRegex(ValueError, "workflow source differs"):
+                        catalog.install(project, refresh)
+                    self.assertEqual(before, inventory())
+
+    def testVerificationAndInstallRefreshRejectMalformedWorkflowWithMatchingInventory(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="farmboy-matched-invalid-workflow-") as temporary, \
+                tempfile.TemporaryDirectory(prefix="farmboy-matched-invalid-consumer-") as consumer_temporary:
+            temporary_root = Path(temporary)
+            repository_root = catalog.ROOT
+            source_root = temporary_root / "source"
+            shutil.copytree(catalog.ROOT / "workflows", source_root / "workflows")
+            shutil.copytree(catalog.ROOT / "extensions/farmboy-feedback", source_root / "extensions/farmboy-feedback")
+            shutil.copy2(catalog.ROOT / "mise.toml", source_root / "mise.toml")
+            catalog_dir = temporary_root / "catalog"
+            shutil.copytree(catalog.CATALOG / "packages", catalog_dir / "packages")
+            release_path = catalog_dir / "release.json"
+            shutil.copy2(catalog.RELEASE, release_path)
+            release = json.loads(release_path.read_text(encoding="utf-8"))
+            for workflow_id in release["workflows"]:
+                workflow_path = source_root / "workflows" / workflow_id / "workflow.yml"
+                release["workflows"][workflow_id]["sha256"] = catalog.digest(workflow_path)
+            release_path.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+            def inventory(root: Path) -> dict[str, bytes]:
+                return {path.relative_to(root).as_posix(): path.read_bytes()
+                        for path in root.rglob("*") if path.is_file()}
+
+            with patch.object(catalog, "ROOT", source_root), patch.object(catalog, "CATALOG", catalog_dir), \
+                    patch.object(catalog, "RELEASE", release_path):
+                catalog.verified_release()
+                source_before = inventory(source_root)
+                catalog_before = inventory(catalog_dir)
+
+                workflow_path = self.misplace_workflow_default(source_root)
+                workflow_id = "farmboy-select-feature"
+                release["workflows"][workflow_id]["sha256"] = catalog.digest(workflow_path)
+                release_path.write_text(json.dumps(release, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+                source_after_mutation = inventory(source_root)
+                catalog_after_mutation = inventory(catalog_dir)
+                changed_source_paths = {
+                    path for path in source_before.keys() | source_after_mutation.keys()
+                    if source_before.get(path) != source_after_mutation.get(path)
+                }
+                self.assertEqual({"workflows/farmboy-select-feature/workflow.yml"}, changed_source_paths)
+                self.assertEqual(
+                    {"release.json"},
+                    {path for path in catalog_before.keys() | catalog_after_mutation.keys()
+                     if catalog_before.get(path) != catalog_after_mutation.get(path)},
+                )
+                self.assertEqual(release["workflows"][workflow_id]["sha256"], catalog.digest(workflow_path))
+
+                project = Path(consumer_temporary)
+                (project / ".specify").mkdir()
+                (project / ".specify/bundle-records.json").write_text('{"owned":true}\n', encoding="utf-8")
+                (project / "consumer.txt").write_text("preserve\n", encoding="utf-8")
+
+                valid_source_root = temporary_root / "valid-source"
+                shutil.copytree(repository_root / "workflows", valid_source_root / "workflows")
+                shutil.copytree(repository_root / "extensions/farmboy-feedback", valid_source_root / "extensions/farmboy-feedback")
+                shutil.copy2(repository_root / "mise.toml", valid_source_root / "mise.toml")
+
+                def specify_run(arguments: list[str], **kwargs: object) -> subprocess.CompletedProcess[str]:
+                    words = [str(argument) for argument in arguments]
+                    if words[1:2] == ["--version"]:
+                        stdout = "specify " + tomllib.loads((catalog.ROOT / "mise.toml").read_text())[
+                            "tools"]["pipx:specify-cli"]
+                    elif words[:3] == ["/fixture/specify", "bundle", "install"]:
+                        stdout = ""
+                    elif words[:2] == ["git", "status"]:
+                        stdout = ""
+                    elif words[:3] == ["git", "rev-parse", "HEAD"]:
+                        stdout = "a" * 40
+                    else:
+                        raise AssertionError(f"unexpected subprocess command: {arguments[:3]}")
+                    return subprocess.CompletedProcess(arguments, 0, stdout, "")
+
+                with patch.object(catalog, "ROOT", valid_source_root), \
+                        patch.object(catalog, "selected_specify", return_value=Path("/fixture/specify")), \
+                        patch.object(catalog.subprocess, "run", side_effect=specify_run), \
+                        patch.object(catalog.subprocess, "check_output", return_value="a" * 40):
+                    catalog.install(project, False, development_snapshot=True)
+                    catalog.install(project, True, development_snapshot=True)
+                consumer_before = inventory(project)
+                self.assertEqual("snapshot", release["status"])
+
+                def attempt(action: object) -> dict[str, object]:
+                    try:
+                        action()
+                    except Exception as error:
+                        return {
+                            "exception_type": type(error).__name__,
+                            "message": str(error),
+                            "diagnostic": getattr(error, "diagnostic", None),
+                        }
+                    return {"exception_type": None, "message": None, "diagnostic": None}
+
+                with patch.object(catalog, "ROOT", source_root), \
+                        patch.object(catalog, "CATALOG", catalog_dir), \
+                        patch.object(catalog, "RELEASE", release_path), \
+                        patch.object(catalog, "selected_specify", return_value=Path("/fixture/specify")), \
+                        patch.object(catalog.subprocess, "run", side_effect=specify_run), \
+                        patch.object(catalog.subprocess, "check_output", return_value="a" * 40):
+                    catalog_before_verification = inventory(catalog_dir)
+                    verification = attempt(catalog.verified_release)
+                    self.assertEqual(catalog_before_verification, inventory(catalog_dir))
+                    install_results = {}
+                    for refresh in (False, True):
+                        with self.subTest(refresh=refresh):
+                            catalog_before_install = inventory(catalog_dir)
+                            with patch.object(catalog, "package_extension", wraps=catalog.package_extension) as package_extension, \
+                                    patch.object(catalog, "package_controller", wraps=catalog.package_controller) as package_controller, \
+                                    patch.object(catalog, "package_agents", wraps=catalog.package_agents) as package_agents:
+                                result = attempt(lambda: catalog.install(
+                                    project, refresh, development_snapshot=True))
+                            install_results[refresh] = result
+                            package_extension.assert_not_called()
+                            package_controller.assert_not_called()
+                            package_agents.assert_not_called()
+                            self.assertEqual(catalog_before_install, inventory(catalog_dir))
+                            self.assertEqual(consumer_before, inventory(project))
+
+                for action_name, result in (
+                    ("verification", verification),
+                    ("install", install_results[False]),
+                    ("refresh", install_results[True]),
+                ):
+                    with self.subTest(action=action_name):
+                        self.assertEqual("ValueError", result["exception_type"])
+                        diagnostic = result["diagnostic"]
+                        self.assertIsInstance(diagnostic, dict)
+                        self.assertEqual("misplaced-switch-default", diagnostic["reason_code"])
 
     def test_selectedSpecify_prefersProjectMiseSelection(self) -> None:
         with patch.object(catalog.shutil, "which", side_effect=lambda name: "/usr/bin/mise" if name == "mise" else "/path/specify"), patch.object(

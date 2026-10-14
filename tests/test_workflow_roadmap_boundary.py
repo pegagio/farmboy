@@ -1,6 +1,7 @@
 """Disposable generic-roadmap consumers for workflow-owned milestone policy."""
 from __future__ import annotations
 
+import copy
 import json
 import os
 import subprocess
@@ -160,6 +161,59 @@ def resolve_configuration(project, payload, yaml):
         result = self.verify(proposal, False)
         self.assertEqual("blocked", result["state"])
         self.assertEqual("applied", result["receipt"]["effect_state"])
+
+    def request_with_ledger_evidence(self):
+        request = self.request("specify")
+        roadmap_path = ".specify/memory/roadmap.md"
+        group = request["milestone_evidence"][0]
+        group["artifact_digests"][roadmap_path] = sha(self.roadmap.read_bytes())
+        for reference in group["assessments"]:
+            path = self.root / reference["path"]
+            record = json.loads(path.read_text())
+            record["artifact_digests"][roadmap_path] = sha(self.roadmap.read_bytes())
+            path.write_text(json.dumps(record))
+            reference["sha256"] = sha(path.read_bytes())
+        return self.refresh(request)
+
+    def test_readbackValidatesLedgerPreimageAndRetainsReceiptOnRetry(self):
+        request = self.request_with_ledger_evidence()
+        proposal = self.module.prepare(self.root, request)["proposal"]
+        retained = copy.deepcopy(proposal)
+        self.apply_generic_delta(proposal)
+        result = self.verify(proposal)
+        self.assertEqual("verified", result["state"], result)
+        receipt_path = (self.root / self.feature / "validation/phase-lifecycle"
+                        / (proposal["effect_id"] + ".json"))
+        receipt_bytes = receipt_path.read_bytes()
+        retry = self.verify(proposal)
+        self.assertEqual("verified", retry["state"], retry)
+        self.assertEqual(result["receipt"], retry["receipt"])
+        self.assertEqual(receipt_bytes, receipt_path.read_bytes())
+        self.assertEqual(retained, proposal)
+
+    def test_ledgerEvidenceStillRequiresCurrentPreEffectBytes(self):
+        request = self.request_with_ledger_evidence()
+        self.roadmap.write_text(self.roadmap.read_text().replace("Keep these bytes.", "changed"))
+        self.assertEqual("blocked", self.module.prepare(self.root, request)["state"])
+
+    def test_ledgerPreimageDoesNotHideChangedIndependentReview(self):
+        proposal = self.module.prepare(self.root, self.request_with_ledger_evidence())["proposal"]
+        self.apply_generic_delta(proposal)
+        reference = proposal["milestone_evidence"][0]["assessments"][0]
+        path = self.root / reference["path"]
+        path.write_bytes(path.read_bytes() + b"\n")
+        result = self.verify(proposal)
+        self.assertEqual("blocked", result["state"])
+        self.assertEqual("applied", result["receipt"]["effect_state"])
+        self.assertEqual("post-effect-source-changed", result["reason_code"])
+
+    def test_ledgerPreimageDoesNotAuthorizeOtherLedgerChanges(self):
+        proposal = self.module.prepare(self.root, self.request_with_ledger_evidence())["proposal"]
+        self.apply_generic_delta(proposal)
+        self.roadmap.write_text(self.roadmap.read_text().replace("Keep these bytes.", "changed"))
+        result = self.verify(proposal)
+        self.assertEqual("blocked", result["state"])
+        self.assertEqual("indeterminate", result["receipt"]["effect_state"])
 
     def test_readbackPreservesAppliedAfterSourceDrift(self):
         proposal = self.module.prepare(self.root, self.request())["proposal"]

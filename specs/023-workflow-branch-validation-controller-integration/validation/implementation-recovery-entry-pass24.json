@@ -1,0 +1,1219 @@
+{
+  "assessment_kind": "retained-recovery-entry",
+  "baseline_sha256": "ec19f3786d3a3bde13f01bc5b4e903879a995a424a0cbf0b695a79939864c7cd",
+  "budget": {
+    "coder_sessions_started": 23,
+    "effective_limit": 30,
+    "remaining_attempts": 7,
+    "remaining_sessions": 7,
+    "source_attempts_started": 23
+  },
+  "budget_extension_sha256": "aef40c82991c81048cdbd15484ba3122ee663853e3ddbe311ef01a75b338d5a7",
+  "completed_with_current_proof_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016"
+  ],
+  "current_evidence": [
+    {
+      "path": ".specify/bundle-records.json",
+      "sha256": "3336b23e65c77325cf90638510171cda4101556758dada0f9089c46fbd66453e"
+    },
+    {
+      "path": ".specify/farmboy-controllers/implementation-history/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0.json",
+      "sha256": "ea27f47f0762ff3e9935d20664a68ca28558dcd3c00bb41b8a1be3a9c7b320e9"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T001-before-authorized-correction.json",
+      "sha256": "7f054176818f2b75668725526377f539780f32cb16fcdb645680f677efadbb21"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T001-correction-activation.json",
+      "sha256": "3e4b267640e42e4a03c5a4543190fa70d172569d7b2f5489575af6cdf3ae76ca"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T001-source-before.json",
+      "sha256": "06c32f3de1bce58a32f4323b35a916b365e48187ad37c1e79e27b7bde1eeae5d"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-activation.json",
+      "sha256": "adfcb4c73e738b7be78808a72915dc99ff5d02e84631b2dacbde4e6cdb138c84"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-before-test_controller.py",
+      "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-source-delta.diff",
+      "sha256": "75b0accd389cb6013844c6ea6928c84bdcbc867c7ebf20c1fa6fd1a4a743b5d4"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-activation.json",
+      "sha256": "931dae6361d9304b3d5d7fdd98695551774352b5853bbadd52503f25b9e109a5"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_graph.py",
+      "sha256": "45a6562e2ac0d262db720ddbe50c489cf80c0440e8c0a50f105b6e5bef3768e0"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_paths.py",
+      "sha256": "91f764b188f5dcb12ae60115131d14a9ffeff645a7cbc57ec7ca060efc57a8a2"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-source-delta.json",
+      "sha256": "b0274188740048cb5e750357e0a21b7b4f2af49dd0969a45ec7306160569e947"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass5-activation.json",
+      "sha256": "c15b8a110a6d5ebb88abd24a22cdefd13a80b61fc784bc044ae147e4c7b58eac"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass5-before-test_catalog.py",
+      "sha256": "1bcd136d7c269070e4f3f9eb3db4b2416aa93c47065deccaf72e3271a642d396"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "sha256": "9f89a606771c44747b9eb9a2ade8bc1e46ffcd0c81b963a3285aac24fd262095"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-before-controller.py",
+      "sha256": "402d6a1627f1d7fb4a90146d1f2485b99308596e270fdbe747bbf61d35107496"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-activation.json",
+      "sha256": "6d683d73802b55395008d5a60bbac1549260a930b16b70d09445beb44e38c605"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-before-catalog.py",
+      "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-before-validate_workflows.py",
+      "sha256": "95432c914bd95efd0c48a5b346edbb5e7fe3210315a642d1da1779ab4c495b71"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-activation.json",
+      "sha256": "9ebb9d1e231e21d5461622efd69d43e5948f9f38263a1d73a6eff6881443cf03"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-before-test_implement_switch_routing.py",
+      "sha256": "7f89e9130907a40b8dff1b048036040c65076f2d777700ee4970374947433087"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-source-delta.json",
+      "sha256": "6df6f02439c815e50978961a416be06895fd5ef96af05a6bbcac844b07220885"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-activation.json",
+      "sha256": "189c44d4d3ffcbe4962d221137e03a82ce4db16023a211f658e322c2b3abcf87"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-before-test_controller.py",
+      "sha256": "db8ebb09dfdbb97f09e32da39858634d0893e82de30ccd1fc75e8c724b118a10"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-before-test_workflow_paths.py",
+      "sha256": "131ad065c197a197de0d43c9316be30e06b44d7bd75ab6a05ae958809b391df3"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-activation.json",
+      "sha256": "3b430b812cdbc2f95fd32bc5fec5d2132ea2e9cee3afc1f9fd0d9279ac8fa61f"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-controller.py",
+      "sha256": "72827ffacc23ff11b2c7f169064bbcadda98771e7c04e924ef858d157ef45e2a"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_controller.py",
+      "sha256": "712542c96eeec47fa30623f3b5d4b5321fdf2f7500f3e9976fdf9830678e0968"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_implement_switch_routing.py",
+      "sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_workflow_paths.py",
+      "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-activation.json",
+      "sha256": "3cc1ab6a24707b8fbe14640b12c11ffb7b53160bf41a2ec1c5435c15874973df"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-before-README.md",
+      "sha256": "e62133f1e07410563fb4727b531c4f67529b35878843df469f6e6af6436fdc98"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-before-controller-protocol.md",
+      "sha256": "ee01de9c978d39b61d28e193edb887710b9d7b55f30a27248b7613d3ab5abd2f"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-activation.json",
+      "sha256": "c0f30b3cabfa70e0bf6dcb86533fdccaa9d296a9167c588ee4a70f6e5ae91147"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-before-implementation-scope-cases.json",
+      "sha256": "41013198b74f95cb40c8f1a76fe6710cb5402d49464b4ae36738690061c0decd"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-before-test_snapshot_validation.py",
+      "sha256": "f428757f47640dbf4835172149aca5506c0108ade681399dd92fbc555ec192cd"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-activation.json",
+      "sha256": "e2baab1246a1efced9072c6e900c56645b1b090c1f13d377fb99d024333bbee8"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-before-test_controller.py",
+      "sha256": "b753e57e64d38ced340cd59ced07c109707ed73697657ef2457cfc47108a755d"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-before-test_implementation_progress.py",
+      "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T013-pass9-activation.json",
+      "sha256": "8b240f90fad303863a475a9282c0520509ad731ef6c20f1dde7b5d9f66c37ae3"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T013-pass9-before-test_phase_lifecycle.py",
+      "sha256": "9f996a9c4a4af58e5d630036452f963d43d3f88f71abd5edcd7e26f334723cc5"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T014-pass16-activation.json",
+      "sha256": "c28a4fc44dfd6294fc815c530195acf5252f2f63a1af2b6fc8f70b880834bb5b"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T014-pass16-before-implementation_scope_snapshot.py",
+      "sha256": "b57b3198a012a0042dad214bac96535a60ea1d24eaea832b75b5f48d664de92f"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass17-before-implementation_scope_snapshot.py",
+      "sha256": "1a23c1a0b6fa4428d1fa776283ca282e3e8495dd6fc0b64d4f9050b181556f6c"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass19-before-implementation_scope_snapshot.py",
+      "sha256": "2cd254eb519f30c658919c15075a4e97321712a3cf391040e63d16e565be9d02"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass20-activation.json",
+      "sha256": "80ef9d6e2421e9514abfaa5ff032b35993875c346767137c7c0fc1db9e677032"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass20-before-implementation_scope_snapshot.py",
+      "sha256": "c3966147efbdcae822533d305bcee1068b8cec9e731c6e973c9e2dec31a9c6fc"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T016-pass21-before-test_snapshot_validation.py",
+      "sha256": "020e685635d1dcdfa7b008a3910077aacfd6f1a4cd6287fbb3030a16fe045409"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T016-pass22-activation.json",
+      "sha256": "b8a351f22a71c89a9c98a4f7cacd2f132dabeade61b3516731717ee0db825d88"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T016-pass22-before-test_snapshot_validation.py",
+      "sha256": "99a8a262101a3889c8ee2e731b034dccafdab2228f7c5d1b7617e344c5b50db8"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T017-pass23-before-test_snapshot_validation.py",
+      "sha256": "5288bd53542b7d608688ff42161f8b0a4821d06dd25cca1d94c0bd4b286aeefc"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/operator-budget30-authorization.json",
+      "sha256": "10dc227855fe7c6e09758a5cea8c23fcb793d8e05c2bc1e8ea2f034f08331435"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/operator-t017-recovery-authorization.json",
+      "sha256": "9c87470c90ae6d7e1e6c55a35f5d0a10917e3d5dece210bc3ec60d5a38e1f86e"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass23.json",
+      "sha256": "2cec875b1262a6c547ea35854da680229f2ef3345a4bb758095eda92a0679f26"
+    },
+    {
+      "path": ".specify/farmboy/skills-install.json",
+      "sha256": "bf081294e17f498416145834be9e6ec30c1c6f1c92557d3552586481c9e6f733"
+    },
+    {
+      "path": ".specify/feature.json",
+      "sha256": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43"
+    },
+    {
+      "path": ".specify/memory/roadmap.md",
+      "sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d"
+    },
+    {
+      "path": ".specify/workflows/farmboy-implement/workflow.yml",
+      "sha256": "a0419928ac176e549dc4946329ed2eb27061da4ac21a72582e96a657eb87b14a"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "7f8562af3be5ee02ad4dce0fe4b1087cbb8ddf14aafd8a7cf2cffe431f5f3161"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md",
+      "sha256": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/contracts/connected-observations.md",
+      "sha256": "ddf99530720ecabf76d624de22441c6e325cfd307f851af56df922a7e40fe9d3"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/contracts/validation-boundaries.md",
+      "sha256": "86b814eb16c767010f920064ee1b6f2bd237aca5fdf03740b22c6365348ae0e8"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/data-model.md",
+      "sha256": "13bb5d5e8aa51a95af8a097c2b2391c464906e6d68036540d3848f800dedaebe"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/plan.md",
+      "sha256": "d5d033c271ed06d9f2f90082be53f46efebbe2675bc7378b344b71b1bc9f1a5e"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/quickstart.md",
+      "sha256": "370bb517809832f0859375c1a658951143f02e72dad10fa657d3834c6d862aad"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/research.md",
+      "sha256": "09d5a18ace723e5769c8084019871b9169ec2f219eb93841680fb69e10ac6b99"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/spec.md",
+      "sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/tasks.md",
+      "sha256": "833277eb3b08d3f7a8b22bc279f7887fb592679d9b80a5a625469d5c191f8050"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/extended-reentry-review.json",
+      "sha256": "74986ac5530938b56ec390865add7ab3b824ed661f096410d0c44f3711c9719b"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass10.json",
+      "sha256": "ef8f1c903865d956c5bd118e07df00aea824f49c6652391095c2f00c45284996"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass11.json",
+      "sha256": "00c0be68f0ba3f85ca26046631ef39def6b2122f5859cc13ca776af5f1a63a74"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass12.json",
+      "sha256": "bc29495b8986427c369654b3c9bfba73087477a6a6ce84ca20d9ec3205a7335a"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass13.json",
+      "sha256": "6fc404d859cbcfa514564bd57dd0f2b0a2ef282c3d2eadc6a0afd4bd9ce27bda"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass14.json",
+      "sha256": "81c17e233d946f036eefe5f18eeced02d4187f208d0c4724774fff390fbf230b"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass15.json",
+      "sha256": "0eadf684e4dc9347fd1ea7e561fb5cb5ceb8497c0c87b82bec5ab5c8477d53b0"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass16.json",
+      "sha256": "42551a898d7996c4d8a6ad384688cc8454a4c66db057871465fcd140db191905"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass17.json",
+      "sha256": "7848cc90889ae2e3b520bcf6a5c31323f2bd54b8f9261dacd896930fefd30124"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass18.json",
+      "sha256": "996e8e4fc2a30d195ba7dc2528f07afc19fe32202e53bcf8afad8e806f12e5fc"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass19.json",
+      "sha256": "e403991a9044b70b0e2aa728e7b7fc08ac2fa58883eb0c97a995eed8cd59d973"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass20.json",
+      "sha256": "0f09b152b3d0f8953c7509e7bf34823ddcbb755440ddef7ee9c7a7fabf602f59"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass21.json",
+      "sha256": "7e9e2bf11541b7b7a8dbff1ed34bea4562f76af4367193c55f17ceba39121c91"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass22.json",
+      "sha256": "98e5f52a35a34f9d6000568b89ea1c12388bb98edce9f287ab0006c49428cc8c"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+      "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass6.json",
+      "sha256": "7cf66c445de36cd38501210cf5f9492748498e6c20b0c83ffc73fbb9f7712f7b"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass7.json",
+      "sha256": "99cffc119162de3f6644aaeac6b8a2abc50ad4766fe39a4cc498320c2742cf3a"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass8.json",
+      "sha256": "9654320dc0d1e8379439674a450ab9a2f3c3a6df6aa3ebefe6e26ababcc2ad6d"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass9.json",
+      "sha256": "ba33406b2cc39805494337686422bbcf506c5f25f79059655c6f065fa8384fc6"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/lifecycle-eae200a3ea720a51281ba41b25d79e68.json",
+      "sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/readiness-review.json",
+      "sha256": "ecbb0dc824a2ecab9d9baf5fcbb5365dd7b7b92b9807ebb006f6a4ffd14cb1f6"
+    },
+    {
+      "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+      "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+    },
+    {
+      "path": "tests/implementation_scope_snapshot.py",
+      "sha256": "4f87b753b78e6e0467f3b3bf98aea8fd2f328c73d7d946d5983e8e932c3bfbe2"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "0edd543be623876dd0801e05e38770cc43415cba34643b8f410751cb080a885a"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "e5c21851226cf1cd66b740204980beade3cee286b1875a5d4fd7598c78226bc1"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+    },
+    {
+      "path": "tests/test_implementation_progress.py",
+      "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+    },
+    {
+      "path": "tests/test_phase_lifecycle.py",
+      "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+    },
+    {
+      "path": "tests/test_snapshot_validation.py",
+      "sha256": "4739c0c4ed9e9c2883f758afff2cdbdf558b84ca789cb331ffc8e9158fed0090"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "297ff6cc564275c2e169477800efb7d3192f7baec1410a16d7f1e1e7667298e8"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+    },
+    {
+      "path": "tools/catalog.py",
+      "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+    },
+    {
+      "path": "tools/validate_workflows.py",
+      "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+    },
+    {
+      "path": "workflows/README.md",
+      "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+    },
+    {
+      "path": "workflows/farmboy-implement/workflow.yml",
+      "sha256": "ec4e348ad871d4367300c0dcb317cc3b77215274a2bc2783f65def5713730546"
+    }
+  ],
+  "current_proof_bindings": [
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T001-correction-activation.json",
+      "activation_sha256": "05cafb8c9a1234a8e69ba530d21010885516ae8f40c40085895d9f61322a26cd",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "7f054176818f2b75668725526377f539780f32cb16fcdb645680f677efadbb21",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T001-before-authorized-correction.json",
+              "sha256": "7f054176818f2b75668725526377f539780f32cb16fcdb645680f677efadbb21"
+            }
+          ],
+          "source_path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json"
+        }
+      ],
+      "proof_sha256": "8fe6ae5e5bb9a2e72d69cc2a140c46d605419b5df8507dcaf056db6c52295459",
+      "requirement_ids": [
+        "FR-007",
+        "FR-009",
+        "FR-013",
+        "FR-014",
+        "FR-015"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T001"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-activation.json",
+      "activation_sha256": "e11a94ab223a32977cf8efd819eb74b847ee8ddb8b39671ce013d63f3989583e",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-before-test_controller.py",
+              "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+            }
+          ],
+          "source_path": "tests/test_controller.py"
+        }
+      ],
+      "proof_sha256": "00ecd05dd326bcb50d1993444bdd2d13647da0759d57c9210dbb5f6a6ef4691e",
+      "requirement_ids": [
+        "FR-001",
+        "FR-002",
+        "FR-003"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T002"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-activation.json",
+      "activation_sha256": "9420ae2192df451375b3c9ccbcb4435e079c8e3369c33d3fddad953822ceecb0",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "45a6562e2ac0d262db720ddbe50c489cf80c0440e8c0a50f105b6e5bef3768e0",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_graph.py",
+              "sha256": "45a6562e2ac0d262db720ddbe50c489cf80c0440e8c0a50f105b6e5bef3768e0"
+            }
+          ],
+          "source_path": "tests/test_workflow_graph.py"
+        },
+        {
+          "original_sha256": "91f764b188f5dcb12ae60115131d14a9ffeff645a7cbc57ec7ca060efc57a8a2",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_paths.py",
+              "sha256": "91f764b188f5dcb12ae60115131d14a9ffeff645a7cbc57ec7ca060efc57a8a2"
+            }
+          ],
+          "source_path": "tests/test_workflow_paths.py"
+        }
+      ],
+      "proof_sha256": "904c338bf79383e215342b3c74953a4274907203bd3298a19278849d7329b0dd",
+      "requirement_ids": [
+        "FR-001",
+        "FR-003"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T003"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass5-activation.json",
+      "activation_sha256": "56ec6e804f37ebeba6e926d9e1c6b428659d04bd29c3a2292e462e97117001f3",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "1bcd136d7c269070e4f3f9eb3db4b2416aa93c47065deccaf72e3271a642d396",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass5-before-test_catalog.py",
+              "sha256": "1bcd136d7c269070e4f3f9eb3db4b2416aa93c47065deccaf72e3271a642d396"
+            }
+          ],
+          "source_path": "tests/test_catalog.py"
+        }
+      ],
+      "proof_sha256": "21fdff3188b819b26b44fcdaddaa03ac72deb4a92f7e54b460af574e0f74587e",
+      "requirement_ids": [
+        "FR-001",
+        "FR-002"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T004"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "activation_sha256": "b12e854643f58977401aa558997b4fcc0bab6c5acc2c006bbec4470e7c95d4cc",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "402d6a1627f1d7fb4a90146d1f2485b99308596e270fdbe747bbf61d35107496",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-before-controller.py",
+              "sha256": "402d6a1627f1d7fb4a90146d1f2485b99308596e270fdbe747bbf61d35107496"
+            }
+          ],
+          "source_path": "controllers/farmboy/scripts/python/controller.py"
+        }
+      ],
+      "proof_sha256": "48ca264879db1e4b986408834d080abf1e2ac725142a3c33752dc673ac12ee51",
+      "requirement_ids": [
+        "FR-001",
+        "FR-002",
+        "FR-003"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T005"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-activation.json",
+      "activation_sha256": "69366c39800b0f2fb5641aa4e9780ac522aee3266709bbb2adc2abfd9a06d9f0",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "95432c914bd95efd0c48a5b346edbb5e7fe3210315a642d1da1779ab4c495b71",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-before-validate_workflows.py",
+              "sha256": "95432c914bd95efd0c48a5b346edbb5e7fe3210315a642d1da1779ab4c495b71"
+            }
+          ],
+          "source_path": "tools/validate_workflows.py"
+        },
+        {
+          "original_sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T006-pass8-before-catalog.py",
+              "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+            },
+            {
+              "path": "tools/catalog.py",
+              "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+            }
+          ],
+          "source_path": "tools/catalog.py"
+        }
+      ],
+      "proof_sha256": "31aebc7a342f6fbcfc1fede86ceae9632cb3655000921a13a1a5a6926a0a2453",
+      "requirement_ids": [
+        "FR-001",
+        "FR-002"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T006"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-activation.json",
+      "activation_sha256": "c4f3729cc6663a168685d438dfed9423c28e4cc9f598c15005a8016d6b8409d1",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "7f89e9130907a40b8dff1b048036040c65076f2d777700ee4970374947433087",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-before-test_implement_switch_routing.py",
+              "sha256": "7f89e9130907a40b8dff1b048036040c65076f2d777700ee4970374947433087"
+            }
+          ],
+          "source_path": "tests/test_implement_switch_routing.py"
+        }
+      ],
+      "proof_sha256": "1bfadde7d638bff0397998d460cfeea92ac3cb22bd8b9d2502c0c68d49ac6ce2",
+      "requirement_ids": [
+        "FR-005",
+        "FR-006"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T007"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-activation.json",
+      "activation_sha256": "c70f2b15cb8b6560c9aa2634da3ed7cb2402521cc471f3782c0dbc4a7f0228f8",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "131ad065c197a197de0d43c9316be30e06b44d7bd75ab6a05ae958809b391df3",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-before-test_workflow_paths.py",
+              "sha256": "131ad065c197a197de0d43c9316be30e06b44d7bd75ab6a05ae958809b391df3"
+            }
+          ],
+          "source_path": "tests/test_workflow_paths.py"
+        },
+        {
+          "original_sha256": "db8ebb09dfdbb97f09e32da39858634d0893e82de30ccd1fc75e8c724b118a10",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T008-pass7-before-test_controller.py",
+              "sha256": "db8ebb09dfdbb97f09e32da39858634d0893e82de30ccd1fc75e8c724b118a10"
+            }
+          ],
+          "source_path": "tests/test_controller.py"
+        }
+      ],
+      "proof_sha256": "c0357a7f94e39ddfd1738825b887305d4f2b27f6a7fa2174fd92719324122135",
+      "requirement_ids": [
+        "FR-003",
+        "FR-004",
+        "FR-006"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T008"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-activation.json",
+      "activation_sha256": "b6a92c4ee4cea01ab895c8768945672f5089a423159a39ec345d4f8103c54b19",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "72827ffacc23ff11b2c7f169064bbcadda98771e7c04e924ef858d157ef45e2a",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-controller.py",
+              "sha256": "72827ffacc23ff11b2c7f169064bbcadda98771e7c04e924ef858d157ef45e2a"
+            }
+          ],
+          "source_path": "controllers/farmboy/scripts/python/controller.py"
+        },
+        {
+          "original_sha256": "712542c96eeec47fa30623f3b5d4b5321fdf2f7500f3e9976fdf9830678e0968",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_controller.py",
+              "sha256": "712542c96eeec47fa30623f3b5d4b5321fdf2f7500f3e9976fdf9830678e0968"
+            }
+          ],
+          "source_path": "tests/test_controller.py"
+        },
+        {
+          "original_sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_workflow_paths.py",
+              "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+            },
+            {
+              "path": "tests/test_workflow_paths.py",
+              "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+            }
+          ],
+          "source_path": "tests/test_workflow_paths.py"
+        },
+        {
+          "original_sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T009-pass8-before-test_implement_switch_routing.py",
+              "sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd"
+            }
+          ],
+          "source_path": "tests/test_implement_switch_routing.py"
+        }
+      ],
+      "proof_sha256": "08c4e6ffa89c964ce78aaf3931b92504cc7bc1eb2389e44321914f28a2bd2726",
+      "requirement_ids": [
+        "FR-004",
+        "FR-005",
+        "FR-006"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T009"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-activation.json",
+      "activation_sha256": "2b0a2417a91ce99be737982f520fc7b095a40838fb87ee6ec72c023a3fd175a6",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "ee01de9c978d39b61d28e193edb887710b9d7b55f30a27248b7613d3ab5abd2f",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-before-controller-protocol.md",
+              "sha256": "ee01de9c978d39b61d28e193edb887710b9d7b55f30a27248b7613d3ab5abd2f"
+            }
+          ],
+          "source_path": "controllers/farmboy/controller-protocol.md"
+        },
+        {
+          "original_sha256": "e62133f1e07410563fb4727b531c4f67529b35878843df469f6e6af6436fdc98",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T010-pass9-before-README.md",
+              "sha256": "e62133f1e07410563fb4727b531c4f67529b35878843df469f6e6af6436fdc98"
+            }
+          ],
+          "source_path": "workflows/README.md"
+        }
+      ],
+      "proof_sha256": "5cf5fb0bec4d0d9854240b7c1288708d6e87dead48a66a5cbcff1b3bb554d20f",
+      "requirement_ids": [
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "FR-011",
+        "FR-017"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T010"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-activation.json",
+      "activation_sha256": "a2d67f41ad1b72bf62f30be0d3948d8697325a47af869758d64ce7f8f690a2a6",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "f428757f47640dbf4835172149aca5506c0108ade681399dd92fbc555ec192cd",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-before-test_snapshot_validation.py",
+              "sha256": "f428757f47640dbf4835172149aca5506c0108ade681399dd92fbc555ec192cd"
+            }
+          ],
+          "source_path": "tests/test_snapshot_validation.py"
+        },
+        {
+          "original_sha256": "41013198b74f95cb40c8f1a76fe6710cb5402d49464b4ae36738690061c0decd",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T011-pass10-before-implementation-scope-cases.json",
+              "sha256": "41013198b74f95cb40c8f1a76fe6710cb5402d49464b4ae36738690061c0decd"
+            }
+          ],
+          "source_path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json"
+        }
+      ],
+      "proof_sha256": "f8ecec4a7f71eb434726153073273c941bf8bd1dde3402055b6abdd95bed768d",
+      "requirement_ids": [
+        "FR-007",
+        "FR-008",
+        "FR-013"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T011"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-activation.json",
+      "activation_sha256": "8d9ba1fcc486c3bcad46739bb02f8ed9abb196b4ce3994e668def6cdf3bc6038",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-before-test_implementation_progress.py",
+              "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+            },
+            {
+              "path": "tests/test_implementation_progress.py",
+              "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+            }
+          ],
+          "source_path": "tests/test_implementation_progress.py"
+        },
+        {
+          "original_sha256": "b753e57e64d38ced340cd59ced07c109707ed73697657ef2457cfc47108a755d",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T012-pass13-before-test_controller.py",
+              "sha256": "b753e57e64d38ced340cd59ced07c109707ed73697657ef2457cfc47108a755d"
+            }
+          ],
+          "source_path": "tests/test_controller.py"
+        }
+      ],
+      "proof_sha256": "b3a15987283dd50876986865a3aa7cc7f410a38366cf8bc78bb6b246644ffc01",
+      "requirement_ids": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-013"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T012"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T013-pass9-activation.json",
+      "activation_sha256": "10c48d9faf0c5af9989de39ea4a01d58a5dda6b2b5ca198c73048b3072e65665",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "9f996a9c4a4af58e5d630036452f963d43d3f88f71abd5edcd7e26f334723cc5",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T013-pass9-before-test_phase_lifecycle.py",
+              "sha256": "9f996a9c4a4af58e5d630036452f963d43d3f88f71abd5edcd7e26f334723cc5"
+            }
+          ],
+          "source_path": "tests/test_phase_lifecycle.py"
+        }
+      ],
+      "proof_sha256": "7b9388df10a518ebc843d2b9fde3e09b6b9b93d54bd230b6ab2550e598069d12",
+      "requirement_ids": [
+        "FR-008",
+        "FR-012",
+        "FR-013"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T013"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T014-pass16-activation.json",
+      "activation_sha256": "5eabcd8ac4a5090eab63246b64bbe125038d8db154276cb78b7744809c3d1c9f",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "b57b3198a012a0042dad214bac96535a60ea1d24eaea832b75b5f48d664de92f",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T014-pass16-before-implementation_scope_snapshot.py",
+              "sha256": "b57b3198a012a0042dad214bac96535a60ea1d24eaea832b75b5f48d664de92f"
+            }
+          ],
+          "source_path": "tests/implementation_scope_snapshot.py"
+        }
+      ],
+      "proof_sha256": "547a0c1b043d492edcf7db3294a09be5f1454dded99e044350dacfc1ff537a71",
+      "requirement_ids": [
+        "FR-007",
+        "FR-008",
+        "FR-012",
+        "FR-013"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T014"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass20-activation.json",
+      "activation_sha256": "1f676d0e24c204183465344483011dadfd3e2da44600d9a7b913c97dd9d10b04",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "c3966147efbdcae822533d305bcee1068b8cec9e731c6e973c9e2dec31a9c6fc",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T015-pass20-before-implementation_scope_snapshot.py",
+              "sha256": "c3966147efbdcae822533d305bcee1068b8cec9e731c6e973c9e2dec31a9c6fc"
+            }
+          ],
+          "source_path": "tests/implementation_scope_snapshot.py"
+        }
+      ],
+      "proof_sha256": "7d516df7ca2afee97d645d828574d360e130595d75665d69b1d8df0548942076",
+      "requirement_ids": [
+        "FR-009",
+        "FR-010",
+        "FR-011",
+        "FR-012",
+        "FR-013"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T015"
+    },
+    {
+      "activation_evidence": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T016-pass22-activation.json",
+      "activation_sha256": "1b1cf547db02405a647bc9c604a5ba1d570a9a4033f05887cf7ae75553a2bfdc",
+      "current_review": {
+        "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+        "reviewer": "FarmBoy Code Reviewer",
+        "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295",
+        "verdict": "complete"
+      },
+      "original_preimages": [
+        {
+          "original_sha256": "99a8a262101a3889c8ee2e731b034dccafdab2228f7c5d1b7617e344c5b50db8",
+          "retained_evidence": [
+            {
+              "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T016-pass22-before-test_snapshot_validation.py",
+              "sha256": "99a8a262101a3889c8ee2e731b034dccafdab2228f7c5d1b7617e344c5b50db8"
+            }
+          ],
+          "source_path": "tests/test_snapshot_validation.py"
+        }
+      ],
+      "proof_sha256": "5b673b84ac90328e41f84b33a8a3642f42140daab741a911fb22ee82dd786048",
+      "requirement_ids": [
+        "FR-007",
+        "FR-008",
+        "FR-009",
+        "FR-012",
+        "FR-014"
+      ],
+      "strict_current_evidence": "passed",
+      "task_id": "T016"
+    }
+  ],
+  "eligibility_validation_state": "ready",
+  "eligible_task_ids": [
+    "T017"
+  ],
+  "facts": [
+    "Installed scope, eligibility, budget and durable history validators passed with exact retained bindings.",
+    "All 16 current proof aliases, requirement/source/validation/review digests and original activation/preimage identities match the main-supplied retained evidence.",
+    "Both exact T017 findings reproduce against the current authored assertion; corrections remain within existing T017.",
+    "Original applied roadmap receipt and afterimage remain unchanged; no writer invoked.",
+    "Entry index matches 66 paths and original raw binary diff digest."
+  ],
+  "finding_ids": [
+    "F023-T017-R001",
+    "F023-T017-R002"
+  ],
+  "findings": [
+    {
+      "artifact_location": "tests/test_snapshot_validation.py:126",
+      "exact_correction": "Within T017 add focused ordinary-string personal-identifier and embedded absolute-path controls, require recursive rejection independently of field name or delimiter, and prove both controls fail the authored assertion. Keep synthetic test data portable; do not implement T019 writer early.",
+      "id": "F023-T017-R001",
+      "observed_deficiency": "Ordinary string personal identifiers and absolute paths after an opening parenthesis are accepted.",
+      "task_id": "T017",
+      "violated_requirement": "T017 must reject absolute paths and personal identifiers; FR-015 excludes absolute host paths; connected-observations.md prohibits personal names/usernames anywhere in portable output."
+    },
+    {
+      "artifact_location": "tests/test_snapshot_validation.py:111",
+      "exact_correction": "Within T017 author schema/type and blocked-result action assertions with one-field sensitivity controls, bind raw digest assertions to independent fixture-byte/inventory expectations, and provide truthful contract-only provenance for the components used and the runtime/CLI fixture. Contract-only fixtures may remain isolated; actual executed writer output and lifecycle parity remain T019/T018.",
+      "id": "F023-T017-R002",
+      "observed_deficiency": "Boolean/negative counts, nonobject effects, nonstring step IDs, missing reason and blocked action, and syntactically valid false component/inventory digests are accepted; fixture provenance labels do not independently represent the required actual values.",
+      "task_id": "T017",
+      "violated_requirement": "T017 portable contract tests for expected/observed results, effects/dispatch and component raw digests/runtime/inventory; connected-observations.md requires actual reason/action, every used component provenance and actual installed bytes."
+    }
+  ],
+  "gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "observed": "Historical T005 supporting test activation coverage gap retained from independent pass23 audit.",
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "safe_action": "Preserve original records and require complete source-path activation before future effect."
+    },
+    {
+      "id": "compact-loop-summary-gap",
+      "observed": "Compact summary retains incomplete historical iteration coverage and older counters; validated durable 69-event history supplies current counters.",
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/summary.json",
+      "safe_action": "Preserve summary; do not fabricate past loop records."
+    },
+    {
+      "id": "T018-lifecycle-future-contract",
+      "observed": "Independent pass23 validation reports exactly two expected lifecycle failures belonging to future T018.",
+      "path": "tests/test_snapshot_validation.py",
+      "safe_action": "Keep T018 pending; this is not a preparation blocker."
+    }
+  ],
+  "history": {
+    "event_count": 69,
+    "path": ".specify/farmboy-controllers/implementation-history/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0.json",
+    "sha256": "3a57974e704fccbdc70c972ea387ffaf1d5a7b376c4d51371af323b5559b9105"
+  },
+  "inference": [
+    "Current evidence supports bounded same-run recovery entry for T017 using direct operator authority; this grants no finding resolution or task completion.",
+    "Contract-only T017 test corrections require no early T019 writer implementation."
+  ],
+  "installation_fingerprints": {
+    "bundle_record": {
+      "device": 16777232,
+      "inode": 137288087,
+      "sha256": "3336b23e65c77325cf90638510171cda4101556758dada0f9089c46fbd66453e"
+    },
+    "skill_record": {
+      "device": 16777232,
+      "inode": 137414381,
+      "sha256": "bf081294e17f498416145834be9e6ec30c1c6f1c92557d3552586481c9e6f733"
+    }
+  },
+  "main_gates_remain": true,
+  "no_source_task_index_roadmap_history_edits": true,
+  "pending_task_ids": [
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "portable_contract_sensitivity": {
+    "execution_kind": "isolated-current-assertion-reproduction",
+    "single_field_mutations": [
+      {
+        "accepted": true,
+        "mutation": "personal-identifier-in-value"
+      },
+      {
+        "accepted": true,
+        "mutation": "host-path-after-parenthesis"
+      },
+      {
+        "accepted": true,
+        "mutation": "boolean-source-effect-count"
+      },
+      {
+        "accepted": true,
+        "mutation": "negative-dispatch-count"
+      },
+      {
+        "accepted": true,
+        "mutation": "nonobject-effect-record"
+      },
+      {
+        "accepted": true,
+        "mutation": "nonstring-selected-step"
+      },
+      {
+        "accepted": true,
+        "mutation": "missing-observed-reason"
+      },
+      {
+        "accepted": true,
+        "mutation": "false-component-raw-digest"
+      },
+      {
+        "accepted": true,
+        "mutation": "blocked-without-action"
+      },
+      {
+        "accepted": true,
+        "mutation": "false-inventory-digest"
+      }
+    ],
+    "valid_control_passed": true
+  },
+  "preserved_index": {
+    "path_count": 66,
+    "raw_binary_diff_sha256": "9ef601cfe8dade1d0bf5395296941a813876c97cd9ba1c5352ae49ae9f77c6fa"
+  },
+  "reason_code": "bounded-operator-recovery-entry-current",
+  "requested_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "retained_previous_assessment_sha256": "0ea304f0aed27775d4dde293fe12aa04b1d72f2f22f6be41d601c2f93cb80fd1",
+  "retained_task_tracking_count": 12,
+  "retained_task_tracking_sha256": "72ac421361c16192a477382a80055b08803da2b3a2d948f5d621cdf5cb6a9cf8",
+  "reviewer": "FarmBoy Reviewer",
+  "roadmap_receipt": {
+    "effect_id": "lifecycle-eae200a3ea720a51281ba41b25d79e68",
+    "occurred_at": "2026-10-13T16:43:15.825437Z",
+    "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/lifecycle-eae200a3ea720a51281ba41b25d79e68.json",
+    "roadmap_after_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+    "sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+    "writer_replayed": false
+  },
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "safe_resumption_action": "Main controller retains this result, completes declared readiness/owner/activation checks, and records consumed session/attempt history before bounded T017 source effects. Revalidate current evidence immediately before effect.",
+  "schema_version": "1.0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "scope_validation_state": "ready",
+  "source_preimage": {
+    "basis": "Current main-supplied retained checkpoint and independently reviewed source bytes before recovery effect.",
+    "path": "tests/test_snapshot_validation.py",
+    "sha256": "4739c0c4ed9e9c2883f758afff2cdbdf558b84ca789cb331ffc8e9158fed0090"
+  },
+  "state": "ready",
+  "step_id": "assess-implementation-state",
+  "workflow_sha256": "419a55e85f8b6b1c7df2b59c07d2ce3a79e6bf3c73282053a4af131d9f460ca1"
+}

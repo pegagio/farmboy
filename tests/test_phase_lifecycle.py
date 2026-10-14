@@ -754,6 +754,102 @@ class PhaseLifecycleTests(unittest.TestCase):
         self.assertEqual("blocked", result["state"])
         self.assertEqual("revalidate-request-required", result["reason_code"])
 
+    def test_verifyAppliedRoadmapPreimage_reusesReceiptAndRejectsChangedOtherArtifact(self) -> None:
+        import re
+
+        roadmap_path = ".specify/memory/roadmap.md"
+        source_path = "specs/901-phase-lifecycle/validation/source-evidence.json"
+        original = ("## 901 [status: specced]\nDescription: lifecycle fixture\n"
+                    "<!-- version: 1.2.3 ratified: 2026-10-13\n")
+        original_bytes = original.encode()
+        source_bytes = b"current source evidence\n"
+        (self.root / roadmap_path).parent.mkdir(parents=True, exist_ok=True)
+        (self.root / roadmap_path).write_bytes(original_bytes)
+        source_file = self.root / source_path
+        source_file.parent.mkdir(parents=True, exist_ok=True)
+        source_file.write_bytes(source_bytes)
+
+        request = self.request()
+        snapshot = request["snapshot"]
+        snapshot["source_map"][roadmap_path] = sha(original_bytes)
+        snapshot["source_map"][source_path] = sha(source_bytes)
+        proposal = self.proposal(snapshot)
+        proposal["recovery"]["source_preimage"] = original
+        proposal["expected_roadmap_sha256"] = sha(original_bytes)
+        proposal["milestone_evidence"] = [{
+            "milestone": "in-progress", "owning_phase": "implement",
+            "assessments": [{"path": source_path, "sha256": sha(source_bytes),
+                             "kind": "independent-review"}],
+            "required_check_ids": [], "satisfied_check_ids": [], "unresolved_ids": [],
+            "artifact_digests": {}, "historical_activity": [], "pending_future_ids": [],
+        }]
+        proposal["patch_sha256"] = ""
+        operations = {key: value for key, value in proposal.items() if key != "patch_sha256"}
+        operations["recovery"] = {key: value for key, value in proposal["recovery"].items()
+                                  if key != "verification"}
+        proposal["patch_sha256"] = sha(json.dumps(
+            operations, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode())
+
+        heading_end = len("## 901 [status: specced]\n")
+        policy = SimpleNamespace(
+            FOOTER=re.compile(r"<!-- version: (\d+)\.(\d+)\.(\d+) ratified: ([^\n]+)"),
+            ContractError=Exception,
+            entries=lambda _text: {"901": {
+                "status": "specced", "spec_dir": snapshot["feature_directory"],
+                "start": 0, "heading_end": heading_end,
+            }},
+            roadmap_configuration=lambda _project, _yaml: {"roadmap_path": roadmap_path},
+        )
+        bumped = original.replace("[status: specced]", "[status: in-progress]", 1)
+        bumped = bumped.replace("version: 1.2.3", "version: 1.2.4")
+        impact = ("<!-- SYNC IMPACT REPORT\nAuthorization: "
+                  f"{proposal['decision']['reference']}\nEvidence paths: "
+                  f"[{json.dumps(source_path)}]\n-->\n")
+        (self.root / roadmap_path).write_text(impact + bumped, encoding="utf-8")
+        applied_bytes = (self.root / roadmap_path).read_bytes()
+        payload = {
+            "action": "verify-effect", "proposal": proposal,
+            "command_succeeded": True, "occurred_at": "2026-10-13T12:00:00Z",
+        }
+        writer_apply = unittest.mock.Mock(side_effect=AssertionError("roadmap writer must not run"))
+        writer = SimpleNamespace(apply=writer_apply)
+
+        with patch.dict(sys.modules, {"yaml": SimpleNamespace()}), \
+                patch.object(self.module, "_workflow_module", return_value=policy), \
+                patch.object(self.module, "_validate_group") as validate_group, \
+                patch.object(self.module, "_record_effect_receipt", wraps=self.module._record_effect_receipt) as record:
+            first = self.module.workflow_check(self.root, payload)
+            receipt_path = (self.root / snapshot["feature_directory"] / "validation/phase-lifecycle"
+                            / f"{proposal['effect_id']}.json")
+            receipt_bytes = receipt_path.read_bytes()
+            second = self.module.workflow_check(self.root, payload)
+            self.assertEqual("verified", first["state"], first)
+            self.assertEqual(first["receipt"], second["receipt"])
+            self.assertEqual(proposal["effect_id"], second["receipt"]["effect_id"])
+            self.assertEqual(payload["occurred_at"], second["receipt"]["occurred_at"])
+            self.assertEqual(sha(applied_bytes), second["receipt"]["roadmap_after_sha256"])
+            self.assertEqual(1, applied_bytes.count(b"version: 1.2.4"), "readback must retain one version mutation")
+            self.assertEqual(receipt_bytes, receipt_path.read_bytes())
+            self.assertEqual(applied_bytes, (self.root / roadmap_path).read_bytes())
+            self.assertEqual(2, record.call_count)
+            writer_apply.assert_not_called()
+            validate_group.assert_has_calls([
+                unittest.mock.call(self.root, proposal["milestone_evidence"][0], snapshot,
+                                   artifact_preimages={roadmap_path: original_bytes},
+                                   require_start_attestation=False),
+                unittest.mock.call(self.root, proposal["milestone_evidence"][0], snapshot,
+                                   artifact_preimages={roadmap_path: original_bytes},
+                                   require_start_attestation=False),
+            ])
+
+            source_file.write_bytes(b"changed independent source evidence\n")
+            blocked = self.module.workflow_check(self.root, payload)
+            self.assertEqual("blocked", blocked["state"])
+            self.assertEqual("post-effect-source-changed", blocked["reason_code"])
+            self.assertEqual(receipt_bytes, receipt_path.read_bytes())
+            self.assertEqual(applied_bytes, (self.root / roadmap_path).read_bytes())
+            writer_apply.assert_not_called()
+
     def test_renderedRevalidationCallbacks_preserveStrictRequestAndProposal(self) -> None:
         from test_workflow_paths import find_step, load_module as load_controller, load_workflow
 

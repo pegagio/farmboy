@@ -13,7 +13,7 @@ sources:
 - S032
 - S035
 - S003
-updated: '2026-10-12'
+updated: 2026-10-14
 ---
 
 # Bundle and workflow model

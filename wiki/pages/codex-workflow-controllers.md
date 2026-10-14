@@ -1,8 +1,8 @@
 ---
 title: Codex workflow controller design
 type: concept
-sources: [S033, S036]
-updated: 2026-10-12
+sources: [S033, S036, S039]
+updated: 2026-10-14
 ---
 
 # Codex workflow controller design
@@ -28,6 +28,10 @@ The shared protocol retains one metrics correlation UUID across probes, working 
 Begin immediately before native spawn or same-child continuation. Keep the token in main context through pending acknowledgements and polls; finish only after an observed end, including question, rejection, failure or interruption. Finish a question turn before human waiting; a resumed turn gets a new token. Unobserved endings produce no completed record. Tokens never enter child prompts or results. (S033)
 
 Clock, metadata, helper and storage failures warn while preserving original dispatch, results, routing and human gates. Failed begin creates no invented record; finish reads the clock before persistence. Failed publication is not retried or replaced. These are normative protocol requirements, not live instrumentation proof; the [local timing design](./local-agent-timing-metrics.md) defines the record and workbook contract. (S033, S036)
+
+## Feature 023 validation contract
+
+The [validation boundaries](./workflow-validation-boundaries.md) distinguish whole-definition validity, selected-route input availability at consumption, and required source/installed parity. Feature 023 specifies these contracts and deterministic evidence limits; its requirements alone establish no measured live result. (S039)
 
 ## Related pages
 

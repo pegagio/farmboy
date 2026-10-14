@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "scope_sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+  "artifact_digests": {
+    ".specify/feature.json": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43",
+    "specs/023-workflow-branch-validation-controller-integration/spec.md": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+    "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580",
+    ".specify/memory/roadmap.md": "4d7a8d8a6d4b7a028be27c065412ef94fbe10e89336471a0ed7d5b313b90550b",
+    ".specify/memory/constitution.md": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368",
+    "docs/findings/2026-10-12-workflow-reliability-handoff.md": "babe2d902565e0fbc216f20893149523f3c7d8453309df82138f0917b997e773",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-routing.json": "56d54c6112c4c6b25dbca0a5256407c3a1dab38d3866ccbc8a6fd67e2ebc94cc",
+    "specs/022-local-workflow-agent-timing-metrics/validation/implementation/blocked-reentry-after-tracking.json": "80da2ff77852a21251cc04a5c631308b5c897b8d8a1453eb600526f8d6ff4ab2",
+    "wiki/pages/project-authority-and-review-gates.md": "bed854113f4dd00fe61e7f9add1264cbc4964044c6d7bb349dee511626b5213f",
+    "wiki/pages/workflow-graph-responsibility-boundaries.md": "e1317ef3246e8e87dda01213b6d53c773134dacccc023009f868441a13bf5e24",
+    "wiki/pages/controller-assessment-contract.md": "99ae207303be4e4caa0a369c83e26ebaa8112c8ac9f9db7e73a084b2ffae6640",
+    "wiki/pages/workflow-loop-baselines-and-limits.md": "13a44467f0977996ac0a8a5f1ae928239ce470100edee46719c620338024ed44"
+  },
+  "required_check_ids": [
+    "authoring-quality",
+    "clarification",
+    "linkage",
+    "independent-review"
+  ],
+  "satisfied_check_ids": [
+    "authoring-quality",
+    "clarification",
+    "linkage",
+    "independent-review"
+  ],
+  "unresolved_ids": [],
+  "kind": "independent-authoring-review",
+  "reviewer": "FarmBoy Reviewer",
+  "state": "ready"
+}

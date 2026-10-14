@@ -2,7 +2,7 @@
 title: Local agent timing metrics design
 type: decision
 sources: [S018, S033, S036, S037]
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Local agent timing metrics design

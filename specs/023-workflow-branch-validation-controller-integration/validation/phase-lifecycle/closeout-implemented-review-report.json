@@ -1,0 +1,282 @@
+{
+  "assessment_reference": {
+    "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/closeout-implemented-assessment.json",
+    "sha256": "794ba2f2a63c4dd1498d10969b684d3cf18f8553548a48336583dd74a81a382d"
+  },
+  "facts": {
+    "confirmed_buildable_defects": [],
+    "current_attributable_source_records": 18,
+    "current_convergence_state": "complete",
+    "current_specification_status": "Complete",
+    "current_tasks": 25,
+    "hash_mismatches": [],
+    "independently_rechecked_file_hash_pairs": 102,
+    "required_validation": {
+      "checks": [
+        {
+          "command": "PYTHONPATH=tests mise exec -- python -m unittest test_controller test_workflow_graph test_workflow_paths test_implement_switch_routing test_catalog test_implementation_progress test_phase_lifecycle",
+          "errors": 0,
+          "failures": 0,
+          "loopback_permission": "approved narrow escalation for fixture HTTP servers",
+          "result": "passed",
+          "tests": 228
+        },
+        {
+          "command": "FLOW_ROADMAP_SOURCE=<reviewed-local-flow-roadmap-0.4.0> PYTHONPATH=tests mise exec -- python -m unittest discover -s tests -p test_snapshot_validation.py",
+          "errors": 0,
+          "failures": 0,
+          "loopback_permission": "approved narrow escalation for disposable fixture HTTP servers",
+          "result": "passed",
+          "tests": 3
+        },
+        {
+          "command": "mise exec -- python tools/validate_workflows.py --json --fail-on-unexplained",
+          "diagnostic_count": 0,
+          "result": "passed",
+          "unexplained_terminal_count": 0,
+          "workflow_count": 11
+        },
+        {
+          "command": "mise exec -- specify --version",
+          "observed": "specify 1.0.10.dev0+pegagio.2",
+          "result": "passed"
+        }
+      ],
+      "environment": {
+        "PyYAML": "6.0.3",
+        "Python": "3.11.16",
+        "Specify": "1.0.10.dev0+pegagio.2",
+        "cache": "isolated temporary mise cache; no install or environment change",
+        "check": "passed",
+        "prepare": "passed; existing environment unchanged"
+      },
+      "historical_failed_checks_preserved": {
+        "current_status": "All affected catalog tests passed in the current approved loopback rerun; the historical permission failure is resolved for required validation.",
+        "tasker_pass3": "138 ran; 136 passed and 2 catalog fixtures could not bind local HTTP sockets under the sandbox. Original report is unchanged."
+      },
+      "independent_nested_controls": {
+        "one_field_mutations": [
+          {
+            "boundary": "definition",
+            "correction": "Replace the unsupported template expression with {{ inputs.name }} or {{ steps.name.output.value }}.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-expression",
+            "reason_code": "template-expression-unsupported",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Balance each {{ and }} pair, then use a supported workflow template reference.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-opening-delimiter",
+            "reason_code": "template-delimiters-unbalanced",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Balance each {{ and }} pair, then use a supported workflow template reference.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-closing-delimiter",
+            "reason_code": "template-delimiters-unbalanced",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Use nonempty labels whose keys match declared switch branches.",
+            "location": "steps[0].cases.run[0].steps[0].transition_labels",
+            "offending_reference": "transition_labels",
+            "reason_code": "switch-transition-labels-invalid",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          }
+        ],
+        "valid_control": "accepted"
+      },
+      "required_validation_satisfied": true
+    },
+    "status_bridge_exact": true,
+    "strict_assessment_validation": "passed installed milestone_policy.validate_assessment; exact fields; all seven implemented checks; all assessment artifacts read back current"
+  },
+  "future_obligations": {
+    "FB-CONVERGE-001": "Separate future workflow policy task in docs/findings/2026-10-14-converge-reviewed-finding-task-recording-stop.md; requires future approved spec/plan/task reconciliation.",
+    "acceptance_release": "Pending external obligations remain separate; no roadmap verification, Git integration, release, publication or acceptance is established by this assessment."
+  },
+  "gaps": [],
+  "review_evidence": [
+    {
+      "observed": "Shared read-only validation precedes packaging/delivery; malformed bodies/defaults/references reject, supported empties/prior producers accept; exact contextual corrections and actual inventory projection pass.",
+      "requirements": [
+        "FR-001",
+        "FR-002",
+        "FR-003",
+        "SC-001"
+      ],
+      "source": [
+        "controllers/farmboy/scripts/python/controller.py:160",
+        "tools/validate_workflows.py:181",
+        "tools/catalog.py:959"
+      ],
+      "tasks": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T022",
+        "T023",
+        "T024",
+        "T025"
+      ]
+    },
+    {
+      "observed": "Production selected-switch rendering/selection and consumption tests pass; empty/default and skip routes preserve successors, missing selected outputs stop and untaken inputs are not required.",
+      "requirements": [
+        "FR-004",
+        "FR-005",
+        "FR-006",
+        "SC-002",
+        "SC-003"
+      ],
+      "source": [
+        "controllers/farmboy/scripts/python/controller.py:927",
+        "tests/test_implement_switch_routing.py",
+        "tests/test_workflow_paths.py:142"
+      ],
+      "tasks": [
+        "T007",
+        "T008",
+        "T009",
+        "T010"
+      ]
+    },
+    {
+      "observed": "Both connected positive traces use production scope/eligibility/history/selected routing, actual post-pass capture and guarded re-entry; retained historical hashes and current proof are asserted independently in source/installed executions.",
+      "requirements": [
+        "FR-007",
+        "FR-008",
+        "SC-004"
+      ],
+      "source": [
+        "tests/implementation_scope_snapshot.py:832",
+        "tests/test_snapshot_validation.py:461"
+      ],
+      "tasks": [
+        "T011",
+        "T014"
+      ]
+    },
+    {
+      "observed": "Otherwise-valid one-guard negative traces cover historical forgery/absence/unbinding, stale current proof, task mutations, missing/wrong-branch outputs, no progress and both exhausted budgets. Administrative/answer/marker/restart variants preserve counters and earn no credit.",
+      "requirements": [
+        "FR-009",
+        "FR-010",
+        "SC-005"
+      ],
+      "source": [
+        "tests/implementation_scope_snapshot.py:1316",
+        "tests/test_implementation_progress.py",
+        "controllers/farmboy/scripts/python/implementation_scope.py:810"
+      ],
+      "tasks": [
+        "T012",
+        "T015"
+      ]
+    },
+    {
+      "observed": "Production assignment/gate/same-child relay/fingerprint stops and zero undeclared authority effects are asserted. Lifecycle readback retains effect/receipt identity and rejects changed non-roadmap evidence without a second writer.",
+      "requirements": [
+        "FR-011",
+        "FR-012",
+        "FR-013"
+      ],
+      "source": [
+        "controllers/farmboy/controller-protocol.md",
+        "tests/implementation_scope_snapshot.py:2188",
+        "tests/test_phase_lifecycle.py"
+      ],
+      "tasks": [
+        "T013",
+        "T014",
+        "T015",
+        "T018"
+      ]
+    },
+    {
+      "observed": "All 3 actual disposable snapshot tests pass, including isolated source/installed sibling loading, same snapshot scenario outcomes, lifecycle parity and install-refresh-remove preservation; no skipped test is credited.",
+      "requirements": [
+        "FR-014",
+        "SC-006"
+      ],
+      "source": [
+        "tests/test_snapshot_validation.py:74",
+        "tests/test_snapshot_validation.py:461",
+        "tests/implementation_scope_snapshot.py:3688"
+      ],
+      "tasks": [
+        "T016",
+        "T018"
+      ]
+    },
+    {
+      "observed": "Actual observed packet provenance and portability validation plus mutation/sensitivity assertions pass; docs explain definition/runtime boundaries, safe actions and deterministic evidence limits.",
+      "requirements": [
+        "FR-015",
+        "FR-016",
+        "FR-017",
+        "SC-007"
+      ],
+      "source": [
+        "tests/implementation_scope_snapshot.py:2398",
+        "tests/implementation_scope_snapshot.py:2845",
+        "tests/implementation_scope_snapshot.py:3302",
+        "docs/installation.md",
+        "tests/consumer-fixtures/README.md",
+        "workflows/README.md"
+      ],
+      "tasks": [
+        "T017",
+        "T019",
+        "T020",
+        "T021"
+      ]
+    }
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "risks_and_limits": [
+    {
+      "classification": "outside-selected-buildable-scope",
+      "id": "FB-CONVERGE-001",
+      "observed": "Report captures both first reviewer-only task-recording stop and repeated nested-location cycle. Future task preserves original identities/counters and requires approved future spec/plan/task reconciliation before implementation. Feature 023 does not implement the reusable policy correction.",
+      "path": "docs/findings/2026-10-14-converge-reviewed-finding-task-recording-stop.md"
+    },
+    {
+      "classification": "historical-protocol-gap",
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "observed": "The original Implement completion records the T005 supporting-test activation exception. No retroactive activation, history rewrite or new acceptance claim is made."
+    },
+    {
+      "classification": "evidence-limit",
+      "observed": "Linux execution and live native effective model/effort settings remain unverified; deterministic source/installed parity does not establish publication, stock compatibility, adoption, acceptance or effective native settings."
+    },
+    {
+      "classification": "outside-feature-validation",
+      "observed": "The earlier broad metrics et_xmlfile dependency failure remains historical outside Feature 023; no dependency/environment change or broad unchanged 690-test rerun was performed."
+    }
+  ],
+  "run_id": "d1a331ba-5569-4c8a-a43f-872e20a2af18",
+  "schema_version": "1.0",
+  "state": "ready",
+  "step_id": "assess-implemented-lifecycle-milestone",
+  "validation_decision": {
+    "basis": "The source and test files match the current successful convergence validation; the sole subsequent scope change is independently proved to be the status-only specification owner effect. No code change, new failure or unresolved scope defect justifies repetition. Existing environment prepare/check passed using isolated temporary cache; no environment change.",
+    "required_suites_repeated": false
+  }
+}

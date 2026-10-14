@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "reviewer": "FarmBoy Code Reviewer",
+  "reviewed_task_ids": [
+    "T002",
+    "T004"
+  ],
+  "completed_task_ids": [
+    "T002"
+  ],
+  "frozen_baseline_sha256": "35949fbfc3efb8e672520b2750daf68beb962bfd8b2154fd78efe157ffc1a40e",
+  "facts": [
+    "Immutable before snapshots, activation preimages, source delta hashes and current after bytes match for both corrected files.",
+    "Both diagnostic matrices keep validation and all assertions inside each subTest; all seven malformed container cases and five producer cases execute independently. Root metadata without an ID expects null workflow identity; definitions carrying fixture retain that identity.",
+    "Explicit diagnostic serialization assertions exclude raw input default, prompt and absolute-path sentinel strings, consistent with validation-boundaries.md.",
+    "Independent controller suite: 77 tests, 14 failures, zero errors; failures are the added pending-production definition diagnostic expectations.",
+    "Independent catalog suite: 33 tests, five failures, zero errors; the matching-inventory verification control passes, malformed verification returns normally, and install/refresh fail at snapshot status without a definition diagnostic.",
+    "Graph/path/switch suites independently pass 16/30/7 tests; retained completion proof evidence was rehashed against current bytes.",
+    "This reviewer changed no source, task markers, roadmap, or index."
+  ],
+  "confirmed_defects": [
+    {
+      "artifact_location": "tests/test_catalog.py:145",
+      "evidence": [
+        {
+          "path": "tests/test_catalog.py",
+          "sha256": "1bcd136d7c269070e4f3f9eb3db4b2416aa93c47065deccaf72e3271a642d396"
+        }
+      ],
+      "exact_correction": "Preserve the matched-inventory verification and checksum controls. Establish disposable supported valid install and refresh controls with matching inventory and valid delivery prerequisites, then change only definition plus its recorded digest and assert the definition diagnostic and unchanged consumer/package inventories for each action. Reuse existing test seam/fixtures without bypassing the validator under test; do not count snapshot-status rejection as delivery control success.",
+      "id": "F023-T004-R001",
+      "observed_deficiency": "Matching-inventory verification now has a valid control and detects malformed-definition acceptance. However delivery uses release status snapshot, calls install(project, refresh) without development_snapshot, and never establishes successful otherwise-valid install/refresh controls. Both malformed delivery variants independently hit the unrelated snapshot-status ValueError at tools/catalog.py:1097. These inputs therefore cannot prove malformed definition is the sole failing delivery boundary or cover supported delivery success.",
+      "task_id": "T004",
+      "violated_requirement": "T004 and FR-001: source-definition validation must be exercised before release verification and install/refresh effects."
+    }
+  ],
+  "resolved_findings": [
+    {
+      "id": "F023-T002-R001",
+      "resolution": "Per-case expected workflow identity eliminates the invented root ID expectation."
+    },
+    {
+      "id": "F023-T002-R002",
+      "resolution": "All assertions remain inside each subTest and diagnostic privacy exclusion assertions were added."
+    }
+  ],
+  "expected_pending_production_gaps": [
+    {
+      "owner": "T005",
+      "observed": "The newly exercised definition diagnostics are not implemented; expected test reds do not themselves establish a test defect."
+    },
+    {
+      "owner": "T006",
+      "observed": "Malformed definitions remain accepted by build, snapshot and matching-inventory verification."
+    }
+  ],
+  "gaps": [
+    "F023-T004-R001 remains unresolved for supported install/refresh controls; matching-inventory verification portion is substantively improved.",
+    "No installed parity or connected integration completion is claimed; those tasks remain pending."
+  ],
+  "inference": [
+    "T002 is a whole test-authoring task, independently substantiated despite pending T005 production reds; production completion is not inferred.",
+    "T004 remains eligible and owns the exact retained correction, so Tasker plan revision is unnecessary."
+  ],
+  "source_evidence": [
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "e39e45b1e706d07c1fe02fa938aaab31992b24e3a3936fa6b7bab18c2573df51"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-before-test_controller.py",
+      "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-source-delta.diff",
+      "sha256": "75b0accd389cb6013844c6ea6928c84bdcbc867c7ebf20c1fa6fd1a4a743b5d4"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass4-activation.json",
+      "sha256": "adfcb4c73e738b7be78808a72915dc99ff5d02e84631b2dacbde4e6cdb138c84"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "1bcd136d7c269070e4f3f9eb3db4b2416aa93c47065deccaf72e3271a642d396"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass4-before-test_catalog.py",
+      "sha256": "d1889e676cf01e6bba85a8417f4cec7cb0cd1259cc3b3e4d7568cea8ba179a69"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass4-source-delta.diff",
+      "sha256": "fc0d2c466d3da13f8bf430be091281b03511f78e2e63116b1965e8c867846ecb"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass4-activation.json",
+      "sha256": "d37f9bb3f7a4b16f13a567da3e61ff3c625431e0d18bfa71ca2f68234cb27088"
+    }
+  ],
+  "validation": {
+    "test_controller": {
+      "tests": 77,
+      "failures": 14,
+      "errors": 0
+    },
+    "test_catalog": {
+      "tests": 33,
+      "failures": 5,
+      "errors": 0
+    },
+    "test_workflow_graph": {
+      "tests": 16,
+      "failures": 0
+    },
+    "test_workflow_paths": {
+      "tests": 30,
+      "failures": 0
+    },
+    "test_implement_switch_routing": {
+      "tests": 7,
+      "failures": 0
+    }
+  },
+  "task_requirement_coverage": {
+    "T002": {
+      "FR-001": "Malformed root/node/case/default containers and supported empty branches have production validator assertions.",
+      "FR-002": "Per-case workflow/step/location, stable reason codes, correction, misplaced default guidance and diagnostic privacy assertions are explicit.",
+      "FR-003": "Unknown, self, forward, cross-branch and post-join-infeasible producer cases all execute independently."
+    }
+  }
+}

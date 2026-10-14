@@ -1,0 +1,5 @@
+{
+  "occurred_at": "2026-10-13T14:45:14.880610Z",
+  "roadmap_after_sha256": "560e87dcc9942d3d639e5bcd826f508fc34b1efd434df940cf37b1b6d2ef962f",
+  "observation": "main-controller observed current authorized command effect during active dispatch"
+}

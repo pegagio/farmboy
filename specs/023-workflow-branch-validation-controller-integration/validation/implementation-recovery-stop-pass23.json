@@ -1,0 +1,130 @@
+{
+  "state": "blocked",
+  "reason_code": "no-progress",
+  "resume_action": "retain-guarded-stop-and-resolve-reported-blocker",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015",
+    "T016"
+  ],
+  "remaining_task_ids": [
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "open_finding_ids": [
+    "F023-T017-R001",
+    "F023-T017-R002"
+  ],
+  "source_sessions_started": 23,
+  "source_attempts_started": 23,
+  "authorized_budget_limit": 30,
+  "budget_remaining": 7,
+  "source_budget_exhausted": false,
+  "latest_outcome_event_appended": true,
+  "history_sha256": "3a57974e704fccbdc70c972ea387ffaf1d5a7b376c4d51371af323b5559b9105",
+  "historical_records_rewritten": false,
+  "roadmap_write_repeated": false,
+  "roadmap_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+  "lifecycle_receipt_sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+  "staged_file_count_preserved": 66,
+  "staged_diff_sha256_preserved": "9ef601cfe8dade1d0bf5395296941a813876c97cd9ba1c5352ae49ae9f77c6fa",
+  "source_review_evidence": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+  "retained_recovery_checkpoint": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass23.json",
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "recovery_summary_limits": {
+    "compact_loop_pass_iterations": [
+      1
+    ],
+    "append_only_execution_history_complete": true,
+    "original_summary_records_preserved": true
+  },
+  "requested_finding": "F023-T016-R003",
+  "requested_finding_status": "independently-resolved-pass22",
+  "newly_completed_task_ids": [
+    "T016"
+  ],
+  "retained_next_baseline_sha256": "ec19f3786d3a3bde13f01bc5b4e903879a995a424a0cbf0b695a79939864c7cd",
+  "confirmed_defects": [
+    {
+      "artifact_location": "tests/test_snapshot_validation.py:126",
+      "evidence": [
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "4739c0c4ed9e9c2883f758afff2cdbdf558b84ca789cb331ffc8e9158fed0090"
+        },
+        {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+          "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295"
+        }
+      ],
+      "exact_correction": "Within T017 add focused ordinary-string personal-identifier and embedded absolute-path controls, require recursive rejection independently of field name or delimiter, and prove both controls fail the authored assertion. Keep synthetic test data portable; do not implement T019 writer early.",
+      "id": "F023-T017-R001",
+      "observed_deficiency": "Independent valid-control single-field mutations placing the local personal username inside ordinary observed.note or placing an absolute /home/synthetic-user/project path after an opening parenthesis are accepted. The identity guard checks reserved field names/email only, and host-path regex requires start/whitespace/colon/equals delimiters. Existing negative tests miss both value/delimiter cases.",
+      "task_id": "T017",
+      "violated_requirement": "T017 must reject absolute paths and personal identifiers; FR-015 excludes absolute host paths; connected-observations.md prohibits personal names/usernames anywhere in portable output."
+    },
+    {
+      "artifact_location": "tests/test_snapshot_validation.py:111",
+      "evidence": [
+        {
+          "path": "tests/test_snapshot_validation.py",
+          "sha256": "4739c0c4ed9e9c2883f758afff2cdbdf558b84ca789cb331ffc8e9158fed0090"
+        },
+        {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass23.json",
+          "sha256": "1c7b258c11cdc04362fab8a54f630a258a31ec14819b3852f4628f467d499295"
+        }
+      ],
+      "exact_correction": "Within T017 author schema/type and blocked-result action assertions with one-field sensitivity controls, bind raw digest assertions to independent fixture-byte/inventory expectations, and provide truthful contract-only provenance for the components used and the runtime/CLI fixture. Contract-only fixtures may remain isolated; actual executed writer output and lifecycle parity remain T019/T018.",
+      "id": "F023-T017-R002",
+      "observed_deficiency": "Valid-control mutations accepting boolean source_effect_count, negative dispatch_count, effects [42], selected_step_ids [42], missing reason_code and blocked decision without resume_action prove required result types/action fields are not asserted. Replacing component/source and inventory digests with 64 zeros also passes; tests check digest syntax only. The passing fixture calls a controller-file hash installed_inventory_sha256 and a manifest required CLI version tested_cli_version, so no truthful inventory/runtime expectation is independently checked.",
+      "task_id": "T017",
+      "violated_requirement": "T017 portable contract tests for expected/observed results, effects/dispatch and component raw digests/runtime/inventory; connected-observations.md requires actual reason/action, every used component provenance and actual installed bytes."
+    }
+  ],
+  "validation": {
+    "focused_tests_run": 263,
+    "expected_t018_lifecycle_failures": 2,
+    "other_failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "independent_invalid_contract_mutations_accepted": 10,
+    "prior_current_proofs_revalidated": 16,
+    "paired_empty_case_mutants_detected": 2,
+    "isolated_lifecycle_mutations_detected": 8,
+    "broader_metrics_environment_limitation": "Previously reproduced missing et_xmlfile remains unresolved; no dependency or environment change was made.",
+    "limits": "T017 remains incomplete. Actual lifecycle execution and writer/provenance parity remain pending T018/T019; no broader compatibility, publication, adoption, or acceptance claim."
+  },
+  "workflow_defect_report": "docs/findings/2026-10-13-implement-first-defect-correction-stop.md",
+  "tasker_report_correction": {
+    "initial_result_retained": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/tasker-initial-result-pass22.json",
+    "initial_validator_stop_retained": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/tracking-initial-blocked-pass22.json",
+    "corrected_same_child": true,
+    "source_counter_reset": false
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "baseline_sha256": "e2b2636ba5a96f313d7e40062888a62e39a34ba61a3b75a5885518982447a967",
+  "completed_task_ids": [
+    "T004",
+    "T005"
+  ],
+  "confirmed_defects": [
+    {
+      "id": "F023-T008-R001",
+      "location": "tests/test_controller.py:716",
+      "safe_correction": "Exercise actual production freshness/current-output guard using valid bound prior-pass evidence; preserve positive/missing/invalid controls.",
+      "status": "unresolved",
+      "task_id": "T008"
+    }
+  ],
+  "currently_revalidated_prior_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T007"
+  ],
+  "facts": [
+    "T005 correction inspects nested ordinary cases/default/steps/condition payloads; unknown/forward/cross-route assertions pass, while actual loop condition remains supported. Current controller/path/graph suites pass 125 tests.",
+    "T004 Source5 before snapshot and ready activation substantiate actual catalog regression authoring. Source6 made no catalog delta; whole task credit reflects present independent test-authoring assessment, not a newly invented source effect.",
+    "Four T004 focused methods run with seven assertion failures owned by pending T006: invalid build/snapshot are accepted, matched inventory verification accepts invalid source, and delivery reaches packaging before definition rejection. Valid development install/refresh controls succeed. Both before/after inventories and no-package-call assertions are present.",
+    "Current T002 seven container diagnostic cases, root/null-location identity, five producer cases and privacy assertions remain intact after supporting nested-key regression. Current T003 owned inventory/earlier producer/stop-only tests remain intact; current switch seven tests pass.",
+    "T001 fixture source is unchanged from prior native accepted proof; original same-child answer control/fresh corrective-session distinction, all 15 SI legacy records, requirement mappings and unique 33 Feature023 IDs retained.",
+    "F023-T008-R001 remains unresolved: stale-excluded is still merely the missing-output empty map. Source6 activation blocked before T008 effects.",
+    "All original native review identities, finding baseline preimages and historical successor chain remain immutable. Fresh current native fulfillment evidence is recorded separately."
+  ],
+  "inference": [
+    "Whole T004 fulfills authored regression obligations despite pending T006 reds, consistent with original T002 test-first semantics; this does not claim catalog production correctness.",
+    "T005 production obligation is fulfilled by retained Source5 plus Source6 correction; supporting tests activation gap is reported separately.",
+    "Existing T008 owns remaining exact correction; no task revision needed."
+  ],
+  "no_source_marker_roadmap_or_git_edits": true,
+  "prior_review_identity_evidence": [
+    {
+      "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass2.json",
+      "reviewer": "FarmBoy Code Reviewer",
+      "sha256": "45b021d142ac634cd85222406b9f79c877c602f580399486978d9f29600197ab",
+      "verdict": "complete"
+    },
+    {
+      "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass4.json",
+      "reviewer": "FarmBoy Code Reviewer",
+      "sha256": "191d648ab9b7c836f6f7afb9e92a1a503acf17ea236a76efe28233e6e6ae0f68",
+      "verdict": "complete"
+    },
+    {
+      "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass3.json",
+      "reviewer": "FarmBoy Code Reviewer",
+      "sha256": "cb440d6a0043c3af6a934e2595fb2913e368e895d70946d9bd5c8060e3130a79",
+      "verdict": "complete"
+    },
+    {
+      "reference": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass3.json",
+      "reviewer": "FarmBoy Code Reviewer",
+      "sha256": "cb440d6a0043c3af6a934e2595fb2913e368e895d70946d9bd5c8060e3130a79",
+      "verdict": "complete"
+    }
+  ],
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "schema_version": "1.0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "source_evidence": [
+    {
+      "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+      "sha256": "1ba407a977ea9ccf78102845b122b1264726066974901c0a5e500d70d09b05b3"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "db8ebb09dfdbb97f09e32da39858634d0893e82de30ccd1fc75e8c724b118a10"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "297ff6cc564275c2e169477800efb7d3192f7baec1410a16d7f1e1e7667298e8"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "131ad065c197a197de0d43c9316be30e06b44d7bd75ab6a05ae958809b391df3"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "0edd543be623876dd0801e05e38770cc43415cba34643b8f410751cb080a885a"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "72827ffacc23ff11b2c7f169064bbcadda98771e7c04e924ef858d157ef45e2a"
+    }
+  ],
+  "validation": [
+    {
+      "command": "mise exec -- python -m unittest tests.test_controller tests.test_workflow_paths tests.test_workflow_graph",
+      "result": "125 passed"
+    },
+    {
+      "command": "mise exec -- python -m unittest discover -s tests -p test_implement_switch_routing.py",
+      "result": "7 passed"
+    },
+    {
+      "command": "four focused CatalogReleaseTests Feature023 methods",
+      "result": "4 ran; 7 expected pending-T006 assertions failed; supported valid development install/refresh controls succeeded"
+    }
+  ],
+  "validation_invocation_gap": "Initial package-style switch import failed because sibling test_workflow_paths is discover-relative; corrected discover invocation passed. This was a command-context error, not a product defect."
+}
