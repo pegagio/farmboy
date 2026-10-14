@@ -1,0 +1,301 @@
+{
+  "activation": {
+    "activation_evidence_path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T021-pass34-activation.json",
+    "activation_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0-T021-activation",
+    "eligibility_sha256": "14dd6f73d42b3ff99f36e9457950a9bc6c41c8c82b3ea277029bb39160989cdf",
+    "predecessor_baseline_sha256": "b232192618275a99da90c85031ee1fd4c124f7a737ed899607f1eba52cc803d2",
+    "readiness_evidence": [
+      {
+        "path": "specs/023-workflow-branch-validation-controller-integration/validation/readiness-review.json",
+        "sha256": "ecbb0dc824a2ecab9d9baf5fcbb5365dd7b7b92b9807ebb006f6a4ffd14cb1f6"
+      }
+    ],
+    "state": "ready",
+    "task_preimage": [
+      {
+        "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-final-validation.json",
+        "state": "absent"
+      }
+    ]
+  },
+  "actual_results": {
+    "detail_reports": "captured outside the repository for this run",
+    "focused_test_log": "T021-pass34-focused-tests.log",
+    "snapshot_test_log": "T021-pass34-snapshot-test.log",
+    "workflow_validation_log": "T021-pass34-validate-workflows.log"
+  },
+  "deterministic_limits": [
+    "Validation used deterministic disposable-consumer fixtures; it does not establish live native-agent identity or effective settings.",
+    "Linux remains deferred.",
+    "No publication, stock Specify compatibility, consumer adoption, roadmap verification of Feature 023, Git integration, or feature acceptance claim follows."
+  ],
+  "lifecycle_readback": {
+    "non_roadmap_artifact_mutation_state": "blocked",
+    "non_roadmap_artifact_reason_code": "post-effect-source-changed",
+    "reassessment_state": "verified",
+    "receipt_identity_after": "specs/998-lifecycle-readback/validation/phase-lifecycle/lifecycle-readback-effect.json",
+    "receipt_identity_before": "specs/998-lifecycle-readback/validation/phase-lifecycle/lifecycle-readback-effect.json",
+    "receipt_sha256_after": "81d8bc9d047a78bfbda405eb7ef61775c651c0b74977dfc7c2010f73d514cf2b",
+    "receipt_sha256_before": "81d8bc9d047a78bfbda405eb7ef61775c651c0b74977dfc7c2010f73d514cf2b",
+    "receipt_timestamp_after": "2026-10-14T03:42:58Z",
+    "receipt_timestamp_before": "2026-10-14T03:42:58Z",
+    "roadmap_mutation_count_after_reassessment": 1,
+    "roadmap_mutation_count_before_reassessment": 1,
+    "subprocess_runtime_state": "verified",
+    "writer_invocations_after_readback": 1,
+    "writer_invocations_before_readback": 1
+  },
+  "pass": 34,
+  "prerequisite_notes": [
+    "An initial snapshot invocation with a relative FLOW_ROADMAP_SOURCE path failed before test setup because that path did not resolve to the configured source; the configured compatible local source then passed all 3 tests.",
+    "Mise cache writes were sandbox-denied on the first calls; approved command reruns succeeded."
+  ],
+  "prior_qa_context": {
+    "evidence_path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass33.json",
+    "finding_count": 0,
+    "retained_finding_count": 0,
+    "retained_progress_evidence_path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/eligibility-current-pass33.json",
+    "retained_proof_count": 20
+  },
+  "provenance": {
+    "components": [
+      {
+        "id": "farmboy",
+        "source_coordinates": [
+          "bundles/farmboy/bundle.yml"
+        ],
+        "source_sha256": "c455102273849114009feacf72c53008debececf0f08c7adba2791592477413f",
+        "version": "0.18.3"
+      },
+      {
+        "declared_source_sha256": "a7c63afd41625b0144f704d1799f76d0f9f91f36d7c909f422766ccbe2001e0e",
+        "id": "farmboy-controllers",
+        "manifest_raw_sha256": "37727ed2d5f63de5c23fb5c1725bb07f115d392a1bdd4b29b7c93fcd205ab922",
+        "source_coordinates": [
+          "controllers/farmboy/manifest.yml"
+        ],
+        "version": "0.9.1"
+      },
+      {
+        "declared_source_sha256": "e638cd309f584b7f567e0ab6d2e53f65a220d8b1cd7b91a6a2f665be01988cf2",
+        "id": "farmboy-agents",
+        "release_artifact_sha256": "e12aaf80e5ae88f06180efdba2d4154fe5658bf15ebfe21e58f7b61bb307e39a",
+        "source_coordinates": [
+          "agents/farmboy/manifest.yml"
+        ],
+        "version": "0.2.0"
+      },
+      {
+        "id": "farmboy-feedback",
+        "release_artifact_sha256": "6eb29db32dfb072470fc0b558b0f064381161dc2f94c400d994885a94ca2a058",
+        "source_coordinates": [
+          "catalog/packages/farmboy-feedback-0.2.1.zip"
+        ],
+        "version": "0.2.1"
+      },
+      {
+        "id": "flow-roadmap",
+        "release_artifact_sha256": "90a28d748e6d48fb7ade335f7f40e2cb778a5e959aee1f96ff537e18feff4366",
+        "source_coordinates": [
+          "flow-roadmap/extension.yml (configured compatible source; path omitted for portability)"
+        ],
+        "source_manifest_raw_sha256": "ea5c3cd34e8191298e5829ecb1167f8a1e8ac141ca10dae397caeff8a5515fd5",
+        "version": "0.4.0"
+      },
+      {
+        "id": "flow-wiki",
+        "release_artifact_sha256": "20cebb4f591d5a83b0c45ae28a0448cb9d29368e5b65e2d28ba106a3ffd488ff",
+        "source_coordinates": [
+          "catalog/packages/flow-wiki-2.0.1.zip"
+        ],
+        "version": "2.0.1"
+      },
+      {
+        "id": "farmboy-select-feature",
+        "source_coordinates": [
+          "workflows/farmboy-select-feature/workflow.yml"
+        ],
+        "source_sha256": "e2be8dc876f14834e61dcfe8611a85d9f2507fbaeb74a882fcd9d35e22dc5a38",
+        "version": "0.2.1"
+      },
+      {
+        "id": "farmboy-specify",
+        "source_coordinates": [
+          "workflows/farmboy-specify/workflow.yml"
+        ],
+        "source_sha256": "5a9d9e800489b3ed8cfbd9e4e52f35d3dfa0e91207fa8c133a83986709753583",
+        "version": "0.4.1"
+      },
+      {
+        "id": "farmboy-clarify",
+        "source_coordinates": [
+          "workflows/farmboy-clarify/workflow.yml"
+        ],
+        "source_sha256": "d47daa0f4e1d4f1bcb908585797c220ca8b2ffc0cbf53c2dce68856ea4293a6b",
+        "version": "0.5.1"
+      },
+      {
+        "id": "farmboy-plan",
+        "source_coordinates": [
+          "workflows/farmboy-plan/workflow.yml"
+        ],
+        "source_sha256": "2bffeb02959ba549f81011b84dc360a3ad8db556f814dc1e86baa2c6c6b8934c",
+        "version": "0.5.1"
+      },
+      {
+        "id": "farmboy-tasks",
+        "source_coordinates": [
+          "workflows/farmboy-tasks/workflow.yml"
+        ],
+        "source_sha256": "f4ac31912770d3a123f61aac2985dd06fe560e4bfd559143d62513a486944e11",
+        "version": "0.5.1"
+      },
+      {
+        "id": "farmboy-analyze-remediate",
+        "source_coordinates": [
+          "workflows/farmboy-analyze-remediate/workflow.yml"
+        ],
+        "source_sha256": "91b626fb15d8155d3f6c24a36ce43e94bca85754a5f0692cf92f2d54c239a9af",
+        "version": "0.6.1"
+      },
+      {
+        "id": "farmboy-implement",
+        "source_coordinates": [
+          "workflows/farmboy-implement/workflow.yml"
+        ],
+        "source_sha256": "ec4e348ad871d4367300c0dcb317cc3b77215274a2bc2783f65def5713730546",
+        "version": "0.9.1"
+      },
+      {
+        "id": "farmboy-converge",
+        "source_coordinates": [
+          "workflows/farmboy-converge/workflow.yml"
+        ],
+        "source_sha256": "1e9f9693927db055f357c3f527408f07af8435b8d02f954aa0d75307b73126e9",
+        "version": "0.5.1"
+      },
+      {
+        "id": "farmboy-closeout",
+        "source_coordinates": [
+          "workflows/farmboy-closeout/workflow.yml"
+        ],
+        "source_sha256": "f7fc526dc6feb2f8eed03bc633d024ca12d67a744de8c9db9d82b117d3453ad8",
+        "version": "0.9.2"
+      },
+      {
+        "id": "farmboy-wiki-lint-update",
+        "source_coordinates": [
+          "workflows/farmboy-wiki-lint-update/workflow.yml"
+        ],
+        "source_sha256": "5999721f83a0c30b1d74464276a469198d7b9961bda14bbf9d62f5f95c9cb744",
+        "version": "0.2.1"
+      }
+    ],
+    "mise_version": "2026.10.0",
+    "python_version": "3.11.16",
+    "pyyaml_version": "6.0.3",
+    "source_dirty": true,
+    "source_repository": "pegagio/farmboy",
+    "source_revision": "54b394e1b363a93db1d91e27f5d0e57a5eccadd6",
+    "tested_cli_version": "specify 1.0.10.dev0+pegagio.2"
+  },
+  "retained_gaps": [
+    "The previously observed broader 485-test metrics gap (22 et_xmlfile-related errors and 3 skips) was not rerun in this T021 pass; no dependency or environment changes were made."
+  ],
+  "schema_version": "1.0",
+  "scope": {
+    "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+    "requested_task_ids": [
+      "T001",
+      "T002",
+      "T003",
+      "T004",
+      "T005",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018",
+      "T019",
+      "T020",
+      "T021"
+    ],
+    "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38"
+  },
+  "source_installed_parity": {
+    "connected_case_count": 15,
+    "consumer_preservation": "install-refresh-remove-passed",
+    "installed_owned_file_count": 79,
+    "installed_owned_inventory_sha256": "351869429649b875872ed7ca1f210c8ef52c544d4ae870f280df97430dd9d8cd",
+    "portable_observation_count": 63,
+    "positive_trace_ids": [
+      "F023-POSITIVE-REVIEWED-SOURCE-CORRECTION",
+      "F023-POSITIVE-TASK-RESOLUTION-MARKER-ONLY"
+    ],
+    "raw_file_equality": {
+      "controllers/farmboy/scripts/python/controller.py": "7f8562af3be5ee02ad4dce0fe4b1087cbb8ddf14aafd8a7cf2cffe431f5f3161",
+      "controllers/farmboy/scripts/python/implementation_scope.py": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971",
+      "controllers/farmboy/scripts/python/phase_lifecycle.py": "05f3805a11a3a026c58a0531af85dacd765230223752f75dc23787261e31c14f",
+      "workflows/farmboy-implement/workflow.yml": "ec4e348ad871d4367300c0dcb317cc3b77215274a2bc2783f65def5713730546"
+    },
+    "result": "match"
+  },
+  "status": "candidate_completed_pending_native_qa",
+  "task_id": "T021",
+  "validation": [
+    {
+      "command": "mise run python:prepare",
+      "id": "python-prepare",
+      "observed": "Existing .venv was ready; it was not changed.",
+      "result": "passed"
+    },
+    {
+      "command": "mise run python:check",
+      "id": "python-check",
+      "observed": "Python 3.11.16; PyYAML 6.0.3.",
+      "result": "passed"
+    },
+    {
+      "command": "mise exec -- specify --version",
+      "id": "specify-version",
+      "observed": "specify 1.0.10.dev0+pegagio.2",
+      "result": "passed"
+    },
+    {
+      "command": "mise exec -- python tools/validate_workflows.py --json --fail-on-unexplained",
+      "exit_code": 0,
+      "id": "workflow-source-validation",
+      "observed": "No unexplained terminal paths were reported.",
+      "result": "passed",
+      "workflow_count": 11
+    },
+    {
+      "command": "PYTHONPATH=tests mise exec -- python -m unittest test_controller test_workflow_graph test_workflow_paths test_implement_switch_routing test_catalog test_implementation_progress test_phase_lifecycle",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "id": "focused-source-tests",
+      "result": "passed",
+      "test_count": 223
+    },
+    {
+      "command": "FLOW_ROADMAP_SOURCE=<configured-compatible-local-source> PYTHONPATH=tests mise exec -- python -m unittest discover -s tests -p test_snapshot_validation.py",
+      "environment_path_redacted_for_portability": true,
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "id": "snapshot-installed-parity",
+      "observed": "Run repeated with optional report outputs enabled; source install, refresh, and removal lifecycle completed.",
+      "result": "passed",
+      "test_count": 3
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "baseline_sha256": "69f018ad5020402e3fc7251e3c03449b27d7ab78a6cda82e6529f65a46ea2c90",
+  "completed_task_ids": [
+    "T011"
+  ],
+  "confirmed_defects": [],
+  "currently_revalidated_prior_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T013"
+  ],
+  "facts": [
+    "T011 attributable pass10 delta replaces the shared positive result lookup with an exact two-ID result mapping, distinct adapter-result paths, and per-ID equality assertions for ordered sequence and all expected scope/assessment/source-preimage preservation and current-review recheck flags. Different task-resolution/marker-only versus reviewed-source-correction boundaries remain explicit.",
+    "Independent assertion-contract controls passed: two distinct valid per-ID results pass; missing ID, wrong ordered sequence, false retained digest flag, false current-review flag, and reusing the other trace result each fail. These are assertion sensitivity checks only, not connected production execution.",
+    "T001 independently revalidated: pass10 fixture changes affect only connected_positive_traces adapter_result_path values. All prior scenario definitions, stable IDs, valid-control links, negative mutations, historical/current boundaries and same-child versus fresh corrective-session controls are byte-semantically unchanged.",
+    "All eleven previous current task proofs T001-T010 and T013 were rechecked against source, unchanged activation/preimages and focused guards. Only the changed fixture needs new current source evidence; historical preimages/activation/retained scope and assessment identities remain unchanged.",
+    "Independent focused regression suites passed 217 tests: controller79, progress17, lifecycle32, paths30, switches10, catalog33, graph16. Existing environment Python3.11.16/PyYAML6.0.3 remained unchanged.",
+    "Actual disposable snapshot with verified compatible roadmap0.4.0 fails at SI001 eligibility before new positive assertions because the harness references nonexistent deterministic-review-SI001-T068. No connected execution or parity success claimed; actual contained review evidence and shared adapter remain T014/T018-owned.",
+    "T012 activation correctly blocked before effect after fixture change invalidated T001 current source proof. Fresh independent proof provided here permits current eligibility reassessment without historical evidence reconstruction."
+  ],
+  "inference": [
+    "Whole T011 test-authoring obligations and prior F023-T011-R001 resolution independently substantiated. T012 remains untouched and eligible. Real connected adapter/current-review materialization is future T014/T018 work; no production trace execution credit."
+  ],
+  "no_source_marker_roadmap_or_git_edits": true,
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "reviewer": "FarmBoy Code Reviewer",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "schema_version": "1.0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "source_evidence": [
+    {
+      "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+      "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "712542c96eeec47fa30623f3b5d4b5321fdf2f7500f3e9976fdf9830678e0968"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "297ff6cc564275c2e169477800efb7d3192f7baec1410a16d7f1e1e7667298e8"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "0edd543be623876dd0801e05e38770cc43415cba34643b8f410751cb080a885a"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "7f8562af3be5ee02ad4dce0fe4b1087cbb8ddf14aafd8a7cf2cffe431f5f3161"
+    },
+    {
+      "path": "tools/validate_workflows.py",
+      "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+    },
+    {
+      "path": "tools/catalog.py",
+      "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+    },
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+    },
+    {
+      "path": "workflows/README.md",
+      "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+    },
+    {
+      "path": "tests/test_phase_lifecycle.py",
+      "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+    },
+    {
+      "path": "tests/test_snapshot_validation.py",
+      "sha256": "020e685635d1dcdfa7b008a3910077aacfd6f1a4cd6287fbb3030a16fe045409"
+    },
+    {
+      "path": "workflows/farmboy-implement/workflow.yml",
+      "sha256": "ec4e348ad871d4367300c0dcb317cc3b77215274a2bc2783f65def5713730546"
+    }
+  ],
+  "validation": [
+    {
+      "command": "mise prepare/check and focused unittest suites",
+      "result": "environment unchanged; 217 passed; authored assertion block valid control and seven mutations passed"
+    },
+    {
+      "command": "snapshot suite with compatible roadmap source",
+      "result": "1 failure: after maintenance-only capture parser correction, SI001 eligibility blocks synthetic nonexistent review reference; matrix not completed"
+    }
+  ]
+}

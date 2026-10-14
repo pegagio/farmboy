@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "repair": "historical-tasker-prefix-and-strict-current-proof",
+  "historical_prefix_recovery": "historical-prefix-recovery.json in retained run",
+  "original_records_rewritten": false,
+  "source_counters_before_and_after_recovery": [
+    5,
+    5
+  ],
+  "default_ceiling": 5,
+  "authorized_run_ceiling": 20,
+  "budget_receipt_sha256": "f27850b1f87c72598524d75b287dd9f5c3fbda6adffbb4cafbbf56db62baa563",
+  "controller_package_sha256": "68255ae44355adf633230ac9e25e3d376a2cd34c44f81b30c0f36b38949e774c",
+  "independent_reviewer": "FarmBoy Code Reviewer",
+  "review_task": "reviewer_historical_tasker_repair_pass2",
+  "focused_repair_regressions_passed": 10,
+  "stale_current_proof_rejected": true,
+  "unicode_canonical_binding_verified": true,
+  "roadmap_write_repeated": false,
+  "feature_completion_claimed": false
+}

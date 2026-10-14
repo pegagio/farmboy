@@ -171,7 +171,20 @@ class ImplementationProgressTests(unittest.TestCase):
         self.assertEqual("blocked", result["state"])
 
     def testScopedProgressRejectsAdministrativeTaskResolutionAsSourceCredit(self):
+        (self.root / self.feature / "tasks.md").write_text(
+            "- [ ] T016 Implement both code corrections\n- [ ] T017 Continue scoped work\n")
+        self.capture = controller.capture_implementation_baseline(self.root, {
+            "feature_directory": self.feature, "selected_task_ids": ["T016", "T017"],
+            "findings": self.findings})
+        self.assertEqual("ready", self.capture["state"])
         scope_payload = self.current_scope_payload()
+        new_task = {"task_id": "T017", "marker": "unchecked", "description": "Continue scoped work",
+                    "description_sha256": hashlib.sha256(b"Continue scoped work").hexdigest()}
+        scope_payload["scope"]["requested_task_ids"].append("T017")
+        scope_payload["scope"]["task_records"].append(new_task)
+        scope_payload["scope"]["scope_sha256"] = controller._progress_digest(
+            {key: value for key, value in scope_payload["scope"].items() if key != "scope_sha256"})
+        scope_payload["retained_scope_sha256"] = scope_payload["scope"]["scope_sha256"]
         previous = {"state": "continue", "reason_code": "prior-work-remains",
                     "evidence": self.capture["baseline"]["findings"][0]["evidence"],
                     "remaining_ids": self.capture["remaining_ids"], "resolved_ids": [],
@@ -242,21 +255,54 @@ class ImplementationProgressTests(unittest.TestCase):
         progress = controller.validate_implementation_progress(self.root, progress_payload)
         self.assertEqual("ready", progress["state"])
         self.assertIn("task:T016", progress["resolved_ids"])
-        self.assertEqual("blocked", controller.validate_scoped_implementation_progress(self.root, {
-            "controller_loop_mode": "implementation_scope", "history": history,
-            "assessment": {"resolved_ids": progress["resolved_ids"]},
-            "eligible_task_ids": [], "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
-            "retained_history_sha256": history["sha256"], "previous_assessment": {"resolved_ids": []},
-            "progress": progress_payload, "administrative_prerequisite_ids": ["T016"],
-        })["state"])
-        self.assertEqual("administrative-proof-counted-as-source-progress",
-                         controller.validate_scoped_implementation_progress(self.root, {
-            "controller_loop_mode": "implementation_scope", **scope_payload,
-            "assessment": {"resolved_ids": progress["resolved_ids"]},
-            "eligible_task_ids": [], "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
-            "retained_history_sha256": history["sha256"], "previous_assessment": {"resolved_ids": []},
-            "progress": progress_payload, "administrative_prerequisite_ids": ["T016"],
-        })["reason_code"])
+        current = {"state": "continue", "reason_code": "reviewed-source-progress",
+                   "evidence": self.evidence(), "remaining_ids": progress["remaining_ids"],
+                   "resolved_ids": progress["resolved_ids"], "next_step_id": "implement-tasks"}
+        scoped_request = {"controller_loop_mode": "implementation_scope", **scope_payload,
+            "assessment": current, "eligible_task_ids": ["T017"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"],
+            "retained_history_sha256": history["sha256"], "previous_assessment": previous,
+            "retained_previous_assessment_sha256": retained_previous,
+            "progress": progress_payload, "administrative_prerequisite_ids": ["T016"]}
+        history_path = (self.root / ".specify/farmboy-controllers/implementation-history"
+                        / f"{scope_payload['scope']['run_id']}.json")
+        before_scope = copy.deepcopy(scoped_request["scope"])
+        before_baseline = copy.deepcopy(scoped_request["progress"]["baseline"])
+        before_previous = copy.deepcopy(scoped_request["previous_assessment"])
+        before_history = json.loads(history_path.read_text(encoding="utf-8"))
+        control_request = {**scoped_request, "administrative_prerequisite_ids": []}
+        control = controller.validate_scoped_implementation_progress(self.root, control_request)
+        self.assertEqual("continue", control["state"], control)
+        self.assertEqual("implement-tasks", control["scoped_route"]["next_step_id"])
+        blocked = controller.validate_scoped_implementation_progress(self.root, scoped_request)
+        self.assertEqual("blocked", blocked["state"], blocked)
+        self.assertEqual("administrative-proof-counted-as-source-progress", blocked["reason_code"])
+        self.assertNotIn("next_step_id", blocked)
+        self.assertEqual(before_scope, scoped_request["scope"])
+        self.assertEqual(before_baseline, scoped_request["progress"]["baseline"])
+        self.assertEqual(before_previous, scoped_request["previous_assessment"])
+        after_history = json.loads(history_path.read_text(encoding="utf-8"))
+        self.assertEqual(before_history, after_history)
+        self.assertEqual(history["sha256"], after_history["sha256"])
+        self.assertEqual((1, 1), (after_history["coder_sessions_started"],
+                                  after_history["source_attempts_started"]))
+
+    def testAnswerRelayRequiresSameChildAndDoesNotChangeGenericProgress(self):
+        previous = {"remaining_ids": ["task:T016", "finding:R001"], "resolved_ids": []}
+        question = {"kind": "question", "step_id": "implement-eligible-work",
+                    "question": "Continue the same implementation child?", "options": ["continue"],
+                    "allow_custom_answer": False}
+        answer = controller.resolve_child_answer(question, "continue", "child-3", "child-3")
+        self.assertEqual("child-3", answer["child_id"])
+        current = {"state": "continue", "reason_code": "work-remains",
+                   "next_step_id": "implement-eligible-work", **previous}
+        self.assertFalse(controller.assessment_made_progress(previous, current))
+        routed = controller.route_loop_assessment(
+            current, iteration=3, max_iterations=5,
+            loop_body_step_ids={"implement-eligible-work"}, previous_assessment=previous)
+        self.assertEqual({"action": "blocked", "blocker": "no-progress"}, routed)
+        with self.assertRaisesRegex(ValueError, "same child"):
+            controller.resolve_child_answer(question, "continue", "child-3", "child-4")
 
     def test_unchangedSourceCannotClaimDefectClosure(self):
         self.assertEqual("blocked", self.validate(self.review())["state"])

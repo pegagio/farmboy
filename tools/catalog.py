@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import functools
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -23,6 +24,7 @@ from posixpath import normpath
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SOURCE_ROOT = ROOT
 BUNDLE = ROOT / "bundles/farmboy/bundle.yml"
 CATALOG = ROOT / "catalog"
 RELEASE = CATALOG / "release.json"
@@ -49,6 +51,32 @@ CONTROLLER_BINDINGS = (
 
 AGENT_SOURCE = ROOT / "agents/farmboy"
 AGENT_PACKAGE_ID = "farmboy-agents"
+
+
+@functools.lru_cache(maxsize=1)
+def _source_workflow_validator():
+    """Load the shared production definition boundary from the source checkout."""
+    path = SOURCE_ROOT / "tools/validate_workflows.py"
+    specification = importlib.util.spec_from_file_location("_farmboy_catalog_workflow_validator", path)
+    if specification is None or specification.loader is None:
+        fail("FarmBoy source workflow validator is unavailable")
+    module = importlib.util.module_from_spec(specification)
+    sys.modules[specification.name] = module
+    specification.loader.exec_module(module)
+    return module.validate_source_workflows
+
+
+def validate_source_workflows(source_root: Path | None = None) -> None:
+    """Reject invalid source definitions before catalog packaging or delivery."""
+    try:
+        _source_workflow_validator()(source_root or ROOT)
+    except ValueError as error:
+        diagnostic = getattr(error, "diagnostic", None)
+        if diagnostic is None:
+            raise
+        projected = ValueError(str(error))
+        projected.diagnostic = diagnostic  # type: ignore[attr-defined]
+        raise projected from error
 
 
 def validate_agent_manifest(manifest: object) -> dict[str, object]:
@@ -864,6 +892,7 @@ def package_extension(source: Path, destination: Path, extension_id: str) -> Non
 
 
 def build(roadmap: Path, wiki: Path, snapshot: bool = False) -> None:
+    validate_source_workflows(ROOT)
     if not snapshot:
         require_local_release_sources_clean(ROOT)
     bundle_version, components = bundle_components()
@@ -959,6 +988,7 @@ def verified_release(catalog_dir: Path | None = None, release_path: Path | None 
         path = ROOT / "workflows" / workflow_id / "workflow.yml"
         if entry["version"] != version or digest(path) != entry["sha256"]:
             fail(f"workflow source differs from catalog release: {workflow_id}")
+    validate_source_workflows(ROOT)
     controller = release.get("controller_package")
     if not isinstance(controller, dict) or controller.get("id") != CONTROLLER_PACKAGE_ID:
         fail("catalog has no FarmBoy controller package record")
@@ -989,6 +1019,7 @@ class QuietHandler(SimpleHTTPRequestHandler):
 
 def build_development_snapshot(destination: Path, *, source_overrides: dict[str, Path] | None = None) -> dict[str, object]:
     """Compose a disposable snapshot catalog without changing checked-in release files."""
+    validate_source_workflows(ROOT)
     destination = Path(destination)
     package_dir = destination / "packages"
     package_dir.mkdir(parents=True, exist_ok=True)

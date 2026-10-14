@@ -9,7 +9,7 @@ sources:
 - S025
 - S032
 - S034
-updated: '2026-10-12'
+updated: '2026-10-14'
 ---
 
 # Installation and release lifecycle
@@ -38,7 +38,7 @@ Release building checks source IDs, versions, clean feedback source, and clean a
 
 Select Feature and Specify are separate. Start Feature remains stop-only deprecated source outside active bindings; replacement discovery requires installation or refresh. Refresh replaces an unchanged owned retired launcher; local edits block for resolution. (S005, S034)
 
-The direct Codex path validates and probes every delegated branch's exact names before work. Consumer-owned agent files and Codex control optional model/effort settings. Gates and undelegated steps stay in the main task. (S005, S034)
+The direct Codex path validates delegated branches' exact names before work; consumer Codex settings govern model/effort. Gates stay in the main task. [Delivery validation and recovery](./workflow-delivery-validation-and-recovery.md) separates complete-graph checks from selected-child consumption. (S005, S034)
 
 Earlier Feature 017 specification described prospective acquisition; the current guide documents delivery operations under [its contract](./flowkit-agent-configuration-and-delivery.md). Install-missing adds absent defaults and preserves existing, old unprefixed and unrelated files. Refresh changes only available defaults; acquiring new copies requires install-missing. Explicit reset selects one exact current name or all manifest entries, replacing or creating those targets. Unknown names, unsafe paths and competing exact identities block delivery. Renamed/retired files remain for manual migration after dependent assignments are inspected. (S025, S005, S034)
 

@@ -1,0 +1,160 @@
+{
+  "schema_version": "1.0",
+  "reviewer": "FarmBoy Code Reviewer",
+  "reviewed_task_ids": [
+    "T002",
+    "T003",
+    "T004",
+    "T007"
+  ],
+  "completed_task_ids": [
+    "T003",
+    "T007"
+  ],
+  "frozen_baseline_sha256": "8192618b5e5f9842a9240ab9001b58add4bf55cbcdd038379f552948b9474104",
+  "facts": [
+    "Per-task retained before snapshots match the pre-effect activation inputs and source-delta before hashes; current source matches recorded after hashes.",
+    "T003 invokes production definition validation for all eleven owned source packages; earlier-producer definition validity is proved before runtime outputs exist; existing deprecated Start Feature stop-only assertions remain.",
+    "T007 uses production select_switch_branch for both owned preparation/source skip routes, empty case, empty fallback, unknown-without-fallback and zero selected untaken children.",
+    "Independent graph/path/switch suites passed 16/30/7 tests.",
+    "Independent controller suite ran 76 tests with five failures; catalog suite ran 32 tests with two failures.",
+    "No task markers, roadmap, source or Git changes were made by this reviewer."
+  ],
+  "confirmed_defects": [
+    {
+      "id": "F023-T002-R001",
+      "task_id": "T002",
+      "artifact_location": "tests/test_controller.py:291",
+      "violated_requirement": "T002 and FR-002: contextual root diagnostics must reflect available source identity.",
+      "observed_deficiency": "The malformed root control supplies workflow: [] with no workflow ID, but the matrix unconditionally requires workflow_id fixture. This is impossible to derive from that source and forces invented identity even after production validation is repaired.",
+      "exact_correction": "Use a case-specific expected workflow identity for the malformed root metadata case, consistent with the chosen root-error contract, retaining fixture only for definitions that actually contain that ID. Do not manufacture fixture in the controller.",
+      "evidence": [
+        {
+          "path": "tests/test_controller.py",
+          "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+        }
+      ]
+    },
+    {
+      "id": "F023-T002-R002",
+      "task_id": "T002",
+      "artifact_location": "tests/test_controller.py:280",
+      "violated_requirement": "T002: focused validation must exercise every malformed container and every producer-reference case.",
+      "observed_deficiency": "Both matrix tests close self.subTest before the diagnostic assertions. A caught first-case failure leaves diagnostic None and the assertion outside subTest aborts the whole test, so remaining malformed container and producer cases are never exercised. Independent run demonstrates only root-workflow-container-invalid and producer-unknown subtest outcomes before outer failures. There are also no assertions excluding raw input values, rendered prompts or host paths despite the explicit task requirement.",
+      "exact_correction": "Keep each case validation and all diagnostic assertions inside its subTest; add explicit portable diagnostic exclusion checks using authored sentinel values so all required cases run independently and privacy expectations are tested.",
+      "evidence": [
+        {
+          "path": "tests/test_controller.py",
+          "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+        }
+      ]
+    },
+    {
+      "id": "F023-T004-R001",
+      "task_id": "T004",
+      "artifact_location": "tests/test_catalog.py:114",
+      "violated_requirement": "T004 and FR-001: source-definition validation must be exercised before release verification and install/refresh effects.",
+      "observed_deficiency": "Verification/install negative changes workflow bytes but retains the original release digest, and expects workflow source differs. This passes under the unchanged checksum guard and never reaches malformed-definition validation. It cannot detect regression where matching-digest malformed workflows pass verification/install; no corresponding otherwise-valid matched-inventory control is established.",
+      "exact_correction": "Add disposable valid delivery control with matching source/catalog inventory, then mutate only workflow definition and update its recorded source digest consistently so definition validation is reached; assert rejection and zero package/consumer writes for verification/install/refresh, while retaining the existing checksum-negative coverage.",
+      "evidence": [
+        {
+          "path": "tests/test_catalog.py",
+          "sha256": "d1889e676cf01e6bba85a8417f4cec7cb0cd1259cc3b3e4d7568cea8ba179a69"
+        }
+      ]
+    }
+  ],
+  "expected_pending_production_gaps": [
+    {
+      "owner": "T005",
+      "observed": "Malformed root metadata currently raises AttributeError; diagnostic projection is absent and unknown producer is accepted."
+    },
+    {
+      "owner": "T006",
+      "observed": "Malformed source currently reaches catalog release build and development snapshot outputs."
+    }
+  ],
+  "gaps": [
+    "No pre-edit suite run was retained by Coder; activated byte snapshots permit exact delta attribution. Newly failing test methods are the added definition/catalog expectations; no failure in an unchanged test was observed.",
+    "T004 currently proves checksum rejection inventory preservation but not matching-inventory definition rejection.",
+    "Installed/source parity and connected integrations belong to later tasks and are not claimed by this review."
+  ],
+  "inference": [
+    "T003 and T007 test contributions are whole substantiated tasks; pending production reds do not negate their independent test task completion.",
+    "T002 and T004 remain open with eligible correction owners under the original plan."
+  ],
+  "source_evidence": [
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "288f128238d60f5ecae3c036b72e971804d26a7468ae7130d6068333ef0e8436"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T002-pass3-before-test_controller.py",
+      "sha256": "99bcefe4488d0af682bc75537911f7278642ede653239435a70441b7e838f295"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "297ff6cc564275c2e169477800efb7d3192f7baec1410a16d7f1e1e7667298e8"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_graph.py",
+      "sha256": "45a6562e2ac0d262db720ddbe50c489cf80c0440e8c0a50f105b6e5bef3768e0"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "52f7bcd646a7a19c7e990a0a79f08676f3d74888d4e7095d8226f697d1bfad17"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T003-pass3-before-test_workflow_paths.py",
+      "sha256": "91f764b188f5dcb12ae60115131d14a9ffeff645a7cbc57ec7ca060efc57a8a2"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "d1889e676cf01e6bba85a8417f4cec7cb0cd1259cc3b3e4d7568cea8ba179a69"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T004-pass3-before-test_catalog.py",
+      "sha256": "cf1391a18dd9d3ecc211f812f92bfe528ed72a51aec75300918bcbfb7e45c4bb"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "48758af17b9479cf1b719e75dc1e862bb33bdb649f7accee77a3d00e54f0b0bd"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T007-pass3-before-test_implement_switch_routing.py",
+      "sha256": "7f89e9130907a40b8dff1b048036040c65076f2d777700ee4970374947433087"
+    }
+  ],
+  "validation": {
+    "test_controller": {
+      "tests": 76,
+      "failures": 5
+    },
+    "test_catalog": {
+      "tests": 32,
+      "failures": 2
+    },
+    "test_workflow_graph": {
+      "tests": 16,
+      "failures": 0
+    },
+    "test_workflow_paths": {
+      "tests": 30,
+      "failures": 0
+    },
+    "test_implement_switch_routing": {
+      "tests": 7,
+      "failures": 0
+    }
+  },
+  "task_requirement_coverage": {
+    "T003": {
+      "FR-001": "All source inventory, earlier producer/no-output and retained deprecated stop-only graph assertions.",
+      "FR-003": "All source inventory, earlier producer/no-output and retained deprecated stop-only graph assertions."
+    },
+    "T007": {
+      "FR-005": "Production switch selection of owned source/preparation skips and isolated empty/default/unknown route assertions, zero selected untaken children.",
+      "FR-006": "Production switch selection of owned source/preparation skips and isolated empty/default/unknown route assertions, zero selected untaken children."
+    }
+  }
+}

@@ -138,6 +138,50 @@ class WorkflowPathTests(unittest.TestCase):
         self.assertEqual("loop-cap-exhausted", self.controller.route_loop_assessment(
             resolved, iteration=6, previous_assessment=baseline,
             assessment_only_first_pass=True, **common)["blocker"])
+
+    def testDefinitionAcceptsEarlierProducerBeforeRuntimeOutputExists(self) -> None:
+        definition = {
+            "workflow": {"id": "fixture", "version": "1"},
+            "steps": [
+                {"id": "produce", "type": "prompt", "prompt": "Produce a value."},
+                {"id": "consume", "type": "prompt", "prompt": "{{ steps.produce.output.reason_code }}"},
+            ],
+        }
+        self.controller.validate_workflow_definition(definition)
+        effects: list[str] = []
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary)
+            evidence = project / "assessment.md"
+            evidence.write_text("Current producer assessment", encoding="utf-8")
+            current_digest = hashlib.sha256(evidence.read_bytes()).hexdigest()
+            current_assessment = {
+                "state": "continue", "reason_code": "current-producer-output",
+                "evidence": [{"path": "assessment.md", "sha256": current_digest}],
+                "remaining_ids": ["F001"], "resolved_ids": [], "next_step_id": "consume",
+            }
+            previous_pass_assessment = {
+                **current_assessment,
+                "reason_code": "previous-pass-output",
+                "evidence": [{
+                    "path": "assessment.md",
+                    "sha256": hashlib.sha256(b"Previous producer assessment").hexdigest(),
+                }],
+            }
+            # Definition validation accepts the earlier producer before it has run.
+            # At consumption, the actual producer envelope must pass current evidence checks.
+            with self.assertRaisesRegex(ValueError, "does not match current bytes"):
+                validated_previous = self.controller.validate_outcome_envelope(
+                    previous_pass_assessment, project, {"produce", "consume"})
+                effects.append(self.controller.render_template(
+                    definition["steps"][1]["prompt"], {}, {"produce": validated_previous}))
+            validated_current = self.controller.validate_outcome_envelope(
+                current_assessment, project, {"produce", "consume"})
+            effects.append(self.controller.render_template(
+                definition["steps"][1]["prompt"], {}, {"produce": validated_current}))
+        with self.assertRaisesRegex(ValueError, "unresolved step output reference"):
+            rendered = self.controller.render_template(definition["steps"][1]["prompt"], {}, {})
+            effects.append(rendered)
+        self.assertEqual(["current-producer-output"], effects)
         for node in (
             {"id": "invalid", "type": "prompt", "prompt": "x", "assessment_only_first_pass": True},
             {"id": "invalid", "type": "do-while", "assessment_only_first_pass": "true"},

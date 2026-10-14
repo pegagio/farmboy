@@ -1,0 +1,148 @@
+{
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "future_classifications": [],
+  "reconciliations": [],
+  "reviewed_inputs": {
+    "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580",
+    "specs/023-workflow-branch-validation-controller-integration/plan.md": "d5d033c271ed06d9f2f90082be53f46efebbe2675bc7378b344b71b1bc9f1a5e",
+    "specs/023-workflow-branch-validation-controller-integration/spec.md": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+    "specs/023-workflow-branch-validation-controller-integration/tasks.md": "6cf6bfc86cd18aea4c444666fe7dc7b935e786001f316560b5fe7603fab37e83"
+  },
+  "reviewer": "FarmBoy Reviewer",
+  "reviewer_verdict_sha256": "2b1c6fc536319eb51d7f476a6472f77e919bbb46f109f2b695522c48fefda7f7",
+  "satisfied_criteria": [],
+  "schema_version": "1.0",
+  "state": "complete",
+  "task_status_snapshot": {
+    "items": [
+      {
+        "id": "T001",
+        "line": 42,
+        "marker": "unchecked",
+        "text_sha256": "cb52429c1c3ed64e3e24a34464e7b605cf7eabf2a675cc66f2b61c2676b01eff"
+      },
+      {
+        "id": "T002",
+        "line": 56,
+        "marker": "unchecked",
+        "text_sha256": "bb5f80828a23c5d7a06f2e805ee2547475aae34fe2cac443f6d05421cf3a10d5"
+      },
+      {
+        "id": "T003",
+        "line": 57,
+        "marker": "unchecked",
+        "text_sha256": "41b3fa1bd12ff3998892d0be0aba7ba1805d79aa1d514f534f2eab9ca5a69c88"
+      },
+      {
+        "id": "T004",
+        "line": 58,
+        "marker": "unchecked",
+        "text_sha256": "70b98d243021f168fe2f97d425223ff638d34920382fe454fdb45e421cead612"
+      },
+      {
+        "id": "T005",
+        "line": 62,
+        "marker": "unchecked",
+        "text_sha256": "2d34cb35f9d7779647b4a507dee6426cb65b2858f0ff310982826fb2ab4f8e57"
+      },
+      {
+        "id": "T006",
+        "line": 63,
+        "marker": "unchecked",
+        "text_sha256": "2dae9355c1b33725f2fd9035f0eb569c8aef5c730289b311068d84a71a3e17eb"
+      },
+      {
+        "id": "T007",
+        "line": 77,
+        "marker": "unchecked",
+        "text_sha256": "b616910c85baa6a52aabbd571e52996b788bec719db295287c08cde5e8336017"
+      },
+      {
+        "id": "T008",
+        "line": 78,
+        "marker": "unchecked",
+        "text_sha256": "0dfd96ce3236ecabd046f3bdc3fc57901e6e4830552897188bcd130bed612b14"
+      },
+      {
+        "id": "T009",
+        "line": 82,
+        "marker": "unchecked",
+        "text_sha256": "97024105e2bed705abd971b8580cb8b81136eccc7326c4bee58076fd4975f98d"
+      },
+      {
+        "id": "T010",
+        "line": 83,
+        "marker": "unchecked",
+        "text_sha256": "099a779c1b9b3ef26753e23016f357ae5c5b2fc628c0574c51d2a0047241ee0f"
+      },
+      {
+        "id": "T011",
+        "line": 97,
+        "marker": "unchecked",
+        "text_sha256": "aa029caab3dbc2befd1105af8afb7d5916208596f1e9084cfd96b4fd67082b25"
+      },
+      {
+        "id": "T012",
+        "line": 98,
+        "marker": "unchecked",
+        "text_sha256": "c043c12ae2ea1bd57791727e4007f9bf8968782f60cc77762ebc26d120e943d4"
+      },
+      {
+        "id": "T013",
+        "line": 99,
+        "marker": "unchecked",
+        "text_sha256": "3426fdbb5c392588392800ddef2203dbec4f9af13a089cb1a229291f8c914711"
+      },
+      {
+        "id": "T014",
+        "line": 103,
+        "marker": "unchecked",
+        "text_sha256": "a3d592543035f2a66ea2ac2e2701741a0902df7da15d5426ec4d868aa757d805"
+      },
+      {
+        "id": "T015",
+        "line": 104,
+        "marker": "unchecked",
+        "text_sha256": "e38e8800e1718099a1a70514baed163f058eaf9a95a520ee3c54ae2d300cad96"
+      },
+      {
+        "id": "T016",
+        "line": 118,
+        "marker": "unchecked",
+        "text_sha256": "f6e2c57619df5ade891298ac9b98225b241e96f43f4b3e3a314bb8996b681f62"
+      },
+      {
+        "id": "T017",
+        "line": 119,
+        "marker": "unchecked",
+        "text_sha256": "a72bbc7321f5b043f0d4be4366de92ac2d220b2470a8bd3c6353fa8bbb701706"
+      },
+      {
+        "id": "T018",
+        "line": 123,
+        "marker": "unchecked",
+        "text_sha256": "cdc763f48e41983b6a652a22e30257a379857a0161f834f325b1dae017fd3440"
+      },
+      {
+        "id": "T019",
+        "line": 124,
+        "marker": "unchecked",
+        "text_sha256": "e8288dff65cab286ec4a01f615ea8a567cf04debb8f0f206657fafa7017c5878"
+      },
+      {
+        "id": "T020",
+        "line": 134,
+        "marker": "unchecked",
+        "text_sha256": "85d71ebd559bec0b9b8b0f00635c45c6dcbe268b5a3a07beed176c98316048ce"
+      },
+      {
+        "id": "T021",
+        "line": 135,
+        "marker": "unchecked",
+        "text_sha256": "343ec58fca57df4f746fb6a333e9f8db2466ec44e2267a2f28214cd787adf684"
+      }
+    ],
+    "sha256": "6cf6bfc86cd18aea4c444666fe7dc7b935e786001f316560b5fe7603fab37e83",
+    "status_insensitive_sha256": "6cf6bfc86cd18aea4c444666fe7dc7b935e786001f316560b5fe7603fab37e83"
+  }
+}

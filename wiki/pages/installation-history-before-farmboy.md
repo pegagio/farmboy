@@ -9,7 +9,7 @@ sources:
 - S025
 - S038
 - S032
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Installation history before FarmBoy

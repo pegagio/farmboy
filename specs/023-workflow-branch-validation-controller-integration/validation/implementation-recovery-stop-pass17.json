@@ -1,0 +1,107 @@
+{
+  "state": "blocked",
+  "reason_code": "no-progress",
+  "resume_action": "resolve-no-progress-stop-with-operator-directed-recovery",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014"
+  ],
+  "remaining_task_ids": [
+    "T015",
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "open_finding_ids": [
+    "F023-T015-R001",
+    "F023-T015-R002",
+    "F023-T015-R003"
+  ],
+  "source_sessions_started": 17,
+  "source_attempts_started": 17,
+  "authorized_budget_limit": 20,
+  "budget_remaining": 3,
+  "source_budget_exhausted": false,
+  "latest_outcome_event_appended": true,
+  "history_sha256": "7e27f0d284178d5ec25f414edeb561cd4c02f07b910fd8dcfbeebe6cb346a344",
+  "historical_records_rewritten": false,
+  "roadmap_write_repeated": false,
+  "roadmap_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+  "lifecycle_receipt_sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+  "staged_file_count_preserved": 52,
+  "staged_diff_sha256_preserved": "ab56b45c5cb93ede0b20d25359a1175e440beb99d7d63b81f12cd15031856ce9",
+  "source_review_evidence": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass17.json",
+  "retained_recovery_checkpoint": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass17.json",
+  "requested_t012_findings": "independently-resolved-in-passes12-and13",
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "recovery_summary_limits": {
+    "compact_loop_pass_iterations": [
+      1
+    ],
+    "append_only_execution_history_complete": true,
+    "original_summary_records_preserved": true
+  },
+  "validation": {
+    "focused_tests_passed": 233,
+    "connected_snapshot_tests_passed": 1,
+    "snapshot_skips": 0,
+    "t014_dispatch_sensitivity_cases_passed": 4,
+    "t015_incorrect_blocker_sensitivity": "all-seven-variant-calls-accepted-unrelated-blockers-and-wrong-actions",
+    "installed_parity_established": false
+  },
+  "reason_evidence": "validated-current-outcome-envelope-and-installed-blocked-scoped-route",
+  "defect_reports": [
+    "docs/findings/2026-10-13-implement-first-defect-correction-stop.md",
+    "docs/findings/2026-10-13-historical-tasker-source-evidence-recheck.md"
+  ],
+  "changed_files": [
+    "tests/test_implementation_progress.py",
+    "tests/test_controller.py",
+    "tests/implementation_scope_snapshot.py",
+    "specs/023-workflow-branch-validation-controller-integration/tasks.md",
+    "docs/findings/2026-10-13-implement-first-defect-correction-stop.md",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass12.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass13.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass14.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass15.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass16.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass17.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-recovery-entry-pass12.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-recovery-stop-pass17.json"
+  ],
+  "safe_resume_requirements": {
+    "operator_direction": "explicit correction authorization for F023-T015-R001, F023-T015-R002, F023-T015-R003 under retained scope and remaining budget",
+    "before_any_source_effect": "revalidate current scope, complete proof map, readiness, owner/assignment, unchanged installation and retained history/budget bindings",
+    "preserve": [
+      "original finding preimages",
+      "fourteen completed task proofs",
+      "seventeen consumed sessions and attempts",
+      "three remaining budget slots",
+      "original lifecycle receipt with no repeated roadmap write"
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "state": "blocked",
+  "reason_code": "no-progress",
+  "resume_action": "retain-no-progress-stop-and-obtain-explicit-bounded-recovery",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015"
+  ],
+  "remaining_task_ids": [
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "open_finding_ids": [
+    "F023-T016-R003"
+  ],
+  "source_sessions_started": 21,
+  "source_attempts_started": 21,
+  "authorized_budget_limit": 30,
+  "budget_remaining": 9,
+  "source_budget_exhausted": false,
+  "latest_outcome_event_appended": true,
+  "history_sha256": "8b954e6ad3c13a1ab2d70109464306f7d62a7148d2d2d5f430a6c8583c6ed789",
+  "historical_records_rewritten": false,
+  "roadmap_write_repeated": false,
+  "roadmap_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+  "lifecycle_receipt_sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+  "staged_file_count_preserved": 66,
+  "staged_diff_sha256_preserved": "9ef601cfe8dade1d0bf5395296941a813876c97cd9ba1c5352ae49ae9f77c6fa",
+  "source_review_evidence": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass21.json",
+  "retained_recovery_checkpoint": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass21.json",
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "recovery_summary_limits": {
+    "compact_loop_pass_iterations": [
+      1
+    ],
+    "append_only_execution_history_complete": true,
+    "original_summary_records_preserved": true
+  },
+  "operator_recovery": "same-retained-run-budget-extended-from-effective20-to30",
+  "retained_entry_baseline_sha256": "49b131739a1e0fc498cbb1461b8d24da3beabad741650b12ce19f89720085689",
+  "retained_next_baseline_sha256": "2a9a3269a928c646a181f31c62be69f8fe3b8b9ddb31f29e4d1c2f54968de741",
+  "validation": {
+    "focused_tests_run": 261,
+    "expected_t018_lifecycle_subtest_failures": 2,
+    "other_failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "parity_claim": "Paired routing and connected guard observations executed; lifecycle observation contract remains expected-red until T018. Full Feature 023 parity and acceptance are not established.",
+    "broader_metrics_environment_limitation": "Previously reproduced missing et_xmlfile remains unresolved; no dependency or environment change was made."
+  },
+  "exact_correction": "Add paired source/installed selection of an explicit empty cases branch with empty selected list, zero effects and correct prevented siblings; prove an undeclared-child mutation is detected. Preserve T018 expected-red lifecycle assertions.",
+  "workflow_defect_report": "docs/findings/2026-10-13-implement-first-defect-correction-stop.md"
+}

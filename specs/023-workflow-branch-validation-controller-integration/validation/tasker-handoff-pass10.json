@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "step_id": "track-reviewed-task-outcomes",
+  "tasks_path": "specs/023-workflow-branch-validation-controller-integration/tasks.md",
+  "task_id": "T011",
+  "tasks_before_sha256": "de7e362c00b24d571407caa70f31c6e5cff417df438542ca4129a92863ccdd3e",
+  "tasks_after_sha256": "88f822a441f9f81afe9faddbc3efdd59fb8fde985b6d73c10a464b95d65ee2d8",
+  "task_before": "- [ ] T011 [P] [US3] Add connected positive expectations in `tests/test_snapshot_validation.py` and scenario records in `tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json` for task resolution followed by marker-only tracking and for genuine reviewed source correction; assert historical scope/assessment/preimage digests remain unchanged while current evidence is rechecked.",
+  "task_after": "- [x] T011 [P] [US3] Add connected positive expectations in `tests/test_snapshot_validation.py` and scenario records in `tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json` for task resolution followed by marker-only tracking and for genuine reviewed source correction; assert historical scope/assessment/preimage digests remain unchanged while current evidence is rechecked.",
+  "review": {
+    "reviewer": "FarmBoy Code Reviewer",
+    "state": "continue",
+    "completed_task_ids": [
+      "T011"
+    ],
+    "resolved_finding_ids": [
+      "F023-T011-R001"
+    ],
+    "audit": {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass10.json",
+      "sha256": "ef8f1c903865d956c5bd118e07df00aea824f49c6652391095c2f00c45284996"
+    }
+  },
+  "preflight": {
+    "pointer_sha256": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43",
+    "specification_sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+    "tasks_before_sha256": "de7e362c00b24d571407caa70f31c6e5cff417df438542ca4129a92863ccdd3e"
+  },
+  "task_revision": "marker-only; T012 remains open"
+}

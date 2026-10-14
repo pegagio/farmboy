@@ -2,7 +2,7 @@
 title: Controller assessment contract history
 type: concept
 sources: [S021, S022, S023, S030, S033]
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Controller assessment contract history

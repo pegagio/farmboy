@@ -1,8 +1,8 @@
 ---
 title: Closeout and verification boundary
 type: decision
-sources: [S013, S021, S029]
-updated: '2026-10-09'
+sources: [S013, S021, S029, S018]
+updated: '2026-10-14'
 ---
 
 # Closeout and verification boundary
@@ -32,6 +32,10 @@ One final report preserves completed evidence, questions, original gate choices,
 **Accepted supersession**: S013 requires a separately approved completion operation and a human commit-readiness decision; S021 authorizes evidence-backed in-place completion and automated readiness reporting while retaining exact roadmap approval and separate Git/acceptance authority. S013 remains historical feature evidence. (S013, S021)
 
 [Feature 020 contract](./feature020-closeout-and-verification-boundary.md). (S029)
+
+## Feature 023 qualified verification
+
+The roadmap records Feature 023 as verified for its full reviewed buildable scope, with deterministic validation bounded separately from live-agent behavior, release and acceptance. [Feature 023 qualified verification](./feature023-verification-qualification.md) retains the counts, tested coordinates and pending evidence. (S018)
 
 ## Related pages
 

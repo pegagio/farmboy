@@ -1,0 +1,906 @@
+{
+  "schema_version": "1.0",
+  "workflow_id": "farmboy-closeout",
+  "run_id": "d1a331ba-5569-4c8a-a43f-872e20a2af18",
+  "step_id": "assess-closeout-readiness",
+  "reviewer": "FarmBoy Reviewer",
+  "facts": {
+    "specification_status": "Draft",
+    "roadmap_status": "in-progress",
+    "active_pointer": "specs/023-workflow-branch-validation-controller-integration",
+    "unique_roadmap_mapping": true,
+    "convergence_state": "complete",
+    "current_buildable_findings": [],
+    "required_validation": {
+      "checks": [
+        {
+          "command": "PYTHONPATH=tests mise exec -- python -m unittest test_controller test_workflow_graph test_workflow_paths test_implement_switch_routing test_catalog test_implementation_progress test_phase_lifecycle",
+          "errors": 0,
+          "failures": 0,
+          "loopback_permission": "approved narrow escalation for fixture HTTP servers",
+          "result": "passed",
+          "tests": 228
+        },
+        {
+          "command": "FLOW_ROADMAP_SOURCE=<reviewed-local-flow-roadmap-0.4.0> PYTHONPATH=tests mise exec -- python -m unittest discover -s tests -p test_snapshot_validation.py",
+          "errors": 0,
+          "failures": 0,
+          "loopback_permission": "approved narrow escalation for disposable fixture HTTP servers",
+          "result": "passed",
+          "tests": 3
+        },
+        {
+          "command": "mise exec -- python tools/validate_workflows.py --json --fail-on-unexplained",
+          "diagnostic_count": 0,
+          "result": "passed",
+          "unexplained_terminal_count": 0,
+          "workflow_count": 11
+        },
+        {
+          "command": "mise exec -- specify --version",
+          "observed": "specify 1.0.10.dev0+pegagio.2",
+          "result": "passed"
+        }
+      ],
+      "environment": {
+        "PyYAML": "6.0.3",
+        "Python": "3.11.16",
+        "Specify": "1.0.10.dev0+pegagio.2",
+        "cache": "isolated temporary mise cache; no install or environment change",
+        "check": "passed",
+        "prepare": "passed; existing environment unchanged"
+      },
+      "historical_failed_checks_preserved": {
+        "current_status": "All affected catalog tests passed in the current approved loopback rerun; the historical permission failure is resolved for required validation.",
+        "tasker_pass3": "138 ran; 136 passed and 2 catalog fixtures could not bind local HTTP sockets under the sandbox. Original report is unchanged."
+      },
+      "independent_nested_controls": {
+        "one_field_mutations": [
+          {
+            "boundary": "definition",
+            "correction": "Replace the unsupported template expression with {{ inputs.name }} or {{ steps.name.output.value }}.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-expression",
+            "reason_code": "template-expression-unsupported",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Balance each {{ and }} pair, then use a supported workflow template reference.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-opening-delimiter",
+            "reason_code": "template-delimiters-unbalanced",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Balance each {{ and }} pair, then use a supported workflow template reference.",
+            "location": "steps[0].cases.run[0].steps[0].expression",
+            "offending_reference": "template-closing-delimiter",
+            "reason_code": "template-delimiters-unbalanced",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          },
+          {
+            "boundary": "definition",
+            "correction": "Use nonempty labels whose keys match declared switch branches.",
+            "location": "steps[0].cases.run[0].steps[0].transition_labels",
+            "offending_reference": "transition_labels",
+            "reason_code": "switch-transition-labels-invalid",
+            "resume_action": "correct-source-definition-and-revalidate",
+            "step_id": "nested",
+            "workflow_id": "review-pass3-nested"
+          }
+        ],
+        "valid_control": "accepted"
+      },
+      "required_validation_satisfied": true
+    },
+    "required_validation_status": "satisfied-for-feature-023",
+    "validation_corroboration": {
+      "referenced_file_hash_pairs_checked": 134,
+      "hash_mismatches": [],
+      "original_committed_preimages_verified": 18,
+      "main_retained_before_after_entry_source_records_verified": 18,
+      "required_suites_repeated": false
+    },
+    "dependencies": {
+      "013": "verified",
+      "014": "verified",
+      "020": "verified",
+      "021": "verified"
+    },
+    "task_accounting": {
+      "current_tasks": 25,
+      "checked_markers": 25,
+      "whole_task_independent_review_coverage": 25,
+      "marker_only_completion_claim": false
+    },
+    "epochs": {
+      "original_implement": {
+        "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+        "sessions": 34,
+        "source_attempts": 34,
+        "events": 102,
+        "original_task_count": 21,
+        "history": {
+          "path": ".specify/farmboy-controllers/implementation-history/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0.json",
+          "sha256": "2d5086f28a4fae4379d61ad1432f7e7c49d76782ce12801493744c95dca18528"
+        }
+      },
+      "current_converge": {
+        "run_id": "04f6e328-6aac-4247-a029-f1c50fe94165",
+        "current_task_count": 25,
+        "review": {
+          "path": "specs/023-workflow-branch-validation-controller-integration/validation/convergence-review-pass3.json",
+          "sha256": "322116a66271c54834360e382b2c0b5271ce0f271df71d6aba7e244b3ea65180"
+        }
+      }
+    },
+    "lifecycle": {
+      "original_receipt": {
+        "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/lifecycle-eae200a3ea720a51281ba41b25d79e68.json",
+        "sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f"
+      },
+      "original_edge": "specced-to-in-progress",
+      "closeout_edge": "in-progress-to-implemented",
+      "new_closeout_milestone_completed": false,
+      "roadmap_verification_completed": false
+    },
+    "attributable_boundary": {
+      "head": "54b394e1b363a93db1d91e27f5d0e57a5eccadd6",
+      "retained_main_reference": {
+        "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-attributable-delta.json",
+        "sha256": "912d456e2de7976315739a341a71cb63ec3cd132164d5a6788fbf5625e0d5034"
+      },
+      "source_records": 18,
+      "staged_content_sha256": "9ef601cfe8dade1d0bf5395296941a813876c97cd9ba1c5352ae49ae9f77c6fa"
+    }
+  },
+  "source_scope": {
+    "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+    "task_ids": [
+      "T001",
+      "T002",
+      "T003",
+      "T004",
+      "T005",
+      "T006",
+      "T007",
+      "T008",
+      "T009",
+      "T010",
+      "T011",
+      "T012",
+      "T013",
+      "T014",
+      "T015",
+      "T016",
+      "T017",
+      "T018",
+      "T019",
+      "T020",
+      "T021",
+      "T022",
+      "T023",
+      "T024",
+      "T025"
+    ],
+    "functional_requirement_ids": [
+      "FR-001",
+      "FR-002",
+      "FR-003",
+      "FR-004",
+      "FR-005",
+      "FR-006",
+      "FR-007",
+      "FR-008",
+      "FR-009",
+      "FR-010",
+      "FR-011",
+      "FR-012",
+      "FR-013",
+      "FR-014",
+      "FR-015",
+      "FR-016",
+      "FR-017"
+    ],
+    "success_criterion_ids": [
+      "SC-001",
+      "SC-002",
+      "SC-003",
+      "SC-004",
+      "SC-005",
+      "SC-006",
+      "SC-007"
+    ],
+    "whole_task_review": {
+      "new_buildable_gaps": [],
+      "requirement_evidence": [
+        {
+          "observed": "Shared read-only validation precedes packaging/delivery; malformed bodies/defaults/references reject, supported empties/prior producers accept; exact contextual corrections and actual inventory projection pass.",
+          "requirements": [
+            "FR-001",
+            "FR-002",
+            "FR-003",
+            "SC-001"
+          ],
+          "source": [
+            "controllers/farmboy/scripts/python/controller.py:160",
+            "tools/validate_workflows.py:181",
+            "tools/catalog.py:959"
+          ],
+          "tasks": [
+            "T001",
+            "T002",
+            "T003",
+            "T004",
+            "T005",
+            "T006",
+            "T022",
+            "T023",
+            "T024",
+            "T025"
+          ]
+        },
+        {
+          "observed": "Production selected-switch rendering/selection and consumption tests pass; empty/default and skip routes preserve successors, missing selected outputs stop and untaken inputs are not required.",
+          "requirements": [
+            "FR-004",
+            "FR-005",
+            "FR-006",
+            "SC-002",
+            "SC-003"
+          ],
+          "source": [
+            "controllers/farmboy/scripts/python/controller.py:927",
+            "tests/test_implement_switch_routing.py",
+            "tests/test_workflow_paths.py:142"
+          ],
+          "tasks": [
+            "T007",
+            "T008",
+            "T009",
+            "T010"
+          ]
+        },
+        {
+          "observed": "Both connected positive traces use production scope/eligibility/history/selected routing, actual post-pass capture and guarded re-entry; retained historical hashes and current proof are asserted independently in source/installed executions.",
+          "requirements": [
+            "FR-007",
+            "FR-008",
+            "SC-004"
+          ],
+          "source": [
+            "tests/implementation_scope_snapshot.py:832",
+            "tests/test_snapshot_validation.py:461"
+          ],
+          "tasks": [
+            "T011",
+            "T014"
+          ]
+        },
+        {
+          "observed": "Otherwise-valid one-guard negative traces cover historical forgery/absence/unbinding, stale current proof, task mutations, missing/wrong-branch outputs, no progress and both exhausted budgets. Administrative/answer/marker/restart variants preserve counters and earn no credit.",
+          "requirements": [
+            "FR-009",
+            "FR-010",
+            "SC-005"
+          ],
+          "source": [
+            "tests/implementation_scope_snapshot.py:1316",
+            "tests/test_implementation_progress.py",
+            "controllers/farmboy/scripts/python/implementation_scope.py:810"
+          ],
+          "tasks": [
+            "T012",
+            "T015"
+          ]
+        },
+        {
+          "observed": "Production assignment/gate/same-child relay/fingerprint stops and zero undeclared authority effects are asserted. Lifecycle readback retains effect/receipt identity and rejects changed non-roadmap evidence without a second writer.",
+          "requirements": [
+            "FR-011",
+            "FR-012",
+            "FR-013"
+          ],
+          "source": [
+            "controllers/farmboy/controller-protocol.md",
+            "tests/implementation_scope_snapshot.py:2188",
+            "tests/test_phase_lifecycle.py"
+          ],
+          "tasks": [
+            "T013",
+            "T014",
+            "T015",
+            "T018"
+          ]
+        },
+        {
+          "observed": "All 3 actual disposable snapshot tests pass, including isolated source/installed sibling loading, same snapshot scenario outcomes, lifecycle parity and install-refresh-remove preservation; no skipped test is credited.",
+          "requirements": [
+            "FR-014",
+            "SC-006"
+          ],
+          "source": [
+            "tests/test_snapshot_validation.py:74",
+            "tests/test_snapshot_validation.py:461",
+            "tests/implementation_scope_snapshot.py:3688"
+          ],
+          "tasks": [
+            "T016",
+            "T018"
+          ]
+        },
+        {
+          "observed": "Actual observed packet provenance and portability validation plus mutation/sensitivity assertions pass; docs explain definition/runtime boundaries, safe actions and deterministic evidence limits.",
+          "requirements": [
+            "FR-015",
+            "FR-016",
+            "FR-017",
+            "SC-007"
+          ],
+          "source": [
+            "tests/implementation_scope_snapshot.py:2398",
+            "tests/implementation_scope_snapshot.py:2845",
+            "tests/implementation_scope_snapshot.py:3302",
+            "docs/installation.md",
+            "tests/consumer-fixtures/README.md",
+            "workflows/README.md"
+          ],
+          "tasks": [
+            "T017",
+            "T019",
+            "T020",
+            "T021"
+          ]
+        }
+      ],
+      "result": "satisfied within selected Feature 023 scope",
+      "task_ids": [
+        "T001",
+        "T002",
+        "T003",
+        "T004",
+        "T005",
+        "T006",
+        "T007",
+        "T008",
+        "T009",
+        "T010",
+        "T011",
+        "T012",
+        "T013",
+        "T014",
+        "T015",
+        "T016",
+        "T017",
+        "T018",
+        "T019",
+        "T020",
+        "T021",
+        "T022",
+        "T023",
+        "T024",
+        "T025"
+      ],
+      "task_markers_used_as_implementation_proof": false
+    },
+    "source_records": [
+      {
+        "path": "controllers/farmboy/controller-protocol.md",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/controllers/farmboy/controller-protocol.md",
+          "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/controllers/farmboy/controller-protocol.md",
+          "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+        },
+        "current_sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/controllers/farmboy/controller-protocol.md",
+          "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+        }
+      },
+      {
+        "path": "controllers/farmboy/scripts/python/controller.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/correction2-before/controllers/farmboy/scripts/python/controller.py",
+          "sha256": "ecf7536b32336da3b62b8a80c3fda1fcf71a2e7c131700d2906f2127d8482459"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/controllers/farmboy/scripts/python/controller.py",
+          "sha256": "a178750f1767dc630431299d1d8fe120997e6a2650f240b4ee2bfb7541071c4a"
+        },
+        "current_sha256": "a178750f1767dc630431299d1d8fe120997e6a2650f240b4ee2bfb7541071c4a",
+        "changed_from_pass2": true,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/controllers/farmboy/scripts/python/controller.py",
+          "sha256": "a178750f1767dc630431299d1d8fe120997e6a2650f240b4ee2bfb7541071c4a"
+        }
+      },
+      {
+        "path": "controllers/farmboy/scripts/python/implementation_scope.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/controllers/farmboy/scripts/python/implementation_scope.py",
+          "sha256": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/controllers/farmboy/scripts/python/implementation_scope.py",
+          "sha256": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971"
+        },
+        "current_sha256": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/controllers/farmboy/scripts/python/implementation_scope.py",
+          "sha256": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971"
+        }
+      },
+      {
+        "path": "docs/installation.md",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/docs/installation.md",
+          "sha256": "411ad13c557d842b61787099dc901ca03dc6421edd2adb114f81d1ff3eb6d152"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/docs/installation.md",
+          "sha256": "411ad13c557d842b61787099dc901ca03dc6421edd2adb114f81d1ff3eb6d152"
+        },
+        "current_sha256": "411ad13c557d842b61787099dc901ca03dc6421edd2adb114f81d1ff3eb6d152",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/docs/installation.md",
+          "sha256": "411ad13c557d842b61787099dc901ca03dc6421edd2adb114f81d1ff3eb6d152"
+        }
+      },
+      {
+        "path": "tests/consumer-fixtures/README.md",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/consumer-fixtures/README.md",
+          "sha256": "9e2afa42045fd61bf1395d65079873c86da3a4aeb6a6982e0cd3c05306e1d0c0"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/consumer-fixtures/README.md",
+          "sha256": "9e2afa42045fd61bf1395d65079873c86da3a4aeb6a6982e0cd3c05306e1d0c0"
+        },
+        "current_sha256": "9e2afa42045fd61bf1395d65079873c86da3a4aeb6a6982e0cd3c05306e1d0c0",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/consumer-fixtures/README.md",
+          "sha256": "9e2afa42045fd61bf1395d65079873c86da3a4aeb6a6982e0cd3c05306e1d0c0"
+        }
+      },
+      {
+        "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+          "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+          "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+        },
+        "current_sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+          "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+        }
+      },
+      {
+        "path": "tests/implementation_scope_snapshot.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/implementation_scope_snapshot.py",
+          "sha256": "2575f52daf3a186256d6238427deab14e729f8d9fe34ebddde55a04ff5d8eaef"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/implementation_scope_snapshot.py",
+          "sha256": "2575f52daf3a186256d6238427deab14e729f8d9fe34ebddde55a04ff5d8eaef"
+        },
+        "current_sha256": "2575f52daf3a186256d6238427deab14e729f8d9fe34ebddde55a04ff5d8eaef",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/implementation_scope_snapshot.py",
+          "sha256": "2575f52daf3a186256d6238427deab14e729f8d9fe34ebddde55a04ff5d8eaef"
+        }
+      },
+      {
+        "path": "tests/test_catalog.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/correction2-before/tests/test_catalog.py",
+          "sha256": "26c5512e570c4a1a233107062779f7f6bb10576d02ab526b927bd201e469c919"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_catalog.py",
+          "sha256": "13ee864ecb1b6a0fdcf92490269757479bf3153cf63df73a5bad58d23e88c97a"
+        },
+        "current_sha256": "13ee864ecb1b6a0fdcf92490269757479bf3153cf63df73a5bad58d23e88c97a",
+        "changed_from_pass2": true,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_catalog.py",
+          "sha256": "13ee864ecb1b6a0fdcf92490269757479bf3153cf63df73a5bad58d23e88c97a"
+        }
+      },
+      {
+        "path": "tests/test_controller.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/correction2-before/tests/test_controller.py",
+          "sha256": "a9e1c411dec9c2f174314a73d1e2b1e14a543d86da74b3db0f5ebf3c8aff67fe"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_controller.py",
+          "sha256": "1d636cf3ae5f367adbc216162d28b6c5015e0331f192c85f75280248c42944e0"
+        },
+        "current_sha256": "1d636cf3ae5f367adbc216162d28b6c5015e0331f192c85f75280248c42944e0",
+        "changed_from_pass2": true,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_controller.py",
+          "sha256": "1d636cf3ae5f367adbc216162d28b6c5015e0331f192c85f75280248c42944e0"
+        }
+      },
+      {
+        "path": "tests/test_implement_switch_routing.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/test_implement_switch_routing.py",
+          "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_implement_switch_routing.py",
+          "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+        },
+        "current_sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_implement_switch_routing.py",
+          "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+        }
+      },
+      {
+        "path": "tests/test_implementation_progress.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/test_implementation_progress.py",
+          "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_implementation_progress.py",
+          "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+        },
+        "current_sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_implementation_progress.py",
+          "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+        }
+      },
+      {
+        "path": "tests/test_phase_lifecycle.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/test_phase_lifecycle.py",
+          "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_phase_lifecycle.py",
+          "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+        },
+        "current_sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_phase_lifecycle.py",
+          "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+        }
+      },
+      {
+        "path": "tests/test_snapshot_validation.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/test_snapshot_validation.py",
+          "sha256": "3f6025352b0de75423e4e62e6ae6a58bcec70e3f2c88b235518d264a16705db5"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_snapshot_validation.py",
+          "sha256": "3f6025352b0de75423e4e62e6ae6a58bcec70e3f2c88b235518d264a16705db5"
+        },
+        "current_sha256": "3f6025352b0de75423e4e62e6ae6a58bcec70e3f2c88b235518d264a16705db5",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_snapshot_validation.py",
+          "sha256": "3f6025352b0de75423e4e62e6ae6a58bcec70e3f2c88b235518d264a16705db5"
+        }
+      },
+      {
+        "path": "tests/test_workflow_graph.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/correction2-before/tests/test_workflow_graph.py",
+          "sha256": "e872a4723e8ca7e45d68993a8807a0c355daf8ea3415c7fe2c198b669713c972"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_workflow_graph.py",
+          "sha256": "171a7a01265cc9ff759a087f3a0f6a1c2a27c0e1b6619bb637eb4a41db629d88"
+        },
+        "current_sha256": "171a7a01265cc9ff759a087f3a0f6a1c2a27c0e1b6619bb637eb4a41db629d88",
+        "changed_from_pass2": true,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_workflow_graph.py",
+          "sha256": "171a7a01265cc9ff759a087f3a0f6a1c2a27c0e1b6619bb637eb4a41db629d88"
+        }
+      },
+      {
+        "path": "tests/test_workflow_paths.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tests/test_workflow_paths.py",
+          "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tests/test_workflow_paths.py",
+          "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+        },
+        "current_sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tests/test_workflow_paths.py",
+          "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+        }
+      },
+      {
+        "path": "tools/catalog.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tools/catalog.py",
+          "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tools/catalog.py",
+          "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+        },
+        "current_sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tools/catalog.py",
+          "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+        }
+      },
+      {
+        "path": "tools/validate_workflows.py",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/tools/validate_workflows.py",
+          "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/tools/validate_workflows.py",
+          "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+        },
+        "current_sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/tools/validate_workflows.py",
+          "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+        }
+      },
+      {
+        "path": "workflows/README.md",
+        "before": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-source/workflows/README.md",
+          "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+        },
+        "after": {
+          "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-source/workflows/README.md",
+          "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+        },
+        "current_sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85",
+        "changed_from_pass2": false,
+        "closeout_entry": {
+          "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-source/workflows/README.md",
+          "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+        }
+      }
+    ],
+    "authority_basis": "Trusted main-controller delegation for the explicitly invoked FarmBoy Close Out Feature 023 phase; current selected identity and scope revalidated. Artifact labels alone do not establish human or native dispatch authority.",
+    "completion_authority": "Clear for the declared in-place Draft-to-Complete operation and subsequent current Close Out assessments. The later native implemented-milestone assessment and explicit verified approval remain required."
+  },
+  "source_evidence": [
+    {
+      "path": "controllers/farmboy/controller-protocol.md",
+      "sha256": "7a941c8485b197e4807c81f742abe1e160a5772fccd35b9025c630055af036f6"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/controller.py",
+      "sha256": "a178750f1767dc630431299d1d8fe120997e6a2650f240b4ee2bfb7541071c4a"
+    },
+    {
+      "path": "controllers/farmboy/scripts/python/implementation_scope.py",
+      "sha256": "08d8e7b04cb345244cd8ae8e5bb70e0c0af16d07ad657f7822bfd13a2467e971"
+    },
+    {
+      "path": "docs/installation.md",
+      "sha256": "411ad13c557d842b61787099dc901ca03dc6421edd2adb114f81d1ff3eb6d152"
+    },
+    {
+      "path": "tests/consumer-fixtures/README.md",
+      "sha256": "9e2afa42045fd61bf1395d65079873c86da3a4aeb6a6982e0cd3c05306e1d0c0"
+    },
+    {
+      "path": "tests/consumer-fixtures/workflow-improvements/implementation-scope-cases.json",
+      "sha256": "384606a45fbbe426c4329ca2c002f790bd4125d36b37b8ebb057fc51a7638d67"
+    },
+    {
+      "path": "tests/implementation_scope_snapshot.py",
+      "sha256": "2575f52daf3a186256d6238427deab14e729f8d9fe34ebddde55a04ff5d8eaef"
+    },
+    {
+      "path": "tests/test_catalog.py",
+      "sha256": "13ee864ecb1b6a0fdcf92490269757479bf3153cf63df73a5bad58d23e88c97a"
+    },
+    {
+      "path": "tests/test_controller.py",
+      "sha256": "1d636cf3ae5f367adbc216162d28b6c5015e0331f192c85f75280248c42944e0"
+    },
+    {
+      "path": "tests/test_implement_switch_routing.py",
+      "sha256": "d62dc6683e427375381e1172fbadd79002bdb635afd4921e71408c9ffe63aad9"
+    },
+    {
+      "path": "tests/test_implementation_progress.py",
+      "sha256": "0191d5b61ab00d353f8be59153ba9def3cb34e1d2828dc7636465e6f10026aeb"
+    },
+    {
+      "path": "tests/test_phase_lifecycle.py",
+      "sha256": "116d970a18b6f83712b518aaef84c9e91ea87905fcfd22c90670f0e8b1c02bbd"
+    },
+    {
+      "path": "tests/test_snapshot_validation.py",
+      "sha256": "3f6025352b0de75423e4e62e6ae6a58bcec70e3f2c88b235518d264a16705db5"
+    },
+    {
+      "path": "tests/test_workflow_graph.py",
+      "sha256": "171a7a01265cc9ff759a087f3a0f6a1c2a27c0e1b6619bb637eb4a41db629d88"
+    },
+    {
+      "path": "tests/test_workflow_paths.py",
+      "sha256": "b3a852800b66d9e0ab6aeaccf3da3ed926d71ffd7d44ea736292ed85e576deeb"
+    },
+    {
+      "path": "tools/catalog.py",
+      "sha256": "59e30736f2ef108c4b5f972410c503e075b81d3f6800f21597e8973287de1431"
+    },
+    {
+      "path": "tools/validate_workflows.py",
+      "sha256": "739541a9bce95583aa71bf89e6917a67eca7878486750cc096f3bd884d899917"
+    },
+    {
+      "path": "workflows/README.md",
+      "sha256": "9e347b7d5b66f01b0994ac98b9a8a41528e4449ce4312942e5e973aa30daba85"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".specify/farmboy-controllers/runs/d1a331ba-5569-4c8a-a43f-872e20a2af18/entry-attributable-delta.json",
+      "sha256": "912d456e2de7976315739a341a71cb63ec3cd132164d5a6788fbf5625e0d5034"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass3-implementation-delta.json",
+      "sha256": "aaa0f09c25c2104c1da4cae6ef40d60bff81a65cc38a667f9917b4e1db5fb933"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-entry-implementation-delta.json",
+      "sha256": "64dd667e626aa37e713863667530efbdbdaa821ea39338a6a55767b491327a70"
+    },
+    {
+      "path": ".specify/farmboy-controllers/runs/04f6e328-6aac-4247-a029-f1c50fe94165/convergence-pass2-implementation-delta.json",
+      "sha256": "0a04976a07500cfa90e4dea8e0aab398b84fa2117e54cf909b36266a6ca73b15"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/convergence-resume-outcome.json",
+      "sha256": "46c56302ad61212546743a060747ae4ae2906fb50f8f06b06d8c9b95164139ca"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/convergence-review-pass3.json",
+      "sha256": "322116a66271c54834360e382b2c0b5271ce0f271df71d6aba7e244b3ea65180"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/convergence-command-pass3.json",
+      "sha256": "bf4a37136403cd053c30e2e57e075934f2bfc0eba88597bbe66125f198cfc157"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-completion-pass34.json",
+      "sha256": "40db4c496a1d18f6dff3af41a27f73e78e834ff5c9b6c9f74eaa1f8f549437f3"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-final-validation.json",
+      "sha256": "41babb46898a3eac45345e1bfbb9ce5c4f41eb2661409b38af457aa2d310e271"
+    },
+    {
+      "path": ".specify/farmboy-controllers/implementation-history/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0.json",
+      "sha256": "2d5086f28a4fae4379d61ad1432f7e7c49d76782ce12801493744c95dca18528"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/validation/phase-lifecycle/lifecycle-eae200a3ea720a51281ba41b25d79e68.json",
+      "sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/spec.md",
+      "sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/plan.md",
+      "sha256": "d5d033c271ed06d9f2f90082be53f46efebbe2675bc7378b344b71b1bc9f1a5e"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/tasks.md",
+      "sha256": "cfcde10c16cd0fad0661108967504a9098e79f4ff77ffa73960e29c0ba599312"
+    },
+    {
+      "path": "specs/023-workflow-branch-validation-controller-integration/contracts/validation-boundaries.md",
+      "sha256": "86b814eb16c767010f920064ee1b6f2bd237aca5fdf03740b22c6365348ae0e8"
+    },
+    {
+      "path": ".specify/feature.json",
+      "sha256": "530bbf47b30d8dc87e400333d0c6375aa956b639e56fe51163809ce81c96ce43"
+    },
+    {
+      "path": ".specify/memory/roadmap.md",
+      "sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d"
+    },
+    {
+      "path": ".specify/memory/constitution.md",
+      "sha256": "5b32979f5e4398c061ba434561466e8ea39cf5b8d97b300569d7cf8fadb14368"
+    },
+    {
+      "path": ".specify/workflows/farmboy-closeout/workflow.yml",
+      "sha256": "f7fc526dc6feb2f8eed03bc633d024ca12d67a744de8c9db9d82b117d3453ad8"
+    },
+    {
+      "path": ".specify/farmboy/controller-protocol.md",
+      "sha256": "ee01de9c978d39b61d28e193edb887710b9d7b55f30a27248b7613d3ab5abd2f"
+    }
+  ],
+  "gaps": {
+    "material_readiness_findings": [],
+    "declared_remaining_closeout_work": [
+      "closeout:complete-specification",
+      "closeout:implemented-milestone",
+      "closeout:roadmap-debrief-and-verification"
+    ]
+  },
+  "inference": {
+    "readiness": "Current independently reviewed full-scope completion and required validation, intact attributable source witnesses, verified dependencies and supported lifecycle permit the declared Close Out continuation. They do not prove an already verified Complete feature.",
+    "routing": "continue to debrief-roadmap after the declared status and owner-milestone prerequisites; the main controller owns execution and gates."
+  },
+  "risks_and_limits": [
+    {
+      "classification": "outside-selected-buildable-scope",
+      "id": "FB-CONVERGE-001",
+      "observed": "Report captures both first reviewer-only task-recording stop and repeated nested-location cycle. Future task preserves original identities/counters and requires approved future spec/plan/task reconciliation before implementation. Feature 023 does not implement the reusable policy correction.",
+      "path": "docs/findings/2026-10-14-converge-reviewed-finding-task-recording-stop.md"
+    },
+    {
+      "classification": "historical-protocol-gap",
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "observed": "The original Implement completion records the T005 supporting-test activation exception. No retroactive activation, history rewrite or new acceptance claim is made."
+    },
+    {
+      "classification": "evidence-limit",
+      "observed": "Linux execution and live native effective model/effort settings remain unverified; deterministic source/installed parity does not establish publication, stock compatibility, adoption, acceptance or effective native settings."
+    },
+    {
+      "classification": "outside-feature-validation",
+      "observed": "The earlier broad metrics et_xmlfile dependency failure remains historical outside Feature 023; no dependency/environment change or broad unchanged 690-test rerun was performed."
+    }
+  ],
+  "effects": {
+    "source_spec_plan_tasks_roadmap_index_history_changed": false,
+    "required_suites_repeated": false,
+    "only_requested_assessment_evidence_written": true
+  },
+  "authority_claims": {
+    "roadmap_write_approved": false,
+    "roadmap_verified": false,
+    "git_integration": false,
+    "feature_acceptance": false,
+    "other_workflow_invoked": false
+  }
+}

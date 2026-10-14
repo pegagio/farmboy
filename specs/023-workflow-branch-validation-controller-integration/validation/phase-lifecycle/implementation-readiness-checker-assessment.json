@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "kind": "readiness",
+  "reviewer": "FarmBoy Readiness Checker",
+  "state": "ready",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "scope_sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+  "artifact_digests": {
+    "specs/023-workflow-branch-validation-controller-integration/spec.md": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+    "specs/023-workflow-branch-validation-controller-integration/plan.md": "d5d033c271ed06d9f2f90082be53f46efebbe2675bc7378b344b71b1bc9f1a5e",
+    "specs/023-workflow-branch-validation-controller-integration/tasks.md": "6cf6bfc86cd18aea4c444666fe7dc7b935e786001f316560b5fe7603fab37e83",
+    "specs/023-workflow-branch-validation-controller-integration/checklists/requirements.md": "2a4128b48532ec8bd494e13c3fc10461e090e46d39bba7f913c16a287f4c9580",
+    "specs/023-workflow-branch-validation-controller-integration/validation/readiness-review.json": "ecbb0dc824a2ecab9d9baf5fcbb5365dd7b7b92b9807ebb006f6a4ffd14cb1f6"
+  },
+  "required_check_ids": [
+    "readiness"
+  ],
+  "satisfied_check_ids": [
+    "readiness"
+  ],
+  "unresolved_ids": []
+}

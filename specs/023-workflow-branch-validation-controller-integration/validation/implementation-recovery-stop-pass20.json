@@ -1,0 +1,127 @@
+{
+  "state": "blocked",
+  "reason_code": "loop-cap-exhausted",
+  "resume_action": "explicitly-extend-this-retained-run-budget-before-more-source-work",
+  "run_id": "9a496f02-51c0-4ac0-87fd-a2b92f3a93d0",
+  "scope_sha256": "6665857b52d794daec67b29b4a064ac50d7d99fca618585b15316b05423aee38",
+  "completed_task_ids": [
+    "T001",
+    "T002",
+    "T003",
+    "T004",
+    "T005",
+    "T006",
+    "T007",
+    "T008",
+    "T009",
+    "T010",
+    "T011",
+    "T012",
+    "T013",
+    "T014",
+    "T015"
+  ],
+  "remaining_task_ids": [
+    "T016",
+    "T017",
+    "T018",
+    "T019",
+    "T020",
+    "T021"
+  ],
+  "open_finding_ids": [],
+  "source_sessions_started": 20,
+  "source_attempts_started": 20,
+  "authorized_budget_limit": 20,
+  "budget_remaining": 0,
+  "source_budget_exhausted": true,
+  "latest_outcome_event_appended": true,
+  "history_sha256": "9f01fb54d8775d65761ff74f28efe13630c7c3a37e7f1536d41b0b5a4e9ff66b",
+  "historical_records_rewritten": false,
+  "roadmap_write_repeated": false,
+  "roadmap_sha256": "d1e39f1d433c768c93452004008ba24f9de647ba3837e5ae900d77f834291b7d",
+  "lifecycle_receipt_sha256": "b154d6a24a995934200f1eae93ceae5a48a67b421e2af1f5dfd89438c375727f",
+  "staged_file_count_preserved": 52,
+  "staged_diff_sha256_preserved": "ab56b45c5cb93ede0b20d25359a1175e440beb99d7d63b81f12cd15031856ce9",
+  "source_review_evidence": "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass20.json",
+  "retained_recovery_checkpoint": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/retained-recovery-checkpoint-pass20.json",
+  "protocol_gaps": [
+    {
+      "id": "F023-PASS6-ACTIVATION-COVERAGE",
+      "location": ".specify/farmboy-controllers/runs/9a496f02-51c0-4ac0-87fd-a2b92f3a93d0/T005-pass6-activation.json",
+      "observed": "T005 ready activation declares controller.py only; supporting tests/test_controller.py changed under T005 QA without its own per-task activation. Global Coder ownership included that file for T008, but global ownership does not establish T005 per-task activation. Independently anchored original test preimage and actual source delta are retained; no receipt/hash has been rewritten.",
+      "safe_action": "Main must record precise protocol exception and ensure future per-task activation includes supporting test paths before effect. This reviewer does not grant retroactive activation or expand source scope."
+    }
+  ],
+  "recovery_summary_limits": {
+    "compact_loop_pass_iterations": [
+      1
+    ],
+    "append_only_execution_history_complete": true,
+    "original_summary_records_preserved": true
+  },
+  "requested_t015_findings": {
+    "F023-T015-R001": {
+      "state": "resolved",
+      "review_pass": 19
+    },
+    "F023-T015-R002": {
+      "state": "resolved",
+      "review_pass": 18
+    },
+    "F023-T015-R003": {
+      "state": "resolved",
+      "review_pass": 19
+    }
+  },
+  "additional_t015_finding": {
+    "id": "F023-T015-R004",
+    "state": "resolved",
+    "review_pass": 20
+  },
+  "validation": {
+    "focused_tests_passed": 261,
+    "focused_skips": 0,
+    "dispatch_sensitivity_injections_detected": 6,
+    "blocker_action_injections_detected": 4,
+    "adapter_recovery_injections_detected": 8,
+    "broader_suite_coder_report": {
+      "ran": 483,
+      "errors": 22,
+      "skips": 3,
+      "aggregate_independently_verified": false
+    },
+    "independently_verified_environment_gap": "one-metrics-test-reproduces-missing-et_xmlfile",
+    "environment_or_dependencies_changed": false,
+    "source_installed_parity_established": false
+  },
+  "changed_files": [
+    "tests/implementation_scope_snapshot.py",
+    "specs/023-workflow-branch-validation-controller-integration/tasks.md",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass18.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass19.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-code-review-pass20.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-recovery-entry-pass18.json",
+    "specs/023-workflow-branch-validation-controller-integration/validation/implementation-recovery-stop-pass20.json"
+  ],
+  "budget_at_recovery_entry": 17,
+  "new_source_attempts_used_this_recovery": 3,
+  "scope_and_authority_changed": false,
+  "withdrawn_interface_question": {
+    "initial_review": "retained-in-run-initial-interface-question-code-review-pass18.json",
+    "disposition": "withdrawn-after-FR016-and-existing-production-recovery-boundary-reassessment",
+    "operator_decision_or_new_interface_required": false
+  },
+  "safe_resume_requirements": {
+    "operator_direction": "explicitly-authorize-a-larger-finite-budget-for-this-retained-run",
+    "preserve": [
+      "original-requested-scope-and-trust",
+      "twenty-consumed-sessions-and-source-attempts",
+      "fifteen-completed-current-proofs",
+      "validated-eleven-event-task-tracking-prefix",
+      "original-roadmap-receipt-and-occurrence-time"
+    ],
+    "next_eligible_task": "T016",
+    "no_implicit_workflow_or_acceptance": true
+  }
+}

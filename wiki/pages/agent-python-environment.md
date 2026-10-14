@@ -2,7 +2,7 @@
 title: Agent Python environment
 type: decision
 sources: [S018, S027, S028, S034]
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Agent Python environment

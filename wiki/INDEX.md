@@ -6,6 +6,8 @@ page files, not here.
 
 ## Concept
 
+- [Workflow validation boundaries](pages/workflow-validation-boundaries.md)
+
 - [Codex workflow controller design history](pages/codex-controller-history.md)
 
 - [Controller assessment contract history](pages/controller-assessment-history.md)
@@ -38,6 +40,8 @@ page files, not here.
 
 ## Decision
 
+- [Feature 023 qualified verification](pages/feature023-verification-qualification.md)
+
 - [Local agent timing metrics design](pages/local-agent-timing-metrics.md)
 
 - [Agent Python environment](pages/agent-python-environment.md)
@@ -59,6 +63,7 @@ page files, not here.
 - [Installation history before FarmBoy](pages/installation-history-before-farmboy.md)
 
 - [Installation and release lifecycle](pages/installation-and-release-lifecycle.md)
+- [Workflow delivery validation and recovery](pages/workflow-delivery-validation-and-recovery.md)
 - [Maintainer metrics report discovery](pages/maintainer-metrics-report-discovery.md)
 - [Workflow diagram conventions](pages/workflow-diagram-conventions.md)
 

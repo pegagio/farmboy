@@ -2,7 +2,7 @@
 title: Workflow graph responsibility boundaries history
 type: reference
 sources: [S023, S030, S033]
-updated: 2026-10-12
+updated: 2026-10-14
 ---
 
 # Workflow graph responsibility boundaries history

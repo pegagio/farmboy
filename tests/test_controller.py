@@ -261,6 +261,272 @@ class GraphPreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unsupported template"):
             self.controller.validate_workflow_definition(definition)
 
+    def test_validateDefinition_reportsContextForUnsupportedAndMalformedTemplateForms(self) -> None:
+        cases = (
+            ("template-expression-unsupported",
+             "RAW_INPUT_SENTINEL {{ unsupported.value }} /tmp/private-workflow.yml",
+             "template-expression"),
+            ("template-delimiters-unbalanced", "{{ inputs.known", "template-opening-delimiter"),
+            ("template-delimiters-unbalanced", "inputs.known }}", "template-closing-delimiter"),
+        )
+        for reason, invalid_prompt, reference in cases:
+            with self.subTest(reason=reason, reference=reference):
+                valid_definition = {
+                    "workflow": {"id": "fixture-template", "version": "1"},
+                    "inputs": {"known": {"required": True}},
+                    "steps": [{"id": "template-consumer", "type": "prompt",
+                               "prompt": "{{ inputs.known }}"}],
+                }
+                self.controller.validate_workflow_definition(copy.deepcopy(valid_definition))
+                invalid_definition = copy.deepcopy(valid_definition)
+                invalid_definition["steps"][0]["prompt"] = invalid_prompt
+                with self.assertRaises(ValueError) as raised:
+                    self.controller.validate_workflow_definition(invalid_definition)
+                self.assertIsInstance(raised.exception, self.controller.WorkflowDefinitionError)
+                self.assertEqual({
+                    "reason_code": reason,
+                    "workflow_id": "fixture-template",
+                    "step_id": "template-consumer",
+                    "location": "steps[0].prompt",
+                    "offending_reference": reference,
+                    "boundary": "definition",
+                    "resume_action": "correct-source-definition-and-revalidate",
+                }, {key: raised.exception.diagnostic[key] for key in (
+                    "reason_code", "workflow_id", "step_id", "location", "offending_reference",
+                    "boundary", "resume_action")})
+                self.assertTrue(raised.exception.diagnostic["correction"])
+                serialized = json.dumps(raised.exception.diagnostic, sort_keys=True)
+                self.assertNotIn("RAW_INPUT_SENTINEL", serialized)
+                self.assertNotIn("/tmp/private-workflow.yml", serialized)
+
+    def test_validateDefinitionReportsAuthoredLocationForGraphFieldsInsideAndAroundLoops(self) -> None:
+        definitions = (
+            ({"workflow": {"id": "loop-route", "version": "1"}, "steps": [
+                {"id": "review-loop", "type": "do-while", "condition": True,
+                 "max_iterations": 1, "steps": [
+                    {"id": "nested-route", "type": "switch", "cases": {"review": []},
+                     "transition_labels": {"review": "Review"}}]}]},
+             lambda value: value["steps"][0]["steps"][0].update(transition_labels={"unknown": "Unknown"}),
+             "nested-route", "steps[0].steps[0].transition_labels"),
+            ({"workflow": {"id": "branch-loop", "version": "1"}, "steps": [
+                {"id": "outer-route", "type": "switch", "cases": {"review": [
+                    {"id": "review-loop", "type": "do-while", "condition": True,
+                     "max_iterations": 1, "steps": [
+                        {"id": "nested-route", "type": "switch", "cases": {"review": []},
+                         "transition_labels": {"review": "Review"}}]}]}}]},
+             lambda value: value["steps"][0]["cases"]["review"][0]["steps"][0].update(
+                 transition_labels={"unknown": "Unknown"}),
+             "nested-route", "steps[0].cases.review[0].steps[0].transition_labels"),
+        )
+        for valid_definition, mutate, step_id, location in definitions:
+            with self.subTest(location=location):
+                self.controller.validate_workflow_definition(copy.deepcopy(valid_definition))
+                invalid_definition = copy.deepcopy(valid_definition)
+                mutate(invalid_definition)
+                with self.assertRaises(ValueError) as raised:
+                    self.controller.validate_workflow_definition(invalid_definition)
+                self.assertEqual("switch-transition-labels-invalid", raised.exception.diagnostic["reason_code"])
+                self.assertEqual(valid_definition["workflow"]["id"],
+                                 raised.exception.diagnostic["workflow_id"])
+                self.assertEqual(step_id, raised.exception.diagnostic["step_id"])
+                self.assertEqual(location, raised.exception.diagnostic["location"])
+                self.assertEqual("transition_labels", raised.exception.diagnostic["offending_reference"])
+
+    def test_validateDefinition_reportsContextForSingleFieldMutations(self) -> None:
+        cases = (
+            (
+                "loop-body-invalid",
+                {"workflow": {"id": "fixture-loop", "version": "1"}, "steps": [
+                    {"id": "reviewed-loop", "type": "do-while", "condition": True,
+                     "max_iterations": 1, "steps": [{"id": "loop-action", "type": "prompt"}]}]},
+                lambda value: value["steps"][0].update(steps=[]),
+                "reviewed-loop", "steps[0].steps", "steps",
+            ),
+            (
+                "switch-transition-labels-invalid",
+                {"workflow": {"id": "fixture-route", "version": "1"}, "steps": [
+                    {"id": "reviewed-route", "type": "switch", "cases": {"finish": []},
+                     "transition_labels": {"finish": "Finish"}}]},
+                lambda value: value["steps"][0].update(transition_labels={"missing": "Missing"}),
+                "reviewed-route", "steps[0].transition_labels", "transition_labels",
+            ),
+            (
+                "template-input-unknown",
+                {"workflow": {"id": "fixture-template", "version": "1"},
+                 "inputs": {"known": {"required": True}}, "steps": [
+                    {"id": "template-consumer", "type": "prompt", "prompt": "{{ inputs.known }}"}]},
+                lambda value: value["steps"][0].update(prompt="{{ inputs.absent }}"),
+                "template-consumer", "steps[0].prompt", "inputs.absent",
+            ),
+        )
+        for reason, valid_definition, mutate, step_id, location, reference in cases:
+            with self.subTest(reason=reason):
+                self.controller.validate_workflow_definition(copy.deepcopy(valid_definition))
+                invalid_definition = copy.deepcopy(valid_definition)
+                mutate(invalid_definition)
+                with self.assertRaises(ValueError) as raised:
+                    self.controller.validate_workflow_definition(invalid_definition)
+                diagnostic = raised.exception.diagnostic
+                self.assertEqual(reason, diagnostic["reason_code"])
+                self.assertEqual(valid_definition["workflow"]["id"], diagnostic["workflow_id"])
+                self.assertEqual(step_id, diagnostic["step_id"])
+                self.assertEqual(location, diagnostic["location"])
+                self.assertEqual(reference, diagnostic["offending_reference"])
+                self.assertTrue(diagnostic["correction"])
+
+    def test_validateDefinition_projectsStableDiagnosticsForMalformedWorkflowBoundaries(self) -> None:
+        cases = (
+            ("root-workflow-container-invalid", {"workflow": [], "steps": []}, "workflow", None, None),
+            ("root-steps-container-invalid", {"workflow": {"id": "fixture", "version": "1"}, "steps": {}}, "steps", None, "fixture"),
+            ("node-container-invalid", {"workflow": {"id": "fixture", "version": "1"}, "steps": [None]}, "steps[0]", None, "fixture"),
+            ("switch-cases-container-invalid", {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+                {"id": "route", "type": "switch", "cases": []}]}, "steps[0].cases", "route", "fixture"),
+            ("switch-case-body-invalid", {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+                {"id": "route", "type": "switch", "cases": {"run": None}}]}, "steps[0].cases.run", "route", "fixture"),
+            ("switch-default-body-invalid", {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+                {"id": "route", "type": "switch", "cases": {"run": []}, "default": None}]}, "steps[0].default", "route", "fixture"),
+            ("misplaced-switch-default", {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+                {"id": "route", "type": "switch", "cases": {"default": []}}]}, "steps[0].cases.default", "route", "fixture"),
+        )
+        for reason, definition, location, step_id, expected_workflow_id in cases:
+            with self.subTest(reason=reason):
+                diagnostic = None
+                try:
+                    self.controller.validate_workflow_definition(definition)
+                except Exception as error:
+                    self.assertIsInstance(error, ValueError)
+                    diagnostic = getattr(error, "diagnostic", None)
+                else:
+                    self.fail("malformed definition was accepted")
+                self.assertIsInstance(diagnostic, dict)
+                self.assertEqual(reason, diagnostic["reason_code"])
+                self.assertRegex(diagnostic["reason_code"], r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+                self.assertEqual(expected_workflow_id, diagnostic["workflow_id"])
+                self.assertEqual(step_id, diagnostic["step_id"])
+                self.assertEqual(location, diagnostic["location"])
+                self.assertTrue(diagnostic["correction"])
+                self.assertEqual("definition", diagnostic["boundary"])
+                self.assertEqual("correct-source-definition-and-revalidate", diagnostic["resume_action"])
+                if reason == "misplaced-switch-default":
+                    self.assertEqual("cases.default", diagnostic["offending_reference"])
+                    self.assertIn("alongside cases", diagnostic["correction"])
+
+    def test_validateDefinition_acceptsSupportedEmptyCaseAndTopLevelDefault(self) -> None:
+        definition = {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+            {"id": "route", "type": "switch", "cases": {"skip": []}, "default": []}]}
+        self.controller.validate_workflow_definition(definition)
+
+    def test_validateDefinition_reportsRootDiagnosticsWithExplicitNullStep(self) -> None:
+        definition = {"workflow": {"id": "fixture", "version": "1"}, "steps": "not-a-list"}
+        try:
+            self.controller.validate_workflow_definition(definition)
+        except Exception as error:
+            self.assertIsInstance(error, ValueError)
+            diagnostic = getattr(error, "diagnostic", None)
+        else:
+            self.fail("malformed root steps were accepted")
+        self.assertIsInstance(diagnostic, dict)
+        self.assertEqual("fixture", diagnostic["workflow_id"])
+        self.assertIsNone(diagnostic["step_id"])
+        self.assertEqual("steps", diagnostic["location"])
+
+    def test_validateDefinition_diagnosticsExcludeRawValuesPromptsAndHostPaths(self) -> None:
+        raw_value = "RAW_INPUT_SENTINEL_023"
+        rendered_prompt = "RENDERED_PROMPT_SENTINEL_023"
+        host_path = "/tmp/farmboy-host-path-sentinel-023/workflow.yml"
+        definition = {
+            "workflow": {"id": "fixture", "version": "1"},
+            "inputs": {"private": {"default": raw_value}},
+            "steps": [
+                {"id": "prompt-node", "type": "prompt", "prompt": rendered_prompt},
+                {"id": "route", "type": "switch", "cases": []},
+            ],
+            "source_path": host_path,
+        }
+        with self.assertRaises(ValueError) as raised:
+            self.controller.validate_workflow_definition(definition)
+        diagnostic = getattr(raised.exception, "diagnostic", None)
+        self.assertIsInstance(diagnostic, dict)
+        serialized = json.dumps(diagnostic, sort_keys=True)
+        self.assertNotIn(raw_value, serialized)
+        self.assertNotIn(rendered_prompt, serialized)
+        self.assertNotIn(host_path, serialized)
+
+    def test_validateDefinition_rejectsUnknownSelfForwardAndRouteInfeasibleProducers(self) -> None:
+        prefix = {"workflow": {"id": "fixture", "version": "1"}}
+        fixtures = {
+            "producer-unknown": [{"id": "consume", "type": "prompt", "prompt": "{{ steps.missing.output.value }}"}],
+            "producer-self-reference": [{"id": "consume", "type": "prompt", "prompt": "{{ steps.consume.output.value }}"}],
+            "producer-forward-reference": [
+                {"id": "consume", "type": "prompt", "prompt": "{{ steps.produce.output.value }}"},
+                {"id": "produce", "type": "prompt", "prompt": "produce"}],
+            "producer-cross-branch-reference": [
+                {"id": "route", "type": "switch", "expression": "{{ inputs.choice }}", "cases": {
+                    "produce": [{"id": "produce", "type": "prompt", "prompt": "produce"}],
+                    "consume": [{"id": "consume", "type": "prompt", "prompt": "{{ steps.produce.output.value }}"}]} }],
+            "producer-post-join-infeasible": [
+                {"id": "route", "type": "switch", "expression": "{{ inputs.choice }}", "cases": {
+                    "produce": [{"id": "produce", "type": "prompt", "prompt": "produce"}],
+                    "skip": []}},
+                {"id": "consume", "type": "prompt", "prompt": "{{ steps.produce.output.value }}"}],
+        }
+        for reason, steps in fixtures.items():
+            definition = {**prefix, "inputs": {"choice": {"required": True}}, "steps": steps}
+            with self.subTest(reason=reason):
+                diagnostic = None
+                try:
+                    self.controller.validate_workflow_definition(definition)
+                except Exception as error:
+                    self.assertIsInstance(error, ValueError)
+                    diagnostic = getattr(error, "diagnostic", None)
+                else:
+                    self.fail("invalid producer reference was accepted")
+                self.assertIsInstance(diagnostic, dict)
+                self.assertEqual(reason, diagnostic["reason_code"])
+                self.assertEqual("fixture", diagnostic["workflow_id"])
+                self.assertEqual("consume", diagnostic["step_id"])
+                self.assertRegex(diagnostic["reason_code"], r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+
+    def test_validateDefinition_acceptsEarlierProducerWithoutPreexistingOutput(self) -> None:
+        definition = {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+            {"id": "produce", "type": "prompt", "prompt": "produce"},
+            {"id": "consume", "type": "prompt", "prompt": "{{ steps.produce.output.value }}"}]}
+        self.controller.validate_workflow_definition(definition)
+
+    def test_validateDefinitionChecksReferencesInsideNestedPayloadKeys(self) -> None:
+        structural_names = ("cases", "default", "steps", "condition")
+        for key in structural_names:
+            with self.subTest(key=key):
+                definition = {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+                    {"id": "consume", "type": "command", "command": "run",
+                     "args": {key: "{{ steps.missing.output.value }}"}}]}
+                with self.assertRaises(ValueError) as raised:
+                    self.controller.validate_workflow_definition(definition)
+                self.assertEqual("producer-unknown", raised.exception.diagnostic["reason_code"])
+
+        nested_forward = {"workflow": {"id": "fixture", "version": "1"}, "steps": [
+            {"id": "consume", "type": "command", "args": {"condition": "{{ steps.produce.output.value }}"}},
+            {"id": "produce", "type": "prompt", "prompt": "produce"}]}
+        with self.assertRaises(ValueError) as forward:
+            self.controller.validate_workflow_definition(nested_forward)
+        self.assertEqual("producer-forward-reference", forward.exception.diagnostic["reason_code"])
+
+        nested_cross_route = {"workflow": {"id": "fixture", "version": "1"},
+            "inputs": {"choice": {"required": True}}, "steps": [
+                {"id": "route", "type": "switch", "expression": "{{ inputs.choice }}", "cases": {
+                    "produce": [{"id": "produce", "type": "prompt", "prompt": "produce"}],
+                    "consume": [{"id": "consume", "type": "command",
+                                 "args": {"steps": "{{ steps.produce.output.value }}"}}]}}]}
+        with self.assertRaises(ValueError) as cross_route:
+            self.controller.validate_workflow_definition(nested_cross_route)
+        self.assertEqual("producer-cross-branch-reference", cross_route.exception.diagnostic["reason_code"])
+
+        loop = {"workflow": {"id": "fixture", "version": "1"}, "steps": [{
+            "id": "corrective-loop", "type": "do-while",
+            "condition": "{{ steps.assess.output.state == 'continue' }}", "max_iterations": 2,
+            "steps": [{"id": "assess", "type": "prompt", "prompt": "assess"}]}]}
+        self.controller.validate_workflow_definition(loop)
+
     def test_validateGraph_rejectsDuplicateStepIDs(self) -> None:
         graph = [{"id": "same", "type": "prompt"}, {"id": "route", "type": "switch", "cases": {"a": [{"id": "same", "type": "prompt"}]}}]
         with self.assertRaisesRegex(ValueError, "duplicate step id"):
@@ -560,6 +826,86 @@ class GraphPreflightTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unsupported or unresolved"):
             self.controller.render_template("{{ unsupported.value }}", {}, {})
 
+    def test_renderTemplateConsumesOnlyValidatedCurrentAssessmentOutput(self) -> None:
+        value = "Consume {{ steps.produce.output.reason_code }}"
+        body_ids = {"produce", "consume"}
+        effects: list[str] = []
+        with tempfile.TemporaryDirectory() as temporary:
+            project = Path(temporary)
+            evidence = project / "assessment.md"
+            evidence.write_text("Current assessment evidence", encoding="utf-8")
+            fresh_digest = hashlib.sha256(evidence.read_bytes()).hexdigest()
+            fresh = {
+                "state": "continue", "reason_code": "current-assessment",
+                "evidence": [{"path": "assessment.md", "sha256": fresh_digest}],
+                "remaining_ids": ["F001"], "resolved_ids": [], "next_step_id": "consume",
+            }
+
+            old_digest = hashlib.sha256(b"previous-pass assessment evidence").hexdigest()
+            stale = {**fresh, "reason_code": "stale-assessment",
+                     "evidence": [{"path": "assessment.md", "sha256": old_digest}]}
+            malformed = {**fresh, "evidence": [{"path": "assessment.md", "sha256": "not-a-digest"}]}
+
+            with self.subTest(output="fresh"):
+                validated = self.controller.validate_outcome_envelope(fresh, project, body_ids)
+                effects.append(self.controller.render_template(value, {}, {"produce": validated}))
+
+            for label, envelope, expected in (
+                ("stale", stale, "does not match current bytes"),
+                ("malformed", malformed, "SHA-256 is malformed"),
+            ):
+                with self.subTest(output=label), self.assertRaisesRegex(ValueError, expected):
+                    validated = self.controller.validate_outcome_envelope(envelope, project, body_ids)
+                    effects.append(self.controller.render_template(value, {}, {"produce": validated}))
+
+            with self.subTest(output="missing"), self.assertRaisesRegex(
+                    ValueError, "unresolved step output reference"):
+                rendered = self.controller.render_template(value, {}, {})
+                effects.append(rendered)
+
+        self.assertEqual(["Consume current-assessment"], effects)
+
+    def test_selectedBranchOutputIsRequiredBeforeConsumerRendering(self) -> None:
+        definition = {"workflow": {"id": "branch-output", "version": "1"}, "steps": [
+            {"id": "route-choice", "type": "prompt"},
+            {"id": "route", "type": "switch", "expression": "{{ steps.route-choice.output.state }}",
+             "cases": {
+                 "continue": [
+                     {"id": "assess", "type": "prompt"},
+                     {"id": "continue-consumer", "type": "prompt",
+                      "prompt": "Continue with {{ steps.assess.output.reason_code }}"}],
+                 "blocked": [
+                     {"id": "stop", "type": "prompt"},
+                     {"id": "blocked-consumer", "type": "prompt",
+                      "prompt": "Stop with {{ steps.stop.output.reason_code }}"}],
+             }}]}
+        self.controller.validate_workflow_definition(definition)
+        switch = definition["steps"][1]
+        rendered_switch, selected = self.controller.render_selected_switch(
+            switch, {}, {"route-choice": {"state": "continue"}})
+        self.assertEqual("continue", rendered_switch["expression"])
+        self.assertEqual(["assess", "continue-consumer"], [step["id"] for step in selected])
+
+        effects: list[str] = []
+        effects.append(self.controller.render_template(
+            selected[1]["prompt"], {}, {"assess": {"state": "continue", "reason_code": "reviewed-progress"}}))
+        self.assertEqual(["Continue with reviewed-progress"], effects)
+
+        with self.assertRaisesRegex(ValueError, "unresolved step output reference"):
+            self.controller.render_template(selected[1]["prompt"], {}, {"stop": {"state": "blocked"}})
+        self.assertEqual(["Continue with reviewed-progress"], effects)
+
+        cross_branch = copy.deepcopy(definition)
+        blocked_consumer = cross_branch["steps"][1]["cases"]["blocked"][1]
+        blocked_consumer["prompt"] = "Stop with {{ steps.assess.output.reason_code }}"
+        with self.assertRaises(ValueError) as raised:
+            self.controller.validate_workflow_definition(cross_branch)
+        diagnostic = raised.exception.diagnostic
+        self.assertEqual("producer-cross-branch-reference", diagnostic["reason_code"])
+        self.assertEqual("blocked-consumer", diagnostic["step_id"])
+        self.assertTrue(diagnostic["location"].startswith("steps["), diagnostic)
+        self.assertEqual(["Continue with reviewed-progress"], effects)
+
     def test_renderTemplate_serializesStructuredOutputsAsJson(self) -> None:
         rendered = self.controller.render_template(
             '{"proposal": {{ steps.prepare.output.proposal }}}', {},
@@ -842,6 +1188,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         self.feature = "specs/901-scoped-implementation"
+        self.history_fixture_counter = 0
         (self.root / ".specify").mkdir()
         self.write(".specify/feature.json", {"feature_directory": self.feature})
         self.write(f"{self.feature}/spec.md", "# Current specification\n")
@@ -953,6 +1300,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
 
     def historical_progress_fixture(self, sessions: int = 1, attempts: int = 1) -> dict:
         """Retain a pre-effect assessment, then review and track one whole task."""
+        self.history_fixture_counter += 1
         digest = self.controller._progress_digest
         task_path = f"{self.feature}/tasks.md"
         self.write(task_path, "- [ ] T001 Implement a scoped operation\n- [ ] T002 Implement another operation\n")
@@ -960,7 +1308,7 @@ class ScopedImplementationControllerTests(unittest.TestCase):
         self.write(source_path, "result = 'before'\n")
         evidence = lambda path: [{"path": path, "sha256": hashlib.sha256((self.root / path).read_bytes()).hexdigest()}]
         binding = self.current_scope_payload()
-        binding["scope"]["run_id"] = f"historical-{sessions}-{attempts}"
+        binding["scope"]["run_id"] = f"historical-{sessions}-{attempts}-{self.history_fixture_counter}"
         # Full-feature scope includes both unfinished tasks.
         record = {"task_id": "T002", "marker": "unchecked", "description": "Implement another operation",
                   "description_sha256": hashlib.sha256(b"Implement another operation").hexdigest()}
@@ -1092,6 +1440,341 @@ class ScopedImplementationControllerTests(unittest.TestCase):
                 request = self.historical_progress_fixture(sessions, attempts)
                 result = self.controller.validate_scoped_implementation_progress(self.root, request)
                 self.assertEqual("loop-cap-exhausted", result["blocker"], result)
+
+    def testScopedRouteValidControlAndSingleHistoricalOrProgressGuardMutation(self) -> None:
+        def route_payload(request: dict) -> dict:
+            return {key: request[key] for key in (
+                "scope", "trusted_request_reference", "retained_scope_sha256", "retained_history_sha256",
+                "previous_assessment", "retained_previous_assessment_sha256", "task_tracking_successors")
+                    if key in request} | {
+                "assessment": request["assessment"], "eligible_task_ids": ["T002"],
+                "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]}
+
+        valid = self.historical_progress_fixture()
+        original_previous = copy.deepcopy(valid["previous_assessment"])
+        original_history = copy.deepcopy(valid["retained_history_sha256"])
+        control = self.controller.route_scoped_implementation(self.root, route_payload(valid))
+        self.assertEqual("continue", control["state"], control)
+        self.assertEqual("implement-tasks", control["next_step_id"])
+        self.assertEqual(original_previous, valid["previous_assessment"])
+        self.assertEqual(original_history, valid["retained_history_sha256"])
+
+        cases = []
+        unbound = route_payload(self.historical_progress_fixture())
+        unbound.pop("retained_previous_assessment_sha256")
+        cases.append(("missing historical binding", unbound, "historical-assessment-binding-invalid"))
+
+        forged = route_payload(self.historical_progress_fixture())
+        forged["previous_assessment"]["remaining_ids"].append("finding:invented")
+        cases.append(("altered historical envelope", forged, "historical-assessment-binding-invalid"))
+
+        stale_current = route_payload(self.historical_progress_fixture())
+        stale_current["assessment"]["evidence"][0]["sha256"] = "0" * 64
+        cases.append(("stale current evidence", stale_current, "assessment evidence digest does not match current bytes"))
+
+        task_path = f"{self.feature}/tasks.md"
+        tracked_text = (self.root / task_path).read_text(encoding="utf-8")
+
+        for label, payload, reason in cases:
+            with self.subTest(guard=label):
+                before_counts = (payload["retained_history_sha256"],)
+                result = self.controller.route_scoped_implementation(self.root, payload)
+                self.assertEqual("blocked", result["state"], result)
+                self.assertEqual(reason, result["reason_code"], result)
+                self.assertEqual(before_counts, (payload["retained_history_sha256"],))
+                self.assertNotIn("next_step_id", result)
+
+        unauthorized_tasks = route_payload(self.historical_progress_fixture())
+        self.write(task_path, "- [x] T001 Unauthorized description change\n- [ ] T002 Implement another operation\n")
+        unauthorized_tasks["assessment"]["evidence"] = [{
+            "path": task_path,
+            "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}]
+        unauthorized_result = self.controller.route_scoped_implementation(self.root, unauthorized_tasks)
+        self.assertEqual("blocked", unauthorized_result["state"], unauthorized_result)
+        self.assertIn("task-tracking-", unauthorized_result["reason_code"])
+        self.write(task_path, tracked_text)
+
+        stale_review = route_payload(self.historical_progress_fixture())
+        review_path = f"{self.feature}/validation/reviewer.json"
+        self.write(review_path, {"reviewer": "FarmBoy Code Reviewer", "completed_task_ids": []})
+        stale_review_result = self.controller.route_scoped_implementation(self.root, stale_review)
+        self.assertEqual("blocked", stale_review_result["state"], stale_review_result)
+        self.assertEqual("task-tracking-evidence-stale", stale_review_result["reason_code"])
+
+    def testScopedRouteNoProgressAndExhaustedCountersDoNotDispatchOrReset(self) -> None:
+        control_request = self.historical_progress_fixture()
+        make_route = lambda request: {
+            **{key: request[key] for key in (
+                "scope", "trusted_request_reference", "retained_scope_sha256", "retained_history_sha256",
+                "previous_assessment", "retained_previous_assessment_sha256", "task_tracking_successors")
+               if key in request},
+            "assessment": request["assessment"], "eligible_task_ids": ["T002"],
+            "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]}
+        accepted = self.controller.route_scoped_implementation(self.root, make_route(control_request))
+        self.assertEqual("continue", accepted["state"], accepted)
+        self.assertEqual((1, 1), (accepted["history"]["coder_sessions_started"],
+                                  accepted["history"]["source_attempts_started"]))
+
+        no_progress = self.historical_progress_fixture()
+        no_progress["progress"]["review"]["completed_task_ids"] = []
+        no_progress["progress"]["review"].pop("task_completion_evidence", None)
+        reassessed = self.controller.validate_implementation_progress(self.root, no_progress["progress"])
+        self.assertEqual([], reassessed["resolved_ids"])
+        no_progress["assessment"]["resolved_ids"] = reassessed["resolved_ids"]
+        no_progress["assessment"]["remaining_ids"] = reassessed["remaining_ids"]
+        no_progress["assessment"]["evidence"] = [
+            {"path": f"{self.feature}/tasks.md",
+             "sha256": hashlib.sha256((self.root / f"{self.feature}/tasks.md").read_bytes()).hexdigest()},
+            {"path": f"{self.feature}/operation.py",
+             "sha256": hashlib.sha256((self.root / f"{self.feature}/operation.py").read_bytes()).hexdigest()}]
+        no_progress_history_path, _ = self.controller._implementation_history_path(
+            self.root, no_progress["scope"])
+        no_progress_history_before = json.loads(no_progress_history_path.read_text(encoding="utf-8"))
+        no_progress_route = self.controller.route_scoped_implementation(self.root, make_route(no_progress))
+        self.assertEqual("blocked", no_progress_route["state"], no_progress_route)
+        self.assertEqual("no-progress", no_progress_route["blocker"], no_progress_route)
+        no_progress_history_after = json.loads(no_progress_history_path.read_text(encoding="utf-8"))
+        self.assertEqual(no_progress_history_before, no_progress_history_after)
+        self.assertEqual(no_progress["retained_history_sha256"], no_progress_history_after["sha256"])
+        self.assertEqual((no_progress_history_before["coder_sessions_started"],
+                          no_progress_history_before["source_attempts_started"]),
+                         (no_progress_history_after["coder_sessions_started"],
+                          no_progress_history_after["source_attempts_started"]))
+
+        for sessions, attempts in ((5, 4), (5, 5)):
+            with self.subTest(sessions=sessions, attempts=attempts):
+                exhausted = self.historical_progress_fixture(sessions, attempts)
+                exhausted_history_path, _ = self.controller._implementation_history_path(
+                    self.root, exhausted["scope"])
+                exhausted_history_before = json.loads(exhausted_history_path.read_text(encoding="utf-8"))
+                exhausted_route = self.controller.route_scoped_implementation(self.root, make_route(exhausted))
+                self.assertEqual("blocked", exhausted_route["state"], exhausted_route)
+                self.assertEqual("loop-cap-exhausted", exhausted_route["blocker"], exhausted_route)
+                exhausted_history_after = json.loads(exhausted_history_path.read_text(encoding="utf-8"))
+                self.assertEqual(exhausted_history_before, exhausted_history_after)
+                self.assertEqual((sessions, attempts), (exhausted_history_after["coder_sessions_started"],
+                                                        exhausted_history_after["source_attempts_started"]))
+                self.assertNotIn("next_step_id", exhausted_route)
+
+    def testBranchOutputFailuresRetainProductionHistoryAndPreimages(self) -> None:
+        definition = {"workflow": {"id": "branch-output", "version": "1"}, "steps": [
+            {"id": "route-choice", "type": "prompt"},
+            {"id": "route", "type": "switch", "expression": "{{ steps.route-choice.output.state }}",
+             "cases": {
+                 "continue": [
+                     {"id": "assess", "type": "prompt"},
+                     {"id": "continue-consumer", "type": "prompt",
+                      "prompt": "Continue with {{ steps.assess.output.reason_code }}"}],
+                 "blocked": [
+                     {"id": "stop", "type": "prompt"},
+                     {"id": "blocked-consumer", "type": "prompt",
+                      "prompt": "Stop with {{ steps.stop.output.reason_code }}"}],
+             }}]}
+        self.controller.validate_workflow_definition(definition)
+
+        def retain_state(request: dict) -> tuple[Path, dict, dict, dict]:
+            history_path, _ = self.controller._implementation_history_path(self.root, request["scope"])
+            history_bytes = history_path.read_bytes()
+            history = json.loads(history_bytes)
+            source_preimages = {
+                item["path"]: hashlib.sha256((self.root / item["path"]).read_bytes()).hexdigest()
+                for item in request["previous_assessment"]["evidence"]
+            }
+            return history_path, {
+                "bytes_sha256": hashlib.sha256(history_bytes).hexdigest(),
+                "history_sha256": history["sha256"],
+                "coder_sessions_started": history["coder_sessions_started"],
+                "source_attempts_started": history["source_attempts_started"],
+            }, copy.deepcopy(request["previous_assessment"]), source_preimages
+
+        def assert_retained(state: tuple[Path, dict, dict, dict], request: dict) -> None:
+            history_path, history_before, previous_before, source_before = state
+            history_bytes = history_path.read_bytes()
+            history = json.loads(history_bytes)
+            self.assertEqual(history_before["bytes_sha256"], hashlib.sha256(history_bytes).hexdigest())
+            self.assertEqual(history_before["history_sha256"], history["sha256"])
+            self.assertEqual(history_before["coder_sessions_started"], history["coder_sessions_started"])
+            self.assertEqual(history_before["source_attempts_started"], history["source_attempts_started"])
+            self.assertEqual(previous_before, request["previous_assessment"])
+            self.assertEqual(source_before, {
+                path: hashlib.sha256((self.root / path).read_bytes()).hexdigest() for path in source_before
+            })
+
+        def route_control(request: dict) -> dict:
+            routed = self.controller.route_scoped_implementation(self.root, {
+                key: request[key] for key in (
+                    "scope", "trusted_request_reference", "retained_scope_sha256", "retained_history_sha256",
+                    "previous_assessment", "retained_previous_assessment_sha256", "task_tracking_successors")
+                if key in request
+            } | {
+                "assessment": request["assessment"], "eligible_task_ids": ["T002"],
+                "declared_node_ids": ["prepare-scoped-prerequisites", "implement-tasks"]})
+            self.assertEqual("continue", routed["state"], routed)
+            self.assertEqual("implement-tasks", routed["next_step_id"])
+            return routed
+
+        valid = self.historical_progress_fixture()
+        valid_state = retain_state(valid)
+        routed = route_control(valid)
+        self.assertEqual((1, 1), (routed["history"]["coder_sessions_started"],
+                                 routed["history"]["source_attempts_started"]))
+        switch = definition["steps"][1]
+        rendered_switch, selected = self.controller.render_selected_switch(
+            switch, {}, {"route-choice": {"state": "continue"}})
+        self.assertEqual("continue", rendered_switch["expression"])
+        self.assertEqual(["assess", "continue-consumer"], [step["id"] for step in selected])
+        dispatches: list[str] = []
+        effects: list[str] = []
+        dispatches.append(selected[0]["id"])
+        dispatches.append(selected[1]["id"])
+        effects.append(self.controller.render_template(selected[1]["prompt"], {}, {
+            "assess": {"state": "continue", "reason_code": "reviewed-progress"}}))
+        self.assertEqual(["assess", "continue-consumer"], dispatches)
+        self.assertEqual(["Continue with reviewed-progress"], effects)
+        assert_retained(valid_state, valid)
+
+        missing = self.historical_progress_fixture()
+        missing_state = retain_state(missing)
+        route_control(missing)
+        missing_switch, missing_selected = self.controller.render_selected_switch(
+            switch, {}, {"route-choice": {"state": "continue"}})
+        self.assertEqual("continue", missing_switch["expression"])
+        missing_consumer = missing_selected[1]
+        missing_dispatches: list[str] = []
+        missing_effects: list[str] = []
+        missing_dispatches.append(missing_selected[0]["id"])
+        with self.assertRaisesRegex(ValueError, "unresolved step output reference"):
+            self.controller.render_template(missing_consumer["prompt"], {}, {})
+            missing_dispatches.append(missing_consumer["id"])
+            missing_effects.append("consumer effect")
+        self.assertEqual(["assess"], missing_dispatches)
+        self.assertEqual([], missing_effects)
+        assert_retained(missing_state, missing)
+
+        cross_branch = copy.deepcopy(definition)
+        blocked_consumer = cross_branch["steps"][1]["cases"]["blocked"][1]
+        blocked_consumer["prompt"] = "Stop with {{ steps.assess.output.reason_code }}"
+        cross_branch_request = self.historical_progress_fixture()
+        cross_branch_state = retain_state(cross_branch_request)
+        route_control(cross_branch_request)
+        cross_branch_dispatches: list[str] = []
+        cross_branch_effects: list[str] = []
+        with self.assertRaises(ValueError) as raised:
+            self.controller.validate_workflow_definition(cross_branch)
+        diagnostic = raised.exception.diagnostic
+        self.assertEqual("producer-cross-branch-reference", diagnostic["reason_code"])
+        self.assertEqual("blocked-consumer", diagnostic["step_id"])
+        self.assertEqual("definition", diagnostic["boundary"])
+        self.assertEqual("correct-source-definition-and-revalidate", diagnostic["resume_action"])
+        self.assertTrue(diagnostic["location"].startswith("steps["), diagnostic)
+        self.assertEqual([], cross_branch_dispatches)
+        self.assertEqual([], cross_branch_effects)
+        assert_retained(cross_branch_state, cross_branch_request)
+
+    def testScopedAnswerMarkerAndFreshSessionVariantsRetainHistoryWithoutCredit(self) -> None:
+        request = self.historical_progress_fixture()
+        progress_payload = copy.deepcopy(request["progress"])
+        for finding in progress_payload["review"]["findings"]:
+            finding["status"] = "unresolved"
+            finding.pop("resolution_summary", None)
+        progress_payload["review"]["completed_task_ids"] = []
+        progress_payload["review"].pop("task_completion_evidence", None)
+        progress = self.controller.validate_implementation_progress(self.root, progress_payload)
+        self.assertEqual("ready", progress["state"], progress)
+        self.assertFalse(progress["substantive_progress"])
+
+        task_path = f"{self.feature}/tasks.md"
+        source_path = f"{self.feature}/operation.py"
+        current = {"state": "continue", "reason_code": "no-new-source-progress",
+                   "evidence": [
+                       {"path": task_path, "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()},
+                       {"path": source_path, "sha256": hashlib.sha256((self.root / source_path).read_bytes()).hexdigest()},
+                   ], "remaining_ids": progress["remaining_ids"], "resolved_ids": [],
+                   "next_step_id": "implement-tasks"}
+        scoped = {**request, "assessment": current, "progress": progress_payload,
+                  "administrative_prerequisite_ids": []}
+        original_scope = copy.deepcopy(scoped["scope"])
+        original_previous = copy.deepcopy(scoped["previous_assessment"])
+        history_path, relative_history_path = self.controller._implementation_history_path(
+            self.root, scoped["scope"])
+        history_before = json.loads(history_path.read_text(encoding="utf-8"))
+        self.assertEqual((1, 1), (history_before["coder_sessions_started"],
+                                 history_before["source_attempts_started"]))
+
+        tracked_scope = self.controller.validate_implementation_scope(
+            self.root, {key: scoped[key] for key in (
+                "scope", "trusted_request_reference", "retained_scope_sha256", "task_tracking_successors")})
+        self.assertEqual("ready", tracked_scope["state"], tracked_scope)
+        same_child_question = {"kind": "question", "step_id": "implement-tasks",
+            "question": "Continue with the same child?", "options": ["continue"],
+            "allow_custom_answer": False}
+        answer = self.controller.resolve_child_answer(
+            same_child_question, "continue", "coder-child-1", "coder-child-1")
+        self.assertEqual("coder-child-1", answer["child_id"])
+
+        no_credit = self.controller.validate_scoped_implementation_progress(self.root, scoped)
+        self.assertEqual("blocked", no_credit["state"], no_credit)
+        self.assertEqual("no-progress", no_credit.get("blocker", no_credit.get("reason_code")), no_credit)
+        self.assertNotIn("next_step_id", no_credit)
+        self.assertEqual(original_scope, scoped["scope"])
+        self.assertEqual(original_previous, scoped["previous_assessment"])
+        self.assertEqual(history_before, json.loads(history_path.read_text(encoding="utf-8")))
+
+        session_start = {"event_id": "event-4", "event_kind": "coder-session-start",
+            "predecessor_sha256": history_before["events"][-1]["sha256"],
+            "scope_sha256": scoped["scope"]["scope_sha256"],
+            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-12T12:01:00Z",
+            "evidence": [{"path": task_path,
+                "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}],
+            "coder_session_id": "session-1-new-child", "coder_sessions_started": 2,
+            "source_attempts_started": 1, "execution_kind": "corrective-source-execution"}
+        session_start["sha256"] = hashlib.sha256(json.dumps(
+            session_start, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        started = self.controller.append_implementation_execution_event(self.root, {
+            **{key: scoped[key] for key in ("scope", "trusted_request_reference", "retained_scope_sha256")},
+            "task_tracking_successors": scoped["task_tracking_successors"],
+            "event": session_start, "retained_history_sha256": history_before["sha256"]})
+        self.assertEqual("ready", started["state"], started)
+        source_attempt = {"event_id": "event-5", "event_kind": "source-attempt-start",
+            "predecessor_sha256": started["history"]["events"][-1]["sha256"],
+            "scope_sha256": scoped["scope"]["scope_sha256"],
+            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-12T12:01:00.500Z",
+            "evidence": [{"path": task_path,
+                "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}],
+            "coder_session_id": "session-1-new-child", "coder_sessions_started": 2,
+            "source_attempts_started": 2, "execution_kind": "corrective-source-execution"}
+        source_attempt["sha256"] = hashlib.sha256(json.dumps(
+            source_attempt, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        attempted = self.controller.append_implementation_execution_event(self.root, {
+            **{key: scoped[key] for key in ("scope", "trusted_request_reference", "retained_scope_sha256")},
+            "task_tracking_successors": scoped["task_tracking_successors"],
+            "event": source_attempt, "retained_history_sha256": started["history_sha256"]})
+        self.assertEqual("ready", attempted["state"], attempted)
+        session_outcome = {"event_id": "event-6", "event_kind": "coder-session-outcome",
+            "predecessor_sha256": attempted["history"]["events"][-1]["sha256"],
+            "scope_sha256": scoped["scope"]["scope_sha256"],
+            "declared_node_id": "implement-tasks", "occurred_at": "2026-10-12T12:01:01Z",
+            "evidence": [{"path": task_path,
+                "sha256": hashlib.sha256((self.root / task_path).read_bytes()).hexdigest()}],
+            "coder_session_id": "session-1-new-child", "coder_sessions_started": 2,
+            "source_attempts_started": 2, "outcome": "completed"}
+        session_outcome["sha256"] = hashlib.sha256(json.dumps(
+            session_outcome, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
+        closed = self.controller.append_implementation_execution_event(self.root, {
+            **{key: scoped[key] for key in ("scope", "trusted_request_reference", "retained_scope_sha256")},
+            "task_tracking_successors": scoped["task_tracking_successors"],
+            "event": session_outcome, "retained_history_sha256": attempted["history_sha256"]})
+        self.assertEqual("ready", closed["state"], closed)
+        scoped["retained_history_sha256"] = closed["history_sha256"]
+        fresh_child = self.controller.validate_scoped_implementation_progress(self.root, scoped)
+        self.assertEqual("blocked", fresh_child["state"], fresh_child)
+        self.assertEqual("no-progress", fresh_child.get("blocker", fresh_child.get("reason_code")), fresh_child)
+        self.assertNotIn("next_step_id", fresh_child)
+        persisted = json.loads(history_path.read_text(encoding="utf-8"))
+        self.assertEqual(history_before["events"], persisted["events"][:len(history_before["events"])])
+        self.assertEqual((2, 2), (persisted["coder_sessions_started"], persisted["source_attempts_started"]))
+        self.assertEqual(closed["history_sha256"], persisted["sha256"])
+        self.assertEqual(relative_history_path, closed["history_path"])
 
     def testReviewedLoopCarrierIsRestrictedAndInspectable(self) -> None:
         body = [

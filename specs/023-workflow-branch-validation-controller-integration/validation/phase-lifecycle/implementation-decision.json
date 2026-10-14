@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "phase": "implement",
+  "scope_sha256": "1e550e1cbda10055b9e784671224abff2154666ba3564e3aa0accd2a1a9cf9b3",
+  "kind": "routine-invocation",
+  "reference": "direct-operator-farmboy-implement-feature023-run-9a496f02-51c0-4ac0-87fd-a2b92f3a93d0"
+}

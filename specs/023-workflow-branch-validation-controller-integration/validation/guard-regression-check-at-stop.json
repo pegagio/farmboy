@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
+  "observed_at": "2026-10-13T18:13:07.919330Z",
+  "validation_kind": "partial-source-regression-check-at-stop",
+  "source_controller_sha256": "2052d4deca5a25bf59d7044d5b0510d126b58e7440ca2769a639b8b71e31f153",
+  "patterns": [
+    "test_implementation_scope.py",
+    "test_implementation_progress.py",
+    "test_phase_lifecycle.py"
+  ],
+  "runner": "mise exec -- python; unittest.TestLoader.discover from tests",
+  "tests_run": 75,
+  "result": "passed",
+  "launcher_correction": "Module-qualified test invocation could not resolve a sibling test import. Discovery resolved the import and all 75 tests passed without any source change.",
+  "independent_review_additional_tests_passed": 124,
+  "remaining_catalog_failures": 5,
+  "catalog_failure_owner": "T006",
+  "known_source_findings": [
+    "F023-T005-R001",
+    "F023-T008-R001"
+  ],
+  "installed_parity_claimed": false,
+  "feature_completion_claimed": false
+}

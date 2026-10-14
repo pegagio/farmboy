@@ -5,6 +5,7 @@ from __future__ import annotations
 import importlib.util
 import json
 import re
+import sys
 import unittest
 from pathlib import Path
 
@@ -12,6 +13,7 @@ import yaml
 
 
 ROOT = Path(__file__).parents[1]
+CONTROLLER_PATH = ROOT / "controllers/farmboy/scripts/python/controller.py"
 
 
 def load_module(name: str, path: Path):
@@ -19,6 +21,7 @@ def load_module(name: str, path: Path):
     if spec is None or spec.loader is None:
         raise AssertionError(f"could not load {path}")
     module = importlib.util.module_from_spec(spec)
+    sys.modules[name] = module
     spec.loader.exec_module(module)
     return module
 
@@ -58,6 +61,74 @@ class WorkflowGraphInventoryTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.inventory = load_module("farmboy_workflow_inventory", ROOT / "tools/validate_workflows.py")
+        cls.controller = load_module("farmboy_workflow_graph_controller", CONTROLLER_PATH)
+
+    def testEveryOwnedSourceWorkflowPassesTheProductionDefinitionValidator(self) -> None:
+        definitions = self.inventory.load_workflows()
+        self.assertEqual(11, len(definitions))
+        for definition in definitions:
+            with self.subTest(workflow=definition["workflow"]["id"]):
+                self.controller.validate_workflow_definition(definition)
+
+    def testSingleMutationsProduceWorkflowAndExactFieldDiagnostics(self) -> None:
+        fixtures = (
+            ({"workflow": {"id": "loop-fixture", "version": "1"}, "steps": [
+                {"id": "loop-step", "type": "do-while", "condition": True,
+                 "max_iterations": 1, "steps": [{"id": "action", "type": "prompt"}]}]},
+             lambda item: item["steps"][0].update(steps=[]), "loop-body-invalid", "loop-step",
+             "steps[0].steps", "steps"),
+            ({"workflow": {"id": "route-fixture", "version": "1"}, "steps": [
+                {"id": "route-step", "type": "switch", "cases": {"done": []},
+                 "transition_labels": {"done": "Done"}}]},
+             lambda item: item["steps"][0].update(transition_labels={"unknown": "Unknown"}),
+             "switch-transition-labels-invalid", "route-step", "steps[0].transition_labels",
+             "transition_labels"),
+            ({"workflow": {"id": "template-fixture", "version": "1"},
+              "inputs": {"known": {"required": True}}, "steps": [
+                {"id": "consumer-step", "type": "prompt", "prompt": "{{ inputs.known }}"}]},
+             lambda item: item["steps"][0].update(prompt="{{ inputs.absent }}"),
+             "template-input-unknown", "consumer-step", "steps[0].prompt", "inputs.absent"),
+            ({"workflow": {"id": "unsupported-template-fixture", "version": "1"}, "steps": [
+                {"id": "prior", "type": "prompt", "prompt": "valid"},
+                {"id": "consumer-step", "type": "prompt", "prompt": "{{ steps.prior.output.value }}"}]},
+             lambda item: item["steps"][1].update(prompt="{{ unsupported.value }}"),
+             "template-expression-unsupported", "consumer-step", "steps[1].prompt", "template-expression"),
+            ({"workflow": {"id": "malformed-template-fixture", "version": "1"}, "inputs": {
+                "known": {"required": True}}, "steps": [
+                    {"id": "consumer-step", "type": "prompt", "prompt": "{{ inputs.known }}"}]},
+             lambda item: item["steps"][0].update(prompt="{{ inputs.known"),
+             "template-delimiters-unbalanced", "consumer-step", "steps[0].prompt",
+             "template-opening-delimiter"),
+            ({"workflow": {"id": "loop-route-fixture", "version": "1"}, "steps": [
+                {"id": "loop", "type": "do-while", "condition": True, "max_iterations": 1,
+                 "steps": [{"id": "route", "type": "switch", "cases": {"done": []},
+                            "transition_labels": {"done": "Done"}}]}]},
+             lambda item: item["steps"][0]["steps"][0].update(transition_labels={"missing": "Missing"}),
+             "switch-transition-labels-invalid", "route", "steps[0].steps[0].transition_labels",
+             "transition_labels"),
+        )
+        for valid, mutate, reason, step_id, location, reference in fixtures:
+            with self.subTest(reason=reason):
+                self.controller.validate_workflow_definition(valid)
+                invalid = json.loads(json.dumps(valid))
+                mutate(invalid)
+                with self.assertRaises(ValueError) as raised:
+                    self.controller.validate_workflow_definition(invalid)
+                diagnostic = raised.exception.diagnostic
+                self.assertEqual({
+                    "reason_code": reason,
+                    "workflow_id": valid["workflow"]["id"],
+                    "step_id": step_id,
+                    "location": location,
+                    "offending_reference": reference,
+                    "boundary": "definition",
+                    "resume_action": "correct-source-definition-and-revalidate",
+                }, {key: diagnostic[key] for key in (
+                    "reason_code", "workflow_id", "step_id", "location", "offending_reference",
+                    "boundary", "resume_action")})
+                self.assertTrue(diagnostic["correction"])
+                self.assertEqual("definition", diagnostic["boundary"])
+                self.assertEqual("correct-source-definition-and-revalidate", diagnostic["resume_action"])
 
     def test_activeAndDeprecatedWorkflowsExposeStopsAndAssignmentsWithRequiredGates(self) -> None:
         projections = [self.inventory.project_workflow(item) for item in self.inventory.load_workflows()]
