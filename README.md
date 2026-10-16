@@ -6,7 +6,7 @@ The clean reboot was approved on 16 October 2026. This branch intentionally cont
 
 ## Direction and next milestone
 
-Read the [agreed Farmboy/Diagram direction](../spec-tool-kit/docs/farmboy-diagram-direction-2026-10-16.md). Spec Tool Kit owns that shared document; resolve its actual checkout if this sibling link is unavailable. Do not maintain another copy of its decisions here.
+For project direction, goals, scope or roadmap context, consult the [local project direction](docs/direction.md).
 
 The next milestone is review of the phase-one specification, followed by review of the complete implementation plan. The approved reboot choice is to replace the active product within the existing Farmboy repository while preserving its name and history.
 

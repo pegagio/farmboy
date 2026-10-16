@@ -16,3 +16,5 @@ Routine authorized work proceeds without repeated approval. Explicit checkpoints
 The [delivery direction](./delivery-direction.md) describes the intended lifecycle and its human reviews; executable transitions remain subject to the selected workflow. (S002)
 
 [Project context pointers](./project-context.md) identifies the task-driven direction, roadmap and wiki references without expanding repository access. (S003)
+
+Prefer the simplest existing-capability composition meeting the selected workflow. Extra infrastructure needs a concrete current requirement or observed failure; speculative needs are insufficient. Specifications, plans and review summaries define necessary terms and use concrete examples where useful while retaining precision and context. (S001)

@@ -12,3 +12,5 @@ Before integration merge, a feature’s specification, plan, tasks and implement
 Commit and closeout are reconciliation checkpoints: artifacts must reflect the changes and actual work status being recorded, but unfinished work is allowed. Acceptance into the designated integration branch freezes the feature’s meaning; intermediate commits and branch synchronization do not. Later behavioral changes use a new feature directory with material links to earlier features. (S001)
 
 Reconciliation stays inside the current feature and does not create execution authority. See [prescribed workflow authority](./workflow-authority.md). (S001)
+
+Known divergence blocks dependent implementation or merge until reconciled or resolved by a documented operator decision. Agents flag missing checks and ask when existing feature decisions do not settle a conflict; lower-level work must not silently contradict higher-level intent. (S001)

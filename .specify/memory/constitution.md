@@ -22,6 +22,10 @@ The operator selects the workflow and current feature. That selection authorizes
 
 Agents MUST carry authorized routine work, correction and reassessment through the selected workflow without asking the operator to repeat decisions already made or approve each prescribed step. They MUST pause the affected work at explicit human checkpoints, for required input or unresolved decisions, for out-of-scope changes, or for blockers with no authorized resolution. They MUST NOT invent answers, treat silence as approval or add approval gates for ordinary authorized work. Agents MUST obey platform permissions and constraints; workflow authority MUST NOT be used to bypass them. On stopping or completing, agents MUST report the actual outcome, remaining work and required input plainly.
 
+Agents MUST prefer the simplest composition of existing capabilities that meets the selected workflow’s requirements. Additional infrastructure MUST address a concrete current requirement or observed failure, not speculative future needs.
+
+Specifications, plans and review summaries MUST be understandable to the operator: define necessary technical terms and use concrete examples where useful, without losing precision or context.
+
 ## Governance
 
 Amendments require Pegagio’s explicit approval of the proposed text before taking effect and MUST identify the change, rationale and effects on active work. Agents MUST surface conflicts rather than silently change governing rules. No amendment may retroactively rewrite a merged feature’s meaning.
