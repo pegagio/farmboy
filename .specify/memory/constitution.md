@@ -26,6 +26,8 @@ Agents MUST prefer the simplest composition of existing capabilities that meets 
 
 Specifications, plans and review summaries MUST be understandable to the operator: define necessary technical terms and use concrete examples where useful, without losing precision or context.
 
+Before accepting delivery of a workflow or a material change to its behavior, agents MUST verify the actual skill in a real Codex session, including affected interactions and stopping points. The session executing the skill MUST be separate from the agent or process evaluating it. Automated observation/test driving SHOULD be preferred; manual verification MAY be used. Simulations alone MUST NOT establish acceptance. Verification MUST be proportionate to the change.
+
 ## Governance
 
 Amendments require Pegagio’s explicit approval of the proposed text before taking effect and MUST identify the change, rationale and effects on active work. Agents MUST surface conflicts rather than silently change governing rules. No amendment may retroactively rewrite a merged feature’s meaning.

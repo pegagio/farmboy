@@ -18,3 +18,5 @@ The [delivery direction](./delivery-direction.md) describes the intended lifecyc
 [Project context pointers](./project-context.md) identifies the task-driven direction, roadmap and wiki references without expanding repository access. (S003)
 
 Prefer the simplest existing-capability composition meeting the selected workflow. Extra infrastructure needs a concrete current requirement or observed failure; speculative needs are insufficient. Specifications, plans and review summaries define necessary terms and use concrete examples where useful while retaining precision and context. (S001)
+
+Acceptance of a delivered workflow or material behavior change requires observing the actual skill in a real Codex session, including affected interactions and stops. The executing session must be separate from the evaluating agent or process. Prefer automated observation/test driving; manual verification is acceptable. Simulations alone are insufficient. Keep verification proportionate to the change. (S001)
