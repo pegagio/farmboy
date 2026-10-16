@@ -1,0 +1,16 @@
+# Copy selected ignored local state into Codex-managed worktrees.
+.idea/
+
+.specify/extensions/*/local-config.yml
+.specify/extensions/.cache/
+.specify/workflows/.cache/
+.specify/workflows/workflow-registry.json
+
+# Retain prior runs for inspection in the new checkout.
+.specify/workflows/runs/
+.specify/flow-controllers/runs/
+.specify/farmboy-controllers/runs/
+.specify/farmboy-controllers/implementation-history/
+
+feedback/
+notes.md
