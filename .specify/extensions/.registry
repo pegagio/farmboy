@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "extensions": {
+    "flow-roadmap": {
+      "version": "0.4.0",
+      "source": "local",
+      "manifest_hash": "sha256:ea5c3cd34e8191298e5829ecb1167f8a1e8ac141ca10dae397caeff8a5515fd5",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "codex": [
+          "speckit.flow-roadmap.write",
+          "speckit.flow-roadmap.brief",
+          "speckit.flow-roadmap.debrief",
+          "speckit.flow-roadmap.sync"
+        ]
+      },
+      "registered_skills": [],
+      "installed_at": "2026-10-16T14:40:52.067674+00:00"
+    }
+  }
+}
