@@ -17,6 +17,24 @@
       },
       "registered_skills": [],
       "installed_at": "2026-10-16T14:40:52.067674+00:00"
+    },
+    "flow-wiki": {
+      "version": "2.0.1",
+      "source": "local",
+      "manifest_hash": "sha256:96c71268dce1573443b625c58b6b7005f834ed43d118b66adf65603030a161b4",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "codex": [
+          "speckit.flow-wiki.init",
+          "speckit.flow-wiki.ingest",
+          "speckit.flow-wiki.query",
+          "speckit.flow-wiki.lint",
+          "speckit.flow-wiki.status"
+        ]
+      },
+      "registered_skills": [],
+      "installed_at": "2026-10-16T14:41:42.225674+00:00"
     }
   }
 }

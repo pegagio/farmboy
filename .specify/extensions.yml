@@ -1,5 +1,6 @@
 installed:
 - flow-roadmap
+- flow-wiki
 settings:
   auto_execute_hooks: true
 hooks:
@@ -33,4 +34,21 @@ hooks:
     prompt: Check the implementation against the roadmap?
     description: Verify the implemented spec matches its roadmap entry's outcome and
       scope
+    condition: null
+  - extension: flow-wiki
+    command: speckit.flow-wiki.ingest
+    enabled: true
+    optional: true
+    priority: 10
+    prompt: Record what this implementation taught into the project wiki?
+    description: Capture implementation learnings into the wiki after implementation
+    condition: null
+  after_plan:
+  - extension: flow-wiki
+    command: speckit.flow-wiki.ingest
+    enabled: true
+    optional: true
+    priority: 10
+    prompt: Ingest this feature's research and plan decisions into the project wiki?
+    description: Compound the feature's verified research into the wiki after planning
     condition: null
