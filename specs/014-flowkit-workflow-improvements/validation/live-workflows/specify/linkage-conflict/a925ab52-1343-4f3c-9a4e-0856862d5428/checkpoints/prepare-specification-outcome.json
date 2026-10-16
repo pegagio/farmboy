@@ -1,7 +1,0 @@
-{
-  "state": "blocked",
-  "cause": "Competing roadmap ownership: entries 802 and 803 both declare the exact active specs/802-normalize-text/ directory. Missing spec.md is valid for authoring, but does not resolve ownership.",
-  "question": "Which roadmap entry owns specs/802-normalize-text/, and what exact approved Spec dir mapping should the other competing entry use before specification authoring?",
-  "recovery_action": "Obtain an explicit operator decision and exact approved roadmap mapping repair establishing unique ownership of specs/802-normalize-text/, then reassess the same active directory.",
-  "brief_args": null
-}

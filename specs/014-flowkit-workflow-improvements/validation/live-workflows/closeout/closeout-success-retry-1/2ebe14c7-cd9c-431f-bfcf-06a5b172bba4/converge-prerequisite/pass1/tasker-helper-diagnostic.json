@@ -1,8 +1,0 @@
-{
-  "diagnostics": [
-    "KeyError status: prior envelope uses state",
-    "AssertionError: prior review findings uses object findings list"
-  ],
-  "mutation_before_failure": false,
-  "correction": "Read actual state and findings keys; rerun unfinished command checks"
-}

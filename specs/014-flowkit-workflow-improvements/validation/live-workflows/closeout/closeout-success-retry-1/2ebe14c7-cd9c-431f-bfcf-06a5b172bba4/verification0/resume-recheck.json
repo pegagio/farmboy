@@ -1,7 +1,0 @@
-{
-  "writer_output_parsed": true,
-  "approved_patch_hash_matches": true,
-  "before_and_current_after_hashes_match": true,
-  "reverse_patch_check": true,
-  "patch_reapplied": false
-}

@@ -1,1 +1,0 @@
-Run the roadmap brief with these exact verified constraints: SPEC_TARGET=specs/802-normalize-text/ ROADMAP_ENTRY=802. Resolve only this selected entry and actual specification directory. Return the full brief, constraints, and errors in a report output field. Do not implement or invoke another workflow.

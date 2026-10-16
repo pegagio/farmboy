@@ -1,5 +1,0 @@
-{
-  "agent_type": "Reviewer",
-  "step_id": "lint-wiki",
-  "child_id": "/root/reviewer_t087closeretry_lint_wiki_pass1"
-}

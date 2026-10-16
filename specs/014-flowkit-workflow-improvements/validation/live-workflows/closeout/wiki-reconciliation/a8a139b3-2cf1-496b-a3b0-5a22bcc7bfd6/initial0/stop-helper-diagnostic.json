@@ -1,8 +1,0 @@
-{
-  "kind": "unfinished-recovery-helper-cli-error",
-  "error": "recovery step does not accept --blocker CLI flag; blocker belongs in JSON input.",
-  "state_mutation_before_failure": false,
-  "correction": "Use exact installed CLI with blocker in JSON; preserve rejected actual child envelope and stop, no workflow continuation.",
-  "second_unfinished_error": "stop CLI requires JSON stdin; passing inherited empty stdin failed after incomplete step was recorded.",
-  "second_correction": "Send explicit empty JSON object to stop; no semantic workflow transition."
-}

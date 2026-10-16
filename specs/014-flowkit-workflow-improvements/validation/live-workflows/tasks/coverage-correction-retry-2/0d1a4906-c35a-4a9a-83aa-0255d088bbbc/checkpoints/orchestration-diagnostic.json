@@ -1,6 +1,0 @@
-{
-  "kind": "tool-code-parse-error",
-  "observed_error": "SyntaxError: Unexpected identifier Stop",
-  "execution_effect": "Tool JavaScript failed before any nested call; no shell helper, workflow state or artifact mutation executed.",
-  "correction": "Split into checked sequential tool calls; no controller checkpoint or envelope validation failed."
-}

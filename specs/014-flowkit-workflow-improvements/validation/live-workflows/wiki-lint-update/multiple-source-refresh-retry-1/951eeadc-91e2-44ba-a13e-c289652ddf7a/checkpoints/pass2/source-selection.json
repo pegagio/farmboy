@@ -1,9 +1,0 @@
-{
-  "iteration": 2,
-  "source": "docs/error-contract.md",
-  "affected_finding_ids": [
-    "stale-errors-s002"
-  ],
-  "status": "running",
-  "selection_reason": "Only remaining registered stale source; S001 substantive finding resolved"
-}

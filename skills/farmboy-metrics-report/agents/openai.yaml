@@ -1,3 +1,0 @@
-interface:
-  display_name: "FarmBoy Metrics Report"
-  short_description: "Export local FarmBoy timing metrics to Excel"

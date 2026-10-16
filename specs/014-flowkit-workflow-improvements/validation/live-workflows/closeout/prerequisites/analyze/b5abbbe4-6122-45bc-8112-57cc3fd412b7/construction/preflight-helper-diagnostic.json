@@ -1,9 +1,0 @@
-{
-  "observed_error": "KeyError: type at flatten traversal of command node",
-  "exit_code": 1,
-  "boundary": "Before recovery.create or any run/step state",
-  "cause": "Command nodes use command field and need not declare type",
-  "correction": "Read optional type via node.get during switch traversal",
-  "checkpoint_or_schema_validation_failed": false,
-  "workflow_or_artifact_mutation": false
-}

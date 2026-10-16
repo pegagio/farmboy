@@ -1,8 +1,0 @@
-{
-  "state": "ready-for-brief",
-  "brief_args": "SPEC_TARGET=specs/802-normalize-text/ ROADMAP_ENTRY=802",
-  "selected_entry_id": "802",
-  "actual_spec_dir": "specs/802-normalize-text/",
-  "core_result": "required author self-check completed; no blocker",
-  "approved_patches": []
-}

@@ -1,9 +1,0 @@
-{
-  "iteration": 2,
-  "source": "docs/error-contract.md",
-  "affected_finding_ids": [
-    "STALE-S002"
-  ],
-  "status": "running",
-  "selection_reason": "Only unresolved registered stale source"
-}

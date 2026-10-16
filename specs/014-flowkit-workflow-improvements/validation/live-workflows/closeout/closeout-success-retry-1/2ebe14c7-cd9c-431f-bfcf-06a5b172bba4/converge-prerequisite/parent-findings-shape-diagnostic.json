@@ -1,3 +1,0 @@
-{
-  "diagnostic": "Read-only parent parser expected object wrapper but actual separate workflow findings output was valid empty list; TypeError before controller call. Adapted helper to accept exact actual list or wrapped list; raw child findings and envelope preserved unchanged. Hash and grammar rechecks passed."
-}

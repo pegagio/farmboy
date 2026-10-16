@@ -1,9 +1,0 @@
-{
-  "kind": "read-only-capture-of-same-rejected-initial-envelope",
-  "assessment_sha256": "856d0989d8a586894d8886396ad03681dac9cbd10d1ef451d5cc7637ac532c12",
-  "exit_code": 1,
-  "stdout": "",
-  "stderr": "FlowKit controller preflight failed: continue assessment has no unresolved in-scope work\n",
-  "first_validation_attempt": "Rejected through controller-helper initial command before any branch; raw child envelope remains byte-preserved.",
-  "semantic_retry": false
-}

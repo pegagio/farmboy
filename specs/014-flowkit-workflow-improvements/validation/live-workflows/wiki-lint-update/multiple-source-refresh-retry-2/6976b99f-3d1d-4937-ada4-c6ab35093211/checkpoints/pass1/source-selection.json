@@ -1,9 +1,0 @@
-{
-  "iteration": 1,
-  "source": "docs/normalization-contract.md",
-  "affected_finding_ids": [
-    "STALE-S001"
-  ],
-  "status": "running",
-  "selection_reason": "Equal one claim each; registry-order tie-break S001 first"
-}

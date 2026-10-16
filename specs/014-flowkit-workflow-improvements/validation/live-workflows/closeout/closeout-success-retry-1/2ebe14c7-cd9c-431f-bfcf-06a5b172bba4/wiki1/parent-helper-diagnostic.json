@@ -1,4 +1,0 @@
-{
-  "kind": "unfinished-read-only-helper-type-assumption",
-  "observation": "HEAD assertion initially compared a string to saved baseline metadata object. Corrected to baseline.baseline_oid; no source or controller mutation and no dependent node started."
-}

@@ -1,5 +1,0 @@
-{
-  "agent_type": "Reviewer",
-  "step_id": "verify-closeout-readiness",
-  "child_id": "/root/reviewer_t087closeretry_verify_closeout_readiness"
-}

@@ -1,7 +1,0 @@
-{
-  "status_action": "run",
-  "spec_target": "specs/802-normalize-text",
-  "observed_status": "Draft",
-  "before_sha256": "708c7df2f12740a56299d6807ad61df4220886950f630f3fffcc4fc36b6dc0b5",
-  "authority": "Explicit Closeout invocation plus actual validated readiness and current clean convergence; only existing in-place lifecycle metadata change."
-}

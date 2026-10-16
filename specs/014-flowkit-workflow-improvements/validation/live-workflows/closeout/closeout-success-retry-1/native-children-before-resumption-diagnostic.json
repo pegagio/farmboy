@@ -1,7 +1,0 @@
-{
-  "status": "failed-diagnostic-preserved",
-  "original_file": "native-children-before-resumption.json",
-  "preserved_file": "native-children-before-resumption.txt",
-  "observed_content": "undefined",
-  "interpretation": "No typed child records were captured by this preliminary export. This diagnostic supplies no execution or completion evidence; substantive native records and independent coordinator audit remain separately recorded."
-}

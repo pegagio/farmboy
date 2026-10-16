@@ -1,4 +1,0 @@
-{
-  "kind": "unfinished-read-only-audit-case-assumption",
-  "observation": "Initial audit counted only lowercase [x] markers and rejected valid uppercase [X] T002\u2013T012. Actual task file remains byte-identical; case-insensitive checked-marker recognition corrects helper. No product mutation, summary finalization or export occurred in that failed audit."
-}

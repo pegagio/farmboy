@@ -1,5 +1,0 @@
-{
-  "kind": "read-only-search-no-match",
-  "observation": "File/prompt/source-list/index reads succeeded; final rg filter found no wiki YAML configuration under .specify and returned status 1. No mutation or controller failure. Core ingestion independently resolves installed configuration.",
-  "step": "prepare-wiki-refresh"
-}

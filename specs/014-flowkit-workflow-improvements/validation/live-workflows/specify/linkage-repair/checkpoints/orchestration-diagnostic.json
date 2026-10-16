@@ -1,6 +1,0 @@
-{
-  "error": "Tool JavaScript parse SyntaxError before nested calls",
-  "effect": "No nested helper or mutation ran",
-  "correction": "Split into sequential checked tool calls",
-  "controller_failure": false
-}

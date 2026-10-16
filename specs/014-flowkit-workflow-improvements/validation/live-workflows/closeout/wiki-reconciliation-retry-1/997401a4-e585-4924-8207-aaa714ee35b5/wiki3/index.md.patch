@@ -1,7 +1,0 @@
---- wiki/index.md
-+++ wiki/index.md
-@@ -2,3 +2,4 @@
- 
- - [Normalization](pages/normalization.md)
- - [Errors](pages/errors.md)
-+- [Normalize Text Contract](pages/normalize-text-contract.md)

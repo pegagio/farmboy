@@ -1,3 +1,0 @@
-interface:
-  display_name: "FarmBoy Wiki Lint Update"
-  short_description: "Refresh stale wiki sources and report health issues."

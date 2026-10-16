@@ -1,9 +1,0 @@
-{
-  "run_id": "efb0d1ba-060e-4c76-9f01-48efcc0bb499",
-  "status": "failed-success-scenario",
-  "observed_stop": "Unsupported synthetic spec status",
-  "semantic_changes": [],
-  "no_debrief_gate_or_wiki_executed": true,
-  "source_defect": false,
-  "remediation": "Construct a separate valid Draft input, retain exact metadata delta, refresh convergence evidence then separately retry."
-}

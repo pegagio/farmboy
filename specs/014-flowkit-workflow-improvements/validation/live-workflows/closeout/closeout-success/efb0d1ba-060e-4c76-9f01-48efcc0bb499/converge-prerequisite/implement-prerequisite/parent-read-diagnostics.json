@@ -1,3 +1,0 @@
-{
-  "diagnostic": "Read-only provenance inspection sliced a dictionary as a list; TypeError before any mutation. Corrected type inspection succeeded. No controller operation involved."
-}

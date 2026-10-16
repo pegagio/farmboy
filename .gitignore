@@ -1,14 +1,1 @@
-# Python
-__pycache__/
-*.pyc
-.venv/
-venv/
-dist/
-*.egg-info/
-*.tmp
-*.swp
-
-# Maintainer feedback reports and intake records are local evidence.
-feedback/
-
-notes.md
+.DS_Store

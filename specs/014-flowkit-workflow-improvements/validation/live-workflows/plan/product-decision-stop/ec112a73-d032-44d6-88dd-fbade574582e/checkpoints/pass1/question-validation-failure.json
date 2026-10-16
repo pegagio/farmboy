@@ -1,9 +1,0 @@
-{
-  "sequence": 11,
-  "utc": "2026-10-01T20:48:38.905651+00:00",
-  "event": "question-validation-failed-stop-before-dependent-mutations",
-  "observed_error": "FlowKit controller preflight failed: child question options need nonempty IDs and descriptions",
-  "actual_request_ref": ".flowkit-test/plan-product-decision-stop/ec112a73-d032-44d6-88dd-fbade574582e/pass1/question-child.json",
-  "exit_status": 1,
-  "dependent_waiting_and_terminal_mutations": 0
-}

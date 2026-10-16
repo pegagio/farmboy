@@ -1,1 +1,0 @@
-Run fresh read-only analysis of the current specification, plan, and tasks for specs/802-normalize-text after the shared waterfall, including implementation-only routes. Return full findings and prerequisite errors in report. Do not modify artifacts or implement work. Missing, failed, or stale analysis cannot authorize implementation.

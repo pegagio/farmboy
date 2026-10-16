@@ -1,7 +1,0 @@
-{
-  "uppercase_exists": true,
-  "lowercase_exists": true,
-  "same_device_inode": true,
-  "uppercase_sha256": "a39fd775824f6e0575b3eba7837f153d69ecc8d7a8dbfc5f78a24975f543275e",
-  "note": "Case-insensitive access resolves both names to one file; listing lowercase basename alone does not prove INDEX.md absent."
-}

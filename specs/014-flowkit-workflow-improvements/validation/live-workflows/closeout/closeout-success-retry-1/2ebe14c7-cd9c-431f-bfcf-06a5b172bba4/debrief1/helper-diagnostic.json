@@ -1,6 +1,0 @@
-{
-  "invalid_attempt": "validate-path --kind spec-read",
-  "reason": "installed enum lacks spec-read",
-  "repair": "validate-path --kind roadmap-read accepts any contained regular file; spec revalidated successfully",
-  "missing_shared_template": "No separately installed shared roadmap report template found; required provenance fields preserved in report."
-}

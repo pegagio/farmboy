@@ -1,8 +1,0 @@
-{
-  "iteration": 1,
-  "source": "docs/normalization-contract.md",
-  "affected_finding_ids": [
-    "stale-normalization-s001"
-  ],
-  "status": "running"
-}

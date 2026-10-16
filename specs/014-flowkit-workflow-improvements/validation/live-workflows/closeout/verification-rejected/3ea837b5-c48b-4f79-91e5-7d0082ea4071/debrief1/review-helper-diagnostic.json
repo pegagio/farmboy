@@ -1,6 +1,0 @@
-{
-  "read_only_discovery_errors": [
-    "Initial src/ path assumption and convergence1/ path assumption failed; actual root module and pass1 paths read successfully before assessment."
-  ],
-  "manifest_drift": "Only parent journal changed after debrief snapshot; all other 829 manifest files match."
-}

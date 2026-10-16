@@ -1,7 +1,0 @@
-{
-  "source": "specs/802-normalize-text/",
-  "baseline_remaining_ids": [
-    "WIKI-802-FEATURE-COVERAGE"
-  ],
-  "report": "S001/S002 source coverage exists and faithfully retains original open questions. Register one feature-directory source for accepted feature-scoped answers and durable contract, preserving original source claims and backlinks. No source expansion."
-}

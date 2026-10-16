@@ -1,8 +1,0 @@
-{
-  "iteration": 2,
-  "source": "docs/error-contract.md",
-  "affected_finding_ids": [
-    "stale-errors-s002"
-  ],
-  "status": "running"
-}

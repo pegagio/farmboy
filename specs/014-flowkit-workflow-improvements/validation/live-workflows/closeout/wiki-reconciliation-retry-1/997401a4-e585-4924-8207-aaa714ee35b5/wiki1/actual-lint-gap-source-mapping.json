@@ -1,8 +1,0 @@
-{
-  "actual_lint_id": "WIKI-S002-STALE-ERROR-POLICY",
-  "prepared_gap_alias": "WIKI-S002-ERROR-STALE",
-  "source_id": "S002",
-  "source": "docs/error-contract.md",
-  "affected_page": "wiki/pages/errors.md",
-  "basis": "Actual full lint and independent assessment locate same four stale source-backed open-question claims; preserve exact actual lint ID in future assessments. No source expansion or original output amendment."
-}

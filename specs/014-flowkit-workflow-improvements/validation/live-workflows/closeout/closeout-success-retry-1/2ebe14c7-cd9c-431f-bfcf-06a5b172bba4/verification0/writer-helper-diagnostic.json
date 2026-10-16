@@ -1,7 +1,0 @@
-{
-  "diagnostics": [
-    "Initial author Python bytes literal included Unicode em dash; SyntaxError before execution. Corrected to UTF-8 encoding.",
-    "Exact git apply succeeded; subsequent author check referenced nonexistent verification-after.md. No dependent transition occurred. Reconstructed expected bytes from approved unified hunks and captured pre-write file, verified actual bytes and reverse-patch check. No second application or rollback."
-  ],
-  "recheck": "passed"
-}

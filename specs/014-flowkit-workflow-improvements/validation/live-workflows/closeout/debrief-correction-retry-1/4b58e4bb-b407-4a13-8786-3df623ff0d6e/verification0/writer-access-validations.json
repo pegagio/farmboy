@@ -1,9 +1,0 @@
-{
-  "read": {
-    "path": ".specify/memory/roadmap.md"
-  },
-  "write": {
-    "path": ".specify/memory/roadmap.md"
-  },
-  "reverse_check_passed": true
-}

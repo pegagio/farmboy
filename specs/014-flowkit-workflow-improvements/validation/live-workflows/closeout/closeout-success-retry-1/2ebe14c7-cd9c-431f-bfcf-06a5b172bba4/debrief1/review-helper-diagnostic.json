@@ -1,7 +1,0 @@
-{
-  "initial_check": "Failed overbroad current-hash assertion on mutable controller journal only",
-  "mismatches": [
-    ".flowkit-test/closeout-success-retry-1/2ebe14c7-cd9c-431f-bfcf-06a5b172bba4/journal.jsonl"
-  ],
-  "correction": "Classify journal append after stable debrief snapshot as controller output; continue requiring all other 833 paths unchanged. No product mutation or envelope/controller failure."
-}

@@ -1,1 +1,0 @@
-Run fresh read-only speckit.analyze for Feature 802: specs/802-normalize-text. Return the full findings, severity, locations, recommendations, and prerequisite errors in a report output field. Do not modify artifacts. The controller classifies the report and owns any separately declared corrections.

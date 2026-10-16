@@ -1,3 +1,0 @@
-{
-  "diagnostic": "Read-only git status call initially used a mistyped working directory; command did not start. Corrected explicitly resolved fixture path succeeded. No controller transition or artifact mutation."
-}

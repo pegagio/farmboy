@@ -1,8 +1,0 @@
-{
-  "first_digest": "sha256:fdc42e7708ae32d1d47c9b96c3af6ab8ae253627cf7949c06043ef97fd2da273",
-  "first_recheck": "sha256:2c8ef65abe99580bc7dfd92368af400c3ed3c5abb5e9778cb705d85be6c2e7fd",
-  "cause": "Own untracked evidence additions; one allowed recollection, buffered until recheck",
-  "second_digest": "sha256:5f98c827e0fa86d4e9d2a86f04f982b8251ccf77362170468a727b9cac459ecf",
-  "second_recheck": "sha256:5f98c827e0fa86d4e9d2a86f04f982b8251ccf77362170468a727b9cac459ecf",
-  "stable": true
-}

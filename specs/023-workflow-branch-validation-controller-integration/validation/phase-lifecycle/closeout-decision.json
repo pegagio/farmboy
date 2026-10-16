@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0",
-  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
-  "feature_directory": "specs/023-workflow-branch-validation-controller-integration",
-  "phase": "closeout",
-  "scope_sha256": "ea82914fd977fac137440efee66503670ae83d3b9bb5750cbde2392cb610bea0",
-  "kind": "routine-invocation",
-  "reference": "Operator explicitly invoked farmboy-closeout for Feature 023; routine adjacent implemented milestone only, separate verified approval retained."
-}

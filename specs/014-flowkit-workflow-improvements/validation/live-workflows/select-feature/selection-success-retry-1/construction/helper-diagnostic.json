@@ -1,6 +1,0 @@
-{
-  "error": "ValueError in profile inventory: relative path passed to relative_to absolute project",
-  "boundary": "Before recovery.create; no workflow run or step state mutation",
-  "correction": "Keep already relative profile path as portable key",
-  "controller_validation_or_checkpoint_failure": false
-}

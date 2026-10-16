@@ -1,8 +1,0 @@
-{
-  "source": "specs/802-normalize-text/",
-  "baseline_remaining_ids": [
-    "WIKI-802-FEATURE-COVERAGE"
-  ],
-  "observed_gaps": [],
-  "report": "One actual already-authorized source selected to resolve current substantive source-backed gaps; original source IDs preserved, injected approved source bytes immutable. Full lint and fresh independent assessment determine findings/resolution; timestamps alone are not progress."
-}

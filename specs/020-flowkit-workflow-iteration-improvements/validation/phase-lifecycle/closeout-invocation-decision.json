@@ -1,9 +1,0 @@
-{
-  "schema_version": "1.0",
-  "policy_sha256": "09738d2d65ab12117308d586f77a2140a1cedebbad9d9bc33f0408fb822f1bd4",
-  "feature_directory": "specs/020-flowkit-workflow-iteration-improvements",
-  "phase": "closeout",
-  "scope_sha256": "a3777c5f6a88648c9e704e93d51f13a7c2c910b5fc2a7e4c8a0c03d12fd6cd75",
-  "kind": "operator-resolution",
-  "reference": "Explicit Close Out invocation and controller-validated operator approval of ordered evidence-supported recovery; retained in runs/12c1856a-0fc2-424d-b7e4-311606020c4b and runs/7a62e74d-86b3-47cb-8121-4c699c946815/source-correction-answer.json. No verified, acceptance, release or Git authority."
-}

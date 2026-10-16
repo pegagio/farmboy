@@ -1,1 +1,0 @@
-For exact operator-selected roadmap entry 802, retrieve cited governing decisions, constraints, dependencies, and coverage classification before any roadmap mutation. Return the cited context and coverage gaps in a report output field. Report Partial or Uncovered rather than inventing a fact. Do not change the roadmap or start another workflow.

@@ -1,9 +1,0 @@
-{
-  "fixture": ".flowkit-live-fixtures/selection-mapping-conflict",
-  "construction": "Competing 801 and 802 mappings target the existing 801 specification. No conflict repair approved.",
-  "baseline_sha256": {
-    ".specify/memory/roadmap.md": "a52ef8b7cf2fa1ff4bd543ba71633dd71d50af9da0cb55d7ebdf8063a27d9a26",
-    ".specify/feature.json": "ef5e356452460d1e61585c82b103b727a713192273b4a4cb5bba5ccccda99dd8",
-    "specs/801-text-foundation/spec.md": "87e5ec8273bfdfbfa590c4776b65c602c4ee8756c34964dcff269e2741006d30"
-  }
-}

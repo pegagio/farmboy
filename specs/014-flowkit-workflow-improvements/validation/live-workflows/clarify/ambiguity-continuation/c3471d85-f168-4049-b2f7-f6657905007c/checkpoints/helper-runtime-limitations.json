@@ -1,6 +1,0 @@
-{
-  "early_coordination_helpers": "system python3",
-  "current_coordination_helpers": "skill-tools Python, including subprocess controller/recovery calls",
-  "limitation": "Early custom setup/controller/answer helpers used system python3 before interpreter correction; no retrospective compliance claim.",
-  "environment_changed": false
-}

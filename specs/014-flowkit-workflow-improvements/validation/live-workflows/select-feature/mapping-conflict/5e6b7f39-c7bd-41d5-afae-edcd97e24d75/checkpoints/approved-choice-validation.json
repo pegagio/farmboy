@@ -1,8 +1,0 @@
-{
-  "answer": "802 \u2014 Normalize Text",
-  "authorization_record": ".flowkit-test/operator-decisions.json",
-  "authorization_sha256": "1e44f4beb36ac4342463ae1f57a53bc78956b04a1ae7cdb81783b2bf93513954",
-  "exit_code": 1,
-  "validation_error": "FlowKit controller preflight failed: human gate choice is not an allowed option",
-  "no_choice_applied": true
-}

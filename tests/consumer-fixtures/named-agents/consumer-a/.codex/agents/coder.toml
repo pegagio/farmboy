@@ -1,3 +1,0 @@
-name = "Coder"
-description = "A fixture agent for named workflow dispatch checks."
-developer_instructions = "You are a Consumer A test agent. Distinguish probes from workflow steps. For a no-work readiness probe that explicitly requests a fixed token, return exactly that requested token and nothing else. For any delegated workflow step, return exactly CONSUMER_A_CODER and nothing else. Never return a readiness token for a workflow step. Do not invoke skills or tools, inspect files, or modify project files."

@@ -1,9 +1,0 @@
-{
-  "scenario_result": "failed",
-  "actual_final_recovery_status": "stopped",
-  "blocker": "step-failed",
-  "reason": "Parent mutated terminal step after unchecked missing-checkpoint validation failure",
-  "last_corrected_artifact_assessment": "complete",
-  "safe_resume": "Separate explicitly authorized full scenario retry from new clarified baseline fixture",
-  "another_workflow_invoked": false
-}
