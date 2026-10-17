@@ -1,5 +1,15 @@
 <!--
 SYNC IMPACT REPORT
+Version change: 1.3.1 → 1.3.2
+Bump rationale: PATCH — clarify entry 003’s existing delivery/result-review endpoint; no new phase, dependency or implementation is added.
+Changes: Require applicable verification, coherent spec/plan/task flow-back and delivery documentation closeout around the delivery candidate. Neither integration nor an undefined final feature-completion operation is a prerequisite; delivery does not declare the feature integrated or complete.
+Authorization: Direct operator instruction to incorporate the delivery-closeout learning into Farmboy Feature 003 on 2026-10-17.
+Evidence: docs/direction.md; existing entry 003; .specify/memory/constitution.md Principle I; direct operator report of the separately corrected Diagram closeout issue.
+Effects on active work: Entries 001/002/004, lifecycle states, dependencies, active feature and existing specs are unchanged. Future 003 specification must preserve this boundary. No workflow launch, Diagram change, commit, integration or push is authorized by this amendment.
+-->
+
+<!--
+SYNC IMPACT REPORT
 ==================
 Version change: 1.3.0 → 1.3.1
 Bump rationale: PATCH — authorized status amendment for entry 001.
@@ -109,12 +119,12 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 ### 003 — Deliver approved plan through closeout [status: planned]
 
 - **Description:** From an approved plan, compose implementation, convergence/repair and closeout into a bounded workflow ending at human result review.
-- **Outcome:** Eligible approved work is implemented and converged, artifacts are reconciled, closeout is completed with a local commit, and actual results are presented for final review.
-- **Scope (in):** Implement eligible tasks; converge, implement follow-up tasks and reassess until clean; reconcile specification, plan, tasks and implementation through merge-bounded flow-back; debrief; ingest and lint wiki knowledge; make the prescribed local commit; stop for result review. Continue routine authorized steps without repeated OKs, stopping for genuine blockers/input. Verify bounded Goals behavior and preserve artifact-based interruption/resume.
-- **Scope (out):** Remote push, automatic merge/acceptance, Diagram integration, autonomous workers, universal recovery and extra configuration/delegation infrastructure without demonstrated need.
+- **Outcome:** Eligible approved work is implemented, verified and converged; coherent artifacts and delivery documentation are closed out with the prescribed local commit, and the delivery candidate is presented for human result review.
+- **Scope (in):** Implement eligible tasks; run applicable verification; converge, implement follow-up tasks and reassess until clean; reconcile specification, plan, tasks and implementation through merge-bounded flow-back; complete delivery documentation, debrief, and wiki ingestion/lint; make the prescribed local commit; stop for result review. Continue routine authorized steps without repeated OKs, stopping for genuine blockers/input. Verify bounded Goals behavior and preserve artifact-based interruption/resume.
+- **Scope (out):** Project-specific integration, declaring the feature integrated or complete, remote push, automatic acceptance, Diagram integration, autonomous workers, universal recovery and extra configuration/delegation infrastructure without demonstrated need.
 - **Depends on:** 002.
 - **Governed by:** C-01–C-06.
-- **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. A local commit is a reconciliation checkpoint, not the integration-merge persistence boundary.
+- **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. Delivery documentation closeout requires neither integration nor an undefined final feature-completion operation. A local delivery commit is a reconciliation checkpoint; only a later, separately authorized integration merge freezes the feature’s historical meaning.
 
 ### 004 — Align workflow contracts with Diagram handoffs [status: planned]
 
@@ -138,4 +148,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.3.1 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17
+**Version**: 1.3.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17
