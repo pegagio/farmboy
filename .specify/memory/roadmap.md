@@ -1,6 +1,46 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.3.0 → 1.3.1
+Bump rationale: PATCH — authorized status amendment for entry 001.
+Status: in-progress → verified
+Authorization: Direct operator approval of revised Farmboy spec/plan implementation and authorized T029 closeout on 2026-10-17; independent revised verification is recorded. This is technical roadmap verification, not human delivery acceptance or fixture-derived authority.
+Evidence paths: ["specs/001-prepare-specification/spec.md", "specs/001-prepare-specification/plan.md", "specs/001-prepare-specification/tasks.md", "specs/001-prepare-specification/validation/acceptance.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+Version change: 1.2.0 → 1.3.0
+Bump rationale: MINOR — revise feature 001’s automated draft/handoff boundary under direct operator approval on 2026-10-17.
+Changes: Clarify 001 outcome/scope: complete preparation Goal before ordinary interactive clarification and separate explicit human spec approval. Preserve failed native waiting evidence.
+Evidence: specs/001-prepare-specification/spec.md; plan.md and tasks.md in that feature; docs/direction.md.
+No lifecycle state, dependency, active pointer or other entry changes. Revised specification/plan await review before implementation or new tests; no acceptance, commit, merge or push is granted.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.1.1 → 1.2.0
+Bump rationale: MINOR — add the explicitly requested narrow Diagram contract/workflow alignment follow-up.
+Changes: Add entry 004 as planned, depending on 003; clarify the initial-local versus later-alignment distinction.
+Authorization: Direct operator request on 2026-10-16 to add the small alignment feature to Farmboy’s roadmap.
+Evidence: docs/direction.md; existing local lifecycle entries 001–003; .specify/memory/constitution.md.
+Notes: Direction/wiki alignment is documentation work now; 004 is future contract/workflow work. Entries 001–003, active identity and all feature artifacts are preserved. No activation, specification, planning, implementation, integration, push or acceptance is authorized by this amendment. Feature 001/native Goals verification remains parked.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.1.0 → 1.1.1
+Bump rationale: PATCH — operator-selected feature 001 starts specification work.
+Changes: Entry 001 planned → in-progress; set its specification directory to specs/001-prepare-specification/.
+Authorization: Operator invoked the original Start the next feature prompt for feature 001.
+Evidence: Current roadmap entry 001; .specify/memory/constitution.md.
+Notes: Only entry 001 and roadmap revision metadata change. Selection does not establish spec approval or implementation. Directory mapping is routine selection metadata, not a new scope decision.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.0.0 → 1.1.0
 Bump rationale: MINOR — add the three explicitly agreed local workflow features and shared constraints.
 Changes this revision: Add 001, 002 and 003 as planned, with ordered dogfooding and review boundaries.
@@ -25,7 +65,7 @@ Notes: No feature entries, specifications or tasks are created. Archived roadmap
 
 # Farmboy — Spec Roadmap
 
-Living, non-binding map of planned work. The entries below record the agreed initial local feature breakdown; their implementation details remain subject to specification and review. Foundations: the [constitution](constitution.md) and [project direction](../../docs/direction.md).
+Living, non-binding map of planned work. The entries below record the agreed initial local features and a later contract-alignment follow-up; their implementation details remain subject to specification and review. Foundations: the [constitution](constitution.md) and [project direction](../../docs/direction.md).
 
 Status legend: **undecided** · **needs-info** · **planned** · **specced** · **in-progress** · **implemented** · **verified** · **deferred** · **abandoned**.
 
@@ -45,14 +85,15 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 
 ## Planned Specs
 
-### 001 — Prepare specification [status: planned]
+### 001 — Prepare specification [status: verified]
 
-- **Description:** Compose roadmap selection, relevant wiki context, specification authoring and interactive clarification into the first human-driven workflow.
-- **Outcome:** The selected feature has a coherent specification and real clarification answers, then execution stops for explicit specification review.
-- **Scope (in):** Select a named roadmap feature or identify eligible work; query relevant project knowledge; specify; clarify with genuine waits for user answers; stop at specification review. Preserve current feature identity, unresolved input and artifact-based interruption/resume. Verify any native Goals behavior used rather than assume it.
-- **Scope (out):** Planning, tasks, implementation, invented answers, automatic acceptance, per-step delegation/configuration and custom orchestration infrastructure.
+- **Description:** Automate roadmap selection, relevant context and a saved specification draft/handoff; reuse ordinary interactive clarification before separate human specification approval.
+- **Outcome:** Automated preparation succeeds at a usable saved draft and clarification/review handoff. Its native Goal ends there; ordinary clarification handles real answers, and explicit human spec approval gates planning.
+- **Scope (in):** Select named/eligible work; query cited context; prepare the draft through existing templates/setup and preserve findings/unresolved topics. Complete the automated Goal at the saved handoff to ordinary core clarify or human review. Reuse existing interactive clarify with genuine waits outside that Goal; clarification completion is not approval. Preserve identity/current artifacts and explicit human spec approval before planning, at the operator’s chosen review depth. Verify actual native completion rather than infer it.
+- **Scope (out):** Planning without explicit spec approval, later workflow phases, invented answers, automatic acceptance, a live Goal waiting through clarification/review, extra clarification skill, per-step delegation/configuration and new controller/persistence infrastructure.
 - **Depends on:** none.
 - **Governed by:** C-01–C-05.
+- **Spec dir:** specs/001-prepare-specification/
 - **Notes:** Bootstrap this workflow manually. Demonstrate its behavior and portability in a disposable Spec Kit project, then use it to prepare specifications for later features. Detailed command mappings and eligibility rules belong in its reviewed spec; this entry creates no spec directory.
 
 ### 002 — Prepare implementation plan [status: planned]
@@ -75,6 +116,16 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Governed by:** C-01–C-06.
 - **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. A local commit is a reconciliation checkpoint, not the integration-merge persistence boundary.
 
+### 004 — Align workflow contracts with Diagram handoffs [status: planned]
+
+- **Description:** Align Farmboy’s workflow contracts with the agreed Diagram feature-level coordination and Git artifact boundary, building on the local lifecycle rather than bundling a Diagram implementation.
+- **Outcome:** Reviewed contracts distinguish coordination from canonical Git artifacts, define feature ownership and checkpoint/review handoffs, and separate delivery of a verified candidate from authorized integration under project policy.
+- **Scope (in):** Align the delivered local workflow contracts and any necessary workflow boundaries with feature-level metadata, exact Git checkpoint references, one active agent per feature with sequential owner handoffs, historical approval versus latest accepted handoff, human UAT/final-result review authorizing integration, and a separate integration stage governed by project branch/target/check policy. Preserve merge-bounded history and no implicit push; keep integration receipts in Diagram’s database without recursive project commits. Surface missing/conflicting policy and retain executor placement as undecided.
+- **Scope (out):** Re-doing the direction/wiki alignment documented now; a full Diagram adapter; implementing or selecting an integration executor; a concurrency platform, scheduler or worker pool; Git execution or remote push in this feature’s roadmap amendment; changing current feature 001.
+- **Depends on:** 003.
+- **Governed by:** C-01–C-06; docs/direction.md (eventual Diagram integration direction).
+- **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate.
+
 ## Open Questions
 
 - **Q1 — Command composition:** Which exact supported commands and minimal artifact checks express each prescribed segment, including completion recording and local closeout?
@@ -83,8 +134,8 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 
 ## Cross-Cutting Notes
 
-- These three entries are the agreed initial local workflow features, not the three broader product delivery stages. Diagram integration and autonomous execution remain later direction only.
+- Entries 001–003 are the agreed initial local workflow features, not the three broader product delivery stages. Planned entry 004 records the narrow later contract/workflow alignment; full Diagram adapter/executor implementation and autonomous execution remain outside that entry.
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-16
+**Version**: 1.3.1 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17

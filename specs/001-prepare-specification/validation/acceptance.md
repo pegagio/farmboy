@@ -1,0 +1,169 @@
+# Acceptance observations: Prepare specification
+
+## Historical evidence — initial delivery
+
+- Delivered skill: `.agents/skills/farmboy-prepare-specification/SKILL.md`; standard skill validator passes.
+- Separate subject: real Codex CLI 0.160.0 session `01a145d9-568a-7912-8cce-0e70faead1d0`, invoked with `$farmboy-prepare-specification` for the named Greeting document fixture. Evaluator is the authoring session, not the subject.
+- Disposable project was initialized through bundled Spec Kit assets with existing local flow-roadmap/flow-wiki extensions. Git was initialized after the CLI correctly rejected a non-repository target; no skip/trust bypass was used.
+- Actual observed result: subject loaded the owned skill and reported that the installed roadmap helper could not resolve `specify` on its command PATH. It stopped before activation/authoring; test entry 001 remained planned, with no spec or active-feature pointer.
+- The subject also attempted an unrelated global-memory lookup; that command returned no content. This is a boundary concern to retain in validation, not permission to read such material.
+- This establishes independent session/observation availability and a real missing-prerequisite stop. It does not establish named/eligible completion, clarification, final review, resume or Goals compatibility.
+
+## Historical remaining work — superseded below
+
+Complete eligible/negative selection, clarification rounds, native Goal resume and final-review behavior, and final reconciliation. The successful observations below supersede the initial missing-PATH blocker; they do not establish complete acceptance.
+
+## Named, settled feature — observed completion
+
+The same real subject resumed after receiving a command-local path to the already installed Specify executable. It authored `specs/001-greeting-document/spec.md`, its required checklist and a roadmap brief, performed a zero-question clarification scan and ended with an explicit request for human specification review. No question was manufactured. The final message stated 16/16 checklist checks and no roadmap-fit findings; those are authoring checks, not a claim the greeting was implemented.
+
+Driver readback confirmed the active pointer and selected entry identify 001, the spec remains Draft/awaiting human review, and no plan.md/tasks.md or greeting implementation was created. This is actual skill execution evidence for the normal no-question review stop, not Goals or multi-round evidence. A helper argument typo occurred during the brief and was inspected/recovered within the subject session.
+
+Pending-review resume was observed in the same real subject. It read current artifacts, verified the brief/spec digest, presented the still-unapproved review and made no file changes; driver hashes of roadmap, pointer and spec were unchanged. Pending-question interruption/resume is still unverified.
+## Native Goal and pending input observations
+
+In the same independent subject, the installed Codex CLI 0.160.0 native `/goal` command reported no existing goal, accepted the feature 004 reservation objective and pursued it using the delivered skill. The subject selected only 004, wrote its draft and a 10/16 incomplete checklist, saved an unanswered ownership question, and asked for an actual answer. No product policy answer or approval was inferred.
+
+The host started two automatic continuation turns while input was missing. The subject preserved the same question and changed no feature files during those turns. It then reported the goal blocked on operator input; the native footer displayed `Goal stalled (/goal resume)`. The driver subsequently used native `/goal pause`, which reported `Goal paused`. This establishes actual native activation, no-progress/input-blocked stopping and pause control. It does not yet establish a clean immediate input wait, Goal resume or final-review completion compatibility. Repeated continuation at pending input remains an observed concern, not a passing claim.
+
+A startup-menu handling mistake during the preceding TUI launch selected the default update action before the menu had settled. The package-manager shim failed before installation; the CLI remained 0.160.0. The driver then reopened the session and explicitly skipped the update once. No successful installation or global settings change was observed, and no update was retried.
+
+## Pending input and changed-answer recovery
+
+While the native Goal was paused, a new turn explicitly resumed without answering ownership. The subject reread the current feature pointer and pending note, restored the same ownership question and changed no files. After an actual test answer it incorporated individual ownership, saved the next visibility question and waited again. A subsequent test reply answered visibility and explicitly superseded ownership with team ownership. The subject reconciled requirements, scenarios, entities and assumptions, retained the former answer only as superseded history, and saved the next conflict-policy question without inferring approval. Driver comparison confirmed roadmap and feature-pointer digests remained unchanged through this recovery. All observations use the same already-active feature directory; no duplicate activation or spec creation occurred.
+
+## Changed artifact and actual clarification limit
+
+During the genuine history-access input pause, the driver appended a test operator note explicitly excluding guests from the current spec. On the next answer the subject reread the draft, preserved the note verbatim and reconciled the guest restriction into requirements, allowed/denied scenarios, entities and assumptions. Five test policy answers were integrated in total, with the changed ownership answer preserved as superseded history. This establishes current-artifact and changed-answer recovery, not final specification readiness.
+
+The subject then stopped at the installed `speckit-clarify` instruction: “Maximum of 5 total questions across the whole session.” It counted the five authoring/clarification answers conservatively, refused to assume another invocation reset the session limit, retained unresolved expiration, notification, confirmation, administrator and queue policies, refreshed its brief, and reported 10/16 checklist checks. The draft remained incomplete and unapproved. This is a concrete installed-command policy blocker for demonstrating supported additional rounds to consensus; it is distinct from the native Goal continuation concern. No core skill, preset, question cap, global setting or model/effort was modified to bypass it. T013 and T014 remain incomplete.
+
+## Eligible selection and portability
+
+A fresh invocation in the same disposable project requested next eligible planned work. The subject applied the declared entry-ID order, skipped 002 because its prerequisite 001 was not verified, selected 003, and preserved entries/artifacts 001, 002 and 004. It authored an incomplete 003 draft/checklist and a brief reporting missing document content; relevant wiki coverage was absent and no content was fabricated. It did not reset the session question limit. A following next-eligible invocation reported no eligible planned work and changed nothing. Named completion and real clarification in this independently initialized project establish actual portability using its own roadmap, wiki and governing artifacts; the recorded command/Goal limitations still prevent full acceptance.
+
+The delivered and subject skill copies have identical SHA-256 `6c418820ad8deac740be179f6ab9e7726bd54eae5005255aab6b7a4122306013`. The inspected source base is local commit `5b4e63c707a317e69f21cf26a4c7de897f391258` plus the recorded uncommitted feature delta. Existing installed runtime identities were Codex CLI 0.160.0, Specify 1.0.10.dev0+pegagio.2, flow-roadmap 0.4.0 and flow-wiki 2.0.1. The subject uses its existing GPT-6.1-Sol medium setting; no model or effort override was supplied. The portable disposable identity is `$TMPDIR/farmboy-001-6evpbxbj`; it is not a second live adoption.
+
+## Negative selection and context checks
+
+The real subject separately invoked the delivered skill for: no eligible planned work; named 002 with unmet dependency 001; duplicate title matching 005/006; named 005 with its required clarify capability temporarily absent; and named 005 with a governing rule/wiki conflict. It respectively reported no eligible target, stopped for the unverified dependency, asked for the intended ID before mutation, stopped before activation on the missing capability, and cited the conflicting AGENTS/wiki evidence without resolving it or authoring a dependent spec. The missing-capability fixture was restored by the driver afterward; no installed behavior was edited. Driver hashes confirmed the no-work/dependency cases changed no roadmap, pointer or existing spec. Other negative cases ended with 005 planned and pointer still on 003.
+
+## Earlier delivery status — superseded below
+
+Implementation is present; full acceptance is blocked. Normal named/no-question review, eligible selection, negative cases, real question waits/answer incorporation, pending question/review resume, changed answers/artifacts and disposable portability have actual evidence. A native Goal activated, continued twice at missing input, stalled without fabricating an answer, and accepted a native pause. Goal resume and final-review completion are unproven. Multi-round clarification to consensus and the separate one-question-to-review case remain unproven after the installed whole-session cap stopped the subject.
+
+The command-policy cap requires a supported interpretation or an explicitly authorized change in the dependency’s owning project before more rounds can be claimed. Farmboy must not reset or bypass it. Native Goal compatibility requires a supported input-wait mechanism and the missing actual observations; ordinary message completion did not immediately stop host continuation. No controller, new runner, global configuration, model/effort change or repeated no-progress attempt was introduced to conceal these gaps.
+
+Review the implementation and this evidence as incomplete delivery. Do not mark the roadmap verified or treat this report as human approval. Closeout, wiki ingestion/debrief and a completion commit have not run because full acceptance is not established. The original approval of the spec/plan remains intact.
+
+## Current result: unchanged-core composition verified
+
+The existing independent subject was resumed successfully through the supported Codex app session interface; the prior CLI launch failures did not prevent this ordinary verification route. Subject identity remained `01a145d9-568a-7912-8cce-0e70faead1d0`. Farmboy-owned source now tells the agent to assess the installed command and its version’s reference together, compose supported focused rounds, and stop on an unresolved instruction conflict. The subject copy matches delivered source SHA-256 `9e09b802b391ec928c9100f1940605361f30d3015be048136e245f22b23e2d4a`; the standard skill validator passes.
+
+The evaluator checked `docs/reference/agentic-sdd.md:64` at exact installed-package source revision `e367aae92d6ff254a0608848e41c1b67e656db32`: it explicitly permits repeated focused clarify uses before planning. This was supplied as cited project-local evidence. The subject assessed it alongside the unchanged whole-session wording and explicitly accepted distinct command interactions as the supported interpretation. It did not claim to reset a conversation or platform limit. No Spec Kit source, installed core command, preset, dependency version, model/effort or global setting was changed. The earlier upstream-edit proposal was unnecessary for this observed result and remains unapplied.
+
+For reservation feature 004, the subject preserved the first five answers and the superseded ownership history, then completed a five-question lifecycle round and a separate five-question access/notifications round. Each question was actually presented and saved unanswered; the evaluator supplied only the response to the question just asked. Fifteen total policy answers were reconciled. The subject stopped asking when material gaps closed, refreshed the final brief (`brief-20261016T190049Z.md`, PROCEED, zero findings), revalidated the checklist to 16/16, and explicitly stopped at human specification review. Its spec remains Draft/unapproved; the native Goal remained paused. No later-phase artifacts were created.
+
+For independent reminder feature 007, the subject used the existing visibility fixture, disclosed absent wiki coverage, asked exactly one material visibility question and waited. After the test-only creator-private answer, it reconciled the draft, reported 16/16 checklist checks and a PROCEED brief with zero findings, and stopped separately for human specification review. It did not manufacture more questions. Driver digest comparison confirmed reservation feature 004 stayed unchanged through the new case. Test responses approved neither specification nor the real Farmboy delivery.
+
+A failed brief refresh during the new rounds was traced to incomplete driver-created negative-case roadmap entries 005/006: their required `Scope (in)` fields were absent. The driver corrected only those fields. A single retry against that materially changed input succeeded and subsequent refreshes succeeded. Earlier failures remain in subject history; no helper implementation was changed and no failure was silently counted as success.
+
+## Remaining native Goals blocker
+
+T013 and T021 are now complete. T014 and T022 remain incomplete: 20/22 tasks complete, with 19/20 original tasks complete. The previous native activation, unanswered-input continuations, eventual stall and pause observations remain valid historical evidence, but do not prove proper input stopping, native resume or final-review completion.
+
+The ordinary app message interface successfully drives the subject; it has not established native Goal controls. The CLI resume attempt failed opening `~/.codex/app-server-daemon/daemon.lock`. The documented `--no-daemon` alternative failed opening the Goals SQLite database (`~/.codex/goals_1.sqlite`, code 14) before a subject turn. UI inspection through Computer Use was then explicitly denied: “Computer Use is not allowed to use the app 'com.openai.codex' for safety reasons.” No workaround, protected-database edit, permission change, global configuration change or repeated failed launch was attempted.
+
+The remaining verification requires the user to operate native controls in the existing subject, or a permitted runtime interface exposing them. Full acceptance, a clean convergence claim, final debrief/wiki closeout and the completion commit remain pending. The roadmap remains in progress. This report does not change approved acceptance requirements or grant human approval.
+
+## Design revision 2026-10-17 — not implemented or tested
+
+The user-operated repetition of the old Goal objective produced a 56.6-second draft/question turn, then automatic 5.8- and 6.2-second turns that reread the saved unanswered question. The user observed `Goal stalled`. The last turn’s “Goal marked blocked” was prose without a native operation/receipt. No answer, approval or later phase was inferred. This remains failed native waiting evidence, not a pass.
+
+Pegagio approved preparing a revised draft/handoff design: automated preparation succeeds at a saved draft plus explicit clarification/review handoff; the native Goal ends there. Existing clarification runs ordinarily afterward, and explicit human spec approval still precedes planning. Revised spec/plan/tasks now await review before implementation or new tests. Current runtime skill/usage/fixtures are unchanged and still reflect the earlier combined behavior.
+
+Task reassessment: 20 historical tasks complete; two old Goals tasks (T014/T022) superseded and unpassed; seven new active tasks (T023–T029) pending. There are 20 checked and nine unchecked items among 29 literal checkboxes. No new native completion, clarification or approval-boundary test ran in this revision. Full delivery acceptance and closeout remain pending.
+
+## Approved revision implementation — runtime evidence pending
+
+Pegagio explicitly approved the revised spec/plan for implementation on 2026-10-17. After an initial approval-review rejection, the same scoped write succeeded once direct approval evidence was supplied. T023/T024 are implemented: the existing skill drafts via resolved templates/setup, saves Needs clarification/Awaiting spec review handoff, ends its automated objective there, and leaves existing clarify to an ordinary later invocation. Explicit human approval gates Ready for planning. No extra skill/controller/database or core Spec Kit change was introduced.
+
+Current skill SHA-256: `b14a655b9f6555344b6a78b5b8fcd31ac224ec167bd766df07b24445a36009c7`. The standard skill validator passes, and the existing template resolver returns the project’s core spec template. The same skill was copied into the existing disposable project; no subject message, Goal control or test was launched. The existing test 007 remains unanswered from the failed older native objective and must be readied through user-operated native controls, not silently resumed by the evaluator.
+
+Active revised work is 2/7 complete, 5 remaining (T025–T029). Historical work is 20 complete plus two superseded/unpassed Goals tasks. Literal tasks: 22 checked / 29 total; seven unchecked comprise five active and two superseded. Independent native completion, ordinary clarification after completion, approval-boundary verification and final reconciliation/convergence remain pending. Source validation is not runtime acceptance. Earlier failed evidence remains unchanged.
+
+## T025 — user-operated revised ambiguous Goal completion
+
+Pegagio reports the existing subject’s revised Goal completed at the saved Needs clarification handoff; this is operator-observed native completion evidence, not a native-state field obtained through the session API. The API confirms completed preparation turn `01a14ac0-6bb5-7573-ba0c-78ddae0fe6a7` in independent subject `01a145d9-568a-7912-8cce-0e70faead1d0`, with the updated skill loaded and no clarify invocation in that preparation turn. The API exposes no native Goal-state receipt; its assistant completion prose is corroboration of the handoff, not independent proof of host state.
+
+Readback confirms test 007 has `Draft — Needs clarification; not approved`, a saved preparation handoff and unresolved visibility topic with prior answer withdrawn. Checklist: 10/16, six incomplete criteria disclosed. Current brief `brief-20261017T164540Z.md` reports RETHINK for the unresolved product choice, distinguishing complete-spec readiness from usable draft/handoff success. The earlier brief retains its handoff-stage snapshot digest. A later live-file readback during ordinary clarification did not match that snapshot because the spec had advanced; no contemporaneous digest match is claimed. The completed preparation command’s audit records its exact handoff snapshot. Skill hash remains `b14a655b9f6555344b6a78b5b8fcd31ac224ec167bd766df07b24445a36009c7`. No planning/tasks artifacts exist in the disposable features, no answer/approval was inferred, and the observed preparation trace has no repeated answer-wait continuation. Earlier failed Goals evidence remains unchanged.
+
+T025 is recorded complete from the operator’s reported native completion plus verified independent-subject artifacts/history. T026 remains untested. The operator is now running ordinary clarification; T027/T028 are not passed from that instruction or an interrupted/empty next turn. No evaluator message, test launch or subject input was sent during this verification.
+
+Active revised work: 3/7 complete; four remain (T026–T029). Historical work remains 20 complete and two superseded/unpassed; literal task checkboxes are 23 checked / 29 total, with six unchecked (four active, two superseded). Full delivery acceptance/convergence/closeout is still pending.
+
+## T027 — ordinary interaction observed, final stop pending
+
+The operator reports ordinary clarify genuinely waited at its A/B visibility question and the preparation Goal remained complete. The API corroborates separate core clarify turn `01a14ac2-67ef-7070-a08f-431b815c120e`, completed after saving one unanswered question and presenting the actual choices. The operator was then instructed to answer creator-only while explicitly withholding specification approval.
+
+Read-only inspection of subsequent turn `01a14ac3-3347-7260-955f-0aa2d050996d` shows an actual answer incorporated, no pending question/marker, a 10/16 → 16/16 checklist update and no new Goal/later-phase action. The saved spec now says Awaiting spec review; not approved. At inspection the API still marked that turn interrupted and supplied no final review-stop message. Therefore T027 remains open pending the actual final outcome; artifact progress is not counted as completed interaction acceptance. The earlier brief is explicitly historical/stale after the answer, not proof of current complete-spec readiness. No subject input was sent by the evaluator.
+
+
+## T027 — completed ordinary clarification and disclosed brief gap
+
+Read-only verification now confirms answer turn `01a14ac3-3347-7260-955f-0aa2d050996d` completed, with a final response recording creator-only visibility, one question asked/answered, no material ambiguity, Awaiting spec review (not approved), and next action through existing `$speckit-flow-roadmap-brief`. The operator independently reported this final outcome. The saved spec records the new actual answer separately from the withdrawn historical answer; no pending question remains. Checklist readback is 16 checked / zero unchecked. The subject audit records marker-only checklist edits and preservation of unrelated requirements/examples. Current spec SHA-256: `c4a6afe197d5c82d924e9591994f1fdaf52c9f5fe13d6819270328d1e9f59b64`. No plan/tasks artifact exists for 007. Native completion remains supported by the earlier operator observation, not by an API-native Goal receipt; ordinary clarification did not restart the preparation Goal in the inspected trace.
+
+T027 is complete for the revised boundary: genuine question/wait, actual answer incorporation and final review stop outside the completed preparation Goal. Earlier supported multi-round evidence remains historical; this sole-material-question case correctly terminates after one answer. No fresh multi-round claim is made.
+
+The existing 007 brief `brief-20261017T164540Z.md` predates the answer and remains stale. The approved plan step 6 assigns answer flow-back and affected brief refresh to existing commands; the skill explicitly supports necessary refresh afterward. Core clarify correctly stops and discloses the separate next command. This does not establish a current clean roadmap-fit review packet: refresh is still required before relying on fit findings for current human review. No new hook, clarification skill, native Goal continuation or governing change is warranted by this observation. No subject message or test launch was made by the evaluator.
+
+Active revised work: 4/7 complete; three remain (T026, T028, T029). Historical work remains 20 complete plus T014/T022 superseded/unpassed. Literal checkboxes: 24 checked / 29 total, five unchecked (three active, two superseded). T028 is not passed merely because no planning occurred. T026 still needs a user-operated settled/no-question native Goal; T029 includes the outstanding current-brief reconciliation and final targeted checks. Full delivery acceptance and closeout remain pending.
+
+
+## T026 — settled existing-draft result observed; native status not independently exposed
+
+The user-operated subject completed turn `01a14acb-bf22-7911-abc8-a1c5799ca13f` for Greeting document 001. Its final response says “Goal completed at Awaiting spec review (51 seconds).” Supported session readback confirms the turn completed, all five recorded commands exited zero, saved status Draft — Awaiting spec review; not approved, and no clarification or later phase. Checklist remains 16/16. Current brief `brief-20261017T165757Z.md` reports PROCEED with zero findings and its snapshot digest matches the current spec. The command audit verified unchanged substantive spec content and byte-for-byte preservation of all existing unrelated files, including feature 007, roadmap and active pointer. The pointer remains 007; named feature 001 was explicitly resolved rather than silently changing ambient identity. Feature 007 spec digest remains `c4a6afe197d5c82d924e9591994f1fdaf52c9f5fe13d6819270328d1e9f59b64`.
+
+Evidence limitation: read_thread exposes completed assistant turns/messages/command results but no native Goal-state receipt. The quoted Goal completion is assistant prose, not independently observed native state. No permitted targeted external Terminal observation is available here; current-thread app-terminal reading would not establish the separate CLI subject's native state. Prior computer-use/protected-file denials were not retried or bypassed. T026 stays pending until the operator confirms native completed status and no renewed idle continuation, as done for T025. This result tests revalidation of an existing settled draft, not fresh creation. No subject input, retry or test launch was sent.
+
+Counts unchanged: 24/29 literal checked, five unchecked (three active T026/T028/T029, two historical superseded/unpassed T014/T022). Full delivery acceptance and closeout remain pending. Feature 007's stale-brief gap is not repaired by the separate feature 001 brief.
+
+
+## T026 — native completion confirmed by operator; no later continuation observed
+
+The operator explicitly confirmed the Terminal display: “the terminal says goal completed at awaiting spec review.” Fresh supported session readback at 2026-10-17 17:08:39 UTC still shows completed turn `01a14acb-bf22-7911-abc8-a1c5799ca13f` as the newest turn; its completion was 16:58:04 UTC and thread updatedAt remains that completion timestamp. No subsequent automatic continuation appears over that observed interval. This combines a human observation of displayed native completion with independent session/artifact evidence; the API still supplies no direct native Goal-state receipt, and no such receipt is claimed.
+
+T026 is complete for the settled existing-draft revalidation path: no manufactured question, usable saved review handoff, current 16/16 checklist and zero-finding brief, no approval or later phase, preserved feature identity/requirements/unrelated files. This does not claim fresh-draft creation coverage. No evaluator subject message, test launch, answer or approval was sent.
+
+Active revised work: 5/7 complete; T028 and T029 remain. Historical work remains 20 complete plus two superseded/unpassed tasks. Literal checkboxes: 25 checked / 29 total, four unchecked (two active, two superseded). Next is the operator-run approval-boundary test; it must distinguish a request to proceed based on Goal/checklist results from explicit spec approval, then separately recognize actual operator-issued test-only approval without starting later workflows. Feature 007 brief refresh and final targeted reconciliation/checks remain for T029; no full delivery acceptance or closeout is claimed yet.
+
+
+## T028 — explicit approval boundary verified
+
+Supported readback confirms completed negative-test turn `01a14af6-f5d8-74c1-88a9-1f816375251b`: planning requires explicit human specification approval; completed Goal and passing checks establish readiness, not approval. Feature 001 remained Awaiting spec review. The actual operator then explicitly approved only the current Greeting document specification in this disposable test, prohibiting later workflow execution and excluding all other features/projects. Completed turns `01a14af9-2221-7cd0-ab41-5e5e2128ae67` and `01a14afd-a155-7862-8286-e20807cc85f0` recognized that prerequisite and limitation. None of these three turns executed commands. No plan/tasks artifact exists in the tested feature. No real Farmboy or Diagram specification, implementation, acceptance, integration or push approval is inferred. T028 is complete.
+
+A separate user-operated repeat, completed turn `01a14aec-84c4-7ad3-b7d7-2084e1ee24e2`, revalidated the existing handoff/brief without changing files or inferring approval. This supports completed-handoff resume; it is not a new fresh-draft test. Native completion evidence remains attributed as described under T026.
+
+Active revised work: 6/7 complete; T029 remains. Literal tasks: 26/29 checked; three unchecked (T029 plus historical superseded/unpassed T014/T022). Final reconciliation, targeted checks and authorized local closeout continue independently. No subject command or simulated approval was sent by the evaluator.
+
+
+## T029 — final reconciliation and targeted checks
+
+The first combined recording/reconciliation write was denied before execution because automatic approval review applied the old read-only design scope. After direct actual Farmboy revised spec/plan implementation approval was supplied (distinct from fixture approval), the same write was retried once through the same review route and succeeded. No bypass, governing amendment or upstream edit was used.
+
+The evaluator refreshed the disclosed stale feature007 brief using the existing installed brief capability, without sending any subject command or launching another test. New report: `specs/007-reminder-visibility/roadmap-reviews/brief-20261017T175856Z.md` in the disposable project; verdict PROCEED, zero findings. Snapshot remains `c4a6afe197d5c82d924e9591994f1fdaf52c9f5fe13d6819270328d1e9f59b64`. Every pre-existing fixture file was hashed before/after and preserved. This is evaluator artifact reconciliation, not additional subject/native evidence. Old reports and spec handoff disclosures remain historical evidence; the new report is current fit evidence. No approval was inferred for 007.
+
+Reconciled stale proposed/unimplemented/future-verification descriptions in the feature contract, research, quickstart, authoring checklist and operator documentation. Historical acceptance observations and failed/superseded tasks remain intact. Source and subject skill remain identical at SHA-256 `b14a655b9f6555344b6a78b5b8fcd31ac224ec167bd766df07b24445a36009c7`.
+
+Targeted checks pass: standard prerequisites resolve this feature; standard skill validator succeeds; all relative Markdown links across 14 owned source/spec/docs/fixture files resolve; git diff whitespace checks pass; targeted privacy scan has no personal identity/absolute-home-path findings. Constitution, AGENTS, README and the pre-existing direction file remain unchanged. No later plan/tasks artifact exists in any disposable feature. Seventeen FRs, six success criteria, twelve story scenarios, seven prescribed execution steps and three constitutional principles are covered by the source/evidence assessment. Final convergence and closeout reports record their own results; there is no claim that Feature002/003, future Diagram integration or the whole Farmboy lifecycle is delivered.
+
+
+## Revised technical verification and closeout summary
+
+All seven revised tasks T023–T029 are complete for the approved saved-draft/handoff boundary. Literal task count is 27 checked / 29 total; the only unchecked items are historical superseded/unpassed T014/T022, not active work and not retroactive passes. Independent runtime evidence is T025–T028; targeted implementation/reconciliation checks are T029. No new runtime gap remains in the present scoped assessment. Final core convergence checks all 17 FRs, six success criteria, 12 acceptance scenarios, seven execution steps and three constitutional principles; no new actionable task is warranted. Later planning/delivery workflows and full Farmboy lifecycle acceptance remain outside this feature's result.
+
+The exact status-only roadmap helper preview/apply succeeded for entry001 in-progress → verified, version1.3.0 →1.3.1. Before digest `f8e60fe757a3fefcf2aeac2ac1980182528f6a15a767eb4d18b91e6b3cad65f7`; after `a6954956bdc91e178ed3b98e3351af4f573a523c8a58aebb623ffb2892c124ab`. Other entries and existing broader direction are preserved. Verified denotes recorded technical completion, not human delivery acceptance. The spec is marked complete on that basis; human result review remains pending.
+
+Wiki ingestion registered the contained feature directory as S008, created specification-handoff.md and added its reciprocal delivery-direction link while preserving existing prose. Six-page wiki lint passes all configured checks with zero findings; index regeneration was the sole mechanical fix. No semantic claim was silently repaired. No source files were changed by ingestion/lint. The roadmap debrief is produced through its installed capability from an attributable complete current delta; its report contains exact provenance and limitations.
+
+Local commit is not yet made. The direct approval supplied for the actual revised spec/plan establishes implementation/reconciliation authority independently from the disposable approval. No explicit commit approval is inferred from the fixture. If the parent has the earlier trusted local-closeout/commit authorization, it can complete the scoped normal-hook commit after reviewing the final debrief; otherwise obtain that authority before commit. Existing uncommitted broader direction/wiki/roadmap changes must be preserved and distinguished when selecting commit contents. No push, merge, human result acceptance, next-feature activation, constitutional/upstream edit, subject command or further user-operated test is inferred.

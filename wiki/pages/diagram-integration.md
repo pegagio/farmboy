@@ -2,29 +2,33 @@
 title: Intended Diagram integration
 type: concept
 sources: [S001, S002, S004]
-updated: 2026-10-16
+updated: 2026-10-17
 ---
 
 # Intended Diagram integration
 
-This page records intended integration design and open choices. Track implementation progress in roadmap/spec artifacts rather than a capability-status inventory here. Additional context comes from the operator discussion on 2026-10-16; the established delivery sequence comes from the local direction document. (S002, S004)
+This page records agreed future integration direction and open choices, not implemented capabilities or authority to run work. The current direction refines earlier discussion of a feature/task queue into feature-level coordination; Git task files retain their canonical role. (S002, S004)
 
-## Responsibilities and rationale
+## Coordination and execution
 
-Diagram is the local cross-project control plane: the canonical queue of outstanding features/tasks, dependencies and lifecycle. Codex skill sessions capture operator intent into Diagram. A single coordination authority avoids competing writable queues after a project migrates from the roadmap extension. (S002, S004)
+Diagram owns feature-level queue, dependencies, ownership, approvals and exact Git checkpoint references. Git files remain canonical for specifications, plans, tasks, code and evidence. For migrated projects, Diagram replaces the roadmap extension’s queue role without creating a competing writable artifact store. (S002)
 
-Farmboy defines and executes prescribed Spec Kit workflow segments and feedback loops, then returns outcomes and evidence. Diagram retains acceptance through its state-transition boundary; Farmboy execution does not become a second canonical lifecycle. This separates reusable execution from cross-project coordination. (S002, S004)
+Farmboy supplies reusable prescribed workflow execution; Diagram-specific authority remains at the adapter boundary. Diagram serializes integration for the repository and target while an external executor performs the Git work. Executor placement is undecided. Project policy defines branch strategy, target and required checks; missing or conflicting rules must be surfaced before dependent integration work. No implicit push is authorized. (S002)
 
-## Handoff boundaries
+## Feature ownership and human boundaries
 
-Keep task identity, workflow-run/segment identity, permitted execution scope, completion outcome and evidence distinct from canonical lifecycle acceptance. A completed execution does not itself imply merge or acceptance. Specify how context and authority are checked, pending questions and interruptions are returned, and stale or duplicate results are reconciled, without assuming a finalized schema, API or transport. (S002, S004)
+One agent may be active per feature across its segments. Different owners may work sequentially after a handoff. Independent features may proceed concurrently on isolated branches/worktrees; this does not introduce a worker pool into the initial local scope. (S002)
 
-Preserve human clarification and specification/full-plan review gates. Authorized prescribed transitions should not require redundant approvals; they must still respect explicit human checkpoints and execution scope. See [prescribed workflow authority](./workflow-authority.md). (S001, S004)
+The eventual four segments are specify/clarify, plan/task/reconcile, deliver a verified candidate, and integrate the authorized candidate. Human specification and full-plan reviews remain distinct. Human UAT (user acceptance testing)/final-result review follows the candidate and authorizes integration; successful execution alone does not. This future boundary does not add phases to current local workflows. (S002)
 
-## Delivery relationship
+## Checkpoints and receipts
 
-Establish local human-driven Farmboy first, then human-driven Diagram integration, then bounded autonomous claiming. Begin autonomy with one worker on one project. Prove execution return and state handling before autonomous work. See [delivery direction and evidence](./delivery-direction.md) for stage outcomes and evidence. (S002, S004)
+Keep the reviewed Git checkpoint distinct from the latest accepted handoff checkpoint. Routine in-scope flow-back does not revoke historical approval; material changes require the affected review again. Integration receipts live only in Diagram’s database and refer to Git checkpoints, avoiding recursive project commits to record receipts. Integration merge freezes historical feature meaning; later material behavior changes use a new linked feature. (S001, S002)
+
+[Workflow authority](./workflow-authority.md) governs current execution. [Feature history](./feature-history.md) explains persistence and reviewed versus current checkpoints. [Delivery direction](./delivery-direction.md) distinguishes current local scope, later alignment and integration evidence. (S001, S002)
 
 ## Open decisions
 
-Push, pull or hybrid dispatch and reusable worker contexts remain design decisions. Concrete handoff schemas, APIs and transport need feature-level decisions; this context does not settle them or decompose the roadmap into features. (S004)
+Executor placement, dispatch mechanics, reusable contexts and concrete integration schemas/APIs/transport remain later feature decisions. The agreed sequence remains local human-driven Farmboy, human-driven Diagram integration, then narrow autonomy. No adapter, executor or concurrency platform is implemented by this direction. (S002, S004)
+
+Diagram constitution 6.0.0/roadmap 2.2.0 adopt durable draft handoff and ownership release, separately acquired clarification authority retained while active, and visible Specifying → Needs clarification/Awaiting spec review states. Resolved clarification leads to review; review reaches Ready for planning only on explicit approval or returns to Needs clarification. Representation/storage remains future 022/023 work; Farmboy adds no local Diagram state machinery. (S002)
