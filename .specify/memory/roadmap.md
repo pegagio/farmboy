@@ -1,5 +1,34 @@
 <!--
 SYNC IMPACT REPORT
+==================
+Version change: 1.4.0 → 1.4.1
+Bump rationale: PATCH — authorized status amendment for entry 002.
+Status: in-progress → verified
+Authorization: Direct operator approval on 2026-10-17: Yes to marking Feature002 verified and committing the reviewed 20 paths together, including the separately approved Feature004 planning documentation. Keep002 selected; no Feature003 activation, merge, push or integration claim.
+Evidence paths: ["specs/002-prepare-implementation-plan/spec.md", "specs/002-prepare-implementation-plan/plan.md", "specs/002-prepare-implementation-plan/tasks.md", "specs/002-prepare-implementation-plan/validation/acceptance.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+Version change: 1.3.3 → 1.4.0
+Bump rationale: MINOR — expand planned entry 004’s explicit external request/result boundary under direct operator approval.
+Changes: Preserve standalone core workflows; accept externally selected identity/request/artifact references/segment without second roadmap selection or activation; define replacement context/fit authority and result/handoff data. Diagram retains queue/eligibility/ownership/approvals/handoff records. Optional bridge implementation remains a later separately scoped deliverable with undecided packaging, not necessarily a Spec Kit extension.
+Authorization: Direct operator approval, “Okay, approved. Make those edits,” for this bounded Farmboy roadmap/direction amendment on 2026-10-17.
+Evidence: Existing entry 004; docs/direction.md; direct operator decision about the optional bridge boundary.
+Effects on active work: Entries 001–003, statuses, dependencies, active pointer and all Feature002 implementation/validation artifacts are unchanged. This does not retrofit the boundary into current 002 or decide its pending native Goal acceptance. No feature activation, constitution/Diagram change, bridge/framework code, commit, merge or push.
+-->
+
+<!--
+SYNC IMPACT REPORT
+Version change: 1.3.2 → 1.3.3
+Bump rationale: PATCH — activate and link operator-selected Feature 002 for specification preparation.
+Changes: Entry 002 planned → in-progress; set Spec dir to specs/002-prepare-implementation-plan/.
+Authorization: Direct operator invocation of $farmboy-prepare-specification for roadmap Feature 002 on 2026-10-17, including its prescribed selection/linkage steps.
+Evidence: .specify/memory/constitution.md; existing entry 002; installed .agents/skills/farmboy-prepare-specification/SKILL.md.
+Effects: Dependency 001 is verified. Selection establishes neither specification approval nor authority to plan or implement. Other entries, instructions and committed baseline are preserved.
+-->
+
+<!--
+SYNC IMPACT REPORT
 Version change: 1.3.1 → 1.3.2
 Bump rationale: PATCH — clarify entry 003’s existing delivery/result-review endpoint; no new phase, dependency or implementation is added.
 Changes: Require applicable verification, coherent spec/plan/task flow-back and delivery documentation closeout around the delivery candidate. Neither integration nor an undefined final feature-completion operation is a prerequisite; delivery does not declare the feature integrated or complete.
@@ -106,7 +135,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/001-prepare-specification/
 - **Notes:** Bootstrap this workflow manually. Demonstrate its behavior and portability in a disposable Spec Kit project, then use it to prepare specifications for later features. Detailed command mappings and eligibility rules belong in its reviewed spec; this entry creates no spec directory.
 
-### 002 — Prepare implementation plan [status: planned]
+### 002 — Prepare implementation plan [status: verified]
 
 - **Description:** From an approved specification, compose planning, task generation and analysis/repair into the second human-driven workflow.
 - **Outcome:** Plan and tasks pass fresh analysis, and execution stops for full-plan review. The operator can understand and decide whether to approve or simplify the proposed implementation.
@@ -114,6 +143,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Scope (out):** Implementation before review, automatic approval, universal recovery, model routing or a new controller/framework by default.
 - **Depends on:** 001.
 - **Governed by:** C-01–C-06.
+- **Spec dir:** specs/002-prepare-implementation-plan/
 - **Notes:** Dogfood the delivered specification workflow in this feature’s development; apply the planning workflow to later development once delivered. Demonstrate portability in a disposable Spec Kit project. A passing analysis is not human full-plan approval.
 
 ### 003 — Deliver approved plan through closeout [status: planned]
@@ -128,13 +158,13 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 
 ### 004 — Align workflow contracts with Diagram handoffs [status: planned]
 
-- **Description:** Align Farmboy’s workflow contracts with the agreed Diagram feature-level coordination and Git artifact boundary, building on the local lifecycle rather than bundling a Diagram implementation.
-- **Outcome:** Reviewed contracts distinguish coordination from canonical Git artifacts, define feature ownership and checkpoint/review handoffs, and separate delivery of a verified candidate from authorized integration under project policy.
-- **Scope (in):** Align the delivered local workflow contracts and any necessary workflow boundaries with feature-level metadata, exact Git checkpoint references, one active agent per feature with sequential owner handoffs, historical approval versus latest accepted handoff, human UAT/final-result review authorizing integration, and a separate integration stage governed by project branch/target/check policy. Preserve merge-bounded history and no implicit push; keep integration receipts in Diagram’s database without recursive project commits. Surface missing/conflicting policy and retain executor placement as undecided.
-- **Scope (out):** Re-doing the direction/wiki alignment documented now; a full Diagram adapter; implementing or selecting an integration executor; a concurrency platform, scheduler or worker pool; Git execution or remote push in this feature’s roadmap amendment; changing current feature 001.
+- **Description:** Define an explicit externally selected execution boundary for standalone Farmboy workflows and align their contracts with Diagram-owned coordination, building on the local lifecycle rather than bundling a Diagram implementation.
+- **Outcome:** Reviewed contracts distinguish coordination from canonical Git artifacts, define feature ownership and checkpoint/review handoffs, and separate delivery of a verified candidate from authorized integration under project policy. Standalone and externally selected entry paths have explicit request/result boundaries without competing work selection.
+- **Scope (in):** Align the delivered local workflow contracts and any necessary workflow boundaries with feature-level metadata, exact Git checkpoint references, one active agent per feature with sequential owner handoffs, historical approval versus latest accepted handoff, human UAT/final-result review authorizing integration, and a separate integration stage governed by project branch/target/check policy. Preserve merge-bounded history and no implicit push; keep integration receipts in Diagram’s database without recursive project commits. Surface missing/conflicting policy and retain executor placement as undecided. Keep core Farmboy workflows usable without Diagram. Define inputs for externally selected feature identity, request, artifact references and requested segment; that entry path must not repeat roadmap selection or activation. Define the appropriate authoritative context/fit source when the roadmap queue is retired, and return result/handoff data including artifact/evidence references, outcome, remaining input or blockers and next review. Diagram retains queue, eligibility, ownership, approvals and handoff records; Farmboy returns execution data across this boundary.
+- **Scope (out):** Re-doing the direction/wiki alignment documented now; a full Diagram adapter or optional bridge implementation; imposing bridge packaging; implementing or selecting an integration executor; a concurrency platform, scheduler or worker pool; Git execution or remote push in this feature’s roadmap amendment; changing current feature 001.
 - **Depends on:** 003.
 - **Governed by:** C-01–C-06; docs/direction.md (eventual Diagram integration direction).
-- **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate.
+- **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate. An optional, separately scoped bridge may acquire Diagram work, supply Farmboy context and report outcomes. Its implementation is a later separate deliverable; packaging remains undecided and need not be a Spec Kit extension.
 
 ## Open Questions
 
@@ -148,4 +178,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.3.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17
+**Version**: 1.4.1 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17

@@ -20,9 +20,15 @@ Executable steps and transitions belong in selected workflows under the constitu
 
 ### Coordination and canonical artifacts
 
-Diagram owns feature-level coordination metadata: the queue, dependencies, ownership, approvals and exact Git checkpoint references. Git files remain canonical for specifications, plans, tasks, code and evidence. This refines earlier feature/task queue language: Diagram coordinates the feature rather than becoming another writable copy of its task or specification files. For a migrated project, Diagram replaces the roadmap extension’s queue role. Farmboy remains reusable execution, with Diagram-specific authority at the adapter boundary.
+Diagram owns feature-level coordination metadata: the queue, eligibility, dependencies, ownership, approvals, handoff records and exact Git checkpoint references. Git files remain canonical for specifications, plans, tasks, code and evidence. This refines earlier feature/task queue language: Diagram coordinates the feature rather than becoming another writable copy of its task or specification files. For a migrated project, Diagram replaces the roadmap extension’s queue role. Farmboy remains reusable execution, with Diagram-specific authority at the adapter boundary.
 
 Allow one active agent per feature across its segments. Different owners may work sequentially after a handoff; this does not require one permanent agent for the feature. Independent features may proceed concurrently using isolated branches/worktrees.
+
+### Standalone workflows and optional bridge
+
+Core Farmboy workflows remain standalone and usable without Diagram. Future Feature 004 defines an explicit externally selected entry boundary: feature identity, request, artifact references and requested segment arrive from the caller, without repeating roadmap selection or activation. It also defines the appropriate authoritative context/fit source when the roadmap queue is retired, and the result/handoff data returned: outcome, artifact/evidence references, remaining input or blockers and next review. Diagram retains its coordination authority; Git remains canonical for the work artifacts.
+
+An optional, separately scoped bridge may acquire Diagram work, supply this execution context to Farmboy and report outcomes to Diagram. Bridge packaging is undecided and need not be a Spec Kit extension. Feature 004 aligns the request/result contracts; full adapter/bridge implementation remains a later separate deliverable. This direction does not retrofit those boundaries into current Feature 002 or change its pending native Goal acceptance decision.
 
 ### Four eventual segments and their human boundaries
 

@@ -8,3 +8,9 @@ dist/
 *.tmp
 *.swp
 
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

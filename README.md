@@ -2,17 +2,26 @@
 
 Farmboy is being rebooted around Pegagio's proven, human-directed Spec Kit prompts and full feature lifecycle.
 
-The clean reboot was approved on 16 October 2026. This branch intentionally contains a planning baseline; it does not implement a replacement workflow or retain the old code and specifications as active requirements.
+The clean reboot was approved on 16 October 2026. This branch began with a planning baseline. Current workflow source and its verification evidence are linked below; superseded code and specifications are not active requirements.
 
 ## Direction and next milestone
 
 For project direction, goals, scope or roadmap context, consult the [local project direction](docs/direction.md).
 
-The next milestone is review of the phase-one specification, followed by review of the complete implementation plan. The approved reboot choice is to replace the active product within the existing Farmboy repository while preserving its name and history.
+The reboot began with specification review followed by full-plan review; current workflow status and remaining acceptance limits are recorded in the linked feature evidence. The approved reboot choice is to replace the active product within the existing Farmboy repository while preserving its name and history.
 
 Phase one keeps Pegagio driving three segments: select/specify/clarify then specification review; plan/tasks/analysis-and-repair then full-plan review; implementation/convergence-and-repair/closeout then result review. Preserve interactive clarification, all existing loops and the proven source prompts. Verify native `/goal` behavior before considering custom continuation. The first acceptance is a real feature from selection through successful closeout, including clarification and interruption/resume.
 
 Phase two introduces Diagram's queue and canonical lifecycle under human direction. Phase three adds narrow workers only after execution-return and state handling are proven. Neither phase is implemented here.
+
+## Workflow entry points
+
+The local workflows preserve human approval between segments. Source availability does not establish delivery acceptance or authorize the next workflow.
+
+- **Prepare specification**: `$farmboy-prepare-specification` saves a draft and clarification/review handoff; see the [guide](docs/prepare-specification.md).
+- **Prepare implementation plan**: `$farmboy-prepare-implementation-plan` starts from an approved selected specification, composes existing plan/tasks/read-only analysis with separate authorized routine repair, and stops for human full-plan review; see the [guide](docs/prepare-implementation-plan.md) and [actual verification evidence](specs/002-prepare-implementation-plan/validation/acceptance.md), including unaccepted native limitations.
+
+No controller, counters, numeric repair limits, progress scoring or runtime accounting/tracking store is added. A completed preparation Goal or passing analysis never approves the plan, implements work, commits or pushes.
 
 ## History and provenance
 
