@@ -21,6 +21,8 @@ The local workflows preserve human approval between segments. Source availabilit
 - **Prepare specification**: `$farmboy-prepare-specification` saves a draft and clarification/review handoff; see the [guide](docs/prepare-specification.md).
 - **Prepare implementation plan**: `$farmboy-prepare-implementation-plan` starts from an approved selected specification, composes existing plan/tasks/read-only analysis with separate authorized routine repair, and stops for human full-plan review; see the [guide](docs/prepare-implementation-plan.md) and [actual verification evidence](specs/002-prepare-implementation-plan/validation/acceptance.md), including unaccepted native limitations.
 
+- **Deliver approved plan**: `$farmboy-deliver-approved-plan` composes actual implementation, verification, convergence/repair and delivery documentation/debrief/wiki closeout, includes implemented with scoped artifacts in the final local commit, then stops for human result review; see the [guide](docs/deliver-approved-plan.md) and [actual verification evidence](specs/003-deliver-approved-plan/validation/acceptance.md). Source availability and test success do not establish human result acceptance or verified/integration authority.
+
 No controller, counters, numeric repair limits, progress scoring or runtime accounting/tracking store is added. A completed preparation Goal or passing analysis never approves the plan, implements work, commits or pushes.
 
 ## History and provenance

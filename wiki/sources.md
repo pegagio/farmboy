@@ -12,3 +12,5 @@ Append-only IDs; normalized repository-relative paths identify sources. Sources 
 | S006 | [.specify/memory/roadmap.md](../.specify/memory/roadmap.md) | file | 2026-10-16 | 2026-10-16 | delivery-direction.md |
 | S007 | [README.md](../README.md) | file | 2026-10-16 | 2026-10-16 | project-context.md |
 | S008 | [specs/001-prepare-specification](../specs/001-prepare-specification) | directory | 2026-10-17 | 2026-10-17 | specification-handoff.md, delivery-direction.md |
+| S009 | [docs/deliver-approved-plan.md](../docs/deliver-approved-plan.md) | file | 2026-10-18 | 2026-10-18 | local-delivery.md, delivery-native-handoff.md |
+| S010 | [specs/003-deliver-approved-plan/spec.md](../specs/003-deliver-approved-plan/spec.md) | file | 2026-10-18 | 2026-10-18 | local-delivery.md |

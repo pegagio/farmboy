@@ -12,5 +12,11 @@
 
 ## Howto
 
+- [Delivery native handoff](pages/delivery-native-handoff.md) — updated 2026-10-18
+
 - [Project context pointers](pages/project-context.md) — updated 2026-10-16
 - [Specification preparation handoff](pages/specification-handoff.md) — updated 2026-10-17
+
+## Component
+
+- [Approved local delivery](pages/local-delivery.md) — updated 2026-10-18

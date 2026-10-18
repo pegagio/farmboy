@@ -1,6 +1,25 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.4.2 → 1.4.3
+Bump rationale: PATCH — authorized status amendment for entry 003.
+Status: in-progress → implemented
+Authorization: Direct active-user selection of Feature003 composite delivery, final local commit including all scoped artifacts and narrow implemented update; subsequent explicit Yes to independent final-commit/result observation after commit and before human result review. No result acceptance or verified authority.
+Evidence paths: ["specs/003-deliver-approved-plan/spec.md", "specs/003-deliver-approved-plan/plan.md", "specs/003-deliver-approved-plan/tasks.md", "specs/003-deliver-approved-plan/validation/acceptance.md", "specs/003-deliver-approved-plan/delivery.md", "specs/003-deliver-approved-plan/roadmap-reviews/debrief-20261018T004022Z.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+Version change: 1.4.1 → 1.4.2
+Bump rationale: PATCH — activate and link explicitly selected Feature 003 for specification preparation.
+Changes: Entry 003 planned → in-progress; set Spec dir to specs/003-deliver-approved-plan/.
+Authorization: Direct operator /goal invocation of the installed farmboy-prepare-specification skill for Feature003 on 2026-10-17, including installed roadmap-write activation/linkage.
+Evidence: .agents/skills/farmboy-prepare-specification/SKILL.md; .specify/memory/constitution.md; existing entries 002 and 003; clean HEAD 3225d65ea9f689b96bbc358f6a0b1f3a9338685f.
+Effects: Dependency 002 is verified. Preserve all other entries and 003 delivery/result-review scope, including its local commit and separate future 004 boundary. Selection establishes neither spec approval nor authority for planning, implementation, commit, integration or push in this session.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.4.0 → 1.4.1
 Bump rationale: PATCH — authorized status amendment for entry 002.
 Status: in-progress → verified
@@ -146,7 +165,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/002-prepare-implementation-plan/
 - **Notes:** Dogfood the delivered specification workflow in this feature’s development; apply the planning workflow to later development once delivered. Demonstrate portability in a disposable Spec Kit project. A passing analysis is not human full-plan approval.
 
-### 003 — Deliver approved plan through closeout [status: planned]
+### 003 — Deliver approved plan through closeout [status: implemented]
 
 - **Description:** From an approved plan, compose implementation, convergence/repair and closeout into a bounded workflow ending at human result review.
 - **Outcome:** Eligible approved work is implemented, verified and converged; coherent artifacts and delivery documentation are closed out with the prescribed local commit, and the delivery candidate is presented for human result review.
@@ -154,6 +173,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Scope (out):** Project-specific integration, declaring the feature integrated or complete, remote push, automatic acceptance, Diagram integration, autonomous workers, universal recovery and extra configuration/delegation infrastructure without demonstrated need.
 - **Depends on:** 002.
 - **Governed by:** C-01–C-06.
+- **Spec dir:** specs/003-deliver-approved-plan/
 - **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. Delivery documentation closeout requires neither integration nor an undefined final feature-completion operation. A local delivery commit is a reconciliation checkpoint; only a later, separately authorized integration merge freezes the feature’s historical meaning.
 
 ### 004 — Align workflow contracts with Diagram handoffs [status: planned]
@@ -178,4 +198,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.4.1 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-17
+**Version**: 1.4.3 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
