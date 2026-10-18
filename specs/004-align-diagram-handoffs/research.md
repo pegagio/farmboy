@@ -1,0 +1,31 @@
+# Research: Align workflow contracts with Diagram handoffs
+
+Research is bounded to inspected current Farmboy sources and the approved specification; no external repository, service, install or runtime experiment was used. The operator's no-delegation instruction overrides the core plan template's research-agent suggestion. Existing choices resolve all technical unknowns without a new product decision.
+
+## Entry branching and portability
+
+**Decision**: Add standalone/external branches inline in all three shipped Farmboy skills, preserving segment bodies. **Rationale**: Current skills require local roadmap gates universally; external selection must bypass those queue decisions, not bypass actual artifact/approval checks. **Alternatives considered**: Documentation-only contract would leave runtime entry unusable; shared loader/bridge or new command would add runtime machinery and packaging dependencies. Full004 approval covers runtime updates; historical001–003 artifacts remain untouched.
+
+## Existing helper boundary
+
+**Decision**: Use caller-established standard workspace association; check explicit identity/pointer before invoking core helpers. **Rationale**: Inspected `.specify/scripts/python/common.py:get_feature_paths` resolves SPECIFY_FEATURE_DIRECTORY or `.specify/feature.json`; an environment directory can persist the pointer unless no_persist is used. setup_plan.py uses normal resolution and copies only a missing plan; setup_tasks.py resolves the effective tasks template without writing tasks; check_prerequisites.py uses no_persist only for --paths-only; its normal validation mode can persist an explicit environment directory. Verify the existing pointer and effective environment association agree before normal core commands, especially read-only analyze, so helper initialization cannot mutate the pointer. Do not override a conflicting environment value or pointer silently. External entry must not blindly pass a conflicting directory and thereby retarget. With the same existing pointer, helpers resolve work normally with no pointer write. For a missing association, ask the caller for that specific conventional workspace preparation rather than create another activation.
+
+**Alternatives considered**: Patch core helpers, temporary pointer overwrite/restoration, new state/loader or invented branch hooks. Reject all; existing conventions support usable externally selected execution in associated workspaces. Specification drafting may create spec.md from the effective template in the caller-associated directory, without allocating another number or directory. No roadmap activation is needed.
+
+## Context, approvals and coordinator ownership
+
+**Decision**: Apply accepted U1 literally: existing Git constitution/direction/feature artifacts govern rules/context; caller-selected intent and accessible references identify inputs proportionately. **Rationale**: Diagram owns selection/eligibility/ownership/approval/handoff acceptance; Farmboy checks execution applicability, not queue eligibility. **Alternatives considered**: A new fit brief, fixed provenance packet or register adds toil and was rejected by the actual accepted answer. Stale/conflicting/missing material input causes a specific question before dependent effects. Historical unchanged approval remains applicable; changed meaning returns to affected review.
+
+## External closeout versus local roadmap dependencies
+
+**Decision**: Preserve standalone roadmap/write/debrief/wiki closeout. External execution returns an inspectable outcome against selected intent and Git artifacts in existing delivery notes, skips local queue-status effects and does not require an absent retired roadmap or wiki. Existing configured applicable wiki maintenance remains usable. **Rationale**: Requiring a local ledger for Diagram-coordinated work would recreate competing coordination. Actual scoped local candidate commit remains delivery's endpoint prerequisite. **Alternatives considered**: Write a shadow roadmap, require Diagram API or mark Diagram status from Farmboy. None is authorized or necessary. Semantic outcome text is enough; transport/adapter/executor remain later work.
+
+## Verification and storage
+
+**Decision**: Reuse Markdown fixture cases, existing guides and ordinary feature validation/acceptance.md. Independently observe each changed installed skill in a real session and standalone regression, with a separate evaluator and TEST ONLY fixture approvals. **Rationale**: Constitution requires real affected runtime verification, not simulations alone. **Alternatives considered**: New harness/accounting store or author-only static tests; unnecessary infrastructure or insufficient evidence respectively. Later final commit can only be inspected after it exists; no precommit future-proof or recursive receipt task.
+
+## Effective setup and hooks
+
+Actual installed speckit-plan setup_plan.py --json resolved004 and copied the core plan-template to missing plan.md. Standard pointer and actual Git branch remain unchanged; helper BRANCH is logical feature identity, not a Git switch. The installed tasks command uses setup_tasks.py and its composed TASKS_TEMPLATE_CONTENT. Planning/tasks/analyze use their actual installed command contracts; analyzer is strictly read-only. Current hooks have no before-plan/tasks/analyze or after-tasks/analyze hooks; after-plan wiki ingest is optional and is presented without execution/selection. No mandatory hook is skipped. Native completion controls are actually exposed; only this separately operator-selected planning Goal is eligible for completion at its matching endpoint.
+
+**Helper no-write clarification**: For helper-dependent external execution, the standard caller-established pointer must already exist and the helper's would-be persisted value must equal its existing literal value. Resolved path equality alone is insufficient: equivalent aliases/trailing separators can rewrite pointer bytes. Inspect the installed persistence convention before helpers; when it would write, ask for that specific conventional caller preparation, without silently changing environment/pointer or patching core tools. This is a precision correction within the approved no-retargeting/no-activation contract, not a new runtime mechanism.

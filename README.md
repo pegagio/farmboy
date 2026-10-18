@@ -23,6 +23,8 @@ The local workflows preserve human approval between segments. Source availabilit
 
 - **Deliver approved plan**: `$farmboy-deliver-approved-plan` composes actual implementation, verification, convergence/repair and delivery documentation/debrief/wiki closeout, includes implemented with scoped artifacts in the final local commit, then stops for human result review; see the [guide](docs/deliver-approved-plan.md) and [actual verification evidence](specs/003-deliver-approved-plan/validation/acceptance.md). Source availability and test success do not establish human result acceptance or verified/integration authority.
 
+All three skills also accept explicitly **externally selected** work: the caller supplies selected identity, intent, segment and accessible authoritative Git context/artifact references in an associated workspace. Farmboy checks those documents without repeating queue eligibility/activation and returns truthful outcomes/evidence for coordinator-owned review and handoff. Standalone local behavior remains available without Diagram. See [external/standalone handoff guide](docs/workflow-handoffs.md) and [Feature004 observations](specs/004-align-diagram-handoffs/validation/acceptance.md). This adds no adapter/transport, ownership service or integration executor; integration/receipt decisions remain separate.
+
 No controller, counters, numeric repair limits, progress scoring or runtime accounting/tracking store is added. A completed preparation Goal or passing analysis never approves the plan, implements work, commits or pushes.
 
 ## History and provenance

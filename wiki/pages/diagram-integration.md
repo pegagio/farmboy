@@ -1,8 +1,8 @@
 ---
 title: Intended Diagram integration
 type: concept
-sources: [S001, S002, S004]
-updated: 2026-10-17
+sources: [S001, S002, S004, S011]
+updated: 2026-10-18
 ---
 
 # Intended Diagram integration
@@ -32,3 +32,5 @@ Keep the reviewed Git checkpoint distinct from the latest accepted handoff check
 Executor placement, dispatch mechanics, reusable contexts and concrete integration schemas/APIs/transport remain later feature decisions. The agreed sequence remains local human-driven Farmboy, human-driven Diagram integration, then narrow autonomy. No adapter, executor or concurrency platform is implemented by this direction. (S002, S004)
 
 Diagram constitution 6.0.0/roadmap 2.2.0 adopt durable draft handoff and ownership release, separately acquired clarification authority retained while active, and visible Specifying → Needs clarification/Awaiting spec review states. Resolved clarification leads to review; review reaches Ready for planning only on explicit approval or returns to Needs clarification. Representation/storage remains future 022/023 work; Farmboy adds no local Diagram state machinery. (S002)
+
+The later004 [workflow handoff contract](./workflow-handoffs.md) now supplies explicit standalone/external entry and result semantics across the three existing Farmboy skills. It preserves this coordination/integration boundary, uses existing Git context rather than a replacement fit register, and implements no adapter transport or coordinator service. This contract addition does not turn the earlier direction alone into runtime acceptance evidence. (S011)

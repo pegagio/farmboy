@@ -2,6 +2,14 @@
 
 `$farmboy-prepare-specification` selects a named/next-eligible roadmap feature, queries relevant context and saves a specification draft, quality findings and roadmap brief. Automation ends with **Needs clarification** or **Awaiting spec review**. It does not stay active waiting for human answers.
 
+## Standalone and externally selected entry
+
+Use `$farmboy-prepare-specification` for externally selected work in its caller-associated workspace, with selected identity/intent/segment and accessible Git constitution/direction/feature references. It drafts only that feature with the effective template and saves context-fit findings in existing notes; it does not reselect/activate a queue entry, allocate another directory or require a local roadmap brief/wiki. The endpoint remains Needs clarification or Awaiting spec review, before ordinary clarification and human approval.
+
+Standalone entry retains the existing local selection/context, verified-ledger prerequisites, helpers/hooks and review stops described below. External entry is explicit caller selection, not a fourth selector or bridge. Existing Git constitution/direction/feature artifacts govern rules/context; accessible relevant references identify work/input revisions or current working state as needed. Ask for specific material stale/conflicting/missing input before dependent work, without invented answers, fixed packets or a provenance register. Core helper workspace/pointer/environment association must agree before effects; do not silently retarget it or add another activation.
+
+See [workflow handoffs](workflow-handoffs.md) for all three examples, checkpoint/resume and coordinator-owned sequential ownership. No Diagram ownership service is needed for standalone use. A returned outcome is not handoff acceptance, approval, integration authority or permission for a next workflow. [Feature004 evidence](../specs/004-align-diagram-handoffs/validation/acceptance.md) distinguishes actual observations from pending cases. The existing001–003 evidence below remains attributable history, not a claim that it tested the004 external path.
+
 ## Use and prerequisites
 
 Supply a supported Spec Kit project with its own rules, roadmap/wiki, effective spec template, feature setup/pointer helpers and installed roadmap-write/wiki-query/roadmap-brief capabilities. The only Farmboy runtime source is `.agents/skills/farmboy-prepare-specification/SKILL.md`; copy that directory into a supported project’s standard `.agents/skills/` location, preserving unrelated skills. There is no installer or additional configuration system.
@@ -22,7 +30,7 @@ Handoff labels use existing spec notes, not a new schema or Diagram state store.
 
 ## Verification status
 
-Independent disposable-project observations demonstrate the revised ambiguous and settled handoffs, native Goal completion observed by the operator and corroborated by session history, ordinary core clarification with a real question/answer/review stop, and explicit test-only approval recognition without planning. The settled revised case revalidates an existing draft; earlier recorded tests cover named/eligible creation, negative selection and changed-artifact/input resume. The API does not expose a native Goal-state receipt. The earlier combined Goal design stalled at unanswered input and remains a historical failure; automatic suspension/resumption across human waits is not supported by this delivery claim.
+Independent disposable-project observations demonstrate the revised ambiguous and settled handoffs, native Goal completion observed by the operator and corroborated by session history, ordinary core clarification with a real question/answer/review stop, and explicit test-only approval recognition without planning. The settled revised case revalidates an existing draft; earlier recorded tests cover named/eligible creation, negative selection and changed-artifact/input resume. That historical test API did not expose a native Goal-state receipt; current sessions must inspect only their actually exposed supported controls and verify readback. The earlier combined Goal design stalled at unanswered input and remains a historical failure; automatic suspension/resumption across human waits is not supported by this delivery claim.
 
 After ordinary clarification changes a draft, separately use `$speckit-flow-roadmap-brief` with its exact feature target to refresh any stale fit evidence before relying on it for current human review. Core clarify can disclose that manual next step; no additional hook or clarification skill is required.
 

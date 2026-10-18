@@ -4,7 +4,7 @@
 
 - [Delivery direction and evidence](pages/delivery-direction.md) — updated 2026-10-17
 - [Feature artifacts and merge history](pages/feature-history.md) — updated 2026-10-17
-- [Intended Diagram integration](pages/diagram-integration.md) — updated 2026-10-17
+- [Intended Diagram integration](pages/diagram-integration.md) — updated 2026-10-18
 
 ## Decision
 
@@ -20,3 +20,5 @@
 ## Component
 
 - [Approved local delivery](pages/local-delivery.md) — updated 2026-10-18
+
+- [Standalone and externally selected workflow handoffs](pages/workflow-handoffs.md) — updated 2026-10-18

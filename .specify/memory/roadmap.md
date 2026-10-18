@@ -1,6 +1,26 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.4.5 → 1.4.6
+Bump rationale: PATCH — authorized status amendment for entry 004.
+Status: in-progress → implemented
+Authorization: Direct operator full current27-task plan approval and separately selected actual installed standalone farmboy-deliver-approved-plan: Approved. Proceed with implementation. Composite authority includes narrow004 implemented and final scoped LOCAL commit; no verified/acceptance/integration.
+Evidence paths: ["specs/004-align-diagram-handoffs/spec.md", "specs/004-align-diagram-handoffs/plan.md", "specs/004-align-diagram-handoffs/tasks.md", "specs/004-align-diagram-handoffs/validation/acceptance.md", "specs/004-align-diagram-handoffs/roadmap-reviews/debrief-20261018T014209Z.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.4.4 → 1.4.5
+Bump rationale: PATCH — operator-selected Feature004 starts specification drafting; routine activation/linkage only.
+Changes: Entry004 planned → in-progress; map specs/004-align-diagram-handoffs/.
+Authorization: Direct operator invocation of installed farmboy-prepare-specification for exact Feature004, Align workflow contracts with Diagram handoffs. “Start the stack” selects specification work, not Git stacking or integration.
+Evidence: .specify/memory/constitution.md; docs/direction.md; entry003 verified and committed at clean baseline b334eb6944bd0360366798bf9f70d7c3d5ba4912.
+Effects: Preserve entries001–003, prior reports and all feature history. Dependency003 is verified but unmerged; integration is not a prerequisite. No specification approval, planning, implementation, branch change, commit, merge or push.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.4.3 → 1.4.4
 Bump rationale: PATCH — authorized status amendment for entry 003.
 Status: implemented → verified
@@ -185,7 +205,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/003-deliver-approved-plan/
 - **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. Delivery documentation closeout requires neither integration nor an undefined final feature-completion operation. A local delivery commit is a reconciliation checkpoint; only a later, separately authorized integration merge freezes the feature’s historical meaning.
 
-### 004 — Align workflow contracts with Diagram handoffs [status: planned]
+### 004 — Align workflow contracts with Diagram handoffs [status: implemented]
 
 - **Description:** Define an explicit externally selected execution boundary for standalone Farmboy workflows and align their contracts with Diagram-owned coordination, building on the local lifecycle rather than bundling a Diagram implementation.
 - **Outcome:** Reviewed contracts distinguish coordination from canonical Git artifacts, define feature ownership and checkpoint/review handoffs, and separate delivery of a verified candidate from authorized integration under project policy. Standalone and externally selected entry paths have explicit request/result boundaries without competing work selection.
@@ -193,6 +213,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Scope (out):** Re-doing the direction/wiki alignment documented now; a full Diagram adapter or optional bridge implementation; imposing bridge packaging; implementing or selecting an integration executor; a concurrency platform, scheduler or worker pool; Git execution or remote push in this feature’s roadmap amendment; changing current feature 001.
 - **Depends on:** 003.
 - **Governed by:** C-01–C-06; docs/direction.md (eventual Diagram integration direction).
+- **Spec dir:** specs/004-align-diagram-handoffs/
 - **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate. An optional, separately scoped bridge may acquire Diagram work, supply Farmboy context and report outcomes. Its implementation is a later separate deliverable; packaging remains undecided and need not be a Spec Kit extension.
 
 ## Open Questions
@@ -207,4 +228,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.4.4 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
+**Version**: 1.4.6 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18

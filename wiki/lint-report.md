@@ -1,5 +1,7 @@
 # Wiki Lint Report — 2026-10-18
 
-Full installed wiki-lint pass after S010 ingestion: index-drift, links, orphans, contradictions, stale and citations. Eight pages and their direct-link/shared-source pairs were inspected; zero findings in every category. Earlier native-control limitations are explicitly historical evidence, not conflicting current capability claims. All synthesized claims cite registered sources. No fixes applied or suggested.
+Full installed lint pass:9 pages, all six configured checks, 12 linked/shared-source pairs.
 
-No findings. No action needed.
+No findings.
+
+Counts: index-drift0; links0; orphans0; contradictions0; stale0; citations0. No automatic fixes applied or suggestions outstanding. Source/page history and claim prose unchanged by lint. No action is needed.

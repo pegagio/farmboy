@@ -2,6 +2,14 @@
 
 Use `$farmboy-prepare-implementation-plan` for one already selected, approved specification. It composes ordinary installed planning, task generation and read-only analysis and stops at human full-plan review. Specification approval is the prerequisite; plan approval is a separate human decision and never automatically starts implementation.
 
+## Standalone and externally selected entry
+
+Use `$farmboy-prepare-implementation-plan` for externally selected work with its caller-associated feature artifacts and applicable explicit current-spec approval. It runs the same ordinary plan/tasks/read-only analysis and separate repair, ending at full-plan review. It does not repeat roadmap eligibility/activation or require a retired local queue; the caller-selected request is checked against authoritative Git project context.
+
+Standalone entry retains the existing local selection/context, verified-ledger prerequisites, helpers/hooks and review stops described below. External entry is explicit caller selection, not a fourth selector or bridge. Existing Git constitution/direction/feature artifacts govern rules/context; accessible relevant references identify work/input revisions or current working state as needed. Ask for specific material stale/conflicting/missing input before dependent work, without invented answers, fixed packets or a provenance register. Core helper workspace/pointer/environment association must agree before effects; do not silently retarget it or add another activation.
+
+See [workflow handoffs](workflow-handoffs.md) for all three examples, checkpoint/resume and coordinator-owned sequential ownership. No Diagram ownership service is needed for standalone use. A returned outcome is not handoff acceptance, approval, integration authority or permission for a next workflow. [Feature004 evidence](../specs/004-align-diagram-handoffs/validation/acceptance.md) distinguishes actual observations from pending cases. The existing001–003 evidence below remains attributable history, not a claim that it tested the004 external path.
+
 ## Invocation and authority
 
 Example: “Use $farmboy-prepare-implementation-plan for the active approved feature; prepare the full proposal and stop for review.” Explicit paths must match the active feature. “Explicit approval of current meaning is required; material changes require affected human review.” Available conversational approval OR an applicable existing content-identifying review note suffices; ask only if missing/uncertain, without a register. Missing capability, unready prerequisites and identity/governance conflicts stop before dependent effects.
