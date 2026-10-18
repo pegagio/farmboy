@@ -4,7 +4,7 @@
 
 **Input**: Full approved clarified Feature004 specification. Pre-approval-metadata SHA-256: `eac9381995c10c3d2051e591da2ca0920453caee6b43b1477ed63618fb6d64c0`. Direct approval: “I approve the farmboy spec”. No approval timestamp inferred.
 
-**Stage**: Complete coherent proposal; Awaiting full-plan review. No human plan approval or implementation authority is inferred.
+**Stage**: Delivered and explicitly accepted — all27 tasks performed; roadmap verified; scoped acceptance-record commit authorized.
 
 ## Summary
 
@@ -118,3 +118,9 @@ The operator must explicitly approve the complete plan before separately selecti
 **Helper no-write clarification**: For helper-dependent external execution, the standard caller-established pointer must already exist and the helper's would-be persisted value must equal its existing literal value. Resolved path equality alone is insufficient: equivalent aliases/trailing separators can rewrite pointer bytes. Inspect the installed persistence convention before helpers; when it would write, ask for that specific conventional caller preparation, without silently changing environment/pointer or patching core tools. This is a precision correction within the approved no-retargeting/no-activation contract, not a new runtime mechanism.
 
 **Implementation-stage metadata**: The full current proposal was explicitly approved and actual standalone delivery separately selected, as recorded above. Runtime entry/result/ownership guidance was implemented in the three approved Farmboy skill files; no shared runtime loader, new dependency or state mechanism was added. Independent runtime evaluation is ongoing and current performed task markers/evidence are authoritative; no real result acceptance, verified status or integration has occurred. The earlier plan-review checkpoint is historical.
+
+## Accepted delivery closeout
+
+Actual standalone delivery completed at `c77591602d16a2503ec66ee0b679ec308d64ebd1` on `reboot/2026-10-16/prompt-first`, committing all29 scoped files. Postcommit readback confirmed the actual scope, clean worktree/index, selected004 implemented and001–003 unchanged/verified; historical001–003 directories remained unchanged. Independent real-session observations, convergence, debrief and wiki lint are recorded in [acceptance evidence](validation/acceptance.md#accepted-delivery-and-postcommit-readback).
+
+Pegagio subsequently explicitly accepted the result and authorized committing these scoped records with “Let's commit both of these results. I accept them.” The separate004 implemented-to-verified transition is authorized; all27 tasks are performed. Unobserved live Diagram integration and native-failure experiments remain unobserved. This current closeout supersedes earlier pending-review/precommit notes without changing approved behavior or historical evidence. No new test campaign, merge, push, integration or next-feature activation follows.

@@ -6,9 +6,9 @@
 
 **Created**: 2026-10-18
 
-**Status**: Draft
+**Status**: Delivered and explicitly accepted — all27 tasks performed; roadmap verified
 
-**Handoff**: Ready for planning — full current specification explicitly approved
+**Handoff**: Accepted delivery; no next workflow or integration selected
 
 **Input**: Operator-selected roadmap Feature004: align standalone Farmboy workflow contracts with Diagram-owned coordination, defining external request/context and returned outcome/evidence boundaries without duplicate queue selection. Preserve standalone use, explicit reviews, canonical Git artifacts and separate integration. Prepare a saved draft only; “start the stack” means start specification work.
 
@@ -191,3 +191,7 @@ The native preparation Goal remains complete without reactivation or update. Cla
 **Full-spec approval applicability**: The operator explicitly approved the full current clarified004 specification with “I approve the farmboy spec”, supplied as trusted conversation in the planning invocation. Exact SHA-256 captured BEFORE adding factual approval metadata: `eac9381995c10c3d2051e591da2ca0920453caee6b43b1477ed63618fb6d64c0`. No conversation timestamp is asserted. This approval covers the complete current meaning, including external entry changes across all three existing Farmboy runtime skills; it does not authorize rewriting historical001–003 feature directories. The earlier saved Awaiting spec review text is its historical clarification handoff, now superseded by this factual approval record. Only factual approval/handoff metadata changed after the captured digest. The separately selected planning workflow is authorized; the plan is not approved and implementation remains separately gated. No approval register is added.
 
 **Current-feature implementation reconciliation**: Following explicit full-spec/full-plan approval and separately selected standalone composite delivery,004 runtime sources and guides now express the approved external entry across all three skills while preserving standalone behavior. The helper no-write rule is clarified to compare the actual would-be persisted literal before helper execution, not merely resolved paths. This preserves the approved no-retargeting/no-activation requirement; no product intent, historical001–003 meaning, core tool or constitution changed. Actual observations and remaining limits are in [acceptance evidence](validation/acceptance.md), and the current delivery boundary is in [delivery checkpoint](delivery.md). Earlier draft/review text remains attributable history rather than current acceptance.
+
+## Human result acceptance
+
+Recorded UTC 2026-10-18: Pegagio explicitly accepted the reviewed Feature004 delivery at `c77591602d16a2503ec66ee0b679ec308d64ebd1` and authorized its scoped acceptance-record commit: “Let's commit both of these results. I accept them.” In this Farmboy feature, acceptance applies to the delivered external-entry/standalone behavior, all27 performed tasks and disclosed evidence limits. [Acceptance evidence](validation/acceptance.md#accepted-delivery-and-postcommit-readback) records actual postcommit observation and the separate verified transition. Earlier preparation/planning/handoff notes remain history. Live Diagram integration and new native-failure experiments remain unobserved, never passed. No merge, push, integration or next-feature activation is authorized.

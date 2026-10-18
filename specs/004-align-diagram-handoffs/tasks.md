@@ -2,7 +2,7 @@
 
 **Input**: Approved [spec.md](spec.md), [plan.md](plan.md), [research.md](research.md), [data-model.md](data-model.md), [contract](contracts/workflow-handoffs.md) and [quickstart.md](quickstart.md).
 
-**Stage**: Full27-task proposal explicitly approved and standalone composite implementation/delivery separately selected. Current markers record actual performed work only; pending independent verification/reconciliation remains unchecked. Earlier planning ran no experiment; actual later runtime observations are recorded in validation/acceptance.md. No human result acceptance or verified status is inferred.
+**Stage**: All27 original tasks performed and checked, actual postcommit result inspected, and real human delivery acceptance recorded. The separate verified transition and scoped acceptance-record commit are explicitly authorized. No unobserved case becomes a pass; see [acceptance evidence](validation/acceptance.md#accepted-delivery-and-postcommit-readback). Earlier planning/implementation descriptions retain their historical context.
 
 ## Table of Contents
 

@@ -1,5 +1,7 @@
 # Feature004 delivery checkpoint
 
+**Current outcome**: Delivered and explicitly accepted at `c77591602d16a2503ec66ee0b679ec308d64ebd1`; all27 tasks performed. Roadmap004 is now verified after explicit acceptance; its scoped acceptance-record commit is authorized. Disclosed live Diagram integration/native-failure experiments remain unobserved. The precommit checkpoint text below is historical.
+
 This standalone execution implements the approved full27-task plan under explicit composite authority. It is not human result acceptance, verified status or integration. No main Goal was created or restarted; the previously completed planning Goal remains historical/native complete.
 
 ## Work and current boundary
@@ -19,3 +21,9 @@ Actual installed wiki-ingest registered the handoff guide as S011, updated the r
 Baseline/current precommit HEAD is `b334eb6944bd0360366798bf9f70d7c3d5ba4912`; branch `reboot/2026-10-16/prompt-first`. Pointer remains004; dependency003 verified and unmerged. Existing unrelated Git changes were absent at entry; the preparation/linkage and all scoped feature artifacts belong in the final authorized LOCAL commit with the narrow004 implemented update, after required evidence and clean convergence/debrief. No future final commit is counted as proof before it exists. Inspect and report actual Git identity/worktree only after commit succeeds; no receipt-only commit or dirty tail.
 
 **Final precommit outcome**: All27 tasks and the six-entry independent runtime matrix are performed; actual installed root convergence is clean with zero findings and unchanged tasks. The actual responsible [debrief](roadmap-reviews/debrief-20261018T014209Z.md) reports PROCEED/zero findings on a stable complete28-artifact snapshot. Actual installed exact roadmap-write preview/apply separately recorded only004 in-progress→implemented, version1.4.5→1.4.6; readback preserved001–003 bytes and pointer004. Current root commit is still the baseline until the next authorized final LOCAL commit actually succeeds. Successful delivery/Awaiting human result review and actual final Git identity/worktree are returned in conversation after success, without a receipt-only commit or dirty tail. No human acceptance, verified, merge, push or integration is inferred.
+
+## Accepted result and actual postcommit observation
+
+The final delivery commit `c77591602d16a2503ec66ee0b679ec308d64ebd1` succeeded with all29 scoped files on `reboot/2026-10-16/prompt-first`. Actual independent outer-driver Git readback and the native delivery-session result confirmed clean index/worktree, all27 checked tasks, pointer004, roadmap004 implemented,001–003 verified and their historical directories unchanged. No future commit was counted in advance or receipt-only commit added.
+
+The user subsequently accepted the reviewed result and authorized these records to be committed: “Let's commit both of these results. I accept them.” [Acceptance evidence](validation/acceptance.md#accepted-delivery-and-postcommit-readback) preserves the real approval and evidence limits. The separate verified update records this acceptance; it does not turn excluded/unobserved integration or native-failure experiments into passed tests. No merge, push, integration or next-feature activation is authorized or claimed.

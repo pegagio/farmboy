@@ -1,6 +1,15 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.4.6 → 1.4.7
+Bump rationale: PATCH — authorized status amendment for entry 004.
+Status: implemented → verified
+Authorization: Direct real human acceptance of reviewed Feature004 delivery c77591602d16a2503ec66ee0b679ec308d64ebd1 and disclosed evidence limits: Let us commit both of these results. I accept them. Scoped acceptance-record commit authorized; no next-feature activation, merge, push or integration.
+Evidence paths: ["specs/004-align-diagram-handoffs/spec.md", "specs/004-align-diagram-handoffs/plan.md", "specs/004-align-diagram-handoffs/tasks.md", "specs/004-align-diagram-handoffs/delivery.md", "specs/004-align-diagram-handoffs/validation/acceptance.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.4.5 → 1.4.6
 Bump rationale: PATCH — authorized status amendment for entry 004.
 Status: in-progress → implemented
@@ -205,7 +214,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/003-deliver-approved-plan/
 - **Notes:** Dogfood the delivered specification and planning segments in this feature’s development. Demonstrate the complete local lifecycle and portability in a disposable Spec Kit project, including genuine questions, review stops, repair and interruption/resume. Delivery documentation closeout requires neither integration nor an undefined final feature-completion operation. A local delivery commit is a reconciliation checkpoint; only a later, separately authorized integration merge freezes the feature’s historical meaning.
 
-### 004 — Align workflow contracts with Diagram handoffs [status: implemented]
+### 004 — Align workflow contracts with Diagram handoffs [status: verified]
 
 - **Description:** Define an explicit externally selected execution boundary for standalone Farmboy workflows and align their contracts with Diagram-owned coordination, building on the local lifecycle rather than bundling a Diagram implementation.
 - **Outcome:** Reviewed contracts distinguish coordination from canonical Git artifacts, define feature ownership and checkpoint/review handoffs, and separate delivery of a verified candidate from authorized integration under project policy. Standalone and externally selected entry paths have explicit request/result boundaries without competing work selection.
@@ -228,4 +237,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.4.6 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
+**Version**: 1.4.7 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
