@@ -6,7 +6,7 @@
 
 **Created**: 2026-10-17
 
-**Status**: Approved — Delivery selected; independent final result observation follows the closing commit
+**Status**: Delivered and explicitly accepted — all33 tasks performed; roadmap verified
 
 **Specification Approval**: Explicit full-spec approval supplied in trusted conversation; the conversation date was not established. Recorded during this planning session (UTC 2026-10-18). Reviewed clean outcome-focused spec SHA-256 before approval metadata: `bb8d74544c4b5f1e68f3c805c6650a58b043488fa275dd5ac73f5e490a50b487`.
 
@@ -203,3 +203,7 @@ The preparation Goal previously ended successfully at its saved Needs clarificat
 ## Current execution checkpoint
 
 The preparation/planning handoff above is historical. Explicit full-plan approval, composite execution and the subsequent affected sequencing approval are recorded in this specification and [plan.md](plan.md). The prior saved bootstrap question is resolved by that actual approval. [Delivery notes](delivery.md) and [acceptance evidence](validation/acceptance.md) preserve prior incomplete history and current performed work. Required final independent Farmboy commit/result observation remains pending until it actually occurs after the authorized scoped commit. No result acceptance, verified transition or completed-Goal restart is authorized.
+
+## Human result acceptance
+
+Recorded UTC 2026-10-18: Pegagio explicitly accepted delivery commit `52435fb0d0acaae8bf0333b4feffa8d42e69e20d` after review of the actual workflow, independent final-commit verification, all33 performed tasks and disclosed evidence limits. The reviewer identified two postcommit tasks observed in-session but still unchecked in the committed snapshot, and the unavailable-native-controls case as unobserved; the user answered “Yes” to accepting on that basis and reconciling records/marking003 verified. [Acceptance evidence](validation/acceptance.md#human-result-acceptance-and-postcommit-reconciliation) records the actual observations. This supersedes historical pending-result statements only; no requirement or evidence limit changes. It authorizes the separate implemented-to-verified record, not another commit,004 activation, merge, push or integration.

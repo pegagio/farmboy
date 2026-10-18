@@ -1,6 +1,6 @@
 # Feature003 delivery checkpoint
 
-**Outcome**: Final precommit candidate — required implementation, current-source checks/convergence and documentation/debrief/wiki closeout performed. The narrow implemented update has been applied through installed exact preview/apply under explicit authority; the final scoped commit follows; independent final commit/result observation remains mandatory afterward before successful Awaiting result review. Nothing pending is passed in advance.
+**Outcome**: Delivered and explicitly accepted. Actual final commit `52435fb0d0acaae8bf0333b4feffa8d42e69e20d` and its scoped artifacts were independently verified after commit; all33 tasks are performed. Roadmap003 is now verified after separate explicit human acceptance. The unavailable-native-controls case remains unobserved. These post-acceptance record edits are uncommitted.
 
 ## Table of Contents
 
@@ -27,3 +27,9 @@ Separate native Codex executing subject `/root/farmboy_actual_delivery` is actua
 ## Git and authority boundary
 
 Branch remains `reboot/2026-10-16/prompt-first`; HEAD remains `3225d65ea9f689b96bbc358f6a0b1f3a9338685f`. This note is saved immediately before final staging/commit: changes are authorized003 scope and the index was empty on entry. Installed exact roadmap-write preview/apply actually recorded003 in-progress→implemented, version1.4.2→1.4.3; it belongs in this same final commit. Readback confirms004 bytes unchanged/planned and the active pointer remains003. The existing roadmap activation/linkage predates implementation. No merge, push, integration, verified write, core-skill or constitution edit occurred. Final commit identity is deliberately absent because no commit has succeeded; no recursive receipt commit is prescribed. The completed main planning Goal remains unchanged, and no new main Goal was created.
+
+## Accepted result and current record reconciliation
+
+The final local commit `52435fb0d0acaae8bf0333b4feffa8d42e69e20d` succeeded on `reboot/2026-10-16/prompt-first`, including all28 scoped files and003 implemented. Independent postcommit evaluator readback confirmed the actual commit, tested source, roadmap and clean worktree/index before the human result-review handoff. T030/T032 postcommit portions were performed and reported in-session; their earlier pending markers are now checked from that evidence, yielding33/33 performed.
+
+Pegagio explicitly accepted the result after the reviewer disclosed both the pending source-marker reconciliation and unobserved unavailable-native-controls case. [Acceptance evidence](validation/acceptance.md#human-result-acceptance-and-postcommit-reconciliation) preserves the actual approval and limits. The separate implemented-to-verified recording is now authorized. Prior precommit/next-action/no-acceptance text above describes its historical checkpoint; the new accepted result supersedes it. No new test/audit, result assumption,004 activation, records commit, merge, push or integration is authorized by this recording step.
