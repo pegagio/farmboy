@@ -22,3 +22,5 @@
 - [Approved local delivery](pages/local-delivery.md) — updated 2026-10-18
 
 - [Standalone and externally selected workflow handoffs](pages/workflow-handoffs.md) — updated 2026-10-18
+
+- [Optional Diagram adapter](pages/optional-diagram-adapter.md) — updated 2026-10-18

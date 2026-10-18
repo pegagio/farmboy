@@ -15,3 +15,4 @@ Append-only IDs; normalized repository-relative paths identify sources. Sources 
 | S009 | [docs/deliver-approved-plan.md](../docs/deliver-approved-plan.md) | file | 2026-10-18 | 2026-10-18 | local-delivery.md, delivery-native-handoff.md |
 | S010 | [specs/003-deliver-approved-plan/spec.md](../specs/003-deliver-approved-plan/spec.md) | file | 2026-10-18 | 2026-10-18 | local-delivery.md |
 | S011 | [docs/workflow-handoffs.md](../docs/workflow-handoffs.md) | file | 2026-10-18 | 2026-10-18 | workflow-handoffs.md, diagram-integration.md |
+| S012 | [docs/diagram-adapter.md](../docs/diagram-adapter.md) | file | 2026-10-18 | 2026-10-18 | optional-diagram-adapter.md, diagram-integration.md |

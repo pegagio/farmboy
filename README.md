@@ -25,6 +25,8 @@ The local workflows preserve human approval between segments. Source availabilit
 
 All three skills also accept explicitly **externally selected** work: the caller supplies selected identity, intent, segment and accessible authoritative Git context/artifact references in an associated workspace. Farmboy checks those documents without repeating queue eligibility/activation and returns truthful outcomes/evidence for coordinator-owned review and handoff. Standalone local behavior remains available without Diagram. See [external/standalone handoff guide](docs/workflow-handoffs.md) and [Feature004 observations](specs/004-align-diagram-handoffs/validation/acceptance.md). This adds no adapter/transport, ownership service or integration executor; integration/receipt decisions remain separate.
 
+Optional Diagram-enabled projects can use ordinary intent or direct entry through the [adapter routing guide](docs/diagram-adapter.md). Deliberate project routing and compatible existing capabilities are required; availability alone enables nothing. The [005 evidence](specs/005-optional-diagram-adapter/validation/acceptance.md) distinguishes candidate source from independent runtime acceptance.
+
 No controller, counters, numeric repair limits, progress scoring or runtime accounting/tracking store is added. A completed preparation Goal or passing analysis never approves the plan, implements work, commits or pushes.
 
 ## History and provenance

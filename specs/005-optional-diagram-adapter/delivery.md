@@ -1,0 +1,40 @@
+# 005 delivery candidate
+
+**Awaiting human result review after successful scoped local commit.** This file describes the candidate included in that commit; actual commit identity/success is read back and reported in the review conversation, never recursively written into a receipt-only tail commit. Until the commit succeeds, this is a prepared closeout candidate rather than a successful delivery claim. The operator independently reviewed final frozen runtime evidence and explicitly selected completion of the already-authorized local closeout. Farmboy005 has no result acceptance or integration permission. Root planning Goal remains identically COMPLETE; no delivery Goal was created.
+
+## Table of Contents
+
+Review the candidate and actual evidence before deciding the real result.
+
+- [Candidate and scope](#candidate-and-scope)
+- [Actual verification and independent observations](#actual-verification-and-independent-observations)
+- [Analysis, convergence and local closeout](#analysis-convergence-and-local-closeout)
+- [Limits and review boundary](#limits-and-review-boundary)
+
+## Candidate and scope
+
+The optional [adapter skill](../../.agents/skills/farmboy-diagram-work/SKILL.md) and adjacent [native reference](../../.agents/skills/farmboy-diagram-work/references/native-protocol.md) compose existing capabilities. One isolated route/current-context/return seam precedes effects in each of the three Farmboy-owned entries; removing it reproduces each original body byte-for-byte. [Guide](../../docs/diagram-adapter.md), README discovery and [focused fixture cases](../../tests/fixtures/diagram-adapter/cases.md) cover deliberate enabled/standalone routing, consumer physical checks, native claim/link/later authority, genuine human boundaries, preserved work and integration limits. No external software/config/hook, real consumer instruction file, Spec Kit, constitution, dependency or framework is changed.
+
+Approved [spec](spec.md), [plan](plan.md), supporting design and36 original [tasks](tasks.md) remain one mutable feature change set. Requirements21FR/8SC/21scenarios and reviewed scope are preserved. Initial dirty005 roadmap activation, this feature's artifacts and the historical linked [requirements input](../../docs/optional-farmboy-diagram-adapter-requirements.md) are explicitly authorized feature scope; requirements bytes retain SHA-256 `ea3ca23b0c241d18d8d16a7cc86df7ed482ca2d8415b289bbf487f6d848dfbb6`. Other feature history and unrelated work are preserved.
+
+## Actual verification and independent observations
+
+[Acceptance evidence](validation/acceptance.md) preserves chronological failures, separate repairs, exact native session/turn/commit/source identities and the final independent evaluation. The final optional skill SHA-256 is `66f32654731d4cf5a4863f11d473cd0189240c622a1f2cfff61aeed9d336ec76`; reference `3f2825d7bde3bb579260a6607330926273329e33a5b5ed59eacd60982156d831`. Installed final fixture copies match the frozen root sources before the FBT-3 claim. Three entry seams retain their original candidate hashes.
+
+One actual unsettled disposable feature FBT-3 traversed genuine ordinary clarification/question/TEST ONLY answer, explicit spec/full-plan reviews, separate repair/fresh analysis, implementation/checks/convergence/scoped commit, typed native result handoff/release and separate TEST ONLY result review. Executor `01a15133-6b98-7b33-8cc0-a02a9ed997d5` committed `c5efc2d4fe7ee29a130f615fe86d8c5b7a8cdef4`. The independent operator inspected all typed checkpoint blobs and reran13 exact stdout/stderr/status cases under actual macOS deny-network isolation, including loopback errno1. Native review `approval/f48b63d5494a32cff6f1c069d71c49fe` reads `accepted_without_integration_permission`, no run/claim. This accepts only the fixture, never Farmboy005.
+
+Independent observations also cover all three standalone full bodies and complementary ordinary/direct forms (`b5ef3529a12a8cc3187ce3442355bfe138710685`, `b955a024f0e47d353fcc8808b06f9645d0abf965`);24 actual separate routing/authority guard turns; valid-current-owner lexical pointer refusal before helpers; real accepted dependency drift/refusal/reassessment/release; operation replay/current authority; explicit stopped-writer replacement/fencing with deep-equal input/workspace; semantic staged-entry preservation around normal hook failure; no-commit/unsafe-isolation saved input; isolated features and physical report trust limits. Both saved-draft whole Goal and whole-adapter genuine-input Goal have actual completion/readback; technical failures remain excluded. T011/T017/T023/T027/T028/T031 are independently supported, not checked from generated tables or source assertions. Exact external evaluator JSON basenames are preserved in acceptance.md without invented locations.
+
+Skill-tools Python frontmatter/link/privacy/original-body checks, final installed-copy identity reads, requirements hash and Git whitespace/scope checks pass. Actual inspected binary Feature6 / disposable store schema16 and accepted028 baseline are recorded in research/native mapping/acceptance. Upstream accepted closeout `8c938d7273b7e5f648ff2c9b88871f7bd88691ff` is established, while later inspected source HEAD is distinguished from binary identity. No upstream writes/build/tests/install occurred.
+
+## Analysis, convergence and local closeout
+
+[Fresh read-only analysis](validation/analysis-implementation.md) records current artifact coverage and actual findings after separate metadata/evidence flow-back; its earlier finding/report remains historical. [Convergence](validation/convergence.md) assesses implemented sources and actual evidence against every approved obligation; no further implementation is selected when clean. Postcommit-only T036 is not a precondition of its own commit and never becomes an appended duplicate task.
+
+The prescribed roadmap debrief is in [roadmap debrief](roadmap-reviews/debrief-20261018T232007Z.md) with attributable baseline-to-worktree manifest/snapshot provenance. Wiki ingest registered only the contained guide as S012, updated two bounded reciprocal pages and index/registry, and [wiki lint](../../wiki/lint-report.md) passes. The selected roadmap-write applied only005 in-progress→implemented through exact preview/apply/current-hash/readback: version1.5.1→1.5.2; before SHA-256 `3238d4acfd103a03ecdedaf3695d4a6900f0994e0c64cf280fd9e581997fc72c`, after `b98f64e8ffda2728e5a0485460e816d515b91aeb1e052256fd89c3bb6c251d88`. Other feature entries and005 nonstatus entry bytes are unchanged. Debrief lifecycle advice grants no verified authority. Normal scoped Git commit includes this status and all authorized005/docs/wiki artifacts; no baseline cleanup, arbitrary staging, hook bypass, merge/push/integration or receipt-only commit.
+
+## Limits and review boundary
+
+These are proportionate real macOS agent/session observations, not universal runtime interception or proof every consumer has a compatible binary. Native consistency remains agent-reported; consuming agent/adapter verifies actual repository/Git/workspace/artifacts. Disclosed synthetic contender/report probes are distinguished from actual sequential executor replacement and actual product lifecycles. Historical stale-copy/source-sync HEAD refusal, failed nested isolation, helper/setup/technical attempts and native failures remain preserved. No runtime source edit followed final evidence freeze.
+
+T036 remains unchecked in the committed task file: the independent operator will inspect the actual root commit/tree/evidence after it exists and record that observation externally in human result review. No receipt-only tail commit is required. Review the entire candidate, analysis/convergence/debrief/wiki and actual Git readback before deciding Farmboy005 result acceptance. Only a later explicitly selected applicable result decision can authorize the ordinary separate verified transition; integration/merge/push remains separately authorized under project policy. No next feature/workflow/Goal is selected here.

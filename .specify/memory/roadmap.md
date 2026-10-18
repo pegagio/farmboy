@@ -1,6 +1,35 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.5.1 → 1.5.2
+Bump rationale: PATCH — authorized status amendment for entry 005.
+Status: in-progress → implemented
+Authorization: Direct operator selected installed standalone farmboy-deliver-approved-plan for approved005 and explicitly directed final-source-reviewed local closeout and scoped commit; composite authorizes only005 implemented, never acceptance/verified/integration.
+Evidence paths: ["specs/005-optional-diagram-adapter/spec.md", "specs/005-optional-diagram-adapter/plan.md", "specs/005-optional-diagram-adapter/tasks.md", "specs/005-optional-diagram-adapter/validation/acceptance.md", "specs/005-optional-diagram-adapter/validation/analysis-implementation.md", "specs/005-optional-diagram-adapter/validation/convergence.md", "specs/005-optional-diagram-adapter/delivery.md", "specs/005-optional-diagram-adapter/roadmap-reviews/debrief-20261018T232007Z.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+Version change: 1.5.0 → 1.5.1
+Bump rationale: PATCH — activate/link the explicitly selected existing005 and refresh only its factual cross-project readiness notes.
+Changes:005 planned → in-progress; map specs/005-optional-diagram-adapter/.029 accepted/verified; revised028 spec/full plan approved with implementation in progress; final delivery compatibility remains a later readiness requirement.
+Authorization: Direct operator invocation of installed farmboy-prepare-specification in standalone mode for005, limited to saved draft/checklist/current brief and clarification or review handoff.
+Evidence: .agents/skills/farmboy-prepare-specification/SKILL.md; existing005 and verified004; docs/optional-farmboy-diagram-adapter-requirements.md; direct operator current-contract context, read-only confirmed in the two explicitly authorized Diagram worktrees.
+Effects: Preserve all prior reports, entries001–004,005 scope/dependency/requirements link and requirements-file bytes. No clean-baseline commit or branch change required. No answers, approval, planning/tasks, implementation, commit, merge, push or integration.
+-->
+
+<!--
+SYNC IMPACT REPORT
+Version change: 1.4.7 → 1.5.0
+Bump rationale: MINOR — add the explicitly requested separately optional adapter deliverable.
+Changes: Add planned005 and link docs/optional-farmboy-diagram-adapter-requirements.md; local dependency004; distinct external Diagram029/028 prerequisites and open interface/packaging decisions.
+Authorization: Direct operator request to write adapter requirements, then explicit approval to track the optional deliverable as a planned roadmap entry with a durable draft link.
+Evidence: Current Farmboy004 external contracts and docs/workflow-handoffs.md; the requirements draft references the read-only Diagram029 boundary and paused028 start/link documents.
+Effects: Preserve entries001–004, active pointer004, existing decisions and history. No new specification/plan, feature activation, runtime implementation,029 planning, commit, merge, push or integration. Standalone Farmboy acquires no adapter dependency.
+-->
+
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.4.6 → 1.4.7
 Bump rationale: PATCH — authorized status amendment for entry 004.
 Status: implemented → verified
@@ -225,6 +254,19 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/004-align-diagram-handoffs/
 - **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate. An optional, separately scoped bridge may acquire Diagram work, supply Farmboy context and report outcomes. Its implementation is a later separate deliverable; packaging remains undecided and need not be a Spec Kit extension.
 
+### 005 — Coordinate Diagram work through an optional Farmboy adapter [status: implemented]
+
+- **Description:** Deliver an optional adapter between Diagram-selected eligible work and the existing Farmboy external workflow entries, keeping consuming-repository verification outside Diagram core.
+- **Outcome:** The adapter coordinates supported claim/preparation/association and execution handoffs, invokes existing Farmboy segments, and reports truthful results while preserving human reviews, one owner per feature and standalone Farmboy independence.
+- **Scope (in):** Consumer-side repository/Git/workspace/artifact verification and applicable context; Diagram-owned claims, recorded authority, approvals/transitions and report consistency; externally selected specification, ordinary clarification, planning and delivery; saved human-wait handoff/release and current-authority continuation; stale input/upstream reassessment, truthful native Goal versus feature outcomes, project-specific integration boundaries and independent real-agent end-to-end/standalone acceptance.
+- **Scope (out):** A required dependency of standalone Farmboy; choosing eventual adapter packaging; Diagram029 interface design or resuming028; integration executor implementation, automatic merge/push/authorization/workflow expansion, scheduler/fleet/ownership service, new provenance/attestation/ledger/accounting/recovery frameworks or a new store.
+- **Depends on:** 004.
+- **Cross-project prerequisites:** Diagram029 corrected consumer-repository boundary/report interfaces and Diagram028 revised claim/start/link contracts. These are Diagram feature IDs, not local roadmap dependencies. Current2026-10-18 context supersedes the earlier readiness note:029 delivery is accepted/verified;028 revised specification/full plan are approved and implementation is in progress. These reviewed contracts support005 drafting now. Reconcile final028 delivery and supported runtime compatibility before dependent005 implementation/acceptance; neither is claimed here.
+- **Governed by:** C-01–C-06; docs/direction.md; the settled responsibility boundaries referenced in the requirements draft.
+- **Requirements draft:** [Optional Farmboy–Diagram adapter requirements](../../docs/optional-farmboy-diagram-adapter-requirements.md).
+- **Spec dir:** specs/005-optional-diagram-adapter/
+- **Notes:** Selected for specification preparation on2026-10-18 by direct operator request. Packaging remains a full-plan review choice; exact supported native mapping must follow current Diagram contracts. Local004 is verified. Preserve the linked requirements draft as historical input; current005 specification records superseding readiness context. Activation/linkage grants no specification approval, planning, runtime implementation, commit, merge, push or integration.
+
 ## Open Questions
 
 - **Q1 — Command composition:** Which exact supported commands and minimal artifact checks express each prescribed segment, including completion recording and local closeout?
@@ -237,4 +279,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.4.7 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
+**Version**: 1.5.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
