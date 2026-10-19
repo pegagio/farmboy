@@ -1,6 +1,15 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.5.3 → 1.6.0
+Bump rationale: MINOR — add the explicitly approved planned evidence-retention improvement, entry 006.
+Authorization: Direct user approval to carry out scoped Diagram evidence consolidation and add this planned Farmboy item; Sentinel_c53e7cca48b881919c761e185ae37d92.
+Provenance: Current farmboy-deliver-approved-plan skill and docs/deliver-approved-plan.md distinguish delivery artifacts but do not yet separate durable summaries from disposable run output; this entry plans that change only.
+Effects: Preserve all prior Sync Impact Reports and entries 001–005 byte-for-byte. Dependency 003 is verified. Preserve 004/005 behavior and all current approval/integration boundaries. No feature activation, skill/constitution/runtime change, implementation, commit or push.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.5.2 → 1.5.3
 Bump rationale: PATCH — selected human-accepted status amendment for entry 005.
 Status: implemented → verified
@@ -276,6 +285,16 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/005-optional-diagram-adapter/
 - **Notes:** Selected for specification preparation on2026-10-18 by direct operator request. Packaging remains a full-plan review choice; exact supported native mapping must follow current Diagram contracts. Local004 is verified. Preserve the linked requirements draft as historical input; current005 specification records superseding readiness context. Activation/linkage grants no specification approval, planning, runtime implementation, commit, merge, push or integration.
 
+### 006 — Retain concise delivery evidence and keep run output disposable [status: planned]
+
+- **Description:** Make delivery/closeout distinguish concise durable verification and approval summaries, reusable test assets and temporary execution output before the scoped commit.
+- **Outcome:** A reviewer can understand tested source, checks, results, repairs, actual human decisions/conditions and limits after temporary output disappears, while reusable tests and fixtures remain rerunnable.
+- **Scope (in):** Update the delivery skill and operator guide; commit concise summaries and reusable assets; keep raw stdout, intermediate logs and runtime state disposable or ignored; consolidate obsolete reports with reference repair; preserve truthful source and decision attribution; consume project-specific evidence rules. Verify one small delivery fixture with required evidence references pointing to a concise committed summary and temporary output excluded.
+- **Scope (out):** A retention framework, automatic cleanup service, new evidence store/registry, broad history rewriting, upstream runtime redesign, or weaker verification/acceptance.
+- **Depends on:** 003.
+- **Governed by:** C-01–C-06; docs/direction.md.
+- **Notes:** No specification directory is assigned; this planned entry activates nothing. Direct operator approval on 2026-10-19 authorizes this planned item alongside scoped Diagram evidence consolidation (Sentinel_c53e7cca48b881919c761e185ae37d92). Preserve 004/005 external handoff and optional-adapter behavior. No feature activation, specification, implementation, skill/core/helper change, upstream change, commit or push is authorized by this entry. The optional Spec Kit generated-default ignore improvement has a separate upstream owner.
+
 ## Open Questions
 
 - **Q1 — Command composition:** Which exact supported commands and minimal artifact checks express each prescribed segment, including completion recording and local closeout?
@@ -288,4 +307,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.5.3 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
+**Version**: 1.6.0 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
