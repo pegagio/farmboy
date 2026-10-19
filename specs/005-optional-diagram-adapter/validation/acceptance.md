@@ -1,5 +1,7 @@
 # 005 candidate acceptance observations
 
+**Later human acceptance:** [Result review](result-review.md) records the accepted Farmboy005 result, completed external postcommit inspection and supplemental BGS-1 evidence. The technical observations below remain historical. **Final Git integration was not tested.**
+
 **Status**: Required precommit runtime observations are complete and independently reviewed on the frozen candidate. T011/T017/T023/T027/T028/T031 are supported by actual separate native sessions and explicit independent evaluation. Historical checkpoints below retain their original incomplete/failure statements; the final reconciliation supersedes their pending language. Farmboy005 itself remains unaccepted; T036 can occur only after its scoped root commit exists.
 
 ## Table of Contents

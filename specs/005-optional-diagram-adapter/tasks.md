@@ -2,7 +2,7 @@
 
 **Input**: Approved [spec.md](spec.md), including FR-021 direct-entry coverage and the isolated-seam review consideration; reconciled proposed [plan.md](plan.md), research/contracts/data model and quickstart test matrix. FR-020 external-software prohibition and checkpoint consent remain controlling.
 
-**Status**:36 approved tasks;35 recorded performed in the successful scoped delivery commit. T035’s closing check is effective only when that same commit succeeds; a failed commit remains incomplete. T036 is unchecked and postcommit-only for the independent evaluator’s external observation. Final analysis/convergence and independent runtime observations are complete. No real result acceptance, verified status, merge/push/integration or new Goal is authorized.
+**Status**: 36/36 tasks performed. T036 independently inspected actual delivery commit `168c65854ac9dee4f9dab2bdeb9479512a18220d` after it existed; [result review](validation/result-review.md) links the external evidence and records human acceptance. The closeout records the selected verified transition. Final Git integration was not tested. This records update awaits separate commit authorization.
 
 ## Table of Contents
 
@@ -87,7 +87,7 @@ Finish the complete005 candidate under its later separately selected delivery au
 - [x] T033 Reconcile current005 `spec.md`, `plan.md`, `tasks.md` and supporting design with final source/evidence; run actual strictly read-only analyze, separately repair authorized routine findings, then fresh analyze until zero actionable inconsistencies/unmet requirements or precise human-input handoff; preserve approved meaning and source freshness in `specs/005-optional-diagram-adapter/validation/analysis-implementation.md` (FR-008–010, FR-012).
 - [x] T034 Complete actual current-scope convergence through separately selected delivery composite; record actual remaining gaps or none and coherent delivery/check evidence in `specs/005-optional-diagram-adapter/delivery.md`, never create a controller/score or infer acceptance (FR-009–011, FR-018).
 - [x] T035 Under separately selected delivery authority, finish prescribed documentation/debrief/wiki and only authorized selected implemented update through existing capabilities; reconcile/stage exact005 scope and create its actual final local commit with normal hooks, preserving unrelated work and marking post-commit observation still pending in `specs/005-optional-diagram-adapter/delivery.md`; no verified/merge/push/integration (FR-009–010, FR-015, FR-018).
-- [ ] T036 After the actual T035 commit exists, independently inspect that005 commit/tree/scoped artifact references and result evidence; report actual outcome against `specs/005-optional-diagram-adapter/delivery.md` in the human result-review conversation/external evaluator record before acceptance, without a receipt-only project commit or claiming an unperformed observation (FR-017–018; SC-007).
+- [x] T036 After the actual T035 commit exists, independently inspect that005 commit/tree/scoped artifact references and result evidence; report actual outcome against `specs/005-optional-diagram-adapter/delivery.md` in the human result-review conversation/external evaluator record before acceptance, without a receipt-only project commit or claiming an unperformed observation (FR-017–018; SC-007).
 
 ## Dependencies and parallel examples
 

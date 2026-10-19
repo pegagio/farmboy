@@ -1,6 +1,15 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.5.2 → 1.5.3
+Bump rationale: PATCH — selected human-accepted status amendment for entry 005.
+Status: implemented → verified
+Authorization: Direct human result acceptance and records-closeout instruction relayed in this task.
+Evidence: specs/005-optional-diagram-adapter/validation/result-review.md
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.5.1 → 1.5.2
 Bump rationale: PATCH — authorized status amendment for entry 005.
 Status: in-progress → implemented
@@ -254,7 +263,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/004-align-diagram-handoffs/
 - **Notes:** Documentation alignment is recorded now. This future feature aligns the completed local lifecycle’s contracts/workflow boundaries after 003, inheriting its 002 → 001 dependency chain. It creates no specification or active-feature mapping and does not activate any work. Independent-feature concurrency is a contract boundary, not a platform implementation requirement; material changes retain the affected review gate. An optional, separately scoped bridge may acquire Diagram work, supply Farmboy context and report outcomes. Its implementation is a later separate deliverable; packaging remains undecided and need not be a Spec Kit extension.
 
-### 005 — Coordinate Diagram work through an optional Farmboy adapter [status: implemented]
+### 005 — Coordinate Diagram work through an optional Farmboy adapter [status: verified]
 
 - **Description:** Deliver an optional adapter between Diagram-selected eligible work and the existing Farmboy external workflow entries, keeping consuming-repository verification outside Diagram core.
 - **Outcome:** The adapter coordinates supported claim/preparation/association and execution handoffs, invokes existing Farmboy segments, and reports truthful results while preserving human reviews, one owner per feature and standalone Farmboy independence.
@@ -279,4 +288,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.5.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-18
+**Version**: 1.5.3 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
