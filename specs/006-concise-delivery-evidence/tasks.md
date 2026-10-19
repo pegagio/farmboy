@@ -1,7 +1,7 @@
 # Tasks: Concise delivery evidence
 
 **Input**: Approved spec plus `plan.md`, `research.md`, `data-model.md`, `contracts/delivery-evidence.md`, `quickstart.md` in this directory.
-**Status**: Full plan explicitly approved on 2026-10-19; all 14 tasks are accounted for in the scoped local delivery candidate. The closing task is confirmed by actual commit/readback in the ordinary handoff; real result acceptance remains pending.
+**Status**: All 14 tasks completed and confirmed by delivery commit/readback at b733fe451481e8640a3318569ddd8fce67b9cb76. Pegagio accepted that candidate on 2026-10-19 with disclosed limits; see delivery.md.
 **Tests**: Explicitly required by FR-011 and SC-001–005. Write focused fixture expectations first; observe actual revised skill separately from its evaluator.
 
 ## Phase 1: Setup

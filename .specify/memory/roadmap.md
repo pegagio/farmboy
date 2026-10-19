@@ -1,6 +1,15 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.6.2 → 1.6.3
+Bump rationale: PATCH — authorized status amendment for entry 006.
+Status: implemented → verified
+Authorization: Direct real human acceptance by Pegagio on 2026-10-19 of delivered Feature 006 candidate b733fe451481e8640a3318569ddd8fce67b9cb76 with disclosed native Goal and policy-edge verification limits, plus explicit instruction for normal scoped acceptance closeout and commit. No integration, merge or push.
+Evidence paths: ["specs/006-concise-delivery-evidence/delivery.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.6.1 → 1.6.2
 Bump rationale: PATCH — authorized status amendment for entry 006.
 Status: in-progress → implemented
@@ -304,7 +313,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/005-optional-diagram-adapter/
 - **Notes:** Selected for specification preparation on2026-10-18 by direct operator request. Packaging remains a full-plan review choice; exact supported native mapping must follow current Diagram contracts. Local004 is verified. Preserve the linked requirements draft as historical input; current005 specification records superseding readiness context. Activation/linkage grants no specification approval, planning, runtime implementation, commit, merge, push or integration.
 
-### 006 — Retain concise delivery evidence and keep run output disposable [status: implemented]
+### 006 — Retain concise delivery evidence and keep run output disposable [status: verified]
 
 - **Description:** Make delivery/closeout distinguish concise durable verification and approval summaries, reusable test assets and temporary execution output before the scoped commit.
 - **Outcome:** A reviewer can understand tested source, checks, results, repairs, actual human decisions/conditions and limits after temporary output disappears, while reusable tests and fixtures remain rerunnable.
@@ -328,4 +337,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.6.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
+**Version**: 1.6.3 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19

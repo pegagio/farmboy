@@ -1,6 +1,6 @@
 # Feature 006 delivery
 
-**Candidate handoff**: Awaiting result review after the prescribed final local commit succeeds. Implementation, independent verification, documentation/status work and scoped staging are complete. Actual Git success/readback is reported in the ordinary handoff; human result acceptance remains pending.
+**Outcome**: Pegagio accepted delivered candidate `b733fe451481e8640a3318569ddd8fce67b9cb76` on 2026-10-19 with its disclosed verification limits. All 14 tasks and actual delivery commit/readback are complete. Scoped acceptance closeout is authorized; no integration, merge or push is authorized.
 
 ## Authority and tested source
 
@@ -14,7 +14,7 @@ Tested Farmboy base: `e1183047592c9f8cfc8d434c48e0e428fb4779ad` plus this featur
 | `docs/deliver-approved-plan.md` | `6cc024f059ce897ff474b3f08c85edf3b7f59df3171bce86eeda997bc4a62a27` |
 | `tests/fixtures/deliver-approved-plan/evidence-retention/test_count_lines.py` | `8a00328fe12cd13284859049fab679b52f977ccfba3edc7f0fa11a356e0f0d67` |
 
-The real candidate's resulting commit is reported in the ordinary handoff after actual success, not fabricated here or recorded by a receipt-only commit.
+Actual delivered candidate: `b733fe451481e8640a3318569ddd8fce67b9cb76`, authored and committed as pegagio. Final readback confirmed all 14 tasks, zero convergence gaps and a clean working tree/index. The acceptance closeout below records a new actual human decision; it does not create recursive commit receipts.
 
 ## Changes and repeatable assets
 
@@ -29,16 +29,20 @@ The [delivery skill](../../.agents/skills/farmboy-deliver-approved-plan/SKILL.md
 - Final static audit passed: retained test syntax, required links, portable/private-identity-safe new artifacts, no historical-feature edits, and byte-identical routing/entry/implementation-convergence/native-handoff sections. Project-rule conflict, minimal exception, stale/missing-proof and broader external-boundary policy checks were source review, not separate live branch tests.
 - Wiki guide ingestion refreshed S009/local-delivery. Scoped lint found the shared native-handoff page's review date stale; a separate source-ingest revalidated/refreshed it, then lint passed with zero remaining findings. No semantic claim was rewritten by lint. Raw observations and helper state stayed temporary; durable mandatory helper reports retain their own contracts.
 
-## Limits and remaining review
+## Disclosed verification limits
 
-The toy test establishes its three retained cases and observed delivery behavior, not production or broad Unicode line semantics. Its default Python 3.14.5 and installed Python 3.11.16 both passed; an initial missing Specify PATH was resolved using the already installed CLI, without installation. Native Goal controls were unavailable and no Goal completion is claimed. No live Diagram integration test, history cleanup, upstream/global-hook change or new system was introduced. Human acceptance of real Feature 006 remains required after the actual candidate handoff. Temporary fixture locations are disposable/nonessential; no required claim depends on retaining their raw output.
+The toy test establishes its three retained cases and observed delivery behavior, not production or broad Unicode line semantics. Its default Python 3.14.5 and installed Python 3.11.16 both passed; an initial missing Specify PATH was resolved using the already installed CLI, without installation. Native Goal controls were unavailable and no Goal completion is claimed. No live Diagram integration test, history cleanup, upstream/global-hook change or new system was introduced. These limits were disclosed with the delivered candidate; subsequent real human acceptance is recorded below. Temporary fixture locations are disposable/nonessential; no required claim depends on retaining their raw output.
 
 ## Convergence and closeout
 
 Precommit convergence assessed 12 functional requirements, 5 success criteria, 9 acceptance scenarios, 7 edge cases, approved design, existing tasks and the three constitutional principles: no remaining implementation/verification gap, no appended task and no task rewrite during assessment. The composition's own closing commit is not counted as observed before it exists; actual final readback completes that postcondition. [Roadmap debrief](roadmap-reviews/debrief-20261019T181452Z.md) inspected the complete trustworthy 22-artifact precloseout manifest with zero findings/PROCEED. Its generic verified recommendation grants no acceptance authority and was not applied. Ordinary roadmap-write preview/apply/readback changed only 006 in-progress→implemented, roadmap version 1.6.2. Prior entries and historical artifacts remain unchanged. [Scoped wiki lint](../../wiki/lint-report.md) has zero remaining findings.
 
-Final scope consists of the skill/guide, reusable fixture cases/assets, current Feature 006 artifacts, its narrow roadmap amendment and relevant wiki updates. No raw run output, transcript, runtime state, private identity or temporary evaluator files belong in the candidate. No extra approval decision or optional suggestion is pending beyond real human result review. All selected task work is accounted for by these results and actual closing-commit readback; test-only decisions never approve the real feature.
+Final scope consists of the skill/guide, reusable fixture cases/assets, current Feature 006 artifacts, its narrow roadmap amendment and relevant wiki updates. No raw run output, transcript, runtime state, private identity or temporary evaluator files belong in the candidate. At the delivery handoff the only pending decision was real human result review, subsequently resolved below. All selected task work is accounted for by these results and actual closing-commit readback; test-only decisions never approve the real feature.
 
 ## Resolved authorization-review interruption
 
-Automatic approval review initially rejected scoped staging because it treated the original specification-only restriction as current authority. No staging effect or bypass occurred. The parent then supplied trusted verbatim evidence of Pegagio's later full-plan approval and “Execute it” instruction. The exact denied staging operation was retried once and accepted. This resolved an authorization-evidence interruption; no additional test campaign, product decision, fixture-user participation or expansion of scope was needed. The ordinary closing commit/readback remains the final delivery postcondition and is reported only after actual success.
+Automatic approval review initially rejected scoped staging because it treated the original specification-only restriction as current authority. No staging effect or bypass occurred. The parent then supplied trusted verbatim evidence of Pegagio's later full-plan approval and “Execute it” instruction. The exact denied staging operation was retried once and accepted. This resolved an authorization-evidence interruption; no additional test campaign, product decision, fixture-user participation or expansion of scope was needed. The ordinary closing commit/readback subsequently succeeded at the delivered candidate identified above.
+
+## Actual human result acceptance and closeout
+
+On 2026-10-19, after reviewing delivered candidate `b733fe451481e8640a3318569ddd8fce67b9cb76` and its disclosed native Goal/policy-edge verification limits, Pegagio explicitly said “accepted.” This is actual real-feature result acceptance, distinct from earlier TEST ONLY fixture approvals and from the debrief's proposal. It authorizes the ordinary selected implemented→verified roadmap update and scoped acceptance closeout commit. No additional audit campaign or raw evidence was created; existing verification claims and limits are unchanged. Integration, merge and push remain separately authorized work and are not performed here.

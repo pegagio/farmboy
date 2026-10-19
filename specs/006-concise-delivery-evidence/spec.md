@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-19
 
-**Status**: Specification approved on 2026-10-19; delivery result review pending.
+**Status**: Specification approved; delivered candidate accepted on 2026-10-19. See delivery.md for the actual decision and disclosed limits.
 
 **Input**: Direct operator request to activate Feature 006 and prepare its specification. Keep reproducible test code, fixtures and expected outputs in Git; normally keep raw run logs, transcripts, workflow state and intermediate reports disposable. Retain a concise feature-level verification summary with relevant source revision, checks/results, material limitations and actual human approval decisions. Avoid repository bloat, private identity capture and new evidence infrastructure.
 

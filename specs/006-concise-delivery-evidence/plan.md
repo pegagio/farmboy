@@ -1,7 +1,7 @@
 # Implementation Plan: Concise delivery evidence
 
 **Branch**: `006-concise-delivery-evidence` | **Date**: 2026-10-19 | **Spec**: [spec.md](spec.md)
-**Status**: Full plan explicitly approved on 2026-10-19; delivery result review pending.
+**Status**: Full plan explicitly approved; delivered candidate accepted on 2026-10-19. See delivery.md for the actual decision and disclosed limits.
 **Input**: Approved Feature 006 specification. Pegagio explicitly said “approved” after the detailed specification review on 2026-10-19. Approved specification SHA-256: `2911e5ffeb67a45323131c1200f6cc7ef8d6c363a80ad62fe728a6801f22d36b`. This records specification approval only; it does not approve this plan or authorize implementation. The spec's earlier draft/preparation handoff remains an attributable historical checkpoint.
 
 ## Summary
