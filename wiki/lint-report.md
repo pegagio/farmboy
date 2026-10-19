@@ -1,3 +1,3 @@
-# Wiki Lint Report — 2026-10-18
+# Wiki Lint Report — 2026-10-19
 
-No findings. Full index-drift, links, orphans, contradictions, stale and citations checks passed. No mechanical fix was needed; no action is needed.
+No findings. Scoped local-delivery.md and its directly linked/shared-S009 neighbor delivery-native-handoff.md: index-drift, links, inbound/orphan, bounded contradictions, stale and citation checks pass. The initial stale S009 neighbor was revalidated/refreshed through a separate wiki-ingest operation, not rewritten by lint. No mechanical fix was needed. No action is needed.

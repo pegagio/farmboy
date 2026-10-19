@@ -2,7 +2,7 @@
 title: Delivery native handoff
 type: howto
 sources: [S009]
-updated: 2026-10-18
+updated: 2026-10-19
 ---
 # Delivery native handoff
 

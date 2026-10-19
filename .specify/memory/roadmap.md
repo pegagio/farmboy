@@ -1,6 +1,25 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.6.1 → 1.6.2
+Bump rationale: PATCH — authorized status amendment for entry 006.
+Status: in-progress → implemented
+Authorization: Direct Pegagio full-plan approval and Execute it instruction selects installed standalone Farmboy delivery; its narrow authority permits only 006 in-progress to implemented plus final scoped LOCAL commit, never real result acceptance, verified, integration, merge or push.
+Evidence paths: ["specs/006-concise-delivery-evidence/spec.md", "specs/006-concise-delivery-evidence/plan.md", "specs/006-concise-delivery-evidence/tasks.md", "specs/006-concise-delivery-evidence/delivery.md", "specs/006-concise-delivery-evidence/roadmap-reviews/debrief-20261019T181452Z.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.6.0 → 1.6.1
+Bump rationale: PATCH — activate and link explicitly selected Feature 006 for specification preparation.
+Changes: Only entry 006 planned → in-progress; map specs/006-concise-delivery-evidence/; append current activation authority while preserving the planned-entry history.
+Authorization: Direct operator request to start Feature 006 using installed farmboy-prepare-specification and its normal standalone activation workflow, ending at clarification or specification review.
+Evidence: .agents/skills/farmboy-prepare-specification/SKILL.md; .specify/memory/constitution.md; docs/direction.md; verified dependency 003; clean baseline e1183047592c9f8cfc8d434c48e0e428fb4779ad.
+Effects: Preserve prior reports and entries 001–005. No specification approval, planning, implementation, commit, merge or push; no changes to other projects.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.5.3 → 1.6.0
 Bump rationale: MINOR — add the explicitly approved planned evidence-retention improvement, entry 006.
 Authorization: Direct user approval to carry out scoped Diagram evidence consolidation and add this planned Farmboy item; Sentinel_c53e7cca48b881919c761e185ae37d92.
@@ -285,7 +304,7 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Spec dir:** specs/005-optional-diagram-adapter/
 - **Notes:** Selected for specification preparation on2026-10-18 by direct operator request. Packaging remains a full-plan review choice; exact supported native mapping must follow current Diagram contracts. Local004 is verified. Preserve the linked requirements draft as historical input; current005 specification records superseding readiness context. Activation/linkage grants no specification approval, planning, runtime implementation, commit, merge, push or integration.
 
-### 006 — Retain concise delivery evidence and keep run output disposable [status: planned]
+### 006 — Retain concise delivery evidence and keep run output disposable [status: implemented]
 
 - **Description:** Make delivery/closeout distinguish concise durable verification and approval summaries, reusable test assets and temporary execution output before the scoped commit.
 - **Outcome:** A reviewer can understand tested source, checks, results, repairs, actual human decisions/conditions and limits after temporary output disappears, while reusable tests and fixtures remain rerunnable.
@@ -293,6 +312,8 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Scope (out):** A retention framework, automatic cleanup service, new evidence store/registry, broad history rewriting, upstream runtime redesign, or weaker verification/acceptance.
 - **Depends on:** 003.
 - **Governed by:** C-01–C-06; docs/direction.md.
+- **Spec dir:** specs/006-concise-delivery-evidence/
+- **Activation:** Direct operator request on 2026-10-19 selects standalone Farmboy specification preparation and activation. Dependency 003 is verified. Stop at Needs clarification or Awaiting spec review; no approval, planning, implementation, commit or push.
 - **Notes:** No specification directory is assigned; this planned entry activates nothing. Direct operator approval on 2026-10-19 authorizes this planned item alongside scoped Diagram evidence consolidation (Sentinel_c53e7cca48b881919c761e185ae37d92). Preserve 004/005 external handoff and optional-adapter behavior. No feature activation, specification, implementation, skill/core/helper change, upstream change, commit or push is authorized by this entry. The optional Spec Kit generated-default ignore improvement has a separate upstream owner.
 
 ## Open Questions
@@ -307,4 +328,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.6.0 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
+**Version**: 1.6.2 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19

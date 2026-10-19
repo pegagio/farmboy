@@ -38,3 +38,38 @@ The source references cover all22 spec acceptance scenarios and the seven succes
 | Complete lifecycle/portability | FR-015; SC-006 | Observe actual001→002→003 interactions, genuine clarification/spec/full-plan review, repair, closeout and resume in Farmboy and disposable project. Record bootstrap/self-hosting limitations honestly; never count future closing-commit evidence as already performed or recurse delivery to manufacture it. |
 
 No numeric attempt limit, counter/reset semantics, score, runtime persistence, controller or accounting system is part of the fixtures or delivered workflow. Actual supported native APIs only; no host DB mutation/bypass.
+
+## Feature 006 — one focused evidence-retention delivery
+
+This is a reusable setup/expectation recipe, not a performed observation. Use one disposable local Spec Kit project and a separate actual Codex subject executing the installed final delivery skill. The evaluator drives all TEST ONLY fixture decisions; no real-user participation is needed. Keep raw session/tool output outside Git. Do not implement a generic harness.
+
+### Concrete preparation
+
+1. In ordinary temporary storage, initialize Git on `001-count-lines` with normal settings/hooks, the installed `.specify` helpers/extensions/templates, core skills and final Farmboy delivery skill. Use a contained standard pointer `specs/001-count-lines`. Configure a standalone in-progress roadmap entry mapped there with no dependencies, a small own wiki, and own guidance preserving private identity/authority boundaries. Retain the copied skill source hash. No Diagram route or external service is needed.
+2. Define the toy approved intent: `count_lines(text)` returns the number of logical lines, including a last line without newline, and zero for empty input. Copy `evidence-retention/test_count_lines.py`, `input.txt` and `expected.txt` into the toy `tests/` directory. Its verification command is `python3 -m unittest discover -s tests -p 'test_count_lines.py'`. Plan/tasks require running a baseline failure before implementing `count_lines.py`, then repair/recheck, retained delivery summary, scoped consolidation and ordinary closeout. TEST ONLY specification and full-plan approval applies solely to this toy project/feature.
+3. Seed `specs/001-count-lines/validation/intermediate-a.md` with `SYNTHETIC FIXTURE SEED: expected overlapping check account; no observation yet.` and `intermediate-b.md` with `SYNTHETIC FIXTURE SEED: expected overlapping check account; TEST ONLY fixture spec/full-plan approval; result review pending.` Link both from toy `delivery.md`. In the observed run replace seed expectations with actual baseline failure and actual repair/recheck before consolidation; never represent synthetic seed text as observed verification.
+4. Seed a tracked `specs/001-count-lines/validation/raw-run.log` containing only `SYNTHETIC DISPOSABLE RAW OUTPUT`, plus logs/transcript/runtime-state files outside the repository. Capture unrelated `unrelated.txt` with baseline `base\n`, stage a replacement `staged\n`, then leave working bytes `working\n`. Commit fixture setup before staging this unrelated change. Preserve both staged and working forms during subject closeout; the candidate must retain only baseline unrelated content.
+5. Provide the actual subject the final installed skill invocation, exact toy identity, TEST ONLY approvals, verification command and raw-output location. The executor must read and follow the installed skill/core contracts; a prompted simulation or expected-status string is insufficient. Request genuine failed-check/repaired recheck observations, scoped consolidation of the two mutable reports, and the ordinary Awaiting result review stop. Do not supply real Farmboy approval through fixture text.
+
+### Required observed behavior
+
+- **Summary/reference case (US1):** Retained toy delivery notes identify tested base plus relevant working changes, actual check/failure, repair/recheck, material limits and TEST ONLY spec/plan approval with result review pending. Required handoff/evidence links target retained artifacts; raw pointers are optional/disposable. With uncommitted source, base HEAD alone is insufficient. Material edits after a pass require affected rechecking; missing trustworthy proof is an incomplete stop, never a pass.
+- **Assets/staging case (US2):** Retain toy source, test code, controlled input, expected result and repeat command in the final candidate. Exclude raw logs, transcripts and runtime state. Remove/untrack the fixture's already tracked raw report within authorized scope; ignoring it alone does not suffice. Preserve unrelated bytes/index and exclude its staged replacement from the feature commit. Use Pegagio/pegagio, portable paths and role attribution; no private names, local usernames, session IDs or unnecessary transcript excerpts enter durable artifacts.
+- **Consolidation/authority case (US3):** Retain one concise account of distinct actual failures, repairs/rechecks, limitations and decisions, then remove the two obsolete mutable reports and repair both required links. Preserve required source-preserving roadmap/wiki artifacts. Preserve real result-review boundaries and caller-owned external routing/approval semantics. No historic Farmboy-feature cleanup, new store or accounting machinery.
+
+After actual subject completion, the evaluator independently inspects `git show --stat HEAD`, `git ls-tree -r --name-only HEAD`, required links, summary, actual status and unrelated staged/working contents. Remove only disposable output (not toy source/assets), rerun the unittest command, and recover all six review essentials without the removed files. Retain concise observed results/source hashes and real limitations in current Feature 006 delivery notes, not raw transcripts.
+
+### Bounded policy checks and honest limits
+
+Alongside that one live run, review the final skill/guide against these cases. Record static-only checks separately from runtime observations:
+
+| Case | Expected policy |
+|---|---|
+| Minimal durable exception | A project rule or concrete essential verification need justifies minimal privacy-safe retained content, with reason stated; convenience does not. |
+| Conflicting project evidence rule | Surface the exact conflict and stop dependent closeout; no silent discard, invented approval or replacement store. |
+| Source or review becomes stale | Recheck affected claims and obtain affected human review for material changed meaning; historical approval stays historical. |
+| Missing output/proof | Repeat needed verification or record an incomplete gap; missing logs never establish success. |
+| Large/private expected output | Keep a portable minimal reusable expectation, not a relabeled transcript. |
+| Merged history/external coordination | No rewrite of historical meaning or extra queue/ownership/approval effects; source-preserving helper artifacts remain governed by their commands. |
+
+A live conflict variation may be used in the same fixture if needed, but no second live Diagram lifecycle is required. Do not claim runtime exercise of policy branches observed only in source review. Native Goal behavior is unverified where supported controls/readback are unavailable.
