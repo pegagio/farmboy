@@ -1,3 +1,13 @@
+<!--
+SYNC IMPACT REPORT
+Version: unversioned -> 1.0.0 (first explicit version; substantive approval-governance amendment).
+Authorization: Pegagio approved the general Diagram/Farmboy bounded-delegation amendment and current-workflow alignment on 2026-10-20 (Sentinel_eeec7c5185f88191ae79e4bd22974d3f; trusted parent relay).
+Affected rules: prescribed human checkpoints remain the default, qualified by new Principle IV only for explicit bounded mandates under current project governance. Existing authority separation and operator-selected workflows remain.
+Motivation: support delegated approval with truthful identity, human-mandate and exact-candidate/review evidence, preserving protected intent/UX/constraints and required independent review.
+Impact/cutover: prospective in this source worktree and explicitly refreshed installed copies. Existing human decisions/historical features remain unchanged. No blanket role delegation, inferred execution, integration/publication permission, runtime identity service or SpecKit change. The current actual consumer grant is only Diagram DIAG-1/031 full-plan approval to Uwe.
+Alignment: qualifier added to all four current Farmboy skills, the optional adapter native protocol and current adapter guide. No workflow steps, native schemas or stop/handoff mechanisms change.
+Validation: exact approved-text/source-copy and diff checks. Actual changed-skill runtime verification and independent evaluation remain required before claiming runtime delivery acceptance; policy adoption alone supplies no such evidence.
+-->
 # Farmboy Constitution
 
 This constitution governs agents developing Farmboy and the authority boundaries of the runtime behavior they build. Feature specs prescribe workflow details.
@@ -28,6 +38,17 @@ Specifications, plans and review summaries MUST be understandable to the operato
 
 Before accepting delivery of a workflow or a material change to its behavior, agents MUST verify the actual skill in a real Codex session, including affected interactions and stopping points. The session executing the skill MUST be separate from the agent or process evaluating it. Automated observation/test driving SHOULD be preferred; manual verification MAY be used. Simulations alone MUST NOT establish acceptance. Verification MUST be proportionate to the change.
 
+### IV. Bounded Approval Delegation
+
+Human review is the default for specification, plan, result, integration and other approval checkpoints. A human MAY explicitly delegate an approval role under the bounded-delegation rule below. Routine repairs preserving approved intent MAY proceed through flow-back and consistency checks.
+
+**Bounded approval delegation.** A human MAY explicitly name a delegate and define the approval role, work scope, protected product intent, expected user experience, explicit constraints and any required independent review. Delegation MUST NOT be inferred from tool access, workflow selection, tests, silence or prior unrelated authority. Each delegated decision MUST record the delegate’s identity, the human mandate, the exact reviewed candidate and supporting review evidence; it MUST NOT be represented as direct human review. Required independent review MUST precede approval.
+
+Derived requirements and technical choices MAY change through coherent flow-back while those protected boundaries remain intact. Changes outside them MUST return to the human. Approval does not itself grant execution authority. Execution holds, mandate limits and revocation MUST be respected using existing ownership and recovery rules. Result acceptance, integration and publication permissions remain separately controlled unless expressly delegated or authorized. Adoption of this rule delegates no role automatically. A conforming delegation applies this rule without requiring another constitutional amendment.
+
 ## Governance
 
 Amendments require Pegagio’s explicit approval of the proposed text before taking effect and MUST identify the change, rationale and effects on active work. Agents MUST surface conflicts rather than silently change governing rules. No amendment may retroactively rewrite a merged feature’s meaning.
+
+
+**Version**: 1.0.0 (first explicitly recorded version; prior text unversioned) | **Last Amended**: 2026-10-20

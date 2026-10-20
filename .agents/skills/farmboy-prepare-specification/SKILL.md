@@ -7,6 +7,10 @@ metadata:
 
 # Prepare specification draft and handoff
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
 Use this session’s existing model/effort. This invocation authorizes feature selection, bounded context discovery, draft preparation and a saved handoff only. It does not authorize interactive clarification, approval, planning/tasks, implementation, convergence, closeout, commit or publication. Do not delegate steps, install tools or add a controller/state store.
 
 ## Resolve project routing before effects

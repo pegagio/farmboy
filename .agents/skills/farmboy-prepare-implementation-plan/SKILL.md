@@ -7,6 +7,10 @@ metadata:
 
 # Prepare implementation proposal and human review
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
 Use this session's existing model/effort. This selected workflow authorizes existing planning, task generation, read-only analysis and a separate in-scope repair step only. Do not delegate runtime steps, install tools, change core skills, activate another feature, approve artifacts, implement, commit, merge, push or launch another workflow. Do not automatically create a Goal or reactivate the completed specification-preparation Goal.
 
 ## Resolve project routing before effects

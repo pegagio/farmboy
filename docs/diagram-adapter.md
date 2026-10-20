@@ -2,6 +2,12 @@
 
 Farmboy's optional `farmboy-diagram-work` skill coordinates one selected feature segment using the existing Diagram CLI and existing Farmboy external entries. It is operator-driven agent composition, not a background service or an integration executor. Diagram stores coordination authority/report consistency; the consuming agent verifies actual repository, Git, workspace and artifacts. Source availability and the examples here do not establish runtime acceptance; see [005 evidence](../specs/005-optional-diagram-adapter/validation/acceptance.md).
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
+The [current constitution](../.specify/memory/constitution.md#iv-bounded-approval-delegation) defines the prospective rule. Earlier human-checkpoint wording below describes the default; an actual role-scoped mandate must be verified before applying the qualified path. Approval, execution authority and integration/publication permission remain separate. Source policy adoption and static checks do not establish independently observed runtime acceptance.
+
 ## Table of Contents
 
 Use these sections to enable a route deliberately and understand its boundaries.

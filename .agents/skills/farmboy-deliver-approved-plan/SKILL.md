@@ -7,6 +7,10 @@ metadata:
 
 # Deliver approved plan through local closeout
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
 Use the existing session model/effort. Do not delegate runtime steps, install tools, modify core skills or add a controller, numeric attempt limits, counters/reset semantics, progress scores, new persistence or accounting/tracking machinery. This selected composition authorizes prescribed implementation, verification, convergence/follow-up implementation, separate current-scope repair, documentation/debrief/wiki closeout, the standalone narrow implemented update and final scoped LOCAL commit. External delivery returns execution data without a local queue-status write. Standalone implementation does not acquire this composite authority. Do not activate another feature, infer acceptance, mark verified, integrate, declare integrated/complete, merge, push or launch another workflow.
 
 ## Resolve project routing before effects

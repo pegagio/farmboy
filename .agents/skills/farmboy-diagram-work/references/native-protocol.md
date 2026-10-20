@@ -2,6 +2,10 @@
 
 Use existing native interfaces, not a new adapter packet/store/validator. Baseline: accepted028 closeout `8c938d7273b7e5f648ff2c9b88871f7bd88691ff`, implementation `975094763a0e8021e49c68565d9f58c239855e6e`, Feature6/schema16. Project/Repository2, affectedIssue3, failure1, backupreceipt2 and databaseversion2 are independent. Initial enroll is removed. The caller must have an actual compatible binary and explicitly selected store/config; source availability alone proves neither. No migration, reset, legacy fallback, installer or upstream patch. No Diagram core consumer filesystem/Git access.
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
 ## Transport and current-context verification
 
 Use the explicitly supplied binary path, existing native `--json --file STORE` and the selected existing configuration. For isolated authorized tests the existing `DIAGRAM_CONFIG` selects a private regular mode0600 YAML file (`version: 1`, `datastore: ABSOLUTE_STORE`); database parent is mode0700. Never replace a user's configuration or repurpose HOME. No automatic database creation outside explicit test/setup authority. Use help/read-only inspection to establish capability before mutations.

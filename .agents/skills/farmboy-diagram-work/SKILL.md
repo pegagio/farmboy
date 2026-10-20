@@ -7,6 +7,10 @@ metadata:
 
 # Coordinate one selected segment
 
+## Approval delegation
+
+References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
+
 Use the current model/effort and one continuous executing session. Compose existing Farmboy entries and ordinary clarification; do not delegate runtime steps, install tools or add a controller/store. This skill is optional: availability never enables a project. Read [native protocol](references/native-protocol.md) before any Diagram effect. Missing supported native capability is a specific blocker, never permission to patch Spec Kit, Diagram or other external software, alter hooks/configuration, migrate a store or fall back to standalone. This skill does not implement integration or launch later segments.
 
 ## Resolve route and requested work before effects
