@@ -1,6 +1,6 @@
 # Native Diagram protocol for the optional Farmboy adapter
 
-Use existing native interfaces, not a new adapter packet/store/validator. Baseline: accepted028 closeout `8c938d7273b7e5f648ff2c9b88871f7bd88691ff`, implementation `975094763a0e8021e49c68565d9f58c239855e6e`, Feature8/schema18 is the staged target at clean integrated1f418d8; activate only after separately approved client/database cutover. Project/Repository2, Issue-query4/publication3, independent capture/title1, failure1, backupreceipt2 and databaseversion2 remain separate. The cited accepted028 commits below are historical Feature6 inputs, not a current version pin. Initial enroll is removed. The caller must have an actual compatible binary and explicitly selected store/config; source availability alone proves neither. No migration, reset, legacy fallback, installer or upstream patch. No Diagram core consumer filesystem/Git access.
+Use existing native interfaces, not a new adapter packet/store/validator. Baseline: accepted028 closeout `8c938d7273b7e5f648ff2c9b88871f7bd88691ff`, implementation `975094763a0e8021e49c68565d9f58c239855e6e`, Feature8/schema19 is the current installed target from accepted integratedb108136 after the explicitly authorized DIAG-7 cutover. Project3/Repository2, Issue-query4/publication3, independent capture-request2/capture-result1/title1, failure1, backupreceipt2 and databaseversion2 remain separate. The cited accepted028 commits below are historical Feature6 inputs, not a current version pin. Initial enroll is removed. The caller must have an actual compatible binary and explicitly selected store/config; source availability alone proves neither. No migration, reset, legacy fallback, installer or upstream patch. No Diagram core consumer filesystem/Git access.
 
 ## Approval delegation
 
@@ -79,7 +79,7 @@ Integration is outside this adapter. Separate actual project policy and explicit
 
 ## Feature8 cutover compatibility boundaries
 
-Before each new segment require the selected CLI's database version response to identify schema18 with supported:true and current native Feature responses to identify contract8. A schema16/17 store or Feature6/7 caller is incompatible: stop, never automatically migrate, retry with a guessed version or select another store. The selected basename may still be diagram-v16.db after an expressly authorized in-place migration; inspect its native schema rather than infer it from the filename.
+Before each new segment require the selected CLI's database version response to identify schema19 with supported:true and current native Feature responses to identify contract8. A schema16/17/18 store or Feature6/7 caller is incompatible: stop, never automatically migrate, retry with a guessed version or select another store. The selected basename may still be diagram-v16.db after an expressly authorized in-place migration; inspect its native schema rather than infer it from the filename.
 
 Normal manually selected Farmboy work omits discovery_selected (or reports false). Automation controls remain OFF and do not disable manual admission. Never set discovery_selected:true to bypass permission/eligibility, enable a workflow or launch automatically. No extra launcher or discovery packet is added.
 
