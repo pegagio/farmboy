@@ -29,6 +29,10 @@ Optional Diagram-enabled projects can use ordinary intent or direct entry throug
 
 No controller, counters, numeric repair limits, progress scoring or runtime accounting/tracking store is added. A completed preparation Goal or passing analysis never approves the plan, implements work, commits or pushes.
 
+## Independent whole-plan review
+
+`$farmboy-review-implementation-plan` reviews one explicitly authorized proposal with six semantic questions and returns an attributable report/disposition. It supports standalone use; the optional Diagram adapter exclusively owns native review coordination. See [review usage and return contract](docs/review-implementation-plan.md). Source availability is not runtime acceptance or consumer refresh.
+
 ## History and provenance
 
 This branch descends normally from pre-reboot `develop`, commit `41edab98e0b9fe935866aa7907b54714c9664f08`. It preserves the existing Farmboy repository and prior Spec Kit Flow/FlowKit naming history. Superseded code, specs, tooling and installed components are retired from this branch's active tree; their history and reviewed snapshots remain accessible through the [archive and recovery guide](ARCHIVE.md). Existing `develop`, `master`, remote refs and linked worktrees are not rewritten.

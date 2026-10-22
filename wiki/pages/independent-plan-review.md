@@ -1,0 +1,16 @@
+---
+title: Independent implementation-plan review
+type: component
+sources: [S013]
+updated: 2026-10-22
+---
+
+# Independent implementation-plan review
+
+The generic reviewer assesses one explicitly selected proposal under an actual bounded human mandate. It is a separate reviewer session without material candidate authorship; it preserves approved meaning and writes a report rather than repairing the proposal. The six-question review assesses scope, machinery, intent, architecture, tightening and checklist proportionality. Source describes prescribed behavior, not runtime acceptance by itself. (S013)
+
+The saved feature validation report identifies the candidate, reviewer/mandate, six answers and blocking versus optional findings. Ordinary return content includes report path/SHA-256, candidate correlation, reviewer/mandate, findings and disposition or precise incomplete details. Approve requires no unresolved blocker/unmet obligation; optional-only suggestions can coexist without a polishing cycle. Planning return preserves approved intent; specification escalation asks real product questions and never revises/approves a specification. Missing/invalid evidence is incomplete. (S013)
+
+Generic body and optional adapter compose in the same session, not through a new API, controller or grant store. Only the [Diagram adapter](./optional-diagram-adapter.md) acquires/reuses native authority, validates actual report/current pins, checkpoints permitted evidence, finalizes and verifies release. Generic standalone review requires no Diagram. Every path stops after its result; approval does not launch implementation. (S013)
+
+New native review needs matched Feature9/schema20 capabilities, while older supported segments retain their selected compatible clients. Supplied bounded grant passes unchanged from launcher to adapter; selection or enabled automation is no mandate. Consumer refresh is separately explicit, never an effect of source delivery. Controlled tests demonstrate plumbing; actual skill behavior/judgment needs independently evaluated real sessions. (S013)

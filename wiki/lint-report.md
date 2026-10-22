@@ -1,3 +1,3 @@
-# Wiki Lint Report — 2026-10-19
+# Wiki Lint Report — 2026-10-22
 
-No findings. Scoped local-delivery.md and its directly linked/shared-S009 neighbor delivery-native-handoff.md: index-drift, links, inbound/orphan, bounded contradictions, stale and citation checks pass. The initial stale S009 neighbor was revalidated/refreshed through a separate wiki-ingest operation, not rewritten by lint. No mechanical fix was needed. No action is needed.
+No findings. Scoped independent-plan-review.md and its directly linked/shared-S013 neighbor optional-diagram-adapter.md: index, relative links/citations, reciprocal inbound links, bounded contradictions, source/updated dates and word limits pass. Two pages under600 words, citations S012/S013 registered, no new conflict marker or mechanical repair. Older-segment versus new-review compatibility is explicitly separated through the actual S012 refresh, not a lint rewrite. No action needed. This source knowledge is not runtime acceptance certification.

@@ -1,0 +1,10 @@
+# Research decisions —025
+
+- **Decision:** Same-session skills and an ordinary named return, not an API or subprocess between reviewer and adapter. **Basis:** Existing Farmboy verified-context/return seam and Diagram d29c0809 corrected reviewer/adapter. **Alternative rejected:** serialization/runtime loader/controller, because the current agent already composes skills and reads files.
+- **Decision:** Generic report in validation/plan-review.md; adapter verifies path/digest, candidate references, findings and disposition. **Basis:** Spec FR-002–009 and existing DIAG-10 return behavior. **Alternative rejected:** trusting an uncorrelated prose conclusion or adding a second approval register.
+- **Decision:** Leave native grant/admission/finalization exclusively in adapter; preserve the supplied existing ReviewGrant object and labels. **Basis:** d29c0809 feature/plan_review.go, launcher.go/entry.go and adapter native reference. **Alternative rejected:** generic Diagram imports or launcher preclaim, which violate the requested ownership split.
+- **Decision:** Private Feature9/schema20 candidate tooling only; live schema19 untouched. **Basis:** Native review capability is not installed. **Alternative rejected:** implicit upgrade or testing against the selected live store.
+- **Decision:** One shared controlled launcher/native fixture plus separate actual-session evaluation. **Basis:** Reproducible grant/transport/state checks differ from semantic judgment and real skill following; constitution III requires an independent evaluator. **Alternative rejected:** static strings alone or an evaluator service.
+- **Decision:** Keep all historical specifications/approvals intact and record approval in current roadmap/plan notes. **Basis:** Constitution I/IV. **Alternative rejected:** rewriting005 or adding native FB ownership.
+
+No unresolved technical/product choice requires a new authority decision before whole-plan review. Exact future tool availability and runtime permissions are verified at delivery, never assumed or automatically installed. These are source-derived design decisions, not executed runtime acceptance evidence.

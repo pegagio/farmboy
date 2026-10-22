@@ -1,0 +1,36 @@
+//go:build acceptance
+
+package acceptance_test
+
+import (
+ "encoding/json"
+ "os"
+ "os/exec"
+ "path/filepath"
+ "testing"
+)
+
+// TEST ONLY: reuse the pinned native fixture, not a second lifecycle builder.
+type farmboy025ReadyStop struct{}
+
+func TestFarmboy025Composition(t *testing.T) {
+ defer func(){ if r:=recover(); r!=nil { if _,ok:=r.(farmboy025ReadyStop); !ok {panic(r)} } }()
+ ran := false
+ featureDeliveryProof(t, "FBTEST", nil, func(f deliveryProofFixture) {
+  v := f.selected()
+  if ran || v.CurrentRun != nil || v.PlanState != "awaiting_plan_review" { return }
+  ran = true
+  root := t.TempDir()
+  data, err := json.Marshal(map[string]any{"repo":f.repo,"store":f.target,"feature":v.Feature,"current":v})
+  if err != nil { t.Fatal(err) }
+  manifest := filepath.Join(root,"fixture.json")
+  if err = os.WriteFile(manifest,data,0600); err != nil {t.Fatal(err)}
+  c := exec.Command(os.Getenv("FB025_TEST_PYTHON"), os.Getenv("FB025_TEST_HANDLER"), "--fixture", manifest)
+  c.Stdout=os.Stdout; c.Stderr=os.Stderr
+  if err=c.Run(); err!=nil { t.Fatal("Farmboy candidate composition",err) }
+  // Stop the shared builder at the selected review boundary; unrelated later
+  // delivery assertions are outside this fixture. All handler rows passed.
+  panic(farmboy025ReadyStop{})
+ })
+ if !ran {t.Fatal("no review-ready fixture")}
+}

@@ -1,6 +1,48 @@
 <!--
 SYNC IMPACT REPORT
 ==================
+Version change: 1.7.3 → 1.7.4
+Bump rationale: PATCH — authorized status amendment for entry 025.
+Status: specced → in-progress
+Authorization: Pegagio Sentinel_ed01a0edd9a081919407404a0e369b2a explicitly approves exact whole plan and implementation; normal selected delivery workflow.
+Evidence paths: ["specs/025-independent-plan-review/plan.md"]
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.7.2 → 1.7.3
+Bump rationale: PATCH — record explicit exact whole-plan approval and bounded implementation/test authority for025, preserving prior decisions.
+Authorization: Pegagio Sentinel_ed01a0edd9a081919407404a0e369b2a, trusted parent relay.
+Effects:025 plan-approval note only plus version metadata; subsequent status updates use exact roadmap-write preview/apply. No merge, push, install, live migration, consumer refresh or native Diagram onboarding.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.7.1 → 1.7.2
+Bump rationale: PATCH — record explicit whole-spec approval and planned → specced for025; authorize only planning/tasks/analysis until whole-plan review.
+Authorization: Pegagio Sentinel_544eb7cc99508191ba0dac1c79e64f3a, 2026-10-22, trusted parent relay. Exact spec SHA-256 486a4c5240b5d3e9e5b7a4ffe876717ad67e115c59cd75858046c7bdc4fbfcfe; no product meaning changed.
+Effects:025 approval note and status only, plus version metadata; existing entries/reports/linkage preserved. No implementation, commit, native Diagram onboarding, installation, live migration, consumer refresh or push.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.7.0 → 1.7.1
+Bump rationale: PATCH — explicitly activate and link existing entry 025 for specification preparation only; lifecycle status remains planned until a separately supported authoring assessment/status amendment.
+Authorization: Direct Pegagio request Sentinel_524ebeb6bb4c81918af39fa8abd11c2b, 2026-10-22: start Farm Boy roadmap 025 now.
+Effects: Add only 025 Spec dir and Activation fields. Preserve all earlier reports, entries/statuses/dependencies and historical capture provenance. Isolated branch 025-independent-plan-review; no planning, implementation, commit, installation, consumer refresh or native Diagram onboarding. Primary checkout active-feature pointer remains unchanged; feature association belongs to the isolated worktree.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 1.6.3 → 1.7.0
+Bump rationale: MINOR — add explicitly authorized planned entry025 for reusable independent plan review and optional Diagram adapter composition.
+Authorization: Direct operator correction Sentinel_fbfaa7a20b1c8191a9d7a4a9508b3c6c, 2026-10-22.
+Identity: Roadmap025 is distinct from mistaken native FB-1 and existing roadmap001; branch/worktree/reservation inspection found historical occupied spec numbers through024 and no025 allocation.
+Effects: Preserve all prior reports and entries001–006, dependencies/statuses and active associations. Add planned/unstarted025 only. No spec directory, activation, upstream implementation, onboarding/migration, installation, commit, merge, push or global/project authority change. Existing unrelated work remains untouched.
+-->
+<!--
+SYNC IMPACT REPORT
+==================
 Version change: 1.6.2 → 1.6.3
 Bump rationale: PATCH — authorized status amendment for entry 006.
 Status: implemented → verified
@@ -325,6 +367,20 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - **Activation:** Direct operator request on 2026-10-19 selects standalone Farmboy specification preparation and activation. Dependency 003 is verified. Stop at Needs clarification or Awaiting spec review; no approval, planning, implementation, commit or push.
 - **Notes:** No specification directory is assigned; this planned entry activates nothing. Direct operator approval on 2026-10-19 authorizes this planned item alongside scoped Diagram evidence consolidation (Sentinel_c53e7cca48b881919c761e185ae37d92). Preserve 004/005 external handoff and optional-adapter behavior. No feature activation, specification, implementation, skill/core/helper change, upstream change, commit or push is authorized by this entry. The optional Spec Kit generated-default ignore improvement has a separate upstream owner.
 
+### 025 — Reusable independent plan review and Diagram adapter composition [status: in-progress]
+
+- **Description:** Deliver reusable farmboy-review-implementation-plan semantic review and its matching optional farmboy-diagram-work adapter composition, following the corrected local Diagram DIAG-10 capability.
+- **Outcome:** An explicitly authorized independent reviewer assesses the exact approved feature intent, whole plan/tasks/checklist/fresh analysis and actual architecture; returns attributable report/disposition through the existing external-entry/verified-current-context/return seam; the optional Diagram adapter alone performs native lifecycle effects and stops after truthful release/readback.
+- **Scope (in):** Preserve these exact questions: Are they reasonable for the scope of the feature? Do they add unnecessary machinery or ceremony? Do they align with the feature's intent? Is the architecture sound? Can the plan and/or tasks be tightened without redesigning? Is the execution checklist appropriate, or is it overly elaborate? The generic body verifies actual human authorization, reviewer independence and protected intent; saves report and approve/request-planning-changes/specification-escalation disposition; allows minor optional non-blocking suggestions. The optional Diagram adapter exclusively handles bounded grant transport, native acquisition-or-verified-reuse, report checkpoint/finalization and release/readback. Diagram retains native state/authority enforcement. Include focused external-entry/return tests for single wrapping, current-run reuse, stale/foreign refusal, no duplicate native effects or next workflow, plus portability documentation and explicit later consumer refresh.
+- **Scope (out):** Implementation/specification/planning/activation now; global or cross-project installation, implicit consumer refresh, Farmboy onboarding/migration to Diagram, scheduling/automatic chaining, standing-mandate services, specification approval, result/integration/publication authority or real workflow launches from this capture.
+- **Depends on:** 002, 005.
+- **Governed by:** C-01–C-06; current constitutional bounded-delegation and human-gate rules.
+- **Spec dir:** specs/025-independent-plan-review/
+- **Specification approval:** Pegagio explicitly approved the complete specification and planning on 2026-10-22 (Sentinel_544eb7cc99508191ba0dac1c79e64f3a, “Approved”, answering the whole-spec/planning review request Sentinel_fa18794461c48191988d0c0f571cedb0 after output-contract discussion). Exact approved spec.md SHA-256: 486a4c5240b5d3e9e5b7a4ffe876717ad67e115c59cd75858046c7bdc4fbfcfe, uncommitted worktree at base e5f8bbf76f74da9898518e820aca936c54e2dcae. This authorizes planning/tasks/analysis only; whole-plan review precedes implementation.
+- **Plan approval:** Pegagio Sentinel_ed01a0edd9a081919407404a0e369b2a, “yes”, answers Sentinel_3490e1d959c08191927da976aa2a68ed and explicitly approves the whole plan, implementation and isolated real-session skill evaluation. Exact reviewed plan.md SHA-256 c950554e2fb5bf0fb7fab2f5cfa90e70d11286f0e6e9e9b2bdfa0546113de1fc at base e5f8bbf76f74da9898518e820aca936c54e2dcae. No live queued work/production review, consumer refresh/install, live migration, Diagram onboarding, merge, push or unrelated cleanup. Stop for human result acceptance.
+- **Activation:** Direct operator request Sentinel_524ebeb6bb4c81918af39fa8abd11c2b on 2026-10-22 starts standalone Farmboy specification preparation only in isolated branch 025-independent-plan-review. Dependencies 002 and 005 are verified. Capture-time no-activation restrictions below are historical; this authorization permits drafting/linkage, not planning, implementation, installation or consumer refresh. Stop at Needs clarification or Awaiting spec review; no native Diagram onboarding or FB-1 lifecycle effects.
+- **Notes:** Direct operator authorization Sentinel_fbfaa7a20b1c8191a9d7a4a9508b3c6c on 2026-10-22 corrects the tracking destination and creates this planned, unstarted item only. No spec directory is assigned and no active feature/pointer changes. Roadmap IDs are independent of native IDs: this item is 025, not native FB-1 and not existing roadmap001. Existing branch/worktree specs occupy 007–024, so 025 avoids reuse; gaps are not silently recycled. Diagram FB-1 is a mistaken non-authoritative capture retained for history and must refer here, not serve as Farmboy's canonical tracker. The registered native FB metadata does not onboard this repository. Upstream work and later consumer refresh require separately selected authorization.
+
 ## Open Questions
 
 - **Q1 — Command composition:** Which exact supported commands and minimal artifact checks express each prescribed segment, including completion recording and local closeout?
@@ -337,4 +393,4 @@ Status legend: **undecided** · **needs-info** · **planned** · **specced** · 
 - Preserve contextual knowledge and rationale in the wiki; track feature/task progress in roadmap/spec artifacts, without a parallel wiki status inventory.
 - No feature is activated by this amendment. Specifications, plans, tasks and implementation require their separately selected work and human checkpoints.
 
-**Version**: 1.6.3 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-19
+**Version**: 1.7.4 | **Ratified**: 2026-10-16 | **Last Amended**: 2026-10-22

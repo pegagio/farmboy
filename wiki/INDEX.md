@@ -24,3 +24,5 @@
 - [Standalone and externally selected workflow handoffs](pages/workflow-handoffs.md) — updated 2026-10-18
 
 - [Optional Diagram adapter](pages/optional-diagram-adapter.md) — updated 2026-10-18
+
+- [Independent implementation-plan review](pages/independent-plan-review.md) — updated 2026-10-22
