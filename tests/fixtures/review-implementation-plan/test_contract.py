@@ -28,7 +28,7 @@ class ContractTests(unittest.TestCase):
     def test_adapter_boundary_and_existing_segments(self):
         a = (ROOT / '.agents/skills/farmboy-diagram-work/SKILL.md').read_text()
         n = (ROOT / '.agents/skills/farmboy-diagram-work/references/native-protocol.md').read_text()
-        for phrase in ['solely owns native acquisition/reuse', 'Invoke farmboy-review-implementation-plan', 'same session', 'invalid', 'release/readback']:
+        for phrase in ['solely owns native acquisition/reuse', 'Invoke farmboy-review-implementation-plan', 'same session', 'invalid', 'release/readback', 'sandbox_permissions=require_escalated', 'broad reusable approval rule']:
             self.assertIn(phrase, a)
         for phrase in ['review_grant', 'review_evidence', 'plan_approved', 'plan_revision_required', 'specification_change_required', 'reviewer_owner', 'reviewer_session', 'delegate-plan-review', 'assessment.approval_id', 'context.applicable_approval']:
             self.assertIn(phrase, n)

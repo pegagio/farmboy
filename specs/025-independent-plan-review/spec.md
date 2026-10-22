@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-22
 
-**Status**: Draft — Awaiting spec review
+**Status**: Approved specification — delivery candidate awaiting human result acceptance
 
 **Input**: Pegagio explicitly selected Farmboy roadmap 025 for specification preparation (Sentinel_524ebeb6bb4c81918af39fa8abd11c2b). This specification proposes reusable upstream behavior based on the corrected Diagram DIAG-10 local composition, without installing or refreshing consumers. Farmboy's canonical tracker is its flow-roadmap ledger; native FB-1 is a mistaken, non-authoritative capture.
 
@@ -112,10 +112,14 @@ A consumer can use generic independent review through its existing supported exe
 - Existing generic execution context, artifact references and native Diagram DIAG-10 contracts suffice. Packaging/internal edits and focused verification mechanics belong to later planning, not this product specification.
 - The reviewed Diagram correction is integrated at `d29c0809f722985bf2fd2a7fd5cfd8a2e4ce573e`. Installed Diagram/live store remain schema19; its schema20 review support is not installed. No current live review launch or upgrade is implied.
 
-## Preparation handoff and fit
+## Historical preparation handoff and fit
 
 The effective core spec template was resolved through the installed Spec Kit command, and standard create-new-feature established this isolated worktree's literal `specs/025-independent-plan-review` pointer. Standalone Farmboy specification preparation was used; no native Diagram operations, planning/tasks, implementation, consumer refresh or real independent reviewer launch occurred. No native Goal was selected or created.
 
 Wiki query supports standalone/external entry, caller association and return separation ([workflow handoffs](../../wiki/pages/workflow-handoffs.md), S011) and optional adapter routing/reuse/release separation ([optional adapter](../../wiki/pages/optional-diagram-adapter.md), S012). Coverage is partial for this new independent reviewer: those pages predate the correction and the adapter page's runtime version note is stale. The actual installed-source reference and expressly authorized Diagram correction informed this draft directly; no wiki update is claimed. Later authorized ingestion of this feature and current adapter docs can fill that gap.
 
-Roadmap 025 is activated and linked; its formal ledger status remains planned pending the authoring-status recommendation/review process. Requirements and quality checks assess draft completeness, not a claim that future tests have run. No material clarification topic remains. The proposed specification, including its defaults and verification obligations, awaits explicit whole-spec approval. Planning and implementation are unstarted. No commit is made by this preparation workflow; source base is `e5f8bbf76f74da9898518e820aca936c54e2dcae` with the named draft and scoped roadmap amendment uncommitted.
+At the saved preparation checkpoint, roadmap025 was activated/linked and its formal ledger status remained planned pending authoring assessment/review. Requirements and quality checks assess draft completeness, not a claim that future tests have run. At that handoff no material clarification remained and whole-spec approval/planning were still pending; no planning, implementation or commit had begun. Its source base was `e5f8bbf76f74da9898518e820aca936c54e2dcae` with the named draft and scoped roadmap amendment uncommitted.
+
+## Current delivery handoff
+
+The original whole-spec approval remains pinned to SHA-256486a4c5240b5d3e9e5b7a4ffe876717ad67e115c59cd75858046c7bdc4fbfcfe (retained exactly at checkpoint29a17983), and whole-plan approval to c950554e2fb5bf0fb7fab2f5cfa90e70d11286f0e6e9e9b2bdfa0546113de1fc. The approved requirements, scenarios, success criteria and assumptions are unchanged; current source metadata and historical handoff labels are reconciled only. Authorized implementation, controlled/private checks and actual independent skill evaluation are recorded in validation/verification.md. The former sandbox checkpoint gap was resolved by the reviewer’s own supported per-action approval, real report commit and accepted native disposition/release; no protection bypass. Human result acceptance remains pending. No installation, consumer refresh, native Farmboy onboarding, live migration, merge, push or automatic next phase.
