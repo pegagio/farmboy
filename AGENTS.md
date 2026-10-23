@@ -14,3 +14,7 @@
 - Preserve the Farmboy name and generic execution/Diagram adapter boundary. Diagram retains canonical coordination authority in its own project.
 
 The [Farmboy Constitution](.specify/memory/constitution.md) governs development.
+
+## Current optional Diagram client compatibility
+
+Farmboy remains standalone on its canonical flow-roadmap lifecycle; native FB metadata does not onboard it. The optional adapter source/current client reference now targets the explicitly deployed Diagram schema20/Feature9 at integrated d29c0809f722985bf2fd2a7fd5cfd8a2e4ce573e. This changes compatibility only, grants no native route/role/workflow and preserves all project governance and human gates.
