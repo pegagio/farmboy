@@ -1,7 +1,7 @@
 # Implementation Plan: Conditional approval assessment guidance
 
 **Branch**: `026-conditional-approval-guidance` | **Date**: 2026-10-23 | **Spec**: [spec.md](spec.md)
-**Stage**: INCOMPLETE delivery after approved plan; source/test correction and private native offers complete, independent Codex preflight blocked at runtime initialization. See validation/verification.md.
+**Stage**: Delivery closeout for human result review; source/test correction, private native offers and independent real Codex preflight evaluation complete. See validation/verification.md and validation/preflight-observation.md.
 **Approved input**: `d24a17f4ef4f56fca5942b9e22d72dbe2d561983`, approval `approval/f112124c50fb1683e584aaa44bea8952`.
 
 ## Summary
@@ -44,7 +44,7 @@ T001 combines the regression and documentation so the change is atomic. T002 che
 
 Private fixture setup uses supported native commands, TEST ONLY approval attribution, private DIAGRAM_CONFIG/store/log destination and a disposable repository. All work stays in the fixture; no live controls or shared store, real WITB, profiles, permission expansion or source patches in Diagram are needed. Do not refresh a real consumer to conduct the test. Preserve normal sandbox/approval checks and stop if verification needs new unsupported setup. Retain concise actual commands, outcomes, independence and limits; raw outputs remain disposable outside Git.
 
-T003 runs the existing delivery/convergence/fresh-analysis/documentation/checkpoint composition after verification and stops at human result review. Use existing native handoff/release; no Goal, controller, retry loop, new state or accounting file.
+The independent desktop executor also prepared its private fixture, recorded a baseline, then observed preflight; its evaluator was the separate author session. Execution/evaluation separation is verified, while setup is not counted as observation. T003 runs the existing delivery/convergence/fresh-analysis/documentation/checkpoint composition after verification and stops at human result review. Use existing native handoff/release; no Goal, controller, retry loop, new state or accounting file.
 
 ## Complexity Tracking
 

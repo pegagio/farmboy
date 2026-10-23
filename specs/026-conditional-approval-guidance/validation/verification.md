@@ -1,4 +1,4 @@
-# FARM-26 verification — incomplete
+# FARM-26 verification — completed after authorized runtime recovery
 
 Tested baseline: approved plan9eb651645bdcbcebafdbdb04b8520773371afbe6 plus the source/test/documentation delta in this checkpoint. Native Diagram and launcher are unchanged. No consumer refresh or live workflow occurred.
 
@@ -18,7 +18,7 @@ The initially incomplete private offer was refused for missing canonical reposit
 
 Before/after full native Feature responses match for both fixture items, including revisions, handoffs and absent current_run/current_claim. Both disposable Git workspaces remain clean with no plan.md/tasks.md. Historical fixture preparation is not misreported as a new observation acquisition.
 
-## Required real-session attempt: BLOCKED before model startup
+## Historical nested real-session attempt: blocked before model startup
 
 One ordinary invocation of installed Codex0.163.0 was attempted:
 
@@ -30,7 +30,7 @@ No --add-dir, profile, config override, bypass, escalation or changed permission
 
 The process exited1 before emitting a model/thread event or observation report. stderr first reported inability to open `~/.codex/memories_v2_1.sqlite` (SQLite code14), then the terminal error: `failed to initialize in-process app-server client: Operation not permitted (os error 1)`. A PATH-alias warning was also present. These observations establish failed runtime initialization; they do not isolate every underlying policy cause. No child-offer.json, accepted child offer, report or independent judgment exists. No model payload ran. No retry was made.
 
-Therefore independent actual skill-runtime verification required by SC-004/Constitution III remains unmet. Parent/evaluator-authored native offers are not a substitute. Do not accept delivery or claim result-review readiness.
+At checkpoint5a3005a, independent actual skill-runtime verification required by SC-004/Constitution III remained unmet. Parent/evaluator-authored native offers were not substituted. The later separately authorized desktop observation and distinct evaluator verification below resolve this gap.
 
 ## Fixture setup repairs and limits
 
@@ -44,4 +44,8 @@ An extra invocation of the historical evidence-retention test recipe failed impo
 
 Private fixture/raw evidence is retained, uncommitted, under `~/Documents/Codex/2026-10-22/task/farm26-private-preflight-20261023`: runtime request/results, before-child/after-child snapshots, source copy and child stderr/events. These diagnostic files are disposable; this retained summary records every material result and missing proof. No successful verification relies on an inaccessible transcript. Native fixture setup uses TEST-1/TEST-2 only and automation remains off.
 
-Next ordinary action: obtain a supported runtime-initialization resolution within explicit permission bounds, then resume the T004 observation and remaining closeout under separately verified native ownership. Do not launch again from this handoff. No live WITB proof, acquisition obedience, full planning body, protected Git write or launcher behavior is certified by these native preflight checks.
+Historical next action at the incomplete checkpoint was a supported runtime resolution. The user subsequently authorized the separate desktop task and relocation of its private setup within its existing writable root. That observation has now completed and passed independent evaluation; no additional model invocation is needed. No live WITB proof, acquisition obedience, full planning body, protected Git write or launcher behavior is certified by these native preflight checks.
+
+## Resolved independent observation
+
+See [preflight-observation.md](preflight-observation.md) for actual command/result, source/request/artifact fingerprints, self-authored applicability reasoning and independent read-only after-state verification. One separate real desktop Codex task executed the changed preflight after private setup, while the distinct author/evaluator verified its trace, physical artifacts and current private store. Setup and observation shared that separate task and were bounded by a saved baseline. This satisfies proportionate execution/evaluation separation for the changed instructions; it does not claim a full planning or launcher cycle. No permissions/profiles were expanded; the original nested failure remains historical evidence rather than a current blocker.
