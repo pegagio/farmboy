@@ -48,6 +48,58 @@ Link verifies original/current queued checkpoint/artifact-set, dependency/eviden
 
 Use existing `feature run acquire` only for a later current segment with expected Feature/queue revisions, dependencies, explicit identity/workspace/full branch/HEAD/clean assessment, owner/session, current pinned_handoff, segment/purpose and applicable approval IDs. Exact existing action allowlists remain authoritative; omit unrelated zero-valued fields. Native pairs are specify/draft for initial link, specify/flowback for explicitly selected revision of an already-linked current specification when native state permits (never a new initial claim), clarify/clarification for ordinary questions, plan/planning-handoff for planning and deliver/delivery for delivery. `feature planning show` and `feature delivery show` are read-only offers, not runs.
 
+### Conditional approval applicability
+
+Before the first acquire, inspect the actual applicable approval and its review conditions. When that approval's review has conditions, **assessment.conditions is required**: a nonempty array of truthful applicability explanations for the exact approved artifacts and current requested phase. The top-level approval_id and assessment.approval_id both identify that verified historical specification decision, not a plan approval. An approval ID or a successful offer alone supplies neither applicability evidence nor permission.
+
+Verify the checkpoint/artifact digests, original decision scope and actual current authorization. Explain which limits still apply and, when relevant, why a historical invocation-only restriction differs from separately authorized later work. For example, an earlier “specification only” instruction does not itself authorize planning; a later explicit planning selection can, subject to the unchanged gates. Stop affected work if applicability or permission is unresolved. Avoid blind copying of review conditions, a generic placeholder such as “conditions satisfied,” or invented permission. An approval without conditions requires no synthetic conditions entry; the ordinary assessment and identity requirements still apply. This is existing native enforcement, not a new approval or per-condition ledger.
+
+This minimal **TEST ONLY** example assumes fixture revision4/queue1, no dependencies, the displayed spec handoff and approval, and approved specification commit consisting of forty3s with actually matching artifacts, unadopted repository/instance identity consisting of sixty-four4s and worktree identity consisting of thirty-two5s. The fixture operator separately authorized planning. These illustrative values and explanations are not verified production facts: a real caller must inspect and supply its actual current values and own assessment. Copying this example never grants authority.
+
+<!-- planning-offer-example -->
+```json
+{
+  "contract_version": 9,
+  "expected_revision": 4,
+  "expected_queue_revision": 1,
+  "dependencies": [],
+  "owner": "test-only-planner",
+  "session": "test-only-preflight",
+  "pinned_handoff": "handoff/11111111111111111111111111111111",
+  "approval_id": "approval/22222222222222222222222222222222",
+  "assessment": {
+    "actor": "test-only-planner",
+    "rationale": "TEST ONLY: verified the fixture specification and current planning authorization.",
+    "evidence": [
+      "TEST ONLY fixture spec checkpoint: 3333333333333333333333333333333333333333",
+      "TEST ONLY whole-spec decision and separately selected planning request"
+    ],
+    "approval_id": "approval/22222222222222222222222222222222",
+    "conditions": [
+      "I compared the current fixture artifacts with the approved specification at 3333333333333333333333333333333333333333; their recorded digests agree.",
+      "The prior specification-only restriction concerned the earlier invocation. The TEST ONLY operator separately selected planning now; implementation, integration and publication remain outside this request."
+    ]
+  },
+  "expected_head": "3333333333333333333333333333333333333333",
+  "repository_id": "repository/4444444444444444444444444444444444444444444444444444444444444444",
+  "instance_id": "instance/4444444444444444444444444444444444444444444444444444444444444444",
+  "worktree_key": "worktree/55555555555555555555555555555555",
+  "workspace_clean": true
+}
+```
+
+Serialize that offer to a request file using an ordinary JSON tool, then inspect:
+
+```text
+diagram feature planning show --feature TEST-1 --request-file offer.json --json --file PRIVATE_STORE
+```
+
+For a linked repository, supply its required verified identity/HEAD/cleanliness reports as shown; omitting identity rejects before conditions validation. Use only planning-offer fields: contract_version, expected_revision, expected_queue_revision, dependencies, owner, session, pinned_handoff, approval_id and assessment; expected_head/repository_id/instance_id/worktree_key/workspace_clean report actually verified physical context. Do not add acquire-only workspace, branch, segment, purpose or discovery_selected to the offer. Inspect its actual response before the first acquire. An accepted offer grants no run or ownership. Offer-input mistakes can be corrected within actual authorization before acquisition.
+
+For the separate acquire request, retain current applicable offer facts and add actual workspace, full refs/heads/ branch, segment: plan and purpose: planning-handoff, plus verified HEAD/repository/instance/worktree/cleanliness. Set discovery_selected: true only when genuinely discovery-selected and authorized; otherwise omit it. Re-read current pins if they changed; do not fabricate current facts. Native acceptance is still required before work.
+
+A launcher-driven definitive acquire rejection means stop immediately: no feature work and no resubmission within that invocation, even if inspection confirms an absent operation. An uncertain outcome must first be inspected through operation/current-state readback; it is never assumed authority or permission to retry. This guidance does not change the launcher's abort rule or add a recovery loop.
+
 Ordinary clarification separately acquires before edits and retains the run between genuine questions; release at saved review. Whole-spec approval gates planning; whole-plan approval gates delivery. `feature review record` is invoked only when explicitly asked to record an actual applicable human decision. Review.actor/provenance/decision/outcome/approach/conditions identify that real decision; fixture decisions must say TEST ONLY. No check/assessment/Goal is a human decision. Result acceptance does not supply integration_permission. Material changed meaning returns to affected spec/plan review; historical approval remains historical.
 
 Use `feature handoff apply --feature FEATURE --operation OP --request-file FILE --json --file STORE` under current run. Current v9 handoff allows expected_revision/expected_queue_revision/dependencies, run_id/epoch/owner/pinned_handoff, checkpoint/outcome/questions/classification/assessment, plan_candidate/delivery_result/review_needed/integration_result/integration_review and applicable approval_id/plan_approval_id/result_review_id, plus action-appropriate expected_head/repository_id/instance_id/worktree_key/workspace_clean. This adapter never selects integration fields/operations. Do not submit session/workspace/branch to handoff merely because they are in acquire. Use actual native required action/segment fields and errors; no new permissive validator.

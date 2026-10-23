@@ -1,6 +1,7 @@
 """Focused source/return boundaries; these do not certify model obedience."""
 from pathlib import Path
 import hashlib
+import json
 import re
 import tempfile
 import unittest
@@ -34,6 +35,31 @@ class ContractTests(unittest.TestCase):
             self.assertIn(phrase, n)
         for entry in ['farmboy-prepare-specification', 'farmboy-prepare-implementation-plan', 'farmboy-deliver-approved-plan']:
             self.assertIn(entry, a)
+
+    def test_conditioned_planning_guidance_and_example(self):
+        text = (ROOT / '.agents/skills/farmboy-diagram-work/references/native-protocol.md').read_text()
+        section = text.split('### Conditional approval applicability', 1)[1].split('\n## ', 1)[0]
+        for phrase in ['assessment.conditions', 'truthful', 'exact approved artifacts', 'current requested phase',
+                       'blind copying', 'placeholder', 'without conditions', 'unresolved', 'TEST ONLY',
+                       'feature planning show --feature', '--request-file', 'no run', 'definitive acquire rejection',
+                       'no resubmission', 'uncertain', 'absent operation']:
+            self.assertIn(phrase, section)
+        example = json.loads(re.search(r'<!-- planning-offer-example -->\s*```json\s*(.*?)```', section, re.S)[1])
+        self.assertEqual(set(example), {'contract_version', 'expected_revision', 'expected_queue_revision',
+                                      'dependencies', 'owner', 'session', 'pinned_handoff', 'approval_id', 'assessment',
+                                      'expected_head', 'repository_id', 'instance_id', 'worktree_key', 'workspace_clean'})
+        self.assertEqual(example['contract_version'], 9)
+        self.assertEqual(example['approval_id'], example['assessment']['approval_id'])
+        self.assertTrue(example['assessment']['conditions'])
+        self.assertIn('TEST ONLY', example['assessment']['rationale'])
+        self.assertIn('approved specification', ' '.join(example['assessment']['conditions']))
+        self.assertIn('planning', ' '.join(example['assessment']['conditions']))
+        self.assertNotIn('plan_approval_id', example)
+        for field in ['workspace', 'branch', 'segment', 'purpose', 'discovery_selected']:
+            self.assertNotIn(field, example)
+            self.assertIn(field, section)
+        self.assertIn('planning-handoff', section)
+        self.assertIn('not a plan approval', section)
 
     def test_return_contract_and_no_implicit_adoption(self):
         t = (ROOT / 'docs/review-implementation-plan.md').read_text()

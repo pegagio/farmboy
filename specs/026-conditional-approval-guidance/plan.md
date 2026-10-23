@@ -1,7 +1,7 @@
 # Implementation Plan: Conditional approval assessment guidance
 
 **Branch**: `026-conditional-approval-guidance` | **Date**: 2026-10-23 | **Spec**: [spec.md](spec.md)
-**Stage**: Awaiting whole-plan review; no implementation performed.
+**Stage**: INCOMPLETE delivery after approved plan; source/test correction and private native offers complete, independent Codex preflight blocked at runtime initialization. See validation/verification.md.
 **Approved input**: `d24a17f4ef4f56fca5942b9e22d72dbe2d561983`, approval `approval/f112124c50fb1683e584aaa44bea8952`.
 
 ## Summary
@@ -40,7 +40,7 @@ A read-only offer can expose a malformed request before the first acquire. It gr
 
 ## Verification and limits
 
-T001 combines the regression and documentation so the change is atomic. T002 checks the example against real private conditioned and condition-free planning contexts, including expected missing-assessment refusal, and obtains one independent real-Codex observation of truthful conditions assessment and an accepted typed planning offer. The observer verifies that no claim/run or planning output is created for this explicitly preflight-only test. That narrow interaction exercises what this patch changes; it does not certify full native acquisition, a real launcher cycle or Git writes. Abort semantics stay unchanged and are guarded by the existing contract/reference check rather than another live failed acquire.
+T001 combines the regression and documentation so the change is atomic. T002 checks the example against real private conditioned and condition-free planning contexts, including expected missing-assessment refusal, and obtains one independent real-Codex observation of truthful conditions assessment and an accepted typed planning offer. The observer verifies that no NEW acquisition/current run or planning output is created for this explicitly preflight-only test. That narrow interaction exercises what this patch changes; it does not certify full native acquisition, a real launcher cycle or Git writes. Abort semantics stay unchanged and are guarded by the existing contract/reference check rather than another live failed acquire.
 
 Private fixture setup uses supported native commands, TEST ONLY approval attribution, private DIAGRAM_CONFIG/store/log destination and a disposable repository. All work stays in the fixture; no live controls or shared store, real WITB, profiles, permission expansion or source patches in Diagram are needed. Do not refresh a real consumer to conduct the test. Preserve normal sandbox/approval checks and stop if verification needs new unsupported setup. Retain concise actual commands, outcomes, independence and limits; raw outputs remain disposable outside Git.
 

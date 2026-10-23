@@ -1,3 +1,3 @@
-# Wiki Lint Report — 2026-10-22
+# Wiki Lint Report — 2026-10-23
 
-No findings. Scoped independent-plan-review.md and its directly linked/shared-S013 neighbor optional-diagram-adapter.md: index, relative links/citations, reciprocal inbound links, bounded contradictions, source/updated dates and word limits pass. Two pages under600 words, citations S012/S013 registered, no new conflict marker or mechanical repair. Older-segment versus new-review compatibility is explicitly separated through the actual S012 refresh, not a lint rewrite. The bounded S013 refresh additionally covers ordinary per-action checkpoint approval without weakening protections. No action needed. This source knowledge is not runtime acceptance certification.
+Scope: optional-diagram-adapter.md and direct/shared-source neighbors independent-plan-review.md, diagram-integration.md and workflow-handoffs.md. No findings in this scope. Links, citations, metadata, page caps, index entries and freshness checked; semantic review reconciled historical compatibility targets with the current native-reference source. No unrelated full-wiki repair performed.

@@ -1,8 +1,8 @@
 ---
 title: Independent implementation-plan review
 type: component
-sources: [S013]
-updated: 2026-10-22
+sources: [S013, S014]
+updated: 2026-10-23
 ---
 
 # Independent implementation-plan review
@@ -13,6 +13,6 @@ The saved feature validation report identifies the candidate, reviewer/mandate, 
 
 Generic body and optional adapter compose in the same session, not through a new API, controller or grant store. Only the [Diagram adapter](./optional-diagram-adapter.md) acquires/reuses native authority, validates actual report/current pins, checkpoints permitted evidence, finalizes and verifies release. Generic standalone review requires no Diagram. Every path stops after its result; approval does not launch implementation. (S013)
 
-New native review needs matched Feature9/schema20 capabilities, while older supported segments retain their selected compatible clients. Supplied bounded grant passes unchanged from launcher to adapter; selection or enabled automation is no mandate. Consumer refresh is separately explicit, never an effect of source delivery. Controlled tests demonstrate plumbing; actual skill behavior/judgment needs independently evaluated real sessions. (S013)
+The original review delivery targeted Feature9/schema20. The current native reference requires matched Feature9/schema22 for operational segments; historical compatibility receipts remain historical. Supplied bounded grant passes unchanged from launcher to adapter; selection or enabled automation is no mandate. Consumer refresh is separately explicit, never an effect of source delivery. Controlled tests demonstrate plumbing; actual skill behavior/judgment needs independently evaluated real sessions. (S013, S014)
 
 An already-authorized adapter report checkpoint may still need the runtime’s normal per-action Git approval. The reviewer requests it narrowly, preserves hooks/protections and stops on an actual approval-review denial; no alternate executor, bypass or broad rule is substituted. This technical request does not require the human to repeat settled feature authority. (S013)
