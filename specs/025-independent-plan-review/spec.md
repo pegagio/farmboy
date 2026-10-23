@@ -4,7 +4,7 @@
 
 **Created**: 2026-10-22
 
-**Status**: Approved specification — delivery candidate awaiting human result acceptance
+**Status**: Accepted implementation — authorized for local develop integration
 
 **Input**: Pegagio explicitly selected Farmboy roadmap 025 for specification preparation (Sentinel_524ebeb6bb4c81918af39fa8abd11c2b). This specification proposes reusable upstream behavior based on the corrected Diagram DIAG-10 local composition, without installing or refreshing consumers. Farmboy's canonical tracker is its flow-roadmap ledger; native FB-1 is a mistaken, non-authoritative capture.
 
@@ -122,4 +122,4 @@ At the saved preparation checkpoint, roadmap025 was activated/linked and its for
 
 ## Current delivery handoff
 
-The original whole-spec approval remains pinned to SHA-256486a4c5240b5d3e9e5b7a4ffe876717ad67e115c59cd75858046c7bdc4fbfcfe (retained exactly at checkpoint29a17983), and whole-plan approval to c950554e2fb5bf0fb7fab2f5cfa90e70d11286f0e6e9e9b2bdfa0546113de1fc. The approved requirements, scenarios, success criteria and assumptions are unchanged; current source metadata and historical handoff labels are reconciled only. Authorized implementation, controlled/private checks and actual independent skill evaluation are recorded in validation/verification.md. The former sandbox checkpoint gap was resolved by the reviewer’s own supported per-action approval, real report commit and accepted native disposition/release; no protection bypass. Human result acceptance remains pending. No installation, consumer refresh, native Farmboy onboarding, live migration, merge, push or automatic next phase.
+The original whole-spec approval remains pinned to SHA-256486a4c5240b5d3e9e5b7a4ffe876717ad67e115c59cd75858046c7bdc4fbfcfe (retained exactly at checkpoint29a17983), and whole-plan approval to c950554e2fb5bf0fb7fab2f5cfa90e70d11286f0e6e9e9b2bdfa0546113de1fc. The approved requirements, scenarios, success criteria and assumptions are unchanged; current source metadata and historical handoff labels are reconciled only. Authorized implementation, controlled/private checks and actual independent skill evaluation are recorded in validation/verification.md. The former sandbox checkpoint gap was resolved by the reviewer’s own supported per-action approval, real report commit and accepted native disposition/release; no protection bypass. Pegagio accepted delivered candidate aeb8c416 and explicitly authorized local develop integration (Sentinel_530e568f854c8191b2d5ac636377cc80); see validation/result-review.md. No installation, consumer refresh, native Farmboy onboarding, live migration, push or automatic next phase.
