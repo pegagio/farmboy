@@ -18,3 +18,7 @@ The [Farmboy Constitution](.specify/memory/constitution.md) governs development.
 ## Current optional Diagram client compatibility
 
 Farmboy remains standalone on its canonical flow-roadmap lifecycle; native FB metadata does not onboard it. The optional adapter source/current client reference now targets the explicitly deployed Diagram schema20/Feature9 at integrated d29c0809f722985bf2fd2a7fd5cfd8a2e4ce573e. This changes compatibility only, grants no native route/role/workflow and preserves all project governance and human gates.
+
+## Current schema 21 compatibility refresh
+
+The explicitly authorized DIAG-11 deployment supersedes the schema20 compatibility pin above: the selected existing Diagram store now uses schema21/Feature9 from integrated Diagram `9fc12923e1399d5c88a1c1a2193474869564ddda`, with matched installed Diagram and diagram-launch. Pre-upgrade schema20 and post-upgrade snapshots were verified; historical data, immutable ID policy, configuration and OFF automation controls were preserved. Only current primary project clients are refreshed; historical worktree clients require explicit revalidation. Availability grants no workflow mandate or approval role. Farmboy remains standalone and flow-roadmap authoritative; registration, mistaken FB-1 and installed optional client references do not onboard it. Actual imports, collision changes and workflow-authority cutover require separate review/authorization.
