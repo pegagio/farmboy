@@ -2,7 +2,7 @@
 
 **Input**: [plan.md](plan.md), approved [spec.md](spec.md), [research.md](research.md), [data-model.md](data-model.md), [contract](contracts/return-consumption.md), [quickstart.md](quickstart.md).
 
-**Status**: Delivery in progress under explicit implementation selection and independent plan approval. Task markers record actual completion only; human result acceptance remains pending.
+**Status**: Implementation/validation and scoped checkpoint preparation complete under explicit delivery selection. The normal implementation/evidence checkpoint is0047127; actual outer native result recording/release is reported separately after readback. No human result acceptance or integration is inferred.
 
 **Tests**: Required by SC-002/003/004 and the constitution; static/plumbing checks cannot establish real-session acceptance. All task paths are repository-relative. No installation, live consumer refresh, native/core patch, automation-control change or BGG access is included.
 
@@ -51,7 +51,7 @@
 - [x] T017 Execute and separately evaluate matched private native P1 and S1 plus current-inner/stale/foreign/evidence-failure G1 cases using T016; observe plan spec-approval retention versus clarification approval absence, actual question-wait authority, one body/recording, report/candidate association and accepted handoff with absent owner. Record exact commands/receipts/limitations in `specs/028-return-review-findings/validation/verification.md`; unsupported access or capability remains unpassed. Covers FR-001/002/004/005/008/009/010, SC-001/002/003/004.
 - [x] T018 Run the extended existing focused contract suite and inspect changed-surface/core-byte/portable-identity/hook regressions; update `specs/028-return-review-findings/quickstart.md` with actual runnable fixture commands and `specs/028-return-review-findings/validation/verification.md` with exits and scoped evidence. No source/plumbing-only check can replace T008/T012/T015/T017. Covers FR-008/009, SC-002/003/004.
 - [x] T019 Reconcile current affected feature artifacts and maintained relevant wiki pages through the prescribed wiki capability during delivery, retaining source/runtime distinctions; perform fresh consistency/convergence under that separately selected workflow and save concise closeout in `specs/028-return-review-findings/delivery.md`. Unresolved required findings block successful closeout. Covers FR-003/004/006/009, SC-001/003/004.
-- [ ] T020 Inspect staged scope and make the authorized normal feature delivery checkpoint, then save native result-review handoff/release and read back absent ownership; report remaining risks and actual checks in `specs/028-return-review-findings/delivery.md`. No result acceptance, integration or push is implied. Covers FR-009, SC-003/004.
+- [x] T020 Inspect staged scope and make the authorized normal feature delivery checkpoint, then save native result-review handoff/release and read back absent ownership; report remaining risks and actual checks in `specs/028-return-review-findings/delivery.md`. No result acceptance, integration or push is implied. Covers FR-009, SC-003/004.
 
 ## Dependencies and execution order
 

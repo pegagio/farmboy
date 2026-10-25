@@ -31,3 +31,7 @@ An interim app-message attempt sent no answer because of an active writer. Compu
 ## Closeout boundary
 
 Current source behavior and required actual observations are complete. Fresh final consistency and convergence are PASS/CLEAN, retained in `validation/analysis-delivery.md` and `validation/convergence.md`. Convergence left tasks unchanged during assessment and appended no work. The outer adapter still owns the real scoped checkpoint and native result handoff/release; this note claims neither an unperformed closing commit nor accepted coordination. Actual commit/handoff/released-owner readback will be reported only after success. Human result acceptance, integration, merge, installation, push, automation/schema change and BGG resumption remain outside this invocation.
+
+## Observed implementation checkpoint
+
+Normal scoped checkpoint `004712786f48f8ded996faf36803641cf3584cd5` exists and was verified clean after success; it contains the implemented source, actual validation and closeout package. This is observed Git evidence, not a future closing hash. Subsequent routine task/analysis/closeout reconciliation does not change tested source or approved meaning. The final outer artifact checkpoint and native result recording/release remain separately verified effects, reported after actual success; no receipt-only tail commit is required.
