@@ -4,9 +4,15 @@
 
 **Created**: 2026-10-25
 
-**Status**: Draft — Needs clarification; not approved
+**Status**: Draft — Awaiting spec review; not approved
 
 **Input**: Pegagio selected initial specification preparation for native FARM-28. See [captured request](request.md). Source baseline: integrated FARM-27 at `20bbd66a941706c28d5afa959c8348031c405494`.
+
+## Clarifications
+
+### Session 2026-10-25
+
+- Q: Should FARM-28 cover both planning-return and specification-return consumption together, or cover planning-return now and defer specification-return consumption to a later explicitly selected feature? → A: Include both return branches together in FARM-28. Pegagio answered “Yes” to “Shall I set the scope to include both?”; trusted parent relay confirms this is scope clarification only, not whole-spec approval or permission to plan or implement.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -24,19 +30,19 @@ After an independent reviewer returns a proposal for planning, tasking or consis
 2. **Given** a return containing optional advice alongside required corrections, **When** the next workflow revises the proposal, **Then** it treats required corrections as obligations, keeps optional advice optional, and records considered advice as adopted or declined with a concise reason in existing notes.
 3. **Given** a required correction cannot be resolved within approved specification meaning, **When** the next workflow assesses it, **Then** it preserves work, identifies the exact product question and stops for the affected human specification review rather than weakening the requirement or claiming a complete proposal.
 
-### User Story 2 - Address a specification escalation without approving it (Priority: P1; conditional on Q1)
+### User Story 2 - Address a specification escalation without approving it (Priority: P1)
 
-When review identifies a product-intent issue, Pegagio separately selects the applicable specification revision or clarification workflow. It consumes the report's actual product question, records its relationship to the specification changes or unresolved question, and returns to human specification review.
+When review identifies a product-intent issue, Pegagio separately selects the established clarification/revision path for the existing feature. It consumes the report's actual product question, records its relationship to the specification changes or unresolved question, and returns to human specification review. It preserves the existing feature and artifacts instead of starting fresh draft preparation.
 
-**Why this priority**: A technical correction workflow must not silently change or approve product intent. Whether this branch belongs in this feature remains Q1.
+**Why this priority**: A technical correction workflow must not silently change or approve product intent. This branch is included alongside planning return.
 
 **Independent Test**: Escalate an actual intent question in a review, then separately select specification work. Observe report consumption and a saved question or revised draft, with no inferred specification approval or planning launch.
 
 **Acceptance Scenarios**:
 
-1. **Given** a current specification-escalation report, **When** the operator selects specification work, **Then** it reads the report and carries the finding into the existing specification notes and genuine product clarification where needed.
+1. **Given** a current specification-escalation report, **When** the operator selects the established clarification/revision path, **Then** it reads the report and carries the finding into the existing specification notes and genuine product clarification where needed, preserving the current feature association and answers without fresh draft preparation.
 2. **Given** a product answer requires changed meaning, **When** that answer is saved, **Then** the revised draft awaits explicit human specification review; historical approval remains historical and grants no approval of the changed meaning.
-3. **Given** no product answer is available, **When** preparation reaches its handoff, **Then** it saves the precise unresolved question and stops rather than inventing an answer or keeping preparation running through clarification.
+3. **Given** no product answer is available, **When** clarification presents the unresolved product question, **Then** it waits through the ordinary clarification interaction under current clarification authority rather than inventing an answer, restarting preparation or launching planning. A saved incomplete/early-stop handoff truthfully retains the unresolved question and releases authority under the existing protocol.
 
 ### User Story 3 - Use the correct evidence and preserve resolved history (Priority: P1)
 
@@ -65,16 +71,16 @@ Pegagio can tell which review caused the return and why a finding requires curre
 
 ### Functional Requirements
 
-- **FR-001**: For each included return branch, the next separately selected existing Farmboy workflow MUST locate and read the full applicable committed review before acting on the affected proposal or specification. Review finalization MUST continue to stop without invoking the returned workflow.
+- **FR-001**: For both return branches, the next separately selected existing Farmboy workflow MUST locate and read the full applicable committed review before acting on the affected proposal or specification. Review finalization MUST continue to stop without invoking the returned workflow.
 - **FR-002**: Evidence applicability MUST establish the same feature, reviewed candidate and current return disposition, including actual committed report integrity. Unavailable, ambiguous or mismatched evidence MUST stop affected work with the exact missing reference, capability or decision; no newest-report guess or fabricated association is allowed.
 - **FR-003**: The returning workflow MUST identify each required finding driving the return, explain its disposition, and link its correction, applicable existing resolution/supersession evidence, or unresolved reason in existing affected feature artifacts. An unresolved required finding MUST prevent a successful complete handoff; it may support a truthful incomplete/input handoff.
 - **FR-004**: Routine planning/task/analysis repairs MUST preserve approved intent, reconcile affected current artifacts and undergo the established fresh consistency assessment before the ordinary full-plan review handoff. No actionable inconsistency or unmet requirement may become optional merely to finish.
-- **FR-005**: Included specification-return work MUST carry actual product questions into the existing specification/clarification path, avoid invented answers, and preserve explicit human specification review and approval before later planning. Required scope/intent changes discovered on planning return MUST stop at that boundary even if specification-return handling is deferred by Q1.
+- **FR-005**: Specification-return work MUST carry actual product questions into the existing specification/clarification path, avoid invented answers, and preserve explicit human specification review and approval before later planning. Required scope/intent changes discovered on planning return MUST stop at that boundary and await separately selected clarification/revision; the reviewer and planning workflow MUST NOT start fresh draft preparation or automatically invoke the returned workflow.
 - **FR-006**: Historical findings MUST remain distinguishable from current unresolved obligations using existing resolution/applicability evidence. Neither a previous approval nor changed artifact revision alone proves a finding resolved or invalidates every historical decision.
 - **FR-007**: Required/blocking status MUST be distinguished from priority. Optional advice MUST remain voluntary, with concise adopted/declined reasons in existing notes; ambiguous advice describing an unmet obligation MUST be surfaced rather than silently ignored or promoted solely by priority.
 - **FR-008**: Farmboy MUST own semantic interpretation/correction and support standalone consumers. Its optional Diagram adapter MUST supply authoritative current evidence references using supported native records; Diagram MUST retain coordination/approval authority. This feature MUST NOT require a new tracking subsystem, ledger, report format, schema, runtime transition or launcher/control change.
 - **FR-009**: Execution MUST remain within the selected workflow and current authority, preserving one owner, existing helpers/hooks, immutable integrated history and human gates. No automatic repair by the reviewer, next-workflow launch, approval, installation, consumer refresh, integration or publication is authorized by return evidence.
-- **FR-010**: Final branch scope is [NEEDS CLARIFICATION: Should FARM-28 cover both planning-return and specification-return consumption together, or cover planning-return now and defer specification-return consumption to a later explicitly selected feature?]. Story 2 and its dedicated consumption behavior in FR-005 are provisional until this decision; the mandatory stop on changed product meaning applies in either option.
+- **FR-010**: FARM-28 MUST cover both planning-return and specification-return consumption in the same feature. Their evidence handling and use of existing notes are shared, while their authority, affected artifacts and approval gates remain distinct: planning corrects the proposal within approved meaning and returns to full-plan review; specification escalation uses the established clarification/revision path on the existing feature and returns to explicit human whole-spec review.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -86,10 +92,10 @@ Pegagio can tell which review caused the return and why a finding requires curre
 
 ### Measurable Outcomes
 
-- **SC-001**: In each included return scenario, every required finding driving the return has a traceable current correction/resolution or explicit unresolved reason; zero unresolved required findings coexist with a claimed complete successful return.
+- **SC-001**: In each return scenario for both branches, every required finding driving the return has a traceable current correction/resolution or explicit unresolved reason; zero unresolved required findings coexist with a claimed complete successful return.
 - **SC-002**: All tested wrong-feature, wrong-candidate, wrong-route, missing and altered report cases stop before affected work with a precise explanation; the resolved-history case reuses applicable evidence without automatic repeated repair.
-- **SC-003**: Every observed included return ends at the prescribed human/input boundary with zero inferred approvals, reviewer-triggered next workflows or changes outside the selected scope. The product-intent escalation case always preserves the human specification gate.
-- **SC-004**: Standalone and coordinated examples provide equivalent semantic handling using existing artifacts; no additional tracking subsystem or runtime/schema/control change is needed. Before delivery acceptance, actual affected skill interactions and stopping points are observed in a real session evaluated separately from execution; simulations alone do not establish acceptance.
+- **SC-003**: Every observed return in either branch ends at the prescribed human/input boundary with zero inferred approvals, reviewer-triggered next workflows or changes outside the selected scope. The product-intent escalation case always preserves the human specification gate.
+- **SC-004**: Standalone and coordinated examples provide equivalent semantic handling using existing artifacts; no additional tracking subsystem or runtime/schema/control change is needed. Before delivery acceptance, actual affected skill interactions and stopping points for each return branch are observed in real sessions evaluated separately from execution; simulations alone do not establish acceptance.
 
 ## Assumptions
 
@@ -100,12 +106,16 @@ Pegagio can tell which review caused the return and why a finding requires curre
 
 ## Preparation notes and request fit
 
-Verified external inner specification preparation reuses FARM-28 specify/draft run `run/db5cf9d81d1c115bc7c1583c2fbc630b`, epoch 2, Feature revision 2 / queue 3, owner `pegagio-agent-farm28-spec`, session `farm28-spec-20261025`. The conventional local pointer and effective directory are literally `specs/028-return-review-findings`; actual adopted repository/common-Git/worktree identities and committed request bytes were checked before native link. The outer adapter endpoint is saved draft/checklist, actual checkpoint, native clarification/review handoff and released-owner readback. No active native Goal was selected or created.
+Initial verified external inner specification preparation reused FARM-28 specify/draft run `run/db5cf9d81d1c115bc7c1583c2fbc630b`, epoch 2, Feature revision 2 / queue 3, owner `pegagio-agent-farm28-spec`, session `farm28-spec-20261025`. The conventional local pointer and effective directory are literally `specs/028-return-review-findings`; actual adopted repository/common-Git/worktree identities and committed request bytes were checked before native link. The outer adapter endpoint is saved draft/checklist, actual checkpoint, native clarification/review handoff and released-owner readback. No active native Goal was selected or created.
 
 The installed project-pinned Spec Kit `1.0.10.dev0+pegagio.2` resolved the effective core specification template. Direct draft/checklist authoring follows the preparation workflow; the full interactive specify command was not run, no planning command was invoked, and its interactive questions were not simulated. Existing extension hooks have only optional post-plan/post-implementation ingestion; no mandatory hook is due for this drafting body. This feature pointer is intentionally ignored local state.
 
-Constitution Principles I–IV and current direction support reconciliation, proportionate composition, explicit workflow selection and human review. Existing FARM-25 defines report production and stopping; FARM-27 defines delivery consumption, priority/required distinction and applicable historical resolution. Their integrated artifacts remain unchanged. The captured open scope question is retained as Q1, not silently decided by drafting.
+Constitution Principles I–IV and current direction support reconciliation, proportionate composition, explicit workflow selection and human review. Existing FARM-25 defines report production and stopping; FARM-27 defines delivery consumption, priority/required distinction and applicable historical resolution. Their integrated artifacts remain unchanged. The captured scope question was retained during drafting and is now resolved by Pegagio’s explicit answer in Clarifications; it was not decided or approved by the drafting agent.
 
-Bounded read-only wiki query: [independent plan review](../../wiki/pages/independent-plan-review.md) (S013, S014), [optional adapter](../../wiki/pages/optional-diagram-adapter.md) (S012, S013, S014), and [workflow handoffs](../../wiki/pages/workflow-handoffs.md) (S011), with source IDs verified in the registry, support existing report/authority separation and human stops. Coverage is partial: those pages do not define downstream return consumption or decide Q1. The current FARM-28 request and eventual approved feature are the concrete source for that gap; no wiki changes were made.
+Bounded read-only wiki query: [independent plan review](../../wiki/pages/independent-plan-review.md) (S013, S014), [optional adapter](../../wiki/pages/optional-diagram-adapter.md) (S012, S013, S014), and [workflow handoffs](../../wiki/pages/workflow-handoffs.md) (S011), with source IDs verified in the registry, support existing report/authority separation and human stops. Coverage is partial: those pages do not define downstream return consumption. The current FARM-28 request, recorded human scope answer and eventual approved feature are the concrete sources for that gap; no wiki changes were made.
 
-**Handoff: Needs clarification.** Q1 above is the only material product question. The next operator-started step is ordinary `speckit-clarify` under separately acquired current native clarification authority. Its answer must reconcile this draft/checklist and then return to human whole-spec review. No approval, planning, implementation, integration, installation, push, schema/control change or BGG work occurred.
+Ordinary `speckit-clarify` integrated the already supplied answer in a separate clarification run `run/acc333873e2b88778394beda649d3c98`, epoch 3, owner `pegagio-agent-farm28-clarify`, session `farm28-clarify-20261025`, acquired against released initial handoff `handoff/479365b4b71533947d4202a9c16b984a`. The standard paths-only prerequisite helper resolved this existing feature with the unchanged literal pointer. No before/after clarification hooks are configured. One existing question was answered; no additional material product question remained after the coverage scan.
+
+Coverage: functional scope is resolved for both branches. Domain/evidence identity, workflow interaction, authority/privacy/integrity constraints, dependencies, edge cases, terminology and acceptance signals are clear for this specification. Internal edit placement, test mechanics and other implementation choices remain deferred to separately authorized planning; they are not unresolved product questions. No new controller/schema machinery is proposed or authorized.
+
+**Handoff: Awaiting spec review.** Both return branches are included, all 16 quality criteria are satisfied, and no material product question remains. Present the whole revised specification for explicit human review. The scope answer, completed checklist and saved native handoff supply no specification approval or planning/implementation permission. No approval, planning, implementation, integration, installation, push, schema/control change or BGG work occurred.
