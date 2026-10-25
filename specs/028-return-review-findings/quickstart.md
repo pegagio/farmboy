@@ -1,6 +1,6 @@
 # FARM-28 validation guide
 
-This is a future delivery validation recipe, not executed runtime evidence. Planning authorizes none of the implementation or model runs below. No install, real-store test, permission bypass or BGG access is part of this guide.
+This is the reusable delivery validation recipe; actual observations and failures/rechecks are retained separately in validation/verification.md. Planning alone authorizes none of these model runs. No install, real-store test, permission bypass or BGG access is part of this guide.
 
 ## Prerequisites
 
@@ -34,3 +34,15 @@ Run P1 and S1 each in a standalone consumer and a matched private native consume
 ## Evidence and acceptance
 
 Record source/fixture hashes, subject/evaluator identity, actual reads/effects, answer timing, before/after core bytes and native operation/state readback in `validation/verification.md` and concise existing analysis/acceptance notes. Keep raw output disposable unless a small excerpt is necessary. Mark tasks complete only from actual successful observations; missing tools/access/native association or required verification stays unpassed. Reconcile current artifacts and run fresh consistency/convergence under the separately selected delivery workflow before result review. Human plan/result/integration decisions remain separate.
+
+
+## Actual delivery commands and current limitation
+
+The standalone fixture producer is now runnable without launching a model:
+
+```sh
+python3 -B tests/fixtures/review-implementation-plan/prepare_semantic_fixtures.py --returns /absolute/new-private-fixture-directory
+python3 -B tests/fixtures/review-implementation-plan/test_contract.py
+```
+
+Use each generated prompt with an ordinary actual Codex exec in that consumer, retaining its thread identity. After observing an actual specification question, resume that same thread from its fixture Git directory; never use skip/trust bypass flags. The native test uses the schema22 snapshot's existing acceptance builder plus `return_native_bridge.go.txt` and `return_native_subject.py`, with invocation-only FB028_OUT/SOURCE/HANDLER/PYTHON/CODEX and optional FB028_CASES=s1 for a targeted clarification recheck. Keep Go compiler and GOROOT matched to existing1.26.5, disable automatic toolchain downloads via invocation-only GOTOOLCHAIN=local, and do not install. Private fixture builders must preserve normal Git hooks/signing. The actual first native invocation failed at ordinary CLI resume because its cwd was not Git; the corrected S1-only handler subsequently passed with actual same-session answer integration and native review/release. See verification notes for retained actual outcomes and limitations.

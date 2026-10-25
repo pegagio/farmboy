@@ -46,3 +46,9 @@ Earlier case descriptions/evidence concern the former combined behavior. The act
 | Resume/negative paths | Proportionately re-exercise target identity, pending handoff/input/review and changed artifacts. | No duplicate activation/feature, fabricated approval or revival of completed Goal to await answers; blockers reported honestly. |
 
 Keep the previous subject/Goal untouched unless the operator explicitly readies it for this test. Do not work around runtime access denials, alter native databases, change model/effort or create a controller to make a test pass. Existing documentation/reference supports repeated ordinary clarify uses; it does not provide native Goal suspension.
+
+## FARM-28 return consumption cases
+
+These are future observations until retained in FARM-28 verification: P1 planning return reads full committed report before setup, repairs both required findings with task IDs preserved and fresh read-only analysis, then stops for full-plan review. S1 specification escalation reads the report in ordinary separately selected clarify, really waits for the actual TEST ONLY product answer under retained clarification authority, then updates existing spec/Clarifications/checklist and stops at whole-spec review. No fresh drafting or inferred approval.
+
+Shared E1/E2/E3 negatives: wrong feature/candidate/route, missing/modified/unreadable evidence, newer decoy, low-priority required/high-priority optional, ambiguous obligation, resolved history, retained-origin resume and changed input. Stops preserve artifacts/answers/task IDs; current unresolved reason is incomplete. G1 observes current-inner reuse and foreign/stale refusal plus role-correct native report/proposal references, plan approval retention versus spec escalation approval absence and absent owner after accepted handoff. No live FARM/BGG fixture or controls changes.

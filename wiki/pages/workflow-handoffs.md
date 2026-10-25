@@ -2,7 +2,7 @@
 title: Standalone and externally selected workflow handoffs
 type: component
 sources: [S011]
-updated: 2026-10-18
+updated: 2026-10-25
 ---
 
 # Standalone and externally selected workflow handoffs
@@ -24,3 +24,9 @@ Outcomes identify work, artifacts/evidence, remaining input/blockers and next re
 Diagram retains selection/ownership/approval/accepted-handoff authority. One active owner permits sequential handoffs; draft return enables coordinator release, while ordinary clarification separately acquires authority retained while active. Farmboy implements no ownership acquisition/release/transfer service. Standalone needs no Diagram service. (S011)
 
 [Integration direction](./diagram-integration.md) describes the separate final-result/UAT authorization, policy and receipt boundaries. Human authorization and project branch/target/check policy govern later integration; Diagram serializes and owns database-only receipts referencing Git. No implicit push, recursive project receipt commit, executor implementation/placement, scheduler or autonomous worker is included. (S011)
+
+## Returned review findings
+
+A separately selected return consumes the applicable full committed report before affected setup/edits, verifies feature/candidate/disposition and integrity, and records required corrections, applicable resolutions or precise unresolved input in existing notes. Required findings remain obligations regardless of priority; optional advice remains voluntary with concise adopted/declined reasons. Known origin/report/candidate references survive later handoffs; valid resolutions can be reused without duplicate work. These are prescribed rules, not runtime proof. (S011)
+
+Planning return preserves approved meaning and task identities, repairs/reanalyzes and stops for full-plan review. Specification escalation uses ordinary clarification/revision on the existing feature, retains authority across genuine waits and returns to human whole-spec review; no fresh drafting or inferred approval. [Optional routing](./optional-diagram-adapter.md) supplies native references without adding a tracking subsystem or changing core commands. (S011)

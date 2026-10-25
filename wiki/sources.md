@@ -14,8 +14,8 @@ Append-only IDs; normalized repository-relative paths identify sources. Sources 
 | S008 | [specs/001-prepare-specification](../specs/001-prepare-specification) | directory | 2026-10-17 | 2026-10-17 | specification-handoff.md, delivery-direction.md |
 | S009 | [docs/deliver-approved-plan.md](../docs/deliver-approved-plan.md) | file | 2026-10-18 | 2026-10-25 | local-delivery.md |
 | S010 | [specs/003-deliver-approved-plan/spec.md](../specs/003-deliver-approved-plan/spec.md) | file | 2026-10-18 | 2026-10-18 | local-delivery.md |
-| S011 | [docs/workflow-handoffs.md](../docs/workflow-handoffs.md) | file | 2026-10-18 | 2026-10-18 | workflow-handoffs.md, diagram-integration.md |
-| S012 | [docs/diagram-adapter.md](../docs/diagram-adapter.md) | file | 2026-10-18 | 2026-10-25 | optional-diagram-adapter.md |
+| S011 | [docs/workflow-handoffs.md](../docs/workflow-handoffs.md) | file | 2026-10-18 | 2026-10-25 | workflow-handoffs.md, diagram-integration.md |
+| S012 | [docs/diagram-adapter.md](../docs/diagram-adapter.md) | file | 2026-10-18 | 2026-10-25 | optional-diagram-adapter.md, return-review-consumption.md |
 | S013 | [docs/review-implementation-plan.md](../docs/review-implementation-plan.md) | file | 2026-10-22 | 2026-10-25 | independent-plan-review.md |
 | S014 | [.agents/skills/farmboy-diagram-work/references/native-protocol.md](../.agents/skills/farmboy-diagram-work/references/native-protocol.md) | file | 2026-10-23 | 2026-10-23 | optional-diagram-adapter.md, independent-plan-review.md |
 | S015 | [specs/027-implementation-review-evidence/validation/verification.md](../specs/027-implementation-review-evidence/validation/verification.md) | file | 2026-10-25 | 2026-10-25 | local-delivery.md |

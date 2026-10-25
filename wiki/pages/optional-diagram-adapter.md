@@ -7,7 +7,7 @@ updated: 2026-10-25
 
 # Optional Diagram adapter
 
-Farmboy's optional `farmboy-diagram-work` skill composes the existing Diagram CLI, three Farmboy external entries and ordinary clarification for one selected segment. The consuming agent verifies repository/Git/workspace/artifacts; Diagram records authority, approvals, transitions and report consistency. Documentation and source availability alone establish no runtime acceptance. (S012)
+Farmboy's optional `farmboy-diagram-work` composes existing CLI, external entries and ordinary clarification for one segment. Consumer verifies physical facts; Diagram records coordination authority/report consistency. Source alone proves no runtime acceptance. (S012)
 
 ## Deliberate routing and compatibility
 
@@ -34,3 +34,5 @@ Before the first acquire, use a typed read-only planning offer with its required
 ## Delivery review context
 
 The adapter locates authoritative current plan-review references through supported approval/handoff/known-operation inspection, preserving separate proposal and report checkpoints and one current run/body. Actual Git integrity and applicability require consumer verification; unavailable evidence stops without guessed fields or private SQL. Farmboy delivery reads and interprets the report and retains optional decisions in existing notes. Diagram owns state/approval authority, and generic non-Diagram consumers retain explicit approval/governance applicability. (S012)
+
+[Returned review findings](./return-review-consumption.md) covers planning/clarification context and existing gates. (S012)

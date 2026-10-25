@@ -67,3 +67,9 @@ These focused cases precede the revised source and reuse the existing disposable
 | Missing control or unrelated failure | Native completion is unavailable, helper fails or unknown technical failure appears | Exact limitation saved; do not invent success, native control, response, retry machinery or broaden the human-input endpoint |
 
 The earlier automatic-input-wait FAILED/UNACCEPTED observation is immutable evidence of the old path. Ending a differently bounded handoff objective does not make that failed wait work. Static negative-path inspection supplements actual positive runtime evidence and must be labeled as such if not executed.
+
+## FARM-28 return consumption cases
+
+These are future observations until retained in FARM-28 verification: P1 planning return reads full committed report before setup, repairs both required findings with task IDs preserved and fresh read-only analysis, then stops for full-plan review. S1 specification escalation reads the report in ordinary separately selected clarify, really waits for the actual TEST ONLY product answer under retained clarification authority, then updates existing spec/Clarifications/checklist and stops at whole-spec review. No fresh drafting or inferred approval.
+
+Shared E1/E2/E3 negatives: wrong feature/candidate/route, missing/modified/unreadable evidence, newer decoy, low-priority required/high-priority optional, ambiguous obligation, resolved history, retained-origin resume and changed input. Stops preserve artifacts/answers/task IDs; current unresolved reason is incomplete. G1 observes current-inner reuse and foreign/stale refusal plus role-correct native report/proposal references, plan approval retention versus spec escalation approval absence and absent owner after accepted handoff. No live FARM/BGG fixture or controls changes.

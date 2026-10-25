@@ -2,7 +2,9 @@
 
 **Branch**: `028-return-review-findings` | **Date**: 2026-10-25 | **Spec**: [spec.md](spec.md)
 
-**Input**: Whole specification `efccb744ff69f73115c337a24fa2258a31b52149`, explicitly approved by Pegagio through native `approval/4befc38fd910441d658250b7cb6164b0`. Both return branches are in scope. This invocation prepares the proposal only; source implementation and actual runtime verification remain future work.
+**Input**: Whole specification `efccb744ff69f73115c337a24fa2258a31b52149`, explicitly approved by Pegagio through native `approval/4befc38fd910441d658250b7cb6164b0`. Both return branches are in scope. The original planning invocation prepared this proposal only; the separately authorized delivery is recorded below.
+
+**Current delivery note**: historical approved proposal is `037476797d625bcee650f076837866e85735eed8`; current routine flow-back preserves its meaning. Both return consumers and adapter references are implemented. Actual standalone P1/S1, ten shared standalone cases, native outer/current-inner/refusal cases and targeted native S1 answer/handoff/release have been separately evaluated; see [verification](validation/verification.md). Earlier private harness failures and corrected cwd are retained, not counted as passes. No product question or source gap remains; final consistency/convergence and outer checkpoint/result handoff finish this selected delivery. Human result acceptance and integration remain separate.
 
 ## Summary
 
@@ -77,4 +79,4 @@ Continuation uses the existing analyze → separate repair → fresh analyze com
 
 ## Planning Handoff
 
-Awaiting full-plan review once the complete task package passes fresh read-only analysis and is checkpointed/recorded. Required spec approval is the exact native decision above; no plan approval is inferred. No product questions or unresolved technical choices remain. Optional post-plan wiki ingestion is available but unselected; no mandatory enabled plan/tasks/analyze hook is configured. No native Goal was selected or created.
+Historical planning handoff was Awaiting full-plan review at0374767 and was independently approved; it is preserved separately from current delivery. Required spec approval is the exact native decision above; no plan approval is inferred. No product questions or unresolved technical choices remain. Optional post-plan wiki ingestion is available but unselected; no mandatory enabled plan/tasks/analyze hook is configured. No native Goal was selected or created.

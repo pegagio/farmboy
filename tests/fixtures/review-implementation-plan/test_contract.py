@@ -84,6 +84,35 @@ class ContractTests(unittest.TestCase):
         self.assertIn('planning-handoff', section)
         self.assertIn('not a plan approval', section)
 
+    def test_return_consumption_precedes_planning_setup(self):
+        t = (ROOT / '.agents/skills/farmboy-prepare-implementation-plan/SKILL.md').read_text()
+        self.assertLess(t.index('## Consume findings driving a planning return'), t.index('## Compose the actual core commands'))
+        for phrase in ['full committed report', 'originating', 'unresolved reason is incomplete', 'at any priority', 'adopted or declined', 'report-free', 'without duplicate notes']:
+            self.assertIn(phrase, t)
+
+    def test_specification_return_uses_ordinary_clarification(self):
+        t = (ROOT / '.agents/skills/farmboy-prepare-specification/SKILL.md').read_text()
+        a = (ROOT / '.agents/skills/farmboy-diagram-work/SKILL.md').read_text()
+        n = (ROOT / '.agents/skills/farmboy-diagram-work/references/native-protocol.md').read_text()
+        for phrase in ['## Specification-return continuation', 'full committed report', 'ordinary clarification', 'not fresh drafting', 'genuine question waits', 'unresolved reason is incomplete']:
+            self.assertIn(phrase, t)
+        for phrase in ['## Supply return review context', 'clarify/clarification', 'known originating', 'no product answers']:
+            self.assertIn(phrase, a)
+        self.assertIn('## Return review-evidence lookup', n)
+        self.assertIn('plan_revision_required', n)
+        self.assertIn('specification_change_required', n)
+
+    def test_return_fixture_boundaries_and_cases(self):
+        fixture = (ROOT / 'tests/fixtures/review-implementation-plan/prepare_semantic_fixtures.py').read_text()
+        for case in ['wrong-feature','wrong-candidate','wrong-route','altered','missing','decoy','resolved','ambiguous','changed','resume']:
+            self.assertIn(case, fixture)
+        native = (ROOT / 'tests/fixtures/review-implementation-plan/return_native_subject.py').read_text()
+        for phrase in ['TEST ONLY', 'exec', 'resume', 'native-wait-observation.json', 'current_run', 'applicable_approval', 'test-only-return-review-handoff']:
+            self.assertIn(phrase, native)
+        self.assertNotIn('--dangerously-bypass-approvals-and-sandbox', native)
+        self.assertNotIn('core.hooksPath', native)
+        self.assertNotIn('automation', (ROOT / 'tests/fixtures/review-implementation-plan/return_native_bridge.go.txt').read_text())
+
     def test_return_contract_and_no_implicit_adoption(self):
         t = (ROOT / 'docs/review-implementation-plan.md').read_text()
         for phrase in ['report_reference', 'reviewed_candidate', 'reviewer_mandate', 'findings', 'disposition', 'incomplete', 'SHA-256', 'planning-return', 'specification-escalation', 'non-blocking', 'same session', 'explicit', 'consumer refresh']:

@@ -1,0 +1,14 @@
+//go:build acceptance
+package acceptance_test
+import("encoding/json";"os";"os/exec";"path/filepath";"testing";"strings")
+// TEST ONLY existing matched builder, explicit simulated native inputs; real subjects run afterward.
+func TestFarmboy028NativeReturns(t *testing.T){
+ rows:=[]map[string]any{}
+ modes:=[]string{"p1","inner","foreign","stale","missing-reference","wrong-candidate","s1"};if selected:=os.Getenv("FB028_CASES");selected!=""{modes=strings.Split(selected,",")}
+ for _,mode:=range modes{
+  featureQueueSegmentsProofPlanner(t,"F28",func(f deliveryProofFixture){rows=append(rows,map[string]any{"repo":f.repo,"store":f.target,"feature":"F28-1","mode":mode})},nil)
+ }
+ data,_:=json.Marshal(rows);p:=filepath.Join(os.Getenv("FB028_OUT"),"native-fixtures.json");if e:=os.WriteFile(p,data,0600);e!=nil{t.Fatal(e)}
+ c:=exec.Command(os.Getenv("FB028_PYTHON"),os.Getenv("FB028_HANDLER"),p);c.Stdout=os.Stdout;c.Stderr=os.Stderr
+ if e:=c.Run();e!=nil{t.Fatal("actual private return subjects",e)}
+}

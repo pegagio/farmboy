@@ -2,7 +2,7 @@
 title: Intended Diagram integration
 type: concept
 sources: [S001, S002, S004, S011, S012]
-updated: 2026-10-18
+updated: 2026-10-25
 ---
 
 # Intended Diagram integration
