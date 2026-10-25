@@ -1,0 +1,14 @@
+//go:build acceptance
+package acceptance_test
+import("encoding/json";"os";"os/exec";"path/filepath";"testing")
+// Current existing builder; fixture setup meaning is explicitly TEST ONLY.
+func TestFarmboy027NativeDelivery(t *testing.T){
+ cases:=[]string{"direct","outer","inner","set","foreign","stale","missing-reference","wrong-feature","wrong-candidate","local-conflict"}
+ rows:=[]map[string]any{}
+ for _,mode:=range cases {
+  featureQueueSegmentsProofPlanner(t,"F27",func(f deliveryProofFixture){rows=append(rows,map[string]any{"repo":f.repo,"store":f.target,"feature":"F27-1","mode":mode,"current":f.selected()})},nil)
+ }
+ data,_:=json.Marshal(rows);path:=filepath.Join(os.Getenv("FB027_OUT"),"native-fixtures.json");if e:=os.WriteFile(path,data,0600);e!=nil{t.Fatal(e)}
+ c:=exec.Command(os.Getenv("FB027_PYTHON"),os.Getenv("FB027_HANDLER"),path);c.Stdout=os.Stdout;c.Stderr=os.Stderr
+ if e:=c.Run();e!=nil{t.Fatal("actual private native subject/evaluator",e)}
+}

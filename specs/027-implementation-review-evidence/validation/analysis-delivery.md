@@ -1,27 +1,26 @@
-# FARM-27 current-artifact consistency analysis
+# FARM-27 final consistency analysis — clean
 
-2026-10-25. Invoked installed `speckit-analyze` read-only after current task generation/implementation/repair. Prerequisite helper resolved the unchanged contained pointer with required spec/tasks; no analysis hooks are configured. No file changed during the assessment. This report was retained afterward by the enclosing composition.
+2026-10-25. Reinvoked installed speckit-analyze read-only after completing native observation, convergence and current-artifact reconciliation. Prerequisite helper resolved contained pointer/spec/tasks; no analysis hooks configured. No file changed during assessment. This report was retained afterward by the enclosing composition.
 
 | Input | SHA-256 |
 |---|---|
 | spec.md | `f8143c6b39c0bac081c5878f626f527bf80db6d85c3803df12670ccb56c72edf` |
-| plan.md | `68b0170456472feccdf6dcdfaceb21fa8b2bb15ba8687246767a0bc5b5e1d424` |
-| tasks.md | `8633cca97c1e91827f0e1e36a5fbe1accf73d8ee5900f8318034afea42382e65` |
+| plan.md | `97ea22d92164b57dd2d21d0c7a2b4446521533e7ad44ac94d4d8a6483546267e` |
+| tasks.md | `4ead50948e07123a32ff9b07bcaf076998701b2183a75a631494b9b3eadfbcb2` |
 
 ## Findings
 
-No actionable cross-artifact inconsistency, ambiguity, duplication, constitutional conflict or unmapped task. The task status and plan execution note truthfully disclose incomplete native runtime evidence rather than claiming a successful delivery. This consistency result does not waive the HIGH partial convergence finding C1.
+Zero actionable inconsistencies, unmet requirements, ambiguity, duplication, constitutional conflicts or unmapped tasks. Prior checkpoint22fc4fd correctly disclosed incomplete native proof; current actual matched observations resolve that gap without changing approved product intent or rewriting historical review evidence.
 
-| Coverage | Tasks | Status |
-|---|---|---|
-| FR-001/002 | T003–T007/T012/T015/T016/T018 | Generic reading/evidence variants observed; native adapter observation incomplete. |
-| FR-003/005 | T008–T010/T012/T016 | Findings/priority/history/advice boundaries implemented and observed in generic consumers. |
-| FR-004 | T011/T012/T014/T016/T017 | Voluntary dispositions and valid/changed resume observed; main delivery closeout incomplete. |
-| FR-006 | T011/T013/T014/T016 | Non-Diagram applicability/no-report/required-missing cases observed. |
-| FR-007/008 | T001/T004–T007/T013–T018 | Scope/core/control/source boundaries preserved; native routes proof incomplete. |
-| SC-001–004 | T002–T016 | Concrete source and generic observation evidence retained with repair/recheck. |
-| SC-005 | T016/T018 | Separate actual generic sessions evaluated; required native cases not yet observed. |
+| Coverage | Tasks/evidence |
+|---|---|
+| FR-001/002 | T003–T007/T012/T015/T016/T018: source placement, generic evidence variants and current native reference lookup/read-before-effect observations. |
+| FR-003/005 | T008–T010/T012/T016: priority-independent obligations, voluntary advice, applicable resolution and exact ambiguous-status stops. |
+| FR-004 | T011/T012/T014/T016/T017: actual adopted/declined/none notes, valid/changed resume, O1 reuse and current closeout. |
+| FR-006 | T011/T013/T014/T016: actual non-Diagram report-bearing/required-missing/not-applicable cases. |
+| FR-007/008 | T001/T004–T007/T013–T018: unchanged core/spec, native direct/outer/exact-inner/foreign/stale behavior, scoped source/evidence and no live fixture/control/install effects. |
+| SC-001–005 | Actual separate generic/native subject observations, evaluator read/effect/native-pin checks and observed repair/rechecks, plus retained focused contracts and reproducible fixtures. |
 
-Metrics: 13 requirement/outcome identifiers mapped (100% task coverage), 18 tasks (15 complete, 3 incomplete), zero unmapped tasks, zero actionable ambiguity/duplication/cross-artifact inconsistency. Current source and evidence agree on the missing native verification, which remains a required delivery blocker. There is no new tracking/schema/framework or material product decision. Native result-review handoff must not be submitted until required proof, clean convergence and closeout finish.
+Metrics:13 functional/outcome identifiers covered (100%),18 tasks mapped/complete, zero actionable findings. No new product subsystem, machine classifier, tracking/schema/report framework or material scope decision. Test assets are specific disposable fixtures reusing existing acceptance infrastructure, explicitly authorized and separated from production delivery. Static checks do not substitute for runtime observation; fixture decisions are not real human acceptance.
 
-Next ordinary action: obtain explicit matched private native fixture source/build authorization and capability, complete T016/T018, reassess/converge and finish T017. No implementation acceptance, integration or automatic re-review follows from this report.
+Final enclosing adapter endpoint requires actual normal local commit, typed result-review handoff and released-owner readback; this report does not preclaim that transaction. Next human action after its success is result acceptance, not automatic integration/deployment or another workflow.

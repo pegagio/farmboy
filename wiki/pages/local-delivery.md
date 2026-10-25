@@ -1,7 +1,7 @@
 ---
 title: Approved local delivery
 type: component
-sources: [S009, S010]
+sources: [S009, S010, S015]
 updated: 2026-10-25
 ---
 # Approved local delivery
@@ -21,3 +21,5 @@ The current evidence policy retains a concise feature-level account of tested so
 Consolidation is scoped to authorized mutable redundant reports, preserving distinct material meaning and repairing references. Required source-preserving core reports retain their own contracts; historical feature meaning is not rewritten. Inspect actual staged content because ignoring a tracked log does not exclude it. Use portable paths and role/content attribution without private names, local usernames, incidental session IDs or unnecessary transcript content. Missing proof or conflicting project rules stop dependent closeout. No new retention service, API, store or coordination effects are introduced. (S009)
 
 FARM-27 adds full applicable committed plan-review reading before core implementation/setup. Farmboy assesses current unresolved obligations at any priority; explicit non-blocking advice remains voluntary. Historical findings need applicable resolution evidence, while ambiguous evidence or approval contradictions stop precisely. Existing notes retain report/item adopted-or-declined reasons, or none/not applicable. Non-Diagram applicability follows explicit approval/governance; valid resume reuses decisions. Vanilla core commands stay unchanged and source changes do not install into live consumers. These are source prescriptions, not achieved runtime proof. (S009)
+
+FARM-27's candidate was exercised by separate actual subjects and evaluator across generic consumers and ten matched private native cases. A failure-note defect was repaired/rechecked; direct/outer admission, exact inner reuse and evidence/context stops were observed. These bounded candidate observations do not install the feature, accept its result or establish arbitrary-client guarantees. (S015)

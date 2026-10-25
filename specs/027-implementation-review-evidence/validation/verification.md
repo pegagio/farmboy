@@ -1,4 +1,4 @@
-# FARM-27 verification — partial, native adapter cases pending
+# FARM-27 verification — bounded candidate observations complete
 
 Tested candidate: base `5527bf432bf31fb8a06c49e2a1699eb60373c7d4` plus the scoped implementation and subsequent failure-note repair identified by source hashes below. This is actual independent subject-session observation, not the prior consistency review or a source-only pass. The delivery session evaluated separate real Codex executing subjects; subjects had no candidate-source authorship, and performed only disposable TEST ONLY consumer work. Fixture approvals never approve FARM-27.
 
@@ -32,8 +32,36 @@ There were 26 initial actual variant executions across three separate subjects (
 
 Adopted: one specific reusable fixture-input preparer and shared subject setup cover related variants, with this compact observation table in existing verification notes. Every variant still has distinct observed evidence/effects. No test runner, classifier, tracking service or new report format was added.
 
-## Remaining required evidence
+## Historical remaining required evidence at checkpoint22fc4fd
 
 Native adapter direct-entry, outer-entry and verified-current-inner single-body routes, stale/foreign context and supported native review-evidence lookup variants remain unobserved. Existing `test_native_composition.py` pins Diagram `d29c0809`/schema20 and needs external source/compiler inputs; it is not matched schema22 runtime proof. The approved plan explicitly withholds external-source access by inference and requires separately authorized private native fixture capability. A targeted authorization request to read current Diagram acceptance sources and build only a matched disposable snapshot is pending. No live-store test, historical-builder refresh, external source read/build or installation was attempted. Generic observations and static adapter assertions do not substitute for this gap; T016 and delivery acceptance remain incomplete.
 
 Repeat generic setup from repository root using `python3 -B tests/fixtures/deliver-approved-plan/review-consumption/prepare_consumers.py /absolute/NEW-disposable-directory`; independent subject/evaluator instructions and expectations are retained in its README and feature quickstart. Raw model stdout/tool events are disposable diagnostics, not required durable artifacts; no private Codex session logs were read. No production BGG/FARM-28, controls, native software or installed consumer changed.
+
+
+## Current matched native observation — gap resolved
+
+The human subsequently explicitly authorized reading current Diagram acceptance sources and compiling a matched disposable fixture. Read-only source snapshot `c0ec6bf89846e527c4b0efb3fe032ce33577ef70` produced a private CLI using installed Go1.26.5, cached modules only (`GOTOOLCHAIN=local GOPROXY=off GOSUMDB=off`) and private GOCACHE. An initial stale inherited Go1.23 GOROOT caused a compiler-version mismatch; removing GOROOT for that command fixed it without installation or persistent configuration. Private acceptance fixture strings were adapted to the harmless exact-output task; existing fixture-only hook/signing overrides were removed so actual normal Git hooks remained. No production source was edited.
+
+The existing current `featureQueueSegmentsProofPlanner` builder created ten separate private schema22/Feature9 stores/consumers, with controlled TEST ONLY specification/plan/review semantics. Those setup approvals are not production decisions or independent-review proof. An independent actual Codex subject then executed the final candidate skills. The main delivery session evaluated actual command-event reads before effect writes, recorded file/task/note/status data and native before/after pins/results, separately from subject conclusions. Candidate skill sources equal checkpoint22fc4fd throughout; core commands/spec remain unchanged.
+
+| Actual native case | Evaluator-confirmed outcome |
+|---|---|
+| direct | exact effect once; typed committed result-review handoff; absent run/claim; one admitted delivery |
+| outer | exact effect once; typed committed result-review handoff; absent run/claim; one admitted delivery |
+| inner | exact effect once; typed committed result-review handoff; absent run/claim; existing run reused |
+| set | exact effect once; typed committed result-review handoff; absent run/claim; one admitted delivery |
+| foreign | no acquire/transfer/effect; supplied context unchanged before evaluator-owned cleanup release |
+| stale | no acquire/transfer/effect; supplied context unchanged before evaluator-owned cleanup release |
+| missing-reference | precise evidence stop; no effect/checkpoint/success handoff; own run released or no acquisition |
+| wrong-feature | precise evidence stop; no effect/checkpoint/success handoff; own run released or no acquisition |
+| wrong-candidate | precise evidence stop; no effect/checkpoint/success handoff; own run released or no acquisition |
+| local-conflict | precise evidence stop; no effect/checkpoint/success handoff; own run released or no acquisition |
+
+Formal private test `TestFarmboy027NativeDelivery` passed all ten cases, zero skips, 372.31s (package372.769s); subject exited0. Physical effects and notes were captured before Go's normal temporary-fixture cleanup, along with full native receipt/state snapshots; no fixture copy was reused as authority. Direct/outer routes each added exactly one delivery epoch; exact inner reused the existing admitted epoch/run. Full committed review reads preceded setup/implementation effects. The set case consumed main review plus resolution report. No native context transfer, fake handoff or extra product effect occurred in the six negative cases. Evaluator-owned foreign/stale fixture runs were explicitly released only after unchanged-state observation.
+
+One private direct handoff omitted required accepted plan references and was rejected with no mutation. The subject inspected the absent operation/current authority, included admitted accepted-spec/plan-candidate references in a new request and obtained the actual typed result-review handoff. This was native request validation, not an approval denial or permissions expansion; retain it as a technical correction. Exact artifact/role guidance already requires current native fields and inspection. All four normal fixture checkpoints used narrowly scoped per-action approvals; no protection/hook bypass, alternate checkout, installation or persistent permission change.
+
+Specific fixture assets/recipe extend the existing fixture locations (`native_bridge.go.txt`, `native_subject.py`, README); they reuse the existing acceptance builder and add no product orchestration, classifier, schema or report framework. Temporary manifests/raw output remain disposable diagnostics. The live FARM store was never a fixture target; only the separately authorized FARM-27 ownership/final handoff uses its project store. BGG/FARM-28 and controls were untouched.
+
+C1 and T016/T018 are now satisfied for this source candidate. This proves bounded candidate behavior in actual separate executing sessions with native/Git effects; it does not install the feature, validate arbitrary future clients, accept FARM-27's result or authorize integration. Human result review remains required. Final convergence and closeout are reported separately.

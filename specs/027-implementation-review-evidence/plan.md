@@ -4,7 +4,7 @@
 
 **Input**: Whole specification at `f040dd9123cb8ae4e9b677774a39129eb33f4039`, approved through `approval/cd639c1cd5a60c55708cc3a6b4b38f46`, including the disclosed checklist exceptions and Farmboy delivery-only boundary. Externally selected FARM-27 plan/planning-handoff; no FARM-28 dependency or BGG work.
 
-**Current execution note**: Approved proposal checkpoint `842b451` remains historical. The separately authorized delivery implemented the bounded source change and generic runtime variants; matched private native adapter observations remain incomplete (T016/T018), as recorded in [delivery.md](delivery.md). No result acceptance or integration is claimed.
+**Current execution note**: Approved proposal checkpoint `842b451` remains historical. The separately authorized delivery implemented the bounded source change and generic runtime variants; matched private native adapter observations are complete (T016/T018), with prescribed final closeout prepared, as recorded in [delivery.md](delivery.md). No result acceptance or integration is claimed.
 
 ## Summary
 
