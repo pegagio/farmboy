@@ -73,3 +73,10 @@ Alongside that one live run, review the final skill/guide against these cases. R
 | Merged history/external coordination | No rewrite of historical meaning or extra queue/ownership/approval effects; source-preserving helper artifacts remain governed by their commands. |
 
 A live conflict variation may be used in the same fixture if needed, but no second live Diagram lifecycle is required. Do not claim runtime exercise of policy branches observed only in source review. Native Goal behavior is unverified where supported controls/readback are unavailable.
+
+
+## FARM-27 committed-review consumption cases
+
+Use one disposable committed approval/candidate/report setup for related variants; reset only owned fixture changes between isolated observations and identify each observed variant. All fixture approvals/mandates are TEST ONLY. Candidate delivery/adapter copies are explicit disposable-test inputs, never installed/live adoption. A separate actual executing Codex session follows the skill; evaluator checks report reads precede any setup/implementation. Source assertions are not semantic evidence.
+
+Cover the selected feature quickstart's nine case groups and all variants: authoritative versus newer decoy; multiple applicable resolution reports; missing/uncommitted/unreadable/digest/wrong-feature/wrong-candidate/contradictory evidence; conflicting working bytes; routine versus material/uncertain flow-back; low-priority required and high-priority blocking findings; voluntary high-priority advice, evidenced/unsupported history and optional-obligation contradiction; adopted/declined/none/out-of-scope decisions; valid/changed resume; standalone report-bearing/required-unavailable/not-applicable; direct/outer/current-inner single body and stale/foreign context. Use harmless local effects with independently inspectable markers and existing delivery notes. No source rewrite during a read-only assessment; blocked cases must leave implementation markers absent. Private native cases require actual supported fixture authority; missing capability is incomplete, never a mocked pass.

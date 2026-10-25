@@ -56,3 +56,10 @@ An enabled route with missing capability stops precisely rather than reverting t
 ## Optional independent whole-plan review
 
 A separately authorized review-plan segment composes the [generic reviewer](review-implementation-plan.md) in the same independent session. The adapter alone consumes the actual bounded grant, acquires/reuses native authority, validates the return, checkpoints permitted evidence and records the disposition/release. Current compatibility is Feature9/schema22; missing capability stops. Source availability grants no mandate, live upgrade, workflow launch or consumer refresh.
+
+
+## Delivery consumes committed review evidence
+
+The adapter locates authoritative review references through current approved-plan/handoff facts and supported inspection of a known recorded review operation. Keep the approved proposal and separate committed review_evidence checkpoint distinct. Verify actual Git bytes/path/commit/SHA-256 and feature/candidate applicability; unavailable or inconsistent required evidence stops without guessing fields, private SQL or installation. Supply existing context in the same session to one verified delivery body; no new packet/acquire/controller.
+
+Farmboy delivery owns full reading, interpretation of obligations versus voluntary advice, and adopted/declined report-item reasons in existing notes. Diagram retains state/approval authority. Current required findings block regardless of priority; evidenced resolved history does not. Generic non-Diagram consumers follow explicit approval/governance report applicability and otherwise retain report-free operation. Valid resume reuses decisions and affected changes are reassessed; no blanket re-review, bare-core patch or live adoption is implied.

@@ -2,7 +2,7 @@
 title: Optional Diagram adapter
 type: component
 sources: [S012, S013, S014]
-updated: 2026-10-23
+updated: 2026-10-25
 ---
 
 # Optional Diagram adapter
@@ -30,3 +30,7 @@ The [independent reviewer](./independent-plan-review.md) adds a generic semantic
 When a verified applicable approval carries review conditions, assessment.conditions supplies truthful present applicability to the exact approved artifacts and requested phase. It is not copied restrictions, a placeholder or inferred permission; without conditions, do not invent a synthetic entry. Request and assessment approval references identify the same actual historical specification decision. (S014)
 
 Before the first acquire, use a typed read-only planning offer with its required request file and verified repository/HEAD/cleanliness reports. An offer grants no run. A definitive launcher acquire rejection still stops that invocation without resubmission; inspect uncertainty before effects. The TEST ONLY worked example explains these existing native requirements without changing validation, launcher behavior or authority. (S014)
+
+## Delivery review context
+
+The adapter locates authoritative current plan-review references through supported approval/handoff/known-operation inspection, preserving separate proposal and report checkpoints and one current run/body. Actual Git integrity and applicability require consumer verification; unavailable evidence stops without guessed fields or private SQL. Farmboy delivery reads and interprets the report and retains optional decisions in existing notes. Diagram owns state/approval authority, and generic non-Diagram consumers retain explicit approval/governance applicability. (S012)

@@ -49,3 +49,11 @@ A required-input handoff saves INCOMPLETE delivery, exact question, current arti
 ## Verification and simplicity
 
 The implementation is one Markdown skill plus this guide, fixture cases and ordinary feature evidence. Manual chaining is smaller in source but repeats coordination toil; no new runtime subsystem or harness dependency is justified. Acceptance requires independent actual executing-subject observation in real Codex sessions, portability and complete local-lifecycle evidence, not source/fixture assertions. The evaluator may drive labeled TEST-ONLY fixture answers; those never accept real Farmboy work. Bootstrap/self-hosting limits must remain explicit, with no future commit counted as already observed or recursive delivery manufactured.
+
+
+## Consume findings during Farmboy delivery
+
+Before core implementation/setup, delivery reads the full applicable committed review supporting the current approved candidate. Current unresolved required corrections/blockers or unmet obligations stop at any priority; approval alone cannot resolve a contradiction. Priority alone does not turn expressly non-blocking advice into a requirement. For example, high-priority optional advice with no defect remains voluntary; a low-priority required correction still blocks. Historical findings need applicable resolution/supersession evidence rather than deletion or inferred resolution. Ambiguous status or advice that describes an unmet obligation requires the precise evidence/decision, without automatic return, repair, re-review or approval invalidation. Farmboy owns this semantic assessment; review production and native approval authority are unchanged.
+
+
+The existing delivery notes retain each report/item's adopted or declined outcome and a concise reason. For example, “O1 adopted: existing approved work covers it, implemented and checked”; “O2 declined: outside this delivery's authority.” No suggestions means none. Valid resume reuses decisions; relevant changes trigger reassessment without duplicate work. Standalone uses an explicitly report-bearing approval or governing report requirement; neither means not applicable and no Diagram lookup. Required-but-unavailable evidence stops. Bare Spec Kit implementation remains unchanged and source delivery does not refresh live consumers.

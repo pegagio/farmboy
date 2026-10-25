@@ -4,6 +4,8 @@
 
 **Input**: Whole specification at `f040dd9123cb8ae4e9b677774a39129eb33f4039`, approved through `approval/cd639c1cd5a60c55708cc3a6b4b38f46`, including the disclosed checklist exceptions and Farmboy delivery-only boundary. Externally selected FARM-27 plan/planning-handoff; no FARM-28 dependency or BGG work.
 
+**Current execution note**: Approved proposal checkpoint `842b451` remains historical. The separately authorized delivery implemented the bounded source change and generic runtime variants; matched private native adapter observations remain incomplete (T016/T018), as recorded in [delivery.md](delivery.md). No result acceptance or integration is claimed.
+
 ## Summary
 
 Add committed review consumption to Farmboy delivery after identity/approval checks and before ordinary implementation, including setup effects. Generic delivery reads and assesses evidence, distinguishes current obligations from advice and resolved history, and retains optional decisions in existing notes. The optional adapter locates authoritative Diagram references; Diagram retains state/approval authority. Bare Spec Kit commands remain unchanged.
@@ -96,6 +98,8 @@ The [quickstart](quickstart.md) defines concrete cases. [tasks.md](tasks.md) ord
 Run `~/.codex/venvs/skill-tools/bin/python -B -m unittest discover -s tests/fixtures/review-implementation-plan -p test_contract.py`, scoped links/privacy checks and `git diff --check`. Extend source contract tests for placement, ordering and boundary regressions only; a classifier in tests would not verify the workflow. Historical native-composition tests require separately authorized external source/compiler prerequisites and are not a mandate to refresh tools or live systems for this instruction change.
 
 Before acceptance, a real executing Codex session follows final skills in disposable selected work; a separate evaluator observes reads, effect order, dispositions, stops and single-body routing. Future evaluation requires actual explicit evaluation/delegation authority and compatible private tools/fixtures. Missing capability leaves acceptance incomplete, without static substitutes or installation. Retain concise actual observations in feature `delivery.md` and `validation/verification.md`, keeping raw output disposable. Planning claims no future runtime result.
+
+A feature-specific fixture-input preparer under `tests/fixtures/deliver-approved-plan/review-consumption/` shares committed setup for the approved variants (review O1). It launches no model/workflow, classifies no finding and adds no framework; existing session execution and evaluator observation remain separate.
 
 ## Complexity Tracking
 

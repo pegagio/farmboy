@@ -19,10 +19,10 @@
 
 ## Component
 
-- [Approved local delivery](pages/local-delivery.md) — updated 2026-10-19
+- [Approved local delivery](pages/local-delivery.md) — updated 2026-10-25
 
 - [Standalone and externally selected workflow handoffs](pages/workflow-handoffs.md) — updated 2026-10-18
 
-- [Optional Diagram adapter](pages/optional-diagram-adapter.md) — updated 2026-10-23
+- [Optional Diagram adapter](pages/optional-diagram-adapter.md) — updated 2026-10-25
 
-- [Independent implementation-plan review](pages/independent-plan-review.md) — updated 2026-10-23
+- [Independent implementation-plan review](pages/independent-plan-review.md) — updated 2026-10-25

@@ -32,3 +32,8 @@ Consumer refresh is explicit later work. Delivery here updates Farmboy source on
 ## Report checkpoint approval boundary
 
 The generic body does not commit. When the coordinated adapter needs its already-authorized report checkpoint and the runtime protects Git metadata, it may request the existing per-action approval for narrowly scoped staging and normal commit. This is an approval request, not permission expansion or a sandbox bypass. Preserve hooks, add no broad reusable rule, and never substitute another executor for the reviewer's checkpoint. An actual approval-review denial stops that action; uncertain results require inspection. Do not ask the human to repeat already established checkpoint authority merely because the technical approval mechanism must still be used. Missing mechanism/capability remains an exact incomplete boundary.
+
+
+## Consume findings during Farmboy delivery
+
+Before core implementation/setup, delivery reads the full applicable committed review supporting the current approved candidate. Current unresolved required corrections/blockers or unmet obligations stop at any priority; approval alone cannot resolve a contradiction. Priority alone does not turn expressly non-blocking advice into a requirement. For example, high-priority optional advice with no defect remains voluntary; a low-priority required correction still blocks. Historical findings need applicable resolution/supersession evidence rather than deletion or inferred resolution. Ambiguous status or advice that describes an unmet obligation requires the precise evidence/decision, without automatic return, repair, re-review or approval invalidation. Farmboy owns this semantic assessment; review production and native approval authority are unchanged.

@@ -1,3 +1,5 @@
-# Wiki Lint Report — 2026-10-23
+# Wiki Lint Report — 2026-10-25
 
-Scope: optional-diagram-adapter.md and direct/shared-source neighbors independent-plan-review.md, diagram-integration.md and workflow-handoffs.md. No findings in this scope. Links, citations, metadata, page caps, index entries and freshness checked; semantic review reconciled historical compatibility targets with the current native-reference source. No unrelated full-wiki repair performed.
+No findings.
+
+Full pass: index-drift, links/known citations, orphans, source-linked/direct-linked contradictions, stale metadata and narrative citations. No mechanical repairs required; no semantic rewrites performed by lint.

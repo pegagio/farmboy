@@ -36,6 +36,29 @@ class ContractTests(unittest.TestCase):
         for entry in ['farmboy-prepare-specification', 'farmboy-prepare-implementation-plan', 'farmboy-deliver-approved-plan']:
             self.assertIn(entry, a)
 
+    def test_delivery_reads_committed_review_before_implementation(self):
+        t = (ROOT / '.agents/skills/farmboy-deliver-approved-plan/SKILL.md').read_text()
+        self.assertLess(t.index('## Consume applicable committed plan-review evidence'), t.index('## Implement, verify and converge'))
+        for phrase in ['read the full committed report', 'wrong-feature', 'wrong-candidate', 'working bytes', 'routine flow-back', 'do not use the task list as the failure report']:
+            self.assertIn(phrase, t)
+        a = (ROOT / '.agents/skills/farmboy-diagram-work/SKILL.md').read_text()
+        n = (ROOT / '.agents/skills/farmboy-diagram-work/references/native-protocol.md').read_text()
+        self.assertIn('authoritative review references', a)
+        for phrase in ['## Delivery review-evidence lookup', 'review_evidence', 'plan_candidate', 'feature operation show', 'unavailable']:
+            self.assertIn(phrase, n)
+
+    def test_delivery_obligations_are_not_priority_or_approval_shortcuts(self):
+        t = (ROOT / '.agents/skills/farmboy-deliver-approved-plan/SKILL.md').read_text()
+        for phrase in ['at any priority', 'priority alone', 'explicitly non-blocking', 'resolution/supersession evidence', 'optional-obligation contradiction', 'no automatic return or re-review']:
+            self.assertIn(phrase, t)
+
+    def test_delivery_optional_decisions_and_non_diagram_applicability(self):
+        t = (ROOT / '.agents/skills/farmboy-deliver-approved-plan/SKILL.md').read_text()
+        for phrase in ['report/item reference', 'adopted or declined', 'concise reason', 'not applicable', 'report-bearing approval', 'neither condition', 'without duplicate notes', 'consider every optional suggestion']:
+            self.assertIn(phrase, t)
+        self.assertNotIn('feature handoff apply', t)
+        self.assertNotIn('feature run acquire', t)
+
     def test_conditioned_planning_guidance_and_example(self):
         text = (ROOT / '.agents/skills/farmboy-diagram-work/references/native-protocol.md').read_text()
         section = text.split('### Conditional approval applicability', 1)[1].split('\n## ', 1)[0]
