@@ -20,7 +20,7 @@ Use these sections to enable a route deliberately and understand its boundaries.
 
 ## Deliberate project setup
 
-Make the optional skill and its native-protocol reference available through the existing supported project-local directory-copy mechanism. Feature6/schema16 was the original005 baseline. The explicitly refreshed current client targets Diagram Feature9/schema22, Project4/Repository2 and Issue-query6 from integrated source `6cc924aca52e51318be10e08f63554fbcb62d56b`. Historical protocol pins apply only to matching historical tools/stores. Verify the actual executable and selected store; do not migrate/reset, install or enable a route as an ordinary entry effect.
+Make the optional skill and its native-protocol reference available through the existing supported project-local directory-copy mechanism. Feature6/schema16 was the original005 baseline. The explicitly refreshed current client targets Diagram Feature9/schema23, Project4/Repository2 and Issue-query6 from integrated source `a9233abfc82e328d521e3555ede073f3b6e10675`. Historical protocol pins apply only to matching historical tools/stores. Verify the actual executable and selected store; do not migrate/reset, install or enable a route as an ordinary entry effect.
 
 Enable the route with a bounded paragraph in the consumer's existing `AGENTS.md`, applied by its operator or an agent explicitly authorized to edit that named file. Replace illustrative values with actual selected project/binary/store/configuration. This documentation grants no real consumer edit authority.
 
@@ -55,7 +55,7 @@ An enabled route with missing capability stops precisely rather than reverting t
 
 ## Optional independent whole-plan review
 
-A separately authorized review-plan segment composes the [generic reviewer](review-implementation-plan.md) in the same independent session. The adapter alone consumes the actual bounded grant, acquires/reuses native authority, validates the return, checkpoints permitted evidence and records the disposition/release. Current compatibility is Feature9/schema22; missing capability stops. Source availability grants no mandate, live upgrade, workflow launch or consumer refresh.
+A separately authorized review-plan segment composes the [generic reviewer](review-implementation-plan.md) in the same independent session. The adapter alone consumes the actual bounded grant, acquires/reuses native authority, validates the return, checkpoints permitted evidence and records the disposition/release. Current compatibility is Feature9/schema23; missing capability stops. Source availability grants no mandate, live upgrade, workflow launch or consumer refresh.
 
 
 ## Delivery consumes committed review evidence

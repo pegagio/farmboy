@@ -23,7 +23,7 @@ The receiving adapter reads the actual report, checks its digest/candidate/manda
 
 ## Optional Diagram use and adoption
 
-The native review segment requires matched Feature9/schema22 capabilities. The current deployed source reference is Diagram `6cc924aca52e51318be10e08f63554fbcb62d56b`; current Project4/Issue-query6 projections must be matched. Historical schema19/20/21 clients/stores require their matching historical tools. The adapter's adjacent native reference owns exact fields, grant validation and terminal mapping; generic skill has no version or command coupling. Availability grants no approval authority or workflow launch.
+The native review segment requires matched Feature9/schema23 capabilities. The current deployed source reference is Diagram `a9233abfc82e328d521e3555ede073f3b6e10675`; current Project4/Issue-query6 projections must be matched. Historical schema19/20/21/22 clients/stores require their matching historical tools. The adapter's adjacent native reference owns exact fields, grant validation and terminal mapping; generic skill has no version or command coupling. Availability grants no approval authority or workflow launch.
 
 A caller's existing `--review-grant-file` flows unchanged from launcher prompt to adapter admission, with its exact reviewer labels and actual bounded human mandate. Neither launcher selection nor an enabled automation switch delegates approval. Unavailable capability, refused permissions, stale grant or uncertain state stops dependent effects, without upgrade or authority fabrication.
 
