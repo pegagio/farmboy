@@ -1,0 +1,21 @@
+# FARM-29 delivery notes
+
+Current selected delivery consumes independently approved plan861272a and full report44f3d98, path validation/plan-review.md, SHA256e924db4490034081651f89e034c2de1cc3186cc9ecc1629bf6f00fb7e42f7d8a. Report committed bytes/current working bytes and native planapproval1969a4c649b8be1c48f094ce99b15fba verified before setup. Required findings:none. Optional suggestions:none; no synthetic decisions or repair loop.
+
+Originalspec9b080d0 and historicalreview861272a remain distinct from current delivery artifacts. Sentinel_c2539a8ba8888191a9976f85a3cb1606 explicitly authorizes implementation/validation/closeout only, stopping at result review. Native delivery admission required explicit present applicability of historical review-invocation conditions; these remain attributed to that completed review, while the new separate user instruction supplies execution permission. No acceptance, merge, installation, push or consumer refresh.
+
+Core implement prerequisite helper passed; built-in requirements checklist16/16, no unchecked custom checklist. Existing Git/Python ignore patterns are adequate and unchanged. No mandatory before/after implement hook; optional wiki hook unselected as a hook, applicable source-backed wiki upkeep remains taskT005.
+
+T001 complete: selecting caller/routing seam and four focused source contracts pass; existing10 review contracts pass. Shared native reference is updated without new core protocol. T002/T003 runtime-boundary proof and T004/T005 remain. First private native build stopped on old Go1.23.6 under GOTOOLCHAIN=local; helper now accepts an explicit already-installed matching compiler and removes conflicting inherited GOROOT only for that invocation. No install/download or model/prod fixture launched by that failed build.
+
+## Local closeout
+
+All five local implementation/validation packages complete. Actual source is identified by validation/tested-source.json over base44f3d98. The caller/routing/reference implementation, reproducible fixtures, current usage docs and applicable source-backed wiki are in scope. Original request/spec/checklist and committed real plan-review report remain unchanged; historical reviewed inputs remain separate from current tasks/quickstart/evidence.
+
+Actual coordinated caller/reviewer observations cover approve/planning-return/specification-escalation and normal-hook checkpoint failure, plus actual standalone success, missing mandate, known completed resume and controlled unknown-start stop. Every actual reviewer was separate from the caller and material authorship. Native operations/report bytes/current released states were independently collected; failed checkpoint never became approval. Required semantic reports and receipt excerpts are retained in validation/, not raw transcripts or a production tracking system.
+
+Maintained source/fixture contracts, private native guards/refusal matrix, four actual private native builder sessions, protected core35 hashes, Python/generated-hook/Go bridge syntax, changed-source links/diffs and scoped wiki lint pass. No required delivery check is waived. This repository defines no mise validate task; existing checks and explicit native/model acceptance supply the applicable complete gate. See validation/verification.md for actual commands, failure corrections and limits. No optional advice applies from the real plan review; TEST ONLY fixture O1 is not a real feature finding.
+
+Resources: all evaluator-owned native test builders ended normally after reports/receipts were retained; actual caller/reviewer subjects stopped, failed fixture owner explicitly released. Private source snapshots/test inputs remain disposable test resources, not installations. No production worktree cleanup, active native owner takeover, controls, selected store/config, installed tools or other feature changes. Normal source hooks remain intact.
+
+Final source commit and native result-review recording have not occurred merely because these notes/checkmarks are saved. The adapter must now verify the actual commit, submit its typed delivery/check/convergence/closeout evidence and read back accepted Awaiting result review with absent ownership. This database-only final transport is not recursively committed. Human result acceptance, integration, deployment/consumer refresh and push remain unapproved.

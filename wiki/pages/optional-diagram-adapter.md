@@ -1,8 +1,8 @@
 ---
 title: Optional Diagram adapter
 type: component
-sources: [S012, S013, S014]
-updated: 2026-10-25
+sources: [S012, S013, S014, S016]
+updated: 2026-10-26
 ---
 
 # Optional Diagram adapter
@@ -11,7 +11,7 @@ Farmboy's optional `farmboy-diagram-work` composes existing CLI, external entrie
 
 ## Deliberate routing and compatibility
 
-Project instructions or explicit operator selection establish the route. Availability alone never enables Diagram. Standalone entries retain local behavior without an adapter dependency; missing/conflicting routing asks targeted input, and an unavailable enabled capability stops without installation, fallback or external software patch. The original005 source baseline was Feature6/schema16; subsequent historical guidance described Feature8/schema19 and review Feature9/schema20. Those are historical compatibility targets, not current operational instructions. Current segments use the active project-selected matched client; the present native reference identifies Feature9/schema22. Do not use a newer client on an older selected store or infer migration/install authority. (S012, S014)
+Project instructions or explicit operator selection establish the route. Availability alone never enables Diagram. Standalone entries retain local behavior without an adapter dependency; missing/conflicting routing asks targeted input, and an unavailable enabled capability stops without installation, fallback or external software patch. The original005 source baseline was Feature6/schema16; subsequent historical guidance described Feature8/schema19 and review Feature9/schema20. Those are historical compatibility targets, not current operational instructions. Current segments use the active project-selected matched client; the present native reference identifies Feature9/schema23. Do not use a newer client on an older selected store or infer migration/install authority. (S012, S014)
 
 All three Farmboy-owned entries have small route/return seams. A first enabled entry invokes the adapter once; a verified current inner invocation reuses native authority without recursion, duplicate effects or premature release/Goal completion. Stale/foreign context and Boolean flags alone grant no authority. Native protocol stays in the optional skill/reference; no registry, plugin API, service or new store is introduced. (S012)
 
@@ -23,7 +23,7 @@ Segment launch discloses necessary scoped checkpoint commits with normal hooks a
 
 The [integration direction](./diagram-integration.md) preserves the historical goals and separate integration boundary; [workflow handoffs](./workflow-handoffs.md) describe generic standalone/external execution. This component adds optional coordination to those existing contracts without making their earlier source documents runtime evidence. (S012)
 
-The [independent reviewer](./independent-plan-review.md) adds a generic semantic body with ordinary report/return content; its adapter alone owns the native review lifecycle. Adoption is explicit and does not follow from source availability. (S013)
+The [review handoff](./independent-plan-review.md) uses a selecting caller and separate semantic reviewer. Adapter alone owns native review; adoption remains explicit. (S013, S016)
 
 ## Conditional planning admission
 

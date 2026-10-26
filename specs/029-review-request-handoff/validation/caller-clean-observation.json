@@ -1,0 +1,66 @@
+{
+  "case": "C1 actual caller + actual reviewer",
+  "source": {
+    "pin": "f6494a1e390d29e6657e95a6b6f6c28bebe09ac0",
+    "candidate": {
+      ".agents/skills/farmboy-request-plan-review/SKILL.md": "b7ced779545eebf34d845b4a85a11fbbdc515ede078d6f7ef76ba87303b972f3",
+      ".agents/skills/farmboy-review-implementation-plan/SKILL.md": "e577c6ff7e65b9177eb1708d2156de6b023ecd548a4c31c38a77577ca4c87064",
+      ".agents/skills/farmboy-diagram-work/SKILL.md": "1710a2b46061151fc74713621c0335449929803bbcec65648bb24518d20edcee",
+      ".agents/skills/farmboy-diagram-work/references/native-protocol.md": "f8b413c2e73c079c55a4f1f9358253fd466e7facb139713ecff878ccae7ba5a5",
+      "docs/review-implementation-plan.md": "7af6b5217416eb6acf63e9d01add6067c16d8d087a997cdc49900c7252613630",
+      "docs/diagram-adapter.md": "d55b62214c7c38dd08e89655f440ea0a8452e9cab20fbbe9eb3500d04b271c1b",
+      ".specify/memory/constitution.md": "1b090cc7cec2cf776cf528e3cb2ae66dcc7ede0435f1e284e1e884c8752057ac"
+    },
+    "private_helper_sha256": "1b45c857c22193286d65979240d53b22833c715b2bf7e3191d34e0f373bce075",
+    "mode": "clean",
+    "normal_git_hooks_signing": true
+  },
+  "reviewed_candidate": {
+    "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+    "artifacts": [
+      {
+        "path": "specs/001-fixture/plan.md",
+        "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+      },
+      {
+        "path": "specs/001-fixture/tasks.md",
+        "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+      },
+      {
+        "path": "specs/001-fixture/analysis-fresh.md",
+        "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+      },
+      {
+        "path": "specs/001-fixture/checklists/requirements.md",
+        "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+      },
+      {
+        "path": "specs/001-fixture/architecture.md",
+        "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+      }
+    ]
+  },
+  "report_checkpoint": "d0b8d1a198492e0a61a32b985fb7da4ae0903932",
+  "report_sha256": "e2e98d54083888f4fb9ba22d7de29c2743bb5e12691e1cf190fdfe555afc4c00",
+  "report_reference": "specs/001-fixture/validation/plan-review.md",
+  "disposition": "approve",
+  "native_revision": 12,
+  "native_plan_state": "approved",
+  "handoff": "handoff/fa5a25e031361db816d5be007c13e668",
+  "plan_approval": "approval/8fe417a0a7b1102f91a2d482067b823b",
+  "owner_claim_absent": true,
+  "proposal_unchanged": true,
+  "report_only_diff": true,
+  "caller_host": "/root/farm29_accept_clean_caller",
+  "reviewer_host": "/root/farm29_accept_clean_caller/independent_reviewer",
+  "native_reviewer_owner": "pegagio-independent-f29-reviewer",
+  "native_reviewer_session": "farm29-clean-review-session-1",
+  "admission_operation": "farm29-clean-review-admit-1",
+  "finalization_operation": "farm29-clean-review-finalize-1",
+  "required_findings": [],
+  "optional_findings": [
+    "O1: voluntary explicit missing-path verification name in T002"
+  ],
+  "manual_prompt_or_grant_transfer": false,
+  "reviewer_dispatches": 1
+}

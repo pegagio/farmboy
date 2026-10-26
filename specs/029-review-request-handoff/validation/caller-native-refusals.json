@@ -1,0 +1,26 @@
+[
+  {
+    "case": "missing",
+    "native_error": "approval_required",
+    "revision_unchanged": true,
+    "owner_absent": true
+  },
+  {
+    "case": "wrong-feature",
+    "native_error": "approval_required",
+    "revision_unchanged": true,
+    "owner_absent": true
+  },
+  {
+    "case": "stale",
+    "native_error": "approval_required",
+    "revision_unchanged": true,
+    "owner_absent": true
+  },
+  {
+    "case": "same-author",
+    "native_error": "authority_conflict",
+    "revision_unchanged": true,
+    "owner_absent": true
+  }
+]

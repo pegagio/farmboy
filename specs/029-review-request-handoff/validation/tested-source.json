@@ -1,0 +1,18 @@
+{
+  "tested_base": "44f3d983edc2b4576a05f1727c98b382a8e553bb",
+  "current_scoped_source_sha256": {
+    ".agents/skills/farmboy-request-plan-review/SKILL.md": "b7ced779545eebf34d845b4a85a11fbbdc515ede078d6f7ef76ba87303b972f3",
+    ".agents/skills/farmboy-review-implementation-plan/SKILL.md": "e577c6ff7e65b9177eb1708d2156de6b023ecd548a4c31c38a77577ca4c87064",
+    ".agents/skills/farmboy-diagram-work/SKILL.md": "1710a2b46061151fc74713621c0335449929803bbcec65648bb24518d20edcee",
+    ".agents/skills/farmboy-diagram-work/references/native-protocol.md": "f8b413c2e73c079c55a4f1f9358253fd466e7facb139713ecff878ccae7ba5a5",
+    "README.md": "b487a392b1c80b57a9551052565932578e5caa835608916320e1f01497b015d8",
+    "docs/review-implementation-plan.md": "cd0cff499d6e49aa09fc81412a1f8768333932dab8f2b8938a6ea7fb54acbd86",
+    "docs/diagram-adapter.md": "7175bf849771c98d862f629a6689b3402d37cc1927b77b64facfb5ebf5368f1c",
+    "tests/fixtures/review-implementation-plan/test_caller_contract.py": "7078247190e79733f1b0be2c62bd5d6d2d84eaf513ce5d4c55df2e606aef7703",
+    "tests/fixtures/review-implementation-plan/prepare_caller_fixtures.py": "084589a44a51a3204ed179e271467fc48097d16185bc5b75d324322701ab606f",
+    "tests/fixtures/review-implementation-plan/cases.md": "336de7cd494a5855f791679d9220968a97797dc55737d5ac08689fe85e212ff5"
+  },
+  "actual_subject_runtime_core_exactly_current": true,
+  "source_only_usage_documentation_updated_after_some_fixture_copies": true,
+  "note": "Documentation additions preserve the same tested instruction boundaries; full current source contracts pass. This manifest is evidence, not runtime authority."
+}

@@ -1,0 +1,1668 @@
+{
+  "clean": [
+    {
+      "operation_id": "farm29-clean-review-admit-1",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "writer_active",
+      "delivery_state": "requires_reconciliation",
+      "context": {
+        "revision": 11,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/eba12419acf2fd9b1c5b44f59023faa3",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "latest_plan_handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "epoch_counter": 6
+      },
+      "current_run": {
+        "id": "run/60819fb4ab17bafb93b2a017a7c48a9b",
+        "owner": "pegagio-independent-f29-reviewer",
+        "session": "farm29-clean-review-session-1",
+        "epoch": 6,
+        "segment": "review-plan",
+        "purpose": "plan-review",
+        "status": "active",
+        "input_handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+            "expected_revision": 10,
+            "reviewer_owner": "pegagio-independent-f29-reviewer",
+            "reviewer_session": "farm29-clean-review-session-1",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Explicit current TEST ONLY bounded human mandate relayed by selecting caller for this one disposable F29-1 candidate; caller may choose exactly one genuinely independent reviewer with no material authorship.",
+              "decision": "delegate-plan-review",
+              "outcome": "Independent whole-plan approve, planning-return, or specification-escalation for F29-1 candidate af7b9254b9aeef3ca4aec06652031caf6b384aa4.",
+              "approach": "Preserve the actual approved specification and protected intent/UX/constraints across current plan, tasks, fresh analysis, checklist and architecture; independent semantic assessment without prescribed verdict.",
+              "conditions": [
+                "TEST ONLY: this exact disposable candidate and independent reviewer only; preserve approved count-nonblank-lines local UTF-8 CLI intent and input bytes, no network/service/database/runtime writes in product.",
+                "Only contained validation/plan-review.md report, normal scoped checkpoint, native admission/finalization/release and caller collection are authorized. No proposal/spec/task changes, implementation, repair, installation, deployment, controls, push, other feature or next workflow.",
+                "Keep normal hooks/signing and sandbox/per-action permissions. No bypass or alternate executor after denial; stop and report precise blocked or uncertain effects."
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+          "assessment": {
+            "actor": "pegagio-independent-f29-reviewer",
+            "rationale": "TEST ONLY independent reviewer verified approved specification, exact proposal, human mandate and clean associated workspace before manual admission.",
+            "evidence": [
+              "Separate host session /root/farm29_accept_clean_caller/independent_reviewer; no material candidate authorship",
+              "Verified all candidate working bytes and Git blobs against current handoff and historical approved specification",
+              "Pegagio bounded TEST ONLY selecting-caller grant supplied unchanged"
+            ],
+            "approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "d90e59706b19ef716c9feaa2d0c213561615b13b",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "7629b80e90204e21b16f43d74541179333481d21a38d4fdcb020f9042b460ab5"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        }
+      },
+      "handoff": {
+        "id": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "run_id": "run/463cfc1316e9972772712b8d7e068360",
+        "epoch": 5,
+        "accepted_spec": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "original_input": {
+          "checkpoint": {
+            "commit": "e2a79b9f995c1786139aac6a25a2bc34ea5cb354",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/dec5704b169d78488ea5052ac097844a",
+          "assessment": {
+            "actor": "fixture external operator",
+            "rationale": "inspected selected local fixture input and independent work",
+            "evidence": [
+              "disposable request/capability observations"
+            ],
+            "approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "d90e59706b19ef716c9feaa2d0c213561615b13b",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "7629b80e90204e21b16f43d74541179333481d21a38d4fdcb020f9042b460ab5"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "e2a79b9f995c1786139aac6a25a2bc34ea5cb354",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3",
+          "plan_approval_id": "",
+          "plan_handoff_id": "",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "awaiting_plan_review",
+        "approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3"
+      }
+    },
+    {
+      "operation_id": "farm29-clean-review-finalize-1",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "approved",
+      "delivery_state": "ready_for_delivery",
+      "plan_review": {
+        "decision_kind": "plan",
+        "id": "approval/8fe417a0a7b1102f91a2d482067b823b",
+        "handoff_id": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "checkpoint": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review": {
+          "authorization_sha256": "cdd4557d980ee2d02930d6065d1804fec334b1f5c64957b972077480801365cc",
+          "actor": "pegagio-independent-f29-reviewer",
+          "provenance": "Separate independent reviewer host session /root/farm29_accept_clean_caller/independent_reviewer under Pegagio supplied TEST ONLY bounded ReviewGrant; not personal human review.",
+          "decision": "approve",
+          "outcome": "Whole-plan candidate approved: no blockers, product questions or unmet obligations; O1 is explicitly voluntary non-blocking advice.",
+          "approach": "Six-question semantic assessment of exact committed approved specification, whole plan, tasks, checklist, simulated fresh-analysis evidence and architecture; report preserves all protected intent and scope boundaries.",
+          "conditions": [
+            "TEST ONLY: this exact disposable candidate and independent reviewer only; preserve approved count-nonblank-lines local UTF-8 CLI intent and input bytes, no network/service/database/runtime writes in product.",
+            "Only contained validation/plan-review.md report, normal scoped checkpoint, native admission/finalization/release and caller collection are authorized. No proposal/spec/task changes, implementation, repair, installation, deployment, controls, push, other feature or next workflow.",
+            "Keep normal hooks/signing and sandbox/per-action permissions. No bypass or alternate executor after denial; stop and report precise blocked or uncertain effects."
+          ]
+        }
+      },
+      "plan_approval": {
+        "decision_kind": "plan",
+        "id": "approval/8fe417a0a7b1102f91a2d482067b823b",
+        "handoff_id": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+        "checkpoint": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review": {
+          "authorization_sha256": "cdd4557d980ee2d02930d6065d1804fec334b1f5c64957b972077480801365cc",
+          "actor": "pegagio-independent-f29-reviewer",
+          "provenance": "Separate independent reviewer host session /root/farm29_accept_clean_caller/independent_reviewer under Pegagio supplied TEST ONLY bounded ReviewGrant; not personal human review.",
+          "decision": "approve",
+          "outcome": "Whole-plan candidate approved: no blockers, product questions or unmet obligations; O1 is explicitly voluntary non-blocking advice.",
+          "approach": "Six-question semantic assessment of exact committed approved specification, whole plan, tasks, checklist, simulated fresh-analysis evidence and architecture; report preserves all protected intent and scope boundaries.",
+          "conditions": [
+            "TEST ONLY: this exact disposable candidate and independent reviewer only; preserve approved count-nonblank-lines local UTF-8 CLI intent and input bytes, no network/service/database/runtime writes in product.",
+            "Only contained validation/plan-review.md report, normal scoped checkpoint, native admission/finalization/release and caller collection are authorized. No proposal/spec/task changes, implementation, repair, installation, deployment, controls, push, other feature or next workflow.",
+            "Keep normal hooks/signing and sandbox/per-action permissions. No bypass or alternate executor after denial; stop and report precise blocked or uncertain effects."
+          ]
+        }
+      },
+      "context": {
+        "revision": 12,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/eba12419acf2fd9b1c5b44f59023faa3",
+        "plan_approval_id": "approval/8fe417a0a7b1102f91a2d482067b823b",
+        "latest_handoff": "handoff/fa5a25e031361db816d5be007c13e668",
+        "latest_plan_handoff": "handoff/fa5a25e031361db816d5be007c13e668",
+        "epoch_counter": 6
+      },
+      "handoff": {
+        "id": "handoff/fa5a25e031361db816d5be007c13e668",
+        "run_id": "run/60819fb4ab17bafb93b2a017a7c48a9b",
+        "epoch": 6,
+        "accepted_spec": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review_evidence": {
+          "commit": "d0b8d1a198492e0a61a32b985fb7da4ae0903932",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/validation/plan-review.md",
+              "sha256": "e2e98d54083888f4fb9ba22d7de29c2743bb5e12691e1cf190fdfe555afc4c00"
+            }
+          ]
+        },
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+            "expected_revision": 10,
+            "reviewer_owner": "pegagio-independent-f29-reviewer",
+            "reviewer_session": "farm29-clean-review-session-1",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Explicit current TEST ONLY bounded human mandate relayed by selecting caller for this one disposable F29-1 candidate; caller may choose exactly one genuinely independent reviewer with no material authorship.",
+              "decision": "delegate-plan-review",
+              "outcome": "Independent whole-plan approve, planning-return, or specification-escalation for F29-1 candidate af7b9254b9aeef3ca4aec06652031caf6b384aa4.",
+              "approach": "Preserve the actual approved specification and protected intent/UX/constraints across current plan, tasks, fresh analysis, checklist and architecture; independent semantic assessment without prescribed verdict.",
+              "conditions": [
+                "TEST ONLY: this exact disposable candidate and independent reviewer only; preserve approved count-nonblank-lines local UTF-8 CLI intent and input bytes, no network/service/database/runtime writes in product.",
+                "Only contained validation/plan-review.md report, normal scoped checkpoint, native admission/finalization/release and caller collection are authorized. No proposal/spec/task changes, implementation, repair, installation, deployment, controls, push, other feature or next workflow.",
+                "Keep normal hooks/signing and sandbox/per-action permissions. No bypass or alternate executor after denial; stop and report precise blocked or uncertain effects."
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+          "assessment": {
+            "actor": "pegagio-independent-f29-reviewer",
+            "rationale": "TEST ONLY independent reviewer verified approved specification, exact proposal, human mandate and clean associated workspace before manual admission.",
+            "evidence": [
+              "Separate host session /root/farm29_accept_clean_caller/independent_reviewer; no material candidate authorship",
+              "Verified all candidate working bytes and Git blobs against current handoff and historical approved specification",
+              "Pegagio bounded TEST ONLY selecting-caller grant supplied unchanged"
+            ],
+            "approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "d90e59706b19ef716c9feaa2d0c213561615b13b",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "7629b80e90204e21b16f43d74541179333481d21a38d4fdcb020f9042b460ab5"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "af7b9254b9aeef3ca4aec06652031caf6b384aa4",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/6da9dc754b2b16ba4366bf927b41e078",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "plan_approved",
+        "approval_id": "approval/eba12419acf2fd9b1c5b44f59023faa3"
+      }
+    }
+  ],
+  "planning": [
+    {
+      "operation_id": "farm29-planning-review-acquire",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "writer_active",
+      "delivery_state": "requires_reconciliation",
+      "context": {
+        "revision": 11,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/9c179331bad018b26902159cefae82af",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+        "latest_plan_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+        "epoch_counter": 6
+      },
+      "current_run": {
+        "id": "run/9d932ccde5942f6f6f5f6b77dcd4c2c4",
+        "owner": "farm29-planning-independent-reviewer",
+        "session": "farm29-20261026-planning-review",
+        "epoch": 6,
+        "segment": "review-plan",
+        "purpose": "plan-review",
+        "status": "active",
+        "input_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+            "expected_revision": 10,
+            "reviewer_owner": "farm29-planning-independent-reviewer",
+            "reviewer_session": "farm29-20261026-planning-review",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Actual-session TEST ONLY authority relayed by parent /root to selecting caller /root/farm29_accept_planning_caller on 2026-10-26: arrange independent whole-plan review of the one current private F29-1 candidate, choose one separate reviewer with no material candidate authorship and delegate exact-candidate approve/planning-return/specification-escalation. Historical fixture approvals are simulated TEST ONLY inputs.",
+              "decision": "delegate-plan-review",
+              "outcome": "One independent whole-plan decision on F29-1 handoff/a29ff0145f9565de90670f6fc18dd00d candidate 93f83841e0e9416880c7ea8a9b240330b3dedaa7 under the inspected approved specification and current plan/tasks/checklist/analysis/architecture.",
+              "approach": "Preserve human intent and expected UX: count nonblank lines in one local UTF-8 file, zero for empty input, clear nonzero error for missing/unreadable input, preserve input bytes, no network/service/database/runtime writes. Inspect actual candidate independently without a prescribed verdict or product answers.",
+              "conditions": [
+                "TEST ONLY disposable fixture paths/store/config/binary from /tmp/farm29-native-planning-20261026/fixture.json; no real FARM29/DIAG6/Fusion/BGG or production effects.",
+                "Exactly one separate reviewer with no material authorship; selected reviewer executes existing adapter and semantic skill continuously, writes and normally commits only specs/001-fixture/validation/plan-review.md, records native disposition and verifies release.",
+                "No proposal/spec/tasks/source repair, implementation, install/deploy, controls, push, next workflow, fixture cleanup, destination or done writes. Normal hooks/signing/sandbox; actual denial stops without workaround and uncertain outcome is inspected before retry.",
+                "No rewritten/approved specification or invented product answers; specification escalation preserves genuine human questions and whole-spec gate; approval is not execution, result acceptance, integration or publication permission."
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+          "assessment": {
+            "actor": "farm29-planning-independent-reviewer",
+            "rationale": "Independent reviewer verified actual fixture Git identity, clean state, exact spec and whole candidate blob/working digests, actual bounded caller mandate and simulated historical spec applicability; no current conflicting writer.",
+            "evidence": [
+              "Host /root/farm29_accept_planning_caller/independent_reviewer freshly spawned separately; no material candidate authorship",
+              "Actual caller grant /tmp/farm29-native-planning-20261026/caller-review-grant.json unchanged",
+              "Schema23 supported, Project4 active, Feature9 revision10 queue4, verified candidate93f83841e0e9416880c7ea8a9b240330b3dedaa7 and spec same bytes as simulated approval"
+            ],
+            "approval_id": "approval/9c179331bad018b26902159cefae82af"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "cef8c0444d8f675b8c1d9a8c988d8a32d7ecf45d",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "65745857cccf1175239a39680dcf9ea18289cfa6ee3b83cfb6342ad5c2366821"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/9c179331bad018b26902159cefae82af",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        }
+      },
+      "handoff": {
+        "id": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+        "run_id": "run/93d1e00900885e4b3b6b68af582e1866",
+        "epoch": 5,
+        "accepted_spec": {
+          "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "original_input": {
+          "checkpoint": {
+            "commit": "a6d23d5ddaf70c74570c24c331e01f7b99b3b4c1",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/d25a2952e95d8d8fb106fd7f10d1f9e6",
+          "assessment": {
+            "actor": "fixture external operator",
+            "rationale": "inspected selected local fixture input and independent work",
+            "evidence": [
+              "disposable request/capability observations"
+            ],
+            "approval_id": "approval/9c179331bad018b26902159cefae82af"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "cef8c0444d8f675b8c1d9a8c988d8a32d7ecf45d",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "65745857cccf1175239a39680dcf9ea18289cfa6ee3b83cfb6342ad5c2366821"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "a6d23d5ddaf70c74570c24c331e01f7b99b3b4c1",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/9c179331bad018b26902159cefae82af",
+          "plan_approval_id": "",
+          "plan_handoff_id": "",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "awaiting_plan_review",
+        "approval_id": "approval/9c179331bad018b26902159cefae82af"
+      }
+    },
+    {
+      "operation_id": "farm29-planning-review-handoff",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "revision_required",
+      "delivery_state": "plan_review_required",
+      "plan_review": {
+        "decision_kind": "plan",
+        "id": "approval/fc850c8869862baca1ce2f2ba6b1a95f",
+        "handoff_id": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+        "checkpoint": {
+          "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review": {
+          "authorization_sha256": "0d2bf9af33358eeb7d7b0f4e1761487f0f71e47af49aa021d270be3f3df15ae3",
+          "requests": [
+            "R1: Remove speculative plugin/event-journal/dependency-injection prerequisite in plan paragraph2 and retire T004 with identity/history preserved; retain direct read-only CLI and focused verification.",
+            "R2: After separately authorized repair, perform fresh read-only consistency analysis and record actual R1 resolution/unresolved obligations honestly in existing artifacts, preserving simulated provenance; stop for full-plan review."
+          ],
+          "actor": "farm29-planning-independent-reviewer",
+          "provenance": "Actual independent host /root/farm29_accept_planning_caller/independent_reviewer under unchanged caller-supplied Pegagio actual-session TEST ONLY grant; not direct human review. Report checkpoint 8e88189d10806000ef992f529df3bf2c2344e8b8",
+          "decision": "revision-required",
+          "outcome": "planning-return: required R1/R2 corrections within the approved specification",
+          "approach": "Independently inspected approved intent and complete exact plan/tasks/checklist/design/analysis/architecture; six prescribed questions answered in committed report; no proposal edits.",
+          "conditions": [
+            "TEST ONLY disposable fixture paths/store/config/binary from /tmp/farm29-native-planning-20261026/fixture.json; no real FARM29/DIAG6/Fusion/BGG or production effects.",
+            "Exactly one separate reviewer with no material authorship; selected reviewer executes existing adapter and semantic skill continuously, writes and normally commits only specs/001-fixture/validation/plan-review.md, records native disposition and verifies release.",
+            "No proposal/spec/tasks/source repair, implementation, install/deploy, controls, push, next workflow, fixture cleanup, destination or done writes. Normal hooks/signing/sandbox; actual denial stops without workaround and uncertain outcome is inspected before retry.",
+            "No rewritten/approved specification or invented product answers; specification escalation preserves genuine human questions and whole-spec gate; approval is not execution, result acceptance, integration or publication permission."
+          ]
+        }
+      },
+      "context": {
+        "revision": 12,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/9c179331bad018b26902159cefae82af",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/56423219f34153b18b305bfa84544e99",
+        "latest_plan_handoff": "handoff/56423219f34153b18b305bfa84544e99",
+        "epoch_counter": 6
+      },
+      "handoff": {
+        "id": "handoff/56423219f34153b18b305bfa84544e99",
+        "run_id": "run/9d932ccde5942f6f6f5f6b77dcd4c2c4",
+        "epoch": 6,
+        "accepted_spec": {
+          "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review_evidence": {
+          "commit": "8e88189d10806000ef992f529df3bf2c2344e8b8",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/validation/plan-review.md",
+              "sha256": "76d545e8313e8e0d3926af39bec568590440c4d80b5409fa3baf858b8327a589"
+            }
+          ]
+        },
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+            "expected_revision": 10,
+            "reviewer_owner": "farm29-planning-independent-reviewer",
+            "reviewer_session": "farm29-20261026-planning-review",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Actual-session TEST ONLY authority relayed by parent /root to selecting caller /root/farm29_accept_planning_caller on 2026-10-26: arrange independent whole-plan review of the one current private F29-1 candidate, choose one separate reviewer with no material candidate authorship and delegate exact-candidate approve/planning-return/specification-escalation. Historical fixture approvals are simulated TEST ONLY inputs.",
+              "decision": "delegate-plan-review",
+              "outcome": "One independent whole-plan decision on F29-1 handoff/a29ff0145f9565de90670f6fc18dd00d candidate 93f83841e0e9416880c7ea8a9b240330b3dedaa7 under the inspected approved specification and current plan/tasks/checklist/analysis/architecture.",
+              "approach": "Preserve human intent and expected UX: count nonblank lines in one local UTF-8 file, zero for empty input, clear nonzero error for missing/unreadable input, preserve input bytes, no network/service/database/runtime writes. Inspect actual candidate independently without a prescribed verdict or product answers.",
+              "conditions": [
+                "TEST ONLY disposable fixture paths/store/config/binary from /tmp/farm29-native-planning-20261026/fixture.json; no real FARM29/DIAG6/Fusion/BGG or production effects.",
+                "Exactly one separate reviewer with no material authorship; selected reviewer executes existing adapter and semantic skill continuously, writes and normally commits only specs/001-fixture/validation/plan-review.md, records native disposition and verifies release.",
+                "No proposal/spec/tasks/source repair, implementation, install/deploy, controls, push, next workflow, fixture cleanup, destination or done writes. Normal hooks/signing/sandbox; actual denial stops without workaround and uncertain outcome is inspected before retry.",
+                "No rewritten/approved specification or invented product answers; specification escalation preserves genuine human questions and whole-spec gate; approval is not execution, result acceptance, integration or publication permission."
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+          "assessment": {
+            "actor": "farm29-planning-independent-reviewer",
+            "rationale": "Independent reviewer verified actual fixture Git identity, clean state, exact spec and whole candidate blob/working digests, actual bounded caller mandate and simulated historical spec applicability; no current conflicting writer.",
+            "evidence": [
+              "Host /root/farm29_accept_planning_caller/independent_reviewer freshly spawned separately; no material candidate authorship",
+              "Actual caller grant /tmp/farm29-native-planning-20261026/caller-review-grant.json unchanged",
+              "Schema23 supported, Project4 active, Feature9 revision10 queue4, verified candidate93f83841e0e9416880c7ea8a9b240330b3dedaa7 and spec same bytes as simulated approval"
+            ],
+            "approval_id": "approval/9c179331bad018b26902159cefae82af"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "cef8c0444d8f675b8c1d9a8c988d8a32d7ecf45d",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "65745857cccf1175239a39680dcf9ea18289cfa6ee3b83cfb6342ad5c2366821"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/9c179331bad018b26902159cefae82af",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "plan_revision_required",
+        "approval_id": "approval/9c179331bad018b26902159cefae82af"
+      }
+    }
+  ],
+  "question": [
+    {
+      "operation_id": "farm29-question-review-admit-1",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "writer_active",
+      "delivery_state": "requires_reconciliation",
+      "context": {
+        "revision": 11,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/f0ccc9f2e8fd434d871c492f56087c71",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+        "latest_plan_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+        "epoch_counter": 6
+      },
+      "current_run": {
+        "id": "run/70db855690afcd0180ef84ba165fbeff",
+        "owner": "farm29-product-question-independent-reviewer",
+        "session": "/root/farm29_accept_question_caller/independent_review",
+        "epoch": 6,
+        "segment": "review-plan",
+        "purpose": "plan-review",
+        "status": "active",
+        "input_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+            "expected_revision": 10,
+            "reviewer_owner": "farm29-product-question-independent-reviewer",
+            "reviewer_session": "/root/farm29_accept_question_caller/independent_review",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Actual TEST ONLY bounded operator delegation relayed to caller /root/farm29_accept_question_caller in this session; historical setup approvals remain simulated, not real project approval",
+              "decision": "delegate-plan-review",
+              "outcome": "Delegate exactly one independent whole-plan approve, planning-return or specification-escalation decision for current F29-1 handoff/a6a9f1627354a3bd29802b7dda26db89 and proposal32cb169f45f3b7064ba1d54866bb54c29a950c14 with its exact approved-spec/checklist/design/analysis/architecture references",
+              "approach": "Independently assess all six prescribed review questions against exact inspected authoritative intent and local CLI UX/constraints; preserve every approved rule and human gate, disclose conflicts and ask actual product questions without choosing invented answers",
+              "conditions": [
+                "Only this TEST ONLY disposable fixture; owner/session labels identify the separately spawned reviewer and do not authenticate by themselves; reviewer must have no material candidate authorship",
+                "Preserve approved specification meaning, CLI UX and no-network/no-runtime-writes constraints; do not invent precedence or product answers",
+                "Only contained specs/001-fixture/validation/plan-review.md write and normal-hook report-only checkpoint plus native fixture review acquisition/disposition/release are authorized",
+                "No spec/plan/tasks/source repair, implementation, install/deploy, controls, next workflow, push or cleanup; whole-spec approval, result acceptance and integration remain separate human gates",
+                "Stop exact denied action without alternate-executor workaround; inspect uncertain action before retry; report precise incomplete effects/status if capability unavailable"
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+              }
+            ]
+          },
+          "handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+          "assessment": {
+            "actor": "farm29-product-question-independent-reviewer",
+            "rationale": "TEST ONLY independent review: verified exact historical spec approval scope and unchanged spec/proposal bytes; current actual bounded human grant authorizes review only, not choosing product answers.",
+            "evidence": [
+              "Actual separate host task /root/farm29_accept_question_caller/independent_review; no material candidate authorship",
+              "Verified Git blob/working SHA-256 for historical spec and current accepted spec/proposal; clean HEAD32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "Current Project4 active, schema23 supported, Feature9 revision10/queue4 with no current run or claim"
+            ],
+            "approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "6352cf6741d142f8d2104d3f34db636583928d61",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "32539e352717f3859e44c6a4c066baff28bff17649f3730e616439f973ce2131"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        }
+      },
+      "handoff": {
+        "id": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+        "run_id": "run/27f2f251841ef7285d589fc756570f8c",
+        "epoch": 5,
+        "accepted_spec": {
+          "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "original_input": {
+          "checkpoint": {
+            "commit": "945caa94a9fe3f548563eb4e7dace37088073bcf",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+              }
+            ]
+          },
+          "handoff": "handoff/45b035e538eb517562b50841b36142e1",
+          "assessment": {
+            "actor": "fixture external operator",
+            "rationale": "inspected selected local fixture input and independent work",
+            "evidence": [
+              "disposable request/capability observations"
+            ],
+            "approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "6352cf6741d142f8d2104d3f34db636583928d61",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "32539e352717f3859e44c6a4c066baff28bff17649f3730e616439f973ce2131"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "945caa94a9fe3f548563eb4e7dace37088073bcf",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71",
+          "plan_approval_id": "",
+          "plan_handoff_id": "",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "awaiting_plan_review",
+        "approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71"
+      }
+    },
+    {
+      "operation_id": "farm29-question-review-finalize-1",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "not_prepared",
+      "delivery_state": "plan_review_required",
+      "plan_review": {
+        "decision_kind": "plan",
+        "id": "approval/68fde15eb394e524fc4f44d20576f185",
+        "handoff_id": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+        "checkpoint": {
+          "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review": {
+          "authorization_sha256": "d48deefb28b9b2751810b6ed0bb82db44b39d167ad908f1b2669b7673ad9d6f8",
+          "requests": [
+            "B1: obtain actual human answer to Q1; reconcile conflicting approved specification rules under separately selected clarification, then obtain explicit whole-spec approval before planning. No reviewer product answer is supplied."
+          ],
+          "actor": "farm29-product-question-independent-reviewer",
+          "provenance": "Actual independent host session /root/farm29_accept_question_caller/independent_review under Pegagio caller-supplied TEST ONLY bounded delegation; not direct human review",
+          "decision": "specification-change-required",
+          "outcome": "B1 blocks whole-plan approval: approved specification requires incompatible nonblank and all-physical-line counts.",
+          "approach": "Six-question whole-plan review of exact admitted spec, proposal, tasks, checklist, fresh analysis and architecture; simple design remains proportionate.",
+          "conditions": [
+            "Only this TEST ONLY disposable fixture; owner/session labels identify the separately spawned reviewer and do not authenticate by themselves; reviewer must have no material candidate authorship",
+            "Preserve approved specification meaning, CLI UX and no-network/no-runtime-writes constraints; do not invent precedence or product answers",
+            "Only contained specs/001-fixture/validation/plan-review.md write and normal-hook report-only checkpoint plus native fixture review acquisition/disposition/release are authorized",
+            "No spec/plan/tasks/source repair, implementation, install/deploy, controls, next workflow, push or cleanup; whole-spec approval, result acceptance and integration remain separate human gates",
+            "Stop exact denied action without alternate-executor workaround; inspect uncertain action before retry; report precise incomplete effects/status if capability unavailable"
+          ]
+        }
+      },
+      "context": {
+        "revision": 12,
+        "spec_state": "Needs clarification",
+        "applicable_approval": "",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/6687f515e72ca4ef59167085c84a81c9",
+        "latest_plan_handoff": "",
+        "epoch_counter": 6
+      },
+      "handoff": {
+        "id": "handoff/6687f515e72ca4ef59167085c84a81c9",
+        "run_id": "run/70db855690afcd0180ef84ba165fbeff",
+        "epoch": 6,
+        "accepted_spec": {
+          "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "review_evidence": {
+          "commit": "fe004c79a8fefcc8a561c9db0415f0afc0bed0b4",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/validation/plan-review.md",
+              "sha256": "3fe2c8b3acbc15c7210a9489b3ddb5a8e72b4d6f0f9c71f0b3526af9e2e8896e"
+            }
+          ]
+        },
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+            "expected_revision": 10,
+            "reviewer_owner": "farm29-product-question-independent-reviewer",
+            "reviewer_session": "/root/farm29_accept_question_caller/independent_review",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Actual TEST ONLY bounded operator delegation relayed to caller /root/farm29_accept_question_caller in this session; historical setup approvals remain simulated, not real project approval",
+              "decision": "delegate-plan-review",
+              "outcome": "Delegate exactly one independent whole-plan approve, planning-return or specification-escalation decision for current F29-1 handoff/a6a9f1627354a3bd29802b7dda26db89 and proposal32cb169f45f3b7064ba1d54866bb54c29a950c14 with its exact approved-spec/checklist/design/analysis/architecture references",
+              "approach": "Independently assess all six prescribed review questions against exact inspected authoritative intent and local CLI UX/constraints; preserve every approved rule and human gate, disclose conflicts and ask actual product questions without choosing invented answers",
+              "conditions": [
+                "Only this TEST ONLY disposable fixture; owner/session labels identify the separately spawned reviewer and do not authenticate by themselves; reviewer must have no material candidate authorship",
+                "Preserve approved specification meaning, CLI UX and no-network/no-runtime-writes constraints; do not invent precedence or product answers",
+                "Only contained specs/001-fixture/validation/plan-review.md write and normal-hook report-only checkpoint plus native fixture review acquisition/disposition/release are authorized",
+                "No spec/plan/tasks/source repair, implementation, install/deploy, controls, next workflow, push or cleanup; whole-spec approval, result acceptance and integration remain separate human gates",
+                "Stop exact denied action without alternate-executor workaround; inspect uncertain action before retry; report precise incomplete effects/status if capability unavailable"
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+              }
+            ]
+          },
+          "handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+          "assessment": {
+            "actor": "farm29-product-question-independent-reviewer",
+            "rationale": "TEST ONLY independent review: verified exact historical spec approval scope and unchanged spec/proposal bytes; current actual bounded human grant authorizes review only, not choosing product answers.",
+            "evidence": [
+              "Actual separate host task /root/farm29_accept_question_caller/independent_review; no material candidate authorship",
+              "Verified Git blob/working SHA-256 for historical spec and current accepted spec/proposal; clean HEAD32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "Current Project4 active, schema23 supported, Feature9 revision10/queue4 with no current run or claim"
+            ],
+            "approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "6352cf6741d142f8d2104d3f34db636583928d61",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "32539e352717f3859e44c6a4c066baff28bff17649f3730e616439f973ce2131"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "59591793eacac2eeaf45f5b4a74d9e80443425304afd62bd702e4d9c2a7af41c"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f0ccc9f2e8fd434d871c492f56087c71",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "specification_change_required",
+        "approval_id": ""
+      }
+    }
+  ],
+  "checkpoint": [
+    {
+      "operation_id": "farm29-checkpoint-review-acquire-20261026",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "writer_active",
+      "delivery_state": "requires_reconciliation",
+      "context": {
+        "revision": 11,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/f38ec92be3ac1819fab41d88584a5a64",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "latest_plan_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "epoch_counter": 6
+      },
+      "current_run": {
+        "id": "run/f35ff712fce433d8731db3e8d832ab88",
+        "owner": "farm29-checkpoint-reviewer",
+        "session": "farm29-checkpoint-reviewer-session-20261026",
+        "epoch": 6,
+        "segment": "review-plan",
+        "purpose": "plan-review",
+        "status": "active",
+        "input_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "original_input": {
+          "review_grant": {
+            "feature": "F29-1",
+            "pinned_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+            "expected_revision": 10,
+            "reviewer_owner": "farm29-checkpoint-reviewer",
+            "reviewer_session": "farm29-checkpoint-reviewer-session-20261026",
+            "authorization": {
+              "actor": "Pegagio",
+              "provenance": "Actual TEST ONLY bounded authority relayed by evaluator /root to selecting caller /root/farm29_accept_checkpoint_caller; approved FARM29 delivery actual-session checkpoint/refusal acceptance; trusted user Sentinel_c2539a8ba8888191a9976f85a3cb1606 Yes. Historical fixture setup decisions remain simulated TEST ONLY.",
+              "decision": "delegate-plan-review",
+              "outcome": "One independent exact-current F29-1 whole-plan approve, planning-return or specification-escalation decision with attributable report and actual native endpoint only.",
+              "approach": "Preserve approved fixture intent and UX: count nonblank lines in one local UTF-8 file, zero for empty input, clear nonzero error for missing/unreadable input, preserve input bytes; one local Python standard-library CLI with no network, service, database or runtime writes. Independently inspect complete plan/tasks/checklist/fresh analysis/architecture without prescribed verdict.",
+              "conditions": [
+                "Exactly one separate reviewer with no material authorship, chosen by caller; no self-issued grant, proposal/spec/tasks edits, implementation, repair, next workflow or real project acceptance.",
+                "Only contained specs/001-fixture/validation/plan-review.md writes, attempted ordinary report checkpoint with protected hooks/signing/permissions, and supported native reviewer-owned admission/disposition/release are authorized.",
+                "Preserve deliberately rejecting pre-commit hook; never bypass/disable/replace hooks, change hooksPath/signing, use --no-verify, switch executor or delegate bypass. Failed checkpoint is incomplete, never approval or successful handoff.",
+                "Use only manifest private binary/store and invocation-only DIAGRAM_CONFIG on every native call. Stop on actual permission denial; preserve work and ordinary supported own-run release where appropriate; no push/install/integration/controls/cleanup/done file or production effects."
+              ]
+            }
+          },
+          "checkpoint": {
+            "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+          "assessment": {
+            "actor": "farm29-checkpoint-reviewer",
+            "rationale": "Separate nonauthor host /root/farm29_accept_checkpoint_caller/checkpoint_reviewer inspected actual TEST ONLY whole-plan candidate, matching committed/current spec and proposal digests, clean Git identity and caller-supplied bounded actual mandate; historical fixture setup approval remains simulated.",
+            "evidence": [
+              "actual local AGENTS, constitution, reviewer/adapter/native protocol and docs",
+              "actual candidate 07252d210690e2d67a29998b342ef23c8055b08a blob/worktree SHA-256 equality for spec, plan, tasks, checklist, fresh analysis, architecture",
+              "actual caller delegation to this separate host session and unchanged caller-review-grant.json; no candidate authorship by this reviewer"
+            ],
+            "approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "10ecbfa86e5615baf41405dd86d0280f0d197ee3",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "91e209f560807eeaa629d601f07aa47eadcdb9b49fe693b59291ec2a4d97058b"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            },
+            "plan_candidate": {
+              "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/plan.md",
+                  "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+                },
+                {
+                  "path": "specs/001-fixture/tasks.md",
+                  "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+                },
+                {
+                  "path": "specs/001-fixture/analysis-fresh.md",
+                  "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+                },
+                {
+                  "path": "specs/001-fixture/checklists/requirements.md",
+                  "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+                },
+                {
+                  "path": "specs/001-fixture/architecture.md",
+                  "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64",
+          "plan_approval_id": "",
+          "plan_handoff_id": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        }
+      },
+      "handoff": {
+        "id": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "run_id": "run/3ba9ad3cac047b5b2852a21b74c4b259",
+        "epoch": 5,
+        "accepted_spec": {
+          "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "original_input": {
+          "checkpoint": {
+            "commit": "5c19308351a35bd3d1afe331e15a325bbc8d5151",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/05606d36e2749ce4b364d4d9b7dddbe1",
+          "assessment": {
+            "actor": "fixture external operator",
+            "rationale": "inspected selected local fixture input and independent work",
+            "evidence": [
+              "disposable request/capability observations"
+            ],
+            "approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "10ecbfa86e5615baf41405dd86d0280f0d197ee3",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "91e209f560807eeaa629d601f07aa47eadcdb9b49fe693b59291ec2a4d97058b"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "5c19308351a35bd3d1afe331e15a325bbc8d5151",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64",
+          "plan_approval_id": "",
+          "plan_handoff_id": "",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "awaiting_plan_review",
+        "approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64"
+      }
+    },
+    {
+      "operation_id": "farm29-checkpoint-review-release-20261026",
+      "contract_version": 9,
+      "feature": "F29-1",
+      "plan_state": "awaiting_plan_review",
+      "delivery_state": "plan_review_required",
+      "context": {
+        "revision": 12,
+        "spec_state": "Ready for planning",
+        "applicable_approval": "approval/f38ec92be3ac1819fab41d88584a5a64",
+        "plan_approval_id": "",
+        "latest_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "latest_plan_handoff": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "epoch_counter": 6
+      },
+      "handoff": {
+        "id": "handoff/ff4d79112e1e2dec89ba1d473f800ed3",
+        "run_id": "run/3ba9ad3cac047b5b2852a21b74c4b259",
+        "epoch": 5,
+        "accepted_spec": {
+          "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/spec.md",
+              "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+            }
+          ]
+        },
+        "plan_candidate": {
+          "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+          "artifacts": [
+            {
+              "path": "specs/001-fixture/plan.md",
+              "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+            },
+            {
+              "path": "specs/001-fixture/tasks.md",
+              "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+            },
+            {
+              "path": "specs/001-fixture/analysis-fresh.md",
+              "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+            },
+            {
+              "path": "specs/001-fixture/checklists/requirements.md",
+              "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+            },
+            {
+              "path": "specs/001-fixture/architecture.md",
+              "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+            }
+          ]
+        },
+        "original_input": {
+          "checkpoint": {
+            "commit": "5c19308351a35bd3d1afe331e15a325bbc8d5151",
+            "artifacts": [
+              {
+                "path": "specs/001-fixture/spec.md",
+                "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+              }
+            ]
+          },
+          "handoff": "handoff/05606d36e2749ce4b364d4d9b7dddbe1",
+          "assessment": {
+            "actor": "fixture external operator",
+            "rationale": "inspected selected local fixture input and independent work",
+            "evidence": [
+              "disposable request/capability observations"
+            ],
+            "approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64"
+          },
+          "dependencies": [
+            {
+              "feature": "F29-2",
+              "revision": 0,
+              "checkpoint": {
+                "commit": "10ecbfa86e5615baf41405dd86d0280f0d197ee3",
+                "artifacts": [
+                  {
+                    "path": "specs/002-fixture/request.md",
+                    "sha256": "2611e6ae441a187610a4a7473300cab55ea0dc0d85cd152bba886d28b9d43142"
+                  }
+                ]
+              },
+              "assessment_sha256": "91e209f560807eeaa629d601f07aa47eadcdb9b49fe693b59291ec2a4d97058b"
+            }
+          ],
+          "references": {
+            "accepted_spec": {
+              "commit": "5c19308351a35bd3d1afe331e15a325bbc8d5151",
+              "artifacts": [
+                {
+                  "path": "specs/001-fixture/spec.md",
+                  "sha256": "c84027fe040bc23e5a08603ea7249b6f3867453a968605de252740765a9afad1"
+                }
+              ]
+            }
+          },
+          "spec_approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64",
+          "plan_approval_id": "",
+          "plan_handoff_id": "",
+          "delivery_handoff_id": "",
+          "result_review_id": ""
+        },
+        "outcome": "awaiting_plan_review",
+        "approval_id": "approval/f38ec92be3ac1819fab41d88584a5a64"
+      }
+    }
+  ]
+}

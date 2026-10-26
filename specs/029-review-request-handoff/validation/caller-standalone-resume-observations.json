@@ -1,0 +1,40 @@
+{
+  "standalone": {
+    "case": "C6 actual caller + separate generic reviewer, no native dependency",
+    "candidate": "ae4eabccbb274fcbc3b89d5c3ca500da784f1be2",
+    "retained_report": "observed-standalone-review.md",
+    "report_sha256": "b774ce3378d689c504ce9256adb9f522d774c94a68920633c9743eb607923a8a",
+    "outcome": "approve",
+    "reviewer_host": "/root/farm29_accept_standalone_caller/standalone_semantic_reviewer",
+    "dispatches": 1,
+    "commits_or_staging": false,
+    "native_effects": false,
+    "only_report_added": true
+  },
+  "missing_mandate": {
+    "case": "C2 actual model with deliberately absent substantive delegation",
+    "subject": "/root/farm29_accept_missing_mandate",
+    "outcome": "required substantive input before dispatch",
+    "question": "Who should independently review this exact candidate, and is whole-plan approval delegated under what protected intent, UX and constraints?",
+    "dispatches": 0,
+    "subject_reported_clean_before_after": true,
+    "native_effects": false
+  },
+  "uncertain_resume": {
+    "case": "C5 actual model handles CONTROLLED missing prior-start locator",
+    "subject": "/root/farm29_accept_uncertain_resume",
+    "outcome": "incomplete; recover existing session/operation locator or authoritative inspection evidence",
+    "dispatches": 0,
+    "root_verified_git_unchanged": true,
+    "native_effects": false,
+    "limitation": "Controlled missing-context stimulus, not a real host outage or recovery proof"
+  },
+  "completed_resume": {
+    "case": "C5 actual known completed child/result re-collected",
+    "subject": "/root/farm29_accept_clean_caller",
+    "outcome": "same approved result/report/current revision12, absent owner",
+    "additional_dispatches": 0,
+    "additional_mutations": false,
+    "report_sha256": "e2e98d54083888f4fb9ba22d7de29c2743bb5e12691e1cf190fdfe555afc4c00"
+  }
+}

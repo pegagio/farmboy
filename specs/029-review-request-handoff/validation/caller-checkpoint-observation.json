@@ -1,0 +1,64 @@
+{
+  "case": "C5 actual normal-hook checkpoint failure and caller incomplete collection",
+  "fixture_stimulus": "TEST ONLY rejecting ordinary pre-commit, not approval-review denial",
+  "source": {
+    "pin": "f6494a1e390d29e6657e95a6b6f6c28bebe09ac0",
+    "candidate": {
+      ".agents/skills/farmboy-request-plan-review/SKILL.md": "b7ced779545eebf34d845b4a85a11fbbdc515ede078d6f7ef76ba87303b972f3",
+      ".agents/skills/farmboy-review-implementation-plan/SKILL.md": "e577c6ff7e65b9177eb1708d2156de6b023ecd548a4c31c38a77577ca4c87064",
+      ".agents/skills/farmboy-diagram-work/SKILL.md": "1710a2b46061151fc74713621c0335449929803bbcec65648bb24518d20edcee",
+      ".agents/skills/farmboy-diagram-work/references/native-protocol.md": "f8b413c2e73c079c55a4f1f9358253fd466e7facb139713ecff878ccae7ba5a5",
+      "docs/review-implementation-plan.md": "cd0cff499d6e49aa09fc81412a1f8768333932dab8f2b8938a6ea7fb54acbd86",
+      "docs/diagram-adapter.md": "7175bf849771c98d862f629a6689b3402d37cc1927b77b64facfb5ebf5368f1c",
+      ".specify/memory/constitution.md": "1b090cc7cec2cf776cf528e3cb2ae66dcc7ede0435f1e284e1e884c8752057ac"
+    },
+    "private_helper_sha256": "835eeacab3d7b9f20bc46f1ed7b2a0cada6ce9dc99ddc68ccd70ddb0cd4c9830",
+    "mode": "clean",
+    "normal_git_hooks_signing": true
+  },
+  "candidate": {
+    "commit": "07252d210690e2d67a29998b342ef23c8055b08a",
+    "artifacts": [
+      {
+        "path": "specs/001-fixture/plan.md",
+        "sha256": "4a2f7882aec39a5e390d17de25ac6594be7f75f3c2ababe855f871e54ea47146"
+      },
+      {
+        "path": "specs/001-fixture/tasks.md",
+        "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+      },
+      {
+        "path": "specs/001-fixture/analysis-fresh.md",
+        "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+      },
+      {
+        "path": "specs/001-fixture/checklists/requirements.md",
+        "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+      },
+      {
+        "path": "specs/001-fixture/architecture.md",
+        "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+      }
+    ]
+  },
+  "retained_report": "observed-checkpoint-review.md",
+  "report_sha256": "90de2bb7b6cd87fd0260f0a3cc07080a011b24bf07d83e1370486b3e725e861e",
+  "report_committed": false,
+  "report_staged_only": true,
+  "head_and_proposal_unchanged": true,
+  "hook_unchanged": true,
+  "native_revision": 12,
+  "native_plan_state": "awaiting_plan_review",
+  "effective_plan_approval": null,
+  "owner_claim_absent": true,
+  "admission_operation": "farm29-checkpoint-review-acquire-20261026",
+  "release_operation": "farm29-checkpoint-review-release-20261026",
+  "reviewer_owner": "farm29-checkpoint-reviewer",
+  "reviewer_session": "farm29-checkpoint-reviewer-session-20261026",
+  "reviewer_host": "/root/farm29_accept_checkpoint_caller/checkpoint_reviewer",
+  "reviewer_dispatches": 1,
+  "outcome": "incomplete",
+  "checkpoint_failure_exit": 1,
+  "hook_bypassed_or_retried": false,
+  "next_workflow_started": false
+}

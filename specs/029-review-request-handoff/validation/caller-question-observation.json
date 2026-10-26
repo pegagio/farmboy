@@ -1,0 +1,89 @@
+{
+  "case": "C4 actual question caller/reviewer",
+  "source": {
+    "pin": "f6494a1e390d29e6657e95a6b6f6c28bebe09ac0",
+    "candidate": {
+      ".agents/skills/farmboy-request-plan-review/SKILL.md": "b7ced779545eebf34d845b4a85a11fbbdc515ede078d6f7ef76ba87303b972f3",
+      ".agents/skills/farmboy-review-implementation-plan/SKILL.md": "e577c6ff7e65b9177eb1708d2156de6b023ecd548a4c31c38a77577ca4c87064",
+      ".agents/skills/farmboy-diagram-work/SKILL.md": "1710a2b46061151fc74713621c0335449929803bbcec65648bb24518d20edcee",
+      ".agents/skills/farmboy-diagram-work/references/native-protocol.md": "f8b413c2e73c079c55a4f1f9358253fd466e7facb139713ecff878ccae7ba5a5",
+      "docs/review-implementation-plan.md": "7af6b5217416eb6acf63e9d01add6067c16d8d087a997cdc49900c7252613630",
+      "docs/diagram-adapter.md": "d55b62214c7c38dd08e89655f440ea0a8452e9cab20fbbe9eb3500d04b271c1b",
+      ".specify/memory/constitution.md": "1b090cc7cec2cf776cf528e3cb2ae66dcc7ede0435f1e284e1e884c8752057ac"
+    },
+    "private_helper_sha256": "74fa74037a64cd5520397ec7ab3b1dce9d6c173124e5d1bc56dd4563d1845f12",
+    "mode": "product-question",
+    "normal_git_hooks_signing": true
+  },
+  "reviewed_candidate": {
+    "commit": "32cb169f45f3b7064ba1d54866bb54c29a950c14",
+    "artifacts": [
+      {
+        "path": "specs/001-fixture/plan.md",
+        "sha256": "7f1c91afa5e4d05ec78d18c47caf696e6927ffa9eba0ce29a75df049a1098072"
+      },
+      {
+        "path": "specs/001-fixture/tasks.md",
+        "sha256": "7c248c4ab1991dd9302b9047772910b61275e0252ef61df4e8e29aa319be5e6d"
+      },
+      {
+        "path": "specs/001-fixture/analysis-fresh.md",
+        "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+      },
+      {
+        "path": "specs/001-fixture/checklists/requirements.md",
+        "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+      },
+      {
+        "path": "specs/001-fixture/architecture.md",
+        "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+      }
+    ]
+  },
+  "report_checkpoint": "fe004c79a8fefcc8a561c9db0415f0afc0bed0b4",
+  "report_sha256": "3fe2c8b3acbc15c7210a9489b3ddb5a8e72b4d6f0f9c71f0b3526af9e2e8896e",
+  "report_reference": "specs/001-fixture/validation/plan-review.md",
+  "native_revision": 12,
+  "native_spec_state": "Needs clarification",
+  "native_plan_state": "not_prepared",
+  "native_outcome": "specification_change_required",
+  "handoff": "handoff/6687f515e72ca4ef59167085c84a81c9",
+  "owner_claim_absent": true,
+  "proposal_unchanged": true,
+  "report_only_diff": true,
+  "reviewer_host": "/root/farm29_accept_question_caller/independent_review",
+  "native_reviewer_owner": "farm29-product-question-independent-reviewer",
+  "native_reviewer_session": "/root/farm29_accept_question_caller/independent_review",
+  "admitted_exact_grant_verified": true,
+  "caller_grant_file_compared_when_available": false,
+  "caller_reports_unchanged_transport": true,
+  "grant": {
+    "feature": "F29-1",
+    "pinned_handoff": "handoff/a6a9f1627354a3bd29802b7dda26db89",
+    "expected_revision": 10,
+    "reviewer_owner": "farm29-product-question-independent-reviewer",
+    "reviewer_session": "/root/farm29_accept_question_caller/independent_review",
+    "authorization": {
+      "actor": "Pegagio",
+      "provenance": "Actual TEST ONLY bounded operator delegation relayed to caller /root/farm29_accept_question_caller in this session; historical setup approvals remain simulated, not real project approval",
+      "decision": "delegate-plan-review",
+      "outcome": "Delegate exactly one independent whole-plan approve, planning-return or specification-escalation decision for current F29-1 handoff/a6a9f1627354a3bd29802b7dda26db89 and proposal32cb169f45f3b7064ba1d54866bb54c29a950c14 with its exact approved-spec/checklist/design/analysis/architecture references",
+      "approach": "Independently assess all six prescribed review questions against exact inspected authoritative intent and local CLI UX/constraints; preserve every approved rule and human gate, disclose conflicts and ask actual product questions without choosing invented answers",
+      "conditions": [
+        "Only this TEST ONLY disposable fixture; owner/session labels identify the separately spawned reviewer and do not authenticate by themselves; reviewer must have no material candidate authorship",
+        "Preserve approved specification meaning, CLI UX and no-network/no-runtime-writes constraints; do not invent precedence or product answers",
+        "Only contained specs/001-fixture/validation/plan-review.md write and normal-hook report-only checkpoint plus native fixture review acquisition/disposition/release are authorized",
+        "No spec/plan/tasks/source repair, implementation, install/deploy, controls, next workflow, push or cleanup; whole-spec approval, result acceptance and integration remain separate human gates",
+        "Stop exact denied action without alternate-executor workaround; inspect uncertain action before retry; report precise incomplete effects/status if capability unavailable"
+      ]
+    }
+  },
+  "reviewer_dispatches": 1,
+  "admission_operation": "farm29-question-review-admit-1",
+  "finalization_operation": "farm29-question-review-finalize-1",
+  "required_findings": [
+    "Resolve equally mandatory nonblank versus all-physical-line product requirements"
+  ],
+  "optional_findings": [],
+  "next_workflow_started": false
+}

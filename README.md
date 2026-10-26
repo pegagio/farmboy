@@ -31,7 +31,9 @@ No controller, counters, numeric repair limits, progress scoring or runtime acco
 
 ## Independent whole-plan review
 
-`$farmboy-review-implementation-plan` reviews one explicitly authorized proposal with six semantic questions and returns an attributable report/disposition. It supports standalone use; the optional Diagram adapter exclusively owns native review coordination. See [review usage and return contract](docs/review-implementation-plan.md). Source availability is not runtime acceptance or consumer refresh.
+Ask the selecting coordinator to arrange an independent plan review, or use `$farmboy-request-plan-review`. It resolves the exact proposal and actual bounded human authority, prepares the existing handoff, starts one separate reviewer with available session tools, collects its report/native outcome and stops. Missing substantive authority asks a concise question; the operator does not copy prompts or build grant JSON.
+
+`$farmboy-review-implementation-plan` remains the independently invoked six-question semantic body. The optional Diagram adapter exclusively owns native review admission, report checkpointing, disposition and release. Standalone review remains available without Diagram. See [review usage and return contract](docs/review-implementation-plan.md). Approval is not implementation permission; source delivery is not consumer refresh or a universal feature-driving engine.
 
 ## History and provenance
 

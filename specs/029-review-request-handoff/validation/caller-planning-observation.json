@@ -1,0 +1,88 @@
+{
+  "case": "C4 actual planning caller/reviewer",
+  "source": {
+    "pin": "f6494a1e390d29e6657e95a6b6f6c28bebe09ac0",
+    "candidate": {
+      ".agents/skills/farmboy-request-plan-review/SKILL.md": "b7ced779545eebf34d845b4a85a11fbbdc515ede078d6f7ef76ba87303b972f3",
+      ".agents/skills/farmboy-review-implementation-plan/SKILL.md": "e577c6ff7e65b9177eb1708d2156de6b023ecd548a4c31c38a77577ca4c87064",
+      ".agents/skills/farmboy-diagram-work/SKILL.md": "1710a2b46061151fc74713621c0335449929803bbcec65648bb24518d20edcee",
+      ".agents/skills/farmboy-diagram-work/references/native-protocol.md": "f8b413c2e73c079c55a4f1f9358253fd466e7facb139713ecff878ccae7ba5a5",
+      "docs/review-implementation-plan.md": "7af6b5217416eb6acf63e9d01add6067c16d8d087a997cdc49900c7252613630",
+      "docs/diagram-adapter.md": "d55b62214c7c38dd08e89655f440ea0a8452e9cab20fbbe9eb3500d04b271c1b",
+      ".specify/memory/constitution.md": "1b090cc7cec2cf776cf528e3cb2ae66dcc7ede0435f1e284e1e884c8752057ac"
+    },
+    "private_helper_sha256": "ab66b92118d3618922e38563e66b1752db4ba5461d4489e398f82a0b42b50b54",
+    "mode": "planning",
+    "normal_git_hooks_signing": true
+  },
+  "reviewed_candidate": {
+    "commit": "93f83841e0e9416880c7ea8a9b240330b3dedaa7",
+    "artifacts": [
+      {
+        "path": "specs/001-fixture/plan.md",
+        "sha256": "c562f140280b3326a7003a2e0816144a04d5b416f3daaa18340b64430ee52b0d"
+      },
+      {
+        "path": "specs/001-fixture/tasks.md",
+        "sha256": "a316a784e535d8dbaa2239994b99d95b7b547ac85ea632db33ff5bd39e6f35c7"
+      },
+      {
+        "path": "specs/001-fixture/analysis-fresh.md",
+        "sha256": "051173d24016d246bb4d49855916b923fe12b160ea673d62401d6157b6ed60bd"
+      },
+      {
+        "path": "specs/001-fixture/checklists/requirements.md",
+        "sha256": "2c9ce3f1a22f4f011c416a2480b0d5a33556485e2acb5bfb84af1312676ef834"
+      },
+      {
+        "path": "specs/001-fixture/architecture.md",
+        "sha256": "e5bed6d51da080f69cc364b3dfc93d12fd9611d5f5b671e8101e69ef6b37d1b7"
+      }
+    ]
+  },
+  "report_checkpoint": "8e88189d10806000ef992f529df3bf2c2344e8b8",
+  "report_sha256": "76d545e8313e8e0d3926af39bec568590440c4d80b5409fa3baf858b8327a589",
+  "report_reference": "specs/001-fixture/validation/plan-review.md",
+  "native_revision": 12,
+  "native_spec_state": "Ready for planning",
+  "native_plan_state": "revision_required",
+  "native_outcome": "plan_revision_required",
+  "handoff": "handoff/56423219f34153b18b305bfa84544e99",
+  "owner_claim_absent": true,
+  "proposal_unchanged": true,
+  "report_only_diff": true,
+  "reviewer_host": "/root/farm29_accept_planning_caller/independent_reviewer",
+  "native_reviewer_owner": "farm29-planning-independent-reviewer",
+  "native_reviewer_session": "farm29-20261026-planning-review",
+  "admitted_exact_grant_verified": true,
+  "caller_grant_file_compared_when_available": true,
+  "caller_reports_unchanged_transport": true,
+  "grant": {
+    "feature": "F29-1",
+    "pinned_handoff": "handoff/a29ff0145f9565de90670f6fc18dd00d",
+    "expected_revision": 10,
+    "reviewer_owner": "farm29-planning-independent-reviewer",
+    "reviewer_session": "farm29-20261026-planning-review",
+    "authorization": {
+      "actor": "Pegagio",
+      "provenance": "Actual-session TEST ONLY authority relayed by parent /root to selecting caller /root/farm29_accept_planning_caller on 2026-10-26: arrange independent whole-plan review of the one current private F29-1 candidate, choose one separate reviewer with no material candidate authorship and delegate exact-candidate approve/planning-return/specification-escalation. Historical fixture approvals are simulated TEST ONLY inputs.",
+      "decision": "delegate-plan-review",
+      "outcome": "One independent whole-plan decision on F29-1 handoff/a29ff0145f9565de90670f6fc18dd00d candidate 93f83841e0e9416880c7ea8a9b240330b3dedaa7 under the inspected approved specification and current plan/tasks/checklist/analysis/architecture.",
+      "approach": "Preserve human intent and expected UX: count nonblank lines in one local UTF-8 file, zero for empty input, clear nonzero error for missing/unreadable input, preserve input bytes, no network/service/database/runtime writes. Inspect actual candidate independently without a prescribed verdict or product answers.",
+      "conditions": [
+        "TEST ONLY disposable fixture paths/store/config/binary from /tmp/farm29-native-planning-20261026/fixture.json; no real FARM29/DIAG6/Fusion/BGG or production effects.",
+        "Exactly one separate reviewer with no material authorship; selected reviewer executes existing adapter and semantic skill continuously, writes and normally commits only specs/001-fixture/validation/plan-review.md, records native disposition and verifies release.",
+        "No proposal/spec/tasks/source repair, implementation, install/deploy, controls, push, next workflow, fixture cleanup, destination or done writes. Normal hooks/signing/sandbox; actual denial stops without workaround and uncertain outcome is inspected before retry.",
+        "No rewritten/approved specification or invented product answers; specification escalation preserves genuine human questions and whole-spec gate; approval is not execution, result acceptance, integration or publication permission."
+      ]
+    }
+  },
+  "reviewer_dispatches": 1,
+  "admission_operation": "farm29-planning-review-acquire",
+  "finalization_operation": "farm29-planning-review-handoff",
+  "required_findings": [
+    "Remove speculative framework prerequisite and reassess consistency"
+  ],
+  "optional_findings": [],
+  "next_workflow_started": false
+}
