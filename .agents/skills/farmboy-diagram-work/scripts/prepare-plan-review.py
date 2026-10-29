@@ -160,17 +160,31 @@ def prepare(args):
         require(expected == c.get(key) and re.fullmatch(pattern, expected), 'identity_mismatch')
     require(git(args, 'symbolic-ref', 'HEAD').decode().strip() == c.get('branch'), 'branch_mismatch')
     head = git(args, 'rev-parse', 'HEAD').decode().strip()
-    require(head == args.candidate and not git(args, 'status', '--porcelain'), 'unclean_or_advanced_workspace')
+    require(not git(args, 'status', '--porcelain'), 'unclean_workspace')
+    advancement = []
+    if head != args.candidate:
+        require(args.inspected_head == head and args.advancement_evidence
+                and all(s.strip() for s in args.advancement_evidence), 'advancement_inspection_required')
+        code, _, _ = run(['git', 'merge-base', '--is-ancestor', args.candidate, head], args.workspace)
+        require(code == 0, 'workspace_not_descendant' if code == 1 else 'git_verification_failed')
+        # Caller judges the actual diff's scope/authority implications. Retain the immutable
+        # inspected pair and exact diff digest, not a filename-based semantic classifier.
+        diff = git(args, 'diff', '--no-ext-diff', '--no-textconv', '--binary', args.candidate, head)
+        advancement = [f'Consumer inspected advancement {args.candidate} -> {head}; '
+                       f'diff SHA256 {hashlib.sha256(diff).hexdigest()}', *args.advancement_evidence]
+    elif args.inspected_head or args.advancement_evidence:
+        require(args.inspected_head == head and all(s.strip() for s in args.advancement_evidence),
+                'advancement_inspection_mismatch')
     handoff = v.get('handoff')
     require(isinstance(handoff, dict) and handoff.get('id') == args.handoff, 'invalid_handoff')
     proposal = handoff.get('plan_candidate')
     require(isinstance(proposal, dict) and proposal.get('commit') == args.candidate, 'candidate_mismatch')
     checkpoint(args, proposal, True)
-    checkpoint(args, handoff.get('accepted_spec'))
+    checkpoint(args, handoff.get('accepted_spec'), True)
     approval = v.get('historical_approval')
     require(isinstance(approval, dict) and approval.get('id') == c.get('applicable_approval')
             and isinstance(approval.get('review'), dict), 'missing_spec_approval')
-    checkpoint(args, approval.get('checkpoint'))
+    checkpoint(args, approval.get('checkpoint'), True)
     require(type(v.get('queue_revision')) is int and isinstance(v.get('dependencies'), list), 'missing_queue_facts')
     require(v['queue_revision'] == args.queue_revision and v['dependencies'] == json.loads(args.dependencies), 'stale_queue_selection')
     return dict(contract_version=9, expected_revision=args.revision,
@@ -181,7 +195,7 @@ def prepare(args):
                 workspace=args.workspace, branch=c['branch'], expected_head=head, workspace_clean=True,
                 repository_id=args.repository, instance_id=instance, worktree_key=args.worktree,
                 assessment=dict(actor=args.owner, approval_id=approval['id'], rationale=args.rationale,
-                                evidence=args.evidence, conditions=args.condition))
+                                evidence=[*args.evidence, *advancement], conditions=args.condition))
 
 
 def main(argv=None):
@@ -194,6 +208,9 @@ def main(argv=None):
     p.add_argument('--evidence', required=True, action='append')
     p.add_argument('--condition', required=True, action='append')
     p.add_argument('--discovery-selected', action='store_true')
+    p.add_argument('--inspected-head', help='actual full HEAD explicitly inspected for unchanged-input advancement')
+    p.add_argument('--advancement-evidence', action='append', default=[],
+                   help='actual intervening-diff inspection and continuing authority applicability; repeatable')
     args = p.parse_args(argv)
     phase = 'preparation'
     try:
@@ -211,6 +228,9 @@ def main(argv=None):
                 with path.open('x', encoding='utf-8') as out:
                     os.chmod(path, 0o600)
                     json.dump(request, out)
+                require(git(args, 'rev-parse', 'HEAD').decode().strip() == request['expected_head']
+                        and git(args, 'symbolic-ref', 'HEAD').decode().strip() == request['branch']
+                        and not git(args, 'status', '--porcelain'), 'workspace_changed_during_preparation')
                 phase = 'admission'
                 acquired = native(args, ['feature', 'run', 'acquire', '--feature', args.feature,
                                          '--operation', args.operation, '--request-file', str(path)])
