@@ -112,7 +112,7 @@ def prepare(args):
         # Historical success is not current ownership. No reconstruction or body replay.
         return None
     version = native(args, ['database', 'version'])
-    require(version.get('contract_version') == 2 and version.get('database_version') == 28
+    require(version.get('contract_version') == 2 and version.get('database_version') == 29
             and version.get('supported') is True, 'unsupported_database')
     v = native(args, ['feature', 'review-authority', 'show', '--feature', args.feature])
     require(v.get('contract_version') == 9 and v.get('feature') == args.feature, 'invalid_feature_response')
