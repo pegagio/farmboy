@@ -7,3 +7,9 @@ feature.json
 
 # Per-machine extension config overrides.
 extensions/*/local-config.yml
+
+# Generated backups of machine-local extension configuration.
+extensions/.backup/
+
+# Existing roadmap-write helper coordination lock (not delivery content)
+memory/roadmap.md.lock

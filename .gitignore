@@ -7,13 +7,3 @@ dist/
 *.egg-info/
 *.tmp
 *.swp
-
-
-# OS/editor artifacts
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Existing roadmap-write helper coordination lock (not delivery content)
-.specify/memory/roadmap.md.lock
