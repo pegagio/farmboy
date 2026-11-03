@@ -268,3 +268,14 @@ The source adapter's supplied-answer-only invocation passes the actual human lim
 ## Current schema30 compatibility overlay
 
 The explicitly approved DIAG-32 cutover selects matched Diagram/diagram-launch schema30/Feature9 with revision capability2 from integrated source96ed9d55cb02505f6ee68a65a73ca1d62e0b5604, preserving the finalization role repair. Earlier operational pins remain historical. Original core workflow bodies, project customizations, spec/plan/result/integration decisions, exact inputs, holds, one-use recovery/finalization allowances and external budgets remain binding. Client availability grants no clarification-answer application, BGG action, approval, continuation, control change or push. Saved feature worktrees retain their frozen content and require explicit current-client verification before selected work; this refresh does not advance them.
+
+## DIAG-33 source cancellation1
+
+After separate matched schema31 deployment only, inspect cancellation1 through Feature show and use `feature cancel --feature ID --operation OP --request-file FILE --json --file STORE` with the exact current cancellation request, actual discontinuation authority, reason and consumer-reported writer/preservation/integration observations. This administrative entry creates no worker, approval or successful handoff; current claim/run, unknown/applied integration effects, Done and retired Project refuse. Do not use candidate31 helpers against the selected live30 store during delivery.
+
+`queued` retains historical enrollment; `queue_active` and queue show `--active-only` exclude Done/cancelled without deleting relationships. Cancellation preserves source/capture identity, artifacts, approvals, grants, holds, consumed allowances and operation replay. Fresh admission/review/revision/continuation/finalization/integration is terminally inapplicable; old receipts remain historical and grant no authority. Generic Feature Issue cancellation directs to the supported Feature entry. No installation, migration, recovery, process or control permission follows from route availability.
+
+
+## Current schema31 compatibility overlay
+
+The explicitly approved DIAG-33 deployment selects matched Diagram/diagram-launch schema31/Feature9, cancellation1 and revision capability2 from integrated source170d449234450ec44f591791de79a193d83ce177. Earlier schema30 and source-delivery pins above remain historical. This metadata-only compatibility refresh preserves project customizations, original workflow bodies, exact decisions/inputs, holds, ownership and consumed budgets. It grants no cancellation, approval, feature work, recovery, controls change, installation or push authority. Historical feature worktrees remain frozen and require explicit client revalidation before separately authorized use.

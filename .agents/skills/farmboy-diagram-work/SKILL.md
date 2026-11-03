@@ -122,3 +122,12 @@ Later spec-approved or plan-approved routes retain original current decisions an
 ## Current schema30 compatibility overlay
 
 The explicitly approved DIAG-32 cutover selects matched Diagram/diagram-launch schema30/Feature9 with revision capability2 from integrated source96ed9d55cb02505f6ee68a65a73ca1d62e0b5604, preserving the finalization role repair. Earlier operational pins remain historical. Original core workflow bodies, project customizations, spec/plan/result/integration decisions, exact inputs, holds, one-use recovery/finalization allowances and external budgets remain binding. Client availability grants no clarification-answer application, BGG action, approval, continuation, control change or push. Saved feature worktrees retain their frozen content and require explicit current-client verification before selected work; this refresh does not advance them.
+
+## DIAG-33 source cancellation compatibility
+
+Candidate source schema31 adds administrative cancellation1 and explicit active queue membership. Use candidate source clients only with a separately installed matched31 native/store. This delivery remains coordinated by its selected installed30 client; this source change installs or migrates nothing. Cancelled Features retain queue/history/approvals/grants/consumption but admit no fresh semantic, review, revision, continuation, finalization or integration effects. Cancellation always refuses current owners and requires attributable writer preservation and integration-effect inspection; it never stops a process or clears a hold. Historical workflow bodies and independent review mandates remain unchanged.
+
+
+## Current schema31 compatibility overlay
+
+The explicitly approved DIAG-33 deployment selects matched Diagram/diagram-launch schema31/Feature9, cancellation1 and revision capability2 from integrated source170d449234450ec44f591791de79a193d83ce177. Earlier schema30 and source-delivery pins above remain historical. This metadata-only compatibility refresh preserves project customizations, original workflow bodies, exact decisions/inputs, holds, ownership and consumed budgets. It grants no cancellation, approval, feature work, recovery, controls change, installation or push authority. Historical feature worktrees remain frozen and require explicit client revalidation before separately authorized use.
