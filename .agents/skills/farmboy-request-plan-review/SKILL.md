@@ -9,6 +9,12 @@ metadata:
 
 Handle one selected independent whole-plan review as the selecting caller. Use the current model/effort and existing host session tools; this is a thin composition, no new API, no registry, no supervisor or standing mandate. The caller may have authored the proposal but never makes its independent decision. The separate reviewer must have no material authorship.
 
+## Matched Diagram schema32 quality-review route
+
+For a deliberately enabled, verified schema32 Diagram route, the adjacent adapter's current schema32 protocol supersedes the legacy delegated-plan-approval instructions below. Require actual bounded `authorize-plan-quality` execution scope, not a delegated final-approval role. Use review-authority2 `quality_sequence` and the complete maintained schema32 helper package; never create a new legacy `delegate-plan-review` grant or use `--review-grant-file` as a schema32 fallback. Missing actual scope or capabilities stops without changing controls or installing anything.
+
+Preserve the independent separate session, six-question read-only review, exact proposal/report evidence and caller collection. In this route the generic `approve` disposition means quality pass only: the adapter records `plan_review_passed` and returns `awaiting_plan_approval`, never delegated or human plan approval. Attribute the report as the reviewer's quality assessment under the actual human execution mandate. Only the human's separate final approval of the exact passed proposal can approve the plan. Planning-return and specification-escalation retain their existing bounded findings and human gates; this caller starts no automatic repair or additional reviewer. Standalone behavior below is unchanged.
+
 ## Resolve the selected request and authority before effects
 
 Read actual project instructions, governance and the request. Resolve exactly one Feature/current saved complete proposal, approved specification and applicable actual bounded human mandate. An ordinary request to arrange review in the selecting/authoring session enters here; an already dispatched independent reviewer enters the existing `farmboy-review-implementation-plan` body and must not call this selecting entry recursively.

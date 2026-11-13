@@ -9,6 +9,12 @@ metadata:
 
 Use one independent continuous session and its current model/effort. Review only the selected whole-plan candidate under actual bounded human authorization. Do not delegate steps, install tools, select another feature, create a Goal or launch another workflow.
 
+## Matched Diagram schema32 quality-review route
+
+For a deliberately enabled, verified schema32 Diagram route, the adjacent adapter's current schema32 protocol supersedes the legacy delegated-plan-approval instructions below. Require actual bounded `authorize-plan-quality` execution scope, not a delegated final-approval role. Use review-authority2 `quality_sequence` and the complete maintained schema32 helper package; never create a new legacy `delegate-plan-review` grant or use `--review-grant-file` as a schema32 fallback. Missing actual scope or capabilities stops without changing controls or installing anything.
+
+Preserve the independent separate session, six-question read-only review, exact proposal/report evidence and caller collection. In this route the generic `approve` disposition means quality pass only: the adapter records `plan_review_passed` and returns `awaiting_plan_approval`, never delegated or human plan approval. Attribute the report as the reviewer's quality assessment under the actual human execution mandate. Only the human's separate final approval of the exact passed proposal can approve the plan. Planning-return and specification-escalation retain their existing bounded findings and human gates; this entry starts no automatic repair or additional reviewer. Standalone behavior below is unchanged.
+
 ## Resolve route and existing caller context before effects
 
 An operator asking the selecting or authoring session to arrange independent review uses `farmboy-request-plan-review` before becoming the semantic reviewer. Invoke that caller entry once and propagate its collected result; do not execute this body as well. An already dispatched independent reviewer, or an explicitly selected separate standalone reviewer with actual mandate and independence, continues this existing body directly. Verify real caller/session evidence rather than a wrapper Boolean; never route an already dispatched independent reviewer back into dispatch or infer independence from labels alone.

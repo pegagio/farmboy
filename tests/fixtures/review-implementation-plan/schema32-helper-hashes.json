@@ -1,0 +1,10 @@
+{
+  "source": "28ef13fb0da2f8d5f620e41f3909d66cd64bcbd7",
+  "helpers": {
+    "authorization_context.py": "55cb83c4e05f7408e09f43c2451fc4980411360f3a596328dd335e0f096334bf",
+    "checkpoint_roles.py": "16bfb2be7bce78313a89daa7a3d0ecf25c27afe5029d25354dc9db304e2b1864",
+    "prepare-authorization.py": "4127307e66661fd526f9e3033887e28d9381e2b0c25c26b8d7b7712b126f6e53",
+    "prepare-handoff.py": "6536063adfac585dff7a42de14586021e064008a20b2adb08e3cfcf72ae53d64",
+    "prepare-plan-review.py": "c0da6afc7673e2f4d3e3117fa5244f8cf2bddcddb6c97ed3e64af10f4a7e07c3"
+  }
+}

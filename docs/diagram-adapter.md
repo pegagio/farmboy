@@ -1,5 +1,7 @@
 # Optional Diagram routing for Farmboy
 
+Current consumer adoption: matched schema32 helpers and quality-review routing supersede historical operational pins below. Quality pass waits for human final plan approval. See [refresh record](deployment/schema32-client-refresh.md) and the adapter's current native protocol; standalone workflows retain their existing behavior.
+
 Farmboy's optional `farmboy-diagram-work` skill coordinates one selected feature segment using the existing Diagram CLI and existing Farmboy external entries. It is operator-driven agent composition, not a background service or an integration executor. Diagram stores coordination authority/report consistency; the consuming agent verifies actual repository, Git, workspace and artifacts. Source availability and the examples here do not establish runtime acceptance; see [005 evidence](../specs/005-optional-diagram-adapter/validation/acceptance.md).
 
 ## Approval delegation

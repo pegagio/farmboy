@@ -7,6 +7,11 @@ metadata:
 
 # Coordinate one selected segment
 
+## Current Diagram route: schema32 quality review
+
+Only after separately authorized deployment, this project's native-protocol schema32 section supersedes old delegated plan-approval wording. Read it before effects. Quality review and in-scope planning revision use actual bounded execution scope, not final approval authority. A report pass saves `plan_review_passed` and waits for the human's final plan approval. Project transition switches do not authorize decisions. Preserve old genuine approvals and history; never reinterpret consumed grants. Standalone/upstream workflow behavior is unchanged. A source client is not proof of installed compatibility. No installation, migration, control restoration or poller restart is authorized by this source update.
+
+
 ## Approval delegation
 
 References to human approval permit a delegate only where current project governance and an explicit human mandate authorize that role and scope. Preserve truthful delegate/mandate attribution and all remaining checkpoints; never infer delegation or execution permission.
@@ -131,3 +136,32 @@ Candidate source schema31 adds administrative cancellation1 and explicit active 
 ## Current schema31 compatibility overlay
 
 The explicitly approved DIAG-33 deployment selects matched Diagram/diagram-launch schema31/Feature9, cancellation1 and revision capability2 from integrated source170d449234450ec44f591791de79a193d83ce177. Earlier schema30 and source-delivery pins above remain historical. This metadata-only compatibility refresh preserves project customizations, original workflow bodies, exact decisions/inputs, holds, ownership and consumed budgets. It grants no cancellation, approval, feature work, recovery, controls change, installation or push authority. Historical feature worktrees remain frozen and require explicit client revalidation before separately authorized use.
+
+## Explicit released-planning launcher entry
+
+For an expressly selected launcher recovery request, follow the adjacent native protocol's DIAG-16 successor section before feature edits. This route submits the existing native successor operation rather than normal discovery-selected acquire. Verify and reuse the admitted current successor once; do not double-acquire, recover recursively or change the supplied authorization/pins. The existing planning body owns proposal resume/task/analysis semantics, while this adapter retains checkpoint, native handoff/release/readback. A released predecessor never grants current authority and is never reopened.
+
+## Bounded planning continuation capability (DIAG-21 source)
+
+The original schema24 source introduced this route; the explicitly refreshed current installed schema26/Feature9 includes it under the unchanged authority rules. Earlier schema23 deployment limits are historical, not the current runtime pin. The selecting coordinator, outside the planning runtime body, may compose one explicit existing successor under an actual applicable human planning-execution mandate covering recovery. Read [the native contract](references/planning-recovery-v1.md) and adjacent protocol; do not infer authority from toggles/approval, self-renew an allowance or ask again merely to create a run when the recorded bounded authority genuinely applies. This adds no recursive runtime-step delegation or background resolver.
+
+## Shared continuation source capability (DIAG-24)
+
+Use this entry only after separately authorized matched schema26/Feature9 installation is verified. Read the shared-continuation section in native-protocol before any selected successor. Existing current schema25 coordination during this feature's delivery remains on its explicitly selected installed client; source availability permits no live migration or alternate store. No legacy stage policy field or old planning flag authorizes a new stage.
+
+For ordinary poller-selected released-continuation, inspect exact caller/native scope and current physical resolution/preservation/stopped-writer facts read-only, then submit the supplied exact native successor once, not a fresh claim/acquire. Setup successor grants preparation only; reuse its existing scaffold, submit exactly one request artifact through normal link, verify the resulting same-origin run, then invoke drafting once. Linked draft/flowback, plan and delivery reuse their admitted stage authority once. Keep committed human handoff/release/readback and all action/budget gates. Missing/denied/unknown/exhausted or unsupported authority stops precisely; no automatic renewal/restart. Review grant availability is separate DIAG-25 work; released review/integration continuation remains unsupported.
+
+
+## Dynamic review authority source capability (DIAG-25)
+
+Only after matched schema27 installation is separately authorized, the selecting caller can publish actual exact review authority for an already-running checker through the adjacent native protocol. Publication is durable transport, not a decision or owner. Preserve supplied grant and exact post-publication revision binding; do not self-issue, repin or renew it. The existing independent body and adapter lifecycle remain unchanged. The source capability does not alter the current installed schema26 coordination or authorize migration, automation activation or a reviewer by itself.
+
+## DIAG-34 source checkpoint-role preparation
+
+For matched source-only client use, read [checkpoint-roles-v1](references/checkpoint-roles-v1.md) and the adjacent protocol. Use maintained `scripts/prepare-handoff.py` to prepare one ordinary already-owned terminal with actual output declarations and current role observations, preserving original semantic inputs. It never acquires authority, authors a verdict or finalizes a released run. `scripts/prepare-plan-review.py` now requires exact-pair applicability inspection for legitimate historical/current overlap, rather than requiring one working file to equal both versions. Historical-only drift, current tampering and missing authority remain refusals. Adopt both entries and `scripts/checkpoint_roles.py` together only under actual selective client-adoption authority; source availability installs/migrates/activates nothing. Preserve all human gates, normal hooks, finite budgets and earlier denials.
+
+## DIAG-35 source capability: explicitly selected authorization transport
+
+This source-only capability is operational only after actual matched adoption and caller selection; it changes no installed tool, native schema, human mandate or platform permission. Read [the maintained contract](references/workflow-authorization-v1.md). When `--authorization-file` is selected, preserve its exact digest and current declaration/policy/native bindings before acquisition, scoped Git effects and terminal recording. Invoke adjacent `prepare-authorization.py` with the documented private selection/effect interface; after initial workspace link use the actual associated workspace/pointer and adopted policy. A stopped/changed/unavailable source, stale or unadopted policy, missing scope or unknown/denied effect stops affected work, not a new operation label or silent legacy fallback. This check is consumer-owned and read-only, including no bytecode-cache writes; native/core does not inspect policy meaning.
+
+Pass paired `--authorization-file` and `--authorization-sha256` to maintained published-review and ordinary-handoff helpers. Existing approval/current-input/owner/epoch/independence checks still apply; administrative finalization preserves original producer/verdict and does not require a new semantic review. For other guarded native leaves and scoped Git commands, perform the explicit pre-effect consumer check without changing their native interface. Never turn a source/report/digest into authenticated human consent or a host approval answer. Current CLI parent-approval import/human-response capability is unsupported. Actual tool review remains authoritative; use it where genuinely supported, surface unavailable capability truthfully and do not invent another routine whole-feature gate already covered by actual delegation. Preserve known denial/effect references and inspect unknown effects, with no retry/budget reset. New transport selects no live/model/credential call, service, installation, security setting, integration or push.
